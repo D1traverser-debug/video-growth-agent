@@ -1,8 +1,22 @@
 # Pilot 002 — Sample V2
 
-Status: **ITERATE / NOT PASS**  
+Status: **PROCESS_INVALID / ITERATE / NOT PASS**  
 Stage: LOOKDEV / VISUAL_PREVIEW sample iteration  
 Full 59.5 s rebuild: **FROZEN**
+
+## Process-audit correction
+
+Sample V2 is a real rendered artifact and its aggregate visual QA correctly identified multiple hard visual failures. However, it was produced/reviewed outside the configured `AgenticStudio` VISUAL_PREVIEW work-order path.
+
+Required durable blind-review receipts were **not found** for:
+
+- creative_director
+- art_director
+- motion_director
+- director
+- retention_editor
+
+Therefore the aggregate QA below is diagnostic evidence only. It does **not** prove that the configured review process executed. See `projects/pilot-002/PROCESS_FAILURE_AUDIT_2026-10-09.md`.
 
 ## Artifact
 
@@ -33,37 +47,44 @@ The sample reuses only the already-audited narration segment from rejected V4. T
 - sound: preserved narration + authored transition/pulse hits;
 - subtitles moved into a safer vertical area before delivery.
 
-## Hard review
+## Aggregate diagnostic review — not a role-panel substitute
 
 | Dimension | Score | Result |
 |---|---:|---|
 | First-2s stop power | 3/5 | FAIL — human context is clear, but hand/laptop still look illustrative |
 | Material / asset richness | 3/5 | FAIL — improved over V4 but backend is still schematic |
-| Spatial / camera intention | 4/5 | PASS |
-| Transformation causality | 4/5 | PASS |
-| Motion timing / holds | 4/5 | PASS |
-| Picture / sound cohesion | 4/5 | PASS provisionally |
+| Spatial / camera intention | 4/5 | PASS diagnostic |
+| Transformation causality | 4/5 | PASS diagnostic |
+| Motion timing / holds | 4/5 | PASS diagnostic |
+| Picture / sound cohesion | 4/5 | PASS provisional diagnostic |
 | Memorable hero moment | 3/5 | FAIL — ending is readable but not advertiser-showcase level |
-| Absence of generic SaaS / AI-template feel | 4/5 | PASS |
+| Absence of generic SaaS / AI-template feel | 4/5 | PASS diagnostic |
 
-Gate result: **FAIL**. No averaging can compensate for hard scores below 4.
+Visual result: **FAIL** because multiple hard dimensions are below 4.
+
+Process result: **PROCESS_INVALID** because required independent VISUAL_PREVIEW reviewer receipts do not exist.
+
+No averaging or executive-producer synthesis can repair either failure.
 
 ## What changed versus V4
 
 V4's core failure was not technical integrity but one repeated premium-UI medium. Sample V2 intentionally introduces a lived foreground, a real spatial break, a different backend world, physical task objects and a materially different ending composition.
 
-This proves that the new sample-first / shot-object workflow can create and reject a real artifact before wasting effort on a 60-second rebuild.
+This remains useful as timing/spatial previs, but it is not validated release language and not evidence of a completed agent-panel review.
 
-## Next repair
+## Required re-entry before Sample V3
 
-Treat V2 as timing/spatial previs, not release language.
+1. Re-enter formal `VISUAL_PREVIEW` through `AgenticStudio`.
+2. Bind the exact Sample V2 digest as diagnostic/previs evidence, not approved preview.
+3. Dispatch isolated role work packets for creative_director, art_director, motion_director, director and retention_editor.
+4. Persist five independent receipts before any meta/supervisor synthesis.
+5. Convert their disagreements into a shot-level repair matrix.
+6. Expand the benchmark lane to include formal feature-film cinematography/editing references in addition to BUCK / TAQA / Ordinary Folk.
+7. Keep the 10.22 s timing contract only if the formal reviewers agree it remains valid.
+8. Lock opening and ending keyframes before any Seedance/H3 generation.
+9. Route only failed shot layers to the appropriate engine; preserve deterministic captions/data where useful.
+10. Render Sample V3 and repeat the formal role-panel review. Stay in sample iteration until every hard dimension is >=4, Creative Director average is >=4.25, and the complete reviewer-receipt bundle exists.
 
-1. Keep the 10.22 s edit contract.
-2. Replace the opening and backend beauty-pass layers with reference-locked generative/real material.
-3. Lock first and last keyframes before generation.
-4. Route the transition to Seedance 2.x or MiniMax H3, based on available entitlement and the exact reference/control mode.
-5. Preserve deterministic captions/data overlays and edit timing.
-6. Review actual V3 at normal playback speed beside BUCK / TAQA / Ordinary Folk benchmarks.
-7. Stay in sample iteration until every hard dimension is >=4 and Creative Director average is >=4.25.
-
-Learning basis: `projects/pilot-002/LEARNING_PASS_2026-10-09.md`.
+Learning basis:
+- `projects/pilot-002/LEARNING_PASS_2026-10-09.md`
+- `projects/pilot-002/PROCESS_FAILURE_AUDIT_2026-10-09.md`
