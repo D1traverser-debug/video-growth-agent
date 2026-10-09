@@ -1,5 +1,5 @@
 {
-  "checkpoint_version": 1,
+  "checkpoint_version": 2,
   "task_id": "video-growth:main",
   "display_name_zh": "AI视频涨粉与商业化",
   "task_class": "USER",
@@ -8,6 +8,12 @@
   "contract_version": "3.3",
   "skill_version": "skills/video-growth-agent/SKILL.md@0229e4242b46a80be035dc2fd1ba2aae24ac4eed",
   "runtime_version": "0.4.0",
+  "compatibility": {
+    "result": "COMPATIBLE",
+    "checked_against": "Universal Continuity v3.3",
+    "source_migration_result": "MIGRATABLE",
+    "verified_at": "2026-10-09T10:42:00Z"
+  },
   "status": "WAITING",
   "current_stage": "RELEASE",
   "stage_state": {
@@ -86,5 +92,5 @@
     "active_lease_id": "1adab312-0d2e-43cd-846c-0c008a1a7f46",
     "new_chat_rule": "A new chat must read the manifest, classify compatibility against Universal Continuity v3.3, increment resume_epoch, replace active_lease with compare-and-swap, re-read to verify the lease, then load this checkpoint and resume at the exact next_action."
   },
-  "updated_at": "2026-10-09T10:25:00Z"
+  "updated_at": "2026-10-09T10:42:00Z"
 }
