@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 import pytest
@@ -99,23 +100,9 @@ def _sign_all_visual_roles(rt: StudioRuntime, project_id: str) -> None:
         )
 
 
-def test_direct_runtime_advance_cannot_bypass_missing_work_orders(tmp_path):
-    rt = _runtime(tmp_path)
-    rt.create_project("manual")
-    _force_visual_artifacts(rt, "manual")
-    _sign_all_visual_roles(rt, "manual")
-
-    # Legacy role + quality checks alone look green; process proof is intentionally
-    # enforced at advancement so hand-authored aggregate QA cannot authorize production.
-    assert rt.gate_report("manual")["pass"] is True
-    with pytest.raises(GateBlocked, match="process_work_order_missing:preview_build"):
-        rt.advance("manual")
-
-
-def test_formal_agentic_visual_preview_leaves_proof_and_can_advance(tmp_path):
-    rt = _runtime(tmp_path)
-    rt.create_project("formal")
-    state = rt.state("formal")
+def _formal_visual_review(rt: StudioRuntime, project_id: str) -> AgenticStudio:
+    rt.create_project(project_id)
+    state = rt.state(project_id)
     state.stage = "VISUAL_PREVIEW"
     for name, digest in (
         ("storyboard", "story-digest"),
@@ -123,19 +110,14 @@ def test_formal_agentic_visual_preview_leaves_proof_and_can_advance(tmp_path):
         ("hero_frames", "hero-digest"),
         ("benchmark_pack", "bench-digest"),
     ):
-        state.artifacts[name] = ArtifactRecord(
-            name,
-            f"file://{name}",
-            "LOOKDEV",
-            digest=digest,
-        )
+        state.artifacts[name] = ArtifactRecord(name, f"file://{name}", "LOOKDEV", digest=digest)
     rt.store.save(state)
 
     studio = AgenticStudio(runtime=rt)
-    orders = studio.dispatch_stage("formal")
+    orders = studio.dispatch_stage(project_id)
     assert next(o for o in orders if o.task_id == "preview_build").status == "READY"
     studio.complete_work(
-        "formal",
+        project_id,
         "preview_build",
         outputs={
             "visual_preview": {
@@ -151,7 +133,7 @@ def test_formal_agentic_visual_preview_leaves_proof_and_can_advance(tmp_path):
         },
     )
 
-    studio.dispatch_stage("formal")
+    studio.dispatch_stage(project_id)
     task_by_role = {
         task["approval_role"]: task["id"]
         for task in studio.planner.stage("VISUAL_PREVIEW")["tasks"]
@@ -159,7 +141,7 @@ def test_formal_agentic_visual_preview_leaves_proof_and_can_advance(tmp_path):
     }
     for role in VISUAL_ROLES:
         studio.submit_review(
-            "formal",
+            project_id,
             task_by_role[role],
             "PASS",
             notes="current rendered artifact meets the bar",
@@ -169,9 +151,30 @@ def test_formal_agentic_visual_preview_leaves_proof_and_can_advance(tmp_path):
             benchmark_refs=("ref://film", "ref://motion", "ref://explanation"),
             target_digest="preview-digest",
         )
+    return studio
+
+
+def test_direct_runtime_advance_cannot_bypass_missing_work_orders(tmp_path):
+    rt = _runtime(tmp_path)
+    rt.create_project("manual")
+    _force_visual_artifacts(rt, "manual")
+    _sign_all_visual_roles(rt, "manual")
+
+    report = rt.gate_report("manual")
+    assert report["pass"] is False
+    assert "process_work_order_missing:preview_build" in report["process_failures"]
+    with pytest.raises(GateBlocked, match="process_work_order_missing:preview_build"):
+        rt.advance("manual")
+
+
+def test_formal_agentic_visual_preview_leaves_proof_and_can_advance(tmp_path):
+    rt = _runtime(tmp_path)
+    studio = _formal_visual_review(rt, "formal")
 
     process = rt.process_guard_report(rt.state("formal"))
     assert process["pass"] is True, process
+    report = rt.gate_report("formal")
+    assert report["pass"] is True, report
     events = (tmp_path / "projects" / "formal" / "events.jsonl").read_text(encoding="utf-8")
     assert events.count("WORK_ORDER_REVIEW_COMPLETED") == 5
     assert studio.advance("formal") == "ASSET_BUILD"
@@ -179,45 +182,7 @@ def test_formal_agentic_visual_preview_leaves_proof_and_can_advance(tmp_path):
 
 def test_process_proof_is_bound_to_exact_review_inputs(tmp_path):
     rt = _runtime(tmp_path)
-    rt.create_project("tamper")
-    state = rt.state("tamper")
-    state.stage = "VISUAL_PREVIEW"
-    for name, digest in (
-        ("storyboard", "story-digest"),
-        ("style_bible", "style-digest"),
-        ("hero_frames", "hero-digest"),
-        ("benchmark_pack", "bench-digest"),
-    ):
-        state.artifacts[name] = ArtifactRecord(name, f"file://{name}", "LOOKDEV", digest=digest)
-    rt.store.save(state)
-    studio = AgenticStudio(runtime=rt)
-    studio.dispatch_stage("tamper")
-    studio.complete_work(
-        "tamper",
-        "preview_build",
-        outputs={
-            "visual_preview": {"uri": "file://preview.mp4", "kind": "media", "digest": "preview-digest"},
-            "visual_contact_sheet": {"uri": "file://contact.jpg", "kind": "image", "digest": "contact-digest"},
-        },
-    )
-    studio.dispatch_stage("tamper")
-    task_by_role = {
-        task["approval_role"]: task["id"]
-        for task in studio.planner.stage("VISUAL_PREVIEW")["tasks"]
-        if task.get("approval_role")
-    }
-    for role in VISUAL_ROLES:
-        studio.submit_review(
-            "tamper",
-            task_by_role[role],
-            "PASS",
-            notes="current rendered artifact meets the bar",
-            evidence=("file://preview.mp4", "file://contact.jpg"),
-            findings=("actual rendered media inspected",),
-            scorecard=_scores(role),
-            benchmark_refs=("ref://film", "ref://motion", "ref://explanation"),
-            target_digest="preview-digest",
-        )
+    _formal_visual_review(rt, "tamper")
 
     state = rt.state("tamper")
     old = state.artifacts["benchmark_pack"]
@@ -233,3 +198,22 @@ def test_process_proof_is_bound_to_exact_review_inputs(tmp_path):
     process = rt.process_guard_report(rt.state("tamper"))
     assert process["pass"] is False
     assert any("process_review_input_digest_mismatch" in failure for failure in process["failures"])
+
+
+def test_completed_review_work_order_without_immutable_receipt_is_invalid(tmp_path):
+    rt = _runtime(tmp_path)
+    _formal_visual_review(rt, "receipt-proof")
+
+    receipts_dir = tmp_path / "projects" / "receipt-proof" / "receipts"
+    review_receipts = []
+    for path in receipts_dir.glob("*.json"):
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if payload.get("event") == "WORK_ORDER_REVIEW_COMPLETED":
+            review_receipts.append(path)
+    assert len(review_receipts) == 5
+
+    review_receipts[0].unlink()
+    process = rt.process_guard_report(rt.state("receipt-proof"))
+    assert process["pass"] is False
+    assert any("process_review_receipt_missing_or_mismatch" in failure for failure in process["failures"])
+    assert rt.gate_report("receipt-proof")["pass"] is False
