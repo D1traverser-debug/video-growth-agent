@@ -91,7 +91,7 @@
     "entrypoint": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
     "checkpoint_ref": "continuity/tasks/video-growth-main/CHECKPOINT.json",
     "resume_epoch": 2,
-    "active_lease_id": "8e1bc149-5376-ad94-66c8bee07d94",
+    "active_lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
     "new_chat_rule": "Read the manifest, classify compatibility, acquire the next single-writer lease by compare-and-swap, verify it, then resume from next_action."
   },
   "updated_at": "2026-10-09T16:31:00Z"
