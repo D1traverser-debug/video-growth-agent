@@ -1,18 +1,18 @@
 {
-  "checkpoint_version": 3,
+  "checkpoint_version": 4,
   "task_id": "video-growth:main",
   "display_name_zh": "AI视频涨粉与商业化",
   "task_class": "USER",
   "domain": "VIDEO_GROWTH",
   "recovery_owner": "VIDEO_GROWTH_AGENT",
   "contract_version": "3.3",
-  "skill_version": "skills/video-growth-agent/SKILL.md@0229e4242b46a80be035dc2fd1ba2aae24ac4eed",
+  "skill_version": "skills/video-growth-agent/SKILL.md@ba7d4f612ee1f7f9f87402215c40954b6bd104a1",
   "runtime_version": "0.4.0",
   "compatibility": {
     "result": "COMPATIBLE",
     "checked_against": "Universal Continuity v3.3",
     "source_migration_result": "MIGRATABLE",
-    "verified_at": "2026-10-09T10:46:20Z"
+    "verified_at": "2026-10-09T12:54:00Z"
   },
   "status": "ACTIVE",
   "current_stage": "LOOKDEV",
@@ -21,9 +21,12 @@
     "previous_release_gate_valid": false,
     "publication_status": "NOT_PUBLISHED",
     "performance_stage_entered": false,
-    "reason": "The user explicitly judged Release V4 quality insufficient and requested active study/distillation of superior works, tools and workflows. Downstream release approval is invalidated; return to quality benchmark/lookdev before producing a new candidate."
+    "external_learning_pass": "PERSISTED_TO_MAIN",
+    "moving_benchmark_rebase": "READY",
+    "full_build_frozen_until_sample_pass": true,
+    "reason": "The rejected V4 showed a craft ceiling: coherent but visually monotonous premium-UI/motion-board language. The studio has now distilled external production methods and raised VISUAL_PREVIEW to a near-final 3–12 second sample gate before any full rebuild."
   },
-  "next_action": "Complete an external quality-learning pass over DramaClaw, Pippit, Toonflow, MiniMax H3, Utopai Studios, the supplied Zhihu ComfyUI+H3 tutorial, and independently found high-quality examples/community workflows. Separate tool adoption from workflow/method distillation; persist only validated reusable methods into GitHub Skill/Technique Library/benchmark policy. Then rebuild Pilot 002 lookdev/motion against the stronger benchmark and produce a new candidate only after absolute-quality gates pass.",
+  "next_action": "Build a 5–12 second near-final sample for Pilot 002, focused on the highest-risk transition from familiar human/app interaction into a deeper agent/service world. Use richer asset/media contrast, meaningful camera/spatial change, a declared audiovisual shot contract, controlled start/end states where useful, and representative sound. Review the actual rendered sample at normal playback speed beside the moving benchmark pack. Reject and iterate until all hard VISUAL_PREVIEW scores are >=4; do not expand to the full film before PASS.",
   "blockers": [],
   "authoritative_artifacts": {
     "rejected_candidate_v4": {
@@ -32,33 +35,60 @@
       "status": "HISTORICAL_REJECTED_CANDIDATE",
       "rejection_reason": "User explicitly judged overall quality insufficient; do not publish or use as release authority."
     },
-    "release_v4_folder": "/Video Growth Agent/Pilot 002/Release V4/",
+    "quality_rebase": "projects/pilot-002/QUALITY_REBASE.md",
+    "moving_benchmark_pack": "projects/pilot-002/BENCHMARK_REBASE.md",
+    "v4_failure_audit": "projects/pilot-002/V4_FAILURE_AUDIT.md",
+    "production_intelligence": "skills/video-growth-agent/references/production-intelligence.md",
+    "self_learning_contract": "skills/video-growth-agent/references/self-learning.md",
+    "benchmark_policy": "skills/video-growth-agent/references/benchmark-policy.md",
     "pilot_002_notion_recovery": "https://app.notion.com/p/3f4d54f04b1781fb8178eb3af79a8b40",
     "github_authority": "D1traverser-debug/video-growth-agent@main"
   },
-  "current_learning_sources": [
-    "DramaClaw",
-    "Pippit",
-    "Toonflow",
-    "MiniMax H3",
-    "Utopai Studios / PAI",
-    "https://zhuanlan.zhihu.com/p/2070647870223655002",
-    "independently sourced strong AI filmmaking / motion-design workflows"
-  ],
+  "learning_pass": {
+    "sources_distilled": [
+      "DramaClaw",
+      "Toonflow",
+      "Pippit Nest",
+      "MiniMax H3 official Skill and reference modes",
+      "ComfyUI + MiniMax H3 workflow",
+      "Utopai Studios PAI",
+      "BigBanana AI Director",
+      "video-shotcraft / video-motion-pro style shot-recipe workflows",
+      "BUCK Nothing Playground",
+      "BUCK Microsoft Azure",
+      "TAQA AI Agent System",
+      "Ordinary Folk Google Gemini / AI Mode work",
+      "recent Remotion/Claude community production and failure reports"
+    ],
+    "candidate_methods": [
+      "asset-first reference locking",
+      "first/last-frame motion control",
+      "multimodal audiovisual shot contracts",
+      "shot-to-engine routing",
+      "sample-first near-final prototype validation",
+      "shot-level repair",
+      "exploration lane separated from production lane",
+      "accepted-seconds economics",
+      "real-material/background + precise code foreground hybrid",
+      "shot recipe / motion grammar library instead of ad-hoc animation"
+    ],
+    "validation_rule": "External methods remain candidate techniques until a real studio sample passes our own benchmark and quality gates."
+  },
   "preserved_user_requirements": [
     "Optimize for growth, IP/audience asset, advertiser invitations and sustainable commercialization rather than platform incentive payments.",
     "Default to zero or very low incremental cost and no recurring filming requirement.",
     "Primary commercial axis: AI applications/software/SaaS, 3C/smart hardware, technology business/frontier technology and adjacent sponsor pools.",
     "Content must stand on its own before sponsor integration: worthwhile problem -> valid mechanism/story -> genuinely relevant product -> brand integration.",
     "Final QA must consume the real rendered media; code success or agent self-report is not sufficient.",
-    "Actively learn from superior works/workflows and convert validated methods into reusable Skill/Technique Library rules instead of merely listing tools.",
+    "The studio must proactively scout superior works, tools, Skills, source and community workflows instead of waiting for the user to provide them.",
+    "Quality-critical full builds must be preceded by a representative near-final sample; a technical demo cannot authorize production.",
     "Use GitHub video-growth-agent main as executable business authority; Notion/Library are recovery/evidence mirrors, not business-rule authority."
   ],
   "invalidated_or_historical_state": [
     "Previous RELEASE READY / WOULD PUBLISH judgment for V4 is invalidated by explicit user quality rejection.",
     "Legacy continuity stage POSITIONING_BASELINE_READY is obsolete and must not be replayed.",
     "Pilot 002 old Visual Preview V2 is a rejected failure sample, not a reusable approved visual system.",
-    "Release V3 and V4 are historical candidates only; no current release authority exists until a new candidate passes the rebuilt quality baseline."
+    "Release V3 and V4 are historical candidates only; no current release authority exists until a new sample-led build passes the rebuilt quality baseline."
   ],
   "resume": {
     "entrypoint": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
@@ -67,5 +97,5 @@
     "active_lease_id": "1adab312-0d2e-43cd-846c-0c008a1a7f46",
     "new_chat_rule": "A new chat must read the manifest, classify compatibility against Universal Continuity v3.3, increment resume_epoch, replace active_lease with compare-and-swap, re-read to verify the lease, then load this checkpoint and resume at the exact next_action."
   },
-  "updated_at": "2026-10-09T10:46:20Z"
+  "updated_at": "2026-10-09T12:54:00Z"
 }
