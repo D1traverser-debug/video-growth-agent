@@ -6,17 +6,10 @@ from kokoro import KPipeline
 
 OUT = Path('tts-output')
 OUT.mkdir(exist_ok=True)
+# Patch-only generation after phonetic QA isolated risk to S02 and S04.
 SCENES = {
-    'S01': '应用不会消失。先消失的，是你一个个打开它们的动作。',
-    'S02': 'Google 刚发布 Gemini Agent。它能跨 Gmail、Drive、Docs、Sheets、Calendar 工作。',
-    'S03': '老板只要说：明天下午，给客户做份市场更新。',
-    'S04': '以前你得找邮件、翻文件、查资料、拉表、做 PPT、再回复。',
-    'S05': 'Agent 想把这些步骤藏到后台。你只说：把它准备好。',
-    'S06': '它自己规划、调用工具、带着上下文把结果送回来。',
-    'S07': '所以变的不是 App，而是操作层：界面退到后面，工具被 Agent 调用。',
-    'S08': '软件下一轮争的，也许不只是桌面第一屏，而是谁更容易被 Agent 找到、授权、调用。',
-    'S09': '但越方便，权限越危险：它能看什么、改什么、替你做什么？谁能撤销？',
-    'S10': 'Agent 时代真正值钱的，不只是谁的模型更聪明。还有，谁掌握入口，谁掌握权限。',
+    'S02': 'Google 刚发布 Gemini Agent。它能跨邮件、云盘、文档、表格和日历工作。',
+    'S04': '以前你要找邮件、看文件、查资料、拉表、做 PPT、再回复。',
 }
 
 en_pipeline = KPipeline(lang_code='a', model=False)
