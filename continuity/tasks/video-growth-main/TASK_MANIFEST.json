@@ -8,16 +8,16 @@
   "resume_eligible": true,
   "resume_visibility": "DEFAULT",
   "recovery_owner": "VIDEO_GROWTH_AGENT",
-  "updated_at": "2026-10-09T15:54:35Z",
+  "updated_at": "2026-10-09T16:23:00Z",
   "created_at": "2026-10-08T00:00:00Z",
   "manifest_ref": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
-  "manifest_version": 8,
+  "manifest_version": 9,
   "checkpoint_ref": "continuity/tasks/video-growth-main/CHECKPOINT.json",
   "contract_version": "3.5",
   "skill_version": "skills/video-growth-agent/SKILL.md@ba7d4f612ee1f7f9f87402215c40954b6bd104a1",
   "runtime_version": "0.4.0",
   "current_stage": "VISUAL_PREVIEW_PROCESS_REENTRY",
-  "next_action": "Continue the single in-flight MiniMax H3 4-second transition experiment through the connected vidIQ generation path; do not submit duplicate paid attempts. When the real media completes, inspect the actual clip and decide whether it improves material richness, camera/spatial intention, transformation causality and hero-frame quality enough to enter Sample V3. In parallel, keep VISUAL_PREVIEW fail-closed: production trusted reviewer executors remain empty until a real isolated multimodal reviewer adapter provides verifiable execution attestations. Do not rebuild the 59.5-second film and do not declare VISUAL_PREVIEW PASS until both process validity and all hard quality dimensions pass.",
+  "next_action": "Treat the completed 4-second MiniMax H3 transition as an unjudged candidate until actual media pixels can be consumed by QA; do not infer quality from the model name or prompt. Continue VISUAL_PREVIEW process re-entry by integrating a real isolated multimodal reviewer executor and persisting the required blind reviewer receipt bundle bound to exact artifact digests. Use quality-gated cost-aware shot routing: cheap/free engines may explore only after capability and quality thresholds are met, while premium H3/Seedance capacity is reserved for high-risk or hero seconds. Do not rebuild the 59.5-second film and do not declare VISUAL_PREVIEW PASS until both process validity and all hard quality dimensions pass.",
   "resume_epoch": 2,
   "active_lease": {
     "lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
@@ -46,13 +46,13 @@
   "blockers": [
     "Sample V2 is PROCESS_INVALID because required VISUAL_PREVIEW reviewer receipts are missing.",
     "Production trusted reviewer executors intentionally remain empty; no current connected tool has yet been integrated as a verifiably isolated multimodal reviewer adapter with provider/model/run/context/trace attestation. Do not fake independence by changing hats inside one monolithic reasoning stream.",
-    "Connected Descript AI credits are insufficient for the desired generative edit path; do not require an upgrade for this experiment.",
-    "Generation access is no longer a blocker: connected vidIQ exposes MiniMax H3 and Seedance 2.x generation. A single 4-second MiniMax H3 experiment is currently in flight under job_15eed248-dfaf-4353-a9a5-16979c30cc49; do not duplicate-submit it."
+    "The 4-second MiniMax H3 generation completed, but the current chat QA surface has not exposed the generated video or extracted JPEG pixels as model-readable media; quality remains NOT_JUDGED rather than inferred from generation success.",
+    "Connected vidIQ MiniMax H3 is a scarce route: the first 4-second experiment consumed 60 credits from a 150-credit renewable pool. Do not use it as the default whole-film engine."
   ],
   "compatibility": {
     "result": "COMPATIBLE",
     "checked_against": "Universal Continuity v3.5",
-    "compatibility_note": "Task state remains compatible. Reviewer-attestation hardening is merged to main and CI passed. Generation routing is now available through vidIQ, while formal independent reviewer execution remains fail-closed.",
-    "verified_at": "2026-10-09T15:54:35Z"
+    "compatibility_note": "Task state remains compatible. Reviewer-attestation hardening is merged and fail-closed. H3 generation completed but awaits media-readable QA; generation economics are now governed by quality-gated shot routing rather than whole-film premium generation.",
+    "verified_at": "2026-10-09T16:23:00Z"
   }
 }
