@@ -1,1 +1,159 @@
-{"version":"0.1.0","techniques":[{"id":"T-001","name":"视觉剖层","status":"validated","tags":["mechanism","inside","explainer","scale"],"use_when":"需要把外观、内部结构和核心机制按层解释时。","avoid_when":"内部结构与结论无关，或剖层只增加视觉复杂度时。","cost_level":1,"engines":["remotion","svg","manim","static+camera"],"evidence_refs":["Pilot/benchmark distillation"]},{"id":"T-002","name":"问题先行","status":"validated","tags":["hook","retention","question"],"use_when":"观众能在2秒内理解反常识问题或明确冲突时。","avoid_when":"问题需要大量背景才能成立时。","cost_level":0,"engines":["script","caption","voice"],"evidence_refs":["multiple benchmark samples"]},{"id":"T-003","name":"实物到内部机制切换","status":"candidate","tags":["product","mechanism","transition"],"use_when":"产品或真实对象是解释入口，内部机制能直接回答用户问题时。","avoid_when":"没有高质量实物素材或机制关系牵强时。","cost_level":2,"engines":["authorized-footage","static+camera","remotion"],"evidence_refs":[]},{"id":"T-004","name":"尺度放大","status":"validated","tags":["scale","science","mechanism","spectacle"],"use_when":"从宏观进入微观、从产品进入芯片/分子/数据中心能提高理解时。","avoid_when":"只是炫技，没有新信息时。","cost_level":2,"engines":["static+camera","remotion","ai-video"],"evidence_refs":["science explainer benchmarks"]},{"id":"T-005","name":"对比角色解释","status":"candidate","tags":["comparison","character","dialogue"],"use_when":"两个角色/方案代表不同机制并能快速形成冲突时。","avoid_when":"角色只是包装，不承担解释任务时。","cost_level":2,"engines":["ai-character","motion-graphics","voice"],"evidence_refs":[]},{"id":"T-006","name":"数字可视化","status":"validated","tags":["data","comparison","business","scale"],"use_when":"比例、增长、成本或数量级本身就是论点时。","avoid_when":"数字没有可靠来源或图表比语言更难懂时。","cost_level":1,"engines":["remotion","svg","manim"],"evidence_refs":["commercial explainers"]},{"id":"T-007","name":"实物隐喻","status":"validated","tags":["metaphor","abstract","comprehension"],"use_when":"抽象机制能映射到观众熟悉的物理对象且不会误导时。","avoid_when":"隐喻会制造错误因果或过度简化时。","cost_level":1,"engines":["static","motion-graphics","ai-image"],"evidence_refs":["paper-model explainer benchmarks"]}]}
+{
+  "version": "0.2.0",
+  "techniques": [
+    {
+      "id": "T-001",
+      "name": "视觉剖层",
+      "status": "validated",
+      "tags": ["mechanism", "inside", "explainer", "scale"],
+      "use_when": "需要把外观、内部结构和核心机制按层解释时。",
+      "avoid_when": "内部结构与结论无关，或剖层只增加视觉复杂度时。",
+      "cost_level": 1,
+      "engines": ["remotion", "svg", "manim", "static+camera"],
+      "evidence_refs": ["Pilot/benchmark distillation"]
+    },
+    {
+      "id": "T-002",
+      "name": "问题先行",
+      "status": "validated",
+      "tags": ["hook", "retention", "question"],
+      "use_when": "观众能在2秒内理解反常识问题或明确冲突时。",
+      "avoid_when": "问题需要大量背景才能成立时。",
+      "cost_level": 0,
+      "engines": ["script", "caption", "voice"],
+      "evidence_refs": ["multiple benchmark samples"]
+    },
+    {
+      "id": "T-003",
+      "name": "实物到内部机制切换",
+      "status": "candidate",
+      "tags": ["product", "mechanism", "transition"],
+      "use_when": "产品或真实对象是解释入口，内部机制能直接回答用户问题时。",
+      "avoid_when": "没有高质量实物素材或机制关系牵强时。",
+      "cost_level": 2,
+      "engines": ["authorized-footage", "static+camera", "remotion"],
+      "evidence_refs": []
+    },
+    {
+      "id": "T-004",
+      "name": "尺度放大",
+      "status": "validated",
+      "tags": ["scale", "science", "mechanism", "spectacle"],
+      "use_when": "从宏观进入微观、从产品进入芯片/分子/数据中心能提高理解时。",
+      "avoid_when": "只是炫技，没有新信息时。",
+      "cost_level": 2,
+      "engines": ["static+camera", "remotion", "ai-video"],
+      "evidence_refs": ["science explainer benchmarks"]
+    },
+    {
+      "id": "T-005",
+      "name": "对比角色解释",
+      "status": "candidate",
+      "tags": ["comparison", "character", "dialogue"],
+      "use_when": "两个角色/方案代表不同机制并能快速形成冲突时。",
+      "avoid_when": "角色只是包装，不承担解释任务时。",
+      "cost_level": 2,
+      "engines": ["ai-character", "motion-graphics", "voice"],
+      "evidence_refs": []
+    },
+    {
+      "id": "T-006",
+      "name": "数字可视化",
+      "status": "validated",
+      "tags": ["data", "comparison", "business", "scale"],
+      "use_when": "比例、增长、成本或数量级本身就是论点时。",
+      "avoid_when": "数字没有可靠来源或图表比语言更难懂时。",
+      "cost_level": 1,
+      "engines": ["remotion", "svg", "manim"],
+      "evidence_refs": ["commercial explainers"]
+    },
+    {
+      "id": "T-007",
+      "name": "实物隐喻",
+      "status": "validated",
+      "tags": ["metaphor", "abstract", "comprehension"],
+      "use_when": "抽象机制能映射到观众熟悉的物理对象且不会误导时。",
+      "avoid_when": "隐喻会制造错误因果或过度简化时。",
+      "cost_level": 1,
+      "engines": ["static", "motion-graphics", "ai-image"],
+      "evidence_refs": ["paper-model explainer benchmarks"]
+    },
+    {
+      "id": "T-008",
+      "name": "资产先锁定再生成",
+      "status": "candidate",
+      "tags": ["continuity", "asset", "reference", "consistency"],
+      "use_when": "角色、产品、场景、材质或品牌元素需要跨镜头保持一致时。",
+      "avoid_when": "一次性抽象镜头没有复用资产价值时。",
+      "cost_level": 1,
+      "engines": ["reference-image", "asset-library", "ai-image", "ai-video"],
+      "evidence_refs": ["Utopai PAI", "BigBanana", "Toonflow"]
+    },
+    {
+      "id": "T-009",
+      "name": "首尾关键帧控制",
+      "status": "candidate",
+      "tags": ["keyframe", "motion", "continuity", "control"],
+      "use_when": "镜头起点和终点状态都重要，不能交给模型随机收尾时。",
+      "avoid_when": "开放式奇观镜头不需要精确落点时。",
+      "cost_level": 2,
+      "engines": ["h3-fl2va", "keyframe-video", "image-to-video"],
+      "evidence_refs": ["MiniMax H3 FL2VA", "BigBanana keyframe workflow"]
+    },
+    {
+      "id": "T-010",
+      "name": "按镜头难点路由引擎",
+      "status": "candidate",
+      "tags": ["routing", "cost", "model", "production"],
+      "use_when": "不同镜头分别卡在对白、身份、运动、参考数量、镜头控制或成本时。",
+      "avoid_when": "同一轻量引擎已经稳定满足全部镜头时。",
+      "cost_level": 0,
+      "engines": ["multi-engine", "local", "cloud", "code-motion"],
+      "evidence_refs": ["multi-model production comparisons", "Pippit Nest routing"]
+    },
+    {
+      "id": "T-011",
+      "name": "多模态镜头合同",
+      "status": "candidate",
+      "tags": ["shot-brief", "camera", "sound", "reference"],
+      "use_when": "生成式镜头需要同时约束构图、动作、相机、时长、声音和参考资产时。",
+      "avoid_when": "纯代码/纯数据动效无需生成模型理解复杂场景时。",
+      "cost_level": 0,
+      "engines": ["h3", "seedance", "video-model", "shot-brief"],
+      "evidence_refs": ["MiniMax H3 prompt skill"]
+    },
+    {
+      "id": "T-012",
+      "name": "样片先行",
+      "status": "candidate",
+      "tags": ["prototype", "previz", "risk", "quality"],
+      "use_when": "正式成片昂贵或视觉/运动/声音语言尚未被真实播放验证时。",
+      "avoid_when": "一次性低风险静态输出且返工成本极低时。",
+      "cost_level": 0,
+      "engines": ["previz", "animatic", "prototype-reel"],
+      "evidence_refs": ["Utopai PAI", "professional previz workflows", "user quality feedback"]
+    },
+    {
+      "id": "T-013",
+      "name": "镜头级局部返工",
+      "status": "candidate",
+      "tags": ["revision", "cost", "shot", "continuity"],
+      "use_when": "单镜头失败但项目上下文、资产和其它镜头已获批准时。",
+      "avoid_when": "失败源头是上游脚本或整体美术方向，需要系统性回滚时。",
+      "cost_level": 0,
+      "engines": ["shot-workbench", "edit", "regen"],
+      "evidence_refs": ["Utopai PAI", "BigBanana"]
+    },
+    {
+      "id": "T-014",
+      "name": "探索画布到生产冻结",
+      "status": "candidate",
+      "tags": ["exploration", "canvas", "versioning", "selection"],
+      "use_when": "需要同时比较多个视觉方向、构图或模型结果时。",
+      "avoid_when": "问题已经收敛，不需要继续发散时。",
+      "cost_level": 0,
+      "engines": ["infinite-canvas", "moodboard", "asset-board"],
+      "evidence_refs": ["Toonflow", "Utopai PAI"]
+    }
+  ]
+}
