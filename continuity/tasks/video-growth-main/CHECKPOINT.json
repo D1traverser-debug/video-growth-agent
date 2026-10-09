@@ -1,5 +1,5 @@
 {
-  "checkpoint_version": 5,
+  "checkpoint_version": 6,
   "task_id": "video-growth:main",
   "display_name_zh": "AI视频涨粉与商业化",
   "task_class": "USER",
@@ -11,38 +11,41 @@
   "compatibility": {
     "result": "COMPATIBLE",
     "checked_against": "Universal Continuity v3.5",
-    "verified_at": "2026-10-09T14:18:22Z"
+    "verified_at": "2026-10-09T14:55:00Z"
   },
   "status": "ACTIVE",
-  "current_stage": "LOOKDEV_SAMPLE_ITERATION",
+  "current_stage": "VISUAL_PREVIEW_PROCESS_REENTRY",
   "stage_state": {
     "previous_release_candidate": "REJECTED_BY_USER_FOR_INSUFFICIENT_QUALITY",
     "previous_release_gate_valid": false,
     "publication_status": "NOT_PUBLISHED",
     "performance_stage_entered": false,
-    "moving_benchmark_rebase": "READY",
+    "moving_benchmark_rebase": "READY_BUT_CINEMATIC_LANE_INCOMPLETE",
     "full_build_frozen_until_sample_pass": true,
-    "sample_v2_status": "ITERATE_NOT_PASS",
+    "sample_v2_status": "PROCESS_INVALID_AND_VISUAL_FAIL",
     "sample_v2_duration_seconds": 10.233333,
     "sample_v2_format": "1080x1920_30fps",
-    "sample_v2_hard_fail_dimensions": [
+    "sample_v2_required_role_receipts_found": false,
+    "sample_v2_missing_required_reviewers": [
+      "creative_director",
+      "art_director",
+      "motion_director",
+      "director",
+      "retention_editor"
+    ],
+    "sample_v2_hard_fail_dimensions_from_aggregate_diagnostic": [
       "FIRST_2S_STOP_POWER",
       "MATERIAL_ASSET_RICHNESS",
       "MEMORABLE_HERO_MOMENT"
     ],
-    "sample_v2_pass_dimensions": [
-      "SPATIAL_CAMERA_INTENTION",
-      "TRANSFORMATION_CAUSALITY",
-      "MOTION_TIMING_HOLDS",
-      "PICTURE_SOUND_COHESION_PROVISIONAL",
-      "ABSENCE_OF_GENERIC_SAAS_TEMPLATE_FEEL"
-    ],
-    "reason": "Sample V2 proves the sample-first and shot-level workflow but remains below the advertiser-facing visual bar. It is a timing/spatial previs, not release authority."
+    "process_failure_root_cause": "Sample V2 bypassed the configured AgenticStudio VISUAL_PREVIEW work-order runtime, so one aggregate QA was incorrectly treated as if it represented independent specialist review.",
+    "reason": "The artifact remains useful as timing/spatial previs, but both visual quality and process evidence fail closed. No Sample V3 build is authorized until formal VISUAL_PREVIEW role packets are dispatched and their independent receipts are persisted."
   },
-  "next_action": "Keep Sample V2's 10.22-second timing/spatial contract. Lock a stronger human/work opening keyframe and a materially rich backend/result ending keyframe, then route the high-risk transition through Seedance 2.x or MiniMax H3 using first/last-frame or reference-aware control. Retain deterministic captions/data overlays and exact edit timing. Render V3, review the actual media at normal speed against the moving benchmark pack, and stay in sample iteration until every hard VISUAL_PREVIEW dimension is >=4 and the quality-critical average is >=4.25. Do not rebuild the full 59.5-second film before PASS.",
+  "next_action": "Re-enter VISUAL_PREVIEW through the formal AgenticStudio work-order path. Bind Sample V2 only as diagnostic/previs evidence. Dispatch isolated blind review packets to creative_director, art_director, motion_director, director and retention_editor; persist all five role receipts bound to the exact Sample V2 digest before synthesis. Build a shot-level repair matrix from their independent findings, expand the benchmark pack with a formal feature-film cinematography/editing lane, then lock opening/ending keyframes and route only failed shot layers to Seedance 2.x, MiniMax H3 or another suitable engine. Render Sample V3 and repeat the same formal panel. Do not rebuild the 59.5-second film until process validity and every hard VISUAL_PREVIEW quality dimension pass.",
   "blockers": [
-    "Current connected Descript account has insufficient AI credits for the desired sample build path; do not require an upgrade merely for this experiment.",
-    "A direct Seedance/H3 generation connector is not yet connected in this chat; OpenArt was discovered as a ChatGPT plugin exposing Seedance 2.5/2.0 and MiniMax H3/H3 Max and was suggested for optional connection."
+    "Sample V2 lacks required independent VISUAL_PREVIEW reviewer receipts and is PROCESS_INVALID.",
+    "Current connected Descript account has insufficient AI credits for the desired generative edit path; do not require an upgrade merely for this experiment.",
+    "Direct Seedance/H3 generation connector is not connected in this chat; engine routing must not be treated as completed until an actual compatible generation path exists."
   ],
   "authoritative_artifacts": {
     "rejected_candidate_v4": {
@@ -52,17 +55,19 @@
     },
     "sample_v2": {
       "library_path": "/Video Growth Agent/Pilot 002/Sample V2/Pilot002_Sample_V2.mp4",
-      "status": "ITERATE_NOT_PASS",
+      "status": "PROCESS_INVALID_AND_VISUAL_FAIL_PREVIS_ONLY",
       "qa_ref": "/Video Growth Agent/Pilot 002/Sample V2/QA.md",
       "contact_sheet": "/Video Growth Agent/Pilot 002/Sample V2/Pilot002_Sample_V2_contact.jpg",
       "github_record": "projects/pilot-002/SAMPLE_V2.md"
     },
+    "process_failure_audit": "projects/pilot-002/PROCESS_FAILURE_AUDIT_2026-10-09.md",
     "quality_rebase": "projects/pilot-002/QUALITY_REBASE.md",
     "moving_benchmark_pack": "projects/pilot-002/BENCHMARK_REBASE.md",
     "v4_failure_audit": "projects/pilot-002/V4_FAILURE_AUDIT.md",
     "learning_pass_2026_10_09": "projects/pilot-002/LEARNING_PASS_2026-10-09.md",
     "production_intelligence": "skills/video-growth-agent/references/production-intelligence.md",
     "benchmark_policy": "skills/video-growth-agent/references/benchmark-policy.md",
+    "agent_studio_contract": "skills/video-growth-agent/references/agent-studio.md",
     "github_authority": "D1traverser-debug/video-growth-agent@main"
   },
   "learning_pass": {
@@ -76,7 +81,12 @@
       "Pippit Nest",
       "Vibemotion",
       "Claude Opus 5.5 deterministic HTML/Playwright/FFmpeg workflows",
-      "Narrator AI CLI Skill"
+      "Narrator AI CLI Skill",
+      "OpenAI agent eval / tracing / guardrail guidance",
+      "Anthropic agent evaluation guidance",
+      "Self-Refine iterative feedback",
+      "Reflexion failure-memory loop",
+      "American Cinematographer feature-film production/cinematography references"
     ],
     "accepted_candidate_methods": [
       "shot-as-durable-object",
@@ -87,9 +97,13 @@
       "shot-to-engine-routing",
       "deterministic-code-layer-for-precision-not-cinematic-material",
       "shot-level-repair",
-      "accepted-seconds-economics"
+      "accepted-seconds-economics",
+      "review-proof-receipt-bundle",
+      "anti-bypass-process-tripwire",
+      "failure-memory-reflection-loop",
+      "macro-project-control-plus-micro-shot-control"
     ],
-    "validation_rule": "These remain candidate techniques until a real Sample V3 passes the studio benchmark and quality gates."
+    "validation_rule": "A method is not promoted because it sounds correct. It must change a work contract or experiment, survive a real artifact test, and leave durable accept/reject evidence."
   },
   "preserved_user_requirements": [
     "Optimize for growth, IP/audience asset, advertiser invitations and sustainable commercialization rather than platform incentive payments.",
@@ -99,12 +113,15 @@
     "Final QA must consume the real rendered media; code success or agent self-report is not sufficient.",
     "The studio must proactively scout superior works, tools, Skills, source and community workflows instead of waiting for the user to provide them.",
     "Quality-critical full builds must be preceded by a representative near-final sample; a technical demo cannot authorize production.",
-    "Use GitHub video-growth-agent main as executable business authority; Notion/Library are recovery/evidence mirrors, not business-rule authority."
+    "Use GitHub video-growth-agent main as executable business authority; Notion/Library are recovery/evidence mirrors, not business-rule authority.",
+    "Every specialist role must actually execute its assigned loss function and leave evidence; role definitions alone do not count as execution.",
+    "The system must expose its own capability and governance failures instead of smoothing them over in aggregate self-review."
   ],
   "invalidated_or_historical_state": [
     "Previous RELEASE READY / WOULD PUBLISH judgment for V4 is invalidated by explicit user quality rejection.",
     "Pilot 002 old Visual Preview V2 and Release V3/V4 are historical rejected candidates only.",
-    "Sample V2 is a failed-but-useful timing/spatial previs and must not be mistaken for release authority."
+    "Sample V2 is a failed-but-useful timing/spatial previs and must not be mistaken for release authority.",
+    "The prior implication that Sample V2 had completed the configured multi-role VISUAL_PREVIEW review is invalidated; no required role-receipt bundle exists."
   ],
   "resume": {
     "entrypoint": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
@@ -113,5 +130,5 @@
     "active_lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
     "new_chat_rule": "Read the manifest, classify compatibility, increment resume_epoch, replace active_lease with compare-and-swap, re-read to verify the lease, then resume from this checkpoint's exact next_action."
   },
-  "updated_at": "2026-10-09T14:18:22Z"
+  "updated_at": "2026-10-09T14:55:00Z"
 }
