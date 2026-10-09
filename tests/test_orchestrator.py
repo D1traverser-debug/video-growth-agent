@@ -43,3 +43,18 @@ def test_invalidation_removes_downstream_approvals():
     o.invalidate_from(s, "SCRIPT")
     assert s.stage == "SCRIPT"
     assert s.approvals == {}
+
+
+def test_every_required_role_has_prompt():
+    from video_growth_agent import RoleRegistry
+    registry = RoleRegistry()
+    assert registry.validate_workflow() == []
+
+
+def test_role_registry_loads_only_requested_prompt():
+    from video_growth_agent import RoleRegistry
+    registry = RoleRegistry()
+    role = registry.get("art_director")
+    assert role.role == "art_director"
+    assert "PPT/SaaS-dashboard" in role.prompt
+    assert "looks-like-ppt" in role.veto
