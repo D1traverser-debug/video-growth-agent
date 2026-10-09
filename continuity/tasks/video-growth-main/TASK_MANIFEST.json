@@ -8,16 +8,16 @@
   "resume_eligible": true,
   "resume_visibility": "DEFAULT",
   "recovery_owner": "VIDEO_GROWTH_AGENT",
-  "updated_at": "2026-10-09T14:18:22Z",
+  "updated_at": "2026-10-09T14:55:00Z",
   "created_at": "2026-10-08T00:00:00Z",
   "manifest_ref": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
-  "manifest_version": 6,
+  "manifest_version": 7,
   "checkpoint_ref": "continuity/tasks/video-growth-main/CHECKPOINT.json",
   "contract_version": "3.5",
   "skill_version": "skills/video-growth-agent/SKILL.md@ba7d4f612ee1f7f9f87402215c40954b6bd104a1",
   "runtime_version": "0.4.0",
-  "current_stage": "LOOKDEV_SAMPLE_ITERATION",
-  "next_action": "Use Sample V2 only as timing/spatial previs. Lock stronger human/work and backend/result endpoint keyframes, then route the high-risk transition through Seedance 2.x or MiniMax H3 using first/last-frame or reference-aware control. Keep deterministic captions/data overlays and exact edit timing. Render and inspect Sample V3 at normal speed beside the benchmark pack; remain in sample iteration until every hard VISUAL_PREVIEW dimension is >=4 and the quality-critical average is >=4.25. Do not rebuild the 59.5-second film before PASS.",
+  "current_stage": "VISUAL_PREVIEW_PROCESS_REENTRY",
+  "next_action": "Re-enter VISUAL_PREVIEW through AgenticStudio. Treat Sample V2 only as diagnostic/timing-spatial previs. Dispatch isolated blind review packets to creative_director, art_director, motion_director, director and retention_editor and persist the complete reviewer-receipt bundle bound to the exact Sample V2 digest before synthesis. Build a shot repair matrix and formal cinematic benchmark lane from those findings, then create Sample V3 through reference/keyframe-controlled shot routing. Do not rebuild the 59.5-second film until both process validity and all hard VISUAL_PREVIEW dimensions pass.",
   "resume_epoch": 2,
   "active_lease": {
     "lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
@@ -26,76 +26,31 @@
     "writer": "chatgpt-continuity-v3.5-takeover"
   },
   "artifact_refs": [
-    {
-      "type": "library_folder",
-      "ref": "/Video Growth Agent/Pilot 002/Release V4/",
-      "role": "rejected_historical_release_candidate"
-    },
-    {
-      "type": "media",
-      "ref": "/Video Growth Agent/Pilot 002/Release V4/Pilot002_FINAL_RELEASE_V4.mp4",
-      "sha256": "eec364e8530067dbc87a08a9ccbf2dd6e6e8a5ab32fb87f648c794a4000628eb",
-      "role": "quality_rejected_reference_candidate"
-    },
-    {
-      "type": "library_folder",
-      "ref": "/Video Growth Agent/Pilot 002/Sample V2/",
-      "role": "current_sample_iteration_artifacts"
-    },
-    {
-      "type": "media",
-      "ref": "/Video Growth Agent/Pilot 002/Sample V2/Pilot002_Sample_V2.mp4",
-      "role": "timing_spatial_previs_iterate_not_pass"
-    },
-    {
-      "type": "github",
-      "ref": "projects/pilot-002/SAMPLE_V2.md",
-      "role": "sample_v2_qa_and_repair_plan"
-    },
-    {
-      "type": "github",
-      "ref": "projects/pilot-002/LEARNING_PASS_2026-10-09.md",
-      "role": "distilled_new_production_control_methods"
-    },
-    {
-      "type": "github",
-      "ref": "projects/pilot-002/QUALITY_REBASE.md",
-      "role": "quality_rebase"
-    },
-    {
-      "type": "github",
-      "ref": "projects/pilot-002/BENCHMARK_REBASE.md",
-      "role": "moving_benchmark_pack"
-    },
-    {
-      "type": "github",
-      "ref": "projects/pilot-002/V4_FAILURE_AUDIT.md",
-      "role": "rejected_v4_failure_evidence"
-    },
-    {
-      "type": "github",
-      "ref": "skills/video-growth-agent/references/production-intelligence.md",
-      "role": "distilled_external_production_methods"
-    },
-    {
-      "type": "notion_page",
-      "ref": "https://app.notion.com/p/3f4d54f04b1781fb8178eb3af79a8b40",
-      "role": "pilot_002_recovery_and_business_evidence"
-    },
-    {
-      "type": "github",
-      "ref": "D1traverser-debug/video-growth-agent@main",
-      "role": "business_execution_authority"
-    }
+    {"type":"library_folder","ref":"/Video Growth Agent/Pilot 002/Release V4/","role":"rejected_historical_release_candidate"},
+    {"type":"media","ref":"/Video Growth Agent/Pilot 002/Release V4/Pilot002_FINAL_RELEASE_V4.mp4","sha256":"eec364e8530067dbc87a08a9ccbf2dd6e6e8a5ab32fb87f648c794a4000628eb","role":"quality_rejected_reference_candidate"},
+    {"type":"library_folder","ref":"/Video Growth Agent/Pilot 002/Sample V2/","role":"diagnostic_previs_process_invalid"},
+    {"type":"media","ref":"/Video Growth Agent/Pilot 002/Sample V2/Pilot002_Sample_V2.mp4","role":"timing_spatial_previs_process_invalid_and_visual_fail"},
+    {"type":"github","ref":"projects/pilot-002/SAMPLE_V2.md","role":"corrected_sample_v2_status"},
+    {"type":"github","ref":"projects/pilot-002/PROCESS_FAILURE_AUDIT_2026-10-09.md","role":"agent_governance_failure_audit"},
+    {"type":"github","ref":"skills/video-growth-agent/references/agent-studio.md","role":"hardened_review_receipt_and_anti_bypass_contract"},
+    {"type":"github","ref":"projects/pilot-002/LEARNING_PASS_2026-10-09.md","role":"distilled_new_production_control_methods"},
+    {"type":"github","ref":"projects/pilot-002/QUALITY_REBASE.md","role":"quality_rebase"},
+    {"type":"github","ref":"projects/pilot-002/BENCHMARK_REBASE.md","role":"moving_benchmark_pack"},
+    {"type":"github","ref":"projects/pilot-002/V4_FAILURE_AUDIT.md","role":"rejected_v4_failure_evidence"},
+    {"type":"github","ref":"skills/video-growth-agent/references/production-intelligence.md","role":"distilled_external_production_methods"},
+    {"type":"notion_page","ref":"https://app.notion.com/p/3f4d54f04b1781fb8178eb3af79a8b40","role":"pilot_002_recovery_and_business_evidence"},
+    {"type":"github","ref":"D1traverser-debug/video-growth-agent@main","role":"business_execution_authority"}
   ],
   "blockers": [
+    "Sample V2 is PROCESS_INVALID because required VISUAL_PREVIEW reviewer receipts are missing.",
+    "The current chat tool surface has not yet demonstrated a compatible isolated-agent execution path that can truthfully produce the configured blind reviewer receipts; do not fake independence by changing hats inside one monolithic reasoning stream.",
     "Connected Descript AI credits are insufficient for the desired generative edit path; do not require an upgrade for this experiment.",
-    "Direct Seedance/H3 generation is not yet connected in this chat. OpenArt was discovered as an optional ChatGPT plugin exposing Seedance 2.5/2.0 and MiniMax H3/H3 Max."
+    "Direct Seedance/H3 generation is not connected in this chat; engine routing remains pending actual access."
   ],
   "compatibility": {
     "result": "COMPATIBLE",
     "checked_against": "Universal Continuity v3.5",
-    "compatibility_note": "Current task state and writer lease remain compatible with the v3.5 continuity contract.",
-    "verified_at": "2026-10-09T14:18:22Z"
+    "compatibility_note": "Task state remains compatible. The stricter process-validity correction narrows advancement and does not invalidate continuity identity or the active writer lease.",
+    "verified_at": "2026-10-09T14:55:00Z"
   }
 }
