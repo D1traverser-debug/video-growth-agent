@@ -1,5 +1,5 @@
 {
-  "checkpoint_version": 7,
+  "checkpoint_version": 8,
   "task_id": "video-growth:main",
   "display_name_zh": "AI视频涨粉与商业化",
   "task_class": "USER",
@@ -11,7 +11,7 @@
   "compatibility": {
     "result": "COMPATIBLE",
     "checked_against": "Universal Continuity v3.5",
-    "verified_at": "2026-10-09T15:54:35Z"
+    "verified_at": "2026-10-09T16:23:00Z"
   },
   "status": "ACTIVE",
   "current_stage": "VISUAL_PREVIEW_PROCESS_REENTRY",
@@ -43,24 +43,38 @@
     "reviewer_process_hardening_main_ci": "PASS",
     "reviewer_process_hardening_effect": "Manual role signatures and bookkeeping-only receipts can no longer satisfy quality-critical process proof. Reviewer execution attestations must bind stage/work-order/agent/prompt/input/result/provider/model/run/context/trace identities; production trusted executors default empty and blind-wave identities must be unique.",
     "production_trusted_reviewer_executors": "EMPTY_FAIL_CLOSED",
-    "generation_route": "VIDIQ_CONNECTED",
+    "generation_route": "VIDIQ_CONNECTED_BUT_SCARCE",
     "generation_models_available": ["MiniMax H3", "Seedance 2", "Seedance 2 Fast"],
     "sample_v2_vidiq_upload_id": "9c5c8897-5f9e-4ece-8b8e-24c340617c7a",
     "h3_transition_experiment": {
-      "status": "IN_PROGRESS",
+      "status": "COMPLETED_MEDIA_QA_NOT_JUDGED",
       "job_id": "job_15eed248-dfaf-4353-a9a5-16979c30cc49",
+      "project_id": "e14cb71b-2f69-46fd-a10a-f9e9ff9b7fc3",
       "model": "MiniMax H3",
       "duration_seconds": 4,
+      "resolution": "768p",
+      "vidiq_credits_before": 138,
+      "vidiq_credits_after_generation": 78,
+      "vidiq_generation_credits_consumed": 60,
       "purpose": "Minimum-cost test of whether the highest-risk Sample V2 transition can gain materially better cinematic material, spatial depth, causality and hero-frame quality without rebuilding the full film.",
+      "qa_state": "Three representative JPEG extraction jobs completed at 0.5s, 2.0s and 3.5s, but the current model execution surface received only signed URLs rather than model-readable pixels. Do not infer visual quality from model identity, prompt or extraction success.",
       "duplicate_submit_forbidden": true
     },
-    "reason": "The artifact remains useful as timing/spatial previs, but both visual quality and formal reviewer process fail closed. Generation access is now available through vidIQ, so shot-level Sample V3 experimentation may proceed, but no formal VISUAL_PREVIEW PASS is allowed until a real isolated multimodal reviewer executor path is integrated and all hard quality dimensions pass."
+    "cost_routing_policy": {
+      "status": "PR_IN_VALIDATION",
+      "pr": "D1traverser-debug/video-growth-agent#10",
+      "branch": "hardening/cost-aware-shot-routing",
+      "principle": "Quality threshold and capability eligibility are mandatory. Exploration then minimizes cost; production high-risk/hero shots maximize measured quality first and use cost only as a tie-break. Premium scarce pools are protected by risk gating and configurable reserves.",
+      "current_route_intent": "Prefer free/deterministic layers for text, data, captions, timing and compositing; evaluate low-cost Wan-class routes for exploration/non-hero shots; reserve H3/Seedance-class generation for seconds that require premium cinematic material and survive QA."
+    },
+    "reason": "Sample V2 remains useful only as timing/spatial previs. The H3 replacement candidate exists but has not been visually judged by the model because plugin media pixels are not readable in the current QA surface. Formal reviewer process also remains fail-closed. No full-film rebuild is authorized."
   },
-  "next_action": "Continue polling the existing MiniMax H3 job job_15eed248-dfaf-4353-a9a5-16979c30cc49 only; do not start a duplicate paid generation. When complete, inspect the actual 4-second media at normal speed and through extracted frames, compare against Sample V2 and the benchmark pack on material richness, camera/spatial intention, transformation causality, timing and hero-frame quality, and accept or reject it as a Sample V3 shot candidate. Keep deterministic code for captions/data/timing rather than cinematic material. In parallel, integrate a real isolated multimodal reviewer executor capable of producing verifiable provider/model/run/context/trace attestations; until then the formal VISUAL_PREVIEW panel remains blocked. Do not rebuild the 59.5-second film until both process validity and every hard VISUAL_PREVIEW quality dimension pass.",
+  "next_action": "Keep VISUAL_PREVIEW fail-closed. Obtain model-readable pixels or real-media playback for the completed H3 candidate and judge it against Sample V2/benchmarks; do not treat generation success as visual PASS. Complete and merge the quality-gated cost-aware shot router only after CI passes. Integrate a real isolated multimodal reviewer executor and persist the required blind reviewer receipt bundle bound to exact artifact digests. Then build the shot repair matrix, complete the feature-film cinematography/editing benchmark lane, and create Sample V3 through shot-level routing. Do not rebuild the 59.5-second film until both process validity and every hard VISUAL_PREVIEW quality dimension pass.",
   "blockers": [
     "Sample V2 lacks required independent VISUAL_PREVIEW reviewer receipts and is PROCESS_INVALID.",
     "Production trusted reviewer executors are intentionally empty until a real isolated multimodal reviewer adapter is integrated and verified; changing role labels inside one context is invalid.",
-    "Current connected Descript account has insufficient AI credits for the desired generative edit path; do not require an upgrade merely for this experiment."
+    "H3 candidate media and three extracted JPEGs exist, but current plugin/file/browser paths have not exposed their pixels to the model for actual visual QA.",
+    "Connected vidIQ H3 is too scarce for default production: the first 4-second generation consumed 60 of a 150-credit renewable pool."
   ],
   "authoritative_artifacts": {
     "rejected_candidate_v4": {
@@ -77,6 +91,7 @@
     },
     "reviewer_execution_attestation_contract": "skills/video-growth-agent/references/reviewer-execution-attestation.md",
     "reviewer_process_hardening_commit": "D1traverser-debug/video-growth-agent@e1bde266b249b841f54a125ea4b01f5d9ae8dcba",
+    "cost_aware_routing_pr": "D1traverser-debug/video-growth-agent#10",
     "process_failure_audit": "projects/pilot-002/PROCESS_FAILURE_AUDIT_2026-10-09.md",
     "quality_rebase": "projects/pilot-002/QUALITY_REBASE.md",
     "moving_benchmark_pack": "projects/pilot-002/BENCHMARK_REBASE.md",
@@ -90,7 +105,7 @@
   "learning_pass": {
     "sources_distilled": [
       "Seedance 2.0 official launch and multimodal reference controls",
-      "MiniMax H3 official FL2VA/Ref2VA modes",
+      "MiniMax H3 official FL2VA/Ref2VA modes and current pay-as-you-go pricing",
       "ComfyUI + MiniMax H3 production orchestrator workflows",
       "DramaClaw",
       "Utopai PAI / PAI-Pro",
@@ -104,7 +119,8 @@
       "Self-Refine iterative feedback",
       "Reflexion failure-memory loop",
       "American Cinematographer feature-film production/cinematography references",
-      "vidIQ native MiniMax H3 / Seedance 2.x generation and video-reference routing"
+      "vidIQ native MiniMax H3 / Seedance 2.x generation and video-reference routing",
+      "Wan 2.2 low-cost hosted exploration routes on fal and Replicate"
     ],
     "accepted_candidate_methods": [
       "shot-as-durable-object",
@@ -113,6 +129,8 @@
       "first-last-state-control",
       "multimodal-reference-role-binding",
       "shot-to-engine-routing",
+      "quality-gated-cost-aware-routing",
+      "premium-capacity-reserve",
       "deterministic-code-layer-for-precision-not-cinematic-material",
       "shot-level-repair",
       "accepted-seconds-economics",
@@ -126,7 +144,8 @@
   },
   "preserved_user_requirements": [
     "Optimize for growth, IP/audience asset, advertiser invitations and sustainable commercialization rather than platform incentive payments.",
-    "Default to zero or very low incremental cost and no recurring filming requirement.",
+    "Default to zero or very low incremental cost and no recurring filming requirement, while keeping final visual quality as the first priority.",
+    "Use free or low-cost production paths where they clear the quality threshold; escalate to premium engines only where the artifact requires them.",
     "Primary commercial axis: AI applications/software/SaaS, 3C/smart hardware, technology business/frontier technology and adjacent sponsor pools.",
     "Content must stand on its own before sponsor integration.",
     "Final QA must consume the real rendered media; code success or agent self-report is not sufficient.",
@@ -141,7 +160,8 @@
     "Pilot 002 old Visual Preview V2 and Release V3/V4 are historical rejected candidates only.",
     "Sample V2 is a failed-but-useful timing/spatial previs and must not be mistaken for release authority.",
     "The prior implication that Sample V2 had completed the configured multi-role VISUAL_PREVIEW review is invalidated; no required role-receipt bundle exists.",
-    "The prior blocker stating direct Seedance/H3 generation was unavailable is invalidated: connected vidIQ now provides MiniMax H3 and Seedance 2.x generation routes."
+    "The prior blocker stating direct Seedance/H3 generation was unavailable is invalidated: connected vidIQ provides MiniMax H3 and Seedance 2.x generation routes.",
+    "The prior H3 IN_PROGRESS state is invalidated: generation completed, but visual quality remains NOT_JUDGED until actual pixels are consumed."
   ],
   "resume": {
     "entrypoint": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
@@ -150,5 +170,5 @@
     "active_lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
     "new_chat_rule": "Read the manifest, classify compatibility, increment resume_epoch, replace active_lease with compare-and-swap, re-read to verify the lease, then resume from this checkpoint's exact next_action."
   },
-  "updated_at": "2026-10-09T15:54:35Z"
+  "updated_at": "2026-10-09T16:23:00Z"
 }
