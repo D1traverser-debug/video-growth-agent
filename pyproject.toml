@@ -1,8 +1,22 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "video-growth-agent"
-version = "0.1.0"
-description = "Executable virtual-studio workflow for low-cost short-video production and QA"
+version = "0.2.0"
+description = "Executable virtual-studio runtime for low-cost short-video production, review and learning"
 requires-python = ">=3.11"
+
+[project.scripts]
+vga = "video_growth_agent.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["video_growth_agent*"]
+exclude = ["tests*", "config*", "skills*", "projects*"]
+
+[tool.setuptools.package-data]
+video_growth_agent = ["data/*.json", "data/*.md"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]

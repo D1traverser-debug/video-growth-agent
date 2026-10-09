@@ -13,19 +13,20 @@ Treat every video as the output of a virtual studio. Do not let one monolithic v
 ## 2. Workflow invariant
 Follow the stage order defined in `config/workflow.json`.
 
-The workflow is fail-closed: a stage cannot advance until every required role has recorded PASS. Any FAIL/BLOCKED result returns work to the relevant upstream stage. When an upstream artifact materially changes, invalidate downstream approvals rather than preserving stale sign-offs.
+The workflow is fail-closed: a stage cannot advance until every required artifact exists, every required role has recorded PASS, and every configured machine guard passes. Any FAIL/BLOCKED result returns work to the relevant upstream stage. Human approval cannot override deterministic media/rights failures. When an upstream artifact materially changes, invalidate downstream approvals rather than preserving stale sign-offs.
 
 ## 3. Load references progressively
 - Positioning / commercial fit: `references/commercial.md`.
 - Team responsibilities / vetoes: `references/team.md`; load only the relevant role section(s) for the current stage.
 - Workflow / stage semantics: `references/workflow.md`.
+- Project checkpoints, receipts, provenance and deterministic QA: `references/runtime.md`.
 - Visual, motion and audio craft: `references/quality-gates.md`.
 - New capability gaps, tool failures or benchmark gaps: `references/self-learning.md`.
 
 Do not load every reference if the current stage needs only one subset.
 
 ## 4. Default objective
-Optimize for: audience stop-rate and retention, comprehension, distinctive craft, advertiser legibility, brand safety, repeatability and low incremental cash cost.
+Optimize for audience stop-rate and retention, comprehension, distinctive craft, advertiser legibility, brand safety, repeatability and low incremental cash cost.
 
 Default production assumption: no recurring user filming. Prefer reusable identity assets, code motion, screen recordings, authorized/public assets, local tools and existing paid entitlements. Use paid generation only where it materially improves retention or explanation.
 
@@ -40,7 +41,7 @@ Never accept “the code ran” or “the agent says it reviewed the edit” as 
 For actual media, execute the real-render loop:
 `RENDER → EXTRACT FRAMES → VISUAL INSPECT → AUDIO INSPECT → TECH PROBE → FIX → RERENDER → RECHECK`.
 
-Check stream duration and frame count independently from container duration. Check true peak after final audio encoding. Check subtitle/platform safe areas on the final export.
+Check stream duration and frame count independently from container duration. Check true peak after final audio encoding. Extract QA frames from the final export without seeking at exact EOF. Check subtitle/platform safe areas on the final export. Record the QA receipt; TECH_QA cannot advance on an unmeasured or failed candidate.
 
 ## 7. Self-learning protocol
 When another creator/system can produce materially better work, do not attribute the gap to model name alone. Run:

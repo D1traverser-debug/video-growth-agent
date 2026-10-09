@@ -1,0 +1,74 @@
+from pathlib import Path
+
+import pytest
+
+from video_growth_agent import Approval, ArtifactRecord, AssetRecord, GateBlocked, ProjectStore, StudioRuntime
+
+
+def runtime(tmp_path: Path) -> StudioRuntime:
+    return StudioRuntime(store=ProjectStore(tmp_path / "projects"))
+
+
+def test_project_checkpoint_roundtrip_and_receipts(tmp_path):
+    rt = runtime(tmp_path); state = rt.create_project("pilot-x", title="test"); assert state.stage == "INTAKE"
+    rt.record_artifact("pilot-x", "brief", "file://brief.md", "INTAKE", digest="a1"); receipt = rt.sign("pilot-x", "showrunner", "PASS", "brief is viable", ("file://brief.md",))
+    assert (tmp_path / "projects" / "pilot-x" / receipt).exists(); assert rt.advance("pilot-x") == "POSITIONING"
+    loaded = rt.state("pilot-x"); assert loaded.approvals["INTAKE"]["showrunner"].decision == "PASS"; assert len((tmp_path / "projects" / "pilot-x" / "events.jsonl").read_text(encoding="utf-8").strip().splitlines()) >= 4
+
+
+def test_changed_upstream_artifact_invalidates_downstream(tmp_path):
+    rt = runtime(tmp_path); rt.create_project("p"); rt.record_artifact("p", "brief", "file://brief-v1", "INTAKE", digest="1"); rt.sign("p", "showrunner", "PASS"); rt.advance("p"); rt.record_artifact("p", "brief", "file://brief-v2", "INTAKE", digest="2")
+    state = rt.state("p"); assert state.stage == "INTAKE"; assert state.approvals == {}; assert state.invalidated_from == "INTAKE"
+
+
+def test_unknown_final_rights_are_exposed(tmp_path):
+    rt = runtime(tmp_path); rt.create_project("p"); rt.record_asset("p", AssetRecord("a1", "file://asset", "image", "UNKNOWN", used_in_final=True)); rt.record_asset("p", AssetRecord("a2", "file://owned", "image", "OWNED", used_in_final=True)); assert rt.unknown_final_rights("p") == ["a1"]
+
+
+def test_current_prompts_are_stage_scoped(tmp_path):
+    rt = runtime(tmp_path); rt.create_project("p"); prompts = rt.current_prompts("p"); assert set(prompts) == {"showrunner"}; assert "Protect the account" in prompts["showrunner"]
+
+
+def _record_fake_qa_receipt(rt, project_id: str, media_uri: str, hard_pass: bool, sha256: str | None = None):
+    from video_growth_agent import QACheck, QAReport
+    statuses = {"video_stream": "PASS", "stream_duration_match": "PASS", "true_peak": "PASS" if hard_pass else "FAIL", "black_frames": "PASS"}
+    checks = tuple(QACheck(check_id, status, "test") for check_id, status in statuses.items())
+    metadata = {"checker": "ffmpeg-ffprobe-v0.2"}
+    if sha256: metadata["sha256"] = sha256
+    return rt.record_qa(project_id, QAReport(media_uri=media_uri, checks=checks, metadata=metadata))
+
+
+def _force_release_state(rt, project_id: str, qa_media_uri: str = "file://final.mp4"):
+    state = rt.state(project_id); state.stage = "RELEASE"; state.artifacts["final_media"] = ArtifactRecord("final_media", "file://final.mp4", "RELEASE", kind="media"); state.artifacts["publish_pack"] = ArtifactRecord("publish_pack", "file://publish.md", "RELEASE"); rt.store.save(state); _record_fake_qa_receipt(rt, project_id, qa_media_uri, True); state = rt.state(project_id); state.stage = "RELEASE"; rt.store.save(state)
+
+
+def test_release_machine_guard_blocks_unknown_rights(tmp_path):
+    rt = runtime(tmp_path); rt.create_project("p"); _force_release_state(rt, "p"); rt.record_asset("p", AssetRecord("unknown", "file://x", "image", "UNKNOWN", used_in_final=True)); state = rt.state("p"); state.stage = "RELEASE"; state.approvals["RELEASE"] = {"showrunner": Approval("showrunner", "PASS")}; rt.store.save(state); report = rt.gate_report("p"); assert not report["pass"]; assert any(item.startswith("no_unknown_final_rights") for item in report["machine_failures"])
+    with pytest.raises(GateBlocked): rt.advance("p")
+
+
+def test_tech_qa_machine_guard_requires_hard_pass_receipt(tmp_path):
+    rt = runtime(tmp_path); rt.create_project("p"); state = rt.state("p"); state.stage = "TECH_QA"; state.artifacts["final_candidate"] = ArtifactRecord("final_candidate", "file://candidate.mp4", "TECH_QA", kind="media"); state.approvals["TECH_QA"] = {"technical_director": Approval("technical_director", "PASS")}; rt.store.save(state); _record_fake_qa_receipt(rt, "p", "file://candidate.mp4", False); state = rt.state("p"); state.stage = "TECH_QA"; rt.store.save(state); assert rt.gate_report("p")["machine_failures"] == ["latest_media_qa_hard_pass"]
+    with pytest.raises(GateBlocked): rt.advance("p")
+
+
+def test_release_requires_qa_of_actual_final_media_not_old_candidate(tmp_path):
+    rt = runtime(tmp_path); rt.create_project("p"); _force_release_state(rt, "p", qa_media_uri="file://candidate-before-transcode.mp4"); state = rt.state("p"); state.approvals["RELEASE"] = {"showrunner": Approval("showrunner", "PASS")}; rt.store.save(state); report = rt.gate_report("p"); assert "latest_media_qa_target_mismatch:final_media" in report["machine_failures"]
+    with pytest.raises(GateBlocked): rt.advance("p")
+
+
+def test_manual_technical_qa_artifact_cannot_forge_machine_pass(tmp_path):
+    rt = runtime(tmp_path); rt.create_project("p"); state = rt.state("p"); state.stage = "TECH_QA"; state.artifacts["final_candidate"] = ArtifactRecord("final_candidate", "file://candidate.mp4", "TECH_QA", kind="media"); state.artifacts["technical_qa"] = ArtifactRecord("technical_qa", "fake.json", "TECH_QA", kind="qa_report", metadata={"hard_pass": True}); state.approvals["TECH_QA"] = {"technical_director": Approval("technical_director", "PASS")}; rt.store.save(state); assert rt.gate_report("p")["machine_failures"] == ["latest_media_qa_hard_pass"]
+
+
+def test_release_accepts_digest_match_when_persistent_uri_differs(tmp_path):
+    rt = runtime(tmp_path); rt.create_project("digest"); state = rt.state("digest"); state.stage = "RELEASE"; state.artifacts["final_media"] = ArtifactRecord("final_media", "library://final", "RELEASE", kind="media", digest="abc123"); state.artifacts["publish_pack"] = ArtifactRecord("publish_pack", "file://publish.md", "RELEASE"); state.approvals["RELEASE"] = {"showrunner": Approval("showrunner", "PASS")}; rt.store.save(state); _record_fake_qa_receipt(rt, "digest", "/mnt/data/materialized-final.mp4", True, sha256="abc123"); state = rt.state("digest"); state.stage = "RELEASE"; rt.store.save(state); assert rt.gate_report("digest")["machine_failures"] == []
+
+
+def test_empty_or_untrusted_qa_receipt_cannot_pass_machine_gate(tmp_path):
+    from video_growth_agent import QAReport
+    rt = runtime(tmp_path); rt.create_project("untrusted"); state = rt.state("untrusted"); state.stage = "TECH_QA"; state.artifacts["final_candidate"] = ArtifactRecord("final_candidate", "file://candidate.mp4", "TECH_QA", kind="media"); state.approvals["TECH_QA"] = {"technical_director": Approval("technical_director", "PASS")}; rt.store.save(state); rt.record_qa("untrusted", QAReport(media_uri="file://candidate.mp4", checks=())); state = rt.state("untrusted"); state.stage = "TECH_QA"; rt.store.save(state); assert "latest_media_qa_hard_pass" in rt.gate_report("untrusted")["machine_failures"]
+
+
+def test_digest_target_does_not_fall_back_to_uri_when_qa_has_no_digest(tmp_path):
+    rt = runtime(tmp_path); rt.create_project("digest-required"); state = rt.state("digest-required"); state.stage = "RELEASE"; state.artifacts["final_media"] = ArtifactRecord("final_media", "file://same.mp4", "RELEASE", kind="media", digest="expected"); state.artifacts["publish_pack"] = ArtifactRecord("publish_pack", "file://publish.md", "RELEASE"); state.approvals["RELEASE"] = {"showrunner": Approval("showrunner", "PASS")}; rt.store.save(state); _record_fake_qa_receipt(rt, "digest-required", "file://same.mp4", True); state = rt.state("digest-required"); state.stage = "RELEASE"; rt.store.save(state); assert "latest_media_qa_target_mismatch:final_media" in rt.gate_report("digest-required")["machine_failures"]

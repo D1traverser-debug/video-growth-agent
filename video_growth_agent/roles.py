@@ -5,7 +5,7 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+from .resources import data_path
 
 @dataclass(frozen=True)
 class RoleSpec:
@@ -15,9 +15,9 @@ class RoleSpec:
 
 class RoleRegistry:
     def __init__(self, config_path: Path | None = None):
-        path = config_path or ROOT / "config" / "roles.json"
+        path = config_path or data_path("roles.json")
         self.config = json.loads(path.read_text(encoding="utf-8"))
-        source = ROOT / self.config["prompt_source"]
+        source = data_path("team.md") if config_path is None else path.parent / self.config.get("prompt_source_local", "team.md")
         self.sections = self._parse_sections(source.read_text(encoding="utf-8"))
 
     @staticmethod
@@ -39,7 +39,7 @@ class RoleRegistry:
         return RoleSpec(role=role, prompt=prompt, veto=tuple(data.get("veto", [])))
 
     def validate_workflow(self, workflow_path: Path | None = None) -> list[str]:
-        path = workflow_path or ROOT / "config" / "workflow.json"
+        path = workflow_path or data_path("workflow.json")
         workflow = json.loads(path.read_text(encoding="utf-8"))
         errors: list[str] = []
         for stage in workflow["stages"]:
