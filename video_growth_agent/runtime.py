@@ -84,8 +84,39 @@ class StudioRuntime:
     def gate_report(self, project_id: str) -> dict:
         state = self.state(project_id)
         role_artifact = self.orchestrator.gate_report(state)
+        process = self.process_guard_report(state)
         machine = self.machine_guard_report(state)
-        return {**role_artifact, "machine_guards": machine["guards"], "machine_failures": machine["failures"], "pass": role_artifact["pass"] and machine["pass"]}
+        return {
+            **role_artifact,
+            "process_guards": process["guards"],
+            "process_failures": process["failures"],
+            "machine_guards": machine["guards"],
+            "machine_failures": machine["failures"],
+            "pass": role_artifact["pass"] and process["pass"] and machine["pass"],
+        }
+
+    def _review_receipt_matches(self, state: ProjectState, task_id: str, work_order_id: str, result: dict[str, Any]) -> bool:
+        receipts_dir = self.store.project_dir(state.project_id) / "receipts"
+        if not receipts_dir.exists():
+            return False
+        for path in receipts_dir.glob("*.json"):
+            try:
+                receipt = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                continue
+            if receipt.get("event") != "WORK_ORDER_REVIEW_COMPLETED":
+                continue
+            payload = receipt.get("payload") if isinstance(receipt.get("payload"), dict) else {}
+            if payload.get("stage") != state.stage:
+                continue
+            if payload.get("task_id") != task_id or payload.get("work_order_id") != work_order_id:
+                continue
+            if payload.get("result") != result:
+                continue
+            if payload.get("input_digests") != result.get("input_digests"):
+                continue
+            return True
+        return False
 
     def process_guard_report(self, state: ProjectState) -> dict[str, Any]:
         """Require durable AgenticStudio proof before quality-critical stage advancement.
@@ -107,7 +138,12 @@ class StudioRuntime:
             }
 
         failures: list[str] = []
-        guards = ["agent_work_order_proof", "review_input_digest_binding", "producer_output_provenance"]
+        guards = [
+            "agent_work_order_proof",
+            "review_receipt_proof",
+            "review_input_digest_binding",
+            "producer_output_provenance",
+        ]
         stage_approvals = state.approvals.get(stage, {})
         quality_spec = self.quality_rubric.get("stages", {}).get(stage)
         quality_target_name = quality_spec.get("target_artifact") if isinstance(quality_spec, dict) else None
@@ -162,6 +198,9 @@ class StudioRuntime:
                         failures.append(f"process_output_provenance_mismatch:{task_id}:{output_name}")
 
             if task_type in {"review", "meta_review"}:
+                if not self._review_receipt_matches(state, task_id, str(work_order_id), result):
+                    failures.append(f"process_review_receipt_missing_or_mismatch:{task_id}")
+
                 input_digests = result.get("input_digests")
                 if not isinstance(input_digests, dict):
                     failures.append(f"process_review_input_digests_missing:{task_id}")
