@@ -4,6 +4,7 @@ from .roles import RoleRegistry
 from .runtime import StudioRuntime
 from .storage import ProjectStore
 from .techniques import TechniqueLibrary
+from .studio_agents import AgentRegistry, AgentSpec, AgenticStudio, ExecutionPlanner, WorkOrder
 
 __all__ = [
     "Approval",
@@ -18,4 +19,9 @@ __all__ = [
     "StudioRuntime",
     "ProjectStore",
     "TechniqueLibrary",
+    "AgentRegistry",
+    "AgentSpec",
+    "AgenticStudio",
+    "ExecutionPlanner",
+    "WorkOrder",
 ]
