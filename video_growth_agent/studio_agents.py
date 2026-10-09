@@ -166,12 +166,7 @@ class ExecutionPlanner:
 
 
 class AgenticStudio:
-    """
-    Producer-controlled work-order runtime.
-
-    Agents never peer-chat. Workers and reviewers exchange only versioned artifacts
-    and immutable receipts. Reviewer packets hide sibling verdicts by default.
-    """
+    """Producer-controlled work-order runtime with isolated specialists and blind review."""
 
     def __init__(
         self,
@@ -208,8 +203,7 @@ class AgenticStudio:
     def dispatch_stage(self, project_id: str) -> list[WorkOrder]:
         state = self.runtime.state(project_id)
         stage = state.stage
-        spec = self.planner.stage(stage)
-        tasks = list(spec.get("tasks", []))
+        tasks = list(self.planner.stage(stage).get("tasks", []))
         orders: list[WorkOrder] = []
         for task in tasks:
             path = self._order_path(project_id, stage, task["id"])
@@ -246,16 +240,30 @@ class AgenticStudio:
     def ready(self, project_id: str) -> list[WorkOrder]:
         return [order for order in self.dispatch_stage(project_id) if order.status == "READY"]
 
+    def advance(self, project_id: str) -> str:
+        """Advance only when the stage work-order contract and base gate both pass."""
+        orders = self.dispatch_stage(project_id)
+        incomplete = [order.task_id for order in orders if order.status != "COMPLETED"]
+        if incomplete:
+            from .orchestrator import GateBlocked
+            raise GateBlocked(
+                json.dumps(
+                    {
+                        "stage": self.runtime.state(project_id).stage,
+                        "agent_work_orders_complete": False,
+                        "incomplete_work_orders": incomplete,
+                    },
+                    ensure_ascii=False,
+                )
+            )
+        return self.runtime.advance(project_id)
+
     def work_packet(self, project_id: str, task_id: str) -> dict[str, Any]:
         state = self.runtime.state(project_id)
         order = self._load_order(project_id, state.stage, task_id)
         if order.status != "READY":
             raise RuntimeError(f"Work order {task_id} is {order.status}, not READY")
-        artifacts = {
-            name: asdict(state.artifacts[name])
-            for name in order.inputs
-            if name in state.artifacts
-        }
+        artifacts = {name: asdict(state.artifacts[name]) for name in order.inputs if name in state.artifacts}
         packet: dict[str, Any] = {
             "project_id": project_id,
             "stage": state.stage,
@@ -336,11 +344,7 @@ class AgenticStudio:
         order.status = "COMPLETED"
         order.result = result or {}
         self._save_order(self._order_path(project_id, state.stage, task_id), order)
-        self.runtime.store.append_receipt(
-            project_id,
-            "WORK_ORDER_COMPLETED",
-            {"work_order": order.to_dict()},
-        )
+        self.runtime.store.append_receipt(project_id, "WORK_ORDER_COMPLETED", {"work_order": order.to_dict()})
         return order
 
     def submit_review(
@@ -366,9 +370,7 @@ class AgenticStudio:
         for name in order.inputs:
             artifact = state.artifacts.get(name)
             if artifact and artifact.metadata.get("produced_by_agent") == agent.agent_id:
-                raise ValueError(
-                    f"Self-review forbidden: {agent.agent_id} produced input artifact {name}"
-                )
+                raise ValueError(f"Self-review forbidden: {agent.agent_id} produced input artifact {name}")
         result = {
             "decision": decision,
             "notes": notes,
@@ -380,9 +382,7 @@ class AgenticStudio:
         }
         if order.approval_role:
             if agent.role != order.approval_role:
-                raise ValueError(
-                    f"Agent {agent.agent_id} role {agent.role!r} cannot sign {order.approval_role!r}"
-                )
+                raise ValueError(f"Agent {agent.agent_id} role {agent.role!r} cannot sign {order.approval_role!r}")
             self.runtime.sign(
                 project_id,
                 role=order.approval_role,
@@ -399,12 +399,7 @@ class AgenticStudio:
             self.runtime.store.append_receipt(
                 project_id,
                 "PANEL_REVIEW",
-                {
-                    "stage": state.stage,
-                    "agent_id": agent.agent_id,
-                    "blind": order.blind,
-                    "result": result,
-                },
+                {"stage": state.stage, "agent_id": agent.agent_id, "blind": order.blind, "result": result},
             )
         order.status = "COMPLETED"
         order.result = result
