@@ -54,11 +54,13 @@ def test_checkpoint_matches_manifest_and_preserves_rejected_v4_as_history():
     assert checkpoint["status"] == manifest["status"]
     assert checkpoint["resume"]["resume_epoch"] == manifest["resume_epoch"]
     assert checkpoint["resume"]["active_lease_id"] == manifest["active_lease"]["lease_id"]
-    assert checkpoint["stage_state"]["v4_release_status"] == "QUALITY_REJECTED_BY_USER"
+    assert checkpoint["stage_state"]["previous_release_candidate"] == "REJECTED_BY_USER_FOR_INSUFFICIENT_QUALITY"
+    assert checkpoint["stage_state"]["previous_release_gate_valid"] is False
     assert checkpoint["stage_state"]["performance_stage_entered"] is False
-    assert checkpoint["historical_artifacts"]["rejected_v4"]["sha256"] == (
+    assert checkpoint["authoritative_artifacts"]["rejected_candidate_v4"]["sha256"] == (
         "eec364e8530067dbc87a08a9ccbf2dd6e6e8a5ab32fb87f648c794a4000628eb"
     )
+    assert checkpoint["authoritative_artifacts"]["rejected_candidate_v4"]["status"] == "HISTORICAL_REJECTED_CANDIDATE"
 
 
 def test_task_index_exposes_metadata_only_recovery_pointer():
