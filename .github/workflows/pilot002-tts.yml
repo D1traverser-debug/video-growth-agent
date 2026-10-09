@@ -24,7 +24,7 @@ jobs:
       - name: Synthesize final Chinese scene set
         run: python tools/pilot002_tts.py
       - name: Install ASR QA stack
-        run: python -m pip install --disable-pip-version-check faster-whisper
+        run: python -m pip install --disable-pip-version-check faster-whisper scipy
       - name: Back-transcribe and compare Chinese speech
         run: python tools/pilot002_asr_qa.py
       - uses: actions/upload-artifact@v4
