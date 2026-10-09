@@ -36,6 +36,7 @@ Agents communicate through versioned artifacts, digests, work-order state and im
 - Project checkpoints, receipts, provenance and deterministic QA: `references/runtime.md`.
 - Visual, motion and audio craft: `references/quality-gates.md`.
 - Benchmark calibration / lookdev: `references/benchmark-policy.md`; mandatory before quality-critical visual stages.
+- External production intelligence distilled from tools/workflows/case studies: `references/production-intelligence.md`.
 - New capability gaps, tool failures or benchmark gaps: `references/self-learning.md`.
 
 Do not load every reference if the current work order needs only one subset.
@@ -53,6 +54,8 @@ Before RELEASE, the red team must state the three strongest reasons the video sh
 ## 7. Absolute creative-quality rule
 Quality-critical PASS is absolute, not relative to a prior internal version. LOOKDEV / VISUAL_PREVIEW / ROUGH_CUT require benchmark-anchored structured scorecards bound to the exact artifact digest. A reviewer may not PASS on future potential or deferred polish.
 
+A full build must not begin merely because the art direction is plausible. VISUAL_PREVIEW is a **near-final sample reel gate**, normally 3–12 seconds, testing the hardest/highest-risk production assumption with representative motion, typography and sound intent. If the sample fragment itself would not be acceptable to show publicly, the full build is blocked.
+
 ## 8. Real-render QA
 Never accept “the code ran” or “the agent says it reviewed the edit” as proof of quality.
 
@@ -61,11 +64,17 @@ For actual media, execute the real-render loop:
 
 Check stream duration and frame count independently from container duration. Check true peak after final audio encoding. Extract QA frames from the final export without seeking at exact EOF. Check subtitle/platform safe areas on the final export. Record the QA receipt; TECH_QA cannot advance on an unmeasured or failed candidate.
 
-## 9. Self-learning protocol
-When another creator/system can produce materially better work, do not attribute the gap to model name alone. Run:
-`DIAGNOSE → SEARCH → COMPARE → INSPECT SOURCE → PROTOTYPE → QA → ACCEPT/REJECT → PERSIST`.
+## 9. Autonomous self-learning protocol
+The studio, not the user, owns discovery of better methods. Do not wait for the user to feed tool names, examples or workflows when quality is below benchmark or the current capability ceiling is uncertain.
 
-Inspect real Skills, source, READMEs, workflows and failure reports where available. Compare at least two plausible approaches when a major bottleneck appears. Validate with a small prototype before adopting. Persist only methods that survive QA; persist rejection reasons too.
+Run:
+`DIAGNOSE → SCOUT → COMPARE → INSPECT SOURCE → DISTILL → PROTOTYPE → QA → ACCEPT/REJECT → PERSIST`.
+
+Scout official docs, first-party studio breakdowns, GitHub Skills/source/workflows/issues, credible creator breakdowns and community failure reports. User-provided examples are seeds, not a closed list.
+
+For each external method, extract the transferable mechanism rather than worshipping the vendor/model name. Compare at least two plausible approaches when a major bottleneck appears. Validate with the smallest representative sample before adoption. Route individual shots to the cheapest engine that can plausibly meet their hardest requirement; no single model or platform is assumed to own the whole film.
+
+Persist only methods that survive QA; persist rejection reasons too. See `references/self-learning.md` and `references/production-intelligence.md`.
 
 ## 10. Commercial-content rule
 Content must work before sponsorship is added:

@@ -93,7 +93,13 @@ def _force_visual_preview_state(rt, project_id: str, digest: str = "preview-dige
 
 
 def _quality_scores_for(role: str):
-    dims = {"creative_director":["benchmark_parity","distinctiveness","advertiser_showcase","overall_craft"],"art_director":["composition_hierarchy","material_light_depth","typography","visual_consistency"],"motion_director":["motion_craft","easing_stagger","camera_depth","motion_explains"],"director":["narrative_visual_arc","shot_scale_contrast","reveal_payoff","emotion_rhythm"],"retention_editor":["first_2s_stop","visual_reset_frequency","silent_comprehension","dead_zone_risk"]}[role]
+    dims = {
+        "creative_director": ["benchmark_parity", "distinctiveness", "advertiser_showcase", "overall_craft", "sample_final_fidelity", "picture_sound_cohesion"],
+        "art_director": ["composition_hierarchy", "material_light_depth", "typography", "visual_consistency"],
+        "motion_director": ["motion_craft", "easing_stagger", "camera_depth", "motion_explains", "physicality_or_spatial_coherence"],
+        "director": ["narrative_visual_arc", "shot_scale_contrast", "reveal_payoff", "emotion_rhythm", "sample_represents_final_language"],
+        "retention_editor": ["first_2s_stop", "visual_reset_frequency", "silent_comprehension", "dead_zone_risk"],
+    }[role]
     return {d: 4.5 for d in dims}
 
 

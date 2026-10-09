@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.4.0",
   "scale": {
     "1": "broken_or_placeholder",
     "2": "template_or_demo_quality",
@@ -7,21 +7,7 @@
     "4": "publishable_and_close_to_reference_with_only_minor_gaps",
     "5": "reference_level_or_better"
   },
-  "deferred_pass_phrases": [
-    "后续",
-    "后面再",
-    "正式阶段",
-    "正式资产阶段",
-    "继续强化",
-    "可通过",
-    "可以再",
-    "之后再",
-    "later",
-    "will improve",
-    "can be improved",
-    "in the final",
-    "formal build"
-  ],
+  "deferred_pass_phrases": ["后续", "后面再", "正式阶段", "正式资产阶段", "继续强化", "可通过", "可以再", "之后再", "later", "will improve", "can be improved", "in the final", "formal build"],
   "stages": {
     "LOOKDEV": {
       "target_artifact": "hero_frames",
@@ -50,9 +36,18 @@
       "require_target_digest": true,
       "forbid_deferred_pass": true,
       "required_evidence_min": 2,
+      "prototype_contract": {
+        "duration_seconds_min": 3,
+        "duration_seconds_target": "5-12",
+        "near_final_visual_fidelity": true,
+        "representative_motion": true,
+        "representative_sound_or_intentional_silence": true,
+        "must_test_highest_risk_assumption": true,
+        "full_build_forbidden_before_pass": true
+      },
       "roles": {
         "creative_director": {
-          "dimensions": ["benchmark_parity", "distinctiveness", "advertiser_showcase", "overall_craft"],
+          "dimensions": ["benchmark_parity", "distinctiveness", "advertiser_showcase", "overall_craft", "sample_final_fidelity", "picture_sound_cohesion"],
           "min_each": 4.0,
           "min_average": 4.25
         },
@@ -62,12 +57,12 @@
           "min_average": 4.0
         },
         "motion_director": {
-          "dimensions": ["motion_craft", "easing_stagger", "camera_depth", "motion_explains"],
+          "dimensions": ["motion_craft", "easing_stagger", "camera_depth", "motion_explains", "physicality_or_spatial_coherence"],
           "min_each": 4.0,
           "min_average": 4.0
         },
         "director": {
-          "dimensions": ["narrative_visual_arc", "shot_scale_contrast", "reveal_payoff", "emotion_rhythm"],
+          "dimensions": ["narrative_visual_arc", "shot_scale_contrast", "reveal_payoff", "emotion_rhythm", "sample_represents_final_language"],
           "min_each": 4.0,
           "min_average": 4.0
         },
