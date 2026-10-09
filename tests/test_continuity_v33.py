@@ -32,16 +32,16 @@ def test_task_manifest_is_resumable_user_task_with_stable_identity():
     assert manifest["task_class"] == "USER"
     assert manifest["domain"] == "VIDEO_GROWTH"
     assert manifest["recovery_owner"] == "VIDEO_GROWTH_AGENT"
-    assert manifest["contract_version"] == "3.3"
+    assert manifest["contract_version"] == "3.5"
     assert manifest["status"] in {"ACTIVE", "WAITING", "BLOCKED"}
     assert manifest["resume_eligible"] is True
     assert manifest["resume_visibility"] == "DEFAULT"
     assert manifest["checkpoint_ref"] == "continuity/tasks/video-growth-main/CHECKPOINT.json"
     assert manifest["resume_epoch"] >= 1
     assert manifest["active_lease"]["lease_id"]
-    assert manifest["current_stage"] == "LOOKDEV"
-    assert "rejected" in manifest["next_action"].lower()
-    assert "distill" in manifest["next_action"].lower()
+    assert manifest["current_stage"] == "VISUAL_PREVIEW_PROCESS_REENTRY"
+    assert "VISUAL_PREVIEW" in manifest["next_action"]
+    assert "receipt" in manifest["next_action"].lower()
 
 
 def test_checkpoint_matches_manifest_and_preserves_rejected_v4_as_history():
@@ -57,6 +57,8 @@ def test_checkpoint_matches_manifest_and_preserves_rejected_v4_as_history():
     assert checkpoint["stage_state"]["previous_release_candidate"] == "REJECTED_BY_USER_FOR_INSUFFICIENT_QUALITY"
     assert checkpoint["stage_state"]["previous_release_gate_valid"] is False
     assert checkpoint["stage_state"]["performance_stage_entered"] is False
+    assert checkpoint["stage_state"]["sample_v2_status"] == "PROCESS_INVALID_AND_VISUAL_FAIL"
+    assert checkpoint["stage_state"]["sample_v2_required_role_receipts_found"] is False
     assert checkpoint["authoritative_artifacts"]["rejected_candidate_v4"]["sha256"] == (
         "eec364e8530067dbc87a08a9ccbf2dd6e6e8a5ab32fb87f648c794a4000628eb"
     )
@@ -70,4 +72,4 @@ def test_task_index_exposes_metadata_only_recovery_pointer():
     assert "TASK_MANIFEST.json" in text
     assert "CHECKPOINT.json" in text
     assert "ACTIVE" in text
-    assert "LOOKDEV" in text
+    assert "VISUAL_PREVIEW_PROCESS_REENTRY" in text

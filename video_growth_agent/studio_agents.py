@@ -367,10 +367,13 @@ class AgenticStudio:
         if order.executor != "agent" or order.task_type not in {"review", "meta_review"}:
             raise ValueError("Work order is not an agent review")
         agent = self.agents.get(order.agent_id or "")
+        input_digests: dict[str, str | None] = {}
         for name in order.inputs:
             artifact = state.artifacts.get(name)
-            if artifact and artifact.metadata.get("produced_by_agent") == agent.agent_id:
-                raise ValueError(f"Self-review forbidden: {agent.agent_id} produced input artifact {name}")
+            if artifact:
+                input_digests[name] = artifact.digest
+                if artifact.metadata.get("produced_by_agent") == agent.agent_id:
+                    raise ValueError(f"Self-review forbidden: {agent.agent_id} produced input artifact {name}")
         result = {
             "decision": decision,
             "notes": notes,
@@ -379,6 +382,7 @@ class AgenticStudio:
             "scorecard": scorecard or {},
             "benchmark_refs": list(benchmark_refs),
             "target_digest": target_digest,
+            "input_digests": input_digests,
         }
         if order.approval_role:
             if agent.role != order.approval_role:
@@ -404,6 +408,20 @@ class AgenticStudio:
         order.status = "COMPLETED"
         order.result = result
         self._save_order(self._order_path(project_id, state.stage, task_id), order)
+        self.runtime.store.append_receipt(
+            project_id,
+            "WORK_ORDER_REVIEW_COMPLETED",
+            {
+                "work_order_id": order.work_order_id,
+                "stage": state.stage,
+                "task_id": order.task_id,
+                "agent_id": agent.agent_id,
+                "approval_role": order.approval_role,
+                "blind": order.blind,
+                "input_digests": input_digests,
+                "result": result,
+            },
+        )
         return order
 
     def fail_work(self, project_id: str, task_id: str, reason: str) -> WorkOrder:

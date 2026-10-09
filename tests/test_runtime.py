@@ -103,11 +103,15 @@ def _quality_scores_for(role: str):
     return {d: 4.5 for d in dims}
 
 
-def test_visual_quality_gate_requires_blind_digest_benchmarks_and_scores(tmp_path):
+def test_visual_quality_scorecard_can_pass_but_process_gate_still_requires_work_orders(tmp_path):
     rt = runtime(tmp_path); rt.create_project("visual"); _force_visual_preview_state(rt, "visual"); roles = ["creative_director","art_director","motion_director","director","retention_editor"]
     for role in roles:
         rt.sign("visual", role, "PASS", notes="current rendered artifact meets the bar", evidence=("file://preview.mp4","file://contact.jpg"), findings=("current pixels inspected",), scorecard=_quality_scores_for(role), benchmark_refs=("ref://format","ref://craft","ref://explanation"), target_digest="preview-digest", blind_review=True)
-    assert rt.gate_report("visual")["pass"]
+    state = rt.state("visual")
+    assert rt.machine_guard_report(state)["pass"] is True
+    report = rt.gate_report("visual")
+    assert report["pass"] is False
+    assert "process_work_order_missing:preview_build" in report["process_failures"]
 
 
 def test_visual_quality_gate_rejects_deferred_potential_pass(tmp_path):
