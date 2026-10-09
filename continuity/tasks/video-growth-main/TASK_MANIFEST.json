@@ -8,16 +8,16 @@
   "resume_eligible": true,
   "resume_visibility": "DEFAULT",
   "recovery_owner": "VIDEO_GROWTH_AGENT",
-  "updated_at": "2026-10-09T16:23:00Z",
+  "updated_at": "2026-10-09T16:31:00Z",
   "created_at": "2026-10-08T00:00:00Z",
   "manifest_ref": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
-  "manifest_version": 9,
+  "manifest_version": 10,
   "checkpoint_ref": "continuity/tasks/video-growth-main/CHECKPOINT.json",
   "contract_version": "3.5",
   "skill_version": "skills/video-growth-agent/SKILL.md@ba7d4f612ee1f7f9f87402215c40954b6bd104a1",
   "runtime_version": "0.4.0",
   "current_stage": "VISUAL_PREVIEW_PROCESS_REENTRY",
-  "next_action": "Treat the completed 4-second MiniMax H3 transition as an unjudged candidate until actual media pixels can be consumed by QA; do not infer quality from the model name or prompt. Continue VISUAL_PREVIEW process re-entry by integrating a real isolated multimodal reviewer executor and persisting the required blind reviewer receipt bundle bound to exact artifact digests. Use quality-gated cost-aware shot routing: cheap/free engines may explore only after capability and quality thresholds are met, while premium H3/Seedance capacity is reserved for high-risk or hero seconds. Do not rebuild the 59.5-second film and do not declare VISUAL_PREVIEW PASS until both process validity and all hard quality dimensions pass.",
+  "next_action": "Treat the completed 4-second MiniMax H3 transition as an unjudged candidate until actual media pixels can be consumed by QA; do not infer quality from the model name or prompt. Continue VISUAL_PREVIEW process re-entry by integrating a real isolated multimodal reviewer executor and persisting the required blind reviewer receipt bundle bound to exact artifact digests. Apply the merged quality-gated cost-aware shot router: cheap/free engines may explore only after capability and quality thresholds are met, while premium H3/Seedance capacity is reserved for high-risk or hero seconds. Do not rebuild the 59.5-second film and do not declare VISUAL_PREVIEW PASS until both process validity and all hard quality dimensions pass.",
   "resume_epoch": 2,
   "active_lease": {
     "lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
@@ -35,6 +35,7 @@
     {"type":"github","ref":"skills/video-growth-agent/references/agent-studio.md","role":"hardened_review_receipt_and_anti_bypass_contract"},
     {"type":"github","ref":"skills/video-growth-agent/references/reviewer-execution-attestation.md","role":"trusted_isolated_reviewer_execution_contract"},
     {"type":"github","ref":"D1traverser-debug/video-growth-agent@e1bde266b249b841f54a125ea4b01f5d9ae8dcba","role":"reviewer_attestation_hardening_main_commit"},
+    {"type":"github","ref":"D1traverser-debug/video-growth-agent@90102abc7975b0690ddacd093b7a8822cfc347e2","role":"quality_gated_cost_aware_shot_routing_main_commit"},
     {"type":"github","ref":"projects/pilot-002/LEARNING_PASS_2026-10-09.md","role":"distilled_new_production_control_methods"},
     {"type":"github","ref":"projects/pilot-002/QUALITY_REBASE.md","role":"quality_rebase"},
     {"type":"github","ref":"projects/pilot-002/BENCHMARK_REBASE.md","role":"moving_benchmark_pack"},
@@ -47,12 +48,12 @@
     "Sample V2 is PROCESS_INVALID because required VISUAL_PREVIEW reviewer receipts are missing.",
     "Production trusted reviewer executors intentionally remain empty; no current connected tool has yet been integrated as a verifiably isolated multimodal reviewer adapter with provider/model/run/context/trace attestation. Do not fake independence by changing hats inside one monolithic reasoning stream.",
     "The 4-second MiniMax H3 generation completed, but the current chat QA surface has not exposed the generated video or extracted JPEG pixels as model-readable media; quality remains NOT_JUDGED rather than inferred from generation success.",
-    "Connected vidIQ MiniMax H3 is a scarce route: the first 4-second experiment consumed 60 credits from a 150-credit renewable pool. Do not use it as the default whole-film engine."
+    "Connected vidIQ MiniMax H3 is a scarce route. Current balance is 93 total credits: 73/150 renewable plus 20 add-on; renewable credits reset 2026-11-08T09:51:26.335562Z. Do not use it as the default whole-film engine."
   ],
   "compatibility": {
     "result": "COMPATIBLE",
     "checked_against": "Universal Continuity v3.5",
-    "compatibility_note": "Task state remains compatible. Reviewer-attestation hardening is merged and fail-closed. H3 generation completed but awaits media-readable QA; generation economics are now governed by quality-gated shot routing rather than whole-film premium generation.",
-    "verified_at": "2026-10-09T16:23:00Z"
+    "compatibility_note": "Task state remains compatible. Reviewer-attestation hardening and quality-gated cost-aware shot routing are merged and fail-closed. H3 generation completed but awaits media-readable QA; scarce premium capacity is reserved for high-risk or hero seconds.",
+    "verified_at": "2026-10-09T16:31:00Z"
   }
 }
