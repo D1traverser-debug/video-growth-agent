@@ -1,4 +1,5 @@
 from pathlib import Path
+
 import pytest
 
 from video_growth_agent import Approval, ArtifactRecord, AssetRecord, GateBlocked, ProjectStore, StudioRuntime
@@ -14,7 +15,7 @@ def test_project_checkpoint_roundtrip_and_receipts(tmp_path):
     receipt = rt.sign("pilot-x", "showrunner", "PASS", "brief is viable", ("file://brief.md",))
     assert (tmp_path / "projects" / "pilot-x" / receipt).exists(); assert rt.advance("pilot-x") == "POSITIONING"
     loaded = rt.state("pilot-x"); assert loaded.approvals["INTAKE"]["showrunner"].decision == "PASS"
-    events = (tmp_path / "projects" / "pilot-x" / "events.jsonl").read_text(encoding="utf-8").strip().splitlines(); assert len(events) >= 4
+    assert len((tmp_path / "projects" / "pilot-x" / "events.jsonl").read_text(encoding="utf-8").strip().splitlines()) >= 4
 
 
 def test_changed_upstream_artifact_invalidates_downstream(tmp_path):
@@ -34,12 +35,18 @@ def test_current_prompts_are_stage_scoped(tmp_path):
     assert set(prompts) == {"showrunner"}; assert "Protect the account" in prompts["showrunner"]
 
 
-def _force_release_state(rt, project_id: str):
+def _record_fake_qa_receipt(rt, project_id: str, media_uri: str, hard_pass: bool):
+    from video_growth_agent import QACheck, QAReport
+    status = "PASS" if hard_pass else "FAIL"
+    return rt.record_qa(project_id, QAReport(media_uri=media_uri, checks=(QACheck("synthetic", status, "test"),)))
+
+
+def _force_release_state(rt, project_id: str, qa_media_uri: str = "file://final.mp4"):
     state = rt.state(project_id); state.stage = "RELEASE"
     state.artifacts["final_media"] = ArtifactRecord("final_media", "file://final.mp4", "RELEASE", kind="media")
     state.artifacts["publish_pack"] = ArtifactRecord("publish_pack", "file://publish.md", "RELEASE")
-    state.artifacts["technical_qa"] = ArtifactRecord("technical_qa", "receipts/qa.json", "TECH_QA", kind="qa_report", metadata={"hard_pass": True})
-    rt.store.save(state)
+    rt.store.save(state); _record_fake_qa_receipt(rt, project_id, qa_media_uri, True)
+    state = rt.state(project_id); state.stage = "RELEASE"; rt.store.save(state)
 
 
 def test_release_machine_guard_blocks_unknown_rights(tmp_path):
@@ -53,7 +60,22 @@ def test_release_machine_guard_blocks_unknown_rights(tmp_path):
 def test_tech_qa_machine_guard_requires_hard_pass_receipt(tmp_path):
     rt = runtime(tmp_path); rt.create_project("p"); state = rt.state("p"); state.stage = "TECH_QA"
     state.artifacts["final_candidate"] = ArtifactRecord("final_candidate", "file://candidate.mp4", "TECH_QA", kind="media")
-    state.artifacts["technical_qa"] = ArtifactRecord("technical_qa", "receipts/qa.json", "TECH_QA", kind="qa_report", metadata={"hard_pass": False})
     state.approvals["TECH_QA"] = {"technical_director": Approval("technical_director", "PASS")}; rt.store.save(state)
+    _record_fake_qa_receipt(rt, "p", "file://candidate.mp4", False); state = rt.state("p"); state.stage = "TECH_QA"; rt.store.save(state)
     assert rt.gate_report("p")["machine_failures"] == ["latest_media_qa_hard_pass"]
     with pytest.raises(GateBlocked): rt.advance("p")
+
+
+def test_release_requires_qa_of_actual_final_media_not_old_candidate(tmp_path):
+    rt = runtime(tmp_path); rt.create_project("p"); _force_release_state(rt, "p", qa_media_uri="file://candidate-before-transcode.mp4")
+    state = rt.state("p"); state.approvals["RELEASE"] = {"showrunner": Approval("showrunner", "PASS")}; rt.store.save(state)
+    report = rt.gate_report("p"); assert "latest_media_qa_target_mismatch:final_media" in report["machine_failures"]
+    with pytest.raises(GateBlocked): rt.advance("p")
+
+
+def test_manual_technical_qa_artifact_cannot_forge_machine_pass(tmp_path):
+    rt = runtime(tmp_path); rt.create_project("p"); state = rt.state("p"); state.stage = "TECH_QA"
+    state.artifacts["final_candidate"] = ArtifactRecord("final_candidate", "file://candidate.mp4", "TECH_QA", kind="media")
+    state.artifacts["technical_qa"] = ArtifactRecord("technical_qa", "fake.json", "TECH_QA", kind="qa_report", metadata={"hard_pass": True})
+    state.approvals["TECH_QA"] = {"technical_director": Approval("technical_director", "PASS")}; rt.store.save(state)
+    assert rt.gate_report("p")["machine_failures"] == ["latest_media_qa_hard_pass"]

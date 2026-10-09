@@ -60,9 +60,13 @@ class StudioRuntime:
         failures: list[str] = []
         for guard in guards:
             if guard == "latest_media_qa_hard_pass":
-                qa = state.artifacts.get("technical_qa")
-                if qa is None or qa.metadata.get("hard_pass") is not True:
+                qa_payload = self._latest_qa_payload(state)
+                target_name = "final_media" if state.stage == "RELEASE" else "final_candidate"
+                target = state.artifacts.get(target_name)
+                if qa_payload is None or qa_payload.get("hard_pass") is not True:
                     failures.append("latest_media_qa_hard_pass")
+                elif target is None or qa_payload.get("media_uri") != target.uri:
+                    failures.append(f"latest_media_qa_target_mismatch:{target_name}")
             elif guard == "no_unknown_final_rights":
                 unknown = [asset.asset_id for asset in state.assets.values() if asset.used_in_final and asset.rights_status == "UNKNOWN"]
                 if unknown:
@@ -70,6 +74,23 @@ class StudioRuntime:
             else:
                 failures.append("unknown_machine_guard:" + guard)
         return {"stage": state.stage, "guards": guards, "failures": failures, "pass": not failures}
+
+    def _latest_qa_payload(self, state: ProjectState) -> dict[str, Any] | None:
+        if not state.qa_receipts:
+            return None
+        rel = state.qa_receipts[-1]
+        path = self.store.project_dir(state.project_id) / rel
+        if not path.exists():
+            return None
+        try:
+            import json
+            receipt = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            return None
+        if receipt.get("event") != "MEDIA_QA":
+            return None
+        payload = receipt.get("payload")
+        return payload if isinstance(payload, dict) else None
 
     def invalidate_from(self, project_id: str, stage: str, reason: str) -> None:
         state = self.state(project_id)
