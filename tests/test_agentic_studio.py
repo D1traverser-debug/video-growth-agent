@@ -1,6 +1,6 @@
 import pytest
 
-from video_growth_agent import ArtifactRecord, ProjectStore, StudioRuntime
+from video_growth_agent import ArtifactRecord, GateBlocked, ProjectStore, StudioRuntime
 from video_growth_agent.studio_agents import AgentRegistry, AgenticStudio, ExecutionPlanner
 
 
@@ -36,10 +36,12 @@ def test_agent_registry_is_isolated_and_single_voice():
 def test_execution_plan_valid_and_tools_are_not_agents():
     planner = ExecutionPlanner()
     assert planner.validate() == []
+    assert set(planner.config["stages"]) == set(planner.orchestrator.index)
     qa = planner.stage("TECH_QA")["tasks"][0]
     assert qa["executor"] == "tool"
     assert qa["tool"] == "ffmpeg_ffprobe"
     assert qa.get("agent") is None
+    assert any(t["id"] == "final_conform" for t in planner.stage("SOUND")["tasks"])
 
 
 def test_lookdev_separates_builder_from_approvers():
@@ -129,8 +131,21 @@ def test_panel_reviews_are_hidden_until_meta_review(tmp_path):
 
 def test_only_declared_agent_can_sign_assigned_role(tmp_path):
     studio = make_studio(tmp_path)
-    planner = studio.planner
-    for _, spec in planner.config["stages"].items():
+    for _, spec in studio.planner.config["stages"].items():
         for task in spec["tasks"]:
             if task.get("approval_role") and task["executor"] == "agent":
                 assert studio.agents.get(task["agent"]).role == task["approval_role"]
+
+
+def test_agentic_advance_blocks_incomplete_work_orders(tmp_path):
+    studio = make_studio(tmp_path)
+    studio.dispatch_stage("p1")
+    with pytest.raises(GateBlocked, match="incomplete_work_orders"):
+        studio.advance("p1")
+
+    studio.complete_work(
+        "p1",
+        "intake",
+        outputs={"brief": {"uri": "/tmp/brief.md", "digest": "brief1"}},
+    )
+    assert studio.advance("p1") == "POSITIONING"
