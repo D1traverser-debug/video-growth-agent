@@ -1,18 +1,12 @@
 {
-  "checkpoint_version": 8,
+  "checkpoint_version": 9,
   "task_id": "video-growth:main",
   "display_name_zh": "AI视频涨粉与商业化",
   "task_class": "USER",
   "domain": "VIDEO_GROWTH",
   "recovery_owner": "VIDEO_GROWTH_AGENT",
   "contract_version": "3.5",
-  "skill_version": "skills/video-growth-agent/SKILL.md@ba7d4f612ee1f7f9f87402215c40954b6bd104a1",
   "runtime_version": "0.4.0",
-  "compatibility": {
-    "result": "COMPATIBLE",
-    "checked_against": "Universal Continuity v3.5",
-    "verified_at": "2026-10-09T16:23:00Z"
-  },
   "status": "ACTIVE",
   "current_stage": "VISUAL_PREVIEW_PROCESS_REENTRY",
   "stage_state": {
@@ -20,11 +14,9 @@
     "previous_release_gate_valid": false,
     "publication_status": "NOT_PUBLISHED",
     "performance_stage_entered": false,
-    "moving_benchmark_rebase": "READY_BUT_CINEMATIC_LANE_INCOMPLETE",
     "full_build_frozen_until_sample_pass": true,
+    "moving_benchmark_rebase": "READY_BUT_CINEMATIC_LANE_INCOMPLETE",
     "sample_v2_status": "PROCESS_INVALID_AND_VISUAL_FAIL",
-    "sample_v2_duration_seconds": 10.233333,
-    "sample_v2_format": "1080x1920_30fps",
     "sample_v2_required_role_receipts_found": false,
     "sample_v2_missing_required_reviewers": [
       "creative_director",
@@ -33,48 +25,42 @@
       "director",
       "retention_editor"
     ],
-    "sample_v2_hard_fail_dimensions_from_aggregate_diagnostic": [
-      "FIRST_2S_STOP_POWER",
-      "MATERIAL_ASSET_RICHNESS",
-      "MEMORABLE_HERO_MOMENT"
-    ],
-    "process_failure_root_cause": "Sample V2 bypassed the configured AgenticStudio VISUAL_PREVIEW work-order runtime, so one aggregate QA was incorrectly treated as if it represented independent specialist review.",
-    "reviewer_process_hardening_main_commit": "e1bde266b249b841f54a125ea4b01f5d9ae8dcba",
-    "reviewer_process_hardening_main_ci": "PASS",
-    "reviewer_process_hardening_effect": "Manual role signatures and bookkeeping-only receipts can no longer satisfy quality-critical process proof. Reviewer execution attestations must bind stage/work-order/agent/prompt/input/result/provider/model/run/context/trace identities; production trusted executors default empty and blind-wave identities must be unique.",
     "production_trusted_reviewer_executors": "EMPTY_FAIL_CLOSED",
+    "reviewer_process_hardening_main_commit": "e1bde266b249b841f54a125ea4b01f5d9ae8dcba",
     "generation_route": "VIDIQ_CONNECTED_BUT_SCARCE",
     "generation_models_available": ["MiniMax H3", "Seedance 2", "Seedance 2 Fast"],
-    "sample_v2_vidiq_upload_id": "9c5c8897-5f9e-4ece-8b8e-24c340617c7a",
+    "vidiq_credit_state": {
+      "total_credits": 93,
+      "renewable_credits": 73,
+      "max_renewable_credits": 150,
+      "addon_credits": 20,
+      "max_addon_credits": 20,
+      "renewable_resets_at": "2026-11-08T09:51:26.335562Z"
+    },
     "h3_transition_experiment": {
       "status": "COMPLETED_MEDIA_QA_NOT_JUDGED",
       "job_id": "job_15eed248-dfaf-4353-a9a5-16979c30cc49",
-      "project_id": "e14cb71b-2f69-46fd-a10a-f9e9ff9b7fc3",
       "model": "MiniMax H3",
       "duration_seconds": 4,
       "resolution": "768p",
-      "vidiq_credits_before": 138,
-      "vidiq_credits_after_generation": 78,
       "vidiq_generation_credits_consumed": 60,
-      "purpose": "Minimum-cost test of whether the highest-risk Sample V2 transition can gain materially better cinematic material, spatial depth, causality and hero-frame quality without rebuilding the full film.",
-      "qa_state": "Three representative JPEG extraction jobs completed at 0.5s, 2.0s and 3.5s, but the current model execution surface received only signed URLs rather than model-readable pixels. Do not infer visual quality from model identity, prompt or extraction success.",
+      "qa_state": "Three representative JPEG extraction jobs completed, and a private Descript bridge import/publish succeeded, but current tool paths still have not exposed model-readable video or image pixels. Generation success is not visual PASS.",
+      "descript_qa_bridge_project_id": "d2ebddfe-17c4-4058-9aee-a93fe4b03f59",
       "duplicate_submit_forbidden": true
     },
     "cost_routing_policy": {
-      "status": "PR_IN_VALIDATION",
-      "pr": "D1traverser-debug/video-growth-agent#10",
-      "branch": "hardening/cost-aware-shot-routing",
-      "principle": "Quality threshold and capability eligibility are mandatory. Exploration then minimizes cost; production high-risk/hero shots maximize measured quality first and use cost only as a tie-break. Premium scarce pools are protected by risk gating and configurable reserves.",
-      "current_route_intent": "Prefer free/deterministic layers for text, data, captions, timing and compositing; evaluate low-cost Wan-class routes for exploration/non-hero shots; reserve H3/Seedance-class generation for seconds that require premium cinematic material and survive QA."
-    },
-    "reason": "Sample V2 remains useful only as timing/spatial previs. The H3 replacement candidate exists but has not been visually judged by the model because plugin media pixels are not readable in the current QA surface. Formal reviewer process also remains fail-closed. No full-film rebuild is authorized."
+      "status": "MERGED_MAIN",
+      "main_commit": "90102abc7975b0690ddacd093b7a8822cfc347e2",
+      "ci": "PASS",
+      "principle": "Capability and quality thresholds are mandatory. Exploration minimizes cost only after they pass; production high-risk or hero shots maximize measured quality first. Premium scarce pools are protected by reserves."
+    }
   },
-  "next_action": "Keep VISUAL_PREVIEW fail-closed. Obtain model-readable pixels or real-media playback for the completed H3 candidate and judge it against Sample V2/benchmarks; do not treat generation success as visual PASS. Complete and merge the quality-gated cost-aware shot router only after CI passes. Integrate a real isolated multimodal reviewer executor and persist the required blind reviewer receipt bundle bound to exact artifact digests. Then build the shot repair matrix, complete the feature-film cinematography/editing benchmark lane, and create Sample V3 through shot-level routing. Do not rebuild the 59.5-second film until both process validity and every hard VISUAL_PREVIEW quality dimension pass.",
+  "next_action": "Keep VISUAL_PREVIEW fail-closed. Obtain model-readable pixels or real-media playback for the completed H3 candidate and judge it against Sample V2 and the benchmark pack. Integrate a genuinely isolated multimodal reviewer executor and persist the required blind reviewer receipt bundle bound to exact artifact digests. Build the shot repair matrix, complete the feature-film cinematography/editing benchmark lane, and create Sample V3 through the merged quality-gated cost-aware shot router. Prefer free or low-cost routes only when they clear the quality floor; reserve scarce H3/Seedance capacity for high-risk or hero seconds. Do not rebuild the 59.5-second film until process validity and every hard VISUAL_PREVIEW quality dimension pass.",
   "blockers": [
     "Sample V2 lacks required independent VISUAL_PREVIEW reviewer receipts and is PROCESS_INVALID.",
-    "Production trusted reviewer executors are intentionally empty until a real isolated multimodal reviewer adapter is integrated and verified; changing role labels inside one context is invalid.",
-    "H3 candidate media and three extracted JPEGs exist, but current plugin/file/browser paths have not exposed their pixels to the model for actual visual QA.",
-    "Connected vidIQ H3 is too scarce for default production: the first 4-second generation consumed 60 of a 150-credit renewable pool."
+    "Production trusted reviewer executors remain empty until a real isolated multimodal reviewer adapter is integrated and verified.",
+    "The completed H3 candidate and extracted JPEGs have not yet been exposed as model-readable pixels for actual visual QA.",
+    "vidIQ H3 is too scarce for default production: current balance is 93 total credits, including 73/150 renewable and 20 add-on."
   ],
   "authoritative_artifacts": {
     "rejected_candidate_v4": {
@@ -85,90 +71,28 @@
     "sample_v2": {
       "library_path": "/Video Growth Agent/Pilot 002/Sample V2/Pilot002_Sample_V2.mp4",
       "status": "PROCESS_INVALID_AND_VISUAL_FAIL_PREVIS_ONLY",
-      "qa_ref": "/Video Growth Agent/Pilot 002/Sample V2/QA.md",
-      "contact_sheet": "/Video Growth Agent/Pilot 002/Sample V2/Pilot002_Sample_V2_contact.jpg",
       "github_record": "projects/pilot-002/SAMPLE_V2.md"
     },
     "reviewer_execution_attestation_contract": "skills/video-growth-agent/references/reviewer-execution-attestation.md",
-    "reviewer_process_hardening_commit": "D1traverser-debug/video-growth-agent@e1bde266b249b841f54a125ea4b01f5d9ae8dcba",
-    "cost_aware_routing_pr": "D1traverser-debug/video-growth-agent#10",
+    "cost_aware_routing_main_commit": "90102abc7975b0690ddacd093b7a8822cfc347e2",
     "process_failure_audit": "projects/pilot-002/PROCESS_FAILURE_AUDIT_2026-10-09.md",
     "quality_rebase": "projects/pilot-002/QUALITY_REBASE.md",
     "moving_benchmark_pack": "projects/pilot-002/BENCHMARK_REBASE.md",
-    "v4_failure_audit": "projects/pilot-002/V4_FAILURE_AUDIT.md",
-    "learning_pass_2026_10_09": "projects/pilot-002/LEARNING_PASS_2026-10-09.md",
-    "production_intelligence": "skills/video-growth-agent/references/production-intelligence.md",
-    "benchmark_policy": "skills/video-growth-agent/references/benchmark-policy.md",
-    "agent_studio_contract": "skills/video-growth-agent/references/agent-studio.md",
-    "github_authority": "D1traverser-debug/video-growth-agent@main"
-  },
-  "learning_pass": {
-    "sources_distilled": [
-      "Seedance 2.0 official launch and multimodal reference controls",
-      "MiniMax H3 official FL2VA/Ref2VA modes and current pay-as-you-go pricing",
-      "ComfyUI + MiniMax H3 production orchestrator workflows",
-      "DramaClaw",
-      "Utopai PAI / PAI-Pro",
-      "Tencent WorkRally",
-      "Pippit Nest",
-      "Vibemotion",
-      "Claude Opus 5.5 deterministic HTML/Playwright/FFmpeg workflows",
-      "Narrator AI CLI Skill",
-      "OpenAI agent eval / tracing / guardrail guidance",
-      "Anthropic agent evaluation guidance",
-      "Self-Refine iterative feedback",
-      "Reflexion failure-memory loop",
-      "American Cinematographer feature-film production/cinematography references",
-      "vidIQ native MiniMax H3 / Seedance 2.x generation and video-reference routing",
-      "Wan 2.2 low-cost hosted exploration routes on fal and Replicate"
-    ],
-    "accepted_candidate_methods": [
-      "shot-as-durable-object",
-      "exploration-lane-vs-production-lane",
-      "asset-first-reference-locking",
-      "first-last-state-control",
-      "multimodal-reference-role-binding",
-      "shot-to-engine-routing",
-      "quality-gated-cost-aware-routing",
-      "premium-capacity-reserve",
-      "deterministic-code-layer-for-precision-not-cinematic-material",
-      "shot-level-repair",
-      "accepted-seconds-economics",
-      "review-proof-receipt-bundle",
-      "anti-bypass-process-tripwire",
-      "trusted-isolated-reviewer-execution-attestation",
-      "failure-memory-reflection-loop",
-      "macro-project-control-plus-micro-shot-control"
-    ],
-    "validation_rule": "A method is not promoted because it sounds correct. It must change a work contract or experiment, survive a real artifact test, and leave durable accept/reject evidence."
+    "production_intelligence": "skills/video-growth-agent/references/production-intelligence.md"
   },
   "preserved_user_requirements": [
-    "Optimize for growth, IP/audience asset, advertiser invitations and sustainable commercialization rather than platform incentive payments.",
-    "Default to zero or very low incremental cost and no recurring filming requirement, while keeping final visual quality as the first priority.",
-    "Use free or low-cost production paths where they clear the quality threshold; escalate to premium engines only where the artifact requires them.",
-    "Primary commercial axis: AI applications/software/SaaS, 3C/smart hardware, technology business/frontier technology and adjacent sponsor pools.",
-    "Content must stand on its own before sponsor integration.",
-    "Final QA must consume the real rendered media; code success or agent self-report is not sufficient.",
-    "The studio must proactively scout superior works, tools, Skills, source and community workflows instead of waiting for the user to provide them.",
-    "Quality-critical full builds must be preceded by a representative near-final sample; a technical demo cannot authorize production.",
-    "Use GitHub video-growth-agent main as executable business authority; Notion/Library are recovery/evidence mirrors, not business-rule authority.",
-    "Every specialist role must actually execute its assigned loss function and leave evidence; role definitions alone do not count as execution.",
-    "The system must expose its own capability and governance failures instead of smoothing them over in aggregate self-review."
-  ],
-  "invalidated_or_historical_state": [
-    "Previous RELEASE READY / WOULD PUBLISH judgment for V4 is invalidated by explicit user quality rejection.",
-    "Pilot 002 old Visual Preview V2 and Release V3/V4 are historical rejected candidates only.",
-    "Sample V2 is a failed-but-useful timing/spatial previs and must not be mistaken for release authority.",
-    "The prior implication that Sample V2 had completed the configured multi-role VISUAL_PREVIEW review is invalidated; no required role-receipt bundle exists.",
-    "The prior blocker stating direct Seedance/H3 generation was unavailable is invalidated: connected vidIQ provides MiniMax H3 and Seedance 2.x generation routes.",
-    "The prior H3 IN_PROGRESS state is invalidated: generation completed, but visual quality remains NOT_JUDGED until actual pixels are consumed."
+    "Quality is the first priority; cost optimization may not lower the quality floor.",
+    "Prefer zero or low incremental cost and no recurring filming where quality permits.",
+    "Final QA must consume actual rendered media.",
+    "Every required specialist role must actually execute and leave durable evidence.",
+    "Use GitHub main as business execution authority and expose capability or governance failures rather than smoothing them over."
   ],
   "resume": {
     "entrypoint": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
     "checkpoint_ref": "continuity/tasks/video-growth-main/CHECKPOINT.json",
     "resume_epoch": 2,
-    "active_lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
-    "new_chat_rule": "Read the manifest, classify compatibility, increment resume_epoch, replace active_lease with compare-and-swap, re-read to verify the lease, then resume from this checkpoint's exact next_action."
+    "active_lease_id": "8e1bc149-5376-ad94-66c8bee07d94",
+    "new_chat_rule": "Read the manifest, classify compatibility, acquire the next single-writer lease by compare-and-swap, verify it, then resume from next_action."
   },
-  "updated_at": "2026-10-09T16:23:00Z"
+  "updated_at": "2026-10-09T16:31:00Z"
 }
