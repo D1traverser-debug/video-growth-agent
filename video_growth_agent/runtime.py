@@ -16,12 +16,14 @@ class StudioRuntime:
     """Executable authority for project checkpoints, sign-offs and evidence receipts."""
 
     REQUIRED_MEDIA_QA_CHECKS = {"video_stream", "stream_duration_match", "true_peak", "black_frames"}
+    PROCESS_ENFORCED_STAGES = {"LOOKDEV", "VISUAL_PREVIEW", "ROUGH_CUT", "RELEASE"}
 
     def __init__(self, store: ProjectStore | None = None, orchestrator: StudioOrchestrator | None = None, roles: RoleRegistry | None = None):
         self.store = store or ProjectStore()
         self.orchestrator = orchestrator or StudioOrchestrator()
         self.roles = roles or RoleRegistry()
         self.quality_rubric = json.loads(data_path("quality-rubric.json").read_text(encoding="utf-8"))
+        self.execution_plan = json.loads(data_path("execution-plan.json").read_text(encoding="utf-8"))
         errors = self.roles.validate_workflow()
         if errors:
             raise ValueError("Invalid role/workflow configuration: " + "; ".join(errors))
@@ -57,9 +59,22 @@ class StudioRuntime:
 
     def advance(self, project_id: str) -> str:
         state = self.state(project_id)
+        process = self.process_guard_report(state)
         machine = self.machine_guard_report(state)
-        if not machine["pass"]:
-            raise GateBlocked(__import__("json").dumps(machine, ensure_ascii=False))
+        if not process["pass"] or not machine["pass"]:
+            raise GateBlocked(
+                json.dumps(
+                    {
+                        "stage": state.stage,
+                        "process_guards": process["guards"],
+                        "process_failures": process["failures"],
+                        "machine_guards": machine["guards"],
+                        "machine_failures": machine["failures"],
+                        "pass": False,
+                    },
+                    ensure_ascii=False,
+                )
+            )
         before = state.stage
         after = self.orchestrator.advance(state)
         self.store.append_receipt(project_id, "STAGE_ADVANCED", {"from": before, "to": after})
@@ -71,6 +86,113 @@ class StudioRuntime:
         role_artifact = self.orchestrator.gate_report(state)
         machine = self.machine_guard_report(state)
         return {**role_artifact, "machine_guards": machine["guards"], "machine_failures": machine["failures"], "pass": role_artifact["pass"] and machine["pass"]}
+
+    def process_guard_report(self, state: ProjectState) -> dict[str, Any]:
+        """Require durable AgenticStudio proof before quality-critical stage advancement.
+
+        This intentionally lives below AgenticStudio.advance so a caller cannot bypass the
+        specialist execution contract by invoking StudioRuntime.advance directly.
+        """
+        stage = state.stage
+        if stage not in self.PROCESS_ENFORCED_STAGES:
+            return {"stage": stage, "guards": [], "failures": [], "pass": True}
+
+        stage_plan = self.execution_plan.get("stages", {}).get(stage)
+        if not isinstance(stage_plan, dict):
+            return {
+                "stage": stage,
+                "guards": ["agent_work_order_proof"],
+                "failures": [f"process_execution_plan_missing:{stage}"],
+                "pass": False,
+            }
+
+        failures: list[str] = []
+        guards = ["agent_work_order_proof", "review_input_digest_binding", "producer_output_provenance"]
+        stage_approvals = state.approvals.get(stage, {})
+        quality_spec = self.quality_rubric.get("stages", {}).get(stage)
+        quality_target_name = quality_spec.get("target_artifact") if isinstance(quality_spec, dict) else None
+        quality_target = state.artifacts.get(quality_target_name) if quality_target_name else None
+        quality_roles = set(quality_spec.get("roles", {})) if isinstance(quality_spec, dict) else set()
+
+        for task in stage_plan.get("tasks", []):
+            task_id = str(task.get("id", ""))
+            if not task_id:
+                failures.append("process_task_id_missing")
+                continue
+            path = self.store.project_dir(state.project_id) / "work_orders" / stage / f"{task_id}.json"
+            if not path.exists():
+                failures.append(f"process_work_order_missing:{task_id}")
+                continue
+            try:
+                order = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                failures.append(f"process_work_order_unreadable:{task_id}")
+                continue
+
+            expected_pairs = {
+                "project_id": state.project_id,
+                "stage": stage,
+                "task_id": task_id,
+                "executor": task.get("executor"),
+                "task_type": task.get("type"),
+                "agent_id": task.get("agent"),
+                "tool": task.get("tool"),
+                "approval_role": task.get("approval_role"),
+                "blind": bool(task.get("blind", False)),
+            }
+            for key, expected in expected_pairs.items():
+                actual = order.get(key)
+                if actual != expected:
+                    failures.append(f"process_work_order_contract_mismatch:{task_id}:{key}")
+            if order.get("status") != "COMPLETED":
+                failures.append(f"process_work_order_incomplete:{task_id}:{order.get('status')}")
+                continue
+
+            task_type = task.get("type")
+            work_order_id = order.get("work_order_id")
+            result = order.get("result") if isinstance(order.get("result"), dict) else {}
+
+            if task_type in {"produce", "measure"}:
+                for output_name in task.get("outputs", []):
+                    artifact = state.artifacts.get(output_name)
+                    if artifact is None:
+                        failures.append(f"process_output_missing:{task_id}:{output_name}")
+                        continue
+                    if artifact.metadata.get("work_order_id") != work_order_id:
+                        failures.append(f"process_output_provenance_mismatch:{task_id}:{output_name}")
+
+            if task_type in {"review", "meta_review"}:
+                input_digests = result.get("input_digests")
+                if not isinstance(input_digests, dict):
+                    failures.append(f"process_review_input_digests_missing:{task_id}")
+                    input_digests = {}
+                for input_name in task.get("inputs", []):
+                    artifact = state.artifacts.get(input_name)
+                    if artifact is None:
+                        failures.append(f"process_review_input_missing:{task_id}:{input_name}")
+                        continue
+                    if input_name not in input_digests:
+                        failures.append(f"process_review_input_digest_unbound:{task_id}:{input_name}")
+                    elif input_digests.get(input_name) != artifact.digest:
+                        failures.append(f"process_review_input_digest_mismatch:{task_id}:{input_name}")
+
+                approval_role = task.get("approval_role")
+                if approval_role:
+                    approval = stage_approvals.get(approval_role)
+                    if approval is None:
+                        failures.append(f"process_role_receipt_missing:{task_id}:{approval_role}")
+                    else:
+                        if approval.decision != result.get("decision"):
+                            failures.append(f"process_role_decision_mismatch:{task_id}:{approval_role}")
+                        if bool(task.get("blind", False)) and not approval.blind_review:
+                            failures.append(f"process_blind_receipt_missing:{task_id}:{approval_role}")
+                        if approval_role in quality_roles:
+                            if quality_target is None or not quality_target.digest:
+                                failures.append(f"process_quality_target_missing:{task_id}:{quality_target_name}")
+                            elif result.get("target_digest") != quality_target.digest or approval.target_digest != quality_target.digest:
+                                failures.append(f"process_quality_target_digest_mismatch:{task_id}:{approval_role}")
+
+        return {"stage": stage, "guards": guards, "failures": failures, "pass": not failures}
 
     def machine_guard_report(self, state: ProjectState) -> dict:
         guards = list(self.orchestrator.stage_spec(state.stage).get("machine_guards", []))
