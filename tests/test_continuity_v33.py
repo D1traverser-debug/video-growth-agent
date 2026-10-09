@@ -39,11 +39,12 @@ def test_task_manifest_is_resumable_user_task_with_stable_identity():
     assert manifest["checkpoint_ref"] == "continuity/tasks/video-growth-main/CHECKPOINT.json"
     assert manifest["resume_epoch"] >= 1
     assert manifest["active_lease"]["lease_id"]
-    assert manifest["current_stage"] == "RELEASE"
-    assert "publish" in manifest["next_action"].lower()
+    assert manifest["current_stage"] == "LOOKDEV"
+    assert "rejected" in manifest["next_action"].lower()
+    assert "distill" in manifest["next_action"].lower()
 
 
-def test_checkpoint_matches_manifest_and_does_not_fabricate_performance():
+def test_checkpoint_matches_manifest_and_preserves_rejected_v4_as_history():
     manifest = load_json(TASK_DIR / "TASK_MANIFEST.json")
     checkpoint = load_json(TASK_DIR / "CHECKPOINT.json")
     assert checkpoint["task_id"] == manifest["task_id"]
@@ -53,10 +54,9 @@ def test_checkpoint_matches_manifest_and_does_not_fabricate_performance():
     assert checkpoint["status"] == manifest["status"]
     assert checkpoint["resume"]["resume_epoch"] == manifest["resume_epoch"]
     assert checkpoint["resume"]["active_lease_id"] == manifest["active_lease"]["lease_id"]
-    assert checkpoint["stage_state"]["internal_release_gate"] == "PASS"
-    assert checkpoint["stage_state"]["publication_status"] == "NOT_PUBLISHED"
+    assert checkpoint["stage_state"]["v4_release_status"] == "QUALITY_REJECTED_BY_USER"
     assert checkpoint["stage_state"]["performance_stage_entered"] is False
-    assert checkpoint["authoritative_artifacts"]["final_media"]["sha256"] == (
+    assert checkpoint["historical_artifacts"]["rejected_v4"]["sha256"] == (
         "eec364e8530067dbc87a08a9ccbf2dd6e6e8a5ab32fb87f648c794a4000628eb"
     )
 
@@ -67,5 +67,5 @@ def test_task_index_exposes_metadata_only_recovery_pointer():
     assert "AI视频涨粉与商业化" in text
     assert "TASK_MANIFEST.json" in text
     assert "CHECKPOINT.json" in text
-    assert "WAITING" in text
-    assert "RELEASE" in text
+    assert "ACTIVE" in text
+    assert "LOOKDEV" in text
