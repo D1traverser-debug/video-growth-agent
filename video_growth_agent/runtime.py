@@ -12,6 +12,8 @@ from .storage import ProjectStore
 class StudioRuntime:
     """Executable authority for project checkpoints, sign-offs and evidence receipts."""
 
+    REQUIRED_MEDIA_QA_CHECKS = {"video_stream", "stream_duration_match", "true_peak", "black_frames"}
+
     def __init__(self, store: ProjectStore | None = None, orchestrator: StudioOrchestrator | None = None, roles: RoleRegistry | None = None):
         self.store = store or ProjectStore()
         self.orchestrator = orchestrator or StudioOrchestrator()
@@ -65,6 +67,8 @@ class StudioRuntime:
                 target = state.artifacts.get(target_name)
                 if qa_payload is None or qa_payload.get("hard_pass") is not True:
                     failures.append("latest_media_qa_hard_pass")
+                elif not self._qa_evidence_is_complete(qa_payload):
+                    failures.append("latest_media_qa_incomplete")
                 elif target is None or not self._qa_matches_artifact(qa_payload, target):
                     failures.append(f"latest_media_qa_target_mismatch:{target_name}")
             elif guard == "no_unknown_final_rights":
@@ -75,12 +79,23 @@ class StudioRuntime:
                 failures.append("unknown_machine_guard:" + guard)
         return {"stage": state.stage, "guards": guards, "failures": failures, "pass": not failures}
 
+    @classmethod
+    def _qa_evidence_is_complete(cls, qa_payload: dict[str, Any]) -> bool:
+        metadata = qa_payload.get("metadata") if isinstance(qa_payload.get("metadata"), dict) else {}
+        if metadata.get("checker") != "ffmpeg-ffprobe-v0.2":
+            return False
+        checks = qa_payload.get("checks")
+        if not isinstance(checks, list):
+            return False
+        ids = {item.get("check_id") for item in checks if isinstance(item, dict)}
+        return cls.REQUIRED_MEDIA_QA_CHECKS.issubset(ids)
+
     @staticmethod
     def _qa_matches_artifact(qa_payload: dict[str, Any], target: ArtifactRecord) -> bool:
         qa_meta = qa_payload.get("metadata") if isinstance(qa_payload.get("metadata"), dict) else {}
         qa_digest = qa_meta.get("sha256")
-        if target.digest and qa_digest:
-            return target.digest == qa_digest
+        if target.digest:
+            return bool(qa_digest) and target.digest == qa_digest
         return qa_payload.get("media_uri") == target.uri
 
     def _latest_qa_payload(self, state: ProjectState) -> dict[str, Any] | None:

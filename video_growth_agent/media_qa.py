@@ -60,7 +60,7 @@ class MediaQAChecker:
         checks: list[QACheck] = []
         if not videos:
             checks.append(QACheck("video_stream", "FAIL", "No video stream found"))
-            return QAReport(media_uri=media, checks=tuple(checks), metadata={"probe": probe})
+            return QAReport(media_uri=media, checks=tuple(checks), metadata={"checker": "ffmpeg-ffprobe-v0.2", "probe": probe})
         video = videos[0]
         vdur = _float(video.get("duration"), _float(probe.get("format", {}).get("duration")))
         fps = self._fps(video.get("avg_frame_rate") or video.get("r_frame_rate"))
@@ -75,7 +75,7 @@ class MediaQAChecker:
             checks.append(QACheck("stream_duration_match", "PASS" if delta <= self.policy.duration_delta_s else "FAIL", f"video={vdur:.3f}s audio={adur:.3f}s delta={delta:.3f}s tolerance={self.policy.duration_delta_s:.3f}s"))
             checks.extend(self._audio_checks(media))
         checks.append(self._black_check(media))
-        metadata = {"video_duration": vdur, "fps": fps, "frame_count": frames}
+        metadata = {"checker": "ffmpeg-ffprobe-v0.2", "video_duration": vdur, "fps": fps, "frame_count": frames}
         path = Path(media)
         if path.is_file():
             metadata["sha256"] = self._sha256(path)
@@ -86,8 +86,11 @@ class MediaQAChecker:
         duration = _float(probe.get("format", {}).get("duration"))
         if duration <= 0:
             raise RuntimeError("Cannot extract QA frames without positive duration")
-        out = Path(output_dir); out.mkdir(parents=True, exist_ok=True); refs: list[str] = []
-        streams = probe.get("streams", []); video = next((s for s in streams if s.get("codec_type") == "video"), {})
+        out = Path(output_dir)
+        out.mkdir(parents=True, exist_ok=True)
+        refs: list[str] = []
+        streams = probe.get("streams", [])
+        video = next((s for s in streams if s.get("codec_type") == "video"), {})
         fps = self._fps(video.get("avg_frame_rate") or video.get("r_frame_rate"))
         safe_end = max(0.0, duration - max(0.10, (2.0 / fps if fps > 0 else 0.10)))
         for i in range(count):
@@ -110,13 +113,15 @@ class MediaQAChecker:
         loud = self.runner(["ffmpeg", "-hide_banner", "-i", media, "-af", "loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json", "-f", "null", "-"])
         payload = self._extract_loudnorm_json(loud.stderr or "")
         if payload:
-            integrated = _float(payload.get("input_i"), -99.0); true_peak = _float(payload.get("input_tp"), 99.0)
+            integrated = _float(payload.get("input_i"), -99.0)
+            true_peak = _float(payload.get("input_tp"), 99.0)
             checks.append(QACheck("integrated_loudness", "PASS" if self.policy.loudness_min_lufs <= integrated <= self.policy.loudness_max_lufs else "WARN", f"input_i={integrated:.2f} LUFS"))
             checks.append(QACheck("true_peak", "PASS" if true_peak <= self.policy.max_true_peak_dbfs else "FAIL", f"input_tp={true_peak:.2f} dBFS"))
         else:
             checks.append(QACheck("audio_metering", "FAIL", "Could not parse loudnorm analysis"))
         silence = self.runner(["ffmpeg", "-hide_banner", "-i", media, "-af", f"silencedetect=n=-50dB:d={self.policy.report_silence_segment_s}", "-vn", "-f", "null", "-"])
-        durations = [_float(x) for x in re.findall(r"silence_duration: ([0-9.]+)", silence.stderr or "")]; longest = max(durations, default=0.0)
+        durations = [_float(x) for x in re.findall(r"silence_duration: ([0-9.]+)", silence.stderr or "")]
+        longest = max(durations, default=0.0)
         checks.append(QACheck("long_silence", "WARN" if longest >= self.policy.report_silence_segment_s else "PASS", f"longest_detected_silence={longest:.3f}s; warning may be intentional narrative silence"))
         return checks
 
@@ -133,15 +138,22 @@ class MediaQAChecker:
         starts = [m.start() for m in re.finditer(r"\{", text)]
         for start in reversed(starts):
             end = text.find("}", start)
-            if end == -1: continue
-            try: payload = json.loads(text[start:end + 1])
-            except json.JSONDecodeError: continue
-            if "input_i" in payload and "input_tp" in payload: return payload
+            if end == -1:
+                continue
+            try:
+                payload = json.loads(text[start:end + 1])
+            except json.JSONDecodeError:
+                continue
+            if "input_i" in payload and "input_tp" in payload:
+                return payload
         return None
 
     @staticmethod
     def _fps(value: str | None) -> float:
-        if not value: return 0.0
+        if not value:
+            return 0.0
         if "/" in value:
-            a, b = value.split("/", 1); den = _float(b); return _float(a) / den if den else 0.0
+            a, b = value.split("/", 1)
+            den = _float(b)
+            return _float(a) / den if den else 0.0
         return _float(value)
