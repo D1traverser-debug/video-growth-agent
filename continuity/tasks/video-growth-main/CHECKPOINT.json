@@ -1,0 +1,90 @@
+{
+  "checkpoint_version": 1,
+  "task_id": "video-growth:main",
+  "display_name_zh": "AI视频涨粉与商业化",
+  "task_class": "USER",
+  "domain": "VIDEO_GROWTH",
+  "recovery_owner": "VIDEO_GROWTH_AGENT",
+  "contract_version": "3.3",
+  "skill_version": "skills/video-growth-agent/SKILL.md@0229e4242b46a80be035dc2fd1ba2aae24ac4eed",
+  "runtime_version": "0.4.0",
+  "status": "WAITING",
+  "current_stage": "RELEASE",
+  "stage_state": {
+    "internal_release_gate": "PASS",
+    "publication_status": "NOT_PUBLISHED",
+    "performance_stage_entered": false,
+    "reason": "Final Release V4 is complete and release-ready, but no target-platform live post exists yet."
+  },
+  "next_action": "Wait for the user to publish Pilot002_FINAL_RELEASE_V4.mp4 on the chosen target platform(s). After a live post ID/URL exists, verify it, advance to PERFORMANCE, collect real platform metrics available from that platform, persist performance_receipt, then run LEARN. Do not rerun completed Pilot 002 production gates unless the final media or publish package changes.",
+  "blockers": [
+    {
+      "id": "external-publication-required",
+      "state": "WAITING",
+      "owner": "USER",
+      "detail": "External publication is consequential and has not been performed in this chat. No post identifier or real performance data exists yet."
+    }
+  ],
+  "authoritative_artifacts": {
+    "final_media": {
+      "library_path": "/Video Growth Agent/Pilot 002/Release V4/Pilot002_FINAL_RELEASE_V4.mp4",
+      "sha256": "eec364e8530067dbc87a08a9ccbf2dd6e6e8a5ab32fb87f648c794a4000628eb",
+      "duration_seconds": 59.5,
+      "resolution": "1080x1920",
+      "fps": 30,
+      "frames": 1785,
+      "color": "BT.709 primaries/transfer/matrix, limited range, yuv420p",
+      "audio": "AAC stereo 48kHz, approximately -16.07 LUFS, -1.49 dBTP"
+    },
+    "release_folder": "/Video Growth Agent/Pilot 002/Release V4/",
+    "publish_pack": "/Video Growth Agent/Pilot 002/Release V4/publish_pack_v4.md",
+    "final_qa": "/Video Growth Agent/Pilot 002/Release V4/final_qa_v4.md",
+    "release_review": "/Video Growth Agent/Pilot 002/Release V4/release_review_v4.md",
+    "release_script": "/Video Growth Agent/Pilot 002/Release V4/script_v6_release.md",
+    "subtitle": "/Video Growth Agent/Pilot 002/Release V4/pilot002_final_v4.ass",
+    "release_manifest": "/Video Growth Agent/Pilot 002/Release V4/release_manifest_v4.json",
+    "audio_asr_evidence": "/Video Growth Agent/Pilot 002/Release V4/asr_s02_s04_report.json",
+    "notion_recovery": "https://app.notion.com/p/3f4d54f04b1781fb8178eb3af79a8b40"
+  },
+  "evidence": {
+    "media_qa": [
+      "video and audio duration both 59.500s",
+      "1785 actual frames at native 30fps",
+      "blackdetect PASS",
+      "silencedetect PASS",
+      "full decode PASS",
+      "freeze detector hits manually reviewed as intentional hero holds / director pauses, not stuck rendering",
+      "final VUI explicitly declares BT.709 limited range"
+    ],
+    "speech_qa": [
+      "Kokoro-82M-v1.1-zh voice zf_001",
+      "S02 revised to category wording; independent ASR pinyin coverage 1.000",
+      "S04 revised for clearer spoken phrasing; independent ASR pinyin coverage 1.000",
+      "S07 subtitle aligned from App to 应用",
+      "subjective human-ear voice naturalness remains an explicit non-blocking blind spot"
+    ],
+    "release_judgment": "RELEASE READY / WOULD PUBLISH"
+  },
+  "preserved_user_requirements": [
+    "Optimize for growth, IP/audience asset, advertiser invitations and sustainable commercialization rather than platform incentive payments.",
+    "Default to zero or very low incremental cost and no recurring filming requirement.",
+    "Primary commercial axis: AI applications/software/SaaS, 3C/smart hardware, technology business/frontier technology and adjacent sponsor pools.",
+    "Content must stand on its own before sponsor integration: worthwhile problem -> valid mechanism/story -> genuinely relevant product -> brand integration.",
+    "Final QA must consume the real rendered media; code success or agent self-report is not sufficient.",
+    "Use GitHub video-growth-agent main as executable business authority; Notion/Library are recovery/evidence mirrors, not business-rule authority."
+  ],
+  "invalidated_or_historical_state": [
+    "Legacy continuity stage POSITIONING_BASELINE_READY is obsolete and must not be replayed.",
+    "Pilot 002 old Visual Preview V2 is a rejected failure sample, not a reusable approved visual system.",
+    "Release V3 is historical only; Release V4 is the authoritative release package.",
+    "Older low-sample-rate/interpolated 30fps exports and pre-BT.709-normalized exports are not authoritative."
+  ],
+  "resume": {
+    "entrypoint": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
+    "checkpoint_ref": "continuity/tasks/video-growth-main/CHECKPOINT.json",
+    "resume_epoch": 1,
+    "active_lease_id": "1adab312-0d2e-43cd-846c-0c008a1a7f46",
+    "new_chat_rule": "A new chat must read the manifest, classify compatibility against Universal Continuity v3.3, increment resume_epoch, replace active_lease with compare-and-swap, re-read to verify the lease, then load this checkpoint and resume at the exact next_action."
+  },
+  "updated_at": "2026-10-09T10:25:00Z"
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": "3.3",
+  "owner": "VIDEO_GROWTH_AGENT",
+  "domain": "VIDEO_GROWTH",
+  "repository": "D1traverser-debug/video-growth-agent",
+  "status": "READY_V33_GITHUB_CHECKPOINT",
+  "business_runtime_cutover": false,
+  "authority": {
+    "business_rules": "skills/video-growth-agent/SKILL.md + config/workflow.json + video_growth_agent runtime",
+    "continuity_metadata": "continuity/TASK_INDEX.md",
+    "task_manifest": "continuity/tasks/<task>/TASK_MANIFEST.json",
+    "checkpoint": "continuity/tasks/<task>/CHECKPOINT.json"
+  },
+  "capabilities": {
+    "list_resumable_tasks_metadata_only": true,
+    "get_task_checkpoint_by_id": true,
+    "compatibility_check": true,
+    "resume_or_migrate_or_block": true,
+    "single_writer_lease": true
+  },
+  "bare_inherit_predicate": {
+    "task_class": "USER",
+    "resume_eligible": true,
+    "resume_visibility": "DEFAULT",
+    "status": ["ACTIVE", "WAITING", "BLOCKED"]
+  },
+  "compatibility": {
+    "current_contract_version": "3.3",
+    "runtime_version": "0.4.0",
+    "legacy_versionless_handoff": "MIGRATABLE when stable task_id/owner and authoritative evidence are resolvable; otherwise UNKNOWN",
+    "unknown_execution_state": "FAIL_CLOSED",
+    "obsolete_business_gate_state": "DO_NOT_REPLAY"
+  },
+  "writer_guard": {
+    "storage": "GitHub contents blob SHA compare-and-swap",
+    "required_fields": ["resume_epoch", "active_lease.lease_id"],
+    "future_takeover": "increment resume_epoch, replace active_lease, re-read manifest and verify before substantive work"
+  },
+  "notes": [
+    "Universal Continuity owns routing and recovery pointers only; it must not duplicate video workflow/business state machines.",
+    "This adapter does not declare a new Video Growth business Runtime cutover."
+  ]
+}
