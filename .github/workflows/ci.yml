@@ -24,16 +24,24 @@ jobs:
           vga techniques --tag mechanism --max-cost 2 --validated-only > /tmp/techniques.json
           test -s /tmp/techniques.json
           python - <<'PY'
-          from video_growth_agent import RoleRegistry, StudioOrchestrator, TechniqueLibrary
+          from video_growth_agent import AgentRegistry, AgenticStudio, ExecutionPlanner, RoleRegistry, StudioOrchestrator, TechniqueLibrary
           from video_growth_agent.storage import ProjectStore
           registry = RoleRegistry()
           orchestrator = StudioOrchestrator()
+          agents = AgentRegistry()
+          planner = ExecutionPlanner(agents=agents, orchestrator=orchestrator)
           assert registry.get("showrunner").prompt
           assert registry.get("creative_director").prompt
           assert orchestrator.workflow["version"] == "0.3.0"
+          assert agents.config["version"] == "0.4.0"
+          assert planner.config["version"] == "0.4.0"
+          assert planner.validate() == []
+          assert agents.get("executive_producer").user_voice is True
+          assert agents.get("visual_designer").role is None
           assert "LOOKDEV" in orchestrator.index
           assert "creative_director" in orchestrator.required_roles("VISUAL_PREVIEW")
           assert TechniqueLibrary().get("T-001").name
           assert str(ProjectStore().root) == "/tmp/projects"
-          print("installed-runtime-smoke: PASS")
+          AgenticStudio()
+          print("installed-agentic-studio-smoke: PASS")
           PY
