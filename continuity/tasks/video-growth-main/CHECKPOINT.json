@@ -1,5 +1,5 @@
 {
-  "checkpoint_version": 6,
+  "checkpoint_version": 7,
   "task_id": "video-growth:main",
   "display_name_zh": "AI视频涨粉与商业化",
   "task_class": "USER",
@@ -11,7 +11,7 @@
   "compatibility": {
     "result": "COMPATIBLE",
     "checked_against": "Universal Continuity v3.5",
-    "verified_at": "2026-10-09T14:55:00Z"
+    "verified_at": "2026-10-09T15:54:35Z"
   },
   "status": "ACTIVE",
   "current_stage": "VISUAL_PREVIEW_PROCESS_REENTRY",
@@ -39,13 +39,28 @@
       "MEMORABLE_HERO_MOMENT"
     ],
     "process_failure_root_cause": "Sample V2 bypassed the configured AgenticStudio VISUAL_PREVIEW work-order runtime, so one aggregate QA was incorrectly treated as if it represented independent specialist review.",
-    "reason": "The artifact remains useful as timing/spatial previs, but both visual quality and process evidence fail closed. No Sample V3 build is authorized until formal VISUAL_PREVIEW role packets are dispatched and their independent receipts are persisted."
+    "reviewer_process_hardening_main_commit": "e1bde266b249b841f54a125ea4b01f5d9ae8dcba",
+    "reviewer_process_hardening_main_ci": "PASS",
+    "reviewer_process_hardening_effect": "Manual role signatures and bookkeeping-only receipts can no longer satisfy quality-critical process proof. Reviewer execution attestations must bind stage/work-order/agent/prompt/input/result/provider/model/run/context/trace identities; production trusted executors default empty and blind-wave identities must be unique.",
+    "production_trusted_reviewer_executors": "EMPTY_FAIL_CLOSED",
+    "generation_route": "VIDIQ_CONNECTED",
+    "generation_models_available": ["MiniMax H3", "Seedance 2", "Seedance 2 Fast"],
+    "sample_v2_vidiq_upload_id": "9c5c8897-5f9e-4ece-8b8e-24c340617c7a",
+    "h3_transition_experiment": {
+      "status": "IN_PROGRESS",
+      "job_id": "job_15eed248-dfaf-4353-a9a5-16979c30cc49",
+      "model": "MiniMax H3",
+      "duration_seconds": 4,
+      "purpose": "Minimum-cost test of whether the highest-risk Sample V2 transition can gain materially better cinematic material, spatial depth, causality and hero-frame quality without rebuilding the full film.",
+      "duplicate_submit_forbidden": true
+    },
+    "reason": "The artifact remains useful as timing/spatial previs, but both visual quality and formal reviewer process fail closed. Generation access is now available through vidIQ, so shot-level Sample V3 experimentation may proceed, but no formal VISUAL_PREVIEW PASS is allowed until a real isolated multimodal reviewer executor path is integrated and all hard quality dimensions pass."
   },
-  "next_action": "Re-enter VISUAL_PREVIEW through the formal AgenticStudio work-order path. Bind Sample V2 only as diagnostic/previs evidence. Dispatch isolated blind review packets to creative_director, art_director, motion_director, director and retention_editor; persist all five role receipts bound to the exact Sample V2 digest before synthesis. Build a shot-level repair matrix from their independent findings, expand the benchmark pack with a formal feature-film cinematography/editing lane, then lock opening/ending keyframes and route only failed shot layers to Seedance 2.x, MiniMax H3 or another suitable engine. Render Sample V3 and repeat the same formal panel. Do not rebuild the 59.5-second film until process validity and every hard VISUAL_PREVIEW quality dimension pass.",
+  "next_action": "Continue polling the existing MiniMax H3 job job_15eed248-dfaf-4353-a9a5-16979c30cc49 only; do not start a duplicate paid generation. When complete, inspect the actual 4-second media at normal speed and through extracted frames, compare against Sample V2 and the benchmark pack on material richness, camera/spatial intention, transformation causality, timing and hero-frame quality, and accept or reject it as a Sample V3 shot candidate. Keep deterministic code for captions/data/timing rather than cinematic material. In parallel, integrate a real isolated multimodal reviewer executor capable of producing verifiable provider/model/run/context/trace attestations; until then the formal VISUAL_PREVIEW panel remains blocked. Do not rebuild the 59.5-second film until both process validity and every hard VISUAL_PREVIEW quality dimension pass.",
   "blockers": [
     "Sample V2 lacks required independent VISUAL_PREVIEW reviewer receipts and is PROCESS_INVALID.",
-    "Current connected Descript account has insufficient AI credits for the desired generative edit path; do not require an upgrade merely for this experiment.",
-    "Direct Seedance/H3 generation connector is not connected in this chat; engine routing must not be treated as completed until an actual compatible generation path exists."
+    "Production trusted reviewer executors are intentionally empty until a real isolated multimodal reviewer adapter is integrated and verified; changing role labels inside one context is invalid.",
+    "Current connected Descript account has insufficient AI credits for the desired generative edit path; do not require an upgrade merely for this experiment."
   ],
   "authoritative_artifacts": {
     "rejected_candidate_v4": {
@@ -60,6 +75,8 @@
       "contact_sheet": "/Video Growth Agent/Pilot 002/Sample V2/Pilot002_Sample_V2_contact.jpg",
       "github_record": "projects/pilot-002/SAMPLE_V2.md"
     },
+    "reviewer_execution_attestation_contract": "skills/video-growth-agent/references/reviewer-execution-attestation.md",
+    "reviewer_process_hardening_commit": "D1traverser-debug/video-growth-agent@e1bde266b249b841f54a125ea4b01f5d9ae8dcba",
     "process_failure_audit": "projects/pilot-002/PROCESS_FAILURE_AUDIT_2026-10-09.md",
     "quality_rebase": "projects/pilot-002/QUALITY_REBASE.md",
     "moving_benchmark_pack": "projects/pilot-002/BENCHMARK_REBASE.md",
@@ -86,7 +103,8 @@
       "Anthropic agent evaluation guidance",
       "Self-Refine iterative feedback",
       "Reflexion failure-memory loop",
-      "American Cinematographer feature-film production/cinematography references"
+      "American Cinematographer feature-film production/cinematography references",
+      "vidIQ native MiniMax H3 / Seedance 2.x generation and video-reference routing"
     ],
     "accepted_candidate_methods": [
       "shot-as-durable-object",
@@ -100,6 +118,7 @@
       "accepted-seconds-economics",
       "review-proof-receipt-bundle",
       "anti-bypass-process-tripwire",
+      "trusted-isolated-reviewer-execution-attestation",
       "failure-memory-reflection-loop",
       "macro-project-control-plus-micro-shot-control"
     ],
@@ -121,7 +140,8 @@
     "Previous RELEASE READY / WOULD PUBLISH judgment for V4 is invalidated by explicit user quality rejection.",
     "Pilot 002 old Visual Preview V2 and Release V3/V4 are historical rejected candidates only.",
     "Sample V2 is a failed-but-useful timing/spatial previs and must not be mistaken for release authority.",
-    "The prior implication that Sample V2 had completed the configured multi-role VISUAL_PREVIEW review is invalidated; no required role-receipt bundle exists."
+    "The prior implication that Sample V2 had completed the configured multi-role VISUAL_PREVIEW review is invalidated; no required role-receipt bundle exists.",
+    "The prior blocker stating direct Seedance/H3 generation was unavailable is invalidated: connected vidIQ now provides MiniMax H3 and Seedance 2.x generation routes."
   ],
   "resume": {
     "entrypoint": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
@@ -130,5 +150,5 @@
     "active_lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
     "new_chat_rule": "Read the manifest, classify compatibility, increment resume_epoch, replace active_lease with compare-and-swap, re-read to verify the lease, then resume from this checkpoint's exact next_action."
   },
-  "updated_at": "2026-10-09T14:55:00Z"
+  "updated_at": "2026-10-09T15:54:35Z"
 }
