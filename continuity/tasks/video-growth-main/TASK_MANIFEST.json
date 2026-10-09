@@ -4,20 +4,20 @@
   "domain": "VIDEO_GROWTH",
   "title": "Video Growth Agent main program",
   "display_name_zh": "AI视频涨粉与商业化",
-  "status": "WAITING",
+  "status": "ACTIVE",
   "resume_eligible": true,
   "resume_visibility": "DEFAULT",
   "recovery_owner": "VIDEO_GROWTH_AGENT",
-  "updated_at": "2026-10-09T10:42:00Z",
+  "updated_at": "2026-10-09T10:46:20Z",
   "created_at": "2026-10-08T00:00:00Z",
   "manifest_ref": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "checkpoint_ref": "continuity/tasks/video-growth-main/CHECKPOINT.json",
   "contract_version": "3.3",
   "skill_version": "skills/video-growth-agent/SKILL.md@0229e4242b46a80be035dc2fd1ba2aae24ac4eed",
   "runtime_version": "0.4.0",
-  "current_stage": "RELEASE",
-  "next_action": "Pilot 002 Release V4 is internally release-ready but not externally published. Wait for the user to publish the V4 media on the chosen target platform(s); once a live post identifier/URL exists, advance to PERFORMANCE, collect real platform metrics, create the performance receipt, then run LEARN.",
+  "current_stage": "LOOKDEV",
+  "next_action": "Treat Pilot 002 Release V4 as a rejected historical candidate, not publishable authority. Distill high-quality external workflows and works named by the user (DramaClaw, Pippit, Toonflow, MiniMax H3, Utopai Studios, the referenced Zhihu ComfyUI+H3 article) plus independently sourced strong examples; convert validated methods into benchmark/Technique Library/Skill updates; then rebuild Pilot 002 visual lookdev and motion from the stronger quality baseline before rendering a new release candidate.",
   "resume_epoch": 1,
   "active_lease": {
     "lease_id": "1adab312-0d2e-43cd-846c-0c008a1a7f46",
@@ -29,13 +29,13 @@
     {
       "type": "library_folder",
       "ref": "/Video Growth Agent/Pilot 002/Release V4/",
-      "role": "authoritative_release_package"
+      "role": "rejected_historical_release_candidate"
     },
     {
       "type": "media",
       "ref": "/Video Growth Agent/Pilot 002/Release V4/Pilot002_FINAL_RELEASE_V4.mp4",
       "sha256": "eec364e8530067dbc87a08a9ccbf2dd6e6e8a5ab32fb87f648c794a4000628eb",
-      "role": "authoritative_final_media"
+      "role": "quality_rejected_reference_candidate"
     },
     {
       "type": "notion_page",
@@ -48,22 +48,16 @@
       "role": "business_execution_authority"
     }
   ],
-  "blockers": [
-    {
-      "id": "external-publication-required",
-      "type": "WAITING_USER_EXTERNAL_ACTION",
-      "detail": "Release V4 has not yet been posted to a target platform, so no live post ID or performance receipt exists. Do not fabricate PERFORMANCE state."
-    }
-  ],
+  "blockers": [],
   "compatibility": {
     "result": "COMPATIBLE",
     "checked_against": "Universal Continuity v3.3",
     "migration_history": {
       "source_result": "MIGRATABLE",
       "source_state": "legacy versionless HANDOFF.md with stable task_id but stale stage and incomplete v3.3 metadata",
-      "migration_action": "preserved stable task identity, owner, valid user requirements and authoritative artifacts; replaced obsolete stage/next_action with current Release V4 execution truth; added v3.3 manifest/checkpoint/lease metadata",
+      "migration_action": "preserved stable task identity, owner, valid user requirements and authoritative artifacts; replaced obsolete stage/next_action with current execution truth; added v3.3 manifest/checkpoint/lease metadata",
       "migrated_at": "2026-10-09T10:25:00Z"
     },
-    "verified_at": "2026-10-09T10:42:00Z"
+    "verified_at": "2026-10-09T10:46:20Z"
   }
 }
