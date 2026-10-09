@@ -16,7 +16,7 @@ def test_packaged_runtime_resources_match_repository_authority():
     from video_growth_agent.resources import data_path
 
     root = Path(__file__).resolve().parents[1]
-    for name in ("roles.json", "workflow.json", "techniques.json"):
+    for name in ("roles.json", "workflow.json", "techniques.json", "quality-rubric.json"):
         root_payload = json.loads((root / "config" / name).read_text(encoding="utf-8"))
         packaged_payload = json.loads(data_path(name).read_text(encoding="utf-8"))
         assert packaged_payload == root_payload
