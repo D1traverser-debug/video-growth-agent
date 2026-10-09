@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 import json
 
+from .execution_attestation import ExecutionAttestation, ExecutionTrustRegistry, canonical_digest
 from .models import Approval, ArtifactRecord, AssetRecord, QAReport, ProjectState
 from .orchestrator import GateBlocked, StudioOrchestrator
 from .roles import RoleRegistry
@@ -18,12 +19,20 @@ class StudioRuntime:
     REQUIRED_MEDIA_QA_CHECKS = {"video_stream", "stream_duration_match", "true_peak", "black_frames"}
     PROCESS_ENFORCED_STAGES = {"LOOKDEV", "VISUAL_PREVIEW", "ROUGH_CUT", "RELEASE"}
 
-    def __init__(self, store: ProjectStore | None = None, orchestrator: StudioOrchestrator | None = None, roles: RoleRegistry | None = None):
+    def __init__(
+        self,
+        store: ProjectStore | None = None,
+        orchestrator: StudioOrchestrator | None = None,
+        roles: RoleRegistry | None = None,
+        execution_trust: ExecutionTrustRegistry | None = None,
+    ):
         self.store = store or ProjectStore()
         self.orchestrator = orchestrator or StudioOrchestrator()
         self.roles = roles or RoleRegistry()
+        self.execution_trust = execution_trust or ExecutionTrustRegistry()
         self.quality_rubric = json.loads(data_path("quality-rubric.json").read_text(encoding="utf-8"))
         self.execution_plan = json.loads(data_path("execution-plan.json").read_text(encoding="utf-8"))
+        self.agents_config = json.loads(data_path("agents.json").read_text(encoding="utf-8"))
         errors = self.roles.validate_workflow()
         if errors:
             raise ValueError("Invalid role/workflow configuration: " + "; ".join(errors))
@@ -95,6 +104,70 @@ class StudioRuntime:
             "pass": role_artifact["pass"] and process["pass"] and machine["pass"],
         }
 
+    def _stage_task(self, stage: str, task_id: str) -> dict[str, Any] | None:
+        stage_plan = self.execution_plan.get("stages", {}).get(stage, {})
+        for task in stage_plan.get("tasks", []):
+            if task.get("id") == task_id:
+                return task
+        return None
+
+    def _work_order_path(self, state: ProjectState, task_id: str) -> Path:
+        return self.store.project_dir(state.project_id) / "work_orders" / state.stage / f"{task_id}.json"
+
+    def _load_work_order(self, state: ProjectState, task_id: str) -> dict[str, Any]:
+        path = self._work_order_path(state, task_id)
+        if not path.exists():
+            raise FileNotFoundError(path)
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict):
+            raise ValueError(f"Invalid work order payload: {path}")
+        return payload
+
+    def _agent_prompt_digest(self, agent_id: str) -> str:
+        raw = self.agents_config.get("agents", {}).get(agent_id)
+        if not isinstance(raw, dict):
+            return canonical_digest({"agent_id": agent_id, "missing": True})
+        role = raw.get("role")
+        role_prompt = self.roles.get(role).prompt if role else ""
+        payload = {
+            "agent_id": agent_id,
+            "mandate": str(raw.get("mandate", "")).strip(),
+            "role": role,
+            "role_prompt": role_prompt,
+        }
+        return canonical_digest(payload)
+
+    def _review_execution_contract(self, state: ProjectState, task: dict[str, Any], order: dict[str, Any]) -> dict[str, Any]:
+        input_digests = {
+            name: state.artifacts[name].digest if name in state.artifacts else None
+            for name in task.get("inputs", [])
+        }
+        return {
+            "project_id": state.project_id,
+            "stage": state.stage,
+            "task_id": task.get("id"),
+            "work_order_id": order.get("work_order_id"),
+            "wave": int(task.get("wave", 0)),
+            "agent_id": task.get("agent"),
+            "approval_role": task.get("approval_role"),
+            "blind": bool(task.get("blind", False)),
+            "task_type": task.get("type"),
+            "agent_prompt_digest": self._agent_prompt_digest(str(task.get("agent") or "")),
+            "input_digests": input_digests,
+            "peer_chat_allowed": False,
+            "project_approvals_hidden": bool(task.get("blind", False)),
+        }
+
+    def review_execution_contract(self, project_id: str, task_id: str) -> dict[str, Any]:
+        """Return the immutable contract an external reviewer executor must attest to."""
+        state = self.state(project_id)
+        task = self._stage_task(state.stage, task_id)
+        if task is None or task.get("type") not in {"review", "meta_review"}:
+            raise ValueError(f"Unknown review task {state.stage}/{task_id}")
+        order = self._load_work_order(state, task_id)
+        contract = self._review_execution_contract(state, task, order)
+        return {"contract": contract, "packet_digest": canonical_digest(contract)}
+
     def _review_receipt_matches(self, state: ProjectState, task_id: str, work_order_id: str, result: dict[str, Any]) -> bool:
         receipts_dir = self.store.project_dir(state.project_id) / "receipts"
         if not receipts_dir.exists():
@@ -117,6 +190,170 @@ class StudioRuntime:
                 continue
             return True
         return False
+
+    def _execution_attestation_receipts(self, state: ProjectState) -> list[dict[str, Any]]:
+        receipts_dir = self.store.project_dir(state.project_id) / "receipts"
+        if not receipts_dir.exists():
+            return []
+        matches: list[dict[str, Any]] = []
+        for path in receipts_dir.glob("*.json"):
+            try:
+                receipt = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                continue
+            if receipt.get("event") != "AGENT_EXECUTION_ATTESTED":
+                continue
+            payload = receipt.get("payload") if isinstance(receipt.get("payload"), dict) else {}
+            if payload.get("stage") == state.stage:
+                matches.append(payload)
+        return matches
+
+    def _execution_attestation_for(
+        self,
+        state: ProjectState,
+        *,
+        task_id: str,
+        work_order_id: str,
+    ) -> dict[str, Any] | None:
+        candidates = [
+            payload
+            for payload in self._execution_attestation_receipts(state)
+            if payload.get("task_id") == task_id and payload.get("work_order_id") == work_order_id
+        ]
+        if len(candidates) != 1:
+            return None
+        return candidates[0]
+
+    def _attestation_validation_failures(
+        self,
+        state: ProjectState,
+        task: dict[str, Any],
+        order: dict[str, Any],
+        result: dict[str, Any],
+        payload: dict[str, Any],
+    ) -> tuple[list[str], ExecutionAttestation | None]:
+        task_id = str(task.get("id", ""))
+        try:
+            raw = payload.get("attestation")
+            if not isinstance(raw, dict):
+                return [f"process_execution_attestation_invalid:{task_id}"], None
+            attestation = ExecutionAttestation.from_dict(raw)
+        except (TypeError, ValueError):
+            return [f"process_execution_attestation_invalid:{task_id}"], None
+
+        if payload.get("attestation_digest") != attestation.digest:
+            return [f"process_execution_attestation_digest_mismatch:{task_id}"], attestation
+
+        contract = self._review_execution_contract(state, task, order)
+        input_digests = result.get("input_digests") if isinstance(result.get("input_digests"), dict) else {}
+        raw_failures = self.execution_trust.validate(
+            attestation,
+            stage=state.stage,
+            work_order_id=str(order.get("work_order_id") or ""),
+            agent_id=str(task.get("agent") or ""),
+            packet_digest=canonical_digest(contract),
+            result_digest=canonical_digest(result),
+            input_digests=input_digests,
+        )
+        return [f"process_{failure}:{task_id}" for failure in raw_failures], attestation
+
+    def _attestation_identity_failures(
+        self,
+        wave_attestations: dict[int, list[tuple[str, ExecutionAttestation]]],
+    ) -> list[str]:
+        failures: list[str] = []
+        policy = self.execution_trust.policy
+        fields = [
+            ("execution_id", "require_unique_execution_id_within_wave"),
+            ("provider_run_id", "require_unique_provider_run_id_within_wave"),
+            ("context_id", "require_unique_context_id_within_wave"),
+            ("trace_id", "require_unique_trace_id_within_wave"),
+        ]
+        for wave, items in wave_attestations.items():
+            for field, policy_key in fields:
+                if not policy.get(policy_key, True):
+                    continue
+                seen: dict[str, list[str]] = {}
+                for task_id, attestation in items:
+                    value = str(getattr(attestation, field, ""))
+                    seen.setdefault(value, []).append(task_id)
+                for value, task_ids in seen.items():
+                    if value and len(task_ids) > 1:
+                        failures.append(
+                            f"process_execution_identity_reused:wave={wave}:{field}={value}:tasks={','.join(sorted(task_ids))}"
+                        )
+        return failures
+
+    def record_execution_attestation(
+        self,
+        project_id: str,
+        task_id: str,
+        attestation: ExecutionAttestation | dict[str, Any],
+    ) -> str:
+        """Persist provider-backed proof for a completed isolated reviewer execution.
+
+        Production defaults trust no executor. A provider adapter must first be explicitly
+        registered in executors.json (or injected into the runtime) before its evidence can
+        authorize a critical blind-review gate.
+        """
+        state = self.state(project_id)
+        task = self._stage_task(state.stage, task_id)
+        if task is None or task.get("type") not in {"review", "meta_review"}:
+            raise ValueError(f"Unknown review task {state.stage}/{task_id}")
+        order = self._load_work_order(state, task_id)
+        if order.get("status") != "COMPLETED":
+            raise ValueError(f"Review work order {task_id} must be COMPLETED before attestation")
+        result = order.get("result") if isinstance(order.get("result"), dict) else {}
+        input_digests = result.get("input_digests") if isinstance(result.get("input_digests"), dict) else {}
+        item = attestation if isinstance(attestation, ExecutionAttestation) else ExecutionAttestation.from_dict(attestation)
+        contract = self._review_execution_contract(state, task, order)
+        failures = self.execution_trust.validate(
+            item,
+            stage=state.stage,
+            work_order_id=str(order.get("work_order_id") or ""),
+            agent_id=str(task.get("agent") or ""),
+            packet_digest=canonical_digest(contract),
+            result_digest=canonical_digest(result),
+            input_digests=input_digests,
+        )
+        if failures:
+            raise ValueError("Invalid execution attestation: " + "; ".join(failures))
+
+        existing = self._execution_attestation_receipts(state)
+        for payload in existing:
+            raw = payload.get("attestation")
+            if not isinstance(raw, dict):
+                continue
+            try:
+                other = ExecutionAttestation.from_dict(raw)
+            except (TypeError, ValueError):
+                continue
+            if payload.get("task_id") == task_id:
+                raise ValueError(f"Execution attestation already exists for {task_id}")
+            other_task = self._stage_task(state.stage, str(payload.get("task_id") or ""))
+            if not other_task or int(other_task.get("wave", 0)) != int(task.get("wave", 0)):
+                continue
+            for field, policy_key in (
+                ("execution_id", "require_unique_execution_id_within_wave"),
+                ("provider_run_id", "require_unique_provider_run_id_within_wave"),
+                ("context_id", "require_unique_context_id_within_wave"),
+                ("trace_id", "require_unique_trace_id_within_wave"),
+            ):
+                if self.execution_trust.policy.get(policy_key, True) and getattr(item, field) == getattr(other, field):
+                    raise ValueError(f"Execution identity reused within blind-review wave: {field}={getattr(item, field)}")
+
+        return self.store.append_receipt(
+            project_id,
+            "AGENT_EXECUTION_ATTESTED",
+            {
+                "stage": state.stage,
+                "task_id": task_id,
+                "work_order_id": order.get("work_order_id"),
+                "wave": int(task.get("wave", 0)),
+                "attestation_digest": item.digest,
+                "attestation": item.to_dict(),
+            },
+        )
 
     def process_guard_report(self, state: ProjectState) -> dict[str, Any]:
         """Require durable AgenticStudio proof before quality-critical stage advancement.
@@ -141,6 +378,7 @@ class StudioRuntime:
         guards = [
             "agent_work_order_proof",
             "review_receipt_proof",
+            "review_execution_attestation",
             "review_input_digest_binding",
             "producer_output_provenance",
         ]
@@ -149,6 +387,7 @@ class StudioRuntime:
         quality_target_name = quality_spec.get("target_artifact") if isinstance(quality_spec, dict) else None
         quality_target = state.artifacts.get(quality_target_name) if quality_target_name else None
         quality_roles = set(quality_spec.get("roles", {})) if isinstance(quality_spec, dict) else set()
+        wave_attestations: dict[int, list[tuple[str, ExecutionAttestation]]] = {}
 
         for task in stage_plan.get("tasks", []):
             task_id = str(task.get("id", ""))
@@ -215,6 +454,30 @@ class StudioRuntime:
                     elif input_digests.get(input_name) != artifact.digest:
                         failures.append(f"process_review_input_digest_mismatch:{task_id}:{input_name}")
 
+                if self.execution_trust.requires_attestation(
+                    stage,
+                    blind=bool(task.get("blind", False)),
+                    task_type=str(task_type),
+                ):
+                    attestation_payload = self._execution_attestation_for(
+                        state,
+                        task_id=task_id,
+                        work_order_id=str(work_order_id),
+                    )
+                    if attestation_payload is None:
+                        failures.append(f"process_execution_attestation_missing_or_ambiguous:{task_id}")
+                    else:
+                        attestation_failures, item = self._attestation_validation_failures(
+                            state,
+                            task,
+                            order,
+                            result,
+                            attestation_payload,
+                        )
+                        failures.extend(attestation_failures)
+                        if item is not None and not attestation_failures:
+                            wave_attestations.setdefault(int(task.get("wave", 0)), []).append((task_id, item))
+
                 approval_role = task.get("approval_role")
                 if approval_role:
                     approval = stage_approvals.get(approval_role)
@@ -231,6 +494,7 @@ class StudioRuntime:
                             elif result.get("target_digest") != quality_target.digest or approval.target_digest != quality_target.digest:
                                 failures.append(f"process_quality_target_digest_mismatch:{task_id}:{approval_role}")
 
+        failures.extend(self._attestation_identity_failures(wave_attestations))
         return {"stage": stage, "guards": guards, "failures": failures, "pass": not failures}
 
     def machine_guard_report(self, state: ProjectState) -> dict:

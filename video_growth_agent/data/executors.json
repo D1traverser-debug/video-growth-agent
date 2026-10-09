@@ -1,0 +1,21 @@
+{
+  "version": "0.1.0",
+  "policy": {
+    "attestation_required_stages": [
+      "LOOKDEV",
+      "VISUAL_PREVIEW",
+      "ROUGH_CUT",
+      "RELEASE"
+    ],
+    "blind_reviews_only": true,
+    "require_isolated_context": true,
+    "forbid_sibling_verdict_visibility": true,
+    "require_unique_execution_id_within_wave": true,
+    "require_unique_provider_run_id_within_wave": true,
+    "require_unique_context_id_within_wave": true,
+    "require_unique_trace_id_within_wave": true,
+    "require_all_input_digests_observed": true,
+    "require_proof_ref": true
+  },
+  "trusted_executors": {}
+}
