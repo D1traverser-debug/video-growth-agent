@@ -4,13 +4,14 @@ on:
     branches: [tts-pilot002-kokoro]
     paths:
       - tools/pilot002_tts.py
+      - tools/pilot002_asr_qa.py
       - .github/workflows/pilot002-tts.yml
 permissions:
   contents: read
 jobs:
   synthesize:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -20,11 +21,16 @@ jobs:
         run: |
           python -m pip install --disable-pip-version-check --index-url https://download.pytorch.org/whl/cpu torch
           python -m pip install --disable-pip-version-check 'git+https://github.com/hexgrad/kokoro.git' 'misaki[zh]' soundfile
-      - name: Synthesize scene-wise Chinese voice candidates
+      - name: Synthesize final Chinese scene set
         run: python tools/pilot002_tts.py
+      - name: Install ASR QA stack
+        run: python -m pip install --disable-pip-version-check faster-whisper
+      - name: Back-transcribe and compare Chinese speech
+        run: python tools/pilot002_asr_qa.py
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: pilot002-kokoro-tts
+          name: pilot002-kokoro-asr-qa
           path: tts-output/
           if-no-files-found: error
           retention-days: 7
