@@ -1,84 +1,101 @@
 {
-  "checkpoint_version": 4,
+  "checkpoint_version": 5,
   "task_id": "video-growth:main",
   "display_name_zh": "AI视频涨粉与商业化",
   "task_class": "USER",
   "domain": "VIDEO_GROWTH",
   "recovery_owner": "VIDEO_GROWTH_AGENT",
-  "contract_version": "3.3",
+  "contract_version": "3.5",
   "skill_version": "skills/video-growth-agent/SKILL.md@ba7d4f612ee1f7f9f87402215c40954b6bd104a1",
   "runtime_version": "0.4.0",
   "compatibility": {
     "result": "COMPATIBLE",
-    "checked_against": "Universal Continuity v3.3",
-    "source_migration_result": "MIGRATABLE",
-    "verified_at": "2026-10-09T12:54:00Z"
+    "checked_against": "Universal Continuity v3.5",
+    "verified_at": "2026-10-09T14:18:22Z"
   },
   "status": "ACTIVE",
-  "current_stage": "LOOKDEV",
+  "current_stage": "LOOKDEV_SAMPLE_ITERATION",
   "stage_state": {
     "previous_release_candidate": "REJECTED_BY_USER_FOR_INSUFFICIENT_QUALITY",
     "previous_release_gate_valid": false,
     "publication_status": "NOT_PUBLISHED",
     "performance_stage_entered": false,
-    "external_learning_pass": "PERSISTED_TO_MAIN",
     "moving_benchmark_rebase": "READY",
     "full_build_frozen_until_sample_pass": true,
-    "reason": "The rejected V4 showed a craft ceiling: coherent but visually monotonous premium-UI/motion-board language. The studio has now distilled external production methods and raised VISUAL_PREVIEW to a near-final 3–12 second sample gate before any full rebuild."
+    "sample_v2_status": "ITERATE_NOT_PASS",
+    "sample_v2_duration_seconds": 10.233333,
+    "sample_v2_format": "1080x1920_30fps",
+    "sample_v2_hard_fail_dimensions": [
+      "FIRST_2S_STOP_POWER",
+      "MATERIAL_ASSET_RICHNESS",
+      "MEMORABLE_HERO_MOMENT"
+    ],
+    "sample_v2_pass_dimensions": [
+      "SPATIAL_CAMERA_INTENTION",
+      "TRANSFORMATION_CAUSALITY",
+      "MOTION_TIMING_HOLDS",
+      "PICTURE_SOUND_COHESION_PROVISIONAL",
+      "ABSENCE_OF_GENERIC_SAAS_TEMPLATE_FEEL"
+    ],
+    "reason": "Sample V2 proves the sample-first and shot-level workflow but remains below the advertiser-facing visual bar. It is a timing/spatial previs, not release authority."
   },
-  "next_action": "Build a 5–12 second near-final sample for Pilot 002, focused on the highest-risk transition from familiar human/app interaction into a deeper agent/service world. Use richer asset/media contrast, meaningful camera/spatial change, a declared audiovisual shot contract, controlled start/end states where useful, and representative sound. Review the actual rendered sample at normal playback speed beside the moving benchmark pack. Reject and iterate until all hard VISUAL_PREVIEW scores are >=4; do not expand to the full film before PASS.",
-  "blockers": [],
+  "next_action": "Keep Sample V2's 10.22-second timing/spatial contract. Lock a stronger human/work opening keyframe and a materially rich backend/result ending keyframe, then route the high-risk transition through Seedance 2.x or MiniMax H3 using first/last-frame or reference-aware control. Retain deterministic captions/data overlays and exact edit timing. Render V3, review the actual media at normal speed against the moving benchmark pack, and stay in sample iteration until every hard VISUAL_PREVIEW dimension is >=4 and the quality-critical average is >=4.25. Do not rebuild the full 59.5-second film before PASS.",
+  "blockers": [
+    "Current connected Descript account has insufficient AI credits for the desired sample build path; do not require an upgrade merely for this experiment.",
+    "A direct Seedance/H3 generation connector is not yet connected in this chat; OpenArt was discovered as a ChatGPT plugin exposing Seedance 2.5/2.0 and MiniMax H3/H3 Max and was suggested for optional connection."
+  ],
   "authoritative_artifacts": {
     "rejected_candidate_v4": {
       "library_path": "/Video Growth Agent/Pilot 002/Release V4/Pilot002_FINAL_RELEASE_V4.mp4",
       "sha256": "eec364e8530067dbc87a08a9ccbf2dd6e6e8a5ab32fb87f648c794a4000628eb",
-      "status": "HISTORICAL_REJECTED_CANDIDATE",
-      "rejection_reason": "User explicitly judged overall quality insufficient; do not publish or use as release authority."
+      "status": "HISTORICAL_REJECTED_CANDIDATE"
+    },
+    "sample_v2": {
+      "library_path": "/Video Growth Agent/Pilot 002/Sample V2/Pilot002_Sample_V2.mp4",
+      "status": "ITERATE_NOT_PASS",
+      "qa_ref": "/Video Growth Agent/Pilot 002/Sample V2/QA.md",
+      "contact_sheet": "/Video Growth Agent/Pilot 002/Sample V2/Pilot002_Sample_V2_contact.jpg",
+      "github_record": "projects/pilot-002/SAMPLE_V2.md"
     },
     "quality_rebase": "projects/pilot-002/QUALITY_REBASE.md",
     "moving_benchmark_pack": "projects/pilot-002/BENCHMARK_REBASE.md",
     "v4_failure_audit": "projects/pilot-002/V4_FAILURE_AUDIT.md",
+    "learning_pass_2026_10_09": "projects/pilot-002/LEARNING_PASS_2026-10-09.md",
     "production_intelligence": "skills/video-growth-agent/references/production-intelligence.md",
-    "self_learning_contract": "skills/video-growth-agent/references/self-learning.md",
     "benchmark_policy": "skills/video-growth-agent/references/benchmark-policy.md",
-    "pilot_002_notion_recovery": "https://app.notion.com/p/3f4d54f04b1781fb8178eb3af79a8b40",
     "github_authority": "D1traverser-debug/video-growth-agent@main"
   },
   "learning_pass": {
     "sources_distilled": [
+      "Seedance 2.0 official launch and multimodal reference controls",
+      "MiniMax H3 official FL2VA/Ref2VA modes",
+      "ComfyUI + MiniMax H3 production orchestrator workflows",
       "DramaClaw",
-      "Toonflow",
+      "Utopai PAI / PAI-Pro",
+      "Tencent WorkRally",
       "Pippit Nest",
-      "MiniMax H3 official Skill and reference modes",
-      "ComfyUI + MiniMax H3 workflow",
-      "Utopai Studios PAI",
-      "BigBanana AI Director",
-      "video-shotcraft / video-motion-pro style shot-recipe workflows",
-      "BUCK Nothing Playground",
-      "BUCK Microsoft Azure",
-      "TAQA AI Agent System",
-      "Ordinary Folk Google Gemini / AI Mode work",
-      "recent Remotion/Claude community production and failure reports"
+      "Vibemotion",
+      "Claude Opus 5.5 deterministic HTML/Playwright/FFmpeg workflows",
+      "Narrator AI CLI Skill"
     ],
-    "candidate_methods": [
-      "asset-first reference locking",
-      "first/last-frame motion control",
-      "multimodal audiovisual shot contracts",
-      "shot-to-engine routing",
-      "sample-first near-final prototype validation",
-      "shot-level repair",
-      "exploration lane separated from production lane",
-      "accepted-seconds economics",
-      "real-material/background + precise code foreground hybrid",
-      "shot recipe / motion grammar library instead of ad-hoc animation"
+    "accepted_candidate_methods": [
+      "shot-as-durable-object",
+      "exploration-lane-vs-production-lane",
+      "asset-first-reference-locking",
+      "first-last-state-control",
+      "multimodal-reference-role-binding",
+      "shot-to-engine-routing",
+      "deterministic-code-layer-for-precision-not-cinematic-material",
+      "shot-level-repair",
+      "accepted-seconds-economics"
     ],
-    "validation_rule": "External methods remain candidate techniques until a real studio sample passes our own benchmark and quality gates."
+    "validation_rule": "These remain candidate techniques until a real Sample V3 passes the studio benchmark and quality gates."
   },
   "preserved_user_requirements": [
     "Optimize for growth, IP/audience asset, advertiser invitations and sustainable commercialization rather than platform incentive payments.",
     "Default to zero or very low incremental cost and no recurring filming requirement.",
     "Primary commercial axis: AI applications/software/SaaS, 3C/smart hardware, technology business/frontier technology and adjacent sponsor pools.",
-    "Content must stand on its own before sponsor integration: worthwhile problem -> valid mechanism/story -> genuinely relevant product -> brand integration.",
+    "Content must stand on its own before sponsor integration.",
     "Final QA must consume the real rendered media; code success or agent self-report is not sufficient.",
     "The studio must proactively scout superior works, tools, Skills, source and community workflows instead of waiting for the user to provide them.",
     "Quality-critical full builds must be preceded by a representative near-final sample; a technical demo cannot authorize production.",
@@ -86,16 +103,15 @@
   ],
   "invalidated_or_historical_state": [
     "Previous RELEASE READY / WOULD PUBLISH judgment for V4 is invalidated by explicit user quality rejection.",
-    "Legacy continuity stage POSITIONING_BASELINE_READY is obsolete and must not be replayed.",
-    "Pilot 002 old Visual Preview V2 is a rejected failure sample, not a reusable approved visual system.",
-    "Release V3 and V4 are historical candidates only; no current release authority exists until a new sample-led build passes the rebuilt quality baseline."
+    "Pilot 002 old Visual Preview V2 and Release V3/V4 are historical rejected candidates only.",
+    "Sample V2 is a failed-but-useful timing/spatial previs and must not be mistaken for release authority."
   ],
   "resume": {
     "entrypoint": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
     "checkpoint_ref": "continuity/tasks/video-growth-main/CHECKPOINT.json",
-    "resume_epoch": 1,
-    "active_lease_id": "1adab312-0d2e-43cd-846c-0c008a1a7f46",
-    "new_chat_rule": "A new chat must read the manifest, classify compatibility against Universal Continuity v3.3, increment resume_epoch, replace active_lease with compare-and-swap, re-read to verify the lease, then load this checkpoint and resume at the exact next_action."
+    "resume_epoch": 2,
+    "active_lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
+    "new_chat_rule": "Read the manifest, classify compatibility, increment resume_epoch, replace active_lease with compare-and-swap, re-read to verify the lease, then resume from this checkpoint's exact next_action."
   },
-  "updated_at": "2026-10-09T12:54:00Z"
+  "updated_at": "2026-10-09T14:18:22Z"
 }
