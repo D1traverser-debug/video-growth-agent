@@ -65,7 +65,7 @@ class StudioRuntime:
                 target = state.artifacts.get(target_name)
                 if qa_payload is None or qa_payload.get("hard_pass") is not True:
                     failures.append("latest_media_qa_hard_pass")
-                elif target is None or qa_payload.get("media_uri") != target.uri:
+                elif target is None or not self._qa_matches_artifact(qa_payload, target):
                     failures.append(f"latest_media_qa_target_mismatch:{target_name}")
             elif guard == "no_unknown_final_rights":
                 unknown = [asset.asset_id for asset in state.assets.values() if asset.used_in_final and asset.rights_status == "UNKNOWN"]
@@ -74,6 +74,14 @@ class StudioRuntime:
             else:
                 failures.append("unknown_machine_guard:" + guard)
         return {"stage": state.stage, "guards": guards, "failures": failures, "pass": not failures}
+
+    @staticmethod
+    def _qa_matches_artifact(qa_payload: dict[str, Any], target: ArtifactRecord) -> bool:
+        qa_meta = qa_payload.get("metadata") if isinstance(qa_payload.get("metadata"), dict) else {}
+        qa_digest = qa_meta.get("sha256")
+        if target.digest and qa_digest:
+            return target.digest == qa_digest
+        return qa_payload.get("media_uri") == target.uri
 
     def _latest_qa_payload(self, state: ProjectState) -> dict[str, Any] | None:
         if not state.qa_receipts:
