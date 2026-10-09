@@ -8,16 +8,16 @@
   "resume_eligible": true,
   "resume_visibility": "DEFAULT",
   "recovery_owner": "VIDEO_GROWTH_AGENT",
-  "updated_at": "2026-10-09T13:43:07Z",
+  "updated_at": "2026-10-09T14:18:22Z",
   "created_at": "2026-10-08T00:00:00Z",
   "manifest_ref": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
-  "manifest_version": 5,
+  "manifest_version": 6,
   "checkpoint_ref": "continuity/tasks/video-growth-main/CHECKPOINT.json",
   "contract_version": "3.5",
   "skill_version": "skills/video-growth-agent/SKILL.md@ba7d4f612ee1f7f9f87402215c40954b6bd104a1",
   "runtime_version": "0.4.0",
-  "current_stage": "LOOKDEV",
-  "next_action": "External production-method distillation and the moving Benchmark Rebase are now persisted. Do not rebuild the full 59.5-second film. Design and render a 5–12 second near-final Pilot 002 sample that tests the hardest foreground-app-to-background-agent-world transition with richer assets, meaningful spatial/camera change, controlled shot endpoints, and representative sound. Compare the actual rendered sample at normal speed against the benchmark pack; remain in sample iteration until every hard VISUAL_PREVIEW dimension passes. Only then expand to the full film.",
+  "current_stage": "LOOKDEV_SAMPLE_ITERATION",
+  "next_action": "Use Sample V2 only as timing/spatial previs. Lock stronger human/work and backend/result endpoint keyframes, then route the high-risk transition through Seedance 2.x or MiniMax H3 using first/last-frame or reference-aware control. Keep deterministic captions/data overlays and exact edit timing. Render and inspect Sample V3 at normal speed beside the benchmark pack; remain in sample iteration until every hard VISUAL_PREVIEW dimension is >=4 and the quality-critical average is >=4.25. Do not rebuild the 59.5-second film before PASS.",
   "resume_epoch": 2,
   "active_lease": {
     "lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
@@ -36,6 +36,26 @@
       "ref": "/Video Growth Agent/Pilot 002/Release V4/Pilot002_FINAL_RELEASE_V4.mp4",
       "sha256": "eec364e8530067dbc87a08a9ccbf2dd6e6e8a5ab32fb87f648c794a4000628eb",
       "role": "quality_rejected_reference_candidate"
+    },
+    {
+      "type": "library_folder",
+      "ref": "/Video Growth Agent/Pilot 002/Sample V2/",
+      "role": "current_sample_iteration_artifacts"
+    },
+    {
+      "type": "media",
+      "ref": "/Video Growth Agent/Pilot 002/Sample V2/Pilot002_Sample_V2.mp4",
+      "role": "timing_spatial_previs_iterate_not_pass"
+    },
+    {
+      "type": "github",
+      "ref": "projects/pilot-002/SAMPLE_V2.md",
+      "role": "sample_v2_qa_and_repair_plan"
+    },
+    {
+      "type": "github",
+      "ref": "projects/pilot-002/LEARNING_PASS_2026-10-09.md",
+      "role": "distilled_new_production_control_methods"
     },
     {
       "type": "github",
@@ -68,17 +88,14 @@
       "role": "business_execution_authority"
     }
   ],
-  "blockers": [],
+  "blockers": [
+    "Connected Descript AI credits are insufficient for the desired generative edit path; do not require an upgrade for this experiment.",
+    "Direct Seedance/H3 generation is not yet connected in this chat. OpenArt was discovered as an optional ChatGPT plugin exposing Seedance 2.5/2.0 and MiniMax H3/H3 Max."
+  ],
   "compatibility": {
     "result": "COMPATIBLE",
     "checked_against": "Universal Continuity v3.5",
-    "migration_history": {
-      "source_result": "MIGRATABLE",
-      "source_state": "legacy versionless HANDOFF.md with stable task_id but stale stage and incomplete v3.3 metadata",
-      "migration_action": "preserved stable task identity, owner, valid user requirements and authoritative artifacts; replaced obsolete stage/next_action with current execution truth; added v3.3 manifest/checkpoint/lease metadata",
-      "migrated_at": "2026-10-09T10:25:00Z"
-    },
-    "compatibility_note": "Universal Continuity v3.5 adds startup-hook and bare-discovery quorum requirements without invalidating this owner's task/checkpoint execution semantics; current task state satisfies the v3.5 required identity, visibility, checkpoint and single-writer fields.",
-    "verified_at": "2026-10-09T13:43:07Z"
+    "compatibility_note": "Current task state and writer lease remain compatible with the v3.5 continuity contract.",
+    "verified_at": "2026-10-09T14:18:22Z"
   }
 }
