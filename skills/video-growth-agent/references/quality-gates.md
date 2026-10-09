@@ -12,20 +12,24 @@
 - Use hierarchy, material, light, depth and negative space; complexity alone is not production value.
 - A static asset needs meaningful camera or layer motion.
 - At least one hero frame should be strong enough to function as a poster/thumbnail candidate.
+- For continuity-critical projects, approved references must identify what stays stable across shots; a vague moodboard is insufficient.
 
 ## Motion
 - Avoid all-linear motion and simple fade-only entrances.
 - Prefer coordinated position/scale/opacity/depth changes, stagger and faster exits.
 - Motion must explain or direct attention; decorative motion that reduces comprehension is a defect.
+- Do not simulate a production-quality cinematic shot with a lower-ceiling placeholder engine and then approve it on the promise that another engine will make it better later.
 
 ## Edit
 - Delete shots that exist only because they were expensive to make.
 - Compression wins until removal damages comprehension, tension or emotional payoff.
 - Use pace contrast: fast sequences require rests; reveals need room to land.
+- For generative footage, editorial selection is part of production: compare deliberate takes and keep the strongest usable span rather than forcing one expensive take to survive intact.
 
 ## Sound
 - Voice quality below the brand bar is worse than a deliberate no-voice design.
 - Music, SFX and silence should map to narrative beats.
+- A representative motion probe should include representative sound when sound materially affects perceived weight, rhythm or realism.
 - Final encode must be checked for clipping/true peak and unexpected silence.
 
 ## Technical
@@ -61,8 +65,28 @@ For every reference, extract observable traits (hierarchy, materials, typography
 ## LOOKDEV gate
 Do not animate the full piece before proving the art direction. Produce at least three near-final hero frames: **hook**, **mechanism/reveal**, and **payoff/ending**. They must establish the design system: palette, typography, material/texture, lighting, depth, icon/illustration language, camera/lens logic and information hierarchy. If these stills look like a dashboard, wireframe, code demo or generic AI interface, stop. Animation will not rescue them.
 
+Hero frames should be built with asset types that can plausibly survive into final production. A beautiful still produced by a method that cannot preserve the subject/world/shot into motion is not sufficient evidence.
+
+## Shot-probe rule
+Before a full VISUAL_PREVIEW or full-length build, select the **highest-risk representative shot** and render a real 4–8 second probe using the intended production engine, approved reference assets and representative sound.
+
+The probe should deliberately test the most dangerous assumption, for example:
+- character/product identity under motion;
+- real camera depth and spatial continuity;
+- first-to-last-frame transformation;
+- physical interaction/performance;
+- typography over generated footage;
+- generated plate + deterministic overlay compositing;
+- edit/sound impact at the intended pace.
+
+If a second probe is made, it must test a materially different failure mode. Do not make many easy samples while avoiding the hard shot.
+
+**Hard rule:** full-sequence asset generation or full-length animation is blocked until the representative probe reaches the same hard-dimension threshold as the later visual gate. A failed probe returns to reference design, engine routing or shot design; it is not permission to “finish the rest and see.”
+
 ## Visual preview gate
 The preview must be a real rendered motion study, not a storyboard with moving cards. Review full-speed playback plus a contact sheet. PASS requires current-file evidence for composition, materials, typography, visual consistency, camera depth, easing/stagger, narrative visual arc, first-2s stop power and benchmark parity. Any promise to improve these later is a FAIL.
+
+Load `visual-development.md` for reference contracts, shot-engine routing, sample-first production and multi-take selection.
 
 ## Side-by-side test
 Put the candidate and benchmark frames at comparable scale. If the reference wins immediately on hierarchy, detail, material, typography, motion intention or hero-frame strength, identify the gap and FAIL until the gap is intentionally solved. “Different style” is not a defense for lower craft.
