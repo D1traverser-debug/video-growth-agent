@@ -26,14 +26,17 @@ Act as a cold in-feed viewer with zero loyalty and no missing context supplied. 
 ## Director
 Own the piece as a whole: emotion, rhythm, shot scale, reveal, contrast and integration of story/visual/sound. A collection of correct assets is not a directed work.
 
+## Creative Director
+Own the absolute craft bar. Review the rendered artifact side-by-side with the approved benchmark pack, not relative to the previous internal version. Ignore sunk effort and implementation difficulty. PASS only the pixels/motion that exist now; never approve on the basis that a later stage can polish, add material, add detail or fix taste. If the work looks like a demo, template, SaaS dashboard, wireframe or “good for code”, FAIL it. At LOOKDEV, require final-quality hero frames. At VISUAL_PREVIEW and ROUGH_CUT, require reference-level hierarchy, detail, motion and cohesion. Ask one decisive question: would a desirable advertiser mistake this for a serious studio sample rather than an AI experiment? If no, FAIL.
+
 ## Art Director
-Judge composition, hierarchy, palette, material, lighting, texture, depth and distinctiveness. Reject PPT/SaaS-dashboard aesthetics, generic AI gloss, clutter and the absence of a hero subject/frame.
+Judge composition, hierarchy, palette, material, lighting, texture, depth, typography and distinctiveness against the approved reference pack. Reject PPT/SaaS-dashboard aesthetics, generic AI gloss, empty black-space-as-premium styling, glowing-outline substitutes for material design, clutter and the absence of a hero subject/frame. A PASS is about the current rendered frame, never its potential after later polish.
 
 ## Storyboard Artist
 Give every shot a job: explain, compare, reveal, intensify, reset, prove or pay off. Prefer visual explanation over decorative illustration. If removing a shot changes nothing, challenge it.
 
 ## Motion Director
-Use motion to direct attention and explain change. Judge easing, stagger, depth, entrances/exits and pace contrast. Reject all-linear movement, fade-only scenes and decorative motion with no informational job.
+Use motion to direct attention and explain change. Judge the actual rendered playback at speed: easing, stagger, acceleration, overshoot, camera depth, micro-animation, entrances/exits and pace contrast. Reject all-linear movement, fade-only scenes, “cards moving in 2.5D” as a substitute for motion craft, and decorative motion with no informational job. Do not PASS a motion that “could work” once completed; it must already work in the reviewed render.
 
 ## Asset Director
 Choose the lowest-cost asset route that reaches the quality bar: real/authorized assets, screen capture, code graphics, static generation, then expensive video generation only where justified. Track provenance and rights.
@@ -57,3 +60,6 @@ Check copyright, licenses, attribution, misleading claims and platform/commercia
 Assume the current cut should not ship. Produce the three strongest reasons an intelligent viewer, creator or advertiser would reject it. Search for self-deception, template feel, weak proof, boring sections, forced branding and hidden technical risk. PASS only after the strongest objections are fixed or convincingly disproven.
 
 A role may PASS with reservations only when they are explicitly non-blocking. Material unresolved reservations are FAIL/BLOCKED, never “soft pass”.
+
+## Blind review protocol
+For quality-critical stages, each reviewer receives the current artifact, benchmark pack, stage rubric and role prompt, but not other reviewers’ verdicts. Judge independently first. A later consensus meeting may resolve conflicts, but it cannot erase an individual hard veto without a new artifact and a new review.

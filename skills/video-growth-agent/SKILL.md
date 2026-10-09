@@ -21,12 +21,13 @@ The workflow is fail-closed: a stage cannot advance until every required artifac
 - Workflow / stage semantics: `references/workflow.md`.
 - Project checkpoints, receipts, provenance and deterministic QA: `references/runtime.md`.
 - Visual, motion and audio craft: `references/quality-gates.md`.
+- Benchmark calibration / lookdev: `references/benchmark-policy.md`; mandatory before quality-critical visual stages.
 - New capability gaps, tool failures or benchmark gaps: `references/self-learning.md`.
 
 Do not load every reference if the current stage needs only one subset.
 
 ## 4. Default objective
-Optimize for audience stop-rate and retention, comprehension, distinctive craft, advertiser legibility, brand safety, repeatability and low incremental cash cost.
+Optimize for: audience stop-rate and retention, comprehension, distinctive craft, advertiser legibility, brand safety, repeatability and low incremental cash cost.
 
 Default production assumption: no recurring user filming. Prefer reusable identity assets, code motion, screen recordings, authorized/public assets, local tools and existing paid entitlements. Use paid generation only where it materially improves retention or explanation.
 
@@ -35,7 +36,10 @@ Each required role reviews from its own professional viewpoint and is expected t
 
 Before RELEASE, the red team must state the three strongest reasons the video should not be published. If any reason is material and unresolved, RELEASE is blocked.
 
-## 6. Real-render QA
+## 6. Absolute creative-quality rule
+Quality-critical PASS is absolute, not relative to a prior internal version. LOOKDEV / VISUAL_PREVIEW / ROUGH_CUT require benchmark-anchored structured scorecards bound to the exact artifact digest. A reviewer may not PASS on future potential or deferred polish.
+
+## 7. Real-render QA
 Never accept “the code ran” or “the agent says it reviewed the edit” as proof of quality.
 
 For actual media, execute the real-render loop:
@@ -43,19 +47,19 @@ For actual media, execute the real-render loop:
 
 Check stream duration and frame count independently from container duration. Check true peak after final audio encoding. Extract QA frames from the final export without seeking at exact EOF. Check subtitle/platform safe areas on the final export. Record the QA receipt; TECH_QA cannot advance on an unmeasured or failed candidate.
 
-## 7. Self-learning protocol
+## 8. Self-learning protocol
 When another creator/system can produce materially better work, do not attribute the gap to model name alone. Run:
 `DIAGNOSE → SEARCH → COMPARE → INSPECT SOURCE → PROTOTYPE → QA → ACCEPT/REJECT → PERSIST`.
 
 Inspect real Skills, source, READMEs, workflows and failure reports where available. Compare at least two plausible approaches when a major bottleneck appears. Validate with a small prototype before adopting. Persist only methods that survive QA; persist rejection reasons too.
 
-## 8. Commercial-content rule
+## 9. Commercial-content rule
 Content must work before sponsorship is added:
 `worthwhile problem → valid mechanism/story → product genuinely belongs in solution/story → sponsor integration`.
 
 Never manufacture pseudo-science or a fake problem merely to insert a product. The commercial director must be able to identify the advertiser pool and a natural integration point without degrading the viewer experience.
 
-## 9. Completion standard
+## 10. Completion standard
 A project is not COMPLETE merely because an MP4 exists. Preserve at minimum: final script, storyboard/shot plan, engine routing, source/rights notes, final media reference, QA evidence, rejected versions/reasons, publish pack, and post-publication performance evidence when available.
 
 Promote reusable craft into the Technique Library. Keep one-off project details inside the project record so temporary choices do not become global rules.

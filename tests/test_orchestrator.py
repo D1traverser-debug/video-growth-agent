@@ -12,8 +12,8 @@ def test_missing_signoff_blocks():
 
 
 def test_missing_artifact_blocks_even_with_signoff():
-    o = StudioOrchestrator(); s = ProjectState("x"); o.sign(s, Approval("showrunner", "PASS"))
-    assert o.gate_report(s)["missing_artifacts"] == ["brief"]
+    o = StudioOrchestrator(); s = ProjectState("x"); o.sign(s, Approval("showrunner", "PASS")); report = o.gate_report(s)
+    assert report["missing_artifacts"] == ["brief"]
     with pytest.raises(GateBlocked): o.advance(s)
 
 
@@ -23,13 +23,11 @@ def test_fail_veto_blocks():
 
 
 def test_pass_advances():
-    o = StudioOrchestrator(); s = ProjectState("x"); s.artifacts["brief"] = artifact("brief", "INTAKE"); o.sign(s, Approval("showrunner", "PASS"))
-    assert o.advance(s) == "POSITIONING"
+    o = StudioOrchestrator(); s = ProjectState("x"); s.artifacts["brief"] = artifact("brief", "INTAKE"); o.sign(s, Approval("showrunner", "PASS")); assert o.advance(s) == "POSITIONING"
 
 
 def test_multi_role_stage_requires_everyone():
-    o = StudioOrchestrator(); s = ProjectState("x", stage="POSITIONING"); s.artifacts["positioning"] = artifact("positioning", "POSITIONING")
-    o.sign(s, Approval("growth_strategist", "PASS")); o.sign(s, Approval("commercial_director", "PASS"))
+    o = StudioOrchestrator(); s = ProjectState("x", stage="POSITIONING"); s.artifacts["positioning"] = artifact("positioning", "POSITIONING"); o.sign(s, Approval("growth_strategist", "PASS")); o.sign(s, Approval("commercial_director", "PASS"))
     with pytest.raises(GateBlocked): o.advance(s)
     o.sign(s, Approval("showrunner", "PASS")); assert o.advance(s) == "RESEARCH"
 
@@ -46,17 +44,21 @@ def test_red_team_pass_requires_three_findings():
 
 
 def test_invalidation_removes_downstream_approvals():
-    o = StudioOrchestrator(); s = ProjectState("x", stage="ROUGH_CUT")
-    s.approvals["SCRIPT"] = {"writer": Approval("writer", "PASS")}; s.approvals["ROUGH_CUT"] = {"editor": Approval("editor", "PASS")}
-    o.invalidate_from(s, "SCRIPT"); assert s.stage == "SCRIPT"; assert s.approvals == {}
+    o = StudioOrchestrator(); s = ProjectState("x", stage="ROUGH_CUT"); s.approvals["SCRIPT"] = {"writer": Approval("writer", "PASS")}; s.approvals["ROUGH_CUT"] = {"editor": Approval("editor", "PASS")}; o.invalidate_from(s, "SCRIPT")
+    assert s.stage == "SCRIPT"; assert s.approvals == {}
 
 
 def test_every_required_role_has_prompt():
     from video_growth_agent import RoleRegistry
-    assert RoleRegistry().validate_workflow() == []
+    registry = RoleRegistry(); assert registry.validate_workflow() == []
 
 
 def test_role_registry_loads_only_requested_prompt():
     from video_growth_agent import RoleRegistry
-    role = RoleRegistry().get("art_director")
-    assert role.role == "art_director"; assert "PPT/SaaS-dashboard" in role.prompt; assert "looks-like-ppt" in role.veto
+    registry = RoleRegistry(); role = registry.get("art_director"); assert role.role == "art_director"; assert "PPT/SaaS-dashboard" in role.prompt; assert "looks-like-ppt" in role.veto
+
+
+def test_creative_director_prompt_and_lookdev_stage_exist():
+    from video_growth_agent import RoleRegistry
+    registry = RoleRegistry(); prompt = registry.get("creative_director").prompt; assert "absolute craft bar" in prompt
+    o = StudioOrchestrator(); assert "LOOKDEV" in o.index; assert "creative_director" in o.required_roles("VISUAL_PREVIEW")

@@ -10,7 +10,8 @@ Machine-readable stage order and contracts live in `config/workflow.json`.
 - SCRIPT: create hook, narrative spine and payoff; output `script`.
 - SCRIPT_AUDIT: test comprehension, retention and factual wording.
 - STORYBOARD: convert claims into shots with explicit visual jobs; output `storyboard`.
-- VISUAL_PREVIEW: render a short/high-risk sample before expensive full production; output `visual_preview`.
+- LOOKDEV: calibrate against benchmark pack and prove near-final art direction with `style_bible` + `hero_frames`; no full animation before this passes.
+- VISUAL_PREVIEW: render the highest-risk motion sample plus contact sheet; structured benchmark-anchored quality scorecards are mandatory.
 - ASSET_BUILD: build/gather approved assets and record rights/provenance; output `asset_manifest`.
 - ROUGH_CUT: assemble timing and remove dead weight; output `rough_cut`.
 - SOUND: design voice/music/SFX/silence as a coordinated layer; output `sound_mix`.
@@ -24,7 +25,7 @@ Machine-readable stage order and contracts live in `config/workflow.json`.
 - COMPLETE: durable project package exists.
 
 ## Three-part gate
-Each stage has required artifacts, required role sign-offs and optional machine guards. Missing any one blocks progression.
+Each stage has: required artifacts, required role sign-offs and optional machine guards. Missing any one blocks progression.
 
 ## Downstream invalidation
 Material changes to a stage invalidate all approvals at that stage and downstream. Examples: changing the thesis invalidates positioning/research/script onward; changing the script invalidates script approvals and downstream; replacing a final candidate after TECH_QA invalidates technical and later approval.

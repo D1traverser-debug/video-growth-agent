@@ -26,8 +26,13 @@ jobs:
           python - <<'PY'
           from video_growth_agent import RoleRegistry, StudioOrchestrator, TechniqueLibrary
           from video_growth_agent.storage import ProjectStore
-          assert RoleRegistry().get("showrunner").prompt
-          assert StudioOrchestrator().workflow["version"] == "0.2.0"
+          registry = RoleRegistry()
+          orchestrator = StudioOrchestrator()
+          assert registry.get("showrunner").prompt
+          assert registry.get("creative_director").prompt
+          assert orchestrator.workflow["version"] == "0.3.0"
+          assert "LOOKDEV" in orchestrator.index
+          assert "creative_director" in orchestrator.required_roles("VISUAL_PREVIEW")
           assert TechniqueLibrary().get("T-001").name
           assert str(ProjectStore().root) == "/tmp/projects"
           print("installed-runtime-smoke: PASS")

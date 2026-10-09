@@ -6,7 +6,12 @@ The runtime exists to stop a persuasive agent from talking its way around missin
 Each active project has a durable `state.json` containing current stage, role approvals, artifact references, asset provenance, QA receipts and revision number. State writes are atomic. Important actions also create immutable receipt files and an append-only event log.
 
 ## Three-part gate
-A stage advances only when all three are true: required outputs exist, every required professional role records PASS, and deterministic machine guards pass. Human approval cannot override a failed deterministic guard.
+A stage advances only when all three are true:
+1. **Artifact contract** — required outputs for that stage exist.
+2. **Professional sign-off** — every required role records PASS.
+3. **Machine guard** — deterministic checks, when configured, pass.
+
+Human approval cannot override a failed deterministic guard.
 
 ## Artifact invalidation
 When an already-recorded upstream artifact materially changes, approvals from that production stage and all downstream stages are deleted. The project returns to the affected stage. Never preserve stale approvals merely because a later cut already exists.
@@ -26,3 +31,7 @@ Long silence is a warning, not automatically a failure, because deliberate silen
 
 ## Binary artifacts
 Large media may live in the conversation Library, Drive or other project storage. GitHub stores stable references, digests, QA receipts and source/provenance metadata. Never invent a path to a binary that was not actually persisted.
+
+
+## Quality-critical review contract
+LOOKDEV, VISUAL_PREVIEW and ROUGH_CUT use `quality_scorecard_hard_pass`. Required reviewers must submit a structured scorecard bound to the current target artifact digest, at least three benchmark references, explicit evidence, and `blind_review=true`. Runtime rejects missing dimensions, any score below the configured floor, insufficient benchmark/evidence count, stale digests and deferred-quality PASS language. Use `review_packet()` / `vga review-packet` to obtain a blind packet that intentionally excludes other reviewers' verdicts.

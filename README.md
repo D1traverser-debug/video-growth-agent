@@ -41,7 +41,7 @@ vga techniques --tag mechanism --max-cost 2 --validated-only
 ```
 
 ## Workflow
-`INTAKE → POSITIONING → RESEARCH → RESEARCH_AUDIT → SCRIPT → SCRIPT_AUDIT → STORYBOARD → VISUAL_PREVIEW → ASSET_BUILD → ROUGH_CUT → SOUND → TECH_QA → AUDIENCE_QA → BRAND_QA → RED_TEAM → RELEASE → PERFORMANCE → LEARN → COMPLETE`
+`INTAKE → POSITIONING → RESEARCH → RESEARCH_AUDIT → SCRIPT → SCRIPT_AUDIT → STORYBOARD → LOOKDEV → VISUAL_PREVIEW → ASSET_BUILD → ROUGH_CUT → SOUND → TECH_QA → AUDIENCE_QA → BRAND_QA → RED_TEAM → RELEASE → PERFORMANCE → LEARN → COMPLETE`
 
 `config/workflow.json` is machine-readable and declares required roles, required artifacts and machine guards for each stage.
 
@@ -51,10 +51,20 @@ vga techniques --tag mechanism --max-cost 2 --validated-only
 - `RED_TEAM`: a PASS requires at least three explicit objections/findings, so “looks fine” is not a valid red-team review.
 
 ## Real media QA
-Actual media is inspected, not inferred from the editing project. The QA module checks independent video/audio stream durations, resolution/FPS/frame count, integrated loudness/true peak after final encoding, long silence, long black frames, and safe non-EOF extraction of review frames from the real export.
+Actual media is inspected, not inferred from the editing project. The QA module checks:
+- independent video/audio stream durations;
+- resolution, FPS and frame count;
+- integrated loudness and true peak after final encoding;
+- long silence detection;
+- long black-frame detection;
+- safe non-EOF extraction of review frames from the real export.
 
 ## Cost rule
 Prefer existing entitlements, local/open-source tools, code animation, screen capture and authorized assets. Paid generation is a targeted tool for shots where it creates real explanatory or retention value, not the default production engine.
 
 ## Validation
 CI installs the package, installs FFmpeg, runs the full pytest suite including a real generated MP4 QA test, and smoke-tests the CLI. “Code imported” is not sufficient evidence.
+
+
+## Benchmark-anchored quality gates
+Runtime v0.3 adds a Creative Director, LOOKDEV stage, project-specific benchmark packs, near-final hero frames before animation, blind structured review packets, 1–5 absolute craft scores and artifact-digest-bound approvals. Quality-critical PASS cannot be justified by relative improvement or promises of later polish.
