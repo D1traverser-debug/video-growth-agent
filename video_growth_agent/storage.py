@@ -4,12 +4,12 @@ import json
 import os
 import re
 import uuid
+from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
 from .models import ProjectState, utcnow_iso
 
-ROOT = Path(__file__).resolve().parents[1]
 _PROJECT_RE = re.compile(r"^[a-zA-Z0-9][a-zA-Z0-9._-]{0,95}$")
 
 
@@ -17,7 +17,8 @@ class ProjectStore:
     """Filesystem checkpoint store with atomic state writes and immutable receipts."""
 
     def __init__(self, root: Path | None = None):
-        self.root = Path(root or ROOT / "projects")
+        default_root = Path(os.environ.get("VGA_PROJECTS_DIR", str(Path.cwd() / "projects")))
+        self.root = Path(root or default_root)
         self.root.mkdir(parents=True, exist_ok=True)
 
     def project_dir(self, project_id: str) -> Path:
@@ -32,12 +33,7 @@ class ProjectStore:
         state_path = project_dir / "state.json"
         if state_path.exists():
             raise FileExistsError(f"Project already exists: {project_id}")
-        manifest = {
-            "project_id": project_id,
-            "title": title,
-            "metadata": metadata or {},
-            "created_at": utcnow_iso(),
-        }
+        manifest = {"project_id": project_id, "title": title, "metadata": metadata or {}, "created_at": utcnow_iso()}
         self._atomic_json(project_dir / "project.json", manifest)
         state = ProjectState(project_id=project_id)
         self.save(state)
@@ -58,13 +54,7 @@ class ProjectStore:
 
     def append_receipt(self, project_id: str, event: str, payload: dict[str, Any]) -> str:
         receipt_id = f"{utcnow_iso().replace(':', '').replace('-', '')}-{uuid.uuid4().hex[:10]}"
-        receipt = {
-            "receipt_id": receipt_id,
-            "event": event,
-            "project_id": project_id,
-            "created_at": utcnow_iso(),
-            "payload": payload,
-        }
+        receipt = {"receipt_id": receipt_id, "event": event, "project_id": project_id, "created_at": utcnow_iso(), "payload": payload}
         rel = Path("receipts") / f"{receipt_id}.json"
         path = self.project_dir(project_id) / rel
         if path.exists():

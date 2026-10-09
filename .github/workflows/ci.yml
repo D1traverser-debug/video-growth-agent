@@ -18,7 +18,17 @@ jobs:
         run: pip install -e . pytest
       - name: Run tests
         run: pytest -q
-      - name: Smoke test CLI and technique routing
+      - name: Smoke test installed CLI outside repository
         run: |
+          cd /tmp
           vga techniques --tag mechanism --max-cost 2 --validated-only > /tmp/techniques.json
           test -s /tmp/techniques.json
+          python - <<'PY'
+          from video_growth_agent import RoleRegistry, StudioOrchestrator, TechniqueLibrary
+          from video_growth_agent.storage import ProjectStore
+          assert RoleRegistry().get("showrunner").prompt
+          assert StudioOrchestrator().workflow["version"] == "0.2.0"
+          assert TechniqueLibrary().get("T-001").name
+          assert str(ProjectStore().root) == "/tmp/projects"
+          print("installed-runtime-smoke: PASS")
+          PY

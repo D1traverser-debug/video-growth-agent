@@ -3,8 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from .models import Approval, ProjectState
-
-ROOT = Path(__file__).resolve().parents[1]
+from .resources import data_path
 
 
 class GateBlocked(RuntimeError):
@@ -13,7 +12,7 @@ class GateBlocked(RuntimeError):
 
 class StudioOrchestrator:
     def __init__(self, workflow_path: Path | None = None):
-        path = workflow_path or ROOT / "config" / "workflow.json"
+        path = workflow_path or data_path("workflow.json")
         self.workflow = json.loads(path.read_text(encoding="utf-8"))
         self.stages = self.workflow["stages"]
         self.index = {stage["id"]: i for i, stage in enumerate(self.stages)}
