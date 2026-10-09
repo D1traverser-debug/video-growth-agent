@@ -1,0 +1,64 @@
+{
+  "task_id": "video-growth:main",
+  "task_class": "USER",
+  "domain": "VIDEO_GROWTH",
+  "title": "Video Growth Agent main program",
+  "display_name_zh": "AI视频涨粉与商业化",
+  "status": "WAITING",
+  "resume_eligible": true,
+  "resume_visibility": "DEFAULT",
+  "recovery_owner": "VIDEO_GROWTH_AGENT",
+  "updated_at": "2026-10-09T10:25:00Z",
+  "created_at": "2026-10-08T00:00:00Z",
+  "manifest_ref": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
+  "manifest_version": 1,
+  "checkpoint_ref": "continuity/tasks/video-growth-main/CHECKPOINT.json",
+  "contract_version": "3.3",
+  "skill_version": "skills/video-growth-agent/SKILL.md@0229e4242b46a80be035dc2fd1ba2aae24ac4eed",
+  "runtime_version": "0.4.0",
+  "current_stage": "RELEASE",
+  "next_action": "Pilot 002 Release V4 is internally release-ready but not externally published. Wait for the user to publish the V4 media on the chosen target platform(s); once a live post identifier/URL exists, advance to PERFORMANCE, collect real platform metrics, create the performance receipt, then run LEARN.",
+  "resume_epoch": 1,
+  "active_lease": {
+    "lease_id": "1adab312-0d2e-43cd-846c-0c008a1a7f46",
+    "acquired_at": "2026-10-09T10:25:00Z",
+    "supersedes_lease_id": null,
+    "writer": "current-chat-continuity-v3.3-migration"
+  },
+  "artifact_refs": [
+    {
+      "type": "library_folder",
+      "ref": "/Video Growth Agent/Pilot 002/Release V4/",
+      "role": "authoritative_release_package"
+    },
+    {
+      "type": "media",
+      "ref": "/Video Growth Agent/Pilot 002/Release V4/Pilot002_FINAL_RELEASE_V4.mp4",
+      "sha256": "eec364e8530067dbc87a08a9ccbf2dd6e6e8a5ab32fb87f648c794a4000628eb",
+      "role": "authoritative_final_media"
+    },
+    {
+      "type": "notion_page",
+      "ref": "https://app.notion.com/p/3f4d54f04b1781fb8178eb3af79a8b40",
+      "role": "pilot_002_recovery_and_business_evidence"
+    },
+    {
+      "type": "github",
+      "ref": "D1traverser-debug/video-growth-agent@main",
+      "role": "business_execution_authority"
+    }
+  ],
+  "blockers": [
+    {
+      "id": "external-publication-required",
+      "type": "WAITING_USER_EXTERNAL_ACTION",
+      "detail": "Release V4 has not yet been posted to a target platform, so no live post ID or performance receipt exists. Do not fabricate PERFORMANCE state."
+    }
+  ],
+  "compatibility": {
+    "result": "MIGRATABLE",
+    "source_state": "legacy versionless HANDOFF.md with stable task_id but stale stage and incomplete v3.3 metadata",
+    "migration_action": "preserve stable task identity, owner, valid user requirements and authoritative artifacts; replace obsolete stage/next_action with current Release V4 execution truth; add v3.3 manifest/checkpoint/lease metadata",
+    "migrated_at": "2026-10-09T10:25:00Z"
+  }
+}
