@@ -35,6 +35,7 @@ Agents communicate through versioned artifacts, digests, work-order state and im
 - Workflow / stage semantics: `references/workflow.md`.
 - Project checkpoints, receipts, provenance and deterministic QA: `references/runtime.md`.
 - Visual, motion and audio craft: `references/quality-gates.md`.
+- Visual development, reference contracts, shot-engine routing and sample-first production: `references/visual-development.md`; mandatory before full visual build on quality-critical projects.
 - Benchmark calibration / lookdev: `references/benchmark-policy.md`; mandatory before quality-critical visual stages.
 - New capability gaps, tool failures or benchmark gaps: `references/self-learning.md`.
 
@@ -53,6 +54,8 @@ Before RELEASE, the red team must state the three strongest reasons the video sh
 ## 7. Absolute creative-quality rule
 Quality-critical PASS is absolute, not relative to a prior internal version. LOOKDEV / VISUAL_PREVIEW / ROUGH_CUT require benchmark-anchored structured scorecards bound to the exact artifact digest. A reviewer may not PASS on future potential or deferred polish.
 
+For visual work, a full-length build is blocked until near-final hero frames and at least one representative high-risk 4–8 second shot probe prove the intended visual assets, motion engine and sound treatment can meet the benchmark. Do not use the finished video itself as the first serious quality test.
+
 ## 8. Real-render QA
 Never accept “the code ran” or “the agent says it reviewed the edit” as proof of quality.
 
@@ -65,7 +68,7 @@ Check stream duration and frame count independently from container duration. Che
 When another creator/system can produce materially better work, do not attribute the gap to model name alone. Run:
 `DIAGNOSE → SEARCH → COMPARE → INSPECT SOURCE → PROTOTYPE → QA → ACCEPT/REJECT → PERSIST`.
 
-Inspect real Skills, source, READMEs, workflows and failure reports where available. Compare at least two plausible approaches when a major bottleneck appears. Validate with a small prototype before adopting. Persist only methods that survive QA; persist rejection reasons too.
+The studio is responsible for proactively finding relevant high-quality examples, current tools, Skills, workflows and failure reports during active work; the user should not need to supply every learning source. Compare at least two plausible approaches when a major bottleneck appears. Validate with a small prototype before adopting. Persist only methods that survive QA; persist rejection reasons too.
 
 ## 10. Commercial-content rule
 Content must work before sponsorship is added:
