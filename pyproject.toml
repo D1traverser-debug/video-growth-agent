@@ -1,0 +1,9 @@
+[project]
+name = "video-growth-agent"
+version = "0.1.0"
+description = "Executable virtual-studio workflow for low-cost short-video production and QA"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
