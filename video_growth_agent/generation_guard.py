@@ -19,7 +19,7 @@ REQUIRED_FIELDS = (
     "exact_prompt",
 )
 
-CHALLENGE_ROLES = ("art_creative", "red_team")
+CHALLENGE_ROLES = ("art_director", "creative_director", "red_team")
 CHALLENGE_PROOF_FIELDS = (
     "work_order_id",
     "review_receipt_ref",
