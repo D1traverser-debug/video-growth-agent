@@ -8,10 +8,10 @@
   "resume_eligible": true,
   "resume_visibility": "DEFAULT",
   "recovery_owner": "VIDEO_GROWTH_AGENT",
-  "updated_at": "2026-10-10T15:41:00Z",
+  "updated_at": "2026-10-10T20:24:00Z",
   "created_at": "2026-10-08T00:00:00Z",
   "manifest_ref": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
-  "manifest_version": 15,
+  "manifest_version": 16,
   "checkpoint_ref": "continuity/tasks/video-growth-main/CHECKPOINT.json",
   "contract_version": "3.5",
   "continuity_protocol_version": "3.7",
@@ -53,13 +53,19 @@
     {"type":"github","ref":"projects/pilot-002/BENCHMARK_REBASE.md","role":"moving_motion_explanation_benchmark"},
     {"type":"github","ref":"skills/video-growth-agent/references/reviewer-execution-attestation.md","role":"trusted_isolated_reviewer_execution_contract"},
     {"type":"github","ref":"audits/SYSTEM_SELF_AUDIT_2026-10-10.md","role":"system_self_audit_evolution_evidence"},
+    {"type":"github","ref":"audits/SYSTEM_SELF_AUDIT_2026-10-11.md","role":"second_pass_control_plane_evolution_evidence"},
+    {"type":"github","ref":"tests/test_producer_approval_separation.py","role":"producer_vs_approval_separation_regression"},
+    {"type":"github","ref":"tests/test_learning_source_admission.py","role":"learning_source_default_deny_regression"},
     {"type":"github","ref":"D1traverser-debug/video-growth-agent@90102abc7975b0690ddacd093b7a8822cfc347e2","role":"quality_gated_cost_aware_shot_routing_main_commit"},
     {"type":"github","ref":"D1traverser-debug/video-growth-agent@main","role":"business_execution_authority"}
   ],
   "blockers": [
     "Runtime 0.5 reviewer provider adapters are coded but not live-connected or trusted; production trusted_executors remains empty by design.",
     "Shot A and Shot D endpoint generation are intentionally blocked until separate isolated pre-generation Art Director, Creative Director and Red Team executions are proven; direct conversational generator calls and combined Art/Creative approval are process-invalid.",
+    "Verified pre-generation challenge evidence now requires explicit reviewer-role binding in addition to separate execution identities and exact brief digest binding.",
     "The single enforced quality-critical generation gateway and isolated pre-generation reviewer receipt resolver are not yet implemented; structurally valid briefs are not production authorization.",
+    "Producer completion no longer counts as role approval. Producer artifact provenance is enforced, but provider-backed producer execution identity is not yet universally attested, so the system must not claim independent producer-agent execution beyond the available evidence.",
+    "Learning-source admission is default-deny for ambient/ad-hoc session material and requires declared project evidence or explicitly imported authorized external sources. Universal lowest-boundary source-manifest enforcement is not yet implemented and remains a control-plane blocker.",
     "Sample V2 remains PROCESS_INVALID because required VISUAL_PREVIEW reviewer receipts are missing.",
     "H3 Transition V1 is visually rejected and may not be reused as Sample V3.",
     "Premium vidIQ capacity is scarce and may not be used for blind exploration or whole-film generation."
@@ -67,7 +73,7 @@
   "compatibility": {
     "result": "COMPATIBLE",
     "checked_against": "Universal Continuity v3.7",
-    "compatibility_note": "Legacy task metadata from v3.5 was reconciled in place through the supported additive 3.5->3.7 edge. Current self-audit hardening changed owner/runtime governance only; business state, current_stage, next_action, resume_epoch and active_lease remain preserved.",
-    "verified_at": "2026-10-10T15:41:00Z"
+    "compatibility_note": "Legacy task metadata from v3.5 was reconciled in place through the supported additive 3.5->3.7 edge. Second-pass control-plane hardening separated producer completion from approval, added explicit pre-generation reviewer-role binding, and default-denied undeclared learning sources. Business state, current_stage, next_action, resume_epoch and active_lease remain preserved.",
+    "verified_at": "2026-10-10T20:24:00Z"
   }
 }
