@@ -61,9 +61,13 @@
   ],
   "exact_prompt": "Vertical cinematic hero frame, photographed realism. The same real desk environment is now quiet and visually resolved after unseen work has completed. A single finished presentation/report is the dominant subject on the laptop as one full-bleed authored page rather than an app interface: a strong central market visual with a restrained chart and imagery integrated as one composition, no grid of widgets and no interface chrome. The user's hands are no longer switching tools; one hand rests away from the controls as the body subtly leans back. Physical desk objects remain but are subordinate and orderly. Use a materially different composition from the opening: wider breathing room, decisive perspective, clean depth separation, believable glass and paper reflections, motivated practical light completing the earlier warm/cool arc, serious commercial-film cinematography. The image must communicate 'prepared result has arrived' from posture, calmness and visual convergence even if all written text is unreadable. No futuristic mascot, no holographic menu, no floating cards, no blue-neon control wall, no celebratory particles.",
   "pre_generation_challenge": {
-    "art_creative": {
+    "art_director": {
       "decision": "BLOCKED_PENDING_ISOLATED_EXECUTION",
-      "notes": "The prompt avoids the prior menu/card payoff, but an independent Art/Creative execution must verify that the authored result reads as a hero frame rather than a polished laptop mockup."
+      "notes": "Independent Art Director must verify that the result has material weight, controlled lighting and a decisive hero composition rather than looking like a polished laptop mockup."
+    },
+    "creative_director": {
+      "decision": "BLOCKED_PENDING_ISOLATED_EXECUTION",
+      "notes": "Independent Creative Director must verify that the ending functions as a narrative payoff and meaningful contrast to Shot A rather than collapsing back into product-demo language."
     },
     "red_team": {
       "decision": "BLOCKED_PENDING_ISOLATED_EXECUTION",
