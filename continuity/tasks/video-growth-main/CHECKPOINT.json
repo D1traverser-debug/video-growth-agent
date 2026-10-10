@@ -1,5 +1,5 @@
 {
-  "checkpoint_version": 13,
+  "checkpoint_version": 14,
   "task_id": "video-growth:main",
   "display_name_zh": "AI视频涨粉与商业化",
   "task_class": "USER",
@@ -46,9 +46,14 @@
       "policy_ref": "skills/video-growth-agent/references/generation-governance.md",
       "machine_guard_module": "video_growth_agent/generation_guard.py",
       "regression_test_ref": "tests/test_generation_guard.py",
-      "latest_verified_ci_run": 38015291388,
+      "latest_verified_ci_run": 38066823993,
       "latest_verified_ci_result": "PASS",
       "side_channel_generation": "FORBIDDEN_FOR_PROMOTABLE_QUALITY_CRITICAL_ARTIFACTS",
+      "required_pregen_reviewers": ["art_director", "creative_director", "red_team"],
+      "inline_self_authored_pass": "REJECTED_NOT_AUTHORIZATION",
+      "combined_art_creative_slot": "REMOVED",
+      "quality_critical_generation_gateway": "UNAVAILABLE_FAIL_CLOSED",
+      "isolated_pregen_review_resolver": "UNAVAILABLE_FAIL_CLOSED",
       "shot_a_brief_ref": "projects/pilot-002/SAMPLE_V3_GENERATION_BRIEF.json",
       "shot_a_status": "BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW",
       "shot_d_brief_ref": "projects/pilot-002/SAMPLE_V3_SHOT_D_GENERATION_BRIEF.json",
@@ -58,6 +63,7 @@
       "status": "CODED_UNTRUSTED_PENDING_LIVE_PROOF",
       "module": "video_growth_agent/reviewer_providers.py",
       "tests": "tests/test_reviewer_providers.py",
+      "trust_identity_semantics": "PROVIDER_ISSUED_IDENTITIES_SEPARATED_FROM_OWNER_CORRELATION_IDS",
       "gemini": {
         "role": "PRIMARY_REAL_VIDEO_REVIEW",
         "default_model": "gemini-3.8-flash",
@@ -73,7 +79,27 @@
         "live_connection": "NOT_CONFIGURED",
         "trust_registry": "NOT_REGISTERED"
       },
-      "policy": "Provider adapters may not enter trusted_executors until a real live invocation proves media access, unique execution identity, role isolation and exact result/input digest binding."
+      "policy": "Provider adapters may not enter trusted_executors until a live invocation proves actual media access, isolated execution construction, provider-issued run/request identity semantics, local correlation semantics, exact result/input digest binding and an inspectable proof reference."
+    },
+    "system_self_audit": {
+      "status": "PASS_WITH_REMAINING_FAIL_CLOSED_BLOCKERS",
+      "audit_ref": "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
+      "validated_behavioral_head": "216b033f4b13e0d1797bfa8496433341046a2cb4",
+      "ci_run_id": 38066823993,
+      "ci_job_id": 114256050068,
+      "fixed": [
+        "ALL_EXECUTION_PLAN_TASK_STAGES_BASE_RUNTIME_ENFORCED",
+        "INLINE_PREGEN_PASS_NO_LONGER_AUTHORIZATION",
+        "ART_CREATIVE_PREGEN_ROLE_MERGE_REMOVED",
+        "TRUSTED_EXECUTOR_IDENTITY_SEMANTICS_REQUIRED"
+      ],
+      "remaining": [
+        "QUALITY_CRITICAL_GENERATION_GATEWAY_UNAVAILABLE",
+        "TRUSTED_REVIEWER_EXECUTORS_EMPTY",
+        "ISOLATED_PREGEN_REVIEW_RESOLVER_UNAVAILABLE",
+        "LIVE_PROVIDER_PROOF_NOT_VERIFIED",
+        "UNIVERSAL_MID_STAGE_LEARNING_TRIGGER_NOT_FULLY_EXECUTABLE"
+      ]
     },
     "generation_route": "QUALITY_GATED_COST_AWARE",
     "generation_models_available": ["MiniMax H3", "Seedance 2", "Seedance 2 Fast"],
@@ -128,8 +154,9 @@
   },
   "next_action": "Keep VISUAL_PREVIEW and quality-critical generation fail-closed. Bring runtime 0.5 reviewer adapters to live proof without weakening trust: Gemini is the primary real-video reviewer candidate and OpenRouter free vision is a still/contact-sheet second opinion only. Do not register either as trusted until live executions prove actual media access and provider/model/run/context/trace identity. In parallel continue deterministic Shot B BEFORE -> CROSSING -> AFTER timing/compositing. Once pre-generation Art/Creative/Red Team review can run in genuinely isolated executions, review the locked Shot A/D briefs and only then generate new promotable pixels. Do not rebuild the 59.5-second film.",
   "blockers": [
-    "Reviewer provider adapters now exist but neither Gemini nor OpenRouter is live-connected or trusted yet; production trusted_executors remains empty by design.",
-    "Shot A and Shot D generation briefs are intentionally BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW; direct conversational generation would be process-invalid.",
+    "Reviewer provider adapters exist but neither Gemini nor OpenRouter is live-connected or trusted; production trusted_executors remains empty by design.",
+    "Shot A and Shot D generation briefs are BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW and now require separate Art Director, Creative Director and Red Team execution evidence; direct conversational generation and a combined Art/Creative PASS are process-invalid.",
+    "The isolated pre-generation review resolver and single enforced quality-critical generation gateway are unavailable, so no structurally valid generation brief is production authorization by itself.",
     "Sample V2 lacks required independent VISUAL_PREVIEW reviewer receipts and is PROCESS_INVALID.",
     "H3 Transition V1 is rejected and cannot be reused as Sample V3; endpoint/world-state control must be proven before another premium attempt.",
     "vidIQ premium capacity remains scarce and is reserved for high-risk or hero seconds only."
@@ -156,6 +183,7 @@
     "cinematic_benchmark_lane": "projects/pilot-002/CINEMATIC_BENCHMARK_LANE.md",
     "moving_benchmark_pack": "projects/pilot-002/BENCHMARK_REBASE.md",
     "reviewer_execution_attestation_contract": "skills/video-growth-agent/references/reviewer-execution-attestation.md",
+    "system_self_audit": "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
     "cost_aware_routing_main_commit": "90102abc7975b0690ddacd093b7a8822cfc347e2",
     "process_failure_audit": "projects/pilot-002/PROCESS_FAILURE_AUDIT_2026-10-09.md"
   },
@@ -176,5 +204,5 @@
     "active_lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
     "new_chat_rule": "Read the manifest, classify compatibility, acquire the next single-writer lease by compare-and-swap, verify it, then resume from next_action."
   },
-  "updated_at": "2026-10-10T08:18:00Z"
+  "updated_at": "2026-10-10T15:41:00Z"
 }
