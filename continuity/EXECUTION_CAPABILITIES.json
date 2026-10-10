@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0",
+  "execution_readiness_contract": "1.0",
+  "owner": "VIDEO_GROWTH_AGENT",
+  "repository": "D1traverser-debug/video-growth-agent",
+  "profile_version": 1,
+  "purpose": "Owner-level execution wiring metadata for the universal dispatcher. This file is not project task state and does not replace TASK_MANIFEST/CHECKPOINT.",
+  "capabilities": [
+    {
+      "capability_id": "studio_work_order_orchestration",
+      "scope": "ALL_CONFIGURED_STAGES",
+      "assurance_ceiling": "SESSION_EXECUTABLE",
+      "invocation_path": "video_growth_agent.studio_agents.AgenticStudio.dispatch_stage/work_packet/advance",
+      "executor_type": "PYTHON_WORK_ORDER_RUNTIME",
+      "executor_ref": "video_growth_agent/studio_agents.py",
+      "required_tools": ["python_runtime_or_owner_runtime"],
+      "evidence_contract": ["work order", "artifact binding", "work-order receipt", "gate state"],
+      "side_channel_allowed": false,
+      "safe_degraded_modes": []
+    },
+    {
+      "capability_id": "ordinary_specialist_execution",
+      "scope": "NON_ISOLATION_CRITICAL_WORK_ORDERS",
+      "assurance_ceiling": "SESSION_EXECUTABLE",
+      "invocation_path": "AgenticStudio.work_packet -> current approved executor substrate -> complete_work/submit_review",
+      "executor_type": "OWNER_PACKET_WITH_EXTERNAL_OR_CHAT_EXECUTOR",
+      "executor_ref": "video_growth_agent/studio_agents.py",
+      "required_tools": ["reasoning_or_media_tool_matching_work_packet"],
+      "evidence_contract": ["work packet", "executor identity", "input refs/digests", "work-order completion/review receipt"],
+      "side_channel_allowed": false,
+      "safe_degraded_modes": ["CHAT_BRIDGED"]
+    },
+    {
+      "capability_id": "critical_blind_multimodal_review",
+      "scope": "LOOKDEV,VISUAL_PREVIEW,ROUGH_CUT,RELEASE_WHEN_ATTESTATION_REQUIRED",
+      "assurance_ceiling": "ATTESTED_ISOLATED",
+      "invocation_path": "work order -> trusted executor registry -> isolated provider execution -> execution attestation -> review receipt",
+      "executor_type": "ISOLATED_MULTIMODAL_REVIEWER",
+      "executor_ref": "video_growth_agent/data/executors.json",
+      "required_tools": ["trusted_registered_executor", "actual_media_modality_access", "provider_run_context_trace_proof"],
+      "evidence_contract": ["work-order proof", "review receipt", "artifact digest binding", "execution attestation", "provider proof ref"],
+      "side_channel_allowed": false,
+      "safe_degraded_modes": []
+    },
+    {
+      "capability_id": "generation_preflight",
+      "scope": "QUALITY_CRITICAL_IMAGE_VIDEO_GENERATION",
+      "assurance_ceiling": "HARNESS_WIRED",
+      "invocation_path": "video_growth_agent.generation_guard.assert_generation_brief",
+      "executor_type": "DETERMINISTIC_PYTHON_GUARD",
+      "executor_ref": "video_growth_agent/generation_guard.py",
+      "required_tools": ["python_runtime_or_owner_runtime"],
+      "evidence_contract": ["generation brief", "pre-generation challenge", "machine preflight result"],
+      "side_channel_allowed": false,
+      "safe_degraded_modes": []
+    },
+    {
+      "capability_id": "quality_critical_generation_gateway",
+      "scope": "QUALITY_CRITICAL_IMAGE_VIDEO_GENERATION",
+      "assurance_ceiling": "DECLARED_ONLY",
+      "invocation_path": "NOT_IMPLEMENTED_AS_SINGLE_ENFORCED_GENERATION_GATEWAY",
+      "executor_type": "UNAVAILABLE",
+      "executor_ref": null,
+      "required_tools": ["generation_engine_adapter", "authorization_receipt", "artifact_receipt"],
+      "evidence_contract": ["generation authorization receipt", "engine/provider identity", "exact brief/prompt binding", "generated artifact ref/digest"],
+      "side_channel_allowed": false,
+      "safe_degraded_modes": []
+    },
+    {
+      "capability_id": "deterministic_media_qa",
+      "scope": "TECH_QA_AND_REAL_RENDER_VALIDATION",
+      "assurance_ceiling": "SESSION_EXECUTABLE",
+      "invocation_path": "configured ffmpeg/ffprobe media QA tools through owner runtime",
+      "executor_type": "DETERMINISTIC_MEDIA_TOOL",
+      "executor_ref": "video_growth_agent/media_qa.py",
+      "required_tools": ["ffmpeg", "ffprobe", "final_render_access"],
+      "evidence_contract": ["media measurements", "frame/audio inspection refs", "QA receipt", "target artifact binding"],
+      "side_channel_allowed": false,
+      "safe_degraded_modes": []
+    },
+    {
+      "capability_id": "learning_evolution_sidecar",
+      "scope": "CAPABILITY_GAP_OR_REPEATED_FAILURE_ONLY",
+      "assurance_ceiling": "HARNESS_WIRED",
+      "invocation_path": "capability-gap trigger -> Production Methodologist work -> Red Team challenge -> prototype QA -> Evolution Engineer patch/test",
+      "executor_type": "ON_DEMAND_SIDECAR",
+      "executor_ref": "skills/video-growth-agent/references/generation-governance.md",
+      "required_tools": ["research_tools_as_needed", "owner_artifact_store", "tests"],
+      "evidence_contract": ["learning candidate", "challenge/rejection evidence", "prototype result", "accepted patch/test or rejection receipt"],
+      "side_channel_allowed": false,
+      "safe_degraded_modes": ["CHAT_BRIDGED"]
+    }
+  ],
+  "known_owner_blockers": [
+    "Production trusted_executors is currently empty, so critical_blind_multimodal_review is not currently executable despite the owner code supporting an attestation contract.",
+    "generation_preflight exists, but a single enforced quality_critical_generation_gateway has not yet been implemented; direct conversational generation must not be counted as owner-valid execution.",
+    "Production Methodologist and Evolution Engineer responsibilities exist, but they should be treated as an on-demand sidecar until explicit scheduling/event-trigger wiring is complete."
+  ],
+  "owner_notes": [
+    "The repository intentionally distinguishes work-order orchestration from actual specialist executor execution.",
+    "A role registry entry is not execution proof.",
+    "True blind multimodal review requires ATTESTED_ISOLATED evidence and may not be simulated by role-switching inside one unverified context."
+  ]
+}
