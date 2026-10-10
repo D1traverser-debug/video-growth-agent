@@ -3,7 +3,7 @@
   "execution_readiness_contract": "1.0",
   "owner": "VIDEO_GROWTH_AGENT",
   "repository": "D1traverser-debug/video-growth-agent",
-  "profile_version": 3,
+  "profile_version": 4,
   "purpose": "Owner-level execution wiring metadata for the universal dispatcher. This file is not project task state and does not replace TASK_MANIFEST/CHECKPOINT.",
   "capabilities": [
     {
@@ -12,9 +12,9 @@
       "assurance_ceiling": "SESSION_EXECUTABLE",
       "invocation_path": "video_growth_agent.studio_agents.AgenticStudio.dispatch_stage/work_packet/advance",
       "executor_type": "PYTHON_WORK_ORDER_RUNTIME",
-      "executor_ref": "video_growth_agent/studio_agents.py",
+      "executor_ref": "video_growth_agent/studio_agents.py + video_growth_agent/runtime.py",
       "required_tools": ["python_runtime_or_owner_runtime"],
-      "evidence_contract": ["work order", "artifact binding", "work-order receipt", "gate state"],
+      "evidence_contract": ["work order", "artifact binding", "work-order receipt", "gate state", "base-runtime process proof for every execution-plan stage with tasks"],
       "side_channel_allowed": false,
       "safe_degraded_modes": []
     },
@@ -67,9 +67,10 @@
       "evidence_contract": [
         "generation brief",
         "exact generation-brief digest",
-        "externally resolved Art/Creative review evidence",
-        "externally resolved Red Team review evidence",
-        "independent execution identity checks",
+        "separate externally resolved Art Director review evidence",
+        "separate externally resolved Creative Director review evidence",
+        "separate externally resolved Red Team review evidence",
+        "independent execution identity checks across all three reviewers",
         "machine preflight result"
       ],
       "side_channel_allowed": false,
@@ -103,7 +104,7 @@
       "capability_id": "scheduled_learning_evidence_pipeline",
       "scope": "LEARN_STAGE_AFTER_PERFORMANCE",
       "assurance_ceiling": "SESSION_EXECUTABLE",
-      "invocation_path": "execution-plan LEARN -> Production Methodologist -> Evolution Engineer candidate package -> Red Team -> Showrunner via AgenticStudio work orders; StudioRuntime base process guard also enforces the configured LEARN work orders",
+      "invocation_path": "execution-plan LEARN -> Production Methodologist -> Evolution Engineer candidate package -> Red Team -> Showrunner via AgenticStudio work orders; StudioRuntime base process guard enforces every configured LEARN work order because all execution-plan task stages are process-enforced",
       "executor_type": "OWNER_WORK_ORDER_PIPELINE",
       "executor_ref": "video_growth_agent/data/execution-plan.json + video_growth_agent/runtime.py",
       "required_tools": ["owner_work_order_runtime", "reasoning_or_research_executor_as_needed"],
@@ -126,13 +127,13 @@
   ],
   "known_owner_blockers": [
     "Production trusted_executors is currently empty, so critical_blind_multimodal_review is not currently executable despite the owner code supporting an attestation contract.",
-    "Generation preflight no longer accepts self-authored inline PASS as authorization, but the owner still lacks an executable isolated pre-generation reviewer work-order/receipt resolver and a single enforced quality_critical_generation_gateway; promotable generation remains fail-closed.",
+    "Generation preflight no longer accepts self-authored inline PASS or a combined Art/Creative slot as authorization, but the owner still lacks an executable isolated pre-generation reviewer work-order/receipt resolver and a single enforced quality_critical_generation_gateway; promotable generation remains fail-closed.",
     "Candidate reviewer adapters preserve provider run/model evidence plus caller correlation metadata, but no adapter may be trusted until a live proof demonstrates exact provider-issued identity semantics, actual media access, isolated execution construction and immutable request/response or equivalent proof binding.",
-    "The normal post-performance LEARN work-order pipeline is now enforced at the base runtime boundary. Mid-stage/repeated-failure learning still lacks a universal event-trigger path, and scheduled learning artifacts do not themselves mutate GitHub production authority; durable promotion remains an owner maintenance action with tests/evals and verified write evidence."
+    "All stages with execution-plan tasks are now process-enforced at the base StudioRuntime boundary, including LEARN. Mid-stage/repeated-failure learning still lacks a universal event-trigger path, and scheduled learning artifacts do not themselves mutate GitHub production authority; durable promotion remains an owner maintenance action with tests/evals and verified write evidence."
   ],
   "owner_notes": [
     "The repository intentionally distinguishes work-order orchestration from actual specialist executor execution.",
-    "A role registry entry or inline PASS string is not execution proof.",
+    "A role registry entry, inline PASS string or combined specialist label is not execution proof.",
     "A learning candidate or learning_receipt is evidence/proposal, not proof that production rules were durably changed.",
     "True blind multimodal review requires ATTESTED_ISOLATED evidence and may not be simulated by role-switching inside one unverified context.",
     "Provider-issued execution evidence and owner/local correlation identifiers are separate evidence classes and must be represented truthfully."
