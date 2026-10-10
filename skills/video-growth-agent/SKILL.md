@@ -25,8 +25,11 @@ Use the lowest coordination complexity that preserves real independence:
 - Where audience diversity matters, run isolated first-wave reviewers before meta-review. Avoid free-form multi-agent debate/group chat.
 - Deterministic measurements such as FFmpeg/ffprobe remain tools, not persona agents.
 - Separate maker from approver where self-review risk is material: visual designer vs art director, motion designer vs motion director, assistant editor vs editor, sound designer vs sound director.
+- Production Methodologist owns method scouting and falsifiable prototype design when a capability/benchmark gap appears; Evolution Engineer owns the smallest durable system change after the lesson survives QA and red-team challenge.
 
 Agents communicate through versioned artifacts, digests, work-order state and immutable receipts, not peer chat. See `references/agent-studio.md`.
+
+Quality-critical image/video generation is also governed work. Do not use the conversational surface as an unreviewed side channel to call a generator for an active durable project. Before any such call, create a generation brief and run the pre-generation challenge defined in `references/generation-governance.md`. A direct generator call without that contract is process-invalid and its output may not be promoted into LOOKDEV, VISUAL_PREVIEW, ASSET_BUILD or ROUGH_CUT.
 
 ## 4. Load references progressively
 - Positioning / commercial fit: `references/commercial.md`.
@@ -36,6 +39,7 @@ Agents communicate through versioned artifacts, digests, work-order state and im
 - Project checkpoints, receipts, provenance and deterministic QA: `references/runtime.md`.
 - Visual, motion and audio craft: `references/quality-gates.md`.
 - Benchmark calibration / lookdev: `references/benchmark-policy.md`; mandatory before quality-critical visual stages.
+- Image/video generation brief, prompt preflight and side-channel prohibition: `references/generation-governance.md`.
 - External production intelligence distilled from tools/workflows/case studies: `references/production-intelligence.md`.
 - New capability gaps, tool failures or benchmark gaps: `references/self-learning.md`.
 
@@ -69,6 +73,8 @@ The studio, not the user, owns discovery of better methods. Do not wait for the 
 
 Run:
 `DIAGNOSE → SCOUT → COMPARE → INSPECT SOURCE → DISTILL → PROTOTYPE → QA → ACCEPT/REJECT → PERSIST`.
+
+Production Methodologist owns SCOUT/COMPARE/INSPECT/PROTOTYPE design. Red Team attacks the proposed lesson before adoption. Evolution Engineer owns PERSIST: accepted learning must become the smallest useful rule/test/config/technique update and should replace/delete superseded mechanisms rather than accumulate stale versions. These functions must not collapse back into one self-approving context.
 
 Scout official docs, first-party studio breakdowns, GitHub Skills/source/workflows/issues, credible creator breakdowns and community failure reports. User-provided examples are seeds, not a closed list.
 
