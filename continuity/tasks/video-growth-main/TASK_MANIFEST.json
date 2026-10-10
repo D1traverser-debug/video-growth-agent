@@ -8,16 +8,16 @@
   "resume_eligible": true,
   "resume_visibility": "DEFAULT",
   "recovery_owner": "VIDEO_GROWTH_AGENT",
-  "updated_at": "2026-10-09T16:31:00Z",
+  "updated_at": "2026-10-10T01:20:00Z",
   "created_at": "2026-10-08T00:00:00Z",
   "manifest_ref": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
-  "manifest_version": 10,
+  "manifest_version": 11,
   "checkpoint_ref": "continuity/tasks/video-growth-main/CHECKPOINT.json",
   "contract_version": "3.5",
   "skill_version": "skills/video-growth-agent/SKILL.md@ba7d4f612ee1f7f9f87402215c40954b6bd104a1",
   "runtime_version": "0.4.0",
   "current_stage": "VISUAL_PREVIEW_PROCESS_REENTRY",
-  "next_action": "Treat the completed 4-second MiniMax H3 transition as an unjudged candidate until actual media pixels can be consumed by QA; do not infer quality from the model name or prompt. Continue VISUAL_PREVIEW process re-entry by integrating a real isolated multimodal reviewer executor and persisting the required blind reviewer receipt bundle bound to exact artifact digests. Apply the merged quality-gated cost-aware shot router: cheap/free engines may explore only after capability and quality thresholds are met, while premium H3/Seedance capacity is reserved for high-risk or hero seconds. Do not rebuild the 59.5-second film and do not declare VISUAL_PREVIEW PASS until both process validity and all hard quality dimensions pass.",
+  "next_action": "Do not spend another premium video attempt yet. Lock Shot A human/manual and Shot D prepared-result hero keyframes against the cinematic and moving benchmark lanes. Prove Shot B BEFORE -> CROSSING -> AFTER with deterministic or low-cost previs before routing only the remaining failed cinematic layer to H3/Seedance. Continue isolated multimodal reviewer-executor integration and require the full blind reviewer receipt bundle before VISUAL_PREVIEW pass. Keep the 59.5-second rebuild frozen.",
   "resume_epoch": 2,
   "active_lease": {
     "lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
@@ -30,30 +30,24 @@
     {"type":"media","ref":"/Video Growth Agent/Pilot 002/Release V4/Pilot002_FINAL_RELEASE_V4.mp4","sha256":"eec364e8530067dbc87a08a9ccbf2dd6e6e8a5ab32fb87f648c794a4000628eb","role":"quality_rejected_reference_candidate"},
     {"type":"library_folder","ref":"/Video Growth Agent/Pilot 002/Sample V2/","role":"diagnostic_previs_process_invalid"},
     {"type":"media","ref":"/Video Growth Agent/Pilot 002/Sample V2/Pilot002_Sample_V2.mp4","role":"timing_spatial_previs_process_invalid_and_visual_fail"},
-    {"type":"github","ref":"projects/pilot-002/SAMPLE_V2.md","role":"corrected_sample_v2_status"},
-    {"type":"github","ref":"projects/pilot-002/PROCESS_FAILURE_AUDIT_2026-10-09.md","role":"agent_governance_failure_audit"},
-    {"type":"github","ref":"skills/video-growth-agent/references/agent-studio.md","role":"hardened_review_receipt_and_anti_bypass_contract"},
+    {"type":"github","ref":"projects/pilot-002/H3_TRANSITION_V1_AUDIT.md","role":"rejected_h3_actual_render_evidence"},
+    {"type":"github","ref":"projects/pilot-002/SAMPLE_V3_SHOT_REPAIR_MATRIX.md","role":"active_sample_v3_repair_contract"},
+    {"type":"github","ref":"projects/pilot-002/CINEMATIC_BENCHMARK_LANE.md","role":"feature_film_cinematography_benchmark"},
+    {"type":"github","ref":"projects/pilot-002/BENCHMARK_REBASE.md","role":"moving_motion_explanation_benchmark"},
     {"type":"github","ref":"skills/video-growth-agent/references/reviewer-execution-attestation.md","role":"trusted_isolated_reviewer_execution_contract"},
-    {"type":"github","ref":"D1traverser-debug/video-growth-agent@e1bde266b249b841f54a125ea4b01f5d9ae8dcba","role":"reviewer_attestation_hardening_main_commit"},
     {"type":"github","ref":"D1traverser-debug/video-growth-agent@90102abc7975b0690ddacd093b7a8822cfc347e2","role":"quality_gated_cost_aware_shot_routing_main_commit"},
-    {"type":"github","ref":"projects/pilot-002/LEARNING_PASS_2026-10-09.md","role":"distilled_new_production_control_methods"},
-    {"type":"github","ref":"projects/pilot-002/QUALITY_REBASE.md","role":"quality_rebase"},
-    {"type":"github","ref":"projects/pilot-002/BENCHMARK_REBASE.md","role":"moving_benchmark_pack"},
-    {"type":"github","ref":"projects/pilot-002/V4_FAILURE_AUDIT.md","role":"rejected_v4_failure_evidence"},
-    {"type":"github","ref":"skills/video-growth-agent/references/production-intelligence.md","role":"distilled_external_production_methods"},
-    {"type":"notion_page","ref":"https://app.notion.com/p/3f4d54f04b1781fb8178eb3af79a8b40","role":"pilot_002_recovery_and_business_evidence"},
     {"type":"github","ref":"D1traverser-debug/video-growth-agent@main","role":"business_execution_authority"}
   ],
   "blockers": [
-    "Sample V2 is PROCESS_INVALID because required VISUAL_PREVIEW reviewer receipts are missing.",
-    "Production trusted reviewer executors intentionally remain empty; no current connected tool has yet been integrated as a verifiably isolated multimodal reviewer adapter with provider/model/run/context/trace attestation. Do not fake independence by changing hats inside one monolithic reasoning stream.",
-    "The 4-second MiniMax H3 generation completed, but the current chat QA surface has not exposed the generated video or extracted JPEG pixels as model-readable media; quality remains NOT_JUDGED rather than inferred from generation success.",
-    "Connected vidIQ MiniMax H3 is a scarce route. Current balance is 93 total credits: 73/150 renewable plus 20 add-on; renewable credits reset 2026-11-08T09:51:26.335562Z. Do not use it as the default whole-film engine."
+    "Sample V2 remains PROCESS_INVALID because required VISUAL_PREVIEW reviewer receipts are missing.",
+    "Production trusted reviewer executors remain intentionally empty until a genuinely isolated multimodal reviewer adapter with provider/model/run/context/trace attestation is integrated.",
+    "H3 Transition V1 is visually rejected: it improved material weight but failed the required human/manual BEFORE -> irreversible CROSSING -> Agent AFTER world-state transition.",
+    "Premium vidIQ capacity is scarce and may not be used for blind exploration or whole-film generation."
   ],
   "compatibility": {
     "result": "COMPATIBLE",
     "checked_against": "Universal Continuity v3.5",
-    "compatibility_note": "Task state remains compatible. Reviewer-attestation hardening and quality-gated cost-aware shot routing are merged and fail-closed. H3 generation completed but awaits media-readable QA; scarce premium capacity is reserved for high-risk or hero seconds.",
-    "verified_at": "2026-10-09T16:31:00Z"
+    "compatibility_note": "H3 V1 is now a rejected diagnostic artifact. Sample V3 proceeds through locked endpoint frames, cheap three-state previs and quality-gated premium escalation while reviewer execution remains fail-closed.",
+    "verified_at": "2026-10-10T01:20:00Z"
   }
 }
