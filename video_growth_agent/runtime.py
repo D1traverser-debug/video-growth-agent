@@ -17,7 +17,7 @@ class StudioRuntime:
     """Executable authority for project checkpoints, sign-offs and evidence receipts."""
 
     REQUIRED_MEDIA_QA_CHECKS = {"video_stream", "stream_duration_match", "true_peak", "black_frames"}
-    PROCESS_ENFORCED_STAGES = {"LOOKDEV", "VISUAL_PREVIEW", "ROUGH_CUT", "RELEASE"}
+    PROCESS_ENFORCED_STAGES = {"LOOKDEV", "VISUAL_PREVIEW", "ROUGH_CUT", "RELEASE", "LEARN"}
 
     def __init__(
         self,
