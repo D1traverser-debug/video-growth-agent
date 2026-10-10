@@ -23,9 +23,13 @@ def valid_brief():
         "literal_forbidden_prompt_terms": ["robot", "dashboard"],
         "exact_prompt": "Cinematic macro photograph of a real hand moving between a laptop trackpad and a phone on a tactile desk, practical light, shallow depth, photographed perspective, no explanatory text.",
         "pre_generation_challenge": {
-            "art_creative": {
+            "art_director": {
                 "decision": "PASS",
-                "notes": "Prompt preserves a photographed human/manual state and avoids explanatory interface language.",
+                "notes": "Physical materials, practical lighting and single-focal composition meet the art-direction contract.",
+            },
+            "creative_director": {
+                "decision": "PASS",
+                "notes": "The frame communicates manual-work friction as a narrative event rather than a technology concept poster.",
             },
             "red_team": {
                 "decision": "PASS",
@@ -55,7 +59,7 @@ def verified_challenges(brief):
             "proof_ref": f"provider-proof://{role}",
         }
 
-    return {role: proof(role) for role in ("art_creative", "red_team")}
+    return {role: proof(role) for role in ("art_director", "creative_director", "red_team")}
 
 
 def test_valid_generation_brief_requires_external_verified_challenge_bundle():
@@ -101,10 +105,27 @@ def test_identical_before_after_state_fails():
 
 def test_inline_pass_cannot_masquerade_as_executed_review():
     brief = valid_brief()
-    # The inline challenge contains two literal PASS decisions, but there is no
-    # externally resolved receipt bundle. This used to be sufficient to pass.
     failures = generation_brief_failures(brief)
     assert "verified_pre_generation_review_evidence_missing" in failures
+
+
+def test_old_combined_art_creative_slot_cannot_replace_two_specialists():
+    brief = valid_brief()
+    brief["pre_generation_challenge"] = {
+        "art_creative": {
+            "decision": "PASS",
+            "notes": "One combined reviewer must not count as Art Director plus Creative Director.",
+        },
+        "red_team": brief["pre_generation_challenge"]["red_team"],
+    }
+    verified = verified_challenges(brief)
+    verified["art_creative"] = verified.pop("art_director")
+    verified.pop("creative_director")
+    failures = generation_brief_failures(brief, verified_challenges=verified)
+    assert "pre_generation_challenge_missing:art_director" in failures
+    assert "pre_generation_challenge_missing:creative_director" in failures
+    assert "verified_pre_generation_review_missing:art_director" in failures
+    assert "verified_pre_generation_review_missing:creative_director" in failures
 
 
 def test_verified_challenge_must_bind_exact_brief_digest():
@@ -118,6 +139,6 @@ def test_verified_challenge_must_bind_exact_brief_digest():
 def test_verified_challenge_cannot_reuse_execution_context():
     brief = valid_brief()
     verified = verified_challenges(brief)
-    verified["red_team"]["context_id"] = verified["art_creative"]["context_id"]
+    verified["red_team"]["context_id"] = verified["art_director"]["context_id"]
     failures = generation_brief_failures(brief, verified_challenges=verified)
     assert any(item.startswith("verified_pre_generation_review_identity_reused:context_id:") for item in failures)
