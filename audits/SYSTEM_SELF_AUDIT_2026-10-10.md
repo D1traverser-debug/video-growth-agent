@@ -4,163 +4,148 @@ Status: ACTIVE MAINTENANCE EVIDENCE
 Scope: owner/runtime governance only; no Pilot 002 business-stage advancement or media generation  
 Trigger: explicit user request to apply the Universal Continuity critique–distill–learn–evolve system to the Video Growth Agent itself
 
-## 1. Audit method
+## 1. Method
 
-This pass used the current Universal Continuity maintenance/evolution method rather than an informal self-review:
+This was not an informal self-review. The pass followed the current Universal control-plane maintenance/evolution method:
 
 `DETECT -> READ CURRENT AUTHORITY -> DIAGNOSE -> CHALLENGE INITIAL SOLUTION -> COMPARE ALTERNATIVES -> SEARCH FAILURE MODES -> PATCH MINIMUM AUTHORITY SURFACE -> ADD REGRESSION -> VALIDATE -> REREAD`
 
-The audit read current GitHub `main` authority, including:
+Current GitHub `main` authority was inspected across Skill, Continuity capability metadata, workflow/execution plan, agent registry, StudioRuntime, AgenticStudio, generation guard, reviewer adapters, execution attestation/trust registry, generation/reviewer governance and regression tests.
 
-- `skills/video-growth-agent/SKILL.md`
-- `continuity/EXECUTION_CAPABILITIES.json`
-- `continuity/OWNER_ADAPTER.json`
-- `video_growth_agent/studio_agents.py`
-- `video_growth_agent/runtime.py`
-- `video_growth_agent/generation_guard.py`
-- `video_growth_agent/reviewer_providers.py`
-- `video_growth_agent/execution_attestation.py`
-- `video_growth_agent/data/execution-plan.json`
-- `video_growth_agent/data/agents.json`
-- relevant regression tests and Generation Governance / Reviewer Attestation references
+## 2. Strongest rejection reasons
 
-## 2. Strongest rejection reasons against the current system
+### R1 — Inline pre-generation PASS could masquerade as execution
 
-### R1 — Pre-generation PASS could be self-authored
+The generation brief embedded challenge decisions and the original machine guard accepted literal `PASS` plus notes. A caller could therefore hand-edit the JSON and satisfy the structural preflight without any reviewer work order, receipt, attestation or exact external evidence binding.
 
-The generation brief embedded `pre_generation_challenge` decisions and the machine guard previously accepted literal `PASS` plus notes as sufficient challenge state. No work-order receipt, executor attestation or exact external review evidence was required by `generation_guard.py`.
+Disposition: **CONFIRMED DEFECT; HARDENED**.
 
-Failure mode:
+### R2 — Base process enforcement was incomplete by construction
 
-1. edit the brief;
-2. set `art_creative.decision = PASS`;
-3. set `red_team.decision = PASS`;
-4. structural guard accepts the challenge despite no independent reviewer execution.
+`execution-plan.json` defines governed work across almost every stage, but `StudioRuntime` previously process-enforced only a hard-coded subset. LEARN exposed the defect clearly: a caller could theoretically inject the required artifact and approvals and call the lower runtime path without executing Production Methodologist / Evolution Engineer work orders. The same architectural omission applied to any planned stage not on the hard-coded list.
 
-This contradicted the owner invariant that role/config declarations are not execution proof.
+Disposition: **CONFIRMED DEFECT; GENERALIZED FIX APPLIED**.
 
-Disposition: **CONFIRMED SYSTEM DEFECT**.
+### R3 — Reviewer evidence classes could be overstated
 
-### R2 — LEARN could be bypassed at the lower runtime boundary
+Candidate provider adapters can expose real provider response/run/model evidence, while context/trace correlation fields may be owner-supplied. Treating every normalized attestation field as provider-issued would overstate proof strength.
 
-`execution-plan.json` correctly schedules:
+Disposition: **CONFIRMED TRUST-MODEL GAP; TRUST REGISTRATION HARDENED, LIVE EXECUTOR STILL BLOCKED**.
 
-`Production Methodologist -> Evolution Engineer -> Red Team -> Showrunner`
+### R4 — No executable isolated pre-generation reviewer resolver/gateway
 
-But `StudioRuntime.PROCESS_ENFORCED_STAGES` did not include `LEARN`. `AgenticStudio.advance()` checked work-order completion, while direct `StudioRuntime.advance()` did not require the LEARN work-order pipeline.
+The owner requires independent pre-generation challenge before promotable quality-critical image/video generation, but it still has no single executable path that dispatches isolated pregen reviewers, resolves their durable receipts/attestations, authorizes the exact brief/prompt and binds the subsequent generation call/artifact to that authorization.
 
-Failure mode:
+Disposition: **CONFIRMED EXECUTION-WIRING GAP; REMAINS FAIL-CLOSED**.
 
-- manually create `learning_receipt`;
-- manually sign Red Team and Showrunner;
-- call the lower runtime advance path;
-- declared learning roles can be bypassed.
+### R5 — Art Director and Creative Director were collapsed into one pregen slot
 
-This was the same architectural class as the earlier visual-review bypass: policy stronger than base enforcement.
+The pre-generation brief used one `art_creative` verdict. That allowed one execution to stand in for two distinct professional authorities despite the studio's maker/reviewer and specialization principles.
 
-Disposition: **CONFIRMED SYSTEM DEFECT**.
-
-### R3 — Reviewer evidence classes are not yet cleanly separated
-
-The current Gemini adapter preserves provider-issued `responseId` / resolved model identity, but `context_id`, `trace_id` and `proof_ref` are supplied by the caller and echoed back. Therefore these fields are correlation/evidence metadata, not automatically provider-issued proof.
-
-The current trust registry is empty, so this has not authorized production review. However the evidence vocabulary can overstate what a future provider actually proves if registration is done carelessly.
-
-Disposition: **CONFIRMED TRUST-MODEL GAP; still fail-closed**.
-
-### R4 — No executable isolated pre-generation reviewer work-order path yet
-
-Generation Governance requires independent Art/Creative and Red Team challenge before promotable quality-critical generation. The current stage execution plan contains post-generation VISUAL_PREVIEW review work orders, but no owner-runtime path that resolves isolated pre-generation review receipts into generation authorization.
-
-Therefore the current `quality_critical_generation_gateway` remains correctly declared `UNAVAILABLE`.
-
-Disposition: **CONFIRMED EXECUTION-WIRING GAP; current generation must remain blocked**.
+Disposition: **CONFIRMED FALSE-SEPARATION DEFECT; SPLIT INTO THREE INDEPENDENT CHALLENGES: Art Director, Creative Director, Red Team**.
 
 ## 3. Candidate comparison
 
-### Candidate A — Add more roles/policies
+### Candidate A — Add more agents or more policy prose
+Rejected. The system already had the necessary professional roles; the defects were enforcement and proof-boundary defects.
 
-Rejected.
+### Candidate B — Connect Gemini/OpenRouter first and call the review architecture solved
+Rejected. Connectivity does not solve pregen authorization, runtime bypass, evidence provenance or independent-role semantics.
 
-Reason: the system already has the right professional separation. More role names would increase declaration surface without closing execution bypasses.
+### Candidate C — Harden the existing runtime/evidence boundaries and add adversarial regressions
+Accepted. It is the smallest approach that turns declarations into enforceable controls without increasing persona/policy sprawl.
 
-### Candidate B — Connect Gemini/OpenRouter first and call the reviewer problem solved
+## 4. Distilled reusable rules
 
-Rejected.
+1. **A role is not a control.** The lowest relevant runtime boundary must reject bypass.
+2. **Status is not evidence.** A `PASS` value inside the artifact being approved cannot authorize itself.
+3. **Configured work implies process proof.** If a stage has execution-plan tasks, the base runtime must require their work-order evidence; enforcement must be derived from the plan rather than a manually maintained stage list.
+4. **Professional separation must survive into evidence.** Art Director and Creative Director cannot be merged into one approval identity merely for convenience.
+5. **Proof classes remain distinct.** Provider-issued IDs, owner correlation IDs, artifact/request/result digests and durable receipt refs are different evidence classes.
+6. **The learning system obeys its own governance.** Naming an artifact `learning_receipt` does not prove Methodologist/Evolution/Red-Team/Showrunner execution.
+7. **Do not repair governance by multiplying personas.** Prefer runtime enforcement, immutable evidence binding and falsifying regression tests.
+8. **Fail-closed blockers are useful truth.** An unavailable generation gateway or empty trusted-executor registry is safer than simulated independent review.
 
-Reason: provider connectivity alone does not solve generation authorization, receipt binding, LEARN runtime bypass, or truthful provider/local evidence semantics.
+## 5. Applied evolution
 
-### Candidate C — Harden existing execution boundaries and make evidence authority explicit
-
-Accepted.
-
-Reason: smallest change with direct failure containment. It preserves existing role architecture while forcing declared specialist work to leave executable proof.
-
-## 4. Distilled reusable lessons
-
-1. **A role is not a control.** A control exists only when the lowest relevant runtime boundary rejects bypass.
-2. **Status is not evidence.** `PASS` in a project JSON is state/reporting; authorization must resolve durable execution evidence outside the artifact being approved.
-3. **Proof classes must remain distinct.** Provider-issued IDs, local correlation IDs, artifact digests and durable receipt refs must not be rhetorically collapsed into one "trace" claim.
-4. **The learning system must obey its own learning rules.** Methodologist/Evolution/Red-Team/Showrunner execution cannot be optional merely because the output is named `learning_receipt`.
-5. **Do not fix governance defects by adding personas.** Prefer runtime enforcement, immutable evidence binding and regression tests.
-6. **Fail-closed blockers are useful truth.** An unavailable generation gateway or empty trusted-executor registry is safer than a simulated multi-agent PASS.
-
-## 5. Applied evolution in this pass
-
-### Patch A — LEARN base-runtime enforcement
+### Patch A — Process proof now covers every planned stage
 
 `video_growth_agent/runtime.py`
 
-- added `LEARN` to `PROCESS_ENFORCED_STAGES`;
-- direct `StudioRuntime.advance()` can no longer bypass configured LEARN work orders.
+- removed the fragile hard-coded process-enforced stage list;
+- process enforcement is now derived from `execution-plan.json`;
+- every stage with configured tasks requires work-order proof at the base `StudioRuntime` boundary;
+- only a valid no-task/terminal stage is exempt.
 
-Regression:
+Regressions:
 
-`tests/test_learning_runtime_enforcement.py`
+- `tests/test_learning_runtime_enforcement.py` constructs the former LEARN bypass with manually injected artifact/approvals and requires rejection;
+- `tests/test_process_enforcement_scope.py` proves that even INTAKE cannot be advanced through the lower runtime with a manually injected brief/approval and no work order.
 
-- constructs the previous bypass explicitly;
-- manually supplies `learning_receipt` and required role approvals;
-- requires the base runtime to reject advancement because Methodologist/Evolution work orders are absent.
-
-### Patch B — Generation challenge evidence moved outside the brief
+### Patch B — Pre-generation PASS is evidence-bound
 
 `video_growth_agent/generation_guard.py`
 
-- generation brief authoring contract now has a stable digest;
-- inline challenge `PASS` is no longer sufficient authorization;
-- `assert_generation_brief()` requires an externally resolved verified challenge bundle;
-- each required review proof must bind work order, review receipt, attestation, executor/execution identity, provider run, context/trace correlation, packet/result digests, exact brief digest and proof ref;
-- sibling challenge identities cannot be reused.
+- the generation authoring contract has an exact stable digest;
+- inline challenge status is not authorization;
+- an externally resolved verified challenge bundle is mandatory;
+- each proof binds work order, review receipt, attestation, executor/execution identity, provider run, context/trace correlation, packet/result digests, exact brief digest and proof ref;
+- sibling review identities cannot be reused.
 
-Regression:
+Regressions in `tests/test_generation_guard.py` reject:
 
-`tests/test_generation_guard.py`
+- inline self-authored PASS with no evidence bundle;
+- wrong brief digest;
+- reused execution context;
+- legacy combined `art_creative` evidence standing in for two reviewers.
 
-- self-authored inline PASS without external evidence fails;
-- exact brief digest mismatch fails;
-- context reuse across required challenge executions fails;
-- properly bound independent test evidence passes the structural authorization guard.
+### Patch C — Art / Creative / Red Team are three independent pregen authorities
 
-### Patch C — Governance language corrected
+The hard gate now requires:
 
-`skills/video-growth-agent/references/generation-governance.md`
+- `art_director`
+- `creative_director`
+- `red_team`
 
-- distinguishes inline status from execution proof;
-- states explicitly that the current guard validates evidence shape/binding but does not resolve receipt existence/trust itself;
-- keeps the single enforced generation gateway as a hard blocker until implemented;
-- distinguishes provider-issued proof from local correlation IDs;
-- states that LEARN is governed work and cannot be satisfied by manual artifact/signature injection.
+`projects/pilot-002/SAMPLE_V3_GENERATION_BRIEF.json` and `SAMPLE_V3_SHOT_D_GENERATION_BRIEF.json` were updated only in their governance challenge fields. All three remain `BLOCKED_PENDING_ISOLATED_EXECUTION`; creative shot content was not advanced or regenerated.
 
-## 6. What is deliberately NOT claimed fixed
+### Patch D — Trusted executor registrations must declare evidence semantics
 
-1. A single enforced quality-critical generation gateway is still not implemented.
-2. No production multimodal reviewer executor is registered; `trusted_executors` remains empty.
-3. Gemini/OpenRouter adapters are still candidates, not trusted production executors.
-4. The runtime still needs an executable isolated pre-generation reviewer work-order/receipt resolver before Shot A/D can be authorized.
-5. Provider-proof semantics need an end-to-end live proof record before trust registration. In particular, locally supplied context/trace identifiers must not be described as provider-issued unless the provider actually issues/verifies them.
+`video_growth_agent/execution_attestation.py` and `video_growth_agent/data/executors.json`
 
-These are blockers, not reasons to weaken the gate.
+A future trusted executor must explicitly declare:
+
+- whether provider run/request identity is provider-issued/inspectable;
+- whether context/trace fields are provider-issued or owner correlation;
+- proof-ref class;
+- actual isolation mechanism.
+
+Missing or invalid semantics fail closed. Production `trusted_executors` remains empty.
+
+Regression: `tests/test_execution_identity_semantics.py` rejects an executor whose evidence-source semantics are absent or falsely classified.
+
+### Patch E — Capability/governance truth was refreshed
+
+- `continuity/EXECUTION_CAPABILITIES.json` profile advanced to v4 and now describes the generalized base-runtime process gate, three independent pregen reviewer evidence requirements and truthful provider/local identity separation.
+- `skills/video-growth-agent/references/generation-governance.md` now explicitly forbids the combined Art/Creative shortcut.
+- `skills/video-growth-agent/references/reviewer-execution-attestation.md` separates provider-issued evidence from owner-local correlation identity.
+
+## 6. Remaining hard blockers
+
+The audit does **not** claim these are solved:
+
+1. `quality_critical_generation_gateway` is still not implemented as one enforced runtime gateway.
+2. Production `trusted_executors` is still empty; no real multimodal reviewer can yet authorize the critical gate.
+3. The owner still lacks the executable isolated pre-generation reviewer work-order/receipt resolver that produces the three evidence bundles consumed by the generation guard.
+4. Gemini/OpenRouter remain candidate adapters only; live modality, isolation and exact provider-proof semantics must be demonstrated before trust registration.
+5. Mid-stage/repeated-failure learning has owner sidecar methodology but no fully universal automatic event-trigger execution path.
+
+These remain blockers; none is converted into a paper PASS.
 
 ## 7. Business-state boundary
 
-This audit does not change the Pilot 002 business stage or execute its next action. `video-growth:main` remains at `VISUAL_PREVIEW_PROCESS_REENTRY`; the 59.5-second rebuild remains frozen and quality-critical generation remains fail-closed.
+This audit did not execute the Pilot 002 business `next_action`, did not generate media and did not advance the video stage. `video-growth:main` remains `VISUAL_PREVIEW_PROCESS_REENTRY`; Shot A/D remain blocked, and the 59.5-second rebuild remains frozen.
+
+## 8. Validation status
+
+The code/regression changes are committed to `main`. Final validation is the repository CI run on the final self-audit head; this section must only be marked PASS after that run completes successfully and the authoritative owner/continuity state is re-read.
