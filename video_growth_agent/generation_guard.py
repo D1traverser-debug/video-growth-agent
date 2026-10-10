@@ -21,6 +21,7 @@ REQUIRED_FIELDS = (
 
 CHALLENGE_ROLES = ("art_director", "creative_director", "red_team")
 CHALLENGE_PROOF_FIELDS = (
+    "reviewer_role",
     "work_order_id",
     "review_receipt_ref",
     "attestation_ref",
@@ -91,6 +92,11 @@ def _verified_challenge_failures(
         for field in CHALLENGE_PROOF_FIELDS:
             if not _text(proof.get(field)):
                 failures.append(f"verified_pre_generation_review_field_missing:{role}:{field}")
+        reviewer_role = _text(proof.get("reviewer_role"))
+        if reviewer_role and reviewer_role != role:
+            failures.append(
+                f"verified_pre_generation_review_role_mismatch:{role}:{reviewer_role}"
+            )
         if _text(proof.get("brief_digest")) and _text(proof.get("brief_digest")) != expected_brief_digest:
             failures.append(f"verified_pre_generation_review_brief_digest_mismatch:{role}")
 
