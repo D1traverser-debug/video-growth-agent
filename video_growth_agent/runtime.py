@@ -17,7 +17,7 @@ class StudioRuntime:
     """Executable authority for project checkpoints, sign-offs and evidence receipts."""
 
     REQUIRED_MEDIA_QA_CHECKS = {"video_stream", "stream_duration_match", "true_peak", "black_frames"}
-    PROCESS_ENFORCED_STAGES = {"LOOKDEV", "VISUAL_PREVIEW", "ROUGH_CUT", "RELEASE", "LEARN"}
+    PROCESS_ENFORCEMENT_POLICY = "ALL_EXECUTION_PLAN_TASK_STAGES"
 
     def __init__(
         self,
@@ -356,15 +356,13 @@ class StudioRuntime:
         )
 
     def process_guard_report(self, state: ProjectState) -> dict[str, Any]:
-        """Require durable AgenticStudio proof before quality-critical stage advancement.
+        """Require durable AgenticStudio proof for every configured stage task.
 
         This intentionally lives below AgenticStudio.advance so a caller cannot bypass the
-        specialist execution contract by invoking StudioRuntime.advance directly.
+        specialist execution contract by invoking StudioRuntime.advance directly. Any stage
+        with tasks in the execution plan is process-enforced; a terminal/no-task stage is not.
         """
         stage = state.stage
-        if stage not in self.PROCESS_ENFORCED_STAGES:
-            return {"stage": stage, "guards": [], "failures": [], "pass": True}
-
         stage_plan = self.execution_plan.get("stages", {}).get(stage)
         if not isinstance(stage_plan, dict):
             return {
@@ -373,6 +371,16 @@ class StudioRuntime:
                 "failures": [f"process_execution_plan_missing:{stage}"],
                 "pass": False,
             }
+        tasks = stage_plan.get("tasks", [])
+        if not isinstance(tasks, list):
+            return {
+                "stage": stage,
+                "guards": ["agent_work_order_proof"],
+                "failures": [f"process_execution_plan_tasks_invalid:{stage}"],
+                "pass": False,
+            }
+        if not tasks:
+            return {"stage": stage, "guards": [], "failures": [], "pass": True}
 
         failures: list[str] = []
         guards = [
@@ -389,7 +397,7 @@ class StudioRuntime:
         quality_roles = set(quality_spec.get("roles", {})) if isinstance(quality_spec, dict) else set()
         wave_attestations: dict[int, list[tuple[str, ExecutionAttestation]]] = {}
 
-        for task in stage_plan.get("tasks", []):
+        for task in tasks:
             task_id = str(task.get("id", ""))
             if not task_id:
                 failures.append("process_task_id_missing")
