@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "continuity_protocol_version": "3.7",
+  "owner": "VIDEO_GROWTH_AGENT",
+  "task_id": "video-growth:main",
+  "status": "READY_FOR_CURRENT_VALID_WRITER",
+  "target_checkpoint": "continuity/tasks/video-growth-main/CHECKPOINT.json",
+  "write_authority": "CURRENT_VALID_TASK_WRITER_OR_GENUINE_NEW_CHAT_TAKEOVER_ONLY",
+  "preserve_same_chat_lease": true,
+  "preserve_same_chat_resume_epoch": true,
+  "reason": "The current checkpoint mixes current execution state with duplicated business rules, historical audit detail and preserved-user-requirement prose. Recovery should keep only executable truth plus exact authority refs.",
+  "verified_authorities": {
+    "business_rules": "skills/video-growth-agent/SKILL.md",
+    "reviewer_isolation_and_receipts": "skills/video-growth-agent/references/agent-studio.md",
+    "h3_failure": "projects/pilot-002/H3_TRANSITION_V1_AUDIT.md",
+    "sample_v3_repair_contract": "projects/pilot-002/SAMPLE_V3_SHOT_REPAIR_MATRIX.md",
+    "workflow": "config/workflow.json"
+  },
+  "preserved_requirement_mapping": [
+    {
+      "checkpoint_requirement": "Quality is the first priority; cost optimization may not lower the quality floor.",
+      "authority": "skills/video-growth-agent/SKILL.md sections 5, 7 and 9",
+      "disposition": "REFERENCE_AUTHORITY_NOT_DUPLICATE"
+    },
+    {
+      "checkpoint_requirement": "Prefer zero or low incremental cost and no recurring filming where quality permits.",
+      "authority": "skills/video-growth-agent/SKILL.md sections 5 and 9",
+      "disposition": "REFERENCE_AUTHORITY_NOT_DUPLICATE"
+    },
+    {
+      "checkpoint_requirement": "Final QA must consume actual rendered media.",
+      "authority": "skills/video-growth-agent/SKILL.md section 8",
+      "disposition": "REFERENCE_AUTHORITY_NOT_DUPLICATE"
+    },
+    {
+      "checkpoint_requirement": "Every required specialist role must actually execute and leave durable evidence.",
+      "authority": "skills/video-growth-agent/SKILL.md sections 3 and 6 plus references/agent-studio.md",
+      "disposition": "REFERENCE_AUTHORITY_NOT_DUPLICATE"
+    },
+    {
+      "checkpoint_requirement": "Use GitHub main as business execution authority and expose capability or governance failures rather than smoothing them over.",
+      "authority": "skills/video-growth-agent/SKILL.md sections 1 and 2",
+      "disposition": "REFERENCE_AUTHORITY_NOT_DUPLICATE"
+    },
+    {
+      "checkpoint_requirement": "Do not use TinyFish as the default media/production path because it is too slow; prefer direct connector or local execution paths when available.",
+      "authority": null,
+      "disposition": "DO_NOT_PROMOTE_AS_VIDEO_DURABLE_RULE",
+      "finding": "No matching Video Growth rule authority was found in the repository; treat as unverified/cross-domain contamination unless the video task's valid writer can cite video-specific provenance."
+    }
+  ],
+  "duplicate_state_mapping": [
+    {
+      "checkpoint_area": "h3_transition_experiment detailed findings",
+      "stronger_ref": "projects/pilot-002/H3_TRANSITION_V1_AUDIT.md",
+      "keep_in_checkpoint": "status + audit_ref + only the decision needed for next_action"
+    },
+    {
+      "checkpoint_area": "sample_v3_repair_contract detailed sequence/routing",
+      "stronger_ref": "projects/pilot-002/SAMPLE_V3_SHOT_REPAIR_MATRIX.md",
+      "keep_in_checkpoint": "status + ref + immediate next design step"
+    },
+    {
+      "checkpoint_area": "reviewer process requirements",
+      "stronger_ref": "skills/video-growth-agent/references/agent-studio.md",
+      "keep_in_checkpoint": "current blocker/result only"
+    }
+  ],
+  "retain_until_relocated_or_revalidated": [
+    "current scarce-credit/budget snapshot if still needed by next_action and no stronger current budget artifact exists",
+    "unique blockers not yet represented by a referenced authority",
+    "exact artifact identities required to prevent replay of rejected candidates"
+  ],
+  "target_checkpoint_fields": [
+    "task identity/status/current_stage",
+    "minimal stage_state needed to execute next_action",
+    "next_action",
+    "blockers",
+    "exact authoritative_artifact refs",
+    "resume/lease pointer",
+    "protocol/runtime versions",
+    "updated_at"
+  ],
+  "reconciliation_flow": [
+    "valid writer re-reads TASK_MANIFEST.json and verifies current lease/resume_epoch",
+    "read this plan and all referenced stronger authorities",
+    "remove duplicated rule/history prose only where stronger authority is verified",
+    "drop the TinyFish video requirement unless video-specific durable provenance is found",
+    "reconcile task-level Continuity protocol metadata to v3.7 under the same lease for the same chat",
+    "re-read checkpoint and manifest before reporting COMMITTED"
+  ]
+}
