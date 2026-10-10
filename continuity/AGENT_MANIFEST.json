@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "architecture_contract_version": "1.0",
+  "owner": "VIDEO_GROWTH_AGENT",
+  "owner_kind": "BUSINESS",
+  "skill": {
+    "role": "ROUTER",
+    "entrypoint": "skills/video-growth-agent/SKILL.md",
+    "current_note": "Skill remains above the Universal thin-router target and is tracked as architecture drift rather than treated as executable proof."
+  },
+  "runtime": {
+    "runtime_type": "HYBRID",
+    "entrypoints": [
+      "video_growth_agent/runtime.py",
+      "video_growth_agent/orchestrator.py",
+      "video_growth_agent/engine_routing.py",
+      "video_growth_agent/cli.py"
+    ],
+    "tool_surface_refs": ["video_growth_agent/cli.py"],
+    "judgment_execution": "EXECUTABLE",
+    "note": "AgenticStudio/work-order execution is real; strict isolated reviewer assurance remains a separate capability boundary."
+  },
+  "workflow": {
+    "state_authority_refs": [
+      "video_growth_agent/storage.py",
+      "video_growth_agent/models.py",
+      "config/workflow.json"
+    ],
+    "transition_guard_refs": [
+      "video_growth_agent/runtime.py",
+      "video_growth_agent/generation_guard.py",
+      "video_growth_agent/execution_attestation.py"
+    ]
+  },
+  "harness": {
+    "ci_workflow_ref": ".github/workflows/ci.yml",
+    "commands": ["pytest -q", "installed CLI smoke"],
+    "suites": ["contract", "trajectory", "media", "execution"]
+  },
+  "references": {
+    "canonical_roots": ["skills/video-growth-agent/references", "config"],
+    "mirror_policy": "NONE"
+  },
+  "continuity": {
+    "task_index_ref": "continuity/TASK_INDEX.md",
+    "protocol_adapter_ref": "continuity/OWNER_ADAPTER.json",
+    "execution_capability_ref": "continuity/EXECUTION_CAPABILITIES.json"
+  }
+}
