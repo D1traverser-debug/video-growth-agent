@@ -1,11 +1,23 @@
 {
-  "checkpoint_version": 12,
+  "checkpoint_version": 13,
   "task_id": "video-growth:main",
   "display_name_zh": "AI视频涨粉与商业化",
   "task_class": "USER",
   "domain": "VIDEO_GROWTH",
   "recovery_owner": "VIDEO_GROWTH_AGENT",
   "contract_version": "3.5",
+  "continuity_protocol_version": "3.7",
+  "last_protocol_reconciled_at": "2026-10-10T08:18:00Z",
+  "protocol_migration": {
+    "from_protocol": "3.5",
+    "to_protocol": "3.7",
+    "classification": "MIGRATABLE",
+    "strategy": "ADDITIVE_PROTOCOL_OVERLAY",
+    "business_state_rewritten": false,
+    "lease_changed": false,
+    "applied_by": "same_chat_valid_owner_writer",
+    "reconciled_at": "2026-10-10T08:18:00Z"
+  },
   "runtime_version": "0.5.0",
   "status": "ACTIVE",
   "current_stage": "VISUAL_PREVIEW_PROCESS_REENTRY",
@@ -164,5 +176,5 @@
     "active_lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
     "new_chat_rule": "Read the manifest, classify compatibility, acquire the next single-writer lease by compare-and-swap, verify it, then resume from next_action."
   },
-  "updated_at": "2026-10-10T02:12:00Z"
+  "updated_at": "2026-10-10T08:18:00Z"
 }
