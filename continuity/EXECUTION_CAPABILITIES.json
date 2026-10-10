@@ -3,7 +3,7 @@
   "execution_readiness_contract": "1.0",
   "owner": "VIDEO_GROWTH_AGENT",
   "repository": "D1traverser-debug/video-growth-agent",
-  "profile_version": 2,
+  "profile_version": 3,
   "purpose": "Owner-level execution wiring metadata for the universal dispatcher. This file is not project task state and does not replace TASK_MANIFEST/CHECKPOINT.",
   "capabilities": [
     {
@@ -37,8 +37,22 @@
       "invocation_path": "work order -> trusted executor registry -> isolated provider execution -> execution attestation -> review receipt",
       "executor_type": "ISOLATED_MULTIMODAL_REVIEWER",
       "executor_ref": "video_growth_agent/data/executors.json",
-      "required_tools": ["trusted_registered_executor", "actual_media_modality_access", "provider_run_context_trace_proof"],
-      "evidence_contract": ["work-order proof", "review receipt", "artifact digest binding", "execution attestation", "provider proof ref"],
+      "required_tools": [
+        "trusted_registered_executor",
+        "actual_media_modality_access",
+        "provider_issued_run_or_request_proof",
+        "explicit_local_context_trace_correlation",
+        "immutable_request_response_or_equivalent_proof_ref"
+      ],
+      "evidence_contract": [
+        "work-order proof",
+        "review receipt",
+        "artifact digest binding",
+        "execution attestation",
+        "provider-issued run/request identity where available",
+        "truthfully classified local context/trace correlation",
+        "inspectable provider proof ref"
+      ],
       "side_channel_allowed": false,
       "safe_degraded_modes": []
     },
@@ -49,8 +63,15 @@
       "invocation_path": "video_growth_agent.generation_guard.assert_generation_brief",
       "executor_type": "DETERMINISTIC_PYTHON_GUARD",
       "executor_ref": "video_growth_agent/generation_guard.py",
-      "required_tools": ["python_runtime_or_owner_runtime"],
-      "evidence_contract": ["generation brief", "pre-generation challenge", "machine preflight result"],
+      "required_tools": ["python_runtime_or_owner_runtime", "externally_resolved_verified_challenge_bundle"],
+      "evidence_contract": [
+        "generation brief",
+        "exact generation-brief digest",
+        "externally resolved Art/Creative review evidence",
+        "externally resolved Red Team review evidence",
+        "independent execution identity checks",
+        "machine preflight result"
+      ],
       "side_channel_allowed": false,
       "safe_degraded_modes": []
     },
@@ -82,11 +103,11 @@
       "capability_id": "scheduled_learning_evidence_pipeline",
       "scope": "LEARN_STAGE_AFTER_PERFORMANCE",
       "assurance_ceiling": "SESSION_EXECUTABLE",
-      "invocation_path": "execution-plan LEARN -> Production Methodologist -> Evolution Engineer candidate package -> Red Team -> Showrunner via AgenticStudio work orders",
+      "invocation_path": "execution-plan LEARN -> Production Methodologist -> Evolution Engineer candidate package -> Red Team -> Showrunner via AgenticStudio work orders; StudioRuntime base process guard also enforces the configured LEARN work orders",
       "executor_type": "OWNER_WORK_ORDER_PIPELINE",
-      "executor_ref": "video_growth_agent/data/execution-plan.json",
+      "executor_ref": "video_growth_agent/data/execution-plan.json + video_growth_agent/runtime.py",
       "required_tools": ["owner_work_order_runtime", "reasoning_or_research_executor_as_needed"],
-      "evidence_contract": ["learning_candidate", "proposed learning_receipt", "red-team review receipt", "showrunner review receipt"],
+      "evidence_contract": ["learning_candidate", "proposed learning_receipt", "work-order provenance", "red-team review receipt", "showrunner review receipt", "base-runtime process gate"],
       "side_channel_allowed": false,
       "safe_degraded_modes": ["CHAT_BRIDGED"]
     },
@@ -105,13 +126,15 @@
   ],
   "known_owner_blockers": [
     "Production trusted_executors is currently empty, so critical_blind_multimodal_review is not currently executable despite the owner code supporting an attestation contract.",
-    "generation_preflight exists, but a single enforced quality_critical_generation_gateway has not yet been implemented; direct conversational generation must not be counted as owner-valid execution.",
-    "The normal post-performance LEARN evidence pipeline is now explicitly scheduled. Mid-stage/repeated-failure learning still lacks a universal event-trigger path, and scheduled learning artifacts do not themselves mutate GitHub production authority; durable promotion remains an owner maintenance action with tests/evals and verified write evidence."
+    "Generation preflight no longer accepts self-authored inline PASS as authorization, but the owner still lacks an executable isolated pre-generation reviewer work-order/receipt resolver and a single enforced quality_critical_generation_gateway; promotable generation remains fail-closed.",
+    "Candidate reviewer adapters preserve provider run/model evidence plus caller correlation metadata, but no adapter may be trusted until a live proof demonstrates exact provider-issued identity semantics, actual media access, isolated execution construction and immutable request/response or equivalent proof binding.",
+    "The normal post-performance LEARN work-order pipeline is now enforced at the base runtime boundary. Mid-stage/repeated-failure learning still lacks a universal event-trigger path, and scheduled learning artifacts do not themselves mutate GitHub production authority; durable promotion remains an owner maintenance action with tests/evals and verified write evidence."
   ],
   "owner_notes": [
     "The repository intentionally distinguishes work-order orchestration from actual specialist executor execution.",
-    "A role registry entry is not execution proof.",
+    "A role registry entry or inline PASS string is not execution proof.",
     "A learning candidate or learning_receipt is evidence/proposal, not proof that production rules were durably changed.",
-    "True blind multimodal review requires ATTESTED_ISOLATED evidence and may not be simulated by role-switching inside one unverified context."
+    "True blind multimodal review requires ATTESTED_ISOLATED evidence and may not be simulated by role-switching inside one unverified context.",
+    "Provider-issued execution evidence and owner/local correlation identifiers are separate evidence classes and must be represented truthfully."
   ]
 }
