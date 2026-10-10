@@ -16,8 +16,9 @@ def test_direct_runtime_advance_cannot_bypass_intake_work_order(tmp_path):
         digest="brief-digest",
     )
     rt.store.save(state)
-    rt.sign("intake-bypass", "showrunner", "PASS", notes="manual approval is not work-order proof")
 
+    # Producer-only INTAKE has no approval role. Even with the required artifact present,
+    # direct runtime advance must fail without the declared producer work order/provenance.
     report = rt.gate_report("intake-bypass")
     assert report["pass"] is False
     assert "process_work_order_missing:intake" in report["process_failures"]
