@@ -1,9 +1,9 @@
 {
-  "schema_version": "3.3",
+  "schema_version": "3.7",
   "owner": "VIDEO_GROWTH_AGENT",
   "domain": "VIDEO_GROWTH",
   "repository": "D1traverser-debug/video-growth-agent",
-  "status": "READY_V33_GITHUB_CHECKPOINT",
+  "status": "READY_V37_PROTOCOL_ADAPTER",
   "business_runtime_cutover": false,
   "authority": {
     "business_rules": "skills/video-growth-agent/SKILL.md + config/workflow.json + video_growth_agent runtime",
@@ -16,7 +16,11 @@
     "get_task_checkpoint_by_id": true,
     "compatibility_check": true,
     "resume_or_migrate_or_block": true,
-    "single_writer_lease": true
+    "single_writer_lease": true,
+    "provide_pre_takeover_progress_state": true,
+    "persist_material_progress_with_owner_version_guard": true,
+    "reread_authoritative_state_after_write": true,
+    "turn_commit_receipt": true
   },
   "bare_inherit_predicate": {
     "task_class": "USER",
@@ -25,8 +29,11 @@
     "status": ["ACTIVE", "WAITING", "BLOCKED"]
   },
   "compatibility": {
-    "current_contract_version": "3.3",
+    "current_continuity_protocol": "3.7",
     "runtime_version": "0.4.0",
+    "supported_protocol_migration_from": ["3.3", "3.5", "3.6"],
+    "migration_strategy": "ADDITIVE_PROTOCOL_OVERLAY_ON_NEXT_VALID_WRITER_TURN",
+    "business_state_rewrite": false,
     "legacy_versionless_handoff": "MIGRATABLE when stable task_id/owner and authoritative evidence are resolvable; otherwise UNKNOWN",
     "unknown_execution_state": "FAIL_CLOSED",
     "obsolete_business_gate_state": "DO_NOT_REPLAY"
@@ -34,10 +41,18 @@
   "writer_guard": {
     "storage": "GitHub contents blob SHA compare-and-swap",
     "required_fields": ["resume_epoch", "active_lease.lease_id"],
-    "future_takeover": "increment resume_epoch, replace active_lease, re-read manifest and verify before substantive work"
+    "same_chat_protocol_reconciliation": "preserve resume_epoch and active_lease",
+    "new_chat_takeover": "increment resume_epoch, replace active_lease, re-read manifest and verify before substantive work",
+    "maintenance_task_may_overwrite_active_task_manifest": false
+  },
+  "progress_observability": {
+    "policy": "D1traverser-debug/universal-continuity-agent@main/PROGRESS_OBSERVABILITY_POLICY.json",
+    "every_final_active_durable_task_response": "TURN_COMMIT_RECEIPT_REQUIRED",
+    "committed_requires_owner_reread": true
   },
   "notes": [
-    "Universal Continuity owns routing and recovery pointers only; it must not duplicate video workflow/business state machines.",
-    "This adapter does not declare a new Video Growth business Runtime cutover."
+    "Universal Continuity owns routing, protocol adaptation and recovery pointers only; it must not duplicate video workflow/business state machines.",
+    "This adapter does not declare a new Video Growth business Runtime cutover.",
+    "The current video task may still carry a v3.5 task-level protocol marker while an older chat owns its lease; its valid writer must reconcile that manifest in place on the next durable turn rather than being force-migrated by system maintenance."
   ]
 }
