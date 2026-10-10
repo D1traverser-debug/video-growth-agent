@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "policy": {
     "attestation_required_stages": [
       "LOOKDEV",
@@ -15,7 +15,8 @@
     "require_unique_context_id_within_wave": true,
     "require_unique_trace_id_within_wave": true,
     "require_all_input_digests_observed": true,
-    "require_proof_ref": true
+    "require_proof_ref": true,
+    "require_trust_identity_semantics": true
   },
   "trusted_executors": {}
 }
