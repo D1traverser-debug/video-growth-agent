@@ -34,9 +34,9 @@ def test_project_checkpoint_roundtrip_and_receipts(tmp_path):
     assert studio.advance("pilot-x") == "POSITIONING"
     loaded = rt.state("pilot-x")
     assert loaded.stage == "POSITIONING"
-    assert loaded.approvals["INTAKE"]["showrunner"].decision == "PASS"
+    assert loaded.approvals.get("INTAKE", {}) == {}
     events = (tmp_path / "projects" / "pilot-x" / "events.jsonl").read_text(encoding="utf-8").strip().splitlines()
-    assert len(events) >= 5
+    assert len(events) >= 4
 
 
 def test_changed_upstream_artifact_invalidates_downstream(tmp_path):
@@ -57,8 +57,11 @@ def test_unknown_final_rights_are_exposed(tmp_path):
     rt = runtime(tmp_path); rt.create_project("p"); rt.record_asset("p", AssetRecord("a1", "file://asset", "image", "UNKNOWN", used_in_final=True)); rt.record_asset("p", AssetRecord("a2", "file://owned", "image", "OWNED", used_in_final=True)); assert rt.unknown_final_rights("p") == ["a1"]
 
 
-def test_current_prompts_are_stage_scoped(tmp_path):
-    rt = runtime(tmp_path); rt.create_project("p"); prompts = rt.current_prompts("p"); assert set(prompts) == {"showrunner"}; assert "Protect the account" in prompts["showrunner"]
+def test_current_prompts_are_approval_role_scoped_not_producer_scoped(tmp_path):
+    rt = runtime(tmp_path); rt.create_project("p"); assert rt.current_prompts("p") == {}
+    state = rt.state("p"); state.stage = "POSITIONING"; rt.store.save(state)
+    prompts = rt.current_prompts("p")
+    assert set(prompts) == {"growth_strategist", "commercial_director"}
 
 
 def _record_fake_qa_receipt(rt, project_id: str, media_uri: str, hard_pass: bool, sha256: str | None = None):
