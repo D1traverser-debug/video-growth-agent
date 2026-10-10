@@ -17,7 +17,7 @@
   "skill_version": "skills/video-growth-agent/SKILL.md@f0f5fff6fe09b826ddaf37eb8720c677ee42be2d",
   "runtime_version": "0.5.0",
   "current_stage": "VISUAL_PREVIEW_PROCESS_REENTRY",
-  "next_action": "Keep quality-critical generation fail-closed. Runtime 0.5 now contains candidate reviewer adapters: Gemini for real short-video review and OpenRouter free vision for still/contact-sheet second opinions. Bring them to live proof and register nothing as trusted until provider/model/run/context/trace evidence plus actual media access are verified. Continue deterministic Shot B BEFORE -> CROSSING -> AFTER timing/compositing in parallel. Once isolated pre-generation Art/Creative/Red Team review is real, review the locked Shot A/D briefs and only then generate promotable pixels. Keep the 59.5-second rebuild frozen.",
+  "next_action": "Keep VISUAL_PREVIEW and quality-critical generation fail-closed. Runtime 0.5 now contains candidate reviewer adapters: Gemini for real short-video review and OpenRouter free vision for still/contact-sheet second opinions. Bring them to live proof and register nothing as trusted until provider/model/run/context/trace evidence plus actual media access are verified. Continue deterministic Shot B BEFORE -> CROSSING -> AFTER timing/compositing in parallel. Once isolated pre-generation Art/Creative/Red Team review is real, review the locked Shot A/D briefs and only then generate promotable pixels. Keep the 59.5-second rebuild frozen.",
   "resume_epoch": 2,
   "active_lease": {
     "lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
