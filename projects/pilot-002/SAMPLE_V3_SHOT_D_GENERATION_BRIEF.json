@@ -1,0 +1,73 @@
+{
+  "version": "1.0",
+  "project": "pilot-002",
+  "stage": "VISUAL_PREVIEW_PROCESS_REENTRY",
+  "target": "Shot D prepared-result hero endpoint keyframe",
+  "status": "BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW",
+  "narrative_job": "Deliver the payoff that the delegated backstage work returns as one authored, prepared result; the composition must feel calmer, more decisive and materially different from the manual-work opening.",
+  "before_state": "The prior Agent backstage sequence has completed its hidden operations and converged on one deliverable.",
+  "crossing_state": "The result enters the human world as a single authored object/surface and the camera settles instead of continuing transit.",
+  "after_state": "The user is no longer switching tools; one finished presentation/report dominates the frame while the surrounding desk and body language are visibly calm.",
+  "must_have": [
+    "one unmistakable finished result as the sole hero subject",
+    "composition and shot scale materially different from Shot A",
+    "decisive camera settle or reveal implied by the endpoint",
+    "physically believable screen, paper, glass and desk materials",
+    "result readable as authored and complete even if all text is blurred or removed",
+    "calm visual rhythm after the prior transition"
+  ],
+  "must_not_have": [
+    "dashboard grid",
+    "floating result card",
+    "multiple feature panels",
+    "AI mascot or robot",
+    "holographic control wall",
+    "generic blue neon victory screen",
+    "celebratory particles as the main payoff",
+    "meaning that depends on explanatory copy"
+  ],
+  "benchmark_refs": [
+    "projects/pilot-002/CINEMATIC_BENCHMARK_LANE.md",
+    "projects/pilot-002/BENCHMARK_REBASE.md",
+    "projects/pilot-002/SAMPLE_V3_SHOT_REPAIR_MATRIX.md"
+  ],
+  "engine_route": "Static endpoint keyframe first using the cheapest image route that can reach the photographic material floor. Exact typography/data, if later needed, is deterministic compositing. Premium video is forbidden until the endpoint still passes and Shot B/C staging proves the causal chain.",
+  "quality_floor": 4,
+  "stop_conditions": [
+    "prompt turns the payoff into a dashboard or floating UI card",
+    "more than one result competes for attention",
+    "the result only reads as complete because of legible labels",
+    "ending resembles the opening composition too closely",
+    "review challenge is not independently executed",
+    "hero still would not survive thumbnail-size inspection"
+  ],
+  "prompt_blocklist": [
+    "robot",
+    "AI assistant",
+    "dashboard grid",
+    "floating result card",
+    "feature panels",
+    "holographic control wall",
+    "portal",
+    "confetti",
+    "celebratory particles"
+  ],
+  "literal_forbidden_prompt_terms": [
+    "robot",
+    "dashboard grid",
+    "floating result card",
+    "feature panels",
+    "portal"
+  ],
+  "exact_prompt": "Vertical cinematic hero frame, photographed realism. The same real desk environment is now quiet and visually resolved after unseen work has completed. A single finished presentation/report is the dominant subject on the laptop as one full-bleed authored page rather than an app interface: a strong central market visual with a restrained chart and imagery integrated as one composition, no grid of widgets and no interface chrome. The user's hands are no longer switching tools; one hand rests away from the controls as the body subtly leans back. Physical desk objects remain but are subordinate and orderly. Use a materially different composition from the opening: wider breathing room, decisive perspective, clean depth separation, believable glass and paper reflections, motivated practical light completing the earlier warm/cool arc, serious commercial-film cinematography. The image must communicate 'prepared result has arrived' from posture, calmness and visual convergence even if all written text is unreadable. No futuristic mascot, no holographic menu, no floating cards, no blue-neon control wall, no celebratory particles.",
+  "pre_generation_challenge": {
+    "art_creative": {
+      "decision": "BLOCKED_PENDING_ISOLATED_EXECUTION",
+      "notes": "The prompt avoids the prior menu/card payoff, but an independent Art/Creative execution must verify that the authored result reads as a hero frame rather than a polished laptop mockup."
+    },
+    "red_team": {
+      "decision": "BLOCKED_PENDING_ISOLATED_EXECUTION",
+      "notes": "Strongest risk is that a laptop showing a finished page still collapses back into product-demo language. Independent Red Team must challenge whether posture, scale and material staging carry the payoff without UI dependence."
+    }
+  }
+}
