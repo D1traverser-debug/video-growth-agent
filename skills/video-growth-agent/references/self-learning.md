@@ -12,6 +12,8 @@ Do not turn every failure into another role, gate, prompt or permanent rule. Bef
 
 Prefer simplifying, replacing or deleting weak mechanisms over stacking new patches on top of them. Any proposed global rule must state what class of failures it prevents and whether it can replace or merge an existing rule.
 
+A repeated material failure after an accepted fix is a reliability incident. Persist the failure evidence and repair the enforcement/eval path before adding unrelated studio capability. A chat reminder, role-played apology, or one-off prompt tweak does not count as durable learning.
+
 ## Autonomous scout rule
 The user is not responsible for discovering tools, workflows, Skills, creator breakdowns or benchmark works for the studio. During active durable video work, the studio must scout proactively whenever:
 
@@ -65,5 +67,14 @@ Do not approve a rough technical demo merely because it proves the engine can ru
 8. ACCEPT or REJECT with an explicit reason.
 9. ROUTE each shot to the cheapest engine that can plausibly meet its hardest requirement; one model/tool does not need to own the whole film.
 10. PERSIST verified lessons in code/config/reference docs only when they generalize; keep project-specific fixes inside the project. Rejected approaches remain recorded so they are not rediscovered as if new.
+
+## Operational execution boundary
+The normal `LEARN` stage is now an explicit evidence pipeline:
+
+`Production Methodologist -> Evolution Engineer candidate package -> Red Team -> Showrunner`.
+
+The Production Methodologist produces a `learning_candidate`. The Evolution Engineer converts it into a **proposed** `learning_receipt` / change package. Those artifacts are not proof that the repository or production rules have changed. Red Team and Showrunner must approve the learning stage, and actual durable promotion still requires the owner maintenance path to apply the smallest accepted code/config/reference/test change, run the relevant regression/eval, remove or demote superseded mechanisms, and verify the authoritative result.
+
+This distinction is deliberate: scheduled learning evidence is operational; unrestricted autonomous repository mutation is not. Mid-stage/on-demand capability-gap learning still requires an explicit trigger/executor path before it may be described as fully autonomous.
 
 Refresh knowledge during active work without waiting for user prompts. Scheduled/background monitoring is optional infrastructure and must not become a dependency for normal production. Tool choice and organizational structure are replaceable; the quality contract and evidence standard are not.
