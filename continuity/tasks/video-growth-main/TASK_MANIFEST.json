@@ -8,16 +8,16 @@
   "resume_eligible": true,
   "resume_visibility": "DEFAULT",
   "recovery_owner": "VIDEO_GROWTH_AGENT",
-  "updated_at": "2026-10-10T02:05:00Z",
+  "updated_at": "2026-10-10T02:12:00Z",
   "created_at": "2026-10-08T00:00:00Z",
   "manifest_ref": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
-  "manifest_version": 12,
+  "manifest_version": 13,
   "checkpoint_ref": "continuity/tasks/video-growth-main/CHECKPOINT.json",
   "contract_version": "3.5",
   "skill_version": "skills/video-growth-agent/SKILL.md@f0f5fff6fe09b826ddaf37eb8720c677ee42be2d",
-  "runtime_version": "0.4.0",
+  "runtime_version": "0.5.0",
   "current_stage": "VISUAL_PREVIEW_PROCESS_REENTRY",
-  "next_action": "Keep quality-critical generation fail-closed. Shot A and Shot D endpoint generation briefs are now locked and machine-preflighted, but both remain BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW; do not generate promotable pixels by bypassing this gate. Continue integrating a low-cost genuinely isolated multimodal reviewer executor with provider/model/run/context/trace proof. In parallel, design deterministic Shot B BEFORE -> CROSSING -> AFTER timing/compositing and preserve premium H3/Seedance capacity for only the smallest layer that later fails the quality floor. Keep the 59.5-second rebuild frozen.",
+  "next_action": "Keep quality-critical generation fail-closed. Runtime 0.5 now contains candidate reviewer adapters: Gemini for real short-video review and OpenRouter free vision for still/contact-sheet second opinions. Bring them to live proof and register nothing as trusted until provider/model/run/context/trace evidence plus actual media access are verified. Continue deterministic Shot B BEFORE -> CROSSING -> AFTER timing/compositing in parallel. Once isolated pre-generation Art/Creative/Red Team review is real, review the locked Shot A/D briefs and only then generate promotable pixels. Keep the 59.5-second rebuild frozen.",
   "resume_epoch": 2,
   "active_lease": {
     "lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
@@ -35,6 +35,8 @@
     {"type":"github","ref":"projects/pilot-002/SAMPLE_V3_GENERATION_BRIEF.json","role":"shot_a_fail_closed_generation_brief"},
     {"type":"github","ref":"projects/pilot-002/SAMPLE_V3_SHOT_D_GENERATION_BRIEF.json","role":"shot_d_fail_closed_generation_brief"},
     {"type":"github","ref":"skills/video-growth-agent/references/generation-governance.md","role":"quality_critical_generation_governance"},
+    {"type":"github","ref":"video_growth_agent/reviewer_providers.py","role":"candidate_multimodal_reviewer_provider_adapters"},
+    {"type":"github","ref":"tests/test_reviewer_providers.py","role":"reviewer_provider_fail_closed_regression_tests"},
     {"type":"github","ref":"projects/pilot-002/CINEMATIC_BENCHMARK_LANE.md","role":"feature_film_cinematography_benchmark"},
     {"type":"github","ref":"projects/pilot-002/BENCHMARK_REBASE.md","role":"moving_motion_explanation_benchmark"},
     {"type":"github","ref":"skills/video-growth-agent/references/reviewer-execution-attestation.md","role":"trusted_isolated_reviewer_execution_contract"},
@@ -42,8 +44,8 @@
     {"type":"github","ref":"D1traverser-debug/video-growth-agent@main","role":"business_execution_authority"}
   ],
   "blockers": [
-    "Shot A and Shot D endpoint generation are intentionally blocked until an isolated pre-generation Art/Creative and Red Team execution can be proven; direct conversational generator calls are process-invalid.",
-    "Production trusted reviewer executors remain intentionally empty until a genuinely isolated multimodal reviewer adapter with provider/model/run/context/trace attestation is integrated.",
+    "Runtime 0.5 reviewer provider adapters are coded but not live-connected or trusted; production trusted_executors remains empty by design.",
+    "Shot A and Shot D endpoint generation are intentionally blocked until isolated pre-generation Art/Creative and Red Team executions are proven; direct conversational generator calls are process-invalid.",
     "Sample V2 remains PROCESS_INVALID because required VISUAL_PREVIEW reviewer receipts are missing.",
     "H3 Transition V1 is visually rejected and may not be reused as Sample V3.",
     "Premium vidIQ capacity is scarce and may not be used for blind exploration or whole-film generation."
@@ -51,7 +53,7 @@
   "compatibility": {
     "result": "COMPATIBLE",
     "checked_against": "Universal Continuity v3.5",
-    "compatibility_note": "Quality-critical generation now has a fail-closed brief/preflight layer. Sample V3 endpoint prompts are locked but intentionally blocked pending isolated pre-generation review while reviewer-executor integration continues.",
-    "verified_at": "2026-10-10T02:05:00Z"
+    "compatibility_note": "Runtime 0.5 adds fail-closed provider adapters without prematurely trusting them. Quality-critical generation stays blocked until live isolated pre-generation review is verified.",
+    "verified_at": "2026-10-10T02:12:00Z"
   }
 }
