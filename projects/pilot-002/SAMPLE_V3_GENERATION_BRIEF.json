@@ -1,0 +1,76 @@
+{
+  "version": "1.0",
+  "project": "pilot-002",
+  "stage": "VISUAL_PREVIEW_PROCESS_REENTRY",
+  "target": "Shot A endpoint keyframe, followed by Shot D endpoint keyframe",
+  "status": "BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW",
+  "narrative_job": "Establish manual app-by-app work as a physical human burden without explaining the concept through labels, mascots or feature UI; this endpoint must later contrast sharply with the delegated Agent backstage world.",
+  "before_state": "A real human hand is actively switching between laptop trackpad, phone and physical desk materials; the operating surface is dominant and the friction is visible through behavior.",
+  "crossing_state": "Not rendered in Shot A. The later transition must physically break the operating plane and change depth/camera relationship rather than add a portal or move cards through the same world.",
+  "after_state": "Not rendered in Shot A. The later Agent world must remove direct human app interaction and use a materially different spatial grammar.",
+  "must_have": [
+    "recognizably human-scale foreground interaction",
+    "one dominant manual action",
+    "tactile material variation across skin, glass, keycaps, paper or metal",
+    "motivated practical light and believable contact shadows",
+    "photographed close or macro perspective with depth separation",
+    "manual friction readable with captions muted"
+  ],
+  "must_not_have": [
+    "AI mascot or robot",
+    "floating feature menu",
+    "SaaS dashboard as the composition",
+    "holographic control wall",
+    "generic cyberpunk neon room",
+    "explanatory labels carrying the idea",
+    "portal as the story mechanism",
+    "multiple equal-weight focal points",
+    "stock-photo smiling office worker"
+  ],
+  "benchmark_refs": [
+    "projects/pilot-002/CINEMATIC_BENCHMARK_LANE.md",
+    "projects/pilot-002/BENCHMARK_REBASE.md",
+    "projects/pilot-002/SAMPLE_V3_SHOT_REPAIR_MATRIX.md",
+    "projects/pilot-002/H3_TRANSITION_V1_AUDIT.md"
+  ],
+  "engine_route": "Native static image generation only for endpoint exploration after isolated pre-generation challenge passes; no premium video call. If the still cannot clear the photographed-material floor, revise the brief before changing engines.",
+  "quality_floor": 4,
+  "stop_conditions": [
+    "prompt contains any blocked AI mascot, dashboard, floating-panel or portal language",
+    "manual problem depends on readable text",
+    "composition has more than one dominant focal event",
+    "prompt describes the future Agent world inside the Shot A endpoint",
+    "review challenge is not independently executed",
+    "candidate reads as generic office stock imagery rather than a directed shot"
+  ],
+  "prompt_blocklist": [
+    "robot",
+    "AI assistant",
+    "AI Agent mascot",
+    "floating panels",
+    "floating cards",
+    "dashboard",
+    "feature list",
+    "holographic menu",
+    "portal",
+    "cyberpunk control room"
+  ],
+  "literal_forbidden_prompt_terms": [
+    "robot",
+    "dashboard",
+    "floating panels",
+    "feature list",
+    "portal"
+  ],
+  "exact_prompt": "Vertical cinematic close-up, photographed realism. A tired but focused adult at a real desk is caught in one precise manual action: one hand on a laptop trackpad while the other reaches for a phone beside scattered paper notes and a closed folder, with another physical device just outside sharp focus. The frame is intimate and observational, shallow-to-moderate depth of field, realistic skin, glass, keycap, paper and metal textures, motivated warm practical desk light against cooler ambient room light, believable reflections and contact shadows, restrained composition with the hand-device interaction as the single dominant focal event. The burden of switching tools is communicated only by physical behavior and spatial clutter. No explanatory text, no futuristic assistant, no icons, no holograms, no feature UI. Serious commercial-film cinematography, not advertising stock photography, not a technology concept poster.",
+  "pre_generation_challenge": {
+    "art_creative": {
+      "decision": "BLOCKED_PENDING_ISOLATED_EXECUTION",
+      "notes": "Prompt has been structurally rewritten to remove the prior mascot/UI failure mode, but no independent Art/Creative executor has yet produced an attested verdict. Do not spend or generate as promotable production evidence."
+    },
+    "red_team": {
+      "decision": "BLOCKED_PENDING_ISOLATED_EXECUTION",
+      "notes": "Strongest remaining risk is generic stock-office imagery. Independent Red Team must challenge whether the physical action and framing are distinctive enough before generation is authorized."
+    }
+  }
+}
