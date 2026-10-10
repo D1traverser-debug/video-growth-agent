@@ -1,31 +1,34 @@
 {
-  "schema_version": "1.0",
-  "architecture_contract_version": "1.0",
+  "schema_version": "1.1",
+  "architecture_contract_version": "1.1",
   "owner": "VIDEO_GROWTH_AGENT",
   "owner_kind": "BUSINESS",
   "skill": {
-    "role": "ROUTER",
+    "role": "ROUTER_AND_OPERATING_CONTRACT",
     "entrypoint": "skills/video-growth-agent/SKILL.md",
-    "current_note": "Skill remains above the Universal thin-router target and is tracked as architecture drift rather than treated as executable proof."
+    "current_note": "The Skill remains above a thin-router target because it carries fail-closed operating semantics; executable proof still comes from runtime state, work orders, receipts, machine guards and execution evidence."
   },
   "runtime": {
     "runtime_type": "HYBRID",
+    "version": "0.5.1",
     "entrypoints": [
       "video_growth_agent/runtime.py",
       "video_growth_agent/orchestrator.py",
       "video_growth_agent/engine_routing.py",
       "video_growth_agent/cli.py"
     ],
+    "machine_resource_root": "video_growth_agent/data",
     "tool_surface_refs": ["video_growth_agent/cli.py"],
-    "judgment_execution": "EXECUTABLE",
-    "note": "AgenticStudio/work-order execution is real; strict isolated reviewer assurance remains a separate capability boundary."
+    "judgment_execution": "EXECUTABLE_WITH_ASSURANCE_BOUNDARIES",
+    "note": "AgenticStudio/work-order execution is real; CHAT_BRIDGED ordinary execution and ATTESTED_ISOLATED critical review remain distinct assurance classes."
   },
   "workflow": {
     "state_authority_refs": [
       "video_growth_agent/storage.py",
       "video_growth_agent/models.py",
-      "config/workflow.json"
+      "video_growth_agent/data/workflow.json"
     ],
+    "execution_plan_ref": "video_growth_agent/data/execution-plan.json",
     "transition_guard_refs": [
       "video_growth_agent/runtime.py",
       "video_growth_agent/generation_guard.py",
@@ -34,16 +37,20 @@
   },
   "harness": {
     "ci_workflow_ref": ".github/workflows/ci.yml",
-    "commands": ["pytest -q", "installed CLI smoke"],
-    "suites": ["contract", "trajectory", "media", "execution"]
+    "system_audit_entrypoint": "vga system-audit --repo-root .",
+    "commands": ["vga system-audit --repo-root .", "pytest -q", "installed-package system audit", "installed CLI smoke"],
+    "suites": ["authority-hygiene", "contract", "trajectory", "media", "execution", "continuity"]
   },
   "references": {
-    "canonical_roots": ["skills/video-growth-agent/references", "config"],
-    "mirror_policy": "NONE"
+    "canonical_roots": ["skills/video-growth-agent/references", "video_growth_agent/data"],
+    "mirror_policy": "ONLY_REQUIRED_DISTRIBUTION_MIRRORS_WITH_MACHINE_EQUALITY_CHECK",
+    "known_required_mirror": "skills/video-growth-agent/references/team.md <-> video_growth_agent/data/team.md"
   },
   "continuity": {
     "task_index_ref": "continuity/TASK_INDEX.md",
     "protocol_adapter_ref": "continuity/OWNER_ADAPTER.json",
-    "execution_capability_ref": "continuity/EXECUTION_CAPABILITIES.json"
+    "execution_capability_ref": "continuity/EXECUTION_CAPABILITIES.json",
+    "active_task_manifest_ref": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
+    "active_task_checkpoint_ref": "continuity/tasks/video-growth-main/CHECKPOINT.json"
   }
 }

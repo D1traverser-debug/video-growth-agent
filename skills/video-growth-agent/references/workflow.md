@@ -1,6 +1,6 @@
 # Workflow Semantics
 
-Machine-readable stage order and contracts live in `config/workflow.json`.
+Machine-readable stage order and gate contracts live in `video_growth_agent/data/workflow.json`. This packaged resource is the runtime authority; do not maintain a second root-level config mirror.
 
 ## Stage intent
 - INTAKE: define task, constraints, platform, target viewer and evidence requirements; output `brief`.
@@ -14,9 +14,9 @@ Machine-readable stage order and contracts live in `config/workflow.json`.
 - VISUAL_PREVIEW: render the highest-risk motion sample plus contact sheet; structured benchmark-anchored quality scorecards are mandatory.
 - ASSET_BUILD: build/gather approved assets and record rights/provenance; output `asset_manifest`.
 - ROUGH_CUT: assemble timing and remove dead weight; output `rough_cut`.
-- SOUND: design voice/music/SFX/silence as a coordinated layer; output `sound_mix`.
+- SOUND: design voice/music/SFX/silence as a coordinated layer; output `sound_mix` and conform `final_candidate`.
 - TECH_QA: probe the real final candidate, record a hard-pass QA receipt and output `technical_qa`.
-- AUDIENCE_QA: cold-viewer review after the actual cut exists.
+- AUDIENCE_QA: independent audience perspectives followed by configured meta-review.
 - BRAND_QA: judge whether the work strengthens advertiser-facing identity.
 - RED_TEAM: produce the strongest case against publishing; PASS requires at least three explicit objections/findings.
 - RELEASE: requires final media reference + publish pack and deterministic machine guards.
@@ -25,7 +25,7 @@ Machine-readable stage order and contracts live in `config/workflow.json`.
 - COMPLETE: durable project package exists.
 
 ## Three-part gate
-Each stage has: required artifacts, required role sign-offs and optional machine guards. Missing any one blocks progression.
+Each stage has required artifacts, required professional sign-offs and optional deterministic machine guards. Missing any required class blocks progression. Work-order/process proof is enforced separately by the base Runtime for every stage that declares execution-plan tasks.
 
 ## Downstream invalidation
-Material changes to a stage invalidate all approvals at that stage and downstream. Examples: changing the thesis invalidates positioning/research/script onward; changing the script invalidates script approvals and downstream; replacing a final candidate after TECH_QA invalidates technical and later approval.
+Material upstream changes invalidate stale downstream approvals. Changing thesis, script, visual language or final media bytes must not preserve approvals that were bound to prior artifacts.

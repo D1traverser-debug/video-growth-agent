@@ -16,11 +16,19 @@ jobs:
           sudo apt-get install -y ffmpeg
       - name: Install package and tests
         run: pip install -e . pytest
+      - name: Run system hygiene audit
+        run: vga system-audit --repo-root .
       - name: Run tests
         run: pytest -q
       - name: Smoke test installed CLI outside repository
         run: |
           cd /tmp
+          vga system-audit > /tmp/system-audit.json
+          python - <<'PY'
+          import json
+          report = json.load(open('/tmp/system-audit.json', encoding='utf-8'))
+          assert report['pass'] is True, report
+          PY
           vga techniques --tag mechanism --max-cost 2 --validated-only > /tmp/techniques.json
           test -s /tmp/techniques.json
           python - <<'PY'
@@ -40,18 +48,18 @@ jobs:
           orchestrator = StudioOrchestrator()
           agents = AgentRegistry()
           planner = ExecutionPlanner(agents=agents, orchestrator=orchestrator)
-          assert version("video-growth-agent") == "0.5.0"
+          assert version("video-growth-agent") == "0.5.1"
           assert registry.get("showrunner").prompt
           assert registry.get("creative_director").prompt
           assert orchestrator.workflow["version"] == "0.3.1"
-          assert agents.config["version"].startswith("0.5.")
-          assert planner.config["version"].startswith("0.5.")
+          assert agents.config["version"] == "0.5.1"
+          assert planner.config["version"] == "0.5.1"
+          assert agents.config["principles"]["tool_labels_are_capability_requests_not_execution_proof"] is True
           assert planner.validate() == []
           assert agents.get("executive_producer").user_voice is True
           assert agents.get("visual_designer").role is None
           assert agents.get("production_methodologist").kind == "worker"
           assert agents.get("evolution_engineer").kind == "worker"
-          assert "candidate artifact" in agents.get("evolution_engineer").mandate
           learn_agents = [task.get("agent") for task in planner.config["stages"]["LEARN"]["tasks"]]
           assert learn_agents == ["production_methodologist", "evolution_engineer", "red_team", "showrunner"]
           assert "LOOKDEV" in orchestrator.index

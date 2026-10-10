@@ -1,5 +1,5 @@
 {
-  "checkpoint_version": 14,
+  "checkpoint_version": 15,
   "task_id": "video-growth:main",
   "display_name_zh": "AI视频涨粉与商业化",
   "task_class": "USER",
@@ -7,18 +7,7 @@
   "recovery_owner": "VIDEO_GROWTH_AGENT",
   "contract_version": "3.5",
   "continuity_protocol_version": "3.7",
-  "last_protocol_reconciled_at": "2026-10-10T08:18:00Z",
-  "protocol_migration": {
-    "from_protocol": "3.5",
-    "to_protocol": "3.7",
-    "classification": "MIGRATABLE",
-    "strategy": "ADDITIVE_PROTOCOL_OVERLAY",
-    "business_state_rewritten": false,
-    "lease_changed": false,
-    "applied_by": "same_chat_valid_owner_writer",
-    "reconciled_at": "2026-10-10T08:18:00Z"
-  },
-  "runtime_version": "0.5.0",
+  "runtime_version": "0.5.1",
   "status": "ACTIVE",
   "current_stage": "VISUAL_PREVIEW_PROCESS_REENTRY",
   "stage_state": {
@@ -27,139 +16,22 @@
     "publication_status": "NOT_PUBLISHED",
     "performance_stage_entered": false,
     "full_build_frozen_until_sample_pass": true,
-    "moving_benchmark_rebase": "ACTIVE_WITH_CINEMATIC_LANE",
     "sample_v2_status": "PROCESS_INVALID_AND_VISUAL_FAIL",
-    "sample_v2_required_role_receipts_found": false,
-    "sample_v2_missing_required_reviewers": [
-      "creative_director",
-      "art_director",
-      "motion_director",
-      "director",
-      "retention_editor"
-    ],
     "production_trusted_reviewer_executors": "EMPTY_FAIL_CLOSED",
-    "reviewer_process_hardening_main_commit": "e1bde266b249b841f54a125ea4b01f5d9ae8dcba",
-    "agent_registry_version": "0.5.0",
-    "dedicated_improvement_roles": ["production_methodologist", "evolution_engineer"],
-    "generation_governance": {
-      "status": "FAIL_CLOSED_ACTIVE",
-      "policy_ref": "skills/video-growth-agent/references/generation-governance.md",
-      "machine_guard_module": "video_growth_agent/generation_guard.py",
-      "regression_test_ref": "tests/test_generation_guard.py",
-      "latest_verified_ci_run": 38066823993,
-      "latest_verified_ci_result": "PASS",
-      "side_channel_generation": "FORBIDDEN_FOR_PROMOTABLE_QUALITY_CRITICAL_ARTIFACTS",
-      "required_pregen_reviewers": ["art_director", "creative_director", "red_team"],
-      "inline_self_authored_pass": "REJECTED_NOT_AUTHORIZATION",
-      "combined_art_creative_slot": "REMOVED",
-      "quality_critical_generation_gateway": "UNAVAILABLE_FAIL_CLOSED",
-      "isolated_pregen_review_resolver": "UNAVAILABLE_FAIL_CLOSED",
-      "shot_a_brief_ref": "projects/pilot-002/SAMPLE_V3_GENERATION_BRIEF.json",
-      "shot_a_status": "BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW",
-      "shot_d_brief_ref": "projects/pilot-002/SAMPLE_V3_SHOT_D_GENERATION_BRIEF.json",
-      "shot_d_status": "BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW"
-    },
-    "reviewer_provider_adapters": {
-      "status": "CODED_UNTRUSTED_PENDING_LIVE_PROOF",
-      "module": "video_growth_agent/reviewer_providers.py",
-      "tests": "tests/test_reviewer_providers.py",
-      "trust_identity_semantics": "PROVIDER_ISSUED_IDENTITIES_SEPARATED_FROM_OWNER_CORRELATION_IDS",
-      "gemini": {
-        "role": "PRIMARY_REAL_VIDEO_REVIEW",
-        "default_model": "gemini-3.8-flash",
-        "evidence_fields": ["responseId", "modelVersion", "context_id", "trace_id", "proof_ref"],
-        "live_connection": "NOT_CONFIGURED",
-        "trust_registry": "NOT_REGISTERED"
-      },
-      "openrouter": {
-        "role": "SECOND_OPINION_STILL_OR_CONTACT_SHEET_REVIEW",
-        "default_model": "openrouter/free",
-        "motion_certification": "FORBIDDEN",
-        "evidence_fields": ["response_id", "resolved_model", "context_id", "trace_id", "proof_ref"],
-        "live_connection": "NOT_CONFIGURED",
-        "trust_registry": "NOT_REGISTERED"
-      },
-      "policy": "Provider adapters may not enter trusted_executors until a live invocation proves actual media access, isolated execution construction, provider-issued run/request identity semantics, local correlation semantics, exact result/input digest binding and an inspectable proof reference."
-    },
-    "system_self_audit": {
-      "status": "PASS_WITH_REMAINING_FAIL_CLOSED_BLOCKERS",
-      "audit_ref": "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
-      "validated_behavioral_head": "216b033f4b13e0d1797bfa8496433341046a2cb4",
-      "ci_run_id": 38066823993,
-      "ci_job_id": 114256050068,
-      "fixed": [
-        "ALL_EXECUTION_PLAN_TASK_STAGES_BASE_RUNTIME_ENFORCED",
-        "INLINE_PREGEN_PASS_NO_LONGER_AUTHORIZATION",
-        "ART_CREATIVE_PREGEN_ROLE_MERGE_REMOVED",
-        "TRUSTED_EXECUTOR_IDENTITY_SEMANTICS_REQUIRED"
-      ],
-      "remaining": [
-        "QUALITY_CRITICAL_GENERATION_GATEWAY_UNAVAILABLE",
-        "TRUSTED_REVIEWER_EXECUTORS_EMPTY",
-        "ISOLATED_PREGEN_REVIEW_RESOLVER_UNAVAILABLE",
-        "LIVE_PROVIDER_PROOF_NOT_VERIFIED",
-        "UNIVERSAL_MID_STAGE_LEARNING_TRIGGER_NOT_FULLY_EXECUTABLE"
-      ]
-    },
-    "generation_route": "QUALITY_GATED_COST_AWARE",
-    "generation_models_available": ["MiniMax H3", "Seedance 2", "Seedance 2 Fast"],
-    "vidiq_credit_state": {
-      "total_credits_last_checked": 93,
-      "renewable_credits_last_checked": 73,
-      "max_renewable_credits": 150,
-      "addon_credits_last_checked": 20,
-      "max_addon_credits": 20,
-      "renewable_resets_at": "2026-11-08T09:51:26.335562Z"
-    },
-    "h3_transition_experiment": {
-      "status": "VISUAL_FAIL_REJECTED",
-      "job_id": "job_15eed248-dfaf-4353-a9a5-16979c30cc49",
-      "model": "MiniMax H3",
-      "duration_seconds": 4,
-      "resolution": "768p",
-      "vidiq_generation_credits_consumed": 60,
-      "actual_render_finding": "Dark futuristic industrial corridor/conveyor carries a box-like object. Material weight is better than Sample V2 schematic backend, but camera/environment remain broadly static and the clip never visibly proves human/manual BEFORE -> irreversible CROSSING -> materially different Agent AFTER.",
-      "failure_class": [
-        "WORLD_STATE_CHANGE_FAIL",
-        "HUMAN_TO_AGENT_CONTRAST_FAIL",
-        "TRANSFORMATION_CAUSALITY_FAIL",
-        "CAMERA_SPATIAL_PROGRESSION_FAIL",
-        "HERO_MOMENT_FAIL"
-      ],
-      "promoted_rule": "Motion within one world cannot substitute for a world transition. When before and after states are non-negotiable, premium video generation must be downstream of locked endpoint frames or equivalent explicit state binding.",
-      "duplicate_submit_forbidden": true,
-      "audit_ref": "projects/pilot-002/H3_TRANSITION_V1_AUDIT.md"
-    },
-    "sample_v3_repair_contract": {
-      "status": "ACTIVE",
-      "ref": "projects/pilot-002/SAMPLE_V3_SHOT_REPAIR_MATRIX.md",
-      "sequence": ["SHOT_A_HUMAN_MANUAL", "SHOT_B_IRREVERSIBLE_CROSSING", "SHOT_C_AGENT_BACKSTAGE", "SHOT_D_PREPARED_RESULT_HERO"],
-      "endpoint_briefs_locked": ["SHOT_A_HUMAN_MANUAL", "SHOT_D_PREPARED_RESULT_HERO"],
-      "next_design_step": "Keep promotable Shot A/D generation blocked until real isolated pre-generation review is proven. Continue deterministic Shot B three-state timing/compositing design while bringing Gemini/OpenRouter reviewer adapters to live proof."
-    },
-    "reviewer_executor_discovery": {
-      "github_models": "REJECTED_RETIRED_2026_07_30",
-      "descript_agent": "BLOCKED_INSUFFICIENT_AI_CREDITS",
-      "vidiq_visual_analysis": "NOT_SUITABLE_FOR_PRIVATE_MEDIA_ATTESTED_MULTI_REVIEWER_EXECUTION",
-      "gemini_api": "PRIMARY_CANDIDATE_ADAPTER_CODED_NOT_CONNECTED",
-      "openrouter_free_vision": "SECONDARY_CANDIDATE_ADAPTER_CODED_NOT_CONNECTED",
-      "current_result": "ADAPTER_LAYER_EXISTS_BUT_NO_LIVE_TRUSTED_EXECUTOR_YET"
-    },
-    "cost_routing_policy": {
-      "status": "MERGED_MAIN",
-      "main_commit": "90102abc7975b0690ddacd093b7a8822cfc347e2",
-      "ci": "PASS",
-      "principle": "Capability and quality thresholds are mandatory. Exploration minimizes cost only after they pass; production high-risk or hero shots maximize measured quality first. Premium scarce pools are protected by reserves."
-    }
+    "shot_a_status": "BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW",
+    "shot_d_status": "BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW",
+    "shot_b_status": "DETERMINISTIC_THREE_STATE_DESIGN_ALLOWED",
+    "quality_critical_generation_gateway": "UNAVAILABLE_FAIL_CLOSED",
+    "isolated_pregen_review_resolver": "UNAVAILABLE_FAIL_CLOSED"
   },
-  "next_action": "Keep VISUAL_PREVIEW and quality-critical generation fail-closed. Bring runtime 0.5 reviewer adapters to live proof without weakening trust: Gemini is the primary real-video reviewer candidate and OpenRouter free vision is a still/contact-sheet second opinion only. Do not register either as trusted until live executions prove actual media access and provider/model/run/context/trace identity. In parallel continue deterministic Shot B BEFORE -> CROSSING -> AFTER timing/compositing. Once pre-generation Art/Creative/Red Team review can run in genuinely isolated executions, review the locked Shot A/D briefs and only then generate new promotable pixels. Do not rebuild the 59.5-second film.",
+  "next_action": "Keep VISUAL_PREVIEW and quality-critical generation fail-closed. Bring the candidate real-video/still reviewer adapters to live proof and register nothing as trusted until actual modality access and truthful provider/model/run plus owner correlation evidence are verified. Continue deterministic Shot B BEFORE -> CROSSING -> AFTER timing/compositing in parallel. Once isolated pre-generation Art Director, Creative Director and Red Team review is genuinely executable, review the locked Shot A/D briefs and only then generate promotable pixels. Keep the 59.5-second rebuild frozen.",
   "blockers": [
-    "Reviewer provider adapters exist but neither Gemini nor OpenRouter is live-connected or trusted; production trusted_executors remains empty by design.",
-    "Shot A and Shot D generation briefs are BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW and now require separate Art Director, Creative Director and Red Team execution evidence; direct conversational generation and a combined Art/Creative PASS are process-invalid.",
-    "The isolated pre-generation review resolver and single enforced quality-critical generation gateway are unavailable, so no structurally valid generation brief is production authorization by itself.",
-    "Sample V2 lacks required independent VISUAL_PREVIEW reviewer receipts and is PROCESS_INVALID.",
-    "H3 Transition V1 is rejected and cannot be reused as Sample V3; endpoint/world-state control must be proven before another premium attempt.",
-    "vidIQ premium capacity remains scarce and is reserved for high-risk or hero seconds only."
+    "Production trusted reviewer executors are empty; configured roles/adapters are not independent execution proof.",
+    "Shot A and Shot D remain blocked pending separate isolated Art Director, Creative Director and Red Team pre-generation evidence.",
+    "The isolated pre-generation review resolver and single enforced quality-critical generation gateway are unavailable.",
+    "Producer work orders have provenance/process proof but provider-backed producer execution identity is not universally attested.",
+    "Learning-source admission is default-deny by policy, but universal lowest-boundary external source-manifest enforcement is not yet implemented.",
+    "Sample V2 is process-invalid and H3 Transition V1 is rejected; neither may be replayed as an accepted visual-preview result."
   ],
   "authoritative_artifacts": {
     "rejected_candidate_v4": {
@@ -177,32 +49,15 @@
     "sample_v3_shot_a_generation_brief": "projects/pilot-002/SAMPLE_V3_GENERATION_BRIEF.json",
     "sample_v3_shot_d_generation_brief": "projects/pilot-002/SAMPLE_V3_SHOT_D_GENERATION_BRIEF.json",
     "generation_governance": "skills/video-growth-agent/references/generation-governance.md",
-    "generation_guard": "video_growth_agent/generation_guard.py",
-    "reviewer_provider_adapters": "video_growth_agent/reviewer_providers.py",
-    "reviewer_provider_tests": "tests/test_reviewer_providers.py",
-    "cinematic_benchmark_lane": "projects/pilot-002/CINEMATIC_BENCHMARK_LANE.md",
-    "moving_benchmark_pack": "projects/pilot-002/BENCHMARK_REBASE.md",
     "reviewer_execution_attestation_contract": "skills/video-growth-agent/references/reviewer-execution-attestation.md",
-    "system_self_audit": "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
-    "cost_aware_routing_main_commit": "90102abc7975b0690ddacd093b7a8822cfc347e2",
-    "process_failure_audit": "projects/pilot-002/PROCESS_FAILURE_AUDIT_2026-10-09.md"
+    "latest_system_self_audit": "audits/SYSTEM_SELF_AUDIT_2026-10-11.md"
   },
-  "preserved_user_requirements": [
-    "Quality is the first priority; cost optimization may not lower the quality floor.",
-    "Prefer zero or low incremental cost and no recurring filming where quality permits.",
-    "Final QA must consume actual rendered media.",
-    "Every required specialist role must actually execute and leave durable evidence.",
-    "Use GitHub main as business execution authority and expose capability or governance failures rather than smoothing them over.",
-    "Do not use TinyFish as the default media/production path because it is too slow; prefer direct connector or local execution paths when available.",
-    "Do not make the user manually manage the studio; autonomously learn, challenge, evolve and clean superseded mechanisms.",
-    "Do not attempt to bypass ChatGPT plan, quota or provider limits; improve capability through better orchestration, specialization, routing, evidence and external tools within authorized access."
-  ],
   "resume": {
     "entrypoint": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
     "checkpoint_ref": "continuity/tasks/video-growth-main/CHECKPOINT.json",
     "resume_epoch": 2,
     "active_lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
-    "new_chat_rule": "Read the manifest, classify compatibility, acquire the next single-writer lease by compare-and-swap, verify it, then resume from next_action."
+    "new_chat_rule": "Read manifest and checkpoint, classify compatibility, acquire the next single-writer lease by compare-and-swap, verify it, then resume from next_action."
   },
-  "updated_at": "2026-10-10T15:41:00Z"
+  "updated_at": "2026-10-10T20:40:00Z"
 }

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "video-growth-agent"
-version = "0.5.0"
+version = "0.5.1"
 description = "Executable agentic-studio runtime for low-cost short-video production, blind review and continuous learning"
 requires-python = ">=3.11"
 
@@ -13,7 +13,7 @@ vga = "video_growth_agent.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["video_growth_agent*"]
-exclude = ["tests*", "config*", "skills*", "projects*"]
+exclude = ["tests*", "skills*", "projects*"]
 
 [tool.setuptools.package-data]
 video_growth_agent = ["data/*.json", "data/*.md"]

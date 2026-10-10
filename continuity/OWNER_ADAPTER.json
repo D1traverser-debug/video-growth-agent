@@ -3,15 +3,19 @@
   "owner": "VIDEO_GROWTH_AGENT",
   "domain": "VIDEO_GROWTH",
   "repository": "D1traverser-debug/video-growth-agent",
-  "status": "READY_V37_PROTOCOL_ADAPTER__SELF_AUDIT_HARDENED__CHECKPOINT_COMPACTION_STAGED",
+  "status": "READY_V37__RUNTIME_0_5_1__SYSTEM_HYGIENE_HARDENED",
   "business_runtime_cutover": false,
   "authority": {
-    "business_rules": "skills/video-growth-agent/SKILL.md + config/workflow.json + video_growth_agent runtime",
+    "skill": "skills/video-growth-agent/SKILL.md",
+    "workflow": "video_growth_agent/data/workflow.json",
+    "execution_plan": "video_growth_agent/data/execution-plan.json",
+    "agent_registry": "video_growth_agent/data/agents.json",
+    "runtime": "video_growth_agent/runtime.py",
     "continuity_metadata": "continuity/TASK_INDEX.md",
     "task_manifest": "continuity/tasks/<task>/TASK_MANIFEST.json",
     "checkpoint": "continuity/tasks/<task>/CHECKPOINT.json",
     "execution_capabilities": "continuity/EXECUTION_CAPABILITIES.json",
-    "checkpoint_compaction_plan": "continuity/CHECKPOINT_COMPACTION_PLAN.json"
+    "architecture_manifest": "continuity/AGENT_MANIFEST.json"
   },
   "capabilities": {
     "list_resumable_tasks_metadata_only": true,
@@ -32,111 +36,56 @@
   },
   "compatibility": {
     "current_continuity_protocol": "3.7",
-    "runtime_version": "0.5.0",
+    "runtime_version": "0.5.1",
     "supported_protocol_migration_from": ["3.3", "3.5", "3.6"],
     "migration_strategy": "ADDITIVE_PROTOCOL_OVERLAY_ON_NEXT_VALID_WRITER_TURN",
     "business_state_rewrite": false,
-    "legacy_versionless_handoff": "MIGRATABLE when stable task_id/owner and authoritative evidence are resolvable; otherwise UNKNOWN",
     "unknown_execution_state": "FAIL_CLOSED",
     "obsolete_business_gate_state": "DO_NOT_REPLAY"
-  },
-  "methodology": {
-    "profile_refs": {
-      "artifact_io": "1.0",
-      "operational_hygiene": "1.0",
-      "evolution": "1.0"
-    },
-    "profile_applicability": {
-      "artifact_io": {
-        "status": "APPLIES",
-        "reason": "Video Growth persists task/checkpoint metadata, production artifacts and evidence refs, and may use owner-designated external artifact stores; material mutations require stable identity, CAS and post-write reread.",
-        "evidence_refs": [
-          "continuity/tasks/<task>/TASK_MANIFEST.json",
-          "continuity/tasks/<task>/CHECKPOINT.json",
-          "skills/video-growth-agent/SKILL.md"
-        ]
-      },
-      "operational_hygiene": {
-        "status": "APPLIES",
-        "reason": "The owner handles protocol/capability/authority drift, stale-writer failures, scoped maintenance reconciliation, cleanup and reliability blocking before business progress.",
-        "evidence_refs": [
-          "skills/video-growth-agent/SKILL.md",
-          "continuity/CHECKPOINT_COMPACTION_PLAN.json",
-          "continuity/EXECUTION_CAPABILITIES.json"
-        ]
-      },
-      "evolution": {
-        "status": "APPLIES",
-        "reason": "This maintenance turn performs durable critique, alternative comparison, failure-mode testing, regression-backed hardening and persistence of accepted system changes.",
-        "evidence_refs": [
-          "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
-          "skills/video-growth-agent/references/self-learning.md",
-          "continuity/EXECUTION_CAPABILITIES.json"
-        ]
-      }
-    },
-    "hook_bindings": {
-      "durable_task_state_location": "continuity/tasks/<task>/TASK_MANIFEST.json + continuity/tasks/<task>/CHECKPOINT.json",
-      "authoritative_business_evidence_classes": "GitHub main Skill/config/runtime/project records plus exact business-evidence refs named by the active task",
-      "canonical_artifact_or_file_stores": "GitHub main for control-plane and business execution authority; owner-designated external stores only when explicitly referenced with stable identity",
-      "cache_or_reference_only_stores": "ChatGPT Library, Notion, Google Drive and session/tool caches are non-authoritative by default unless the active owner/task explicitly designates business evidence",
-      "stable_identity_strategy": "repository path plus Git blob/commit SHA for GitHub; provider stable ID/canonical ref for external artifacts",
-      "read_freshness_requirements": "Re-read current GitHub main authority before material continuity/owner mutation; chat memory, prior-chat reads and caches do not satisfy freshness",
-      "mutation_conflict_strategy": "GitHub contents blob-SHA compare-and-swap; fail closed on version mismatch or stale writer",
-      "post_write_verification_method": "Re-read each materially mutated owner/continuity file from GitHub main and verify intended fields, active lease and resume_epoch",
-      "upstream_to_downstream_invalidation_rule": "Protocol/owner metadata reconciliation must not mutate or replay domain business state; domain owner runtime controls business invalidation",
-      "delete_and_retention_rules": "Continuity maintenance must not delete business evidence; continuity/owner metadata may be removed only when superseded and dependency-safe",
-      "superseded_artifact_cleanup_rule": "Keep one active continuity/owner authority surface; demote/remove superseded active metadata when replacement is verified, using Git history as implementation archive",
-      "external_artifact_vault_if_any": "Google Drive may serve as an optional owner-designated deliverable/evidence vault with stable provider refs; never as implicit control-plane authority",
-      "observability_or_incident_evidence_location": "GitHub commit/CI evidence plus continuity task checkpoint/adaptation metadata and referenced audits",
-      "self_maintenance_trigger_path": "Protocol/capability/authority drift or user-requested self-audit -> current valid owner writer performs scoped critique, regression-backed maintenance and post-write verification",
-      "garbage_collection_owner_and_dependency_rule": "Valid owner/maintenance writer may clean superseded continuity mechanisms only after dependency/retention checks; never garbage-collect active business evidence",
-      "reliability_or_change_freeze_guard": "Fail closed on stale writer, unknown authority or failed verification; system maintenance must not advance business stage or next_action",
-      "learning_evidence_location": "audits/SYSTEM_SELF_AUDIT_2026-10-10.md plus self-learning/production-intelligence evidence, project work-order/reviewer receipts and post-publication performance evidence when available",
-      "eval_or_regression_promotion_path": "Challenge initial solution, compare alternatives, search failure modes, patch the minimum authority surface, add adversarial regression tests, require CI pass, then reread authority before claiming promotion",
-      "superseded_mechanism_cleanup_rule": "Accepted evolution replaces weaker mechanisms: hard-coded process-stage enforcement was replaced by execution-plan-derived enforcement, and the combined art_creative pregen approval was removed in favor of three separate specialist evidence slots"
-    },
-    "overrides": {
-      "evaluator_selection": "Video methodology promotion uses failure-mode tests, current CI, owner capability truth and benchmark/artifact evidence; true reviewer isolation remains subject to execution-capability attestation"
-    }
-  },
-  "methodology_assurance": {
-    "declaration_status": "BOUND_EXACT_VERSION__HOOK_COMPLETE__APPLICABILITY_EVIDENCE_RECORDED",
-    "owner_regression_status": "PASS",
-    "owner_regression_evidence": {
-      "validated_behavioral_head": "216b033f4b13e0d1797bfa8496433341046a2cb4",
-      "github_actions_run_id": 38066823993,
-      "job_id": 114256050068,
-      "result": "PASS_TESTS_AND_INSTALLED_CLI_SMOKE"
-    },
-    "operational_status": "CONTROL_PLANE_SELF_AUDIT_EVOLUTION_APPLIED__PRODUCTION_ISOLATION_BLOCKERS_REMAIN",
-    "boundary": "This records current-writer control-plane maintenance and regression-backed evolution. It does not claim Production Methodologist/Red Team/Evolution Engineer were separately attested executions in this chat, and it does not make any reviewer provider trusted."
   },
   "writer_guard": {
     "storage": "GitHub contents blob SHA compare-and-swap",
     "required_fields": ["resume_epoch", "active_lease.lease_id"],
     "same_chat_protocol_reconciliation": "preserve resume_epoch and active_lease",
-    "new_chat_takeover": "increment resume_epoch, replace active_lease, re-read manifest and verify before substantive work",
-    "maintenance_task_may_overwrite_active_task_manifest": false,
-    "maintenance_task_may_overwrite_active_task_checkpoint": false
+    "new_chat_takeover": "increment resume_epoch, replace active_lease, reread manifest and verify before substantive work",
+    "post_write_rule": "reread materially mutated authority before claiming committed"
   },
-  "checkpoint_conformance": {
-    "status": "COMPACTION_STAGED_NOT_COMBINED_WITH_SELF_AUDIT",
-    "plan": "continuity/CHECKPOINT_COMPACTION_PLAN.json",
-    "rule": "Checkpoint carries current execution truth plus refs; duplicated business rules/history belong in stronger project/Skill authorities.",
-    "cross_domain_pollution_guard": "Unverified preserved requirements without Video Growth authority must not become durable video rules.",
-    "defer_reason": "Self-audit hardening was kept separate from checkpoint compaction so business-state representation is not rewritten while runtime governance is being validated."
+  "system_hygiene": {
+    "audit_entrypoint": "vga system-audit --repo-root .",
+    "canonical_runtime_resources": "video_growth_agent/data/",
+    "duplicate_root_config": "REMOVED",
+    "global_skill_project_state_pollution": "REMOVED_AND_DYNAMICALLY_SCANNED",
+    "team_prompt_mirror": "REQUIRED_EQUAL_SKILL_AND_PACKAGE",
+    "checkpoint_compaction": "APPLIED",
+    "task_index_compaction": "APPLIED_METADATA_ONLY",
+    "agent_tool_semantics": "CAPABILITY_REQUEST_NOT_EXECUTION_PROOF",
+    "assurance_taxonomy": "PINNED_DECLARED_ONLY_HARNESS_WIRED_SESSION_EXECUTABLE_CHAT_BRIDGED_ATTESTED_ISOLATED",
+    "skill_manifest_pointer": "MACHINE_CHECKED_GIT_BLOB_BINDING",
+    "architecture_manifest": "RECONCILED_TO_SINGLE_RUNTIME_AUTHORITY",
+    "promotion_flow": "maintenance branch -> system audit -> full tests -> installed CLI smoke -> reconcile latest main -> fast-forward with expected head",
+    "branch_protection": "NOT_ENABLED_ON_MAIN_AT_LAST_OBSERVATION"
   },
-  "progress_observability": {
-    "policy": "D1traverser-debug/universal-continuity-agent@main/PROGRESS_OBSERVABILITY_POLICY.json",
-    "every_final_active_durable_task_response": "TURN_COMMIT_RECEIPT_REQUIRED",
-    "committed_requires_owner_reread": true
+  "maintenance_validation": {
+    "status": "PASS_ON_BEHAVIORAL_MAINTENANCE_HEAD",
+    "branch": "maintenance/system-harness-cleanup-2026-10-11",
+    "validated_head": "08f6cb688ad031c637387ce54e7fa964e14c1d92",
+    "ci_run_id": 38088397683,
+    "ci_job_id": 114319620599,
+    "system_hygiene_audit": "SUCCESS",
+    "pytest": "SUCCESS",
+    "installed_package_audit_and_cli_smoke": "SUCCESS",
+    "required": ["repository system audit", "pytest", "installed CLI smoke"]
+  },
+  "methodology": {
+    "rule": "challenge -> find bypass/pollution -> patch minimum authority surface -> delete superseded dependency-safe mechanisms -> adversarial regression -> CI -> authority reread",
+    "do_not_duplicate_business_state": true,
+    "learning_authority": "skills/video-growth-agent/references/self-learning.md"
   },
   "notes": [
-    "Universal Continuity owns routing, protocol adaptation and recovery pointers only; it must not duplicate video workflow/business state machines.",
-    "This adapter does not declare a new Video Growth business Runtime cutover.",
-    "The active video task remains on the same Universal Continuity v3.7 lease and resume_epoch; this self-audit is maintenance, not takeover or business-stage advancement.",
-    "Checkpoint compaction remains staged and is intentionally separate from this self-audit.",
-    "Production reviewer isolation and quality-critical generation remain fail-closed until the missing executable gateway/live trust proof exists."
+    "Universal Continuity owns routing/recovery pointers, not the Video Growth business state machine.",
+    "Configured Agents, tool labels and provider adapters are not execution proof.",
+    "System maintenance must not advance the active business stage.",
+    "A green CI run is evidence but is not branch-protection enforcement when GitHub reports main as unprotected.",
+    "A concurrent architecture-manifest commit appeared on main during maintenance; its architecture intent is preserved while stale config authority references are corrected before promotion."
   ]
 }

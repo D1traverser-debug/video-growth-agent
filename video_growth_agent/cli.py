@@ -7,6 +7,7 @@ from pathlib import Path
 from .media_qa import MediaQAChecker
 from .models import AssetRecord
 from .runtime import StudioRuntime
+from .system_audit import run_system_audit
 from .techniques import TechniqueLibrary
 
 
@@ -76,7 +77,16 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--max-cost", type=int, default=5)
     p.add_argument("--validated-only", action="store_true")
 
+    p = sub.add_parser("system-audit")
+    p.add_argument("--repo-root", type=Path)
+
     args = parser.parse_args(argv)
+
+    if args.cmd == "system-audit":
+        report = run_system_audit(args.repo_root)
+        _json(report)
+        return 0 if report["pass"] else 2
+
     runtime = StudioRuntime()
 
     if args.cmd == "init":

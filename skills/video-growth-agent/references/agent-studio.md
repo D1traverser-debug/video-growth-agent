@@ -1,83 +1,54 @@
 # Agentic Studio Architecture
 
-## Why this exists
-Role prompts alone are not sufficient isolation. A creator that immediately changes hats can carry intent, sunk-cost bias and self-justification into its own review. The studio therefore separates production, review and deterministic measurement at runtime.
+## Purpose
+Role prompts are not execution isolation. A creator that changes labels inside one context can carry intent, sunk-cost bias and self-justification into its own review. The studio therefore separates production, review and deterministic measurement at runtime.
 
 ## Architecture
 Use the lowest coordination complexity that preserves independence:
 
-1. **Executive Producer / orchestrator** — owns project state, dispatch, work orders, conflict routing and the single user-facing voice. It does not create craft artifacts and cannot override hard gates.
-2. **Worker Agents** — produce research, scripts, storyboards, lookdev, motion, assets, edits and sound from explicit work orders. They receive only declared input artifacts.
-3. **Reviewer Agents** — independently judge outputs from their professional loss function. Blind reviewers cannot see sibling verdicts or project approvals while reviewing.
-4. **Review Panel + Meta Reviewer** — where audience diversity matters, multiple isolated reviewers report first; only then may a meta-reviewer synthesize their evidence. Do not use free-form group debate.
-5. **Deterministic Tools** — ffprobe/FFmpeg/media measurements and other mechanically verifiable checks stay tools, not persona agents.
+1. **Executive Producer / orchestrator** owns project state, dispatch, work orders, conflict routing and the single user-facing voice. It does not create craft artifacts and cannot override hard gates.
+2. **Worker Agents** produce declared artifacts from explicit work orders and least-context inputs.
+3. **Reviewer Agents** judge actual outputs from distinct professional loss functions. Blind reviewers do not see sibling verdicts or project approvals.
+4. **Review Panel + Meta Reviewer** is used only where audience diversity or synthesis is useful. First-wave reviewers execute independently before meta-review.
+5. **Deterministic Tools** such as FFmpeg/ffprobe remain tools, not persona agents.
+
+The executable registry and work-order plan are `video_growth_agent/data/agents.json` and `video_growth_agent/data/execution-plan.json`. Implementation lives in `video_growth_agent/studio_agents.py` and `video_growth_agent/runtime.py`.
+
+## Capability declaration is not execution proof
+The `tools` field on an Agent profile declares the capabilities that work order may require. It does not prove that the current chat/session/executor actually has those tools, credentials, media access or permissions. The owner capability handshake and execution evidence remain authoritative. Never infer execution readiness from an Agent profile alone.
 
 ## Communication contract
-Agents do not peer-chat. All handoffs go through versioned artifacts, SHA/digest identity, work-order state and immutable receipts. The next specialist reads the artifact, not the previous specialist's chain-of-thought or persuasive explanation.
+Agents do not peer-chat. Handoffs use versioned artifacts, exact digests, work-order state and immutable receipts. The next specialist reads the declared artifact packet, not another specialist's hidden reasoning or persuasive summary.
 
 ## Independence contract
+- A producer cannot approve its own output merely because its work order completed.
 - A reviewer must not approve an artifact it produced.
-- Separate implementation workers from department-head reviewers when self-review risk is material: visual designer vs art director, motion designer vs motion director, assistant editor vs editor, sound designer vs sound director.
-- A blind review packet contains only required artifacts, role prompt, rubric and benchmark references. It excludes sibling verdicts.
-- Audience panels review independently; meta-review runs only after all first-wave panel reviews complete.
-- Majority vote is not a substitute for hard vetoes or evidence. A minority reviewer may block when its domain has veto authority.
+- Separate implementation workers from department-head reviewers when self-review risk is material.
+- Blind review packets contain only declared inputs, role prompt, rubric and benchmark references; sibling verdicts are excluded.
+- Majority vote never replaces a hard domain veto or missing evidence.
 
 ## Review-proof invariant
-A quality-critical artifact is not considered **reviewed** merely because an aggregate QA note exists.
-
-For every required reviewer in the current workflow stage, persist a durable review receipt bound to the exact target artifact digest. At minimum the receipt must identify:
-
-- project and stage;
-- work-order id;
-- reviewer agent id and approval role;
-- target artifact digest;
-- blind-review packet identity or equivalent evidence boundary;
-- decision;
-- role-specific findings;
-- scorecard when configured;
-- benchmark references when required;
-- evidence references;
-- timestamp.
-
-Missing required receipt means `PROCESS_INVALID` and blocks the quality gate even when an aggregate score would otherwise pass.
+A quality-critical artifact is not **reviewed** because an aggregate note or role label exists. A valid critical review requires the configured work order, durable review receipt, exact artifact/input binding and any required execution attestation. Missing proof is `PROCESS_INVALID` and blocks advancement.
 
 ## Anti-bypass rule
-Quality-critical stages must execute through the configured `AgenticStudio` work-order runtime or an explicitly compatible runtime that produces the same evidence contract.
+Every stage with tasks in `video_growth_agent/data/execution-plan.json` is process-enforced at the base `StudioRuntime` boundary. Calling a lower-level runtime path cannot substitute manually created artifacts or approvals for the required work orders.
 
-Ad-hoc/manual QA may diagnose defects, prototype a repair, or create exploratory evidence, but it **cannot** satisfy LOOKDEV, VISUAL_PREVIEW, ROUGH_CUT, TECH_QA, AUDIENCE_QA, BRAND_QA, RED_TEAM or RELEASE.
-
-If an artifact was created or judged outside the work-order runtime:
-
-1. label it exploration/previs/manual-diagnostic evidence;
-2. do not describe it as having passed or completed the configured review process;
-3. re-enter the correct stage and generate the full required receipt bundle before advancement.
-
-The existence of role definitions, prompts, an execution plan or a summary scorecard is not evidence that the roles actually ran.
+Ad-hoc/manual QA may diagnose defects or create exploratory evidence, but it cannot satisfy a governed stage unless it is re-entered through the evidence contract.
 
 ## Context and cost discipline
-Registered Agent profiles are ephemeral capabilities, not permanently running personas. Invoke only the agents required by the current stage. Keep tool permissions and artifact inputs least-privileged. Parallelize only independent work; keep dependency-sensitive work serial.
-
-Do not add agents merely to increase role count. Add a specialist only when it owns a distinct loss function, artifact, tool permission or veto. Otherwise improve the work contract, evidence packet, benchmark or deterministic guardrail.
+Registered Agent profiles are ephemeral capabilities, not permanently running personas. Invoke only the agents required by the current work order. Parallelize only independent work. Do not add agents merely to increase role count; add a specialist only when it owns a distinct artifact, loss function, permission boundary or veto.
 
 ## Producer arbitration
-The Producer may resolve scheduling or conflicting soft recommendations, but cannot turn a deterministic FAIL, rights FAIL, factual FAIL, required craft FAIL or `PROCESS_INVALID` state into PASS. If reviewers disagree on a hard dimension, route the artifact back for revision or collect better evidence.
+The Executive Producer may resolve scheduling and conflicting soft recommendations. It cannot turn a deterministic FAIL, rights FAIL, factual FAIL, required craft FAIL, missing execution proof or `PROCESS_INVALID` state into PASS.
 
 ## Reflection contract
-A failed candidate must produce structured learning evidence:
+A failed candidate should produce structured learning evidence:
 
-`OBSERVED FAILURE → ROOT CAUSE → COUNTERFACTUAL → REPAIR HYPOTHESIS → SMALLEST TEST → RESULT → ACCEPT/REJECT → RULE CHANGE`
+`OBSERVED FAILURE -> ROOT CAUSE -> COUNTERFACTUAL -> REPAIR HYPOTHESIS -> SMALLEST TEST -> RESULT -> ACCEPT/REJECT -> RULE CHANGE`
 
-Reflection that does not alter a rule, benchmark, work order, artifact, experiment or routing decision is commentary, not studio learning.
+Reflection that changes no rule, benchmark, work order, artifact, experiment or routing decision is commentary, not system learning.
 
-## Production rule
-The team is not a chat room. It is an artifact pipeline:
-`WORK ORDER → ISOLATED SPECIALIST → VERSIONED ARTIFACT → BLIND REVIEW → META/PRODUCER SYNTHESIS → GATE`.
+## Production invariant
+`WORK ORDER -> EXECUTOR -> VERSIONED ARTIFACT/RESULT -> INDEPENDENT REVIEW -> EVIDENCE BINDING -> GATE`
 
-The Executive Producer must separately control:
-
-- **macro project state** — objective, stage, dependencies, budget, benchmark, current risk and next irreversible decision;
-- **micro shot state** — shot contract, references, start/end states, engine, version, reviewer receipts and repair history.
-
-Never confuse "the system has a rule" with "the rule was executed and evidenced".
-
-This architecture is implemented in `video_growth_agent/studio_agents.py`, `video_growth_agent/data/agents.json`, and `video_growth_agent/data/execution-plan.json`.
+Never confuse "the system has a role or rule" with "that role or rule was executed and evidenced".

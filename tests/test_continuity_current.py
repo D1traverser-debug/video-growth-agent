@@ -15,6 +15,10 @@ def test_owner_adapter_declares_current_capabilities():
     assert adapter["owner"] == "VIDEO_GROWTH_AGENT"
     assert adapter["domain"] == "VIDEO_GROWTH"
     assert adapter["business_runtime_cutover"] is False
+    assert adapter["compatibility"]["runtime_version"] == "0.5.1"
+    assert adapter["authority"]["workflow"] == "video_growth_agent/data/workflow.json"
+    assert adapter["system_hygiene"]["duplicate_root_config"] == "REMOVED"
+    assert adapter["system_hygiene"]["checkpoint_compaction"] == "APPLIED"
     for capability in (
         "list_resumable_tasks_metadata_only",
         "get_task_checkpoint_by_id",
@@ -33,23 +37,24 @@ def test_task_manifest_is_resumable_user_task_with_stable_identity():
     assert manifest["domain"] == "VIDEO_GROWTH"
     assert manifest["recovery_owner"] == "VIDEO_GROWTH_AGENT"
     assert manifest["contract_version"] == "3.5"
+    assert manifest["runtime_version"] == "0.5.1"
     assert manifest["status"] in {"ACTIVE", "WAITING", "BLOCKED"}
     assert manifest["resume_eligible"] is True
     assert manifest["resume_visibility"] == "DEFAULT"
     assert manifest["checkpoint_ref"] == "continuity/tasks/video-growth-main/CHECKPOINT.json"
-    assert manifest["resume_epoch"] >= 1
-    assert manifest["active_lease"]["lease_id"]
+    assert manifest["resume_epoch"] == 2
+    assert manifest["active_lease"]["lease_id"] == "8e1bc149-5371-4476-ad94-66c8bee07d94"
     assert manifest["current_stage"] == "VISUAL_PREVIEW_PROCESS_REENTRY"
     assert "VISUAL_PREVIEW" in manifest["next_action"]
-    assert manifest["next_action"].strip()
 
 
-def test_checkpoint_matches_manifest_and_preserves_rejected_v4_as_history():
+def test_checkpoint_is_compact_and_matches_manifest():
     manifest = load_json(TASK_DIR / "TASK_MANIFEST.json")
     checkpoint = load_json(TASK_DIR / "CHECKPOINT.json")
     assert checkpoint["task_id"] == manifest["task_id"]
     assert checkpoint["display_name_zh"] == manifest["display_name_zh"]
     assert checkpoint["contract_version"] == manifest["contract_version"]
+    assert checkpoint["runtime_version"] == manifest["runtime_version"]
     assert checkpoint["current_stage"] == manifest["current_stage"]
     assert checkpoint["status"] == manifest["status"]
     assert checkpoint["resume"]["resume_epoch"] == manifest["resume_epoch"]
@@ -58,11 +63,17 @@ def test_checkpoint_matches_manifest_and_preserves_rejected_v4_as_history():
     assert checkpoint["stage_state"]["previous_release_gate_valid"] is False
     assert checkpoint["stage_state"]["performance_stage_entered"] is False
     assert checkpoint["stage_state"]["sample_v2_status"] == "PROCESS_INVALID_AND_VISUAL_FAIL"
-    assert checkpoint["stage_state"]["sample_v2_required_role_receipts_found"] is False
+    assert checkpoint["stage_state"]["production_trusted_reviewer_executors"] == "EMPTY_FAIL_CLOSED"
     assert checkpoint["authoritative_artifacts"]["rejected_candidate_v4"]["sha256"] == (
         "eec364e8530067dbc87a08a9ccbf2dd6e6e8a5ab32fb87f648c794a4000628eb"
     )
-    assert checkpoint["authoritative_artifacts"]["rejected_candidate_v4"]["status"] == "HISTORICAL_REJECTED_CANDIDATE"
+    assert "preserved_user_requirements" not in checkpoint
+    assert "protocol_migration" not in checkpoint
+    assert "reviewer_provider_adapters" not in checkpoint["stage_state"]
+
+
+def test_completed_compaction_plan_is_deleted():
+    assert not (ROOT / "continuity" / "CHECKPOINT_COMPACTION_PLAN.json").exists()
 
 
 def test_task_index_exposes_metadata_only_recovery_pointer():

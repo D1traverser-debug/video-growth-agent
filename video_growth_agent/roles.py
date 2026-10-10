@@ -7,17 +7,24 @@ from pathlib import Path
 
 from .resources import data_path
 
+
 @dataclass(frozen=True)
 class RoleSpec:
     role: str
     prompt: str
     veto: tuple[str, ...]
 
+
 class RoleRegistry:
     def __init__(self, config_path: Path | None = None):
         path = config_path or data_path("roles.json")
         self.config = json.loads(path.read_text(encoding="utf-8"))
-        source = data_path("team.md") if config_path is None else path.parent / self.config.get("prompt_source_local", "team.md")
+        prompt_source_local = str(self.config.get("prompt_source_local") or "").strip()
+        if not prompt_source_local:
+            raise ValueError("roles.json must declare prompt_source_local")
+        source = path.parent / prompt_source_local
+        if not source.is_file():
+            raise FileNotFoundError(f"Missing local role prompt source: {source}")
         self.sections = self._parse_sections(source.read_text(encoding="utf-8"))
 
     @staticmethod
