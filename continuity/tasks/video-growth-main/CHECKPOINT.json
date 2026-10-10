@@ -1,5 +1,5 @@
 {
-  "checkpoint_version": 10,
+  "checkpoint_version": 11,
   "task_id": "video-growth:main",
   "display_name_zh": "AI视频涨粉与商业化",
   "task_class": "USER",
@@ -27,6 +27,21 @@
     ],
     "production_trusted_reviewer_executors": "EMPTY_FAIL_CLOSED",
     "reviewer_process_hardening_main_commit": "e1bde266b249b841f54a125ea4b01f5d9ae8dcba",
+    "agent_registry_version": "0.5.0",
+    "dedicated_improvement_roles": ["production_methodologist", "evolution_engineer"],
+    "generation_governance": {
+      "status": "FAIL_CLOSED_ACTIVE",
+      "policy_ref": "skills/video-growth-agent/references/generation-governance.md",
+      "machine_guard_module": "video_growth_agent/generation_guard.py",
+      "regression_test_ref": "tests/test_generation_guard.py",
+      "latest_verified_ci_run": 38015291388,
+      "latest_verified_ci_result": "PASS",
+      "side_channel_generation": "FORBIDDEN_FOR_PROMOTABLE_QUALITY_CRITICAL_ARTIFACTS",
+      "shot_a_brief_ref": "projects/pilot-002/SAMPLE_V3_GENERATION_BRIEF.json",
+      "shot_a_status": "BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW",
+      "shot_d_brief_ref": "projects/pilot-002/SAMPLE_V3_SHOT_D_GENERATION_BRIEF.json",
+      "shot_d_status": "BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW"
+    },
     "generation_route": "QUALITY_GATED_COST_AWARE",
     "generation_models_available": ["MiniMax H3", "Seedance 2", "Seedance 2 Fast"],
     "vidiq_credit_state": {
@@ -60,7 +75,14 @@
       "status": "ACTIVE",
       "ref": "projects/pilot-002/SAMPLE_V3_SHOT_REPAIR_MATRIX.md",
       "sequence": ["SHOT_A_HUMAN_MANUAL", "SHOT_B_IRREVERSIBLE_CROSSING", "SHOT_C_AGENT_BACKSTAGE", "SHOT_D_PREPARED_RESULT_HERO"],
-      "next_design_step": "Lock Shot A opening and Shot D payoff keyframes, then build a cheap deterministic/low-cost three-state Shot B previs before any new premium video call."
+      "endpoint_briefs_locked": ["SHOT_A_HUMAN_MANUAL", "SHOT_D_PREPARED_RESULT_HERO"],
+      "next_design_step": "Do not generate promotable Shot A/D pixels until isolated pre-generation review passes. Continue deterministic Shot B three-state timing/compositing design and reviewer-executor integration in parallel."
+    },
+    "reviewer_executor_discovery": {
+      "github_models": "REJECTED_RETIRED_2026_07_30",
+      "descript_agent": "BLOCKED_INSUFFICIENT_AI_CREDITS",
+      "vidiq_visual_analysis": "NOT_SUITABLE_FOR_PRIVATE_MEDIA_ATTESTED_MULTI_REVIEWER_EXECUTION",
+      "current_result": "NO_CONNECTED_EXECUTOR_MEETS_MULTIMODAL_PLUS_ISOLATION_PLUS_ATTESTATION_CONTRACT"
     },
     "cost_routing_policy": {
       "status": "MERGED_MAIN",
@@ -69,10 +91,11 @@
       "principle": "Capability and quality thresholds are mandatory. Exploration minimizes cost only after they pass; production high-risk or hero shots maximize measured quality first. Premium scarce pools are protected by reserves."
     }
   },
-  "next_action": "Keep VISUAL_PREVIEW fail-closed. Do not spend another premium video attempt yet. Lock original Shot A human/manual and Shot D prepared-result hero keyframes against the cinematic and moving benchmark lanes. Use deterministic compositing and/or a low-cost eligible engine to prove Shot B's BEFORE -> CROSSING -> AFTER state change and timing first. Only then route the smallest failed cinematic layer to H3/Seedance if cheaper routes cannot meet the quality floor. In parallel, continue integration work for a genuinely isolated multimodal reviewer executor and require the complete blind reviewer receipt bundle bound to exact artifact digests before VISUAL_PREVIEW can pass. The 59.5-second rebuild remains frozen.",
+  "next_action": "Keep VISUAL_PREVIEW and quality-critical generation fail-closed. Shot A and Shot D endpoint prompts are now locked under machine preflight but remain blocked until isolated Art/Creative and Red Team pre-generation executions can be proven. Continue integration of a low-cost multimodal reviewer executor with provider/model/run/context/trace attestation. In parallel, build deterministic Shot B BEFORE -> CROSSING -> AFTER timing/compositing and use it to prove the irreversible state change before any premium H3/Seedance attempt. Do not rebuild the 59.5-second film.",
   "blockers": [
+    "No connected executor currently satisfies the required multimodal + isolated-context + provider/model/run/context/trace attestation contract.",
+    "Shot A and Shot D generation briefs are intentionally BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW; direct conversational generation would be process-invalid.",
     "Sample V2 lacks required independent VISUAL_PREVIEW reviewer receipts and is PROCESS_INVALID.",
-    "Production trusted reviewer executors remain empty until a real isolated multimodal reviewer adapter is integrated and verified.",
     "H3 Transition V1 is rejected and cannot be reused as Sample V3; endpoint/world-state control must be proven before another premium attempt.",
     "vidIQ premium capacity remains scarce and is reserved for high-risk or hero seconds only."
   ],
@@ -89,6 +112,10 @@
     },
     "h3_transition_v1_audit": "projects/pilot-002/H3_TRANSITION_V1_AUDIT.md",
     "sample_v3_shot_repair_matrix": "projects/pilot-002/SAMPLE_V3_SHOT_REPAIR_MATRIX.md",
+    "sample_v3_shot_a_generation_brief": "projects/pilot-002/SAMPLE_V3_GENERATION_BRIEF.json",
+    "sample_v3_shot_d_generation_brief": "projects/pilot-002/SAMPLE_V3_SHOT_D_GENERATION_BRIEF.json",
+    "generation_governance": "skills/video-growth-agent/references/generation-governance.md",
+    "generation_guard": "video_growth_agent/generation_guard.py",
     "cinematic_benchmark_lane": "projects/pilot-002/CINEMATIC_BENCHMARK_LANE.md",
     "moving_benchmark_pack": "projects/pilot-002/BENCHMARK_REBASE.md",
     "reviewer_execution_attestation_contract": "skills/video-growth-agent/references/reviewer-execution-attestation.md",
@@ -101,7 +128,8 @@
     "Final QA must consume actual rendered media.",
     "Every required specialist role must actually execute and leave durable evidence.",
     "Use GitHub main as business execution authority and expose capability or governance failures rather than smoothing them over.",
-    "Do not use TinyFish as the default media/production path because it is too slow; prefer direct connector or local execution paths when available."
+    "Do not use TinyFish as the default media/production path because it is too slow; prefer direct connector or local execution paths when available.",
+    "Do not make the user manually manage the studio; autonomously learn, challenge, evolve and clean superseded mechanisms."
   ],
   "resume": {
     "entrypoint": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
@@ -110,5 +138,5 @@
     "active_lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
     "new_chat_rule": "Read the manifest, classify compatibility, acquire the next single-writer lease by compare-and-swap, verify it, then resume from next_action."
   },
-  "updated_at": "2026-10-10T01:20:00Z"
+  "updated_at": "2026-10-10T02:05:00Z"
 }
