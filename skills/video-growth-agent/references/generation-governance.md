@@ -33,9 +33,35 @@ For quality-critical visual work, run a pre-generation challenge before spending
 1. Visual Designer creates the brief and candidate prompt.
 2. Art/Creative critique asks whether the prompt itself is already drifting toward PPT, SaaS dashboard, floating cards, generic cyberpunk, cute AI mascots, empty neon, stock-photo office imagery or explanatory labels instead of cinematic action.
 3. Red Team states the strongest reason this prompt is likely to generate the wrong movie.
-4. Only unresolved-free briefs are allowed to reach the generation engine.
+4. Only unresolved-free briefs with verified execution evidence are allowed to reach the generation engine.
 
 The reviewer must inspect the actual prompt, not merely the intended idea.
+
+### Evidence boundary
+
+`pre_generation_challenge` inside the brief is status and human-readable rationale only. A literal `PASS` written into that JSON is **not** proof that Art/Creative or Red Team actually executed.
+
+Authorization evidence must be resolved outside the brief from the owner execution path and then bound back to the exact brief digest. At minimum, each required reviewer proof must bind:
+
+- work-order identity;
+- immutable review receipt reference;
+- execution-attestation reference;
+- executor and execution identity;
+- provider run/request identity;
+- context/trace correlation identity;
+- review packet and result digests;
+- exact generation-brief digest;
+- inspectable proof reference.
+
+Sibling challenge executions may not reuse execution/run/context/trace identities. The machine guard rejects an inline self-authored PASS when no externally resolved evidence bundle is supplied.
+
+The current `generation_guard` validates completeness, prompt contradictions and evidence-bundle shape/digest binding. It does **not** itself prove that a referenced receipt exists or that an executor/provider is trusted. Those are owner-runtime/gateway responsibilities.
+
+Until a single enforced quality-critical generation gateway resolves those receipts from authority and binds the subsequent provider call/artifact back to the authorization, generation remains fail-closed for promotable project media. Do not reinterpret a structurally valid brief as production authorization.
+
+## Provider-evidence semantics
+
+Do not describe locally supplied correlation IDs as provider-issued proof. Provider-issued request/run IDs and model identity, local context/trace IDs, raw request/response digests and durable proof references are different evidence classes. A provider adapter may enter the trusted executor registry only after its real API semantics and modality access are verified and the runtime can distinguish these classes truthfully.
 
 ## Post-generation rule
 
@@ -50,5 +76,7 @@ When a recurring failure or capability gap appears:
 - Production Methodologist owns scouting and mechanism distillation. It does not approve its own recommendation.
 - Red Team attacks the proposed lesson and searches for counterexamples and self-deception.
 - Evolution Engineer converts only accepted lessons into the smallest durable rule/test/config change and removes superseded mechanisms.
+
+The scheduled LEARN pipeline is itself governed work. The base runtime must require its configured work orders; manually creating `learning_receipt` plus role PASS records cannot substitute for Methodologist/Evolution/Red-Team/Showrunner execution evidence.
 
 This cell exists to prevent the executive producer from simultaneously creating, judging, learning and rewriting the system from one context.
