@@ -3,7 +3,7 @@
   "owner": "VIDEO_GROWTH_AGENT",
   "domain": "VIDEO_GROWTH",
   "repository": "D1traverser-debug/video-growth-agent",
-  "status": "READY_V37_PROTOCOL_ADAPTER__METHODOLOGY_REFRESHED__CHECKPOINT_COMPACTION_STAGED",
+  "status": "READY_V37_PROTOCOL_ADAPTER__METHODOLOGY_BOUND__CHECKPOINT_COMPACTION_STAGED",
   "business_runtime_cutover": false,
   "authority": {
     "business_rules": "skills/video-growth-agent/SKILL.md + config/workflow.json + video_growth_agent runtime",
@@ -43,7 +43,8 @@
   "methodology": {
     "profile_refs": {
       "artifact_io": "1.0",
-      "operational_hygiene": "1.0"
+      "operational_hygiene": "1.0",
+      "evolution": "1.0"
     },
     "hook_bindings": {
       "durable_task_state_location": "continuity/tasks/<task>/TASK_MANIFEST.json + continuity/tasks/<task>/CHECKPOINT.json",
@@ -61,9 +62,14 @@
       "observability_or_incident_evidence_location": "GitHub commit/CI evidence plus continuity task checkpoint/adaptation metadata and referenced audits",
       "self_maintenance_trigger_path": "Protocol/capability/authority drift -> current valid owner writer performs scoped maintenance reconciliation under CAS and post-write reread",
       "garbage_collection_owner_and_dependency_rule": "Valid owner/maintenance writer may clean superseded continuity mechanisms only after dependency/retention checks; never garbage-collect active business evidence",
-      "reliability_or_change_freeze_guard": "Fail closed on stale writer, unknown authority or failed verification; contract-only maintenance must not advance business stage or next_action"
+      "reliability_or_change_freeze_guard": "Fail closed on stale writer, unknown authority or failed verification; contract-only maintenance must not advance business stage or next_action",
+      "learning_evidence_location": "skills/video-growth-agent/references/self-learning.md plus production-intelligence evidence, project work-order/reviewer receipts and post-publication performance evidence when available",
+      "eval_or_regression_promotion_path": "skills/video-growth-agent/SKILL.md autonomous self-learning loop: compare alternatives, inspect source, prototype the smallest representative sample, run QA and Red Team challenge, then ACCEPT/REJECT before PERSIST",
+      "superseded_mechanism_cleanup_rule": "skills/video-growth-agent/SKILL.md Evolution Engineer rule: accepted learning becomes the smallest useful rule/test/config/technique update and replaces or deletes superseded mechanisms rather than accumulating stale versions"
     },
-    "overrides": {}
+    "overrides": {
+      "evaluator_selection": "Video methodology promotion uses Production Methodologist prototypes, independent quality review/Red Team challenge and benchmark-anchored artifact evidence; true isolation remains subject to execution-capability attestation"
+    }
   },
   "writer_guard": {
     "storage": "GitHub contents blob SHA compare-and-swap",
@@ -90,6 +96,7 @@
     "This adapter does not declare a new Video Growth business Runtime cutover.",
     "The active video task is reconciled in place to Universal Continuity v3.7 by its existing valid writer; the legacy task-level contract_version field may remain as a compatibility marker.",
     "Same-chat reconciliation preserves the existing active lease and resume_epoch; it is not a new takeover.",
-    "Checkpoint compaction remains staged and is intentionally not applied during this contract-only turn."
+    "Checkpoint compaction remains staged and is intentionally not applied during this contract-only turn.",
+    "Evolution profile binding points to the existing Methodologist/Red-Team/Evolution Engineer pipeline; it does not claim those roles executed in this maintenance chat."
   ]
 }
