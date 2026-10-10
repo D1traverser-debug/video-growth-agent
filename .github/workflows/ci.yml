@@ -43,7 +43,7 @@ jobs:
           assert version("video-growth-agent") == "0.5.0"
           assert registry.get("showrunner").prompt
           assert registry.get("creative_director").prompt
-          assert orchestrator.workflow["version"] == "0.3.0"
+          assert orchestrator.workflow["version"] == "0.3.1"
           assert agents.config["version"].startswith("0.5.")
           assert planner.config["version"].startswith("0.5.")
           assert planner.validate() == []
