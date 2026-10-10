@@ -14,6 +14,12 @@ from .runtime import StudioRuntime
 from .storage import ProjectStore
 from .techniques import TechniqueLibrary
 from .studio_agents import AgentRegistry, AgentSpec, AgenticStudio, ExecutionPlanner, WorkOrder
+from .reviewer_providers import (
+    GeminiReviewerAdapter,
+    OpenRouterVisionReviewerAdapter,
+    ProviderReviewRun,
+    ReviewerRequest,
+)
 
 __all__ = [
     "CandidateAssessment",
@@ -42,4 +48,8 @@ __all__ = [
     "AgenticStudio",
     "ExecutionPlanner",
     "WorkOrder",
+    "GeminiReviewerAdapter",
+    "OpenRouterVisionReviewerAdapter",
+    "ProviderReviewRun",
+    "ReviewerRequest",
 ]
