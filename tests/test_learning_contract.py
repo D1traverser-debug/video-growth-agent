@@ -34,3 +34,43 @@ def test_external_learning_enters_technique_library_as_candidates_not_unearned_v
         assert techniques[technique_id]["status"] == "candidate"
 
     assert techniques["T-012"]["name"] == "样片先行"
+
+
+def test_learn_stage_actually_schedules_declared_improvement_roles():
+    plan = _load("video_growth_agent/data/execution-plan.json")
+    learn = plan["stages"]["LEARN"]["tasks"]
+    agents = [task.get("agent") for task in learn]
+    assert agents == [
+        "production_methodologist",
+        "evolution_engineer",
+        "red_team",
+        "showrunner",
+    ]
+
+    by_id = {task["id"]: task for task in learn}
+    assert by_id["learning_methodology"]["outputs"] == ["learning_candidate"]
+    assert by_id["learning_evolution_candidate"]["inputs"] == ["learning_candidate"]
+    assert by_id["learning_evolution_candidate"]["outputs"] == ["learning_receipt"]
+    assert by_id["learning_red_team"]["inputs"] == ["learning_receipt"]
+    assert by_id["learning_showrunner"]["inputs"] == ["learning_receipt"]
+
+
+def test_learning_capability_distinguishes_evidence_pipeline_from_autonomous_promotion():
+    profile = _load("continuity/EXECUTION_CAPABILITIES.json")
+    caps = {item["capability_id"]: item for item in profile["capabilities"]}
+    scheduled = caps["scheduled_learning_evidence_pipeline"]
+    sidecar = caps["learning_evolution_sidecar"]
+
+    assert scheduled["assurance_ceiling"] == "SESSION_EXECUTABLE"
+    assert "Production Methodologist" in scheduled["invocation_path"]
+    assert "Evolution Engineer" in scheduled["invocation_path"]
+    assert sidecar["assurance_ceiling"] == "HARNESS_WIRED"
+    assert any("do not themselves mutate GitHub production authority" in item for item in profile["known_owner_blockers"])
+
+
+def test_evolution_engineer_is_candidate_builder_not_false_commit_proof():
+    agents = _load("video_growth_agent/data/agents.json")["agents"]
+    mandate = agents["evolution_engineer"]["mandate"]
+    assert "candidate artifact" in mandate
+    assert "not proof that production authority has changed" in mandate
+    assert "owner maintenance path" in mandate
