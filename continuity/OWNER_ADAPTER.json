@@ -3,13 +3,14 @@
   "owner": "VIDEO_GROWTH_AGENT",
   "domain": "VIDEO_GROWTH",
   "repository": "D1traverser-debug/video-growth-agent",
-  "status": "READY_V37_PROTOCOL_ADAPTER",
+  "status": "READY_V37_PROTOCOL_ADAPTER__CHECKPOINT_COMPACTION_STAGED",
   "business_runtime_cutover": false,
   "authority": {
     "business_rules": "skills/video-growth-agent/SKILL.md + config/workflow.json + video_growth_agent runtime",
     "continuity_metadata": "continuity/TASK_INDEX.md",
     "task_manifest": "continuity/tasks/<task>/TASK_MANIFEST.json",
-    "checkpoint": "continuity/tasks/<task>/CHECKPOINT.json"
+    "checkpoint": "continuity/tasks/<task>/CHECKPOINT.json",
+    "checkpoint_compaction_plan": "continuity/CHECKPOINT_COMPACTION_PLAN.json"
   },
   "capabilities": {
     "list_resumable_tasks_metadata_only": true,
@@ -43,7 +44,14 @@
     "required_fields": ["resume_epoch", "active_lease.lease_id"],
     "same_chat_protocol_reconciliation": "preserve resume_epoch and active_lease",
     "new_chat_takeover": "increment resume_epoch, replace active_lease, re-read manifest and verify before substantive work",
-    "maintenance_task_may_overwrite_active_task_manifest": false
+    "maintenance_task_may_overwrite_active_task_manifest": false,
+    "maintenance_task_may_overwrite_active_task_checkpoint": false
+  },
+  "checkpoint_conformance": {
+    "status": "COMPACTION_REQUIRED_ON_NEXT_VALID_WRITER_TURN",
+    "plan": "continuity/CHECKPOINT_COMPACTION_PLAN.json",
+    "rule": "Checkpoint carries current execution truth plus refs; duplicated business rules/history belong in stronger project/Skill authorities.",
+    "cross_domain_pollution_guard": "Unverified preserved requirements without Video Growth authority must not become durable video rules."
   },
   "progress_observability": {
     "policy": "D1traverser-debug/universal-continuity-agent@main/PROGRESS_OBSERVABILITY_POLICY.json",
@@ -53,6 +61,7 @@
   "notes": [
     "Universal Continuity owns routing, protocol adaptation and recovery pointers only; it must not duplicate video workflow/business state machines.",
     "This adapter does not declare a new Video Growth business Runtime cutover.",
-    "The current video task may still carry a v3.5 task-level protocol marker while an older chat owns its lease; its valid writer must reconcile that manifest in place on the next durable turn rather than being force-migrated by system maintenance."
+    "The current video task may still carry a v3.5 task-level protocol marker while an older chat owns its lease; its valid writer must reconcile that manifest in place on the next durable turn rather than being force-migrated by system maintenance.",
+    "The current checkpoint contains duplicated rule/history prose; compaction is staged but may only be applied by the current valid task writer or a genuine new-chat takeover."
   ]
 }
