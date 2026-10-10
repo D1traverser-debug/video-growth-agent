@@ -71,6 +71,18 @@
       "evaluator_selection": "Video methodology promotion uses Production Methodologist prototypes, independent quality review/Red Team challenge and benchmark-anchored artifact evidence; true isolation remains subject to execution-capability attestation"
     }
   },
+  "methodology_assurance": {
+    "declaration_status": "BOUND_EXACT_VERSION__HOOK_COMPLETE",
+    "owner_regression_status": "PASS",
+    "owner_regression_evidence": {
+      "validated_behavioral_head": "fe44157c1b162aa2a8ff5f8028920dbb199303a3",
+      "github_actions_run_id": 38056303743,
+      "job_id": 114225426230,
+      "result": "PASS_TESTS_FFMPEG_INSTALLED_CLI_SMOKE"
+    },
+    "operational_status": "ACTION_LEVEL_PROFILE_RUN_AND_EVIDENCE_OR_ATTESTATION_REQUIRED",
+    "boundary": "Repository declaration and owner regression do not prove Methodologist, Red Team, Evolution Engineer or isolated reviewers executed in this maintenance chat; strict isolation remains governed by current-session execution attestation."
+  },
   "writer_guard": {
     "storage": "GitHub contents blob SHA compare-and-swap",
     "required_fields": ["resume_epoch", "active_lease.lease_id"],
