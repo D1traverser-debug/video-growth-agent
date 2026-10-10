@@ -45,6 +45,7 @@ def verified_challenges(brief):
     def proof(role: str):
         return {
             "decision": "PASS",
+            "reviewer_role": role,
             "work_order_id": f"pilot:PREGEN:{role}",
             "review_receipt_ref": f"receipts/{role}.json",
             "attestation_ref": f"receipts/{role}-attestation.json",
@@ -142,3 +143,19 @@ def test_verified_challenge_cannot_reuse_execution_context():
     verified["red_team"]["context_id"] = verified["art_director"]["context_id"]
     failures = generation_brief_failures(brief, verified_challenges=verified)
     assert any(item.startswith("verified_pre_generation_review_identity_reused:context_id:") for item in failures)
+
+
+def test_verified_challenge_cannot_be_mounted_under_the_wrong_role():
+    brief = valid_brief()
+    verified = verified_challenges(brief)
+    verified["art_director"]["reviewer_role"] = "creative_director"
+    failures = generation_brief_failures(brief, verified_challenges=verified)
+    assert "verified_pre_generation_review_role_mismatch:art_director:creative_director" in failures
+
+
+def test_verified_challenge_requires_explicit_role_identity():
+    brief = valid_brief()
+    verified = verified_challenges(brief)
+    del verified["red_team"]["reviewer_role"]
+    failures = generation_brief_failures(brief, verified_challenges=verified)
+    assert "verified_pre_generation_review_field_missing:red_team:reviewer_role" in failures
