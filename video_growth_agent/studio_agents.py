@@ -139,6 +139,12 @@ class ExecutionPlanner:
                 if not task_id or task_id in task_ids:
                     errors.append(f"{stage}: duplicate/missing task id {task_id!r}")
                 task_ids.add(task_id)
+                task_type = task.get("type")
+                approval_role = task.get("approval_role")
+                if approval_role and task_type not in {"review", "meta_review"}:
+                    errors.append(
+                        f"{stage}/{task_id}: approval_role is forbidden for non-review task type {task_type!r}"
+                    )
                 executor = task.get("executor")
                 if executor == "agent":
                     agent_id = task.get("agent")
@@ -147,13 +153,12 @@ class ExecutionPlanner:
                     except (KeyError, ValueError) as exc:
                         errors.append(f"{stage}/{task_id}: {exc}")
                         continue
-                    approval_role = task.get("approval_role")
                     if approval_role and agent.role != approval_role:
                         errors.append(
                             f"{stage}/{task_id}: agent {agent_id} role {agent.role!r} "
                             f"cannot sign {approval_role!r}"
                         )
-                    if task.get("type") in {"review", "meta_review"} and agent.kind == "worker":
+                    if task_type in {"review", "meta_review"} and agent.kind == "worker":
                         errors.append(f"{stage}/{task_id}: worker agent cannot be reviewer")
                 elif executor == "tool":
                     if task.get("tool") not in self.DETERMINISTIC_TOOLS:
@@ -313,6 +318,8 @@ class AgenticStudio:
             raise RuntimeError(f"Work order {task_id} is {order.status}, not READY")
         if order.task_type in {"review", "meta_review"}:
             raise ValueError("Use submit_review for review work orders")
+        if order.approval_role:
+            raise ValueError("Non-review work orders cannot declare approval_role")
         provided = set((outputs or {}).keys())
         expected = set(order.outputs)
         if provided != expected:
@@ -329,17 +336,6 @@ class AgenticStudio:
                 kind=payload.get("kind", "document"),
                 digest=payload.get("digest"),
                 metadata=metadata,
-            )
-        if order.approval_role:
-            agent = self.agents.get(order.agent_id or "")
-            if agent.role != order.approval_role:
-                raise ValueError("Producer agent cannot sign an unrelated role")
-            self.runtime.sign(
-                project_id,
-                role=order.approval_role,
-                decision="PASS",
-                notes="Worker completed assigned artifact contract; downstream audit remains authoritative.",
-                evidence=tuple((result or {}).get("evidence", ())),
             )
         order.status = "COMPLETED"
         order.result = result or {}
