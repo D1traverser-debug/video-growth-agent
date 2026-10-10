@@ -8,6 +8,10 @@ description: Plan, research, script, design, produce, audit, commercialize, and 
 ## 1. Authority and operating model
 GitHub `main` is the executable rule authority. Notion/Google may mirror knowledge, research and recovery notes, but they do not override this Skill, machine-readable workflow config, agent execution plan, or tested gate behavior.
 
+Before any material production action, read `continuity/EXECUTION_CAPABILITIES.json` from current GitHub `main`. That file is the owner capability ceiling, not proof that the current chat/session actually has the executor, tool, credential or media modality required now. Handshake only the capabilities needed by the current stage/work order. `CHAT_BRIDGED` execution is allowed only where the capability contract explicitly permits it; role switching inside one chat can never satisfy an `ATTESTED_ISOLATED` gate. A missing hard capability blocks that exact work order/gate. Do not bypass it through a conversational side channel.
+
+A role/config/Skill entry without a real invocation path plus execution evidence is `DECLARED_ONLY`, not an executed specialist. For quality-critical work, execution claims must be backed by the owner work-order/receipt path and, where required, execution attestation.
+
 Treat every video as the output of an agentic studio. Do not let one monolithic voice write, direct, edit and approve its own work. Role prompts are not sufficient isolation for quality-critical production.
 
 ## 2. Workflow invariant
