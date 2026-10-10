@@ -8,6 +8,7 @@ Adapter: `continuity/OWNER_ADAPTER.json`
 
 Notes:
 - Metadata-only discovery lives here; executable truth lives in the per-task manifest/checkpoint.
+- Before any material stage/work-order execution after discovery or resume, read current `skills/video-growth-agent/SKILL.md` and `continuity/EXECUTION_CAPABILITIES.json`; handshake only capabilities required by the current work order. Repository roles/configuration are not execution proof, and one chat role-switching cannot satisfy `ATTESTED_ISOLATED`.
 - Pilot 002 Release V4 is a rejected historical candidate after explicit user quality rejection; do not route to publication/performance from it.
 - Sample V2 is retained only as diagnostic timing/spatial previs and is process-invalid because the configured VISUAL_PREVIEW reviewer-receipt bundle does not exist.
 - Current work is formal AgenticStudio VISUAL_PREVIEW process re-entry: independent review proof first, repair matrix and cinematic benchmark lane second, Sample V3 only after those controls exist.
