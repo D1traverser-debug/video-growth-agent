@@ -4,30 +4,53 @@ from pathlib import Path
 import pytest
 
 from video_growth_agent import Approval, ArtifactRecord, AssetRecord, GateBlocked, ProjectStore, StudioRuntime
+from video_growth_agent.studio_agents import AgenticStudio
 
 
 def runtime(tmp_path: Path) -> StudioRuntime:
     return StudioRuntime(store=ProjectStore(tmp_path / "projects"))
 
 
+def _complete_intake(studio: AgenticStudio, project_id: str, uri: str, digest: str):
+    orders = studio.dispatch_stage(project_id)
+    assert [order.task_id for order in orders] == ["intake"]
+    assert orders[0].status == "READY"
+    return studio.complete_work(
+        project_id,
+        "intake",
+        outputs={"brief": {"uri": uri, "kind": "document", "digest": digest}},
+        result={"evidence": [uri]},
+    )
+
+
 def test_project_checkpoint_roundtrip_and_receipts(tmp_path):
     rt = runtime(tmp_path)
+    studio = AgenticStudio(runtime=rt)
     state = rt.create_project("pilot-x", title="test")
     assert state.stage == "INTAKE"
-    rt.record_artifact("pilot-x", "brief", "file://brief.md", "INTAKE", digest="a1")
-    receipt = rt.sign("pilot-x", "showrunner", "PASS", "brief is viable", ("file://brief.md",))
-    assert (tmp_path / "projects" / "pilot-x" / receipt).exists()
-    assert rt.advance("pilot-x") == "POSITIONING"
+    order = _complete_intake(studio, "pilot-x", "file://brief.md", "a1")
+    assert order.status == "COMPLETED"
+    assert (tmp_path / "projects" / "pilot-x" / "work_orders" / "INTAKE" / "intake.json").exists()
+    assert studio.advance("pilot-x") == "POSITIONING"
     loaded = rt.state("pilot-x")
     assert loaded.stage == "POSITIONING"
     assert loaded.approvals["INTAKE"]["showrunner"].decision == "PASS"
     events = (tmp_path / "projects" / "pilot-x" / "events.jsonl").read_text(encoding="utf-8").strip().splitlines()
-    assert len(events) >= 4
+    assert len(events) >= 5
 
 
 def test_changed_upstream_artifact_invalidates_downstream(tmp_path):
-    rt = runtime(tmp_path); rt.create_project("p"); rt.record_artifact("p", "brief", "file://brief-v1", "INTAKE", digest="1"); rt.sign("p", "showrunner", "PASS"); rt.advance("p"); assert rt.state("p").stage == "POSITIONING"; rt.record_artifact("p", "brief", "file://brief-v2", "INTAKE", digest="2")
-    state = rt.state("p"); assert state.stage == "INTAKE"; assert state.approvals == {}; assert state.invalidated_from == "INTAKE"
+    rt = runtime(tmp_path)
+    studio = AgenticStudio(runtime=rt)
+    rt.create_project("p")
+    _complete_intake(studio, "p", "file://brief-v1", "1")
+    studio.advance("p")
+    assert rt.state("p").stage == "POSITIONING"
+    rt.record_artifact("p", "brief", "file://brief-v2", "INTAKE", digest="2")
+    state = rt.state("p")
+    assert state.stage == "INTAKE"
+    assert state.approvals == {}
+    assert state.invalidated_from == "INTAKE"
 
 
 def test_unknown_final_rights_are_exposed(tmp_path):
