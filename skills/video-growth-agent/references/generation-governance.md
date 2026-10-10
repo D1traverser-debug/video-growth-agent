@@ -31,15 +31,18 @@ The prompt is subordinate to the brief. If the prompt contradicts any must_not_h
 For quality-critical visual work, run a pre-generation challenge before spending credits or presenting the image to the user:
 
 1. Visual Designer creates the brief and candidate prompt.
-2. Art/Creative critique asks whether the prompt itself is already drifting toward PPT, SaaS dashboard, floating cards, generic cyberpunk, cute AI mascots, empty neon, stock-photo office imagery or explanatory labels instead of cinematic action.
-3. Red Team states the strongest reason this prompt is likely to generate the wrong movie.
-4. Only unresolved-free briefs with verified execution evidence are allowed to reach the generation engine.
+2. Art Director independently critiques physical image construction: material realism, lighting logic, composition, lens/scale, hierarchy and whether the frame has image weight rather than UI-demo polish.
+3. Creative Director independently critiques narrative/idea construction: whether the prompt creates the intended story beat, contrast and memorable visual event instead of explaining the concept with SaaS/UI/AI shorthand.
+4. Red Team independently states the strongest reason this prompt is likely to generate the wrong movie or produce a superficially attractive false positive.
+5. Only unresolved-free briefs with all three verified executions are allowed to reach the generation engine.
 
-The reviewer must inspect the actual prompt, not merely the intended idea.
+Art Director and Creative Director may disagree. They are distinct professional authorities; one combined `art_creative` execution cannot satisfy both roles.
+
+Each reviewer must inspect the actual prompt, not merely the intended idea.
 
 ### Evidence boundary
 
-`pre_generation_challenge` inside the brief is status and human-readable rationale only. A literal `PASS` written into that JSON is **not** proof that Art/Creative or Red Team actually executed.
+`pre_generation_challenge` inside the brief is status and human-readable rationale only. A literal `PASS` written into that JSON is **not** proof that Art Director, Creative Director or Red Team actually executed.
 
 Authorization evidence must be resolved outside the brief from the owner execution path and then bound back to the exact brief digest. At minimum, each required reviewer proof must bind:
 
@@ -53,7 +56,7 @@ Authorization evidence must be resolved outside the brief from the owner executi
 - exact generation-brief digest;
 - inspectable proof reference.
 
-Sibling challenge executions may not reuse execution/run/context/trace identities. The machine guard rejects an inline self-authored PASS when no externally resolved evidence bundle is supplied.
+Sibling challenge executions may not reuse execution/run/context/trace identities. The machine guard rejects an inline self-authored PASS, a missing specialist, or a legacy combined Art/Creative slot when the three distinct evidence bundles are not supplied.
 
 The current `generation_guard` validates completeness, prompt contradictions and evidence-bundle shape/digest binding. It does **not** itself prove that a referenced receipt exists or that an executor/provider is trusted. Those are owner-runtime/gateway responsibilities.
 
