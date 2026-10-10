@@ -6,35 +6,52 @@ def artifact(name: str, stage: str) -> ArtifactRecord:
     return ArtifactRecord(name=name, uri=f"memory://{name}", stage=stage)
 
 
-def test_missing_signoff_blocks():
-    o = StudioOrchestrator(); s = ProjectState("x"); s.artifacts["brief"] = artifact("brief", "INTAKE")
+def test_producer_only_stage_requires_artifact_not_self_signoff():
+    o = StudioOrchestrator(); s = ProjectState("x")
+    with pytest.raises(GateBlocked): o.advance(s)
+    s.artifacts["brief"] = artifact("brief", "INTAKE")
+    assert o.advance(s) == "POSITIONING"
+
+
+def test_missing_artifact_blocks_even_with_independent_reviews():
+    o = StudioOrchestrator(); s = ProjectState("x", stage="POSITIONING")
+    o.sign(s, Approval("growth_strategist", "PASS")); o.sign(s, Approval("commercial_director", "PASS"))
+    report = o.gate_report(s)
+    assert report["missing_artifacts"] == ["positioning"]
     with pytest.raises(GateBlocked): o.advance(s)
 
 
-def test_missing_artifact_blocks_even_with_signoff():
-    o = StudioOrchestrator(); s = ProjectState("x"); o.sign(s, Approval("showrunner", "PASS")); report = o.gate_report(s)
-    assert report["missing_artifacts"] == ["brief"]
+def test_review_fail_veto_blocks():
+    o = StudioOrchestrator(); s = ProjectState("x", stage="POSITIONING")
+    s.artifacts["positioning"] = artifact("positioning", "POSITIONING")
+    o.sign(s, Approval("growth_strategist", "FAIL", "not worth publishing"))
+    o.sign(s, Approval("commercial_director", "PASS"))
     with pytest.raises(GateBlocked): o.advance(s)
 
 
-def test_fail_veto_blocks():
-    o = StudioOrchestrator(); s = ProjectState("x"); s.artifacts["brief"] = artifact("brief", "INTAKE"); o.sign(s, Approval("showrunner", "FAIL", "not worth publishing"))
+def test_independent_reviews_pass_advances():
+    o = StudioOrchestrator(); s = ProjectState("x", stage="POSITIONING")
+    s.artifacts["positioning"] = artifact("positioning", "POSITIONING")
+    o.sign(s, Approval("growth_strategist", "PASS")); o.sign(s, Approval("commercial_director", "PASS"))
+    assert o.advance(s) == "RESEARCH"
+
+
+def test_multi_role_stage_requires_every_reviewer():
+    o = StudioOrchestrator(); s = ProjectState("x", stage="POSITIONING")
+    s.artifacts["positioning"] = artifact("positioning", "POSITIONING")
+    o.sign(s, Approval("growth_strategist", "PASS"))
     with pytest.raises(GateBlocked): o.advance(s)
-
-
-def test_pass_advances():
-    o = StudioOrchestrator(); s = ProjectState("x"); s.artifacts["brief"] = artifact("brief", "INTAKE"); o.sign(s, Approval("showrunner", "PASS")); assert o.advance(s) == "POSITIONING"
-
-
-def test_multi_role_stage_requires_everyone():
-    o = StudioOrchestrator(); s = ProjectState("x", stage="POSITIONING"); s.artifacts["positioning"] = artifact("positioning", "POSITIONING"); o.sign(s, Approval("growth_strategist", "PASS")); o.sign(s, Approval("commercial_director", "PASS"))
-    with pytest.raises(GateBlocked): o.advance(s)
-    o.sign(s, Approval("showrunner", "PASS")); assert o.advance(s) == "RESEARCH"
+    o.sign(s, Approval("commercial_director", "PASS")); assert o.advance(s) == "RESEARCH"
 
 
 def test_irrelevant_role_cannot_sign_current_stage():
     o = StudioOrchestrator(); s = ProjectState("x")
     with pytest.raises(ValueError): o.sign(s, Approval("writer", "PASS"))
+
+
+def test_producer_role_cannot_self_approve_producer_only_stage():
+    o = StudioOrchestrator(); s = ProjectState("x")
+    with pytest.raises(ValueError): o.sign(s, Approval("showrunner", "PASS"))
 
 
 def test_red_team_pass_requires_three_findings():
@@ -44,7 +61,7 @@ def test_red_team_pass_requires_three_findings():
 
 
 def test_invalidation_removes_downstream_approvals():
-    o = StudioOrchestrator(); s = ProjectState("x", stage="ROUGH_CUT"); s.approvals["SCRIPT"] = {"writer": Approval("writer", "PASS")}; s.approvals["ROUGH_CUT"] = {"editor": Approval("editor", "PASS")}; o.invalidate_from(s, "SCRIPT")
+    o = StudioOrchestrator(); s = ProjectState("x", stage="ROUGH_CUT"); s.approvals["SCRIPT"] = {"story_editor": Approval("story_editor", "PASS")}; s.approvals["ROUGH_CUT"] = {"editor": Approval("editor", "PASS")}; o.invalidate_from(s, "SCRIPT")
     assert s.stage == "SCRIPT"; assert s.approvals == {}
 
 
