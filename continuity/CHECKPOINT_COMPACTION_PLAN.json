@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "continuity_protocol_version": "3.7",
   "owner": "VIDEO_GROWTH_AGENT",
   "task_id": "video-growth:main",
@@ -18,35 +18,35 @@
   },
   "preserved_requirement_mapping": [
     {
-      "checkpoint_requirement": "Quality is the first priority; cost optimization may not lower the quality floor.",
+      "requirement_class": "quality_floor_over_cost",
       "authority": "skills/video-growth-agent/SKILL.md sections 5, 7 and 9",
       "disposition": "REFERENCE_AUTHORITY_NOT_DUPLICATE"
     },
     {
-      "checkpoint_requirement": "Prefer zero or low incremental cost and no recurring filming where quality permits.",
+      "requirement_class": "low_incremental_cost_and_no_recurring_filming_when_quality_allows",
       "authority": "skills/video-growth-agent/SKILL.md sections 5 and 9",
       "disposition": "REFERENCE_AUTHORITY_NOT_DUPLICATE"
     },
     {
-      "checkpoint_requirement": "Final QA must consume actual rendered media.",
+      "requirement_class": "actual_rendered_media_qa",
       "authority": "skills/video-growth-agent/SKILL.md section 8",
       "disposition": "REFERENCE_AUTHORITY_NOT_DUPLICATE"
     },
     {
-      "checkpoint_requirement": "Every required specialist role must actually execute and leave durable evidence.",
+      "requirement_class": "specialist_execution_with_durable_evidence",
       "authority": "skills/video-growth-agent/SKILL.md sections 3 and 6 plus references/agent-studio.md",
       "disposition": "REFERENCE_AUTHORITY_NOT_DUPLICATE"
     },
     {
-      "checkpoint_requirement": "Use GitHub main as business execution authority and expose capability or governance failures rather than smoothing them over.",
+      "requirement_class": "github_main_authority_and_fail_closed_governance",
       "authority": "skills/video-growth-agent/SKILL.md sections 1 and 2",
       "disposition": "REFERENCE_AUTHORITY_NOT_DUPLICATE"
     },
     {
-      "checkpoint_requirement": "Do not use TinyFish as the default media/production path because it is too slow; prefer direct connector or local execution paths when available.",
+      "requirement_class": "tool-routing_preference_without_video_domain_authority",
       "authority": null,
       "disposition": "DO_NOT_PROMOTE_AS_VIDEO_DURABLE_RULE",
-      "finding": "No matching Video Growth rule authority was found in the repository; treat as unverified/cross-domain contamination unless the video task's valid writer can cite video-specific provenance."
+      "finding": "A preserved tool-routing preference has no matching Video Growth rule authority. Do not copy the user-specific prose into additional public artifacts; the valid video writer must remove or reclassify it unless video-specific durable provenance exists."
     }
   ],
   "duplicate_state_mapping": [
@@ -85,7 +85,7 @@
     "valid writer re-reads TASK_MANIFEST.json and verifies current lease/resume_epoch",
     "read this plan and all referenced stronger authorities",
     "remove duplicated rule/history prose only where stronger authority is verified",
-    "drop the TinyFish video requirement unless video-specific durable provenance is found",
+    "remove or reclassify any user-specific tool-routing preference that lacks Video Growth durable provenance",
     "reconcile task-level Continuity protocol metadata to v3.7 under the same lease for the same chat",
     "re-read checkpoint and manifest before reporting COMMITTED"
   ]
