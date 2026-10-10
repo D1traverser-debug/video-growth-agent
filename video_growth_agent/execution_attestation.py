@@ -66,6 +66,13 @@ class ExecutionAttestation:
 class ExecutionTrustRegistry:
     """Fail-closed registry for execution providers allowed to authorize blind review."""
 
+    IDENTITY_SEMANTICS = {
+        "provider_run_id": {"PROVIDER_ISSUED", "PROVIDER_INSPECTABLE_EQUIVALENT"},
+        "context_id": {"PROVIDER_ISSUED", "OWNER_CORRELATION"},
+        "trace_id": {"PROVIDER_ISSUED", "OWNER_CORRELATION"},
+        "proof_ref": {"PROVIDER_INSPECTABLE_REF", "OWNER_IMMUTABLE_EVIDENCE_REF"},
+    }
+
     def __init__(self, config_path: Path | None = None, config: dict[str, Any] | None = None):
         if config is not None:
             self.config = config
@@ -89,6 +96,28 @@ class ExecutionTrustRegistry:
         raw = self.config.get("trusted_executors", {}).get(executor_id)
         return raw if isinstance(raw, dict) else None
 
+    def _identity_semantics_failures(self, executor_id: str, executor: dict[str, Any]) -> list[str]:
+        if not self.policy.get("require_trust_identity_semantics", False):
+            return []
+
+        failures: list[str] = []
+        semantics = executor.get("identity_semantics")
+        if not isinstance(semantics, dict):
+            return [f"execution_identity_semantics_missing:{executor_id}"]
+
+        for field, allowed in self.IDENTITY_SEMANTICS.items():
+            value = str(semantics.get(field) or "").strip()
+            if not value:
+                failures.append(f"execution_identity_semantics_field_missing:{executor_id}:{field}")
+            elif value not in allowed:
+                failures.append(
+                    f"execution_identity_semantics_invalid:{executor_id}:{field}:{value}"
+                )
+
+        if not str(executor.get("isolation_mechanism") or "").strip():
+            failures.append(f"execution_isolation_mechanism_missing:{executor_id}")
+        return failures
+
     def validate(
         self,
         attestation: ExecutionAttestation,
@@ -105,6 +134,8 @@ class ExecutionTrustRegistry:
         if executor is None:
             failures.append(f"execution_executor_untrusted:{attestation.executor_id}")
             return failures
+
+        failures.extend(self._identity_semantics_failures(attestation.executor_id, executor))
 
         expected_provider = executor.get("provider")
         if expected_provider and attestation.provider != expected_provider:
