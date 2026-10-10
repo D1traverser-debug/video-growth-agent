@@ -46,6 +46,35 @@
       "operational_hygiene": "1.0",
       "evolution": "1.0"
     },
+    "profile_applicability": {
+      "artifact_io": {
+        "status": "APPLIES",
+        "reason": "Video Growth persists task/checkpoint metadata, production artifacts and evidence refs, and may use owner-designated external artifact stores; material mutations require stable identity, CAS and post-write reread.",
+        "evidence_refs": [
+          "continuity/tasks/<task>/TASK_MANIFEST.json",
+          "continuity/tasks/<task>/CHECKPOINT.json",
+          "skills/video-growth-agent/SKILL.md"
+        ]
+      },
+      "operational_hygiene": {
+        "status": "APPLIES",
+        "reason": "The owner handles protocol/capability/authority drift, stale-writer failures, scoped maintenance reconciliation, cleanup and reliability blocking before business progress.",
+        "evidence_refs": [
+          "skills/video-growth-agent/SKILL.md",
+          "continuity/CHECKPOINT_COMPACTION_PLAN.json",
+          "continuity/EXECUTION_CAPABILITIES.json"
+        ]
+      },
+      "evolution": {
+        "status": "APPLIES",
+        "reason": "The owner has a durable Production Methodologist -> Red Team -> Evolution Engineer learning path that compares alternatives, prototypes, evaluates and persists accepted changes.",
+        "evidence_refs": [
+          "skills/video-growth-agent/SKILL.md",
+          "skills/video-growth-agent/references/self-learning.md",
+          "config/workflow.json"
+        ]
+      }
+    },
     "hook_bindings": {
       "durable_task_state_location": "continuity/tasks/<task>/TASK_MANIFEST.json + continuity/tasks/<task>/CHECKPOINT.json",
       "authoritative_business_evidence_classes": "GitHub main Skill/config/runtime/project records plus exact business-evidence refs named by the active task",
@@ -72,7 +101,7 @@
     }
   },
   "methodology_assurance": {
-    "declaration_status": "BOUND_EXACT_VERSION__HOOK_COMPLETE",
+    "declaration_status": "BOUND_EXACT_VERSION__HOOK_COMPLETE__APPLICABILITY_EVIDENCE_RECORDED",
     "owner_regression_status": "PASS",
     "owner_regression_evidence": {
       "validated_behavioral_head": "fe44157c1b162aa2a8ff5f8028920dbb199303a3",
@@ -81,7 +110,7 @@
       "result": "PASS_TESTS_FFMPEG_INSTALLED_CLI_SMOKE"
     },
     "operational_status": "ACTION_LEVEL_PROFILE_RUN_AND_EVIDENCE_OR_ATTESTATION_REQUIRED",
-    "boundary": "Repository declaration and owner regression do not prove Methodologist, Red Team, Evolution Engineer or isolated reviewers executed in this maintenance chat; strict isolation remains governed by current-session execution attestation."
+    "boundary": "Repository declaration, applicability evidence and owner regression do not prove Methodologist, Red Team, Evolution Engineer or isolated reviewers executed in this maintenance chat; strict isolation remains governed by current-session execution attestation."
   },
   "writer_guard": {
     "storage": "GitHub contents blob SHA compare-and-swap",
