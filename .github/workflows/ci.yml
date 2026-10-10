@@ -33,11 +33,13 @@ jobs:
           assert registry.get("showrunner").prompt
           assert registry.get("creative_director").prompt
           assert orchestrator.workflow["version"] == "0.3.0"
-          assert agents.config["version"] == "0.4.0"
+          assert agents.config["version"] == "0.5.0"
           assert planner.config["version"] == "0.4.0"
           assert planner.validate() == []
           assert agents.get("executive_producer").user_voice is True
           assert agents.get("visual_designer").role is None
+          assert agents.get("production_methodologist").kind == "worker"
+          assert agents.get("evolution_engineer").kind == "worker"
           assert "LOOKDEV" in orchestrator.index
           assert "creative_director" in orchestrator.required_roles("VISUAL_PREVIEW")
           assert TechniqueLibrary().get("T-001").name
