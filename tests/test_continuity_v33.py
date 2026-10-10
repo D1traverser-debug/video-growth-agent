@@ -9,9 +9,9 @@ def load_json(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def test_owner_adapter_declares_v33_capabilities():
+def test_owner_adapter_declares_current_capabilities():
     adapter = load_json(ROOT / "continuity" / "OWNER_ADAPTER.json")
-    assert adapter["schema_version"] == "3.3"
+    assert adapter["schema_version"] == "3.7"
     assert adapter["owner"] == "VIDEO_GROWTH_AGENT"
     assert adapter["domain"] == "VIDEO_GROWTH"
     assert adapter["business_runtime_cutover"] is False
