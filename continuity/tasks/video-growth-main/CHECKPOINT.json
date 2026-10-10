@@ -1,5 +1,5 @@
 {
-  "checkpoint_version": 9,
+  "checkpoint_version": 10,
   "task_id": "video-growth:main",
   "display_name_zh": "AI视频涨粉与商业化",
   "task_class": "USER",
@@ -15,7 +15,7 @@
     "publication_status": "NOT_PUBLISHED",
     "performance_stage_entered": false,
     "full_build_frozen_until_sample_pass": true,
-    "moving_benchmark_rebase": "READY_BUT_CINEMATIC_LANE_INCOMPLETE",
+    "moving_benchmark_rebase": "ACTIVE_WITH_CINEMATIC_LANE",
     "sample_v2_status": "PROCESS_INVALID_AND_VISUAL_FAIL",
     "sample_v2_required_role_receipts_found": false,
     "sample_v2_missing_required_reviewers": [
@@ -27,26 +27,40 @@
     ],
     "production_trusted_reviewer_executors": "EMPTY_FAIL_CLOSED",
     "reviewer_process_hardening_main_commit": "e1bde266b249b841f54a125ea4b01f5d9ae8dcba",
-    "generation_route": "VIDIQ_CONNECTED_BUT_SCARCE",
+    "generation_route": "QUALITY_GATED_COST_AWARE",
     "generation_models_available": ["MiniMax H3", "Seedance 2", "Seedance 2 Fast"],
     "vidiq_credit_state": {
-      "total_credits": 93,
-      "renewable_credits": 73,
+      "total_credits_last_checked": 93,
+      "renewable_credits_last_checked": 73,
       "max_renewable_credits": 150,
-      "addon_credits": 20,
+      "addon_credits_last_checked": 20,
       "max_addon_credits": 20,
       "renewable_resets_at": "2026-11-08T09:51:26.335562Z"
     },
     "h3_transition_experiment": {
-      "status": "COMPLETED_MEDIA_QA_NOT_JUDGED",
+      "status": "VISUAL_FAIL_REJECTED",
       "job_id": "job_15eed248-dfaf-4353-a9a5-16979c30cc49",
       "model": "MiniMax H3",
       "duration_seconds": 4,
       "resolution": "768p",
       "vidiq_generation_credits_consumed": 60,
-      "qa_state": "Three representative JPEG extraction jobs completed, and a private Descript bridge import/publish succeeded, but current tool paths still have not exposed model-readable video or image pixels. Generation success is not visual PASS.",
-      "descript_qa_bridge_project_id": "d2ebddfe-17c4-4058-9aee-a93fe4b03f59",
-      "duplicate_submit_forbidden": true
+      "actual_render_finding": "Dark futuristic industrial corridor/conveyor carries a box-like object. Material weight is better than Sample V2 schematic backend, but camera/environment remain broadly static and the clip never visibly proves human/manual BEFORE -> irreversible CROSSING -> materially different Agent AFTER.",
+      "failure_class": [
+        "WORLD_STATE_CHANGE_FAIL",
+        "HUMAN_TO_AGENT_CONTRAST_FAIL",
+        "TRANSFORMATION_CAUSALITY_FAIL",
+        "CAMERA_SPATIAL_PROGRESSION_FAIL",
+        "HERO_MOMENT_FAIL"
+      ],
+      "promoted_rule": "Motion within one world cannot substitute for a world transition. When before and after states are non-negotiable, premium video generation must be downstream of locked endpoint frames or equivalent explicit state binding.",
+      "duplicate_submit_forbidden": true,
+      "audit_ref": "projects/pilot-002/H3_TRANSITION_V1_AUDIT.md"
+    },
+    "sample_v3_repair_contract": {
+      "status": "ACTIVE",
+      "ref": "projects/pilot-002/SAMPLE_V3_SHOT_REPAIR_MATRIX.md",
+      "sequence": ["SHOT_A_HUMAN_MANUAL", "SHOT_B_IRREVERSIBLE_CROSSING", "SHOT_C_AGENT_BACKSTAGE", "SHOT_D_PREPARED_RESULT_HERO"],
+      "next_design_step": "Lock Shot A opening and Shot D payoff keyframes, then build a cheap deterministic/low-cost three-state Shot B previs before any new premium video call."
     },
     "cost_routing_policy": {
       "status": "MERGED_MAIN",
@@ -55,12 +69,12 @@
       "principle": "Capability and quality thresholds are mandatory. Exploration minimizes cost only after they pass; production high-risk or hero shots maximize measured quality first. Premium scarce pools are protected by reserves."
     }
   },
-  "next_action": "Keep VISUAL_PREVIEW fail-closed. Obtain model-readable pixels or real-media playback for the completed H3 candidate and judge it against Sample V2 and the benchmark pack. Integrate a genuinely isolated multimodal reviewer executor and persist the required blind reviewer receipt bundle bound to exact artifact digests. Build the shot repair matrix, complete the feature-film cinematography/editing benchmark lane, and create Sample V3 through the merged quality-gated cost-aware shot router. Prefer free or low-cost routes only when they clear the quality floor; reserve scarce H3/Seedance capacity for high-risk or hero seconds. Do not rebuild the 59.5-second film until process validity and every hard VISUAL_PREVIEW quality dimension pass.",
+  "next_action": "Keep VISUAL_PREVIEW fail-closed. Do not spend another premium video attempt yet. Lock original Shot A human/manual and Shot D prepared-result hero keyframes against the cinematic and moving benchmark lanes. Use deterministic compositing and/or a low-cost eligible engine to prove Shot B's BEFORE -> CROSSING -> AFTER state change and timing first. Only then route the smallest failed cinematic layer to H3/Seedance if cheaper routes cannot meet the quality floor. In parallel, continue integration work for a genuinely isolated multimodal reviewer executor and require the complete blind reviewer receipt bundle bound to exact artifact digests before VISUAL_PREVIEW can pass. The 59.5-second rebuild remains frozen.",
   "blockers": [
     "Sample V2 lacks required independent VISUAL_PREVIEW reviewer receipts and is PROCESS_INVALID.",
     "Production trusted reviewer executors remain empty until a real isolated multimodal reviewer adapter is integrated and verified.",
-    "The completed H3 candidate and extracted JPEGs have not yet been exposed as model-readable pixels for actual visual QA.",
-    "vidIQ H3 is too scarce for default production: current balance is 93 total credits, including 73/150 renewable and 20 add-on."
+    "H3 Transition V1 is rejected and cannot be reused as Sample V3; endpoint/world-state control must be proven before another premium attempt.",
+    "vidIQ premium capacity remains scarce and is reserved for high-risk or hero seconds only."
   ],
   "authoritative_artifacts": {
     "rejected_candidate_v4": {
@@ -73,19 +87,21 @@
       "status": "PROCESS_INVALID_AND_VISUAL_FAIL_PREVIS_ONLY",
       "github_record": "projects/pilot-002/SAMPLE_V2.md"
     },
+    "h3_transition_v1_audit": "projects/pilot-002/H3_TRANSITION_V1_AUDIT.md",
+    "sample_v3_shot_repair_matrix": "projects/pilot-002/SAMPLE_V3_SHOT_REPAIR_MATRIX.md",
+    "cinematic_benchmark_lane": "projects/pilot-002/CINEMATIC_BENCHMARK_LANE.md",
+    "moving_benchmark_pack": "projects/pilot-002/BENCHMARK_REBASE.md",
     "reviewer_execution_attestation_contract": "skills/video-growth-agent/references/reviewer-execution-attestation.md",
     "cost_aware_routing_main_commit": "90102abc7975b0690ddacd093b7a8822cfc347e2",
-    "process_failure_audit": "projects/pilot-002/PROCESS_FAILURE_AUDIT_2026-10-09.md",
-    "quality_rebase": "projects/pilot-002/QUALITY_REBASE.md",
-    "moving_benchmark_pack": "projects/pilot-002/BENCHMARK_REBASE.md",
-    "production_intelligence": "skills/video-growth-agent/references/production-intelligence.md"
+    "process_failure_audit": "projects/pilot-002/PROCESS_FAILURE_AUDIT_2026-10-09.md"
   },
   "preserved_user_requirements": [
     "Quality is the first priority; cost optimization may not lower the quality floor.",
     "Prefer zero or low incremental cost and no recurring filming where quality permits.",
     "Final QA must consume actual rendered media.",
     "Every required specialist role must actually execute and leave durable evidence.",
-    "Use GitHub main as business execution authority and expose capability or governance failures rather than smoothing them over."
+    "Use GitHub main as business execution authority and expose capability or governance failures rather than smoothing them over.",
+    "Do not use TinyFish as the default media/production path because it is too slow; prefer direct connector or local execution paths when available."
   ],
   "resume": {
     "entrypoint": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
@@ -94,5 +110,5 @@
     "active_lease_id": "8e1bc149-5371-4476-ad94-66c8bee07d94",
     "new_chat_rule": "Read the manifest, classify compatibility, acquire the next single-writer lease by compare-and-swap, verify it, then resume from next_action."
   },
-  "updated_at": "2026-10-09T16:31:00Z"
+  "updated_at": "2026-10-10T01:20:00Z"
 }
