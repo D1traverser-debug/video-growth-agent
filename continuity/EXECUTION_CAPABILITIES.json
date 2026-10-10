@@ -3,7 +3,7 @@
   "execution_readiness_contract": "1.0",
   "owner": "VIDEO_GROWTH_AGENT",
   "repository": "D1traverser-debug/video-growth-agent",
-  "profile_version": 1,
+  "profile_version": 2,
   "purpose": "Owner-level execution wiring metadata for the universal dispatcher. This file is not project task state and does not replace TASK_MANIFEST/CHECKPOINT.",
   "capabilities": [
     {
@@ -79,14 +79,26 @@
       "safe_degraded_modes": []
     },
     {
+      "capability_id": "scheduled_learning_evidence_pipeline",
+      "scope": "LEARN_STAGE_AFTER_PERFORMANCE",
+      "assurance_ceiling": "SESSION_EXECUTABLE",
+      "invocation_path": "execution-plan LEARN -> Production Methodologist -> Evolution Engineer candidate package -> Red Team -> Showrunner via AgenticStudio work orders",
+      "executor_type": "OWNER_WORK_ORDER_PIPELINE",
+      "executor_ref": "video_growth_agent/data/execution-plan.json",
+      "required_tools": ["owner_work_order_runtime", "reasoning_or_research_executor_as_needed"],
+      "evidence_contract": ["learning_candidate", "proposed learning_receipt", "red-team review receipt", "showrunner review receipt"],
+      "side_channel_allowed": false,
+      "safe_degraded_modes": ["CHAT_BRIDGED"]
+    },
+    {
       "capability_id": "learning_evolution_sidecar",
-      "scope": "CAPABILITY_GAP_OR_REPEATED_FAILURE_ONLY",
+      "scope": "MID_STAGE_CAPABILITY_GAP_OR_REPEATED_FAILURE_TRIGGER",
       "assurance_ceiling": "HARNESS_WIRED",
-      "invocation_path": "capability-gap trigger -> Production Methodologist work -> Red Team challenge -> prototype QA -> Evolution Engineer patch/test",
+      "invocation_path": "capability-gap trigger -> Production Methodologist work -> challenge/prototype -> Evolution Engineer proposed patch -> owner maintenance promotion",
       "executor_type": "ON_DEMAND_SIDECAR",
-      "executor_ref": "skills/video-growth-agent/references/generation-governance.md",
+      "executor_ref": "skills/video-growth-agent/references/self-learning.md",
       "required_tools": ["research_tools_as_needed", "owner_artifact_store", "tests"],
-      "evidence_contract": ["learning candidate", "challenge/rejection evidence", "prototype result", "accepted patch/test or rejection receipt"],
+      "evidence_contract": ["incident or learning candidate", "challenge/rejection evidence", "prototype result", "proposed patch/test or rejection receipt", "owner maintenance promotion receipt when applied"],
       "side_channel_allowed": false,
       "safe_degraded_modes": ["CHAT_BRIDGED"]
     }
@@ -94,11 +106,12 @@
   "known_owner_blockers": [
     "Production trusted_executors is currently empty, so critical_blind_multimodal_review is not currently executable despite the owner code supporting an attestation contract.",
     "generation_preflight exists, but a single enforced quality_critical_generation_gateway has not yet been implemented; direct conversational generation must not be counted as owner-valid execution.",
-    "Production Methodologist and Evolution Engineer responsibilities exist, but they should be treated as an on-demand sidecar until explicit scheduling/event-trigger wiring is complete."
+    "The normal post-performance LEARN evidence pipeline is now explicitly scheduled. Mid-stage/repeated-failure learning still lacks a universal event-trigger path, and scheduled learning artifacts do not themselves mutate GitHub production authority; durable promotion remains an owner maintenance action with tests/evals and verified write evidence."
   ],
   "owner_notes": [
     "The repository intentionally distinguishes work-order orchestration from actual specialist executor execution.",
     "A role registry entry is not execution proof.",
+    "A learning candidate or learning_receipt is evidence/proposal, not proof that production rules were durably changed.",
     "True blind multimodal review requires ATTESTED_ISOLATED evidence and may not be simulated by role-switching inside one unverified context."
   ]
 }
