@@ -3,7 +3,7 @@
   "owner": "VIDEO_GROWTH_AGENT",
   "domain": "VIDEO_GROWTH",
   "repository": "D1traverser-debug/video-growth-agent",
-  "status": "READY_V37_PROTOCOL_ADAPTER__METHODOLOGY_BOUND__CHECKPOINT_COMPACTION_STAGED",
+  "status": "READY_V37_PROTOCOL_ADAPTER__SELF_AUDIT_HARDENED__CHECKPOINT_COMPACTION_STAGED",
   "business_runtime_cutover": false,
   "authority": {
     "business_rules": "skills/video-growth-agent/SKILL.md + config/workflow.json + video_growth_agent runtime",
@@ -67,11 +67,11 @@
       },
       "evolution": {
         "status": "APPLIES",
-        "reason": "The owner has a durable Production Methodologist -> Red Team -> Evolution Engineer learning path that compares alternatives, prototypes, evaluates and persists accepted changes.",
+        "reason": "This maintenance turn performs durable critique, alternative comparison, failure-mode testing, regression-backed hardening and persistence of accepted system changes.",
         "evidence_refs": [
-          "skills/video-growth-agent/SKILL.md",
+          "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
           "skills/video-growth-agent/references/self-learning.md",
-          "config/workflow.json"
+          "continuity/EXECUTION_CAPABILITIES.json"
         ]
       }
     },
@@ -89,28 +89,28 @@
       "superseded_artifact_cleanup_rule": "Keep one active continuity/owner authority surface; demote/remove superseded active metadata when replacement is verified, using Git history as implementation archive",
       "external_artifact_vault_if_any": "Google Drive may serve as an optional owner-designated deliverable/evidence vault with stable provider refs; never as implicit control-plane authority",
       "observability_or_incident_evidence_location": "GitHub commit/CI evidence plus continuity task checkpoint/adaptation metadata and referenced audits",
-      "self_maintenance_trigger_path": "Protocol/capability/authority drift -> current valid owner writer performs scoped maintenance reconciliation under CAS and post-write reread",
+      "self_maintenance_trigger_path": "Protocol/capability/authority drift or user-requested self-audit -> current valid owner writer performs scoped critique, regression-backed maintenance and post-write verification",
       "garbage_collection_owner_and_dependency_rule": "Valid owner/maintenance writer may clean superseded continuity mechanisms only after dependency/retention checks; never garbage-collect active business evidence",
-      "reliability_or_change_freeze_guard": "Fail closed on stale writer, unknown authority or failed verification; contract-only maintenance must not advance business stage or next_action",
-      "learning_evidence_location": "skills/video-growth-agent/references/self-learning.md plus production-intelligence evidence, project work-order/reviewer receipts and post-publication performance evidence when available",
-      "eval_or_regression_promotion_path": "skills/video-growth-agent/SKILL.md autonomous self-learning loop: compare alternatives, inspect source, prototype the smallest representative sample, run QA and Red Team challenge, then ACCEPT/REJECT before PERSIST",
-      "superseded_mechanism_cleanup_rule": "skills/video-growth-agent/SKILL.md Evolution Engineer rule: accepted learning becomes the smallest useful rule/test/config/technique update and replaces or deletes superseded mechanisms rather than accumulating stale versions"
+      "reliability_or_change_freeze_guard": "Fail closed on stale writer, unknown authority or failed verification; system maintenance must not advance business stage or next_action",
+      "learning_evidence_location": "audits/SYSTEM_SELF_AUDIT_2026-10-10.md plus self-learning/production-intelligence evidence, project work-order/reviewer receipts and post-publication performance evidence when available",
+      "eval_or_regression_promotion_path": "Challenge initial solution, compare alternatives, search failure modes, patch the minimum authority surface, add adversarial regression tests, require CI pass, then reread authority before claiming promotion",
+      "superseded_mechanism_cleanup_rule": "Accepted evolution replaces weaker mechanisms: hard-coded process-stage enforcement was replaced by execution-plan-derived enforcement, and the combined art_creative pregen approval was removed in favor of three separate specialist evidence slots"
     },
     "overrides": {
-      "evaluator_selection": "Video methodology promotion uses Production Methodologist prototypes, independent quality review/Red Team challenge and benchmark-anchored artifact evidence; true isolation remains subject to execution-capability attestation"
+      "evaluator_selection": "Video methodology promotion uses failure-mode tests, current CI, owner capability truth and benchmark/artifact evidence; true reviewer isolation remains subject to execution-capability attestation"
     }
   },
   "methodology_assurance": {
     "declaration_status": "BOUND_EXACT_VERSION__HOOK_COMPLETE__APPLICABILITY_EVIDENCE_RECORDED",
     "owner_regression_status": "PASS",
     "owner_regression_evidence": {
-      "validated_behavioral_head": "fe44157c1b162aa2a8ff5f8028920dbb199303a3",
-      "github_actions_run_id": 38056303743,
-      "job_id": 114225426230,
-      "result": "PASS_TESTS_FFMPEG_INSTALLED_CLI_SMOKE"
+      "validated_behavioral_head": "216b033f4b13e0d1797bfa8496433341046a2cb4",
+      "github_actions_run_id": 38066823993,
+      "job_id": 114256050068,
+      "result": "PASS_TESTS_AND_INSTALLED_CLI_SMOKE"
     },
-    "operational_status": "ACTION_LEVEL_PROFILE_RUN_AND_EVIDENCE_OR_ATTESTATION_REQUIRED",
-    "boundary": "Repository declaration, applicability evidence and owner regression do not prove Methodologist, Red Team, Evolution Engineer or isolated reviewers executed in this maintenance chat; strict isolation remains governed by current-session execution attestation."
+    "operational_status": "CONTROL_PLANE_SELF_AUDIT_EVOLUTION_APPLIED__PRODUCTION_ISOLATION_BLOCKERS_REMAIN",
+    "boundary": "This records current-writer control-plane maintenance and regression-backed evolution. It does not claim Production Methodologist/Red Team/Evolution Engineer were separately attested executions in this chat, and it does not make any reviewer provider trusted."
   },
   "writer_guard": {
     "storage": "GitHub contents blob SHA compare-and-swap",
@@ -121,11 +121,11 @@
     "maintenance_task_may_overwrite_active_task_checkpoint": false
   },
   "checkpoint_conformance": {
-    "status": "COMPACTION_STAGED_DEFERRED_BY_EXPLICIT_CONTRACT_ONLY_SCOPE",
+    "status": "COMPACTION_STAGED_NOT_COMBINED_WITH_SELF_AUDIT",
     "plan": "continuity/CHECKPOINT_COMPACTION_PLAN.json",
     "rule": "Checkpoint carries current execution truth plus refs; duplicated business rules/history belong in stronger project/Skill authorities.",
     "cross_domain_pollution_guard": "Unverified preserved requirements without Video Growth authority must not become durable video rules.",
-    "defer_reason": "This turn is explicitly limited to Continuity/owner contract refresh and must not rewrite business-content representation."
+    "defer_reason": "Self-audit hardening was kept separate from checkpoint compaction so business-state representation is not rewritten while runtime governance is being validated."
   },
   "progress_observability": {
     "policy": "D1traverser-debug/universal-continuity-agent@main/PROGRESS_OBSERVABILITY_POLICY.json",
@@ -135,9 +135,8 @@
   "notes": [
     "Universal Continuity owns routing, protocol adaptation and recovery pointers only; it must not duplicate video workflow/business state machines.",
     "This adapter does not declare a new Video Growth business Runtime cutover.",
-    "The active video task is reconciled in place to Universal Continuity v3.7 by its existing valid writer; the legacy task-level contract_version field may remain as a compatibility marker.",
-    "Same-chat reconciliation preserves the existing active lease and resume_epoch; it is not a new takeover.",
-    "Checkpoint compaction remains staged and is intentionally not applied during this contract-only turn.",
-    "Evolution profile binding points to the existing Methodologist/Red-Team/Evolution Engineer pipeline; it does not claim those roles executed in this maintenance chat."
+    "The active video task remains on the same Universal Continuity v3.7 lease and resume_epoch; this self-audit is maintenance, not takeover or business-stage advancement.",
+    "Checkpoint compaction remains staged and is intentionally separate from this self-audit.",
+    "Production reviewer isolation and quality-critical generation remain fail-closed until the missing executable gateway/live trust proof exists."
   ]
 }
