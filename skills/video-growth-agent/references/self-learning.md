@@ -14,6 +14,20 @@ Prefer simplifying, replacing or deleting weak mechanisms over stacking new patc
 
 A repeated material failure after an accepted fix is a reliability incident. Persist the failure evidence and repair the enforcement/eval path before adding unrelated studio capability. A chat reminder, role-played apology, or one-off prompt tweak does not count as durable learning.
 
+## Learning-source admission: default deny
+Seeing content during a session does **not** make it a learning source. Ad-hoc conversation context, temporary research, user-provided links, summaries, examples, transcripts and side tasks are outside the durable learning boundary by default.
+
+A source may enter `LEARN` only when one of these is true:
+
+1. it is internal project evidence produced by the declared workflow and present in the work packet; or
+2. it was explicitly imported as an external learning source with affirmative learning authorization and a durable source reference.
+
+The declared work packet is the learning context boundary. Ambient conversation, unlisted browsing context and undeclared side-task material must not be treated as learning evidence.
+
+If the user marks any material as **do not learn**, **do not persist**, **exclude from the system**, or equivalent, exclude it before durable serialization. Do not create a topic/title/URL/fingerprint denylist for that material merely to remember the exclusion; that would itself persist a trace. Enforce the exclusion through this generic admission rule instead.
+
+A `learning_candidate` that depends on external material must identify the authorized source reference. If provenance or authorization cannot be proved, reject the candidate rather than guessing. This admission rule applies equally to benchmark libraries, technique libraries, failure-learning corpora, role prompts, continuity notes and global methodology changes.
+
 ## Autonomous scout rule
 The user is not responsible for discovering tools, workflows, Skills, creator breakdowns or benchmark works for the studio. During active durable video work, the studio must scout proactively whenever:
 
