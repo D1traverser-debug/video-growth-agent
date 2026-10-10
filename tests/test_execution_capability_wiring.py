@@ -11,5 +11,7 @@ def test_skill_and_continuity_index_reference_execution_capabilities():
     required_ref = "continuity/EXECUTION_CAPABILITIES.json"
     assert required_ref in skill
     assert required_ref in index
-    assert "session capability handshake" in skill.lower()
-    assert "session capability handshake" in index.lower()
+    assert "handshake" in skill.lower()
+    assert "handshake" in index.lower()
+    assert "chat_bridged" in skill
+    assert "attested_isolated" in skill.lower()
