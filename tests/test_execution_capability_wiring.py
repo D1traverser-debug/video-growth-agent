@@ -13,5 +13,5 @@ def test_skill_and_continuity_index_reference_execution_capabilities():
     assert required_ref in index
     assert "handshake" in skill.lower()
     assert "handshake" in index.lower()
-    assert "chat_bridged" in skill
+    assert "chat_bridged" in skill.lower()
     assert "attested_isolated" in skill.lower()
