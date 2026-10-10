@@ -64,9 +64,13 @@
   ],
   "exact_prompt": "Vertical cinematic close-up, photographed realism. A tired but focused adult at a real desk is caught in one precise manual action: one hand on a laptop trackpad while the other reaches for a phone beside scattered paper notes and a closed folder, with another physical device just outside sharp focus. The frame is intimate and observational, shallow-to-moderate depth of field, realistic skin, glass, keycap, paper and metal textures, motivated warm practical desk light against cooler ambient room light, believable reflections and contact shadows, restrained composition with the hand-device interaction as the single dominant focal event. The burden of switching tools is communicated only by physical behavior and spatial clutter. No explanatory text, no futuristic assistant, no icons, no holograms, no feature UI. Serious commercial-film cinematography, not advertising stock photography, not a technology concept poster.",
   "pre_generation_challenge": {
-    "art_creative": {
+    "art_director": {
       "decision": "BLOCKED_PENDING_ISOLATED_EXECUTION",
-      "notes": "Prompt has been structurally rewritten to remove the prior mascot/UI failure mode, but no independent Art/Creative executor has yet produced an attested verdict. Do not spend or generate as promotable production evidence."
+      "notes": "Independent Art Director must verify that material realism, lighting logic, lens/scale and one-focal-event composition clear the photographed-image floor rather than reading as polished stock-office imagery."
+    },
+    "creative_director": {
+      "decision": "BLOCKED_PENDING_ISOLATED_EXECUTION",
+      "notes": "Independent Creative Director must verify that the physical action itself creates a memorable manual-work conflict and future contrast, without explanatory UI or generic technology-ad language."
     },
     "red_team": {
       "decision": "BLOCKED_PENDING_ISOLATED_EXECUTION",
