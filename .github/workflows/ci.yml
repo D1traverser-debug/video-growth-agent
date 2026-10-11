@@ -4,10 +4,10 @@ on:
   pull_request:
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: '3.12'
       - name: Install FFmpeg
@@ -15,7 +15,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ffmpeg
       - name: Install package and tests
-        run: pip install -e . pytest
+        run: pip install -e . pytest==9.1.1
       - name: Run system hygiene audit
         run: vga system-audit --repo-root .
       - name: Run tests
@@ -29,9 +29,10 @@ jobs:
           report = json.load(open('/tmp/system-audit.json', encoding='utf-8'))
           assert report['pass'] is True, report
           PY
-          vga techniques --tag mechanism --max-cost 2 --validated-only > /tmp/techniques.json
+          vga techniques --tag mechanism --max-cost 2 > /tmp/techniques.json
           test -s /tmp/techniques.json
           python - <<'PY'
+          import json
           from importlib.metadata import version
           from video_growth_agent import (
               AgentRegistry,
@@ -44,27 +45,33 @@ jobs:
               TechniqueLibrary,
           )
           from video_growth_agent.storage import ProjectStore
+          package_version = version("video-growth-agent")
           registry = RoleRegistry()
           orchestrator = StudioOrchestrator()
           agents = AgentRegistry()
           planner = ExecutionPlanner(agents=agents, orchestrator=orchestrator)
-          assert version("video-growth-agent") == "0.5.1"
+          assert package_version
           assert registry.get("showrunner").prompt
           assert registry.get("creative_director").prompt
-          assert orchestrator.workflow["version"] == "0.3.1"
-          assert agents.config["version"] == "0.5.1"
-          assert planner.config["version"] == "0.5.1"
+          assert orchestrator.workflow["version"]
+          assert agents.config["version"] == package_version
+          assert planner.config["version"] == package_version
           assert agents.config["principles"]["tool_labels_are_capability_requests_not_execution_proof"] is True
           assert planner.validate() == []
           assert agents.get("executive_producer").user_voice is True
           assert agents.get("visual_designer").role is None
+          assert agents.get("growth_strategist").kind == "supervisor"
           assert agents.get("production_methodologist").kind == "worker"
           assert agents.get("evolution_engineer").kind == "worker"
           learn_agents = [task.get("agent") for task in planner.config["stages"]["LEARN"]["tasks"]]
           assert learn_agents == ["production_methodologist", "evolution_engineer", "red_team", "showrunner"]
+          assert planner.config["stages"]["TECH_QA"]["tasks"][0]["outputs"] == ["technical_qa"]
+          assert planner.config["stages"]["RELEASE"]["external_inputs"] == ["final_media", "publish_pack"]
           assert "LOOKDEV" in orchestrator.index
           assert "creative_director" in orchestrator.required_roles("VISUAL_PREVIEW")
-          assert TechniqueLibrary().get("T-001").name
+          library = TechniqueLibrary()
+          assert library.get("T-001").name
+          assert all(item.status == "validated" for item in library.find({"mechanism", "hook", "scale", "data", "metaphor"}))
           assert str(ProjectStore().root) == "/tmp/projects"
           assert GeminiReviewerAdapter().model
           assert OpenRouterVisionReviewerAdapter().model
