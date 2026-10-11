@@ -123,25 +123,6 @@ class StudioRuntime:
             raise ValueError(f"Invalid work order payload: {path}")
         return payload
 
-    def _active_work_order_ids(self, state: ProjectState) -> set[str]:
-        ids: set[str] = set()
-        stage_plan = self.execution_plan.get("stages", {}).get(state.stage, {})
-        for task in stage_plan.get("tasks", []):
-            task_id = str(task.get("id") or "")
-            if not task_id:
-                continue
-            path = self._work_order_path(state, task_id)
-            if not path.exists():
-                continue
-            try:
-                payload = json.loads(path.read_text(encoding="utf-8"))
-            except (OSError, json.JSONDecodeError):
-                continue
-            work_order_id = payload.get("work_order_id")
-            if work_order_id:
-                ids.add(str(work_order_id))
-        return ids
-
     def _agent_prompt_digest(self, agent_id: str) -> str:
         raw = self.agents_config.get("agents", {}).get(agent_id)
         if not isinstance(raw, dict):
@@ -313,7 +294,8 @@ class StudioRuntime:
 
         Production defaults trust no executor. A provider adapter must first be explicitly
         registered in executors.json (or injected into the runtime) before its evidence can
-        authorize a critical blind-review gate.
+        authorize a critical blind-review gate. Historical attestations never authorize a
+        new work-order generation, and their provider/execution identities may not be reused.
         """
         state = self.state(project_id)
         task = self._stage_task(state.stage, task_id)
@@ -338,11 +320,8 @@ class StudioRuntime:
         if failures:
             raise ValueError("Invalid execution attestation: " + "; ".join(failures))
 
-        active_work_order_ids = self._active_work_order_ids(state)
         existing = self._execution_attestation_receipts(state)
         for payload in existing:
-            if str(payload.get("work_order_id") or "") not in active_work_order_ids:
-                continue
             raw = payload.get("attestation")
             if not isinstance(raw, dict):
                 continue
@@ -457,8 +436,9 @@ class StudioRuntime:
             work_order_id = order.get("work_order_id")
             result = order.get("result") if isinstance(order.get("result"), dict) else {}
             input_digests = result.get("input_digests")
+            digest_prefix = "process_review_input_digest" if task_type in {"review", "meta_review"} else "process_input_digest"
             if not isinstance(input_digests, dict):
-                failures.append(f"process_input_digests_missing:{task_id}")
+                failures.append(f"{digest_prefix}s_missing:{task_id}")
                 input_digests = {}
             for input_name in task.get("inputs", []):
                 artifact = state.artifacts.get(input_name)
@@ -466,9 +446,9 @@ class StudioRuntime:
                     failures.append(f"process_input_missing:{task_id}:{input_name}")
                     continue
                 if input_name not in input_digests:
-                    failures.append(f"process_input_digest_unbound:{task_id}:{input_name}")
+                    failures.append(f"{digest_prefix}_unbound:{task_id}:{input_name}")
                 elif input_digests.get(input_name) != artifact.digest:
-                    failures.append(f"process_input_digest_mismatch:{task_id}:{input_name}")
+                    failures.append(f"{digest_prefix}_mismatch:{task_id}:{input_name}")
 
             if task_type in {"produce", "measure"}:
                 for output_name in task.get("outputs", []):
