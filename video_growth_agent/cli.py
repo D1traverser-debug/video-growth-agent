@@ -75,7 +75,9 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("techniques")
     p.add_argument("--tag", action="append", default=[])
     p.add_argument("--max-cost", type=int, default=5)
-    p.add_argument("--validated-only", action="store_true")
+    candidate_mode = p.add_mutually_exclusive_group()
+    candidate_mode.add_argument("--validated-only", action="store_true", help="production-safe default; retained for compatibility")
+    candidate_mode.add_argument("--include-candidates", action="store_true", help="explicit learning/prototype opt-in")
 
     p = sub.add_parser("system-audit")
     p.add_argument("--repo-root", type=Path)
@@ -136,7 +138,14 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if report.hard_pass else 2
     elif args.cmd == "techniques":
         library = TechniqueLibrary()
-        _json([tech.__dict__ for tech in library.find(set(args.tag), args.max_cost, args.validated_only)])
+        _json([
+            tech.__dict__
+            for tech in library.find(
+                set(args.tag),
+                args.max_cost,
+                validated_only=not args.include_candidates,
+            )
+        ])
     return 0
 
 
