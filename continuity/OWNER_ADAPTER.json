@@ -3,7 +3,7 @@
   "owner": "VIDEO_GROWTH_AGENT",
   "domain": "VIDEO_GROWTH",
   "repository": "D1traverser-debug/video-growth-agent",
-  "status": "READY_V37__RUNTIME_0_5_1__SYSTEM_HYGIENE_HARDENED",
+  "status": "READY_V37__RUNTIME_0_5_2__SYSTEM_HYGIENE_REENTRY_VALIDATION_PENDING",
   "business_runtime_cutover": false,
   "authority": {
     "skill": "skills/video-growth-agent/SKILL.md",
@@ -36,7 +36,7 @@
   },
   "compatibility": {
     "current_continuity_protocol": "3.7",
-    "runtime_version": "0.5.1",
+    "runtime_version": "0.5.2",
     "supported_protocol_migration_from": ["3.3", "3.5", "3.6"],
     "migration_strategy": "ADDITIVE_PROTOCOL_OVERLAY_ON_NEXT_VALID_WRITER_TURN",
     "business_state_rewrite": false,
@@ -54,7 +54,7 @@
     "audit_entrypoint": "vga system-audit --repo-root .",
     "canonical_runtime_resources": "video_growth_agent/data/",
     "duplicate_root_config": "REMOVED",
-    "global_skill_project_state_pollution": "REMOVED_AND_DYNAMICALLY_SCANNED",
+    "global_skill_project_state_pollution": "DYNAMIC_PROJECT_ROOT_DERIVATION_AND_VERSIONED_STATE_SCAN",
     "team_prompt_mirror": "REQUIRED_EQUAL_SKILL_AND_PACKAGE",
     "checkpoint_compaction": "APPLIED",
     "task_index_compaction": "APPLIED_METADATA_ONLY",
@@ -62,18 +62,15 @@
     "assurance_taxonomy": "PINNED_DECLARED_ONLY_HARNESS_WIRED_SESSION_EXECUTABLE_CHAT_BRIDGED_ATTESTED_ISOLATED",
     "skill_manifest_pointer": "MACHINE_CHECKED_GIT_BLOB_BINDING",
     "architecture_manifest": "RECONCILED_TO_SINGLE_RUNTIME_AUTHORITY",
+    "artifact_reachability": "STATICALLY_AUDITED_ACROSS_STAGE_WAVES_WITH_EXPLICIT_EXTERNAL_INPUTS",
+    "stale_work_order_replay": "ACTIVE_EVIDENCE_RETIRED_AND_INPUT_DIGEST_BOUND",
+    "technique_candidates": "EXPLICIT_OPT_IN_ONLY",
     "promotion_flow": "maintenance branch -> system audit -> full tests -> installed CLI smoke -> reconcile latest main -> fast-forward with expected head",
     "branch_protection": "NOT_ENABLED_ON_MAIN_AT_LAST_OBSERVATION"
   },
   "maintenance_validation": {
-    "status": "PASS_ON_BEHAVIORAL_MAINTENANCE_HEAD",
-    "branch": "maintenance/system-harness-cleanup-2026-10-11",
-    "validated_head": "08f6cb688ad031c637387ce54e7fa964e14c1d92",
-    "ci_run_id": 38088397683,
-    "ci_job_id": 114319620599,
-    "system_hygiene_audit": "SUCCESS",
-    "pytest": "SUCCESS",
-    "installed_package_audit_and_cli_smoke": "SUCCESS",
+    "status": "PENDING_REENTRY_CI",
+    "branch": "maintenance/system-audit-reentry-2026-10-11",
     "required": ["repository system audit", "pytest", "installed CLI smoke"]
   },
   "methodology": {
@@ -86,6 +83,6 @@
     "Configured Agents, tool labels and provider adapters are not execution proof.",
     "System maintenance must not advance the active business stage.",
     "A green CI run is evidence but is not branch-protection enforcement when GitHub reports main as unprotected.",
-    "A concurrent architecture-manifest commit appeared on main during maintenance; its architecture intent is preserved while stale config authority references are corrected before promotion."
+    "Historical receipts remain immutable failure/recovery evidence; invalidation only retires active pointers and active work-order runs."
   ]
 }
