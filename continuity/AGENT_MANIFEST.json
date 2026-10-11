@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.1",
-  "architecture_contract_version": "1.1",
+  "schema_version": "1.2",
+  "architecture_contract_version": "1.2",
   "owner": "VIDEO_GROWTH_AGENT",
   "owner_kind": "BUSINESS",
   "skill": {
@@ -10,7 +10,7 @@
   },
   "runtime": {
     "runtime_type": "HYBRID",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "entrypoints": [
       "video_growth_agent/runtime.py",
       "video_growth_agent/orchestrator.py",
@@ -20,7 +20,7 @@
     "machine_resource_root": "video_growth_agent/data",
     "tool_surface_refs": ["video_growth_agent/cli.py"],
     "judgment_execution": "EXECUTABLE_WITH_ASSURANCE_BOUNDARIES",
-    "note": "AgenticStudio/work-order execution is real; CHAT_BRIDGED ordinary execution and ATTESTED_ISOLATED critical review remain distinct assurance classes."
+    "note": "AgenticStudio work orders are bound to current input digests and active output provenance; invalidation retires active downstream evidence while preserving immutable history. CHAT_BRIDGED ordinary execution and ATTESTED_ISOLATED critical review remain distinct assurance classes."
   },
   "workflow": {
     "state_authority_refs": [
@@ -39,7 +39,7 @@
     "ci_workflow_ref": ".github/workflows/ci.yml",
     "system_audit_entrypoint": "vga system-audit --repo-root .",
     "commands": ["vga system-audit --repo-root .", "pytest -q", "installed-package system audit", "installed CLI smoke"],
-    "suites": ["authority-hygiene", "contract", "trajectory", "media", "execution", "continuity"]
+    "suites": ["authority-hygiene", "artifact-reachability", "stale-run-replay", "contract", "trajectory", "media", "execution", "continuity"]
   },
   "references": {
     "canonical_roots": ["skills/video-growth-agent/references", "video_growth_agent/data"],
