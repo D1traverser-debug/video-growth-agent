@@ -2,7 +2,7 @@
 
 Status: **HARDENED_WITH_REMAINING_FAIL_CLOSED_GAPS**
 
-Scope: control plane, learning admission, execution evidence, generation authorization, Harness/Agent/Skill authority hygiene and continuity compaction. This maintenance pass does not advance the active business stage and does not treat maintenance activity as production progress.
+Scope: control plane, learning admission, execution evidence, generation authorization, Harness/Agent/Skill authority hygiene, continuity compaction, work-order replay safety, artifact reachability and production-knowledge admission. This maintenance pass does not advance the active business stage and does not treat maintenance activity as production progress.
 
 ## Audit method
 
@@ -81,7 +81,7 @@ Fix:
 
 - generalized Agent Studio, reviewer-attestation and production-intelligence references;
 - project-specific facts remain under `projects/*` and task continuity state;
-- the hygiene Harness dynamically scans every Markdown file under `skills/video-growth-agent/` for known project-state pollution markers and stale root-config references.
+- the hygiene Harness scans every Markdown file under `skills/video-growth-agent/` for project-state pollution and stale root-config references.
 
 Distilled rule: **global Skill stores portable mechanism; project state stays in project authority.**
 
@@ -122,15 +122,117 @@ Fix:
 
 - added `video_growth_agent/system_audit.py`;
 - added `vga system-audit --repo-root .` for repository + package checks and `vga system-audit` for installed-package checks;
-- CI now runs repository hygiene before pytest, then reruns installed-package audit/CLI smoke outside the repository;
+- CI runs repository hygiene before pytest, then reruns installed-package audit/CLI smoke outside the repository;
 - Harness checks Agent registry/plan validity, dead profiles, producer self-approval configuration, workflow/reviewer coverage, team prompt mirror equality, capability semantics, assurance taxonomy, Skill Git-blob pointer integrity, architecture-manifest authority, root-config absence and continuity hygiene.
 
 A first maintenance CI intentionally went red because old tests still depended on the duplicate root config and because Skill compression accidentally removed capability-handshake terminology. The rules were not weakened: obsolete mirror tests were migrated, while meaningful `session capability handshake`, `CHAT_BRIDGED` and `ATTESTED_ISOLATED` semantics were restored and then promoted into the Harness itself.
 
-Validated behavioral maintenance head: `08f6cb688ad031c637387ce54e7fa964e14c1d92`  
-CI run: `38088397683`  
-CI job: `114319620599`  
+Earlier validated behavioral maintenance head: `08f6cb688ad031c637387ce54e7fa964e14c1d92`  
+Earlier CI run: `38088397683`  
+Earlier CI job: `114319620599`  
 Result: repository system hygiene audit **SUCCESS**, pytest **SUCCESS**, installed-package audit and CLI smoke **SUCCESS**.
+
+## Re-entry audit — runtime 0.5.2
+
+The same authoritative `main` was challenged again instead of assuming the previous green CI meant the architecture was clean. This second pass found executable defects that the original Harness did not model.
+
+### Fixed defect 9 — invalidation could resurrect stale completed work orders and evidence
+
+`invalidate_from()` cleared approvals and moved the stage backward but left downstream active artifacts and QA pointers in state. Work-order IDs were stable by task, and `dispatch_stage()` treated any prior `COMPLETED` order as permanently complete. Producer work orders also lacked current-input digest enforcement. A material upstream change could therefore leave stale work orders/artifacts active or force manual filesystem cleanup before a legitimate rerun.
+
+Fix:
+
+- invalidation now retires downstream **active** artifact/QA pointers while preserving immutable historical receipts;
+- changed upstream artifacts preserve the newly written source artifact but invalidate dependent active outputs;
+- work-order IDs are generation-aware and include the current state revision;
+- completed work orders are retired and regenerated when task contract, current input digests or current output provenance no longer match;
+- producer/measure work orders now persist input digest bindings;
+- the base process guard checks current input digest bindings for produce, measure, review and meta-review tasks;
+- historical review attestations authorize only their exact work-order generation;
+- historical execution/provider/context/trace identities remain non-reusable, preventing the same external execution from being repackaged as a new run.
+
+Distilled rule: **immutable history may survive invalidation; active authorization may not. A rerun needs a new work-order generation and, where attested, a new execution identity.**
+
+### Fixed defect 10 — TECH_QA depended on an undeclared side effect
+
+The execution plan had `media_qa` with no declared output while the following reviewer required `technical_qa`. Runtime `record_qa()` happened to create that artifact as a side effect, so the graph looked valid only to callers that knew an undocumented bridge.
+
+Fix:
+
+- `media_qa` explicitly declares `technical_qa` as its single output;
+- ffmpeg/ffprobe measure work orders cannot be completed through generic `complete_work()`;
+- `complete_media_qa()` is the governed completion path and binds the QA receipt/artifact to the active work-order ID and input digest;
+- artifact-reachability Harness checks stage/wave producers and catches hidden inputs;
+- RELEASE `final_media` and `publish_pack` are explicitly declared external stage inputs with an owner boundary contract rather than silently appearing from outside the execution graph.
+
+Distilled rule: **if an artifact is required downstream, its producer or external boundary must be explicit in the execution graph.**
+
+### Fixed defect 11 — Agent kind and execution-plan usage could contradict each other
+
+`growth_strategist` was registered as reviewer-only while the PERFORMANCE stage assigned it a `produce` task. The old validator blocked worker-as-reviewer but did not block reviewer-as-producer.
+
+Fix:
+
+- `growth_strategist` is now a supervisor because it performs both judgment and post-publication analysis without self-approving stage gates;
+- planner validation rejects reviewer-only Agents used as producers.
+
+Distilled rule: **Agent kind is a capability boundary, not decorative taxonomy. Execution-plan use must be compatible with it.**
+
+### Fixed defect 12 — Technique Library candidates leaked into ordinary production lookup
+
+Historical candidate techniques were queryable by default and some carried bare vendor/tool names as `evidence_refs`. The learning policy had already moved to default-deny admission, but the old Technique Library schema/query behavior had not been migrated.
+
+Fix:
+
+- `TechniqueLibrary.find()` is validated-only by default;
+- candidate techniques require explicit `validated_only=False` / CLI `--include-candidates` opt-in and are restricted to learning/prototype use;
+- every technique now records an origin class;
+- historical external candidates point to durable repository rationale/project evidence instead of bare vendor labels;
+- legacy validated techniques are honestly marked as pre-admission/grandfathered rather than being retroactively presented as newly source-verified;
+- Harness checks production-default isolation, technique status/origin and durable evidence shape for historical external candidates.
+
+Distilled rule: **a useful candidate is not production knowledge until admitted and validated; discoverability must respect that boundary.**
+
+### Fixed defect 13 — Harness encoded the current repository instead of the architecture
+
+The first Harness hard-coded runtime `0.5.1` and a three-string project pollution list. A normal version bump or differently named future project could make the checker itself stale.
+
+Fix:
+
+- runtime version is derived from installed package metadata / `pyproject.toml`;
+- Agent/ExecutionPlan/Architecture/Continuity version checks compare dynamically against that authority;
+- project aliases are derived from `projects/*` instead of a fixed project-name list;
+- versioned Sample/Release state is scanned structurally;
+- artifact reachability is derived from workflow order, task waves, declared outputs and explicit external inputs.
+
+Distilled rule: **a Harness should encode invariants, not memorize today's filenames, version number or project names.**
+
+### Fixed defect 14 — CI execution substrate had become stale and mutable
+
+CI used `ubuntu-latest`, `actions/checkout@v4` and `actions/setup-python@v5`; prior logs already warned that the old Node 20 action runtime was deprecated and being forced onto Node 24.
+
+Fix:
+
+- runner pinned to `ubuntu-24.04`;
+- checkout pinned to official v7.0.1 commit `3d3c42e5aac5ba805825da76410c181273ba90b1`;
+- setup-python pinned to official v7.0.0 commit `5fda3b95a4ea91299a34e894583c3862153e4b97`;
+- pytest is pinned to `9.1.1` in CI;
+- installed smoke derives package version dynamically and checks Agent/Plan consistency instead of hard-coding the release number.
+
+Distilled rule: **the Harness substrate is part of the Harness; mutable/deprecated CI dependencies are themselves governance debt.**
+
+### Re-entry validation
+
+Validated behavioral re-entry head: `4de1c520a1e23b50af132d500025e63f8fa764d9`  
+CI run: `38109430324`  
+CI job: `114381713154`  
+Result:
+
+- repository + package `vga system-audit`: **PASS, zero failures**;
+- pytest: **113 passed**;
+- installed-package audit: **PASS**;
+- installed CLI/AgenticStudio smoke: **PASS**;
+- pinned checkout/setup-python actions executed successfully on Ubuntu 24.04.
 
 ## Retention/deletion decisions
 
@@ -146,25 +248,38 @@ Retained deliberately:
 - `projects/pilot-001/README.md`, because it records durable production failure-learning such as stream-duration, black-frame, pseudo-3D and evidence-over-invented-interface lessons;
 - `audits/SYSTEM_SELF_AUDIT_2026-10-10.md` and this 2026-10-11 audit, because they document different defects, bypasses and regression rationale;
 - rejected Pilot 002 audit/sample references needed to prevent invalid replay and explain current recovery state;
-- Skill/package `team.md` mirror because both distribution surfaces need it, now under equality enforcement.
+- Skill/package `team.md` mirror because both distribution surfaces need it, now under equality enforcement;
+- immutable historical work-order/review/QA/attestation receipts; invalidation retires active pointers rather than deleting historical failure/recovery evidence.
+
+### Remote branch hygiene
+
+The branch namespace is also a pollution surface even though Runtime does not load branch refs.
+
+Confirmed safe stale refs:
+- `maintenance/system-harness-cleanup-2026-10-11` was identical to `main` at inspection;
+- `pilot002-sample-v1` had no commits ahead of `main` and was only an old ancestor.
+
+Branches such as `learning-visual-dev-2026-10-09` and `tts-pilot002-kokoro` contain unique specialist material and are **not** classified as disposable until that material is either explicitly retained or distilled into authority. Several older hardening/runtime branches appear functionally superseded but still carry unique commit history, so age/name alone is insufficient deletion proof.
+
+The connected GitHub control surface does not expose branch-ref deletion. Therefore no remote branch is falsely reported as deleted; safe deletion candidates are recorded for later repository-admin cleanup.
 
 ## Concurrent-main reconciliation
 
-During this maintenance branch, `main` received `d6b5472e4bc756e19bb4eaaaa462bd6a8c00021e` (`Declare Video Growth Agent product architecture`) adding `continuity/AGENT_MANIFEST.json`. The maintenance process did not overwrite it. Its architecture intent was preserved, while stale references to removed root `config` authority were corrected to `video_growth_agent/data/` and the new system-audit Harness was added to its declared validation surface.
+During the earlier maintenance branch, `main` received `d6b5472e4bc756e19bb4eaaaa462bd6a8c00021e` (`Declare Video Growth Agent product architecture`) adding `continuity/AGENT_MANIFEST.json`. The maintenance process did not overwrite it. Its architecture intent was preserved, while stale references to removed root `config` authority were corrected to `video_growth_agent/data/` and the system-audit Harness was added to its declared validation surface.
 
-Promotion must therefore be rebased/reparented against the latest observed `main` and use compare-and-swap rather than force-overwriting concurrent work.
+Every promotion must be reconciled against the latest observed `main` and use compare-and-swap rather than force-overwriting concurrent work.
 
 ## Remaining fail-closed gaps
 
 ### Producer execution identity is still not provider-attested
 
-Producer work orders prove declared packet, completion and output provenance, but the current provider-backed `ExecutionAttestation` path is enforced primarily for critical review work. Therefore the system must not claim that every producer persona has independently executed merely because a work order and artifact exist.
+Producer work orders now prove current input digests, completion and output provenance, but the provider-backed `ExecutionAttestation` path is still enforced primarily for critical review work. Therefore the system must not claim that every producer persona has independently executed merely because a work order and artifact exist.
 
-Required future evolution: generalize execution attestation or introduce an equally strong producer-execution receipt bound to provider/model/run identity, work-order digest, exact input digests and output/result digests.
+Required future evolution: generalize execution attestation or introduce an equally strong producer-execution receipt bound to provider/model/run identity, work-order generation, exact input digests and output/result digests.
 
 ### Learning-source admission is policy-pinned but not yet a universal runtime guard
 
-The declared work packet already limits normal agent inputs, and the policy forbids ambient learning. However a universal runtime mechanism that rejects a `learning_candidate` containing undeclared external provenance is not yet wired at the lowest boundary.
+The declared work packet already limits normal agent inputs, and the policy forbids ambient learning. Technique candidates are now isolated from production lookup. However a universal runtime mechanism that rejects a `learning_candidate` containing undeclared external provenance is not yet wired at the lowest boundary.
 
 Required future evolution: machine-validate learning candidate source manifests against the declared work packet plus explicitly imported learning sources before LEARN can pass.
 
@@ -192,8 +307,12 @@ The system moved from:
 - session visibility as an ambiguous learning source -> default-deny learning admission;
 - producer completion plus automatic PASS -> producer provenance separated from review authority;
 - human-facing config mirror + packaged runtime config -> one packaged runtime authority;
-- static known-file hygiene assumptions -> executable dynamic Skill/repository audit;
+- static known-file hygiene assumptions -> structural/dynamic Skill/repository audit;
 - Agent tool label as ambiguous capability implication -> declarative request plus assurance taxonomy;
-- continuity/history accumulation -> compact recovery pointers plus preserved replay guards.
+- continuity/history accumulation -> compact recovery pointers plus preserved replay guards;
+- stable task-name work orders + active stale outputs -> generation-aware work orders + retired active evidence;
+- implicit QA/Release artifact side effects -> explicit producer/external-boundary graph semantics;
+- candidate technique discoverability -> production-safe validated-only lookup;
+- mutable/deprecated CI major tags -> pinned current CI substrate.
 
 The remaining gaps are preserved as blockers rather than represented as completed capability.
