@@ -123,6 +123,25 @@ class StudioRuntime:
             raise ValueError(f"Invalid work order payload: {path}")
         return payload
 
+    def _active_work_order_ids(self, state: ProjectState) -> set[str]:
+        ids: set[str] = set()
+        stage_plan = self.execution_plan.get("stages", {}).get(state.stage, {})
+        for task in stage_plan.get("tasks", []):
+            task_id = str(task.get("id") or "")
+            if not task_id:
+                continue
+            path = self._work_order_path(state, task_id)
+            if not path.exists():
+                continue
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                continue
+            work_order_id = payload.get("work_order_id")
+            if work_order_id:
+                ids.add(str(work_order_id))
+        return ids
+
     def _agent_prompt_digest(self, agent_id: str) -> str:
         raw = self.agents_config.get("agents", {}).get(agent_id)
         if not isinstance(raw, dict):
@@ -319,8 +338,11 @@ class StudioRuntime:
         if failures:
             raise ValueError("Invalid execution attestation: " + "; ".join(failures))
 
+        active_work_order_ids = self._active_work_order_ids(state)
         existing = self._execution_attestation_receipts(state)
         for payload in existing:
+            if str(payload.get("work_order_id") or "") not in active_work_order_ids:
+                continue
             raw = payload.get("attestation")
             if not isinstance(raw, dict):
                 continue
@@ -328,8 +350,8 @@ class StudioRuntime:
                 other = ExecutionAttestation.from_dict(raw)
             except (TypeError, ValueError):
                 continue
-            if payload.get("task_id") == task_id:
-                raise ValueError(f"Execution attestation already exists for {task_id}")
+            if payload.get("task_id") == task_id and payload.get("work_order_id") == order.get("work_order_id"):
+                raise ValueError(f"Execution attestation already exists for active run {task_id}")
             other_task = self._stage_task(state.stage, str(payload.get("task_id") or ""))
             if not other_task or int(other_task.get("wave", 0)) != int(task.get("wave", 0)):
                 continue
@@ -387,7 +409,7 @@ class StudioRuntime:
             "agent_work_order_proof",
             "review_receipt_proof",
             "review_execution_attestation",
-            "review_input_digest_binding",
+            "work_order_input_digest_binding",
             "producer_output_provenance",
         ]
         stage_approvals = state.approvals.get(stage, {})
@@ -434,6 +456,19 @@ class StudioRuntime:
             task_type = task.get("type")
             work_order_id = order.get("work_order_id")
             result = order.get("result") if isinstance(order.get("result"), dict) else {}
+            input_digests = result.get("input_digests")
+            if not isinstance(input_digests, dict):
+                failures.append(f"process_input_digests_missing:{task_id}")
+                input_digests = {}
+            for input_name in task.get("inputs", []):
+                artifact = state.artifacts.get(input_name)
+                if artifact is None:
+                    failures.append(f"process_input_missing:{task_id}:{input_name}")
+                    continue
+                if input_name not in input_digests:
+                    failures.append(f"process_input_digest_unbound:{task_id}:{input_name}")
+                elif input_digests.get(input_name) != artifact.digest:
+                    failures.append(f"process_input_digest_mismatch:{task_id}:{input_name}")
 
             if task_type in {"produce", "measure"}:
                 for output_name in task.get("outputs", []):
@@ -447,20 +482,6 @@ class StudioRuntime:
             if task_type in {"review", "meta_review"}:
                 if not self._review_receipt_matches(state, task_id, str(work_order_id), result):
                     failures.append(f"process_review_receipt_missing_or_mismatch:{task_id}")
-
-                input_digests = result.get("input_digests")
-                if not isinstance(input_digests, dict):
-                    failures.append(f"process_review_input_digests_missing:{task_id}")
-                    input_digests = {}
-                for input_name in task.get("inputs", []):
-                    artifact = state.artifacts.get(input_name)
-                    if artifact is None:
-                        failures.append(f"process_review_input_missing:{task_id}:{input_name}")
-                        continue
-                    if input_name not in input_digests:
-                        failures.append(f"process_review_input_digest_unbound:{task_id}:{input_name}")
-                    elif input_digests.get(input_name) != artifact.digest:
-                        failures.append(f"process_review_input_digest_mismatch:{task_id}:{input_name}")
 
                 if self.execution_trust.requires_attestation(
                     stage,
@@ -617,8 +638,23 @@ class StudioRuntime:
     def invalidate_from(self, project_id: str, stage: str, reason: str) -> None:
         state = self.state(project_id)
         old_stage = state.stage
+        retired = sorted(
+            name
+            for name, artifact in state.artifacts.items()
+            if self.orchestrator.index.get(artifact.stage, -1) >= self.orchestrator.index[stage]
+        )
         self.orchestrator.invalidate_from(state, stage)
-        self.store.append_receipt(project_id, "DOWNSTREAM_INVALIDATED", {"from_stage": old_stage, "invalidate_from": stage, "reason": reason})
+        self.store.append_receipt(
+            project_id,
+            "DOWNSTREAM_INVALIDATED",
+            {
+                "from_stage": old_stage,
+                "invalidate_from": stage,
+                "reason": reason,
+                "retired_active_artifacts": retired,
+                "historical_receipts_preserved": True,
+            },
+        )
         self.store.save(state)
 
     def record_artifact(self, project_id: str, name: str, uri: str, stage: str, kind: str = "document", digest: str | None = None, metadata: dict[str, Any] | None = None) -> str:
@@ -630,7 +666,7 @@ class StudioRuntime:
         changed = old is not None and (old.uri != new.uri or old.digest != new.digest or old.metadata != new.metadata)
         state.artifacts[name] = new
         if changed and self.orchestrator.index[state.stage] >= self.orchestrator.index[stage]:
-            self.orchestrator.invalidate_from(state, stage)
+            self.orchestrator.invalidate_from(state, stage, preserve_artifacts={name})
         else:
             state.touch()
         receipt = self.store.append_receipt(project_id, "ARTIFACT_RECORDED", {"artifact": asdict(new), "changed_existing": changed})
@@ -653,11 +689,36 @@ class StudioRuntime:
         state = self.state(project_id)
         return [asset.asset_id for asset in state.assets.values() if asset.used_in_final and asset.rights_status == "UNKNOWN"]
 
-    def record_qa(self, project_id: str, report: QAReport) -> str:
+    def record_qa(
+        self,
+        project_id: str,
+        report: QAReport,
+        *,
+        artifact_name: str = "technical_qa",
+        stage: str = "TECH_QA",
+        work_order_id: str | None = None,
+        producer: str | None = None,
+    ) -> str:
         state = self.state(project_id)
         receipt = self.store.append_receipt(project_id, "MEDIA_QA", report.to_dict())
         state.qa_receipts.append(receipt)
-        state.artifacts["technical_qa"] = ArtifactRecord(name="technical_qa", uri=receipt, stage="TECH_QA", kind="qa_report", metadata={"hard_pass": report.hard_pass, "media_uri": report.media_uri})
+        metadata: dict[str, Any] = {
+            "hard_pass": report.hard_pass,
+            "media_uri": report.media_uri,
+            "qa_receipt": receipt,
+        }
+        if work_order_id:
+            metadata["work_order_id"] = work_order_id
+        if producer:
+            metadata["produced_by_agent"] = producer
+        state.artifacts[artifact_name] = ArtifactRecord(
+            name=artifact_name,
+            uri=receipt,
+            stage=stage,
+            kind="qa_report",
+            digest=canonical_digest(report.to_dict()),
+            metadata=metadata,
+        )
         state.touch()
         self.store.save(state)
         return receipt
