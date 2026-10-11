@@ -1,4 +1,5 @@
 import json
+import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -9,13 +10,18 @@ def load_json(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def runtime_version() -> str:
+    payload = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+    return str(payload["project"]["version"])
+
+
 def test_owner_adapter_declares_current_capabilities():
     adapter = load_json(ROOT / "continuity" / "OWNER_ADAPTER.json")
     assert adapter["schema_version"] == "3.7"
     assert adapter["owner"] == "VIDEO_GROWTH_AGENT"
     assert adapter["domain"] == "VIDEO_GROWTH"
     assert adapter["business_runtime_cutover"] is False
-    assert adapter["compatibility"]["runtime_version"] == "0.5.1"
+    assert adapter["compatibility"]["runtime_version"] == runtime_version()
     assert adapter["authority"]["workflow"] == "video_growth_agent/data/workflow.json"
     assert adapter["system_hygiene"]["duplicate_root_config"] == "REMOVED"
     assert adapter["system_hygiene"]["checkpoint_compaction"] == "APPLIED"
@@ -37,7 +43,7 @@ def test_task_manifest_is_resumable_user_task_with_stable_identity():
     assert manifest["domain"] == "VIDEO_GROWTH"
     assert manifest["recovery_owner"] == "VIDEO_GROWTH_AGENT"
     assert manifest["contract_version"] == "3.5"
-    assert manifest["runtime_version"] == "0.5.1"
+    assert manifest["runtime_version"] == runtime_version()
     assert manifest["status"] in {"ACTIVE", "WAITING", "BLOCKED"}
     assert manifest["resume_eligible"] is True
     assert manifest["resume_visibility"] == "DEFAULT"
