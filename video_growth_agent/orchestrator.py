@@ -66,13 +66,27 @@ class StudioOrchestrator:
         state.touch()
         return state.stage
 
-    def invalidate_from(self, state: ProjectState, stage: str) -> None:
+    def invalidate_from(
+        self,
+        state: ProjectState,
+        stage: str,
+        *,
+        preserve_artifacts: set[str] | None = None,
+    ) -> None:
         if stage not in self.index:
             raise ValueError(stage)
         cutoff = self.index[stage]
+        preserve = preserve_artifacts or set()
         for key in list(state.approvals):
             if self.index.get(key, -1) >= cutoff:
                 del state.approvals[key]
+        for name, artifact in list(state.artifacts.items()):
+            if name in preserve:
+                continue
+            if self.index.get(artifact.stage, -1) >= cutoff:
+                del state.artifacts[name]
+        if cutoff <= self.index["TECH_QA"] or stage == "RELEASE":
+            state.qa_receipts.clear()
         state.stage = stage
         state.invalidated_from = stage
         state.touch()
