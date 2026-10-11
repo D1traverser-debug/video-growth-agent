@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 from typing import Any, Literal
 
-from .models import ArtifactRecord, utcnow_iso
+from .models import ArtifactRecord, QAReport, ProjectState, utcnow_iso
 from .orchestrator import StudioOrchestrator
 from .resources import data_path
 from .roles import RoleRegistry
@@ -160,9 +160,16 @@ class ExecutionPlanner:
                         )
                     if task_type in {"review", "meta_review"} and agent.kind == "worker":
                         errors.append(f"{stage}/{task_id}: worker agent cannot be reviewer")
+                    if task_type == "produce" and agent.kind == "reviewer":
+                        errors.append(f"{stage}/{task_id}: reviewer-only agent cannot be producer")
                 elif executor == "tool":
                     if task.get("tool") not in self.DETERMINISTIC_TOOLS:
                         errors.append(f"{stage}/{task_id}: unknown deterministic tool {task.get('tool')}")
+                    if task.get("tool") == "ffmpeg_ffprobe":
+                        if task_type != "measure":
+                            errors.append(f"{stage}/{task_id}: ffmpeg_ffprobe must be a measure task")
+                        if len(task.get("outputs", [])) != 1:
+                            errors.append(f"{stage}/{task_id}: ffmpeg_ffprobe must declare exactly one QA output")
                 else:
                     errors.append(f"{stage}/{task_id}: executor must be agent or tool")
                 if int(task.get("wave", 0)) < 1:
@@ -205,6 +212,71 @@ class AgenticStudio:
         order.updated_at = utcnow_iso()
         path.write_text(json.dumps(order.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
 
+    @staticmethod
+    def _input_digests(state: ProjectState, inputs: tuple[str, ...] | list[str]) -> dict[str, str | None]:
+        return {
+            name: state.artifacts[name].digest if name in state.artifacts else None
+            for name in inputs
+        }
+
+    def _new_order(self, state: ProjectState, task: dict[str, Any]) -> WorkOrder:
+        return WorkOrder(
+            work_order_id=f"{state.project_id}:{state.stage}:{task['id']}:r{state.revision}",
+            project_id=state.project_id,
+            stage=state.stage,
+            task_id=task["id"],
+            executor=task["executor"],
+            task_type=task["type"],
+            wave=int(task["wave"]),
+            inputs=tuple(task.get("inputs", [])),
+            outputs=tuple(task.get("outputs", [])),
+            agent_id=task.get("agent"),
+            tool=task.get("tool"),
+            approval_role=task.get("approval_role"),
+            blind=bool(task.get("blind", False)),
+        )
+
+    def _completed_order_stale(self, state: ProjectState, order: WorkOrder, task: dict[str, Any]) -> str | None:
+        expected_contract = {
+            "executor": task.get("executor"),
+            "task_type": task.get("type"),
+            "wave": int(task.get("wave", 0)),
+            "inputs": tuple(task.get("inputs", [])),
+            "outputs": tuple(task.get("outputs", [])),
+            "agent_id": task.get("agent"),
+            "tool": task.get("tool"),
+            "approval_role": task.get("approval_role"),
+            "blind": bool(task.get("blind", False)),
+        }
+        actual_contract = {
+            "executor": order.executor,
+            "task_type": order.task_type,
+            "wave": order.wave,
+            "inputs": order.inputs,
+            "outputs": order.outputs,
+            "agent_id": order.agent_id,
+            "tool": order.tool,
+            "approval_role": order.approval_role,
+            "blind": order.blind,
+        }
+        if actual_contract != expected_contract:
+            return "task_contract_changed"
+        if order.status != "COMPLETED":
+            return None
+        input_digests = order.result.get("input_digests") if isinstance(order.result, dict) else None
+        current = self._input_digests(state, order.inputs)
+        if not isinstance(input_digests, dict):
+            return "input_digest_binding_missing"
+        if input_digests != current:
+            return "input_digest_changed"
+        for output_name in order.outputs:
+            artifact = state.artifacts.get(output_name)
+            if artifact is None:
+                return f"output_retired:{output_name}"
+            if artifact.metadata.get("work_order_id") != order.work_order_id:
+                return f"output_provenance_changed:{output_name}"
+        return None
+
     def dispatch_stage(self, project_id: str) -> list[WorkOrder]:
         state = self.runtime.state(project_id)
         stage = state.stage
@@ -212,24 +284,24 @@ class AgenticStudio:
         orders: list[WorkOrder] = []
         for task in tasks:
             path = self._order_path(project_id, stage, task["id"])
+            order: WorkOrder
             if path.exists():
                 order = WorkOrder.from_dict(json.loads(path.read_text(encoding="utf-8")))
+                stale_reason = self._completed_order_stale(state, order, task)
+                if stale_reason:
+                    self.runtime.store.append_receipt(
+                        project_id,
+                        "WORK_ORDER_RETIRED",
+                        {
+                            "stage": stage,
+                            "task_id": task["id"],
+                            "work_order_id": order.work_order_id,
+                            "reason": stale_reason,
+                        },
+                    )
+                    order = self._new_order(state, task)
             else:
-                order = WorkOrder(
-                    work_order_id=f"{project_id}:{stage}:{task['id']}",
-                    project_id=project_id,
-                    stage=stage,
-                    task_id=task["id"],
-                    executor=task["executor"],
-                    task_type=task["type"],
-                    wave=int(task["wave"]),
-                    inputs=tuple(task.get("inputs", [])),
-                    outputs=tuple(task.get("outputs", [])),
-                    agent_id=task.get("agent"),
-                    tool=task.get("tool"),
-                    approval_role=task.get("approval_role"),
-                    blind=bool(task.get("blind", False)),
-                )
+                order = self._new_order(state, task)
             orders.append(order)
 
         for order in orders:
@@ -284,7 +356,12 @@ class AgenticStudio:
         else:
             packet["tool_contract"] = {
                 "tool": order.tool,
-                "instruction": "Run deterministically and return measured evidence only.",
+                "instruction": (
+                    "Run deterministic ffmpeg/ffprobe QA against the declared media input and complete this work order through complete_media_qa; do not fabricate a QA artifact."
+                    if order.tool == "ffmpeg_ffprobe"
+                    else "Run deterministically and return measured evidence only."
+                ),
+                "declared_outputs": list(order.outputs),
             }
         if order.task_type == "meta_review":
             packet["panel_reviews"] = self._panel_reviews(project_id, state.stage, before_wave=order.wave)
@@ -320,10 +397,13 @@ class AgenticStudio:
             raise ValueError("Use submit_review for review work orders")
         if order.approval_role:
             raise ValueError("Non-review work orders cannot declare approval_role")
+        if order.executor == "tool" and order.tool == "ffmpeg_ffprobe":
+            raise ValueError("Use complete_media_qa for ffmpeg_ffprobe measure work orders")
         provided = set((outputs or {}).keys())
         expected = set(order.outputs)
         if provided != expected:
             raise ValueError(f"Expected outputs {sorted(expected)}, got {sorted(provided)}")
+        input_digests = self._input_digests(state, order.inputs)
         producer = order.agent_id if order.executor == "agent" else f"tool:{order.tool}"
         for name, payload in (outputs or {}).items():
             metadata = dict(payload.get("metadata", {}))
@@ -338,7 +418,36 @@ class AgenticStudio:
                 metadata=metadata,
             )
         order.status = "COMPLETED"
-        order.result = result or {}
+        order.result = {**(result or {}), "input_digests": input_digests}
+        self._save_order(self._order_path(project_id, state.stage, task_id), order)
+        self.runtime.store.append_receipt(project_id, "WORK_ORDER_COMPLETED", {"work_order": order.to_dict()})
+        return order
+
+    def complete_media_qa(self, project_id: str, task_id: str, report: QAReport) -> WorkOrder:
+        state = self.runtime.state(project_id)
+        order = self._load_order(project_id, state.stage, task_id)
+        if order.status != "READY":
+            raise RuntimeError(f"Work order {task_id} is {order.status}, not READY")
+        if order.executor != "tool" or order.tool != "ffmpeg_ffprobe" or order.task_type != "measure":
+            raise ValueError("Work order is not an ffmpeg_ffprobe measure task")
+        if len(order.outputs) != 1:
+            raise ValueError("ffmpeg_ffprobe measure work order must declare exactly one QA output")
+        input_digests = self._input_digests(state, order.inputs)
+        receipt = self.runtime.record_qa(
+            project_id,
+            report,
+            artifact_name=order.outputs[0],
+            stage=state.stage,
+            work_order_id=order.work_order_id,
+            producer=f"tool:{order.tool}",
+        )
+        order.status = "COMPLETED"
+        order.result = {
+            "input_digests": input_digests,
+            "qa_receipt": receipt,
+            "hard_pass": report.hard_pass,
+            "media_uri": report.media_uri,
+        }
         self._save_order(self._order_path(project_id, state.stage, task_id), order)
         self.runtime.store.append_receipt(project_id, "WORK_ORDER_COMPLETED", {"work_order": order.to_dict()})
         return order
