@@ -1,3 +1,4 @@
+from importlib.metadata import version
 from pathlib import Path
 
 from video_growth_agent.system_audit import package_audit, repository_audit, run_system_audit
@@ -9,8 +10,9 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_package_harness_passes_current_runtime_contract():
     report = package_audit()
     assert report["pass"] is True, report
-    assert report["agent_registry_version"] == "0.5.1"
-    assert report["execution_plan_version"] == "0.5.1"
+    expected = version("video-growth-agent")
+    assert report["agent_registry_version"] == expected
+    assert report["execution_plan_version"] == expected
 
 
 def test_repository_harness_rejects_pollution_and_drift():
