@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
+import tomllib
 from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from typing import Any
@@ -9,9 +11,23 @@ from typing import Any
 from .resources import data_path
 from .roles import RoleRegistry
 from .studio_agents import AgentRegistry, ExecutionPlanner
+from .techniques import TechniqueLibrary
 
-PROJECT_MARKERS = ("Pilot 002", "Sample V2", "Release V4")
-REQUIRED_ASSURANCE_TERMS = ("DECLARED_ONLY", "HARNESS_WIRED", "SESSION_EXECUTABLE", "CHAT_BRIDGED", "ATTESTED_ISOLATED")
+REQUIRED_ASSURANCE_TERMS = (
+    "DECLARED_ONLY",
+    "HARNESS_WIRED",
+    "SESSION_EXECUTABLE",
+    "CHAT_BRIDGED",
+    "ATTESTED_ISOLATED",
+)
+CONTROL_PLANE_GLOBAL_FILES = (
+    "continuity/TASK_INDEX.md",
+    "continuity/AGENT_MANIFEST.json",
+    "continuity/OWNER_ADAPTER.json",
+    "continuity/EXECUTION_CAPABILITIES.json",
+    "README.md",
+)
+VERSIONED_PROJECT_STATE_RE = re.compile(r"\b(?:sample|release)\s+v\d+\b", re.IGNORECASE)
 
 
 def _json(path: Path) -> dict[str, Any]:
@@ -27,16 +43,127 @@ def _git_blob_sha(path: Path) -> str:
     return hashlib.sha1(header + content).hexdigest()
 
 
+def _package_version() -> str:
+    try:
+        return version("video-growth-agent")
+    except PackageNotFoundError:
+        return "UNINSTALLED_EDITABLE_SOURCE"
+
+
+def _repo_runtime_version(root: Path) -> str:
+    pyproject = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
+    return str(pyproject["project"]["version"])
+
+
+def _project_aliases(root: Path) -> set[str]:
+    projects = root / "projects"
+    if not projects.is_dir():
+        return set()
+    aliases: set[str] = set()
+    for path in projects.iterdir():
+        if not path.is_dir():
+            continue
+        slug = path.name.lower()
+        aliases.add(slug)
+        aliases.add(re.sub(r"[-_]+", " ", slug))
+    return {alias for alias in aliases if alias}
+
+
+def _artifact_reachability_failures(workflow: dict[str, Any], plan: dict[str, Any]) -> list[str]:
+    failures: list[str] = []
+    available: set[str] = set()
+    producer: dict[str, str] = {}
+    plan_stages = plan.get("stages", {})
+    for stage_spec in workflow.get("stages", []):
+        stage = str(stage_spec.get("id") or "")
+        stage_plan = plan_stages.get(stage)
+        if not isinstance(stage_plan, dict):
+            failures.append(f"execution_plan_stage_missing:{stage}")
+            continue
+        external_inputs = stage_plan.get("external_inputs", [])
+        if not isinstance(external_inputs, list):
+            failures.append(f"external_inputs_invalid:{stage}")
+            external_inputs = []
+        external = {str(name) for name in external_inputs}
+        if external and not str(stage_plan.get("external_input_contract") or "").strip():
+            failures.append(f"external_input_contract_missing:{stage}")
+        stage_available = set(available) | external
+        tasks = stage_plan.get("tasks", [])
+        waves = sorted({int(task.get("wave", 0)) for task in tasks if isinstance(task, dict)})
+        for wave in waves:
+            wave_tasks = [task for task in tasks if isinstance(task, dict) and int(task.get("wave", 0)) == wave]
+            wave_outputs: set[str] = set()
+            for task in wave_tasks:
+                task_id = str(task.get("id") or "")
+                for input_name in task.get("inputs", []):
+                    name = str(input_name)
+                    if name not in stage_available:
+                        failures.append(f"artifact_input_unreachable:{stage}/{task_id}:{name}")
+                for output_name in task.get("outputs", []):
+                    name = str(output_name)
+                    if name in wave_outputs:
+                        failures.append(f"artifact_duplicate_same_wave_output:{stage}:wave={wave}:{name}")
+                    prior = producer.get(name)
+                    if prior:
+                        failures.append(f"artifact_multiple_producers:{name}:{prior},{stage}/{task_id}")
+                    wave_outputs.add(name)
+                    producer[name] = f"{stage}/{task_id}"
+            stage_available.update(wave_outputs)
+        required = {str(name) for name in stage_spec.get("required_artifacts", [])}
+        missing = sorted(required - stage_available)
+        for name in missing:
+            failures.append(f"workflow_required_artifact_unreachable:{stage}:{name}")
+        available = stage_available
+    return failures
+
+
+def _technique_failures() -> list[str]:
+    failures: list[str] = []
+    payload = _json(data_path("techniques.json"))
+    policy = payload.get("policy", {})
+    if policy.get("production_default") != "validated_only":
+        failures.append("technique_production_default_not_validated_only")
+    items = payload.get("techniques", [])
+    valid_statuses = {"candidate", "validated", "retired", "rejected"}
+    for item in items:
+        technique_id = str(item.get("id") or "")
+        status = str(item.get("status") or "candidate")
+        origin = str(item.get("origin") or "").strip()
+        refs = [str(ref).strip() for ref in item.get("evidence_refs", [])]
+        if status not in valid_statuses:
+            failures.append(f"technique_status_invalid:{technique_id}:{status}")
+        if not origin:
+            failures.append(f"technique_origin_missing:{technique_id}")
+        if status == "validated" and not refs:
+            failures.append(f"validated_technique_evidence_missing:{technique_id}")
+        if origin == "historical_external_candidate":
+            if not refs:
+                failures.append(f"external_candidate_evidence_missing:{technique_id}")
+            for ref in refs:
+                if not (ref.startswith("skills/") or ref.startswith("projects/") or ref.startswith("https://")):
+                    failures.append(f"external_candidate_evidence_not_durable:{technique_id}:{ref}")
+    library = TechniqueLibrary()
+    candidate_ids = {item.technique_id for item in library.techniques.values() if item.status == "candidate"}
+    broad_tags = {tag for item in library.techniques.values() for tag in item.tags}
+    leaked = {item.technique_id for item in library.find(broad_tags) if item.technique_id in candidate_ids}
+    if leaked:
+        failures.append("candidate_techniques_visible_by_default:" + ",".join(sorted(leaked)))
+    return failures
+
+
 def package_audit() -> dict[str, Any]:
     failures: list[str] = []
     agents = AgentRegistry()
     roles = RoleRegistry()
     planner = ExecutionPlanner(agents=agents)
     workflow = _json(data_path("workflow.json"))
+    package_version = _package_version()
 
     failures.extend(f"agent_registry:{item}" for item in agents.validate())
     failures.extend(f"execution_plan:{item}" for item in planner.validate())
     failures.extend(f"role_registry:{item}" for item in roles.validate_workflow())
+    failures.extend(_artifact_reachability_failures(workflow, planner.config))
+    failures.extend(_technique_failures())
 
     principles = agents.config.get("principles", {})
     if principles.get("tool_labels_are_capability_requests_not_execution_proof") is not True:
@@ -74,10 +201,11 @@ def package_audit() -> dict[str, Any]:
     if role_cfg.get("canonical_prompt_source") != "skills/video-growth-agent/references/team.md":
         failures.append("roles_canonical_prompt_source_not_explicit")
 
-    try:
-        package_version = version("video-growth-agent")
-    except PackageNotFoundError:
-        package_version = "UNINSTALLED_EDITABLE_SOURCE"
+    if package_version != "UNINSTALLED_EDITABLE_SOURCE":
+        if agents.config.get("version") != package_version:
+            failures.append("agent_registry_package_version_drift")
+        if planner.config.get("version") != package_version:
+            failures.append("execution_plan_package_version_drift")
 
     return {
         "scope": "package",
@@ -93,6 +221,7 @@ def package_audit() -> dict[str, Any]:
 def repository_audit(repo_root: Path) -> dict[str, Any]:
     root = repo_root.resolve()
     failures: list[str] = []
+    runtime_version = _repo_runtime_version(root)
 
     if (root / "config").exists():
         failures.append("duplicate_root_config_authority_present")
@@ -113,7 +242,8 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
         failures.append("team_prompt_mirror_drift")
 
     global_docs = sorted((root / "skills/video-growth-agent").rglob("*.md"))
-    global_docs.extend([root / "continuity/TASK_INDEX.md", root / "README.md"])
+    global_docs.extend(root / rel for rel in CONTROL_PLANE_GLOBAL_FILES)
+    project_aliases = _project_aliases(root)
     for path in global_docs:
         try:
             rel = path.relative_to(root).as_posix()
@@ -123,11 +253,15 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             failures.append(f"global_reference_missing:{rel}")
             continue
         text = path.read_text(encoding="utf-8")
+        lower = text.lower()
         if any(stale in text for stale in ("config/workflow.json", "config/roles.json", "config/quality-rubric.json", "config/techniques.json")):
             failures.append(f"stale_root_config_reference:{rel}")
-        for marker in PROJECT_MARKERS:
-            if marker in text:
-                failures.append(f"project_state_pollution:{rel}:{marker}")
+        for alias in sorted(project_aliases):
+            if alias in lower:
+                failures.append(f"project_state_pollution:{rel}:{alias}")
+        match = VERSIONED_PROJECT_STATE_RE.search(text)
+        if match:
+            failures.append(f"project_version_state_pollution:{rel}:{match.group(0)}")
 
     architecture_path = root / "continuity/AGENT_MANIFEST.json"
     if not architecture_path.is_file():
@@ -137,7 +271,7 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
         architecture_text = architecture_path.read_text(encoding="utf-8")
         if '"config/' in architecture_text or '"config"' in architecture_text:
             failures.append("agent_architecture_manifest_stale_config_authority")
-        if architecture.get("runtime", {}).get("version") != "0.5.1":
+        if architecture.get("runtime", {}).get("version") != runtime_version:
             failures.append("agent_architecture_manifest_runtime_version_drift")
         if architecture.get("workflow", {}).get("state_authority_refs", [])[-1:] != ["video_growth_agent/data/workflow.json"]:
             failures.append("agent_architecture_manifest_workflow_authority_drift")
@@ -149,21 +283,41 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
 
     checkpoint_path = root / "continuity/tasks/video-growth-main/CHECKPOINT.json"
     manifest_path = root / "continuity/tasks/video-growth-main/TASK_MANIFEST.json"
+    owner_path = root / "continuity/OWNER_ADAPTER.json"
     if checkpoint_path.is_file():
         checkpoint = _json(checkpoint_path)
         if "preserved_user_requirements" in checkpoint:
             failures.append("checkpoint_contains_preserved_user_requirements_prose")
-        if checkpoint.get("runtime_version") != "0.5.1":
+        if checkpoint.get("runtime_version") != runtime_version:
             failures.append("checkpoint_runtime_version_drift")
     if manifest_path.is_file():
         manifest = _json(manifest_path)
-        if manifest.get("runtime_version") != "0.5.1":
+        if manifest.get("runtime_version") != runtime_version:
             failures.append("manifest_runtime_version_drift")
         expected_skill = f"skills/video-growth-agent/SKILL.md@{_git_blob_sha(skill_path)}" if skill_path.is_file() else None
         if manifest.get("skill_version") != expected_skill:
             failures.append("manifest_skill_version_pointer_drift")
+    if owner_path.is_file():
+        owner = _json(owner_path)
+        if owner.get("compatibility", {}).get("runtime_version") != runtime_version:
+            failures.append("owner_adapter_runtime_version_drift")
 
-    return {"scope": "repository", "repo_root": str(root), "failures": failures, "pass": not failures}
+    workflow = _json(root / "video_growth_agent/data/workflow.json")
+    execution_plan = _json(root / "video_growth_agent/data/execution-plan.json")
+    agents = _json(root / "video_growth_agent/data/agents.json")
+    failures.extend(_artifact_reachability_failures(workflow, execution_plan))
+    if execution_plan.get("version") != runtime_version:
+        failures.append("execution_plan_repo_version_drift")
+    if agents.get("version") != runtime_version:
+        failures.append("agent_registry_repo_version_drift")
+
+    return {
+        "scope": "repository",
+        "repo_root": str(root),
+        "runtime_version": runtime_version,
+        "failures": failures,
+        "pass": not failures,
+    }
 
 
 def run_system_audit(repo_root: Path | None = None) -> dict[str, Any]:
