@@ -3,7 +3,7 @@
   "owner": "VIDEO_GROWTH_AGENT",
   "domain": "VIDEO_GROWTH",
   "repository": "D1traverser-debug/video-growth-agent",
-  "status": "READY_V37__RUNTIME_0_5_2__SYSTEM_HYGIENE_REENTRY_VALIDATION_PENDING",
+  "status": "READY_V37__RUNTIME_0_5_2__SYSTEM_HYGIENE_REENTRY_HARDENED",
   "business_runtime_cutover": false,
   "authority": {
     "skill": "skills/video-growth-agent/SKILL.md",
@@ -63,14 +63,20 @@
     "skill_manifest_pointer": "MACHINE_CHECKED_GIT_BLOB_BINDING",
     "architecture_manifest": "RECONCILED_TO_SINGLE_RUNTIME_AUTHORITY",
     "artifact_reachability": "STATICALLY_AUDITED_ACROSS_STAGE_WAVES_WITH_EXPLICIT_EXTERNAL_INPUTS",
-    "stale_work_order_replay": "ACTIVE_EVIDENCE_RETIRED_AND_INPUT_DIGEST_BOUND",
+    "stale_work_order_replay": "ACTIVE_EVIDENCE_RETIRED_INPUT_DIGEST_BOUND_AND_HISTORICAL_IDENTITY_NONREUSABLE",
     "technique_candidates": "EXPLICIT_OPT_IN_ONLY",
     "promotion_flow": "maintenance branch -> system audit -> full tests -> installed CLI smoke -> reconcile latest main -> fast-forward with expected head",
     "branch_protection": "NOT_ENABLED_ON_MAIN_AT_LAST_OBSERVATION"
   },
   "maintenance_validation": {
-    "status": "PENDING_REENTRY_CI",
+    "status": "PASS_ON_BEHAVIORAL_REENTRY_HEAD",
     "branch": "maintenance/system-audit-reentry-2026-10-11",
+    "validated_head": "4de1c520a1e23b50af132d500025e63f8fa764d9",
+    "ci_run_id": 38109430324,
+    "ci_job_id": 114381713154,
+    "system_hygiene_audit": "SUCCESS_ZERO_FAILURES",
+    "pytest": "113_PASSED",
+    "installed_package_audit_and_cli_smoke": "SUCCESS",
     "required": ["repository system audit", "pytest", "installed CLI smoke"]
   },
   "methodology": {
@@ -83,6 +89,6 @@
     "Configured Agents, tool labels and provider adapters are not execution proof.",
     "System maintenance must not advance the active business stage.",
     "A green CI run is evidence but is not branch-protection enforcement when GitHub reports main as unprotected.",
-    "Historical receipts remain immutable failure/recovery evidence; invalidation only retires active pointers and active work-order runs."
+    "Historical receipts remain immutable failure/recovery evidence; invalidation retires active pointers and active work-order runs, while provider/execution identities remain non-reusable across reruns."
   ]
 }
