@@ -1,39 +1,32 @@
 {
   "schema_version": "1.2",
-  "architecture_contract_version": "1.1",
+  "architecture_contract_version": "1.2",
   "owner": "VIDEO_GROWTH_AGENT",
   "owner_kind": "BUSINESS",
+  "product_interface": {
+    "interaction_surface": "CHATGPT",
+    "entry_model": "SINGLE_OWNER_ENTRY",
+    "execution_mode_selection": "SYSTEM_INTERNAL",
+    "business_contract_model": "SINGLE_CANONICAL_OWNER_WORKFLOW"
+  },
   "skill": {
     "role": "ROUTER_AND_OPERATING_CONTRACT",
     "entrypoint": "skills/video-growth-agent/SKILL.md",
-    "current_note": "The Skill remains above a thin-router target because it carries fail-closed operating semantics; executable proof still comes from runtime state, work orders, receipts, machine guards and execution evidence."
+    "current_note": "The Skill is the single ChatGPT-facing Video Growth product entry and remains above a thin-router target because it carries fail-closed operating semantics. Internal execution/assurance modes are selected by the system; executable proof still comes from runtime state, work orders, receipts, machine guards and execution evidence."
   },
   "runtime": {
     "runtime_type": "HYBRID",
     "version": "0.5.2",
-    "entrypoints": [
-      "video_growth_agent/runtime.py",
-      "video_growth_agent/orchestrator.py",
-      "video_growth_agent/engine_routing.py",
-      "video_growth_agent/cli.py"
-    ],
+    "entrypoints": ["video_growth_agent/runtime.py", "video_growth_agent/orchestrator.py", "video_growth_agent/engine_routing.py", "video_growth_agent/cli.py"],
     "machine_resource_root": "video_growth_agent/data",
     "tool_surface_refs": ["video_growth_agent/cli.py"],
     "judgment_execution": "EXECUTABLE_WITH_ASSURANCE_BOUNDARIES",
-    "note": "AgenticStudio work orders are bound to current input digests and active output provenance; invalidation retires active downstream evidence while preserving immutable history. CHAT_BRIDGED ordinary execution and ATTESTED_ISOLATED critical review remain distinct assurance classes."
+    "note": "AgenticStudio work orders are bound to current input digests and active output provenance; invalidation retires active downstream evidence while preserving immutable history. CHAT_BRIDGED ordinary execution and ATTESTED_ISOLATED critical review remain distinct internal assurance classes for one Video Growth product workflow, not user-selected routes."
   },
   "workflow": {
-    "state_authority_refs": [
-      "video_growth_agent/storage.py",
-      "video_growth_agent/models.py",
-      "video_growth_agent/data/workflow.json"
-    ],
+    "state_authority_refs": ["video_growth_agent/storage.py", "video_growth_agent/models.py", "video_growth_agent/data/workflow.json"],
     "execution_plan_ref": "video_growth_agent/data/execution-plan.json",
-    "transition_guard_refs": [
-      "video_growth_agent/runtime.py",
-      "video_growth_agent/generation_guard.py",
-      "video_growth_agent/execution_attestation.py"
-    ]
+    "transition_guard_refs": ["video_growth_agent/runtime.py", "video_growth_agent/generation_guard.py", "video_growth_agent/execution_attestation.py"]
   },
   "harness": {
     "ci_workflow_ref": ".github/workflows/ci.yml",
