@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.8",
+  "schema_version": "1.9",
   "project_id": "ai-self-media-commercialization",
   "display_name_zh": "AI自媒体视频商业化与原创数字IP",
   "project_kind": "INCUBATION_REFERENCE_PACKAGE",
@@ -31,6 +31,7 @@
       "FACIAL_MORPHOLOGY",
       "FACE_PRIMARY_MASSES",
       "FACE_COMPARISON_PROMPTS",
+      "FACE_HYBRID_CALIBRATION",
       "GPT_IMAGE_PROMPTING",
       "BODY_PROPORTION",
       "REFERENCE_DECOMPOSITION",
@@ -43,7 +44,7 @@
       "MODEL_ROUTER",
       "LOOKDEV_INPUT"
     ],
-    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. Concept V1 is rejected. V2 has completed initial reference decomposition and face-morphology extraction; H1 is ready for controlled GPT Images-specific F1-F5 front-view face-architecture comparisons using concise prompts and targeted-edit convergence before body, hair, brand DNA, wardrobe, motif or Presentation Modes are allowed to define the character.",
+    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. Concept V1 is rejected. H1 text-only F1-F5 front exploration is complete; no standalone winner was locked because all five partially collapsed toward a generic attractive East-Asian male prior. The active step is one source-calibrated H1-HYBRID-A front study using the creator certificate portrait strictly as structural calibration, before 3/4 validation and before body, hair, brand DNA, wardrobe, motif or Presentation Modes.",
     "resume_entry": "RESUME_ENTRY.md",
     "current_progress": "CURRENT_PROGRESS.md",
     "latest_failure_audit": "CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md",
@@ -53,11 +54,13 @@
     "current_reference_assessment": "H0_REFERENCE_ASSESSMENT_2026-10-14.md",
     "current_face_morphology": "H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md",
     "current_face_comparison_prompts": "H1_FACE_COMPARISON_PROMPTS_V2.md",
-    "gpt_image_prompting_method": "GPT_IMAGE_PROMPTING_METHOD_V2.md"
+    "gpt_image_prompting_method": "GPT_IMAGE_PROMPTING_METHOD_V2.md",
+    "current_face_review": "H1_F1_F5_FRONT_REVIEW_2026-10-14.md",
+    "current_face_prompt": "H1_HYBRID_A_GPT_PROMPT_V2.md"
   },
   "current_stage": "H1_FACE_PRIMARY_MASSES_V2",
-  "current_state": "The creator certificate portrait has been decomposed into reusable structural face anchors without copying makeup, retouching, hairstyle or direct likeness. Five face-architecture hypotheses F1-F5 are defined. GPT Images-specific execution rules are now active: concise natural-language prompts, no certificate-photo upload in first-pass H1, identical non-face variables, small role-labeled reference sets only when needed, and targeted one-variable edits after selection.",
-  "next_action": "Execute F1-F5 front-view head studies with concise GPT Images-specific prompts compiled from H1_FACE_COMPARISON_PROMPTS_V2.md and GPT_IMAGE_PROMPTING_METHOD_V2.md. Review all five together by structural quality, retain only the top 2-3, then generate matching 3/4 studies for finalists. Optional neutral unfiltered 3/4/profile photos may be used for structural verification before final H1 lock. Select one face architecture or deliberate hybrid before H2 body archetype.",
+  "current_state": "F1-F5 front-view exploration has been reviewed. F2 and F3 are rejected as base directions; F1, F4 and F5 survive only as component donors. No single face is locked. H1-HYBRID-A is proposed: F1 envelope/soft-tissue behavior + F4 eye-aperture/deadpan rhythm + F5 cheek-to-jaw-to-compact-chin rhythm, calibrated against the creator certificate portrait for source-specific structural relations only.",
+  "next_action": "Open a fresh GPT Images conversation, upload the creator certificate portrait, and execute H1_HYBRID_A_GPT_PROMPT_V2.md. Generate one neutral front-view Hybrid A only. Review it before any 3/4 generation. If front view passes, generate a matching 3/4 study and require coherence before locking H1 or proceeding to H2 body archetype.",
   "workflow_integration": {
     "mode": "FUTURE_EXPLICIT_IMPORT",
     "do_not_auto_promote": true,
@@ -84,6 +87,8 @@
     "H0_REFERENCE_ASSESSMENT_2026-10-14.md",
     "H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md",
     "H1_FACE_COMPARISON_PROMPTS_V2.md",
+    "H1_F1_F5_FRONT_REVIEW_2026-10-14.md",
+    "H1_HYBRID_A_GPT_PROMPT_V2.md",
     "GPT_IMAGE_PROMPTING_METHOD_V2.md",
     "CHARACTER_DESIGN_BIBLE_V1.md",
     "CONCEPT_GENERATION_PROMPT_V1.md",
@@ -100,20 +105,20 @@
     "whole_look_status": "PROPOSED_DOWNSTREAM_NOT_LOCKED",
     "personal_feature_policy": "SELECTIVE_STRUCTURAL_INHERITANCE_PROPOSED",
     "body_reference_policy": "PLAUSIBILITY_SUPPORT_NOT_PRIMARY_LIKENESS",
-    "face_candidates": [
-      "F1 Same-Source Natural",
-      "F2 Blunt Analytical",
-      "F3 Editorial Plane",
-      "F4 Compact Deadpan",
-      "F5 Controlled Uncanny Human"
+    "face_exploration_status": "F1_F5_FRONT_COMPLETE_NO_SINGLE_WINNER",
+    "face_rejected": [
+      "F2 Blunt Analytical as standalone base",
+      "F3 Editorial Plane as standalone base"
     ],
-    "face_leading_set": [
-      "F2 Blunt Analytical",
-      "F3 Editorial Plane",
-      "F4 Compact Deadpan"
+    "face_component_donors": [
+      "F1 envelope/soft-tissue behavior",
+      "F4 eye-aperture/deadpan rhythm",
+      "F5 cheek-jaw-chin transition"
     ],
+    "current_face_proposal": "H1-HYBRID-A",
+    "current_face_proposal_status": "PROPOSED_PENDING_FRONT_CALIBRATION",
     "presentation_modes_status": "DORMANT_UNTIL_CANON_H9"
   },
   "created_at": "2026-10-14T00:14:38Z",
-  "updated_at": "2026-10-14T03:08:00Z"
+  "updated_at": "2026-10-14T03:25:00Z"
 }
