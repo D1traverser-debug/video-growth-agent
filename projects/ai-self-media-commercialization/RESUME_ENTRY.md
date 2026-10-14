@@ -8,23 +8,23 @@ Continuity task: NO
 
 Preferred new-chat entry:
 
-> `继承 AI自媒体视频商业化与原创数字IP，继续 H1_SCULPTURAL_MASSING_V2。先读取 PROJECT_MANIFEST.json、CURRENT_PROGRESS.md、H1_S1_S2_S3_SCULPT_REVIEW_2026-10-14.md、H1_S13_HYBRID_SCULPT_PROMPT_V2.md、HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md、H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md 和 DECISION_LOG.md。S1-S3灰模已评审：S1保留为主基底，S2否决，S3仅保留下半脸节奏；当前要生成一张H1-S13-HYBRID正面灰模，不要先做3/4、蓝发、像素墨镜、服装、柴犬鲤鱼或Presentation Modes，也不要进入video-growth:main / Pilot 002。`
+> `继承 AI自媒体视频商业化与原创数字IP，继续 H1_SCULPTURAL_MASSING_V2。先读取 PROJECT_MANIFEST.json、CURRENT_PROGRESS.md、H1_S13_HYBRID_FRONT_REVIEW_2026-10-14.md、H1_S13_3Q_SCULPT_PROMPT_V2.md、H1_S1_S2_S3_SCULPT_REVIEW_2026-10-14.md、HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md 和 DECISION_LOG.md。S1+S3 正面灰模已经获得 provisional front pass；当前只做同一张脸的30–35°三分之四灰模一致性验证。不要重新搜脸，不要先加蓝发、像素墨镜、皮肤妆造、服装、柴犬鲤鱼或 Presentation Modes，也不要进入 video-growth:main / Pilot 002。`
 
 Short form:
-- `继承原创数字IP设计，继续H1 S1+S3灰模混合。`
-- `继承 ai-self-media-commercialization，从 H1-S13-HYBRID 正面灰模继续。`
+- `继承原创数字IP设计，继续H1 S1+S3三分之四灰模验证。`
+- `继承 ai-self-media-commercialization，从 H1-S13-HYBRID 3/4 validation 继续。`
 
 ## Required entry order
 
 1. `PROJECT_MANIFEST.json` — project identity, isolation boundary, current stage and next action.
 2. `CURRENT_PROGRESS.md` — latest checkpoint.
-3. `H1_S1_S2_S3_SCULPT_REVIEW_2026-10-14.md` — current S1/S2/S3 review and donor/rejection logic.
-4. `H1_S13_HYBRID_SCULPT_PROMPT_V2.md` — current executable hybrid prompt.
-5. `HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md` — selective personal inheritance policy.
-6. `H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md` — source-derived structural anchors.
-7. `H1_HYBRID_A_REVIEW_2026-10-14.md` — why photoreal calibration was abandoned.
-8. `HUMAN_CORE_CONSTRUCTION_STACK_V2.md` — dependency order / Harness.
-9. `GPT_IMAGE_PROMPTING_METHOD_V2.md` — GPT Images execution method.
+3. `H1_S13_HYBRID_FRONT_REVIEW_2026-10-14.md` — why the front geometry provisionally passes and what must be tested in depth.
+4. `H1_S13_3Q_SCULPT_PROMPT_V2.md` — current executable three-quarter validation prompt.
+5. `H1_S1_S2_S3_SCULPT_REVIEW_2026-10-14.md` — S1/S2/S3 donor/rejection logic.
+6. `HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md` — selective personal inheritance policy.
+7. `H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md` — source-derived structural anchors.
+8. `GPT_IMAGE_PROMPTING_METHOD_V2.md` — GPT Images execution method.
+9. `HUMAN_CORE_CONSTRUCTION_STACK_V2.md` — dependency order / Harness.
 10. `DECISION_LOG.md` — accepted/rejected history.
 
 Historical V1 materials are diagnostic only, never active V2 authority.
@@ -37,28 +37,26 @@ Current stage: `H1_SCULPTURAL_MASSING_V2`
 Current truth:
 - V1 full-body concept is rejected.
 - Presentation Modes remain dormant.
-- F1-F5 text-only faces are complete with no standalone winner.
-- Hybrid A photoreal calibration is rejected as a face lock.
-- sculptural massing S1-S3 is complete and reviewed.
-- S1 is the PRIMARY GEOMETRY BASE donor.
-- S2 is REJECTED and must not be used in the next hybrid.
-- S3 is retained ONLY for its subtle cheek→jaw→compact-chin transition rhythm.
-- personal-feature policy is selective structural inheritance: same-source original, not clone and not generic handsome replacement.
+- F1-F5 and photoreal Hybrid A are not face locks.
+- S1/S2/S3 gray sculpt pass is complete: S1 main donor, S2 rejected, S3 lower-face donor only.
+- `H1-S13-HYBRID` front gray sculpt has now been reviewed and receives a PROVISIONAL FRONT PASS.
+- broad front-view face exploration stops here unless a later angle reveals structural failure.
+- hair/scalp placeholder and neck geometry remain non-authoritative.
+- personal-feature policy remains selective structural inheritance: same-source original, not clone and not generic handsome replacement.
 
-Current proposal:
-`H1-S13-HYBRID` = S1 overall envelope/orbit/calm baseline + reduced-intensity S3 lower-face rhythm + certificate portrait structural ancestry calibration only.
+Current face candidate:
+`H1-S13-HYBRID` = accepted front geometry candidate pending 3/4 consistency.
 
 Current next action:
-1. open one fresh GPT Images conversation;
-2. upload Image 1 = creator certificate portrait, structural ancestry only;
-3. upload Image 2 = S1 sculpt, primary geometry base;
-4. upload Image 3 = S3 sculpt, lower-face rhythm donor only;
-5. execute `H1_S13_HYBRID_SCULPT_PROMPT_V2.md`;
-6. generate exactly one front-view monochrome matte-gray sculpt;
-7. review front geometry before any 3/4 generation;
-8. if accepted, generate matching 3/4 while preserving the same geometry;
-9. only after front + 3/4 coherence may stylized skin/hair return;
-10. H1 must pass before H2 body archetype.
+1. preferably stay in the same GPT Images conversation as the accepted front hybrid;
+2. use the accepted front image as the primary identity/geometry reference;
+3. execute `H1_S13_3Q_SCULPT_PROMPT_V2.md`;
+4. generate exactly one 30–35° three-quarter monochrome matte-gray sculpt of the SAME character;
+5. compare front vs 3/4 for envelope, orbit, cheek, jaw, chin, nose and mouth consistency;
+6. reject any 3/4 drift toward high/narrow model nose, heroic brow, sharp cheeks, V jaw, square macho jaw or projected/pointed/long chin;
+7. if coherent, move H1 toward geometry candidate lock and run plain/dark/no-brand identity validation;
+8. if not coherent, edit one geometric variable at a time on the same face;
+9. H1 must pass before H2 body archetype.
 
 ## Persistence/report rule
 
