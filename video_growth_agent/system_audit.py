@@ -20,13 +20,14 @@ REQUIRED_ASSURANCE_TERMS = (
     "CHAT_BRIDGED",
     "ATTESTED_ISOLATED",
 )
-CONTROL_PLANE_GLOBAL_FILES = (
-    "continuity/TASK_INDEX.md",
-    "continuity/AGENT_MANIFEST.json",
-    "continuity/OWNER_ADAPTER.json",
-    "continuity/EXECUTION_CAPABILITIES.json",
+CURRENT_GLOBAL_FILES = (
+    "UAOS_SKILL.md",
+    ".uaos/MANIFEST.json",
+    ".uaos/ADAPTER.json",
+    ".uaos/CAPABILITIES.json",
     "README.md",
 )
+RETIRED_ACTIVE_PATHS = ("continuity",)
 VERSIONED_PROJECT_STATE_RE = re.compile(r"\b(?:sample|release)\s+v\d+\b", re.IGNORECASE)
 
 
@@ -110,8 +111,7 @@ def _artifact_reachability_failures(workflow: dict[str, Any], plan: dict[str, An
                     producer[name] = f"{stage}/{task_id}"
             stage_available.update(wave_outputs)
         required = {str(name) for name in stage_spec.get("required_artifacts", [])}
-        missing = sorted(required - stage_available)
-        for name in missing:
+        for name in sorted(required - stage_available):
             failures.append(f"workflow_required_artifact_unreachable:{stage}:{name}")
         available = stage_available
     return failures
@@ -225,14 +225,56 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
 
     if (root / "config").exists():
         failures.append("duplicate_root_config_authority_present")
+    for retired in RETIRED_ACTIVE_PATHS:
+        if (root / retired).exists():
+            failures.append(f"retired_control_plane_returned:{retired}")
 
-    skill_path = root / "skills/video-growth-agent/SKILL.md"
+    for rel in CURRENT_GLOBAL_FILES:
+        if not (root / rel).is_file():
+            failures.append(f"current_global_file_missing:{rel}")
+
+    skill_path = root / "UAOS_SKILL.md"
     skill_text = skill_path.read_text(encoding="utf-8") if skill_path.is_file() else ""
-    if "session capability handshake" not in skill_text.lower():
-        failures.append("skill_session_capability_handshake_missing")
-    for term in REQUIRED_ASSURANCE_TERMS:
-        if term not in skill_text:
-            failures.append(f"skill_assurance_term_missing:{term}")
+    if "current-session capability handshake" not in skill_text.lower():
+        failures.append("uaos_skill_session_capability_handshake_missing")
+    if "D1traverser-debug/universal-agent-os@main" not in skill_text:
+        failures.append("uaos_skill_controller_binding_missing")
+
+    capability_path = root / ".uaos/CAPABILITIES.json"
+    if capability_path.is_file():
+        capability_text = capability_path.read_text(encoding="utf-8")
+        capability = _json(capability_path)
+        for term in REQUIRED_ASSURANCE_TERMS:
+            if term not in capability_text:
+                failures.append(f"capability_assurance_term_missing:{term}")
+        if capability.get("owner") != "VIDEO_GROWTH_AGENT":
+            failures.append("uaos_capability_owner_drift")
+        if capability.get("execution_readiness_contract") != "2.0":
+            failures.append("uaos_execution_readiness_contract_drift")
+
+    manifest_path = root / ".uaos/MANIFEST.json"
+    if manifest_path.is_file():
+        manifest = _json(manifest_path)
+        if manifest.get("controller") != "D1traverser-debug/universal-agent-os@main":
+            failures.append("uaos_manifest_controller_drift")
+        if manifest.get("status") != "UAOS_CONTROL_PLANE_ACTIVE":
+            failures.append("uaos_manifest_status_drift")
+        if manifest.get("skill", {}).get("entrypoint") != "UAOS_SKILL.md":
+            failures.append("uaos_manifest_skill_entrypoint_drift")
+        if manifest.get("runtime", {}).get("version") != runtime_version:
+            failures.append("uaos_manifest_runtime_version_drift")
+        if manifest.get("runtime", {}).get("workflow") != "video_growth_agent/data/workflow.json":
+            failures.append("uaos_manifest_workflow_authority_drift")
+        if manifest.get("runtime", {}).get("system_audit") != "vga system-audit --repo-root .":
+            failures.append("uaos_manifest_harness_entrypoint_drift")
+
+    adapter_path = root / ".uaos/ADAPTER.json"
+    if adapter_path.is_file():
+        adapter = _json(adapter_path)
+        if adapter.get("task_identity_authority") != "UAOS" or adapter.get("cross_chat_continuity_authority") != "UAOS":
+            failures.append("uaos_adapter_control_authority_drift")
+        if adapter.get("legacy_controller_compatibility") != "NONE":
+            failures.append("uaos_adapter_legacy_compatibility_enabled")
 
     skill_team = root / "skills/video-growth-agent/references/team.md"
     packaged_team = root / "video_growth_agent/data/team.md"
@@ -242,7 +284,7 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
         failures.append("team_prompt_mirror_drift")
 
     global_docs = sorted((root / "skills/video-growth-agent").rglob("*.md"))
-    global_docs.extend(root / rel for rel in CONTROL_PLANE_GLOBAL_FILES)
+    global_docs.extend(root / rel for rel in CURRENT_GLOBAL_FILES if rel.endswith(".md"))
     project_aliases = _project_aliases(root)
     for path in global_docs:
         try:
@@ -263,44 +305,21 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
         if match:
             failures.append(f"project_version_state_pollution:{rel}:{match.group(0)}")
 
-    architecture_path = root / "continuity/AGENT_MANIFEST.json"
-    if not architecture_path.is_file():
-        failures.append("agent_architecture_manifest_missing")
+    program_state_path = root / "projects/pilot-002/PROGRAM_STATE.json"
+    if not program_state_path.is_file():
+        failures.append("pilot002_program_state_missing")
     else:
-        architecture = _json(architecture_path)
-        architecture_text = architecture_path.read_text(encoding="utf-8")
-        if '"config/' in architecture_text or '"config"' in architecture_text:
-            failures.append("agent_architecture_manifest_stale_config_authority")
-        if architecture.get("runtime", {}).get("version") != runtime_version:
-            failures.append("agent_architecture_manifest_runtime_version_drift")
-        if architecture.get("workflow", {}).get("state_authority_refs", [])[-1:] != ["video_growth_agent/data/workflow.json"]:
-            failures.append("agent_architecture_manifest_workflow_authority_drift")
-        if architecture.get("harness", {}).get("system_audit_entrypoint") != "vga system-audit --repo-root .":
-            failures.append("agent_architecture_manifest_harness_entrypoint_drift")
-
-    if (root / "continuity/CHECKPOINT_COMPACTION_PLAN.json").exists():
-        failures.append("completed_or_staged_compaction_plan_still_present")
-
-    checkpoint_path = root / "continuity/tasks/video-growth-main/CHECKPOINT.json"
-    manifest_path = root / "continuity/tasks/video-growth-main/TASK_MANIFEST.json"
-    owner_path = root / "continuity/OWNER_ADAPTER.json"
-    if checkpoint_path.is_file():
-        checkpoint = _json(checkpoint_path)
-        if "preserved_user_requirements" in checkpoint:
-            failures.append("checkpoint_contains_preserved_user_requirements_prose")
-        if checkpoint.get("runtime_version") != runtime_version:
-            failures.append("checkpoint_runtime_version_drift")
-    if manifest_path.is_file():
-        manifest = _json(manifest_path)
-        if manifest.get("runtime_version") != runtime_version:
-            failures.append("manifest_runtime_version_drift")
-        expected_skill = f"skills/video-growth-agent/SKILL.md@{_git_blob_sha(skill_path)}" if skill_path.is_file() else None
-        if manifest.get("skill_version") != expected_skill:
-            failures.append("manifest_skill_version_pointer_drift")
-    if owner_path.is_file():
-        owner = _json(owner_path)
-        if owner.get("compatibility", {}).get("runtime_version") != runtime_version:
-            failures.append("owner_adapter_runtime_version_drift")
+        program = _json(program_state_path)
+        if program.get("program_id") != "video-growth:main":
+            failures.append("pilot002_program_identity_drift")
+        if program.get("runtime_version") != runtime_version:
+            failures.append("pilot002_program_runtime_version_drift")
+        if program.get("controller_authority") != "D1traverser-debug/universal-agent-os@main":
+            failures.append("pilot002_program_controller_drift")
+        serialized = json.dumps(program, ensure_ascii=False)
+        for retired_marker in ("continuity_protocol_version", "resume_epoch", "active_lease", "Universal Continuity"):
+            if retired_marker in serialized:
+                failures.append(f"pilot002_program_legacy_control_marker:{retired_marker}")
 
     workflow = _json(root / "video_growth_agent/data/workflow.json")
     execution_plan = _json(root / "video_growth_agent/data/execution-plan.json")

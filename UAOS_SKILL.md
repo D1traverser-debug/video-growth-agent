@@ -8,35 +8,44 @@ scope: AI video production, growth systems, original digital-IP incubation and m
 Controller: `D1traverser-debug/universal-agent-os@main`.
 Domain repository: `D1traverser-debug/video-growth-agent@main`.
 
-UAOS owns task/project routing, requirements, cross-chat continuation and controller action lineage. This repository owns video/domain runtime code, media rules, project-local design truth, shot/work-order evidence and production artifacts.
+UAOS owns task/project routing, requirements, cross-chat continuation, authorization and controller action lineage. This repository owns video-domain runtime code, media rules, project-local design truth, shot/work-order evidence and production artifacts.
 
 ## Start
-After UAOS resolves the exact task/project, read:
+After UAOS resolves the exact task/project, read progressively:
 1. `.uaos/ADAPTER.json`;
 2. `.uaos/MANIFEST.json`;
 3. `.uaos/CAPABILITIES.json`;
-4. the selected project `PROJECT_MANIFEST.json` / current progress / decision artifacts;
-5. only the references/runtime files required by the current action.
+4. the exact project/business-state ref supplied by UAOS;
+5. only the project progress, decision, reference and runtime files required by the current action.
 
-Do not infer current project from repository search or old continuity task files. Project-local manifests are business truth; UAOS is controller truth.
+Never infer the current project from repository search rank, chat memory or another project's latest activity. Do not create a local task index, lease, resume epoch or cross-chat continuation protocol.
 
-## Current project isolation
-`projects/ai-self-media-commercialization` is an independent original-digital-IP incubation project. It must not be merged with Pilot 001/002 or the older `video-growth:main` program unless the user explicitly requests such an import.
+## Current-session capability handshake
+Before every quality-critical generation, isolated review, media-QA or irreversible external action, handshake the exact current-session capability required by that action. Repository declarations are ceilings, not proof that a provider/tool is executable in this session.
 
-Always reread the selected project's current manifest immediately before material work. Do not copy a cached next action into a new session and assume it is still current.
+Assurance must remain calibrated:
+- `DECLARED_ONLY` — configured/known, not proven executable;
+- `HARNESS_WIRED` — deterministic guard or adapter wiring exists;
+- `SESSION_EXECUTABLE` — exact capability can execute now;
+- `CHAT_BRIDGED` — current chat can perform a bounded specialist action without independent-provider assurance;
+- `ATTESTED_ISOLATED` — distinct isolated execution is bound to provider/run/context/trace and artifact evidence.
+
+Do not upgrade one level to another by wording alone.
 
 ## Generation and QA
 Quality-critical generation is fail-closed. Prompts, role labels and configured adapters are not execution proof. Image/video review claims require actual modality access and evidence bound to the produced artifact identity.
 
-Asset continuity is explicit: character, wardrobe, scene, prop, style, light, action and shot-state changes must bind to versioned project assets/work orders rather than prompt memory.
+Asset continuity is explicit: character, wardrobe, scene, prop, style, light, action and shot-state changes bind to versioned project assets/work orders rather than prompt memory.
 
-Exploration/candidate outputs do not overwrite production/current assets until accepted. Rejected/process-invalid media must never silently return as accepted progress.
+Exploration/candidate outputs do not overwrite accepted/current assets until promoted. Rejected or process-invalid media never silently returns as accepted progress.
+
+Producer completion is not approval. Where isolation is required, same-chat role switching is not independent review.
 
 ## Cost and providers
-Use included/free current-session capabilities first when they meet the quality/permission floor. Paid or unknown-cost providers require explicit authorization. Missing hard capability blocks only the affected work unit; never fabricate generation/review.
+Use included/free current-session capabilities first when they satisfy the quality, permission and evidence floor. Paid or unknown-cost providers require explicit authorization. Missing hard capability blocks only the affected work unit; never fabricate generation or review.
 
-## Learning
-A successful/failing shot or project creates evidence/candidates. Promote durable production rules only after appropriate replay/cross-case evidence; avoid one-example overfitting.
+## Learning and system change
+A successful/failing shot or project creates evidence and candidate improvements. Promote durable production rules only after appropriate replay/cross-case evidence, tests and owner-level verification. Avoid one-example overfitting and do not let experimental methods overwrite production defaults before promotion.
 
 ## Completion
-Completion requires UAOS task/action evidence plus current project/media artifact verification. Do not create a parallel controller, task registry, lease, resume epoch or cross-chat continuation protocol in this repository.
+Completion requires both UAOS task/action evidence and current project/media artifact verification. Final claims must identify what actually executed, what was only configured, and what remains blocked.

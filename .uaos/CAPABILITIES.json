@@ -1,14 +1,114 @@
 {
-  "schema_version":"2.0",
-  "profile_version":2,
-  "domain_id":"video",
-  "policy":"QUALITY_CRITICAL_GENERATION_FAIL_CLOSED__CURRENT_SESSION_HANDSHAKE__ASSET_IDENTITY_BOUND",
-  "capabilities":[
-    {"capability_id":"project_design_and_planning","required":["model_runtime"],"side_channel_allowed":false},
-    {"capability_id":"image_generation","required":["image_generation_capability","bound_reference_assets"],"side_channel_allowed":false},
-    {"capability_id":"video_generation","required":["video_generation_capability","shot_contract","asset_identity"],"side_channel_allowed":false},
-    {"capability_id":"visual_review","required":["actual_modality_access"],"assurance_rule":"ROLE_LABEL_IS_NOT_EXECUTION_PROOF","side_channel_allowed":false},
-    {"capability_id":"artifact_continuity","required":["project_manifest","asset_version_identity"],"side_channel_allowed":false},
-    {"capability_id":"learning_promotion","required":["replay_or_cross_project_evidence"],"side_channel_allowed":false}
+  "schema_version": "2.1",
+  "profile_version": 5,
+  "execution_readiness_contract": "2.0",
+  "owner": "VIDEO_GROWTH_AGENT",
+  "domain_id": "video",
+  "repository": "D1traverser-debug/video-growth-agent",
+  "policy": "CURRENT_SESSION_HANDSHAKE__QUALITY_CRITICAL_FAIL_CLOSED__ARTIFACT_IDENTITY_BOUND__NO_PARALLEL_CONTROLLER",
+  "assurance_taxonomy": ["DECLARED_ONLY", "HARNESS_WIRED", "SESSION_EXECUTABLE", "CHAT_BRIDGED", "ATTESTED_ISOLATED"],
+  "capabilities": [
+    {
+      "capability_id": "studio_work_order_orchestration",
+      "scope": "ALL_CONFIGURED_STAGES",
+      "assurance_ceiling": "SESSION_EXECUTABLE",
+      "invocation_path": "video_growth_agent.studio_agents.AgenticStudio.dispatch_stage/work_packet/advance",
+      "executor_type": "PYTHON_WORK_ORDER_RUNTIME",
+      "executor_ref": "video_growth_agent/studio_agents.py + video_growth_agent/runtime.py",
+      "required_tools": ["python_runtime_or_owner_runtime"],
+      "evidence_contract": ["work order", "artifact binding", "work-order receipt", "gate state"],
+      "side_channel_allowed": false,
+      "safe_degraded_modes": []
+    },
+    {
+      "capability_id": "ordinary_specialist_execution",
+      "scope": "NON_ISOLATION_CRITICAL_WORK_ORDERS",
+      "assurance_ceiling": "SESSION_EXECUTABLE",
+      "invocation_path": "AgenticStudio.work_packet -> current approved executor substrate -> complete_work/submit_review",
+      "executor_type": "OWNER_PACKET_WITH_EXTERNAL_OR_CHAT_EXECUTOR",
+      "executor_ref": "video_growth_agent/studio_agents.py",
+      "required_tools": ["reasoning_or_media_tool_matching_work_packet"],
+      "evidence_contract": ["work packet", "executor identity", "input refs/digests", "completion/review receipt"],
+      "side_channel_allowed": false,
+      "safe_degraded_modes": ["CHAT_BRIDGED"]
+    },
+    {
+      "capability_id": "critical_blind_multimodal_review",
+      "scope": "LOOKDEV,VISUAL_PREVIEW,ROUGH_CUT,RELEASE_WHEN_ATTESTATION_REQUIRED",
+      "assurance_ceiling": "ATTESTED_ISOLATED",
+      "invocation_path": "work order -> trusted executor registry -> isolated provider execution -> execution attestation -> review receipt",
+      "executor_type": "ISOLATED_MULTIMODAL_REVIEWER",
+      "executor_ref": "video_growth_agent/data/executors.json",
+      "required_tools": ["trusted_registered_executor", "actual_media_modality_access", "provider_run_or_request_proof", "context_trace_correlation", "inspectable_proof_ref"],
+      "evidence_contract": ["work-order proof", "review receipt", "artifact digest binding", "execution attestation", "provider/run identity", "context/trace identity", "proof ref"],
+      "side_channel_allowed": false,
+      "safe_degraded_modes": []
+    },
+    {
+      "capability_id": "generation_preflight",
+      "scope": "QUALITY_CRITICAL_IMAGE_VIDEO_GENERATION",
+      "assurance_ceiling": "HARNESS_WIRED",
+      "invocation_path": "video_growth_agent.generation_guard.assert_generation_brief",
+      "executor_type": "DETERMINISTIC_PYTHON_GUARD",
+      "executor_ref": "video_growth_agent/generation_guard.py",
+      "required_tools": ["python_runtime_or_owner_runtime", "verified_challenge_bundle"],
+      "evidence_contract": ["generation brief digest", "separate Art Director evidence", "separate Creative Director evidence", "separate Red Team evidence", "independent execution identity checks", "machine preflight result"],
+      "side_channel_allowed": false,
+      "safe_degraded_modes": []
+    },
+    {
+      "capability_id": "quality_critical_generation_gateway",
+      "scope": "QUALITY_CRITICAL_IMAGE_VIDEO_GENERATION",
+      "assurance_ceiling": "DECLARED_ONLY",
+      "invocation_path": "UNAVAILABLE_UNTIL_CURRENT_SESSION_PROVIDER_GATEWAY_IS_PROVEN",
+      "executor_type": "UNAVAILABLE",
+      "executor_ref": null,
+      "required_tools": ["generation_engine_adapter", "authorization_receipt", "artifact_receipt"],
+      "evidence_contract": ["authorization receipt", "provider identity", "brief/prompt binding", "generated artifact ref/digest"],
+      "side_channel_allowed": false,
+      "safe_degraded_modes": []
+    },
+    {
+      "capability_id": "deterministic_media_qa",
+      "scope": "TECH_QA_AND_REAL_RENDER_VALIDATION",
+      "assurance_ceiling": "SESSION_EXECUTABLE",
+      "invocation_path": "configured ffmpeg/ffprobe QA through owner runtime",
+      "executor_type": "DETERMINISTIC_MEDIA_TOOL",
+      "executor_ref": "video_growth_agent/media_qa.py",
+      "required_tools": ["ffmpeg", "ffprobe", "final_render_access"],
+      "evidence_contract": ["media measurements", "inspection refs", "QA receipt", "target artifact binding"],
+      "side_channel_allowed": false,
+      "safe_degraded_modes": []
+    },
+    {
+      "capability_id": "asset_and_project_continuity",
+      "scope": "PROJECT_LOCAL_ASSETS_AND_STATE",
+      "assurance_ceiling": "SESSION_EXECUTABLE",
+      "invocation_path": "project manifest/state + ProjectStore + artifact/work-order identities",
+      "executor_type": "DOMAIN_STATE_AND_ARTIFACT_CONTRACT",
+      "executor_ref": "projects + video_growth_agent/storage.py + video_growth_agent/runtime.py",
+      "required_tools": ["current_project_manifest_or_program_state", "asset_version_identity"],
+      "evidence_contract": ["project identity", "artifact digest/version", "current acceptance state", "downstream invalidation on upstream change"],
+      "side_channel_allowed": false,
+      "safe_degraded_modes": []
+    },
+    {
+      "capability_id": "learning_and_evolution",
+      "scope": "LEARN_STAGE_AND_REPEATED_FAILURE_SYSTEM_IMPROVEMENT",
+      "assurance_ceiling": "HARNESS_WIRED",
+      "invocation_path": "work-order learning pipeline or bounded capability-gap maintenance -> evidence -> challenge -> tests/replay -> owner promotion",
+      "executor_type": "OWNER_LEARNING_AND_MAINTENANCE_PIPELINE",
+      "executor_ref": "video_growth_agent/data/execution-plan.json + skills/video-growth-agent/references/self-learning.md",
+      "required_tools": ["owner_work_order_runtime", "research_tools_as_needed", "tests_or_replay"],
+      "evidence_contract": ["learning candidate", "work-order provenance", "challenge/rejection evidence", "test/replay result", "promotion or rejection receipt"],
+      "side_channel_allowed": false,
+      "safe_degraded_modes": ["CHAT_BRIDGED"]
+    }
+  ],
+  "known_owner_blockers": [
+    "Production trusted reviewer executors are currently empty, so critical blind multimodal review is not executable merely because attestation code exists.",
+    "Quality-critical generation remains fail-closed until a current-session generation gateway and required isolated pre-generation review evidence are genuinely executable.",
+    "Candidate reviewer adapters may not be trusted until live proof binds actual modality access, provider/run identity, isolated execution and inspectable evidence.",
+    "Learning candidates do not mutate production authority by themselves; durable promotion requires owner maintenance plus tests/replay and verified write evidence."
   ]
 }

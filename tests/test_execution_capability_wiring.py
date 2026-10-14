@@ -1,17 +1,16 @@
+import json
 from pathlib import Path
-
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_skill_and_continuity_index_reference_execution_capabilities():
-    skill = (ROOT / "skills/video-growth-agent/SKILL.md").read_text(encoding="utf-8")
-    index = (ROOT / "continuity/TASK_INDEX.md").read_text(encoding="utf-8")
+def test_uaos_skill_and_capability_profile_bind_execution_semantics():
+    skill = (ROOT / "UAOS_SKILL.md").read_text(encoding="utf-8")
+    profile = json.loads((ROOT / ".uaos/CAPABILITIES.json").read_text(encoding="utf-8"))
 
-    required_ref = "continuity/EXECUTION_CAPABILITIES.json"
-    assert required_ref in skill
-    assert required_ref in index
+    assert ".uaos/CAPABILITIES.json" in skill
     assert "handshake" in skill.lower()
-    assert "handshake" in index.lower()
-    assert "chat_bridged" in skill.lower()
-    assert "attested_isolated" in skill.lower()
+    for term in ("DECLARED_ONLY", "HARNESS_WIRED", "SESSION_EXECUTABLE", "CHAT_BRIDGED", "ATTESTED_ISOLATED"):
+        assert term in skill
+        assert term in profile["assurance_taxonomy"]
+    assert not (ROOT / "continuity").exists()

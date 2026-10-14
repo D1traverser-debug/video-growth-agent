@@ -1,13 +1,14 @@
 {
-  "schema_version":"2.0",
-  "domain_id":"video",
-  "controller":"D1traverser-debug/universal-agent-os@main",
-  "status":"UAOS_CONTROL_PLANE_ACTIVE",
-  "task_identity_authority":"UAOS",
-  "cross_chat_continuity_authority":"UAOS",
-  "business_project_authority":"projects/<project>/PROJECT_MANIFEST.json + project-local progress/decision artifacts",
-  "business_rule_authority":"D1traverser-debug/video-growth-agent@main",
-  "runtime_authority":"video_growth_agent for domain execution only",
-  "legacy_controller_compatibility":"NONE",
-  "old_lease_resume_protocol":"NOT_SUPPORTED"
+  "schema_version": "2.1",
+  "domain_id": "video",
+  "controller": "D1traverser-debug/universal-agent-os@main",
+  "status": "UAOS_CONTROL_PLANE_ACTIVE",
+  "task_identity_authority": "UAOS",
+  "cross_chat_continuity_authority": "UAOS",
+  "business_state_authority": "Exact project/program state selected by UAOS: projects/<project>/PROJECT_MANIFEST.json or projects/<project>/PROGRAM_STATE.json plus project-local progress/decision artifacts",
+  "business_rule_authority": "D1traverser-debug/video-growth-agent@main",
+  "runtime_authority": "video_growth_agent for domain execution only",
+  "legacy_controller_compatibility": "NONE",
+  "old_lease_resume_protocol": "NOT_SUPPORTED",
+  "fallback_rule": "Missing controller/capability evidence blocks the affected action; never reactivate a retired repository-local controller."
 }
