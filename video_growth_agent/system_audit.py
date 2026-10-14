@@ -8,6 +8,7 @@ from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from typing import Any
 
+from .program_orchestration import ProgramGraph, ProgramOrchestrator
 from .resources import data_path
 from .roles import RoleRegistry
 from .studio_agents import AgentRegistry, ExecutionPlanner
@@ -26,6 +27,9 @@ CURRENT_GLOBAL_FILES = (
     ".uaos/ADAPTER.json",
     ".uaos/CAPABILITIES.json",
     "README.md",
+    "docs/product_requirements.md",
+    "docs/architecture.md",
+    "projects/PROJECT_INDEX.json",
 )
 RETIRED_ACTIVE_PATHS = ("continuity",)
 VERSIONED_PROJECT_STATE_RE = re.compile(r"\b(?:sample|release)\s+v\d+\b", re.IGNORECASE)
@@ -57,6 +61,7 @@ def _repo_runtime_version(root: Path) -> str:
 
 
 def _project_aliases(root: Path) -> set[str]:
+    """Historical helper retained for compatibility; aliases are now allowed in global routing docs."""
     projects = root / "projects"
     if not projects.is_dir():
         return set()
@@ -157,6 +162,7 @@ def package_audit() -> dict[str, Any]:
     roles = RoleRegistry()
     planner = ExecutionPlanner(agents=agents)
     workflow = _json(data_path("workflow.json"))
+    coordination = _json(data_path("coordination-policy.json"))
     package_version = _package_version()
 
     failures.extend(f"agent_registry:{item}" for item in agents.validate())
@@ -168,6 +174,25 @@ def package_audit() -> dict[str, Any]:
     principles = agents.config.get("principles", {})
     if principles.get("tool_labels_are_capability_requests_not_execution_proof") is not True:
         failures.append("agent_tool_labels_not_explicitly_declarative")
+    if principles.get("peer_chat") is not False:
+        failures.append("agent_peer_chat_enabled")
+    if coordination.get("peer_chat_allowed") is not False:
+        failures.append("coordination_peer_chat_enabled")
+    if coordination.get("artifact_handoffs_required") is not True:
+        failures.append("coordination_artifact_handoffs_not_required")
+    patterns = set(coordination.get("patterns", {}))
+    required_patterns = {
+        "SERIAL_DEPENDENCY",
+        "INDEPENDENT_PARALLEL",
+        "FAN_OUT_FAN_IN",
+        "CONSULTATIVE_ADVICE",
+        "COMPETITIVE_CANDIDATES",
+        "STRUCTURED_CRITIQUE_AND_REVISION",
+        "OWNER_ADJUDICATION",
+        "QUORUM_OR_PANEL_REVIEW",
+    }
+    if not required_patterns <= patterns:
+        failures.append("coordination_patterns_incomplete")
 
     workflow_stages = [item.get("id") for item in workflow.get("stages", [])]
     plan_stages = list(planner.config.get("stages", {}))
@@ -206,6 +231,8 @@ def package_audit() -> dict[str, Any]:
             failures.append("agent_registry_package_version_drift")
         if planner.config.get("version") != package_version:
             failures.append("execution_plan_package_version_drift")
+        if coordination.get("version") != package_version:
+            failures.append("coordination_policy_package_version_drift")
 
     return {
         "scope": "package",
@@ -213,6 +240,7 @@ def package_audit() -> dict[str, Any]:
         "workflow_version": workflow.get("version"),
         "agent_registry_version": agents.config.get("version"),
         "execution_plan_version": planner.config.get("version"),
+        "coordination_policy_version": coordination.get("version"),
         "failures": failures,
         "pass": not failures,
     }
@@ -235,10 +263,19 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
 
     skill_path = root / "UAOS_SKILL.md"
     skill_text = skill_path.read_text(encoding="utf-8") if skill_path.is_file() else ""
-    if "current-session capability handshake" not in skill_text.lower():
+    skill_lower = skill_text.lower()
+    if "current-session capability handshake" not in skill_lower:
         failures.append("uaos_skill_session_capability_handshake_missing")
     if "D1traverser-debug/universal-agent-os@main" not in skill_text:
         failures.append("uaos_skill_controller_binding_missing")
+    if "normal business turns do not traverse a live uaos business proxy" not in skill_lower:
+        failures.append("uaos_skill_direct_domain_activation_missing")
+    if "projects/project_index.json" not in skill_lower:
+        failures.append("uaos_skill_child_project_index_missing")
+    if "no parent/child id equality requirement" not in skill_lower:
+        failures.append("uaos_skill_identity_boundary_missing")
+    if "unbounded" not in skill_lower or "peer chat" not in skill_lower:
+        failures.append("uaos_skill_bounded_negotiation_missing")
 
     capability_path = root / ".uaos/CAPABILITIES.json"
     if capability_path.is_file():
@@ -251,6 +288,27 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             failures.append("uaos_capability_owner_drift")
         if capability.get("execution_readiness_contract") != "2.0":
             failures.append("uaos_execution_readiness_contract_drift")
+        if capability.get("profile_version") != 7:
+            failures.append("uaos_capability_profile_drift")
+        if capability.get("uaos_common_capabilities_contract_min") != "1.6.0":
+            failures.append("uaos_common_capability_minimum_drift")
+        required_common = set(capability.get("required_uaos_common_capabilities", []))
+        for required in (
+            "product_requirements_and_architecture_governance",
+            "domain_internal_work_orchestration",
+            "adaptive_deliberation_and_parent_guidance",
+            "governed_self_evolution",
+        ):
+            if required not in required_common:
+                failures.append(f"uaos_required_common_capability_missing:{required}")
+        floor = capability.get("hosted_cognition_semantics", {}).get("problem_response_floor")
+        if floor != [
+            "MICRO_DIAGNOSIS",
+            "MACRO_GOAL_AND_TOPOLOGY_ALIGNMENT",
+            "GOVERNING_ASSUMPTION_CHALLENGE",
+            "EXTERNAL_METHOD_OR_ARCHITECTURE_RESEARCH",
+        ]:
+            failures.append("uaos_problem_response_floor_drift")
 
     manifest_path = root / ".uaos/MANIFEST.json"
     if manifest_path.is_file():
@@ -263,16 +321,28 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             failures.append("uaos_manifest_skill_entrypoint_drift")
         if manifest.get("runtime", {}).get("version") != runtime_version:
             failures.append("uaos_manifest_runtime_version_drift")
-        if manifest.get("runtime", {}).get("workflow") != "video_growth_agent/data/workflow.json":
+        if manifest.get("runtime", {}).get("episode_workflow") != "video_growth_agent/data/workflow.json":
             failures.append("uaos_manifest_workflow_authority_drift")
+        if manifest.get("runtime", {}).get("program_orchestration") != "video_growth_agent/program_orchestration.py":
+            failures.append("uaos_manifest_program_orchestration_drift")
+        if manifest.get("domain_authority", {}).get("project_index") != "projects/PROJECT_INDEX.json":
+            failures.append("uaos_manifest_project_index_drift")
         if manifest.get("runtime", {}).get("system_audit") != "vga system-audit --repo-root .":
             failures.append("uaos_manifest_harness_entrypoint_drift")
 
     adapter_path = root / ".uaos/ADAPTER.json"
     if adapter_path.is_file():
         adapter = _json(adapter_path)
-        if adapter.get("task_identity_authority") != "UAOS" or adapter.get("cross_chat_continuity_authority") != "UAOS":
-            failures.append("uaos_adapter_control_authority_drift")
+        if adapter.get("controller_task_identity_authority") != "UAOS":
+            failures.append("uaos_adapter_controller_identity_authority_drift")
+        if adapter.get("domain_business_identity_authority") != "VIDEO_GROWTH_AGENT":
+            failures.append("uaos_adapter_domain_identity_authority_drift")
+        if "NO_EQUALITY_REQUIREMENT" not in str(adapter.get("identity_boundary", "")):
+            failures.append("uaos_adapter_identity_namespace_collapsed")
+        if "OPAQUE_CHILD_STATE_REFERENCE_ONLY" not in str(adapter.get("parent_reference_semantics", "")):
+            failures.append("uaos_adapter_parent_ref_not_opaque")
+        if not str(adapter.get("session_activation", "")).startswith("DIRECT_VIDEO_WORK_PLANE"):
+            failures.append("uaos_adapter_direct_activation_drift")
         if adapter.get("legacy_controller_compatibility") != "NONE":
             failures.append("uaos_adapter_legacy_compatibility_enabled")
 
@@ -283,9 +353,14 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
     elif skill_team.read_bytes() != packaged_team.read_bytes():
         failures.append("team_prompt_mirror_drift")
 
+    # Global routing/product documents may name projects through PROJECT_INDEX. They must not
+    # embed transient project-stage/version state or retired root-config authority.
     global_docs = sorted((root / "skills/video-growth-agent").rglob("*.md"))
-    global_docs.extend(root / rel for rel in CURRENT_GLOBAL_FILES if rel.endswith(".md"))
-    project_aliases = _project_aliases(root)
+    global_docs.extend(
+        root / rel
+        for rel in CURRENT_GLOBAL_FILES
+        if rel.endswith(".md")
+    )
     for path in global_docs:
         try:
             rel = path.relative_to(root).as_posix()
@@ -295,36 +370,101 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             failures.append(f"global_reference_missing:{rel}")
             continue
         text = path.read_text(encoding="utf-8")
-        lower = text.lower()
         if any(stale in text for stale in ("config/workflow.json", "config/roles.json", "config/quality-rubric.json", "config/techniques.json")):
             failures.append(f"stale_root_config_reference:{rel}")
-        for alias in sorted(project_aliases):
-            if alias in lower:
-                failures.append(f"project_state_pollution:{rel}:{alias}")
         match = VERSIONED_PROJECT_STATE_RE.search(text)
         if match:
             failures.append(f"project_version_state_pollution:{rel}:{match.group(0)}")
 
-    program_state_path = root / "projects/pilot-002/PROGRAM_STATE.json"
-    if not program_state_path.is_file():
+    project_index_path = root / "projects/PROJECT_INDEX.json"
+    if project_index_path.is_file():
+        project_index = _json(project_index_path)
+        if project_index.get("authority") != "VIDEO_GROWTH_AGENT":
+            failures.append("project_index_authority_drift")
+        if project_index.get("default_project_id") != "ai-self-media-commercialization":
+            failures.append("project_index_default_program_drift")
+        projects = project_index.get("projects", [])
+        by_id = {str(item.get("project_id")): item for item in projects}
+        if set(by_id) < {"ai-self-media-commercialization", "pilot-002"}:
+            failures.append("project_index_required_projects_missing")
+        integrated_aliases = set(by_id.get("ai-self-media-commercialization", {}).get("aliases", []))
+        for alias in ("AI自媒体视频商业化", "AI视频涨粉与商业化", "原创数字IP"):
+            if alias not in integrated_aliases:
+                failures.append(f"project_index_integrated_alias_missing:{alias}")
+        pilot_aliases = set(by_id.get("pilot-002", {}).get("aliases", []))
+        if "video-growth:main" not in pilot_aliases:
+            failures.append("pilot002_legacy_alias_missing")
+        if "video-growth:main" in integrated_aliases:
+            failures.append("project_index_legacy_alias_collision")
+
+    pilot_state_path = root / "projects/pilot-002/PROGRAM_STATE.json"
+    if not pilot_state_path.is_file():
         failures.append("pilot002_program_state_missing")
     else:
-        program = _json(program_state_path)
-        if program.get("program_id") != "video-growth:main":
-            failures.append("pilot002_program_identity_drift")
-        if program.get("runtime_version") != runtime_version:
+        pilot = _json(pilot_state_path)
+        if pilot.get("project_id") != "pilot-002":
+            failures.append("pilot002_project_identity_drift")
+        if pilot.get("runtime_version") != runtime_version:
             failures.append("pilot002_program_runtime_version_drift")
-        if program.get("controller_authority") != "D1traverser-debug/universal-agent-os@main":
-            failures.append("pilot002_program_controller_drift")
-        serialized = json.dumps(program, ensure_ascii=False)
+        if pilot.get("owner") != "VIDEO_GROWTH_AGENT":
+            failures.append("pilot002_owner_drift")
+        if "video-growth:main" not in set(pilot.get("legacy_aliases", [])):
+            failures.append("pilot002_legacy_alias_state_missing")
+        if "UAOS task identity" not in str(pilot.get("legacy_alias_semantics", "")):
+            failures.append("pilot002_legacy_alias_semantics_missing")
+        serialized = json.dumps(pilot, ensure_ascii=False)
         for retired_marker in ("continuity_protocol_version", "resume_epoch", "active_lease", "Universal Continuity"):
             if retired_marker in serialized:
                 failures.append(f"pilot002_program_legacy_control_marker:{retired_marker}")
+        if pilot.get("controller_authority") or pilot.get("controller_task_ref"):
+            failures.append("pilot002_parent_business_identity_returned")
 
+    integrated_state_path = root / "projects/ai-self-media-commercialization/PROGRAM_STATE.json"
+    graph_path = root / "projects/ai-self-media-commercialization/SUBTASK_GRAPH.json"
+    if not integrated_state_path.is_file():
+        failures.append("integrated_program_state_missing")
+    else:
+        integrated = _json(integrated_state_path)
+        if integrated.get("program_id") != "ai-self-media-commercialization":
+            failures.append("integrated_program_identity_drift")
+        if integrated.get("owner") != "VIDEO_GROWTH_AGENT":
+            failures.append("integrated_program_owner_drift")
+        workstreams = set(integrated.get("workstreams", {}))
+        if workstreams != {"MEDIA_GROWTH", "ORIGINAL_DIGITAL_IP", "COMMERCIALIZATION", "PRODUCTION_SYSTEM"}:
+            failures.append("integrated_program_workstream_set_drift")
+        if integrated.get("current_focus") != "ORIGINAL_DIGITAL_IP/H1_SCULPTURAL_MASSING_V2":
+            failures.append("integrated_program_h1_focus_drift")
+        if "DISTINCT_FROM_UAOS_ROUTER_ID" not in str(integrated.get("parent_identity_semantics", "")):
+            failures.append("integrated_program_parent_identity_boundary_drift")
+
+    if not graph_path.is_file():
+        failures.append("integrated_subtask_graph_missing")
+    else:
+        try:
+            graph_payload = _json(graph_path)
+            graph = ProgramGraph(graph_payload)
+            run = ProgramOrchestrator(graph)
+            ready = {node.node_id for node in run.ready()}
+            declared_parallel = set(graph_payload.get("parallel_now", []))
+            if ready != declared_parallel:
+                failures.append(
+                    "integrated_program_parallel_readiness_drift:"
+                    + f"ready={sorted(ready)}:declared={sorted(declared_parallel)}"
+                )
+            groups = graph.decision_groups()
+            for required_group in ("commercial_offer_architecture", "pilot_topic_slate"):
+                if len(groups.get(required_group, ())) < 2:
+                    failures.append(f"integrated_program_competition_missing:{required_group}")
+        except (ValueError, KeyError, TypeError) as exc:
+            failures.append(f"integrated_subtask_graph_invalid:{exc}")
+
+    coordination = _json(root / "video_growth_agent/data/coordination-policy.json")
     workflow = _json(root / "video_growth_agent/data/workflow.json")
     execution_plan = _json(root / "video_growth_agent/data/execution-plan.json")
     agents = _json(root / "video_growth_agent/data/agents.json")
     failures.extend(_artifact_reachability_failures(workflow, execution_plan))
+    if coordination.get("version") != runtime_version:
+        failures.append("coordination_policy_repo_version_drift")
     if execution_plan.get("version") != runtime_version:
         failures.append("execution_plan_repo_version_drift")
     if agents.get("version") != runtime_version:
