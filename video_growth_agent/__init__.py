@@ -9,6 +9,7 @@ from .engine_routing import (
 from .execution_attestation import ExecutionAttestation, ExecutionTrustRegistry, canonical_digest
 from .models import Approval, ArtifactRecord, AssetRecord, QACheck, QAReport, ProjectState
 from .orchestrator import GateBlocked, StudioOrchestrator
+from .program_orchestration import ProgramGraph, ProgramNode, ProgramOrchestrator, ProgramRunState
 from .roles import RoleRegistry
 from .runtime import StudioRuntime
 from .storage import ProjectStore
@@ -39,6 +40,10 @@ __all__ = [
     "ProjectState",
     "GateBlocked",
     "StudioOrchestrator",
+    "ProgramGraph",
+    "ProgramNode",
+    "ProgramOrchestrator",
+    "ProgramRunState",
     "RoleRegistry",
     "StudioRuntime",
     "ProjectStore",
