@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.4",
+  "schema_version": "1.5",
   "project_id": "ai-self-media-commercialization",
   "display_name_zh": "AI自媒体视频商业化与原创数字IP",
   "project_kind": "INCUBATION_REFERENCE_PACKAGE",
@@ -30,6 +30,7 @@
       "HUMAN_CORE_ARCHITECTURE",
       "FACIAL_MORPHOLOGY",
       "BODY_PROPORTION",
+      "REFERENCE_DECOMPOSITION",
       "HAIR_ARCHITECTURE",
       "GROOMING_MAKEUP",
       "FASHION_RUNWAY_RESEARCH",
@@ -39,17 +40,18 @@
       "MODEL_ROUTER",
       "LOOKDEV_INPUT"
     ],
-    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. Concept V1 is rejected. V2 is now focused on constructing the Human Core—face morphology, body archetype, hair architecture, skin/grooming and neutral performance—before wardrobe, motif, canon presentation or Presentation Modes. It is not an active continuity task and must not mutate Pilot 002 state or gates.",
+    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. Concept V1 is rejected. V2 is now focused on constructing the Human Core—face morphology first, body as plausibility/silhouette/motion support, then hair architecture, skin/grooming and neutral performance—before wardrobe, motif, canon presentation or Presentation Modes. It is not an active continuity task and must not mutate Pilot 002 state or gates.",
     "resume_entry": "RESUME_ENTRY.md",
     "current_progress": "CURRENT_PROGRESS.md",
     "latest_failure_audit": "CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md",
     "current_design_method": "DESIGN_RESEARCH_METHOD_V2.md",
     "current_design_space": "DESIGN_SPACE_EXPLORATION_V2.md",
-    "human_core_stack": "HUMAN_CORE_CONSTRUCTION_STACK_V2.md"
+    "human_core_stack": "HUMAN_CORE_CONSTRUCTION_STACK_V2.md",
+    "current_reference_assessment": "H0_REFERENCE_ASSESSMENT_2026-10-14.md"
   },
   "current_stage": "HUMAN_CORE_ARCHITECTURE_V2",
-  "current_state": "Concept V1 is rejected as a whole. Presentation Modes and fashion/runway directions are now explicitly downstream. The active task is to construct the base human identity from reference-decomposed face/body truth, compare multiple face and body architectures, and pass identity-strip tests before cyan hair, pixel sunglasses, wardrobe or motif systems are allowed to define the character.",
-  "next_action": "Extract a neutral face-morphology sheet from the creator certificate photo and body/skin/posture truth from real-life/full-body photos. Compare 4–5 face primary-mass systems and 4 base-body archetypes. Select face/body direction before hair color, pixel accessories or wardrobe. Then design hair architecture, grooming and identity-strip tests, consolidate the approved Human Core into CHARACTER_DESIGN_BIBLE_V2, and only afterward resume clothing/runway/motif design.",
+  "current_state": "H0 reference decomposition has begun. The certificate portrait is the primary structural face source but not a skin/style target. The two full-body photos are supporting references for tall-slim plausibility, limb/posture/skin truth and later movement/garment constraints; they are not primary likeness sources and must not force literal body replication.",
+  "next_action": "Extract a neutral face-morphology sheet from the certificate portrait first. Use the life and graduation photos only to define body plausibility boundaries and cross-check skin/posture/limb tendencies. Then compare 4–5 face primary-mass systems and 4 base-body archetypes before cyan hair, pixel accessories or wardrobe are reintroduced.",
   "workflow_integration": {
     "mode": "FUTURE_EXPLICIT_IMPORT",
     "do_not_auto_promote": true,
@@ -73,6 +75,7 @@
     "DESIGN_RESEARCH_METHOD_V2.md",
     "DESIGN_SPACE_EXPLORATION_V2.md",
     "HUMAN_CORE_CONSTRUCTION_STACK_V2.md",
+    "H0_REFERENCE_ASSESSMENT_2026-10-14.md",
     "CHARACTER_DESIGN_BIBLE_V1.md",
     "CONCEPT_GENERATION_PROMPT_V1.md",
     "PRODUCTION_AND_COST_STRATEGY.md",
@@ -87,8 +90,9 @@
     "whole_look_direction": "Glitch Dandy / 异常绅士",
     "whole_look_status": "PROPOSED_DOWNSTREAM_NOT_LOCKED",
     "personal_feature_policy": "SELECTIVE_STRUCTURAL_INHERITANCE_PROPOSED",
+    "body_reference_policy": "PLAUSIBILITY_SUPPORT_NOT_PRIMARY_LIKENESS",
     "presentation_modes_status": "DORMANT_UNTIL_CANON_H9"
   },
   "created_at": "2026-10-14T00:14:38Z",
-  "updated_at": "2026-10-14T02:20:00Z"
+  "updated_at": "2026-10-14T02:32:00Z"
 }
