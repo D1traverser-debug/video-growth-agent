@@ -8,53 +8,53 @@ Continuity task: NO
 
 Preferred new-chat entry:
 
-> `继承 AI自媒体视频商业化与原创数字IP，继续 HUMAN_CORE_ARCHITECTURE_V2。先读取 PROJECT_MANIFEST.json、CURRENT_PROGRESS.md、CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md、DESIGN_RESEARCH_METHOD_V2.md、DESIGN_SPACE_EXPLORATION_V2.md、HUMAN_CORE_CONSTRUCTION_STACK_V2.md 和 DECISION_LOG.md。当前不要设计 Presentation Modes，也不要继续 V1 的脸/身型/头发/衣服；先从证件照和生活照提取结构信息，比较脸部大体块和基础身型，再决定 Human Core。不要进入 video-growth:main / Pilot 002。`
+> `继承 AI自媒体视频商业化与原创数字IP，继续 H1_FACE_PRIMARY_MASSES_V2。先读取 PROJECT_MANIFEST.json、CURRENT_PROGRESS.md、CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md、HUMAN_CORE_CONSTRUCTION_STACK_V2.md、H0_REFERENCE_ASSESSMENT_2026-10-14.md、H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md 和 DECISION_LOG.md。V1 已整体否决；现在只比较脸部大体块，不要先加冰蓝头发、紫眼、像素墨镜、服装、柴犬鲤鱼或 Presentation Modes，也不要进入 video-growth:main / Pilot 002。`
 
 Short form:
-- `继承原创数字IP设计，继续Human Core V2。`
-- `继承 ai-self-media-commercialization，从 HUMAN_CORE_ARCHITECTURE_V2 继续。`
+- `继承原创数字IP设计，继续H1脸部大体块。`
+- `继承 ai-self-media-commercialization，从 H1_FACE_PRIMARY_MASSES_V2 继续。`
 
 ## Required entry order
 
 1. `PROJECT_MANIFEST.json` — identity, isolation boundary, current stage and next action.
 2. `CURRENT_PROGRESS.md` — latest checkpoint.
 3. `CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md` — exact V1 rejection and anti-regression.
-4. `DESIGN_RESEARCH_METHOD_V2.md` — macro-to-micro professional method.
-5. `DESIGN_SPACE_EXPLORATION_V2.md` — broad option sweep; fashion/runway directions are downstream proposals.
-6. `HUMAN_CORE_CONSTRUCTION_STACK_V2.md` — current active construction order, specialist stack, reference policy and Harness.
-7. `DECISION_LOG.md` — accepted/rejected history.
-8. Historical V1 Bible/prompt only when diagnosing prior mistakes; do not reuse them as V2 authority.
+4. `HUMAN_CORE_CONSTRUCTION_STACK_V2.md` — active dependency order and Harness.
+5. `H0_REFERENCE_ASSESSMENT_2026-10-14.md` — role/reliability of certificate and full-body references.
+6. `H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md` — current structural face extraction and F1-F5 candidate architectures.
+7. `DESIGN_RESEARCH_METHOD_V2.md` and `DESIGN_SPACE_EXPLORATION_V2.md` only as supporting method/context; runway/wardrobe directions remain downstream.
+8. `DECISION_LOG.md` — accepted/rejected history.
+9. Historical V1 Bible/prompt only when diagnosing prior mistakes; do not reuse them as V2 authority.
 
 Do not preload unrelated Pilot 001 / Pilot 002 project state.
 
 ## Current continuation target
 
-Current stage: `HUMAN_CORE_ARCHITECTURE_V2`
+Current stage: `H1_FACE_PRIMARY_MASSES_V2`
 
 Current truth:
 - V1 is rejected as a whole.
-- Presentation Modes are defined only as a future derivative system and are dormant until Canon H9 passes.
-- `Glitch Dandy / 异常绅士` is a downstream whole-look/wardrobe proposal, not a face/body authority.
-- the active design problem is the human being: facial morphology, base-body archetype, hair architecture, skin/grooming and neutral movement.
-- personal traits should be selectively inherited as structure, not copied as a digital double.
+- Presentation Modes remain dormant until Canon H9.
+- body references are plausibility/silhouette/motion support, not primary likeness targets.
+- certificate portrait has been decomposed into structure rather than copied appearance.
+- extracted same-source anchors: moderately elongated soft-rectangular/oval envelope, cheek support, compact blunt/rounded chin, horizontal brow-eye organization, moderate-narrow eye aperture, natural medium nose volume and compact mouth-to-chin relationship.
+- no face architecture is locked yet.
 
-Reference roles:
-- certificate photo = face structure only; strip makeup/retouch/whitening/style;
-- life/full-body photos = body proportion, true skin value, posture and physical truth;
-- pixel avatar = graphic/brand DNA, not anatomy;
-- Shiba-carp = narrative/contradiction grammar, not anatomy.
+Current face hypotheses:
+- F1 Same-Source Natural — control;
+- F2 Blunt Analytical — leading candidate;
+- F3 Editorial Plane — leading candidate;
+- F4 Compact Deadpan — leading candidate;
+- F5 Controlled Uncanny Human — boundary experiment.
 
 Current next action:
-1. create neutral face-morphology extraction from certificate photo;
-2. create body/skin/posture truth extraction from life/full-body photos;
-3. compare 4–5 face primary-mass systems;
-4. compare 4 base-body archetypes;
-5. select face/body direction without cyan hair, colored eyes, pixel glasses or fashion;
-6. design hair architecture on approved head;
-7. apply skin/grooming and run identity-strip tests;
-8. reintroduce pixel-avatar brand DNA only after Human Core passes;
-9. resume wardrobe/runway/motif work only afterward;
-10. consolidate approved Human Core into `CHARACTER_DESIGN_BIBLE_V2` before any final-character generation prompt.
+1. compare F1-F5 as neutral grayscale front + 3/4 head studies;
+2. dark/plain hair only, dark eyes, no pixel glasses, no fashion, no dramatic lighting;
+3. judge skull/face envelope, brow/orbit, cheek/jaw/chin masses, nose/mouth volumes and baseline expression;
+4. select one architecture or deliberate hybrid;
+5. run grayscale/dark-hair/no-accessory identity test;
+6. only after H1 PASS proceed to H2 body archetype;
+7. later reintroduce hair architecture, skin/grooming, pixel-avatar DNA, wardrobe/runway and motif systems in Harness order.
 
 ## Persistence/report rule
 
