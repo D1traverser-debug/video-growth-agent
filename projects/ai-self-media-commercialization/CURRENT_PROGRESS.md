@@ -54,6 +54,40 @@ Must not import:
 - exact expression;
 - direct digital-double target.
 
+### Selective personal inheritance — ACTIVE
+
+The creator does not need to be conventionally handsome for creator-derived traits to remain useful.
+
+Current policy is **selective structural inheritance**, not literal likeness and not total replacement:
+- strongly calibrate source-specific relationships that provide same-source resonance;
+- deliberately redesign generic/weak/noisy relationships when they do not help identity;
+- never replace the whole face with a standard beauty/model prior;
+- do not preserve transient imperfections merely because they appear in one photo;
+- optimize for character ownership, recognizability, coherence, AI-video stability and extensibility rather than maximum handsomeness or maximum similarity.
+
+Tier-A candidate anchors to preserve/calibrate:
+- overall face width/length tendency;
+- horizontal brow-eye organization;
+- eye spacing/orbital placement tendency;
+- meaningful cheek support;
+- compact mouth-to-chin relation;
+- compact rounded/blunt chin tendency;
+- natural medium nose volume;
+- adult Chinese male baseline.
+
+Tier-B relationships may be redesigned:
+- cheek→jaw→chin rhythm;
+- eye aperture;
+- brow mass;
+- lower-face vertical rhythm;
+- soft-tissue fullness;
+- plane clarity;
+- asymmetry level.
+
+Tier-C non-identity details should not be preserved: makeup/retouch/whitening, current haircut, transient skin texture, suit styling, camera distortion and unstable micro-asymmetry.
+
+Authority: `HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md`
+
 ### Pixel avatar
 Brand/graphic DNA only: ice-cyan/cyan-blue head color family, deep blue-violet iris concept, black/white pixel sunglasses, white/ice-blue/black lineage, internet-native/pixel DNA and optional rare red anomaly accent.
 
