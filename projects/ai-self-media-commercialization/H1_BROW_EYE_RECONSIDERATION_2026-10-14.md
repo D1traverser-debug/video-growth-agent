@@ -37,10 +37,10 @@ Do NOT solve this by generic beauty optimization (larger eyes, heroic brows, fox
 Instead, keep the current face shell fixed and compare three controlled brow-eye systems:
 
 ### E1 — Source Quiet Control
-- keep current source-like orbital placement and eye spacing;
-- preserve restrained vertical aperture;
-- brow remains natural and near-horizontal;
-- serves only as control, not preferred result.
+- the CURRENT corrected S1+S3 front sculpt itself is E1;
+- do NOT regenerate E1;
+- keep it as the source-like control image for comparison;
+- restrained vertical aperture, natural near-horizontal brow, current source-like brow-eye read.
 
 ### E2 — Refined Analytical (recommended)
 - preserve eye spacing and orbital placement;
@@ -65,18 +65,21 @@ Risk: can drift toward runway/fashion-face abstraction and reduce warmth/commerc
 
 ## Recommendation
 
-E2 is the leading recommendation, but do not lock it without a controlled visual comparison.
+E2 is the leading recommendation, but do not lock it without a controlled visual comparison against E1 and E3.
 
 ## Execution rule
 
 Pause the previously planned cheek→jaw-only micro-correction.
-Before any 3/4 validation, generate three strict-front gray-sculpt variants E1/E2/E3 from the CURRENT corrected S1+S3 front candidate.
+Before any 3/4 validation:
+- use CURRENT corrected S1+S3 front sculpt as E1 control;
+- generate only E2 and E3 as two separate controlled edits from the same current sculpt;
+- do not upload the creator certificate portrait for E2/E3, because it could pull the edits back toward the source brow-eye appearance.
 
-For all three:
+For E2/E3:
 - keep face envelope, cheek mass, jaw width/taper, chin geometry, nose, mouth, neck, camera, light and material unchanged;
 - alter ONLY brow-eye system variables listed above;
 - no skin, hair styling, iris color, makeup or fashion cues;
-- compare character appeal, calm intelligence, distinctiveness, adult-male credibility and anti-generic behavior.
+- compare E1/E2/E3 for character appeal, calm intelligence, distinctiveness, adult-male credibility and anti-generic behavior.
 
 After selecting the brow-eye system:
 1. optionally return to the subtle cheek→jaw micro-correction if still needed;
