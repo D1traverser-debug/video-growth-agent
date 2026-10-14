@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "project_id": "ai-self-media-commercialization",
   "display_name_zh": "AI自媒体视频商业化与原创数字IP",
   "project_kind": "INCUBATION_REFERENCE_PACKAGE",
@@ -27,18 +27,22 @@
       "COMMERCIALIZATION",
       "ORIGINAL_DIGITAL_IP",
       "CHARACTER_DESIGN",
+      "CHARACTER_REDESIGN_V2",
       "AIGC_LONGFORM",
       "BILIBILI",
       "TECH_BUSINESS_MEDIA",
       "MODEL_ROUTER",
       "LOOKDEV_INPUT"
     ],
-    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account, its original male digital IP, AI-heavy long-form production strategy, cost/model routing, and later Video Growth workflow integration. It is not an active continuity task and must not mutate Pilot 002 state or gates.",
-    "resume_entry": "RESUME_ENTRY.md"
+    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account, its original male digital IP, AI-heavy long-form production strategy, cost/model routing, and later Video Growth workflow integration. Concept V1 is rejected; character work is now in macro-form redesign/research V2. It is not an active continuity task and must not mutate Pilot 002 state or gates.",
+    "resume_entry": "RESUME_ENTRY.md",
+    "current_progress": "CURRENT_PROGRESS.md",
+    "latest_failure_audit": "CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md",
+    "current_design_method": "DESIGN_RESEARCH_METHOD_V2.md"
   },
-  "current_stage": "CHARACTER_CONCEPT_DESIGN_V1",
-  "current_state": "Account positioning is provisionally locked. Character direction has been reset away from photoreal blue-haired cosplay and generic AAA handsome-male outputs. A new original character design authority is defined around pixel-avatar DNA, Shiba-carp hybrid absurdity as motif/easter-egg/performance grammar, and the creator's real-world body archetype as a weak host anchor.",
-  "next_action": "Generate one full-body concept character from CHARACTER_DESIGN_BIBLE_V1 and CONCEPT_GENERATION_PROMPT_V1. Judge silhouette, face identity, hair architecture, costume architecture and motif fusion. If the large-form design passes, refine the same character through controlled edits rather than resampling a new identity.",
+  "current_stage": "CHARACTER_REDESIGN_RESEARCH_V2",
+  "current_state": "Concept V1 was rejected as a whole. Face, body archetype, hair, costume, accessory scale, pose and motif fusion were all insufficiently designed at macro-form level. The project has moved from prompt iteration to first-principles redesign using a macro-to-micro professional design method.",
+  "next_action": "Do not generate another character yet. Redesign face primary masses, base body archetype, hair silhouette, garment silhouette/proportion, signature-accessory scale and macro/meso motif fusion. Consolidate the approved design into CHARACTER_DESIGN_BIBLE_V2, then write a new generation prompt.",
   "workflow_integration": {
     "mode": "FUTURE_EXPLICIT_IMPORT",
     "do_not_auto_promote": true,
@@ -58,12 +62,18 @@
     "CURRENT_PROGRESS.md",
     "README.md",
     "ACCOUNT_POSITIONING.md",
+    "CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md",
+    "DESIGN_RESEARCH_METHOD_V2.md",
     "CHARACTER_DESIGN_BIBLE_V1.md",
     "CONCEPT_GENERATION_PROMPT_V1.md",
     "PRODUCTION_AND_COST_STRATEGY.md",
     "WORKFLOW_INTEGRATION.md",
     "DECISION_LOG.md"
   ],
+  "supersession": {
+    "CHARACTER_DESIGN_BIBLE_V1.md": "HISTORICAL_INPUT_PENDING_V2_REWRITE",
+    "CONCEPT_GENERATION_PROMPT_V1.md": "DO_NOT_USE_FOR_V2"
+  },
   "created_at": "2026-10-14T00:14:38Z",
-  "updated_at": "2026-10-14T00:24:00Z"
+  "updated_at": "2026-10-14T02:01:00Z"
 }
