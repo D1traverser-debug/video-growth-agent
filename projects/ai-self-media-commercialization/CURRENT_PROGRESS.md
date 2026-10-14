@@ -1,12 +1,23 @@
-# Current Progress — AI自媒体视频商业化与原创数字IP
+# Current Progress — AI自媒体视频增长、商业化与原创数字IP
 
-Updated: 2026-10-14
-Status: ACTIVE_DESIGN_INCUBATION
-Authority scope: PROJECT_LOCAL_ONLY
-Continuity task: NO
+Updated: 2026-10-15
+Status: ACTIVE_INTEGRATED_PROGRAM
+Authority scope: PROGRAM_LOCAL_BUSINESS_AUTHORITY
+Program state: `PROGRAM_STATE.json`
+Subtask graph: `SUBTASK_GRAPH.json`
 
-## Isolation boundary
-This file belongs only to `projects/ai-self-media-commercialization/` and is not a child/subtask of `video-growth:main`, Pilot 001 or Pilot 002.
+## Program topology
+This is the default integrated Video-domain business Program, not an isolated future-import package and not a UAOS task.
+
+Current workstreams:
+- `MEDIA_GROWTH` — READY_ACTIVE_BASELINE; account positioning and audience/content hypotheses exist and can progress now;
+- `ORIGINAL_DIGITAL_IP` — ACTIVE; current foreground work is H1 face massing/A2 upper-face tuning;
+- `COMMERCIALIZATION` — READY_FOR_PARALLEL_RESEARCH; advertiser mapping and offer/rights architecture can progress independently;
+- `PRODUCTION_SYSTEM` — READY_WITH_HARD_CAPABILITY_GATES; existing episode runtime remains usable where current-session generation/review capability is actually available.
+
+Only declared dependencies block work. Unfinished character design does not block topic/audience research or advertiser research. Character-canon-dependent brand assets do wait for canon.
+
+Pilot 002 remains a separate historical child project. Its rejected/process-invalid artifacts are not accepted inputs here.
 
 ## Character dependency order
 1. HUMAN CORE
@@ -19,9 +30,7 @@ This file belongs only to `projects/ai-self-media-commercialization/` and is not
 Presentation Modes remain dormant.
 
 ## Active personal-inheritance policy
-Selective structural inheritance / same-source original.
-The creator supplies structural ancestry, not a final likeness target.
-Exact brow-eye appearance is redesignable.
+Selective structural inheritance / same-source original. The creator supplies structural ancestry, not a final likeness target. Exact brow-eye appearance is redesignable.
 
 ## H1 retained face shell
 The corrected S1+S3 strict-front gray sculpt remains the active fixed face shell.
@@ -34,56 +43,43 @@ Retain:
 - mouth placement;
 - adult Chinese male plausibility.
 
-## E1/E2/E3 brow-eye comparison
-INCONCLUSIVE. The edits were too small to produce a meaningful visual decision.
-Do not continue this loop.
+## Prior upper-face exploration
+- E1/E2/E3 — INCONCLUSIVE; edits were too small to make a meaningful decision. Do not continue that loop.
+- A1 Refined East-Asian Male Appeal — REJECTED AS UPPER-FACE SOLUTION.
 
-## A1 Refined East-Asian Male Appeal
-REJECTED AS UPPER-FACE SOLUTION.
-Authority: `H1_A1_REVIEW_2026-10-14.md`.
+A1 failure coding:
+- brow-eye package too compressed/heavy;
+- upper lid too hooded/relaxed;
+- eye aperture too round centrally instead of horizontally organized;
+- lower lid too soft/tired;
+- buzz-like hair placeholder amplified street-tough coding;
+- slight mouth compression compounded irritation rather than calm.
 
-Observed failure coding:
-- brow-eye package became too compressed/heavy;
-- upper lid read too hooded/relaxed;
-- eye aperture stayed too round centrally rather than horizontally organized;
-- lower lid remained too soft/tired;
-- minimal/buzz-like hair placeholder amplified a street-tough / small-thug read;
-- slight mouth compression compounded the irritated rather than calm read.
-
-Temple volume, gray-sculpt smoothing and the lower-face shell are NOT the primary cause.
+Temple volume, gray-sculpt smoothing and the lower-face shell are not the primary cause.
 
 ## Prompt-language correction
 Active method: `GPT_IMAGE_POSITIVE_MORPH_LANGUAGE_RULE_V1.md`.
 
 Project rule:
-- stop using long negative-prompt dumps as the main control language;
 - translate unwanted vibes into visible geometry;
-- describe the target morphology positively and observably;
-- state the fixed geometry separately;
-- branch every controlled edit from the last accepted base, not from a rejected derivative.
+- describe target morphology positively and observably;
+- state fixed geometry separately;
+- branch every controlled edit from the last accepted base, never a rejected derivative.
 
 ## A2 target — Clean Analytical East-Asian Male Upper Face
-Use the ORIGINAL corrected S1+S3 front sculpt as the sole image input.
-Do not use A1 as the base.
+Use the ORIGINAL corrected S1+S3 front sculpt as the sole image input. Do not use A1 as the base.
 
-Positive morph target:
-- medium-density straight-to-soft-triangular brow;
-- brow body sits slightly higher than A1, increasing visible brow-eye clearance;
-- inner two-thirds nearly horizontal;
-- apex near the lateral canthus;
-- clean tapered tail;
-- restrained almond / long-oval eye aperture;
-- modest horizontal length increase while vertical aperture stays moderate-narrow;
-- upper lid margin taut and clean, with a low subtle East-Asian crease close to the lid margin;
-- central upper-lid arc flatter, reducing puppy-eye roundness;
+Target morphology:
+- medium-density straight-to-soft-triangular brow, slightly higher than A1;
+- increased visible brow-eye clearance; inner two-thirds nearly horizontal; apex near lateral canthus; clean tapered tail;
+- restrained almond / long-oval eye aperture with modest horizontal length increase and moderate-narrow vertical opening;
+- taut clean upper-lid margin, low subtle East-Asian crease close to lid margin, flatter central upper-lid arc;
 - outer canthus level to very slightly above inner canthus;
-- lower lid smooth and gently rising toward the outer third;
-- upper-lid soft tissue firm rather than hooded/lax;
-- under-eye transition clean and continuous;
-- mouth width/volume fixed, but corners slightly more relaxed.
+- smooth supported lower lid rising gently toward outer third;
+- firm upper-lid soft tissue and clean under-eye transition;
+- mouth width/volume fixed with slightly more relaxed corners.
 
-Target read:
-clean, educated, rational, awake, controlled, commercially attractive, adult Chinese male.
+Target read: clean, educated, rational, awake, controlled, commercially attractive, adult Chinese male.
 
 ## Human Core Harness
 - H0 Reference Decomposition — COMPLETE ENOUGH;
@@ -98,19 +94,25 @@ clean, educated, rational, awake, controlled, commercially attractive, adult Chi
 - H9 Canon Character — PENDING;
 - H10 Presentation Modes — DORMANT.
 
-## Current stage
-`H1_SCULPTURAL_MASSING_V2`
+## Current focus
+`ORIGINAL_DIGITAL_IP / H1_SCULPTURAL_MASSING_V2`
 
 ## Current next action
-1. Use the ORIGINAL corrected S1+S3 strict-front gray sculpt as the sole input.
-2. Do not upload the certificate portrait, A1, E2/E3, pixel avatar, meme or downstream styling reference.
-3. Execute one A2 positive-morph edit using the explicit geometry above.
+1. Use only the ORIGINAL corrected S1+S3 strict-front gray sculpt.
+2. Do not use certificate portrait, A1, E2/E3, pixel avatar, meme or downstream styling reference as the edit base.
+3. Execute one A2 positive-morph edit with the geometry above.
 4. Keep face envelope, cheek mass, jaw/chin, nose, ears, neck, camera, light and gray material fixed.
-5. Replace the hairstyle-coded placeholder with a smooth neutral cranial cap / non-style head mass for H1.
+5. Replace hairstyle-coded placeholder with a smooth neutral cranial cap / non-style head mass.
 6. Compare A2 directly against the original fixed face shell.
 7. If A2 passes, reassess the paused cheek→jaw micro-correction.
-8. Only after the final front passes, run one 30–35° three-quarter consistency validation.
+8. Only after final front passes, run one 30–35° three-quarter consistency validation.
 9. H1 must pass before H2, real skin/hair, brand DNA, wardrobe, motif or Presentation Modes.
 
+## Parallel-ready work
+Without blocking H1, the Program may also advance:
+- audience/growth baseline and pilot-topic hypotheses;
+- advertiser/category mapping and sponsor-fit criteria;
+- commercial offer/rights research after advertiser-map inputs exist.
+
 ## Persistence rule
-Material decisions update `CURRENT_PROGRESS.md` in the same session. Stage/next-action changes also update `PROJECT_MANIFEST.json` and `RESUME_ENTRY.md`. Reviewed outputs receive dated review artifacts.
+Material Program decisions update their owning workstream state and decision evidence in the same session. Changes to foreground stage/next action update `PROJECT_MANIFEST.json`, `PROGRAM_STATE.json`, `CURRENT_PROGRESS.md` and `RESUME_ENTRY.md` where applicable. Reviewed outputs receive durable review/decision artifacts. Do not claim persistence unless the owning records were actually changed.
