@@ -1,5 +1,21 @@
 # Decision Log
 
+## 2026-10-14 — Selective personal inheritance policy accepted
+
+Decision:
+- the original male digital IP should not copy the creator wholesale and should not erase the creator wholesale;
+- use **selective structural inheritance** from the creator: preserve high-value proportional ancestry while deliberately redesigning weak/generic/noisy traits;
+- conventional handsomeness is not the target; controlled idealization is allowed only when it improves memorability, structural coherence, emotional readability, AI-video stability, commercial adaptability or same-source resonance;
+- the intended relationship is `same-source original`: clearly not the same person, but plausibly evolved from the creator's structural ancestry.
+
+Current inheritance tiers:
+- preserve strongly: face width/length tendency, horizontal brow-eye organization, eye spacing/orbital placement tendency, cheek support, compact mouth-to-chin relation, compact rounded/blunt chin tendency, natural medium nose volume and adult Chinese male baseline;
+- redesign deliberately: eye aperture, brow mass, cheek→jaw→chin rhythm, lower-face vertical rhythm, soft-tissue fullness, plane clarity and later hair silhouette;
+- do not preserve as identity: certificate-photo whitening/retouching/makeup, current haircut, transient skin texture, suit/photo styling, camera distortion and low-value micro-asymmetries.
+
+Authority:
+- `HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md`
+
 ## 2026-10-14 — Design governance changed from reactive to comparative
 
 Decision:
@@ -168,24 +184,11 @@ Prompt is an execution spec after design decisions are made; it is not the place
 
 ## Current next action
 
-Current stage: `CHARACTER_DIRECTION_EXPLORATION_V2`.
+Current stage: `H1_SCULPTURAL_MASSING_V2`.
 
-Do not generate another finished character yet.
+Generate and compare three neutral sculptural head studies:
+- S1 Source-Calibrated Neutral;
+- S2 Structural Compression;
+- S3 Anti-Generic Cheek/Jaw Rhythm.
 
-Compare representative alternatives for:
-- 4 body silhouettes;
-- 5 face primary-mass archetypes;
-- 4 hair silhouettes;
-- 6 garment silhouettes;
-- 3 pixel-accessory scale/placement options;
-- 3 macro Shiba-carp contradiction systems.
-
-Stress-test leading combinations for:
-- long-term recognizability;
-- technology/business editorial credibility;
-- meme/internet distinctiveness;
-- sponsor/commercial adaptability;
-- AI-video consistency;
-- wardrobe/world extensibility.
-
-Then select/reject the proposed `Glitch Dandy / 异常绅士` synthesis. Only after selection should `CHARACTER_DESIGN_BIBLE_V2` and a new generation prompt be written.
+Use the certificate portrait only as structural calibration. Do not return to photoreal skin/hair until one sculpt geometry or deliberate hybrid is accepted. Do not advance to H2 until H1 passes.
