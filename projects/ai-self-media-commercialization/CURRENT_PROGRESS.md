@@ -33,7 +33,7 @@ The package is system-resident reference/project material. Future production pro
 ### Character-level concepts that remain valid
 - adult Chinese male host anchor;
 - mid-20s visual age;
-- 182cm/67kg tall-slim real-world origin;
+- 182cm/67kg tall-slim real-world origin is an anchor, not a literal proportion prison;
 - ice-cyan / blue family;
 - deep blue-violet eye concept;
 - black/white pixel accessory concept;
@@ -71,27 +71,117 @@ Anti-regression:
 
 ## Method upgrade — V2
 
-A new project-local methodology has been added:
+Project-local methods:
 - `DESIGN_RESEARCH_METHOD_V2.md`
+- `DESIGN_SPACE_EXPLORATION_V2.md`
 
-The method is based on professional visual-language, fashion-design, mens-hair, grooming and portrait-photography principles and reverses the V1 mistake:
+The design method is now explicitly **hypothesis-first and comparative**, not reactive.
 
-**macro form first; micro detail last.**
+New governance rule:
+1. do not automatically accept a user suggestion as design truth;
+2. identify the design problem;
+3. sweep a representative design space across independent visual axes;
+4. compare trade-offs against long-term IP goals;
+5. state an independent recommendation;
+6. keep the recommendation PROPOSED until adopted;
+7. only then convert the selected direction into detailed design authority and generation prompts.
 
-New design order:
-1. character narrative/shape intent;
-2. face primary masses;
-3. unclothed/base body archetype and proportions;
-4. hair silhouette and weight distribution;
-5. garment silhouette, proportion and balance;
-6. signature accessory scale;
-7. macro/meso motif fusion;
-8. color/material;
-9. grooming and micro detail;
-10. easter eggs;
-11. canon photography/turnarounds.
+Literal enumeration of every possible design is impossible because the space is unbounded. The operational substitute is a representative exhaustive sweep across body archetype, face architecture, hair silhouette, clothing system, contradiction/motif logic, performance and presentation.
 
-No later detail is allowed to compensate for an earlier failed macro gate.
+## Current design-space conclusion — PROPOSED, NOT LOCKED
+
+Eight representative directions were evaluated:
+1. Precision Observer / 精密观察者;
+2. Deconstructed Analyst / 解构分析者;
+3. Sculptural Minimalist / 建筑极简体;
+4. Luxury Atelier Engineer / 高级工坊工程师;
+5. Neo-Dandy / 新绅士;
+6. Anti-Fashion Internet Native / 反时尚互联网原住民;
+7. Soft Drape Archivist / 柔性档案员;
+8. Surreal Runway Entity / 超现实秀场体.
+
+Current independent recommendation:
+> **Glitch Dandy / 异常绅士**
+
+This is a synthesis rather than a literal fashion archetype:
+- 40% Precision Observer / contemporary tailoring credibility;
+- 25% Deconstructed Analyst / one real structural rupture;
+- 20% Neo-Dandy / deliberate proportion and self-fashioning;
+- 10% Soft Drape Archivist / organic movement and flow;
+- 5% Anti-Fashion Internet Native / controlled awkwardness and meme contamination.
+
+Techwear is explicitly rejected as the base chassis.
+
+This recommendation is not yet locked. It must survive abstract comparative design tests before `CHARACTER_DESIGN_BIBLE_V2` is written.
+
+## Current emotional target — PROPOSED
+
+First read:
+- composed;
+- intelligent;
+- adult;
+- elegant without obvious status-signalling;
+- physically light but not weak.
+
+Second read:
+- one proportion/construction rule feels deliberately off;
+- the low-resolution pixel object is visibly incompatible with the refined person;
+- asymmetry is structural rather than decorative.
+
+Long-term read:
+- not a teacher;
+- not a CEO archetype;
+- not a game hero;
+- not a fashion model;
+- not a mascot;
+- a self-possessed observer who can enter technology, capital and internet absurdity without losing identity.
+
+## Current macro proposal — NOT FINAL
+
+### Body
+- attenuated but believable adult male;
+- approximately 7.8–8.1 heads, not extreme 9-head runway illustration;
+- slightly long neck, natural/sloped shoulders, present ribcage and stable pelvis;
+- long legs with high but believable waist;
+- body should read as editorial intelligence, not mannequin fragility.
+
+### Face
+- B3 + B1 hybrid from the design-space sweep;
+- broader/blunter primary mass than V1;
+- stronger cheek support;
+- compact non-pointed chin;
+- narrow calm eyes;
+- natural nose/mouth rather than beauty-optimized features;
+- attractiveness comes from coherence and presence rather than perfection.
+
+### Hair
+- C4/C2 hybrid;
+- shorter and more architectural than V1;
+- back around upper-neck length;
+- one longer asymmetric lock preserves avatar lineage;
+- 3–4 major masses;
+- cyan is first a graphic shape, then hair texture.
+
+### Clothing chassis
+- contemporary/deconstructed tailoring rather than techwear;
+- strong silhouette/proportion before detail;
+- straight or slightly wide long trousers rather than cargo/tactical slim pants;
+- one construction rupture from strict tailoring into soft drape/asymmetric flow;
+- no decorative piping/zippers/utility clutter as identity.
+
+### Signature accessory
+- pixel sunglasses must interrupt the head silhouette at thumbnail scale;
+- crude 8-bit geometry remains intentional and is not luxury-normalized.
+
+### Shiba-carp fusion
+Macro:
+- refined precise human + one visibly incompatible visual rule.
+
+Meso:
+- one construction system transitions from disciplined geometry into softer split-flow rhythm.
+
+Micro:
+- hidden symbols/textiles/codes only after macro and meso pass.
 
 ## Prompt / image-generation methodology
 
@@ -101,15 +191,14 @@ Still valid:
 - prompts execute design; prompts do not replace design;
 - do not ask one generation pass to invent face, body, hair, clothing, motif and final styling simultaneously.
 
-New rule:
-Before the next full-character generation prompt exists, the project must first define:
-- face proportion architecture;
-- base-body proportion architecture;
-- hair front/side silhouette;
-- garment front/side silhouette;
-- three-value color blockout;
-- accessory scale/placement;
-- macro/meso/micro motif map.
+Before the next full-character generation prompt exists, the project must compare and define:
+- 4 base-body silhouettes;
+- 5 face primary-mass options;
+- 4 hair silhouettes;
+- 6 garment silhouette blockouts;
+- 3 pixel-accessory scale tests;
+- 3 macro-contradiction compositions;
+- one selected design system that survives cross-context testing.
 
 ## Current artifacts
 
@@ -121,28 +210,31 @@ Before the next full-character generation prompt exists, the project must first 
 - `CHARACTER_DESIGN_BIBLE_V1.md` — historical V1 design authority; no longer sufficient for generation without V2 redesign.
 - `CONCEPT_GENERATION_PROMPT_V1.md` — rejected-generation-era prompt; do not use for V2.
 - `CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md` — authoritative V1 failure report.
-- `DESIGN_RESEARCH_METHOD_V2.md` — current professional design method.
+- `DESIGN_RESEARCH_METHOD_V2.md` — professional macro-to-micro design method.
+- `DESIGN_SPACE_EXPLORATION_V2.md` — representative option sweep, runway/fashion design expansion and current independent recommendation.
 - `PRODUCTION_AND_COST_STRATEGY.md` — AI-heavy production/cost/model-routing plan.
 - `WORKFLOW_INTEGRATION.md` — future explicit import map into Video Growth workflow.
 - `DECISION_LOG.md` — accepted/rejected decisions and anti-regression history.
 
 ## Current stage
 
-`CHARACTER_REDESIGN_RESEARCH_V2`
+`CHARACTER_DIRECTION_EXPLORATION_V2`
 
 ## Current next action
 
-Do **not** generate another character yet.
+Do **not** generate a finished character yet.
 
 Next:
-1. redesign face primary masses from scratch;
-2. redesign the base body archetype without the techwear coat;
-3. create hair silhouette architecture around the redesigned head;
-4. design garment silhouette and proportion on the approved body before any pockets/zippers/details;
-5. define the pixel-sunglasses scale at thumbnail/head-silhouette level;
-6. define one macro Shiba-carp contradiction, one meso contradiction and only then micro easter eggs;
-7. consolidate these into `CHARACTER_DESIGN_BIBLE_V2`;
-8. only after V2 design gates pass, write a new generation prompt.
+1. build/compare 4 body silhouette archetypes;
+2. build/compare 5 face-mass archetypes;
+3. build/compare 4 hair silhouettes;
+4. build/compare 6 garment silhouettes using tailoring/drape/deconstruction, not techwear detail;
+5. compare 3 pixel-sunglasses scale/placement options;
+6. compare 3 macro Shiba-carp contradiction systems;
+7. stress-test leading combinations for commercial use, cinematic use, meme/internet use and AI-video consistency;
+8. select or reject the current `Glitch Dandy / 异常绅士` recommendation;
+9. only after selection, consolidate `CHARACTER_DESIGN_BIBLE_V2`;
+10. only after that write a new generation prompt.
 
 ## Future workflow integration rule
 
