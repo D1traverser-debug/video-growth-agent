@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "project_id": "ai-self-media-commercialization",
   "display_name_zh": "AI自媒体视频商业化与原创数字IP",
   "project_kind": "INCUBATION_REFERENCE_PACKAGE",
@@ -16,6 +16,11 @@
   "scan": {
     "discoverable": true,
     "root_pattern": "projects/*",
+    "aliases": [
+      "AI自媒体视频商业化与原创数字IP",
+      "原创数字IP设计",
+      "ai-self-media-commercialization"
+    ],
     "tags": [
       "AI_VIDEO",
       "SELF_MEDIA",
@@ -28,7 +33,8 @@
       "MODEL_ROUTER",
       "LOOKDEV_INPUT"
     ],
-    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account, its original male digital IP, AI-heavy long-form production strategy, cost/model routing, and later Video Growth workflow integration. It is not an active continuity task and must not mutate Pilot 002 state or gates."
+    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account, its original male digital IP, AI-heavy long-form production strategy, cost/model routing, and later Video Growth workflow integration. It is not an active continuity task and must not mutate Pilot 002 state or gates.",
+    "resume_entry": "RESUME_ENTRY.md"
   },
   "current_stage": "CHARACTER_CONCEPT_DESIGN_V1",
   "current_state": "Account positioning is provisionally locked. Character direction has been reset away from photoreal blue-haired cosplay and generic AAA handsome-male outputs. A new original character design authority is defined around pixel-avatar DNA, Shiba-carp hybrid absurdity as motif/easter-egg/performance grammar, and the creator's real-world body archetype as a weak host anchor.",
@@ -48,6 +54,8 @@
     "notes_ref": "WORKFLOW_INTEGRATION.md"
   },
   "primary_files": [
+    "RESUME_ENTRY.md",
+    "CURRENT_PROGRESS.md",
     "README.md",
     "ACCOUNT_POSITIONING.md",
     "CHARACTER_DESIGN_BIBLE_V1.md",
@@ -57,5 +65,5 @@
     "DECISION_LOG.md"
   ],
   "created_at": "2026-10-14T00:14:38Z",
-  "updated_at": "2026-10-14T00:14:38Z"
+  "updated_at": "2026-10-14T00:24:00Z"
 }
