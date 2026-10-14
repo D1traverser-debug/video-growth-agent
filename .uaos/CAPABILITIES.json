@@ -1,11 +1,15 @@
 {
-  "schema_version": "2.1",
-  "profile_version": 5,
+  "schema_version": "2.2",
+  "profile_version": 6,
   "execution_readiness_contract": "2.0",
   "owner": "VIDEO_GROWTH_AGENT",
   "domain_id": "video",
   "repository": "D1traverser-debug/video-growth-agent",
   "policy": "CURRENT_SESSION_HANDSHAKE__QUALITY_CRITICAL_FAIL_CLOSED__ARTIFACT_IDENTITY_BOUND__NO_PARALLEL_CONTROLLER",
+  "uaos_common_capabilities_ref": "D1traverser-debug/universal-agent-os@main:config/COMMON_CAPABILITIES.json",
+  "common_capabilities_inheritance": "UAOS_HOSTED",
+  "domain_evolution_role": "DOMAIN_EVIDENCE_EVAL_AND_BUSINESS_OWNER_PROMOTION",
+  "updated_at": "2026-10-14T08:29:12Z",
   "assurance_taxonomy": ["DECLARED_ONLY", "HARNESS_WIRED", "SESSION_EXECUTABLE", "CHAT_BRIDGED", "ATTESTED_ISOLATED"],
   "capabilities": [
     {
