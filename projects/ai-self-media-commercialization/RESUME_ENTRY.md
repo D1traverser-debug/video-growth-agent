@@ -8,18 +8,18 @@ Continuity task: NO
 
 Preferred new-chat entry:
 
-> `继承 AI自媒体视频商业化与原创数字IP，继续 H1_SCULPTURAL_MASSING_V2。先读取 PROJECT_MANIFEST.json、CURRENT_PROGRESS.md、H1_S13_HYBRID_FRONT_REVIEW_2026-10-14.md、H1_S13_3Q_SCULPT_PROMPT_V2.md、H1_S1_S2_S3_SCULPT_REVIEW_2026-10-14.md、HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md 和 DECISION_LOG.md。S1+S3 正面灰模已经获得 provisional front pass；当前只做同一张脸的30–35°三分之四灰模一致性验证。不要重新搜脸，不要先加蓝发、像素墨镜、皮肤妆造、服装、柴犬鲤鱼或 Presentation Modes，也不要进入 video-growth:main / Pilot 002。`
+> `继承 AI自媒体视频商业化与原创数字IP，继续 H1_SCULPTURAL_MASSING_V2。先读取 PROJECT_MANIFEST.json、CURRENT_PROGRESS.md、H1_S13_HYBRID_FRONT_REVIEW_CORRECTED_2026-10-14.md、H1_S13_FRONT_MICROCORRECTION_PROMPT_V2.md、H1_S1_S2_S3_SCULPT_REVIEW_2026-10-14.md、HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md 和 DECISION_LOG.md。注意：之前的H1_S13_HYBRID_FRONT_REVIEW_2026-10-14.md基于用户发错的图片，已被纠正评审取代。当前不要做3/4；先在正确的S1+S3正面灰模上只微调颧→下颌过渡，其他结构保持不变。不要先加蓝发、像素墨镜、皮肤妆造、服装、柴犬鲤鱼或Presentation Modes，也不要进入video-growth:main / Pilot 002。`
 
 Short form:
-- `继承原创数字IP设计，继续H1 S1+S3三分之四灰模验证。`
-- `继承 ai-self-media-commercialization，从 H1-S13-HYBRID 3/4 validation 继续。`
+- `继承原创数字IP设计，继续H1正确S1+S3正面灰模微调。`
+- `继承 ai-self-media-commercialization，从 H1-S13 corrected front micro-correction 继续。`
 
 ## Required entry order
 
 1. `PROJECT_MANIFEST.json` — project identity, isolation boundary, current stage and next action.
 2. `CURRENT_PROGRESS.md` — latest checkpoint.
-3. `H1_S13_HYBRID_FRONT_REVIEW_2026-10-14.md` — why the front geometry provisionally passes and what must be tested in depth.
-4. `H1_S13_3Q_SCULPT_PROMPT_V2.md` — current executable three-quarter validation prompt.
+3. `H1_S13_HYBRID_FRONT_REVIEW_CORRECTED_2026-10-14.md` — corrected review of the intended hybrid image.
+4. `H1_S13_FRONT_MICROCORRECTION_PROMPT_V2.md` — current one-variable edit prompt.
 5. `H1_S1_S2_S3_SCULPT_REVIEW_2026-10-14.md` — S1/S2/S3 donor/rejection logic.
 6. `HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md` — selective personal inheritance policy.
 7. `H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md` — source-derived structural anchors.
@@ -39,24 +39,21 @@ Current truth:
 - Presentation Modes remain dormant.
 - F1-F5 and photoreal Hybrid A are not face locks.
 - S1/S2/S3 gray sculpt pass is complete: S1 main donor, S2 rejected, S3 lower-face donor only.
-- `H1-S13-HYBRID` front gray sculpt has now been reviewed and receives a PROVISIONAL FRONT PASS.
-- broad front-view face exploration stops here unless a later angle reveals structural failure.
+- the first S1+S3 hybrid front review was invalid because the user later identified that image as the wrong file.
+- the corrected S1+S3 front sculpt is the active face candidate.
+- it preserves the desired calm/light/believable human geometry, but cheek→jaw rhythm remains too uniformly smooth and does not yet express enough of the intended S3 donor contribution.
+- broad face exploration remains closed.
 - hair/scalp placeholder and neck geometry remain non-authoritative.
-- personal-feature policy remains selective structural inheritance: same-source original, not clone and not generic handsome replacement.
-
-Current face candidate:
-`H1-S13-HYBRID` = accepted front geometry candidate pending 3/4 consistency.
 
 Current next action:
-1. preferably stay in the same GPT Images conversation as the accepted front hybrid;
-2. use the accepted front image as the primary identity/geometry reference;
-3. execute `H1_S13_3Q_SCULPT_PROMPT_V2.md`;
-4. generate exactly one 30–35° three-quarter monochrome matte-gray sculpt of the SAME character;
-5. compare front vs 3/4 for envelope, orbit, cheek, jaw, chin, nose and mouth consistency;
-6. reject any 3/4 drift toward high/narrow model nose, heroic brow, sharp cheeks, V jaw, square macho jaw or projected/pointed/long chin;
-7. if coherent, move H1 toward geometry candidate lock and run plain/dark/no-brand identity validation;
-8. if not coherent, edit one geometric variable at a time on the same face;
-9. H1 must pass before H2 body archetype.
+1. stay in the same GPT Images conversation as the corrected S1+S3 front sculpt;
+2. execute `H1_S13_FRONT_MICROCORRECTION_PROMPT_V2.md`;
+3. make only one structural change: slightly clearer lateral cheek support and a slightly less uniformly smooth transition into the mandibular body;
+4. preserve jaw width, chin geometry, face width/length, orbit, brow, nose, mouth, expression, camera, light and material;
+5. generate exactly one edited strict-front gray sculpt;
+6. review that edited front;
+7. only if it passes, execute `H1_S13_3Q_SCULPT_PROMPT_V2.md` for one 30–35° three-quarter validation of the SAME geometry;
+8. H1 must pass before H2 body archetype.
 
 ## Persistence/report rule
 
