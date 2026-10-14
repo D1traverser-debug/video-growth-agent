@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.9",
+  "schema_version": "2.0",
   "project_id": "ai-self-media-commercialization",
   "display_name_zh": "AI自媒体视频商业化与原创数字IP",
   "project_kind": "INCUBATION_REFERENCE_PACKAGE",
@@ -30,37 +30,31 @@
       "HUMAN_CORE_ARCHITECTURE",
       "FACIAL_MORPHOLOGY",
       "FACE_PRIMARY_MASSES",
-      "FACE_COMPARISON_PROMPTS",
-      "FACE_HYBRID_CALIBRATION",
+      "SCULPTURAL_MASSING",
       "GPT_IMAGE_PROMPTING",
       "BODY_PROPORTION",
       "REFERENCE_DECOMPOSITION",
       "HAIR_ARCHITECTURE",
       "GROOMING_MAKEUP",
       "FASHION_RUNWAY_RESEARCH",
-      "AIGC_LONGFORM",
-      "BILIBILI",
-      "TECH_BUSINESS_MEDIA",
-      "MODEL_ROUTER",
       "LOOKDEV_INPUT"
     ],
-    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. Concept V1 is rejected. H1 text-only F1-F5 front exploration is complete; no standalone winner was locked because all five partially collapsed toward a generic attractive East-Asian male prior. The active step is one source-calibrated H1-HYBRID-A front study using the creator certificate portrait strictly as structural calibration, before 3/4 validation and before body, hair, brand DNA, wardrobe, motif or Presentation Modes.",
+    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. V1 is rejected. F1-F5 text exploration and the source-calibrated photoreal Hybrid A pass are complete; neither produced a lockable Human Core. H1 now uses neutral clay/maquette sculptural massing to isolate face geometry before any return to stylized skin/hair, body, brand DNA, wardrobe, motif or Presentation Modes.",
     "resume_entry": "RESUME_ENTRY.md",
     "current_progress": "CURRENT_PROGRESS.md",
-    "latest_failure_audit": "CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md",
+    "latest_failure_audit": "H1_HYBRID_A_REVIEW_2026-10-14.md",
     "current_design_method": "DESIGN_RESEARCH_METHOD_V2.md",
     "current_design_space": "DESIGN_SPACE_EXPLORATION_V2.md",
     "human_core_stack": "HUMAN_CORE_CONSTRUCTION_STACK_V2.md",
     "current_reference_assessment": "H0_REFERENCE_ASSESSMENT_2026-10-14.md",
     "current_face_morphology": "H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md",
-    "current_face_comparison_prompts": "H1_FACE_COMPARISON_PROMPTS_V2.md",
-    "gpt_image_prompting_method": "GPT_IMAGE_PROMPTING_METHOD_V2.md",
-    "current_face_review": "H1_F1_F5_FRONT_REVIEW_2026-10-14.md",
-    "current_face_prompt": "H1_HYBRID_A_GPT_PROMPT_V2.md"
+    "current_face_review": "H1_HYBRID_A_REVIEW_2026-10-14.md",
+    "current_face_prompt": "H1_SCULPTURAL_MASSING_PROMPTS_V2.md",
+    "gpt_image_prompting_method": "GPT_IMAGE_PROMPTING_METHOD_V2.md"
   },
-  "current_stage": "H1_FACE_PRIMARY_MASSES_V2",
-  "current_state": "F1-F5 front-view exploration has been reviewed. F2 and F3 are rejected as base directions; F1, F4 and F5 survive only as component donors. No single face is locked. H1-HYBRID-A is proposed: F1 envelope/soft-tissue behavior + F4 eye-aperture/deadpan rhythm + F5 cheek-to-jaw-to-compact-chin rhythm, calibrated against the creator certificate portrait for source-specific structural relations only.",
-  "next_action": "Open a fresh GPT Images conversation, upload the creator certificate portrait, and execute H1_HYBRID_A_GPT_PROMPT_V2.md. Generate one neutral front-view Hybrid A only. Review it before any 3/4 generation. If front view passes, generate a matching 3/4 study and require coherence before locking H1 or proceeding to H2 body archetype.",
+  "current_stage": "H1_SCULPTURAL_MASSING_V2",
+  "current_state": "F1-F5 front exploration revealed a generic attractive-male prior. Hybrid A direct certificate-photo calibration improved source relations but failed as a lock because photoreal skin/hair and portrait synthesis hid the primary masses and pulled the output toward an ordinary transformed real person. H1 therefore moves to matte-gray clay/maquette geometry studies S1-S3.",
+  "next_action": "Generate S1 Source-Calibrated Neutral, S2 Structural Compression and S3 Anti-Generic Cheek/Jaw Rhythm as separate neutral clay head studies using the certificate portrait only as structural calibration. Compare geometry only, select one sculpt base or deliberate hybrid, then validate the selected geometry in 3/4 before reintroducing stylized skin/hair or proceeding to H2.",
   "workflow_integration": {
     "mode": "FUTURE_EXPLICIT_IMPORT",
     "do_not_auto_promote": true,
@@ -78,18 +72,16 @@
   "primary_files": [
     "RESUME_ENTRY.md",
     "CURRENT_PROGRESS.md",
-    "README.md",
-    "ACCOUNT_POSITIONING.md",
     "CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md",
-    "DESIGN_RESEARCH_METHOD_V2.md",
-    "DESIGN_SPACE_EXPLORATION_V2.md",
-    "HUMAN_CORE_CONSTRUCTION_STACK_V2.md",
     "H0_REFERENCE_ASSESSMENT_2026-10-14.md",
     "H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md",
-    "H1_FACE_COMPARISON_PROMPTS_V2.md",
     "H1_F1_F5_FRONT_REVIEW_2026-10-14.md",
-    "H1_HYBRID_A_GPT_PROMPT_V2.md",
+    "H1_HYBRID_A_REVIEW_2026-10-14.md",
+    "H1_SCULPTURAL_MASSING_PROMPTS_V2.md",
     "GPT_IMAGE_PROMPTING_METHOD_V2.md",
+    "HUMAN_CORE_CONSTRUCTION_STACK_V2.md",
+    "DESIGN_RESEARCH_METHOD_V2.md",
+    "DESIGN_SPACE_EXPLORATION_V2.md",
     "CHARACTER_DESIGN_BIBLE_V1.md",
     "CONCEPT_GENERATION_PROMPT_V1.md",
     "PRODUCTION_AND_COST_STRATEGY.md",
@@ -98,27 +90,23 @@
   ],
   "supersession": {
     "CHARACTER_DESIGN_BIBLE_V1.md": "HISTORICAL_INPUT_PENDING_V2_REWRITE",
-    "CONCEPT_GENERATION_PROMPT_V1.md": "DO_NOT_USE_FOR_V2"
+    "CONCEPT_GENERATION_PROMPT_V1.md": "DO_NOT_USE_FOR_V2",
+    "H1_HYBRID_A_GPT_PROMPT_V2.md": "EXECUTED_REVIEWED_NOT_LOCKED"
   },
   "proposals": {
     "whole_look_direction": "Glitch Dandy / 异常绅士",
     "whole_look_status": "PROPOSED_DOWNSTREAM_NOT_LOCKED",
-    "personal_feature_policy": "SELECTIVE_STRUCTURAL_INHERITANCE_PROPOSED",
+    "personal_feature_policy": "SELECTIVE_STRUCTURAL_INHERITANCE",
     "body_reference_policy": "PLAUSIBILITY_SUPPORT_NOT_PRIMARY_LIKENESS",
-    "face_exploration_status": "F1_F5_FRONT_COMPLETE_NO_SINGLE_WINNER",
-    "face_rejected": [
-      "F2 Blunt Analytical as standalone base",
-      "F3 Editorial Plane as standalone base"
+    "face_exploration_status": "F1_F5_COMPLETE_HYBRID_A_FAIL_SCULPT_PASS_ACTIVE",
+    "current_face_method": "SCULPTURAL_GEOMETRY_ISOLATION",
+    "current_face_variants": [
+      "S1 Source-Calibrated Neutral",
+      "S2 Structural Compression",
+      "S3 Anti-Generic Cheek/Jaw Rhythm"
     ],
-    "face_component_donors": [
-      "F1 envelope/soft-tissue behavior",
-      "F4 eye-aperture/deadpan rhythm",
-      "F5 cheek-jaw-chin transition"
-    ],
-    "current_face_proposal": "H1-HYBRID-A",
-    "current_face_proposal_status": "PROPOSED_PENDING_FRONT_CALIBRATION",
     "presentation_modes_status": "DORMANT_UNTIL_CANON_H9"
   },
   "created_at": "2026-10-14T00:14:38Z",
-  "updated_at": "2026-10-14T03:25:00Z"
+  "updated_at": "2026-10-14T03:32:00Z"
 }
