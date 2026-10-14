@@ -6,8 +6,8 @@
   "graph_status":"ACTIVE_PLANNING_AUTHORITY",
   "nodes":[
     {"id":"ip_h1_a2_upper_face","workstream":"ORIGINAL_DIGITAL_IP","status":"READY","coordination":"SERIAL_DEPENDENCY","depends_on":[],"outputs":["a2_upper_face_candidate","a2_comparison_evidence"],"decision_owner":"creative_director"},
-    {"id":"growth_baseline_and_topic_hypotheses","workstream":"MEDIA_GROWTH","status":"READY","coordination":"INDEPENDENT_PARALLEL","depends_on":[],"inputs":["ACCOUNT_POSITIONING.md"],"outputs":["growth_baseline","topic_hypothesis_set"],"decision_owner":"growth_strategist"},
-    {"id":"commercial_advertiser_map","workstream":"COMMERCIALIZATION","status":"READY","coordination":"INDEPENDENT_PARALLEL","depends_on":[],"inputs":["ACCOUNT_POSITIONING.md"],"outputs":["advertiser_map","commercial_fit_criteria"],"decision_owner":"commercial_director"},
+    {"id":"growth_baseline_and_topic_hypotheses","workstream":"MEDIA_GROWTH","status":"READY","coordination":"INDEPENDENT_PARALLEL","depends_on":[],"outputs":["growth_baseline","topic_hypothesis_set"],"decision_owner":"growth_strategist","authority_inputs":["ACCOUNT_POSITIONING.md"]},
+    {"id":"commercial_advertiser_map","workstream":"COMMERCIALIZATION","status":"READY","coordination":"INDEPENDENT_PARALLEL","depends_on":[],"outputs":["advertiser_map","commercial_fit_criteria"],"decision_owner":"commercial_director","authority_inputs":["ACCOUNT_POSITIONING.md"]},
     {"id":"commercial_offer_candidate_native_integration","workstream":"COMMERCIALIZATION","status":"WAITING_FOR_ADVERTISER_MAP","coordination":"COMPETITIVE_CANDIDATES","depends_on":["commercial_advertiser_map"],"inputs":["advertiser_map","commercial_fit_criteria"],"decision_group":"commercial_offer_architecture","outputs":["offer_candidate_native_integration"]},
     {"id":"commercial_offer_candidate_series_package","workstream":"COMMERCIALIZATION","status":"WAITING_FOR_ADVERTISER_MAP","coordination":"COMPETITIVE_CANDIDATES","depends_on":["commercial_advertiser_map"],"inputs":["advertiser_map","commercial_fit_criteria"],"decision_group":"commercial_offer_architecture","outputs":["offer_candidate_series_package"]},
     {"id":"commercial_offer_critique","workstream":"COMMERCIALIZATION","status":"WAITING","coordination":"STRUCTURED_CRITIQUE_AND_REVISION","depends_on":["commercial_offer_candidate_native_integration","commercial_offer_candidate_series_package"],"inputs":["offer_candidate_native_integration","offer_candidate_series_package","commercial_fit_criteria"],"outputs":["offer_candidate_critiques"],"advisory_only":true},
@@ -24,7 +24,7 @@
   "parallel_now":["ip_h1_a2_upper_face","growth_baseline_and_topic_hypotheses","commercial_advertiser_map"],
   "invariants":[
     "No dependency cycle.",
-    "A node waits only for declared dependencies plus required artifacts/capabilities.",
+    "A node waits only for declared dependencies plus required runtime artifacts/capabilities; durable authority files may be declared separately as authority_inputs.",
     "Advisory outputs do not become decisions without an authorized owner/adjudicator.",
     "Every decision_group has at least two independent candidate nodes.",
     "An OWNER_ADJUDICATION consuming a decision_group depends on every candidate node in that group.",
