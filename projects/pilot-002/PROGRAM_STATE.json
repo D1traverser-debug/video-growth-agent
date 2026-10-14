@@ -49,7 +49,7 @@
     "uaos_controller_task_ref":"RETIRED_AS_BUSINESS_IDENTITY_AUTHORITY",
     "old_task_manifest":"RETIRED_TO_GIT_HISTORY",
     "old_checkpoint":"RETIRED_TO_GIT_HISTORY",
-    "lease_resume_epoch_protocol":"NOT_SUPPORTED"
+    "old_lease_resume_protocol":"NOT_SUPPORTED"
   },
   "updated_at":"2026-10-15"
 }
