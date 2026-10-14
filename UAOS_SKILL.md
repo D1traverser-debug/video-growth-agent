@@ -42,7 +42,7 @@ The Video domain supports these explicit coordination patterns:
 
 `projects/<program>/SUBTASK_GRAPH.json` or another exact domain-owned graph defines business dependencies. A task waits only for declared dependencies, required runtime artifacts and hard capability gates. Unrelated unfinished work must not become a global barrier.
 
-Consultation is advisory. Competition means independently inspectable candidate artifacts evaluated against declared criteria. Negotiation is bounded artifact exchange such as `proposal -> critique -> revision -> adjudication`, not open-ended peer chat. Any selection/merge/rejection that governs downstream work needs an explicit authorized owner/adjudicator and durable decision evidence.
+Consultation is advisory. Competition means independently inspectable candidate artifacts evaluated against declared criteria. Negotiation is bounded artifact exchange such as `proposal -> critique -> revision -> adjudication`; it is not unbounded peer chat or an open-ended specialist conversation. Any selection/merge/rejection that governs downstream work needs an explicit authorized owner/adjudicator and durable decision evidence.
 
 Same-context candidate diversity is exploration evidence, not independent semantic verification.
 
