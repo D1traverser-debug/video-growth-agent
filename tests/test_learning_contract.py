@@ -52,16 +52,27 @@ def test_learn_stage_actually_schedules_declared_improvement_roles():
 
 
 def test_learning_capability_distinguishes_evidence_pipeline_from_autonomous_promotion():
-    profile = _load("continuity/EXECUTION_CAPABILITIES.json")
+    profile = _load(".uaos/CAPABILITIES.json")
     caps = {item["capability_id"]: item for item in profile["capabilities"]}
-    scheduled = caps["scheduled_learning_evidence_pipeline"]
-    sidecar = caps["learning_evolution_sidecar"]
+    learning = caps["learning_and_evolution"]
 
-    assert scheduled["assurance_ceiling"] == "SESSION_EXECUTABLE"
-    assert "Production Methodologist" in scheduled["invocation_path"]
-    assert "Evolution Engineer" in scheduled["invocation_path"]
-    assert sidecar["assurance_ceiling"] == "HARNESS_WIRED"
-    assert any("do not themselves mutate GitHub production authority" in item for item in profile["known_owner_blockers"])
+    assert profile["domain_evolution_role"] == "DOMAIN_EVIDENCE_EVAL_AND_BUSINESS_OWNER_PROMOTION"
+    assert "ONE_OFF_DOES_NOT_AUTO_PROMOTE" in profile["domain_evolution_semantics"]
+    assert "COMMON_OR_CROSS_DOMAIN_CHANGE_UPCALLS_UAOS" in profile["domain_evolution_semantics"]
+
+    assert learning["assurance_ceiling"] == "HARNESS_WIRED"
+    assert learning["executor_type"] == "OWNER_LEARNING_AND_MAINTENANCE_PIPELINE"
+    assert learning["safe_degraded_modes"] == ["CHAT_BRIDGED"]
+    assert {
+        "learning candidate",
+        "work-order provenance",
+        "challenge/rejection evidence",
+        "test/replay result",
+        "promotion or rejection receipt",
+    } <= set(learning["evidence_contract"])
+    assert "tests/replay" in learning["invocation_path"]
+    assert any("do not mutate production authority" in item.lower() for item in profile["known_owner_blockers"])
+    assert not (ROOT / "continuity").exists()
 
 
 def test_evolution_engineer_is_candidate_builder_not_false_commit_proof():

@@ -1,0 +1,45 @@
+{
+  "version":"0.6.0",
+  "authority":"VIDEO_GROWTH_AGENT",
+  "parent_common_semantics_ref":"D1traverser-debug/universal-agent-os@main:config/COMMON_CAPABILITIES.json#domain_internal_work_orchestration",
+  "single_user_owner":"executive_producer",
+  "peer_chat_allowed":false,
+  "artifact_handoffs_required":true,
+  "dependency_model":{
+    "explicit_depends_on_precedence":"EXPLICIT_DEPENDENCIES_OVERRIDE_GLOBAL_LOWER_WAVE_BARRIER",
+    "legacy_fallback":"WHEN_depends_on_IS_ABSENT_USE_EXISTING_LOWER_WAVE_COMPLETION_RULE",
+    "cycle_policy":"REJECT_CONFIGURATION",
+    "input_policy":"DECLARED_ARTIFACT_INPUTS_MUST_EXIST_BEFORE_READY"
+  },
+  "patterns":{
+    "SERIAL_DEPENDENCY":{"meaning":"downstream task waits for named prerequisite tasks/artifacts"},
+    "INDEPENDENT_PARALLEL":{"meaning":"independent tasks become ready together when their own inputs are ready"},
+    "FAN_OUT_FAN_IN":{"meaning":"multiple branches execute independently, then a declared synthesis task consumes all required branches"},
+    "CONSULTATIVE_ADVICE":{"meaning":"consultant emits advisory artifact/evidence; decision authority remains with named owner"},
+    "COMPETITIVE_CANDIDATES":{"meaning":"two or more independent candidate tasks emit alternatives into a decision_group"},
+    "STRUCTURED_CRITIQUE_AND_REVISION":{"meaning":"proposal/candidate artifact is critiqued and a bounded revision artifact is emitted before decision"},
+    "OWNER_ADJUDICATION":{"meaning":"authorized owner/adjudicator consumes candidates/reviews and emits durable selection/merge/rejection result"},
+    "QUORUM_OR_PANEL_REVIEW":{"meaning":"independent reviews are collected before a declared meta-review or gate decision"}
+  },
+  "competition_contract":{
+    "candidate_count_min":2,
+    "same_candidate_cannot_self_approve":true,
+    "declared_criteria_required":true,
+    "decision_receipt_required":true,
+    "same_context_diversity_is_independent_verification":false
+  },
+  "negotiation_contract":{
+    "allowed_shape":"BOUNDED_ARTIFACT_ROUNDS",
+    "examples":["proposal -> critique -> revision -> adjudication","candidate set -> independent reviews -> synthesis/selection"],
+    "unbounded_peer_chat":false,
+    "implicit_authority_transfer":false
+  },
+  "specialist_split_rule":"CREATE_DISTINCT_SPECIALIST_ONLY_FOR_MATERIAL_TOOL_POLICY_CONTEXT_CRAFT_OUTPUT_OR_ASSURANCE_DIFFERENCE",
+  "reliability":[
+    "least context",
+    "explicit artifact provenance",
+    "stale downstream invalidation after upstream digest change",
+    "producer/reviewer separation where required",
+    "hard gates remain fail closed"
+  ]
+}

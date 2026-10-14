@@ -1,140 +1,87 @@
-# Workflow Integration Notes
+# Workflow Integration — Active Program Coordination
 
 ## Purpose
 
-This package is **not an active continuity task** and does not inherit the state of `video-growth:main` or Pilot 002.
+`ai-self-media-commercialization` is the default integrated Video-domain business Program for AI self-media growth, commercialization, original digital IP and reusable production-system development.
 
-It is a project-local reference package designed so a future Video Growth project can explicitly import the useful parts without contaminating unrelated tasks.
+It is not a UAOS continuity task and does not inherit a parent task identity. It owns its business state inside this repository.
 
-## Discovery
+Pilot 002 remains a separate historical child project. Exact Pilot 002 evidence may be inspected when explicitly resumed or intentionally referenced, but rejected/process-invalid Pilot 002 artifacts never become accepted Program inputs by proximity.
 
-The repository hygiene system dynamically derives project aliases from `projects/*`. Keeping this package as a direct sibling under `projects/` makes it visible to repository-level project scanning while preserving isolation from existing Pilot folders.
+## Workstreams
 
-Machine-readable discovery metadata lives in `PROJECT_MANIFEST.json`.
+### MEDIA_GROWTH
+Owns account positioning, audience promise, content pillars, topic portfolio, distribution strategy, growth metrics and performance learning.
 
-## Import policy
+### ORIGINAL_DIGITAL_IP
+Owns Human Core, identity DNA, character canon, presentation modes and identity-consistent reusable character assets.
 
-Default: **no automatic promotion**.
+### COMMERCIALIZATION
+Owns advertiser/category mapping, sponsor-fit criteria, commercial offer architecture, publishing/production/licensing/usage-right boundaries and repeat-buy model.
 
-A future project may explicitly import only the artifacts it needs.
+### PRODUCTION_SYSTEM
+Owns episode workflow, generation/asset routing, media QA, cost/runtime methods and validated reusable production techniques.
 
-Recommended mapping into the existing Video Growth workflow:
+## Coordination rule
+
+The Program is a graph, not a single serial pipeline. `SUBTASK_GRAPH.json` is the current Program-level dependency authority.
+
+- independent work may proceed in parallel;
+- declared dependency edges block only affected nodes;
+- advisory consultation does not decide;
+- competing candidates are independently inspectable and require an authorized adjudication result;
+- negotiation uses bounded artifact rounds, not free-form peer chat;
+- Program outputs enter an episode workflow only after explicit promotion and artifact binding.
+
+## Current parallelism
+
+Current Original-IP H1/A2 work may run in parallel with:
+- growth baseline / pilot-topic hypothesis work;
+- advertiser mapping / commercial-fit research.
+
+The following do require later dependencies:
+- character-identity-dependent brand assets require canon identity;
+- sponsor integration framework requires commercial offer decision plus relevant positioning/growth constraints;
+- identity-stable reusable production assets require promoted canon references.
+
+## Mapping to episode workflow
 
 ### INTAKE / POSITIONING
-Potential inputs:
-- `ACCOUNT_POSITIONING.md`;
-- target audience;
-- content pillars;
-- channel role;
-- commercial adjacency;
-- platform strategy.
+Consume approved account positioning, target audience, content pillar and commercial-adjacency decisions where relevant.
 
 ### RESEARCH / RESEARCH_AUDIT
-Use this package only for account-level framing and known boundaries.
-Do not treat it as factual evidence for episode-specific claims.
-Every episode must perform fresh evidence collection and claim verification.
+Program framing is not episode factual evidence. Every episode still collects and verifies fresh claim evidence.
 
 ### SCRIPT / SCRIPT_AUDIT
-Portable editorial principles:
-- mechanism before hype;
-- explain rules/incentives/bugs/human behavior;
-- build narrative tension rather than listing facts;
-- sponsorship must belong naturally to the story.
+Portable editorial principles remain mechanism before hype, clear incentives/causality, narrative tension and sponsor integration that genuinely belongs to the story.
 
-### STORYBOARD
-Import:
-- character narrative function;
-- deadpan staging rules;
-- high-resolution vs low-resolution anomaly contrast;
-- visual motif hierarchy.
-
-### LOOKDEV
-Primary inputs:
-- `CHARACTER_DESIGN_BIBLE_V1.md`;
-- accepted concept/character images once available;
-- future visual-bible assets;
-- palette/material/cinematography rules.
-
-### VISUAL_PREVIEW
-Use project-local concept references only when the active future project has explicitly adopted them.
-Quality-critical generation still follows the owner's current generation-governance and review requirements.
-This package must not be used to bypass those gates.
+### STORYBOARD / LOOKDEV / VISUAL_PREVIEW
+Use promoted character/brand assets only after their owning Program decisions are accepted. Experimental/rejected IP candidates are not authority.
 
 ### ASSET_BUILD
-Future reusable assets may include:
-- character canon face/body reference;
-- hair reference;
-- costume turnaround;
-- sunglasses asset;
-- Pixel→Scale motif;
-- color palette;
-- logo/watermark;
-- intro/outro/section-card templates;
-- reusable environment/look references.
-
-### ROUGH_CUT / SOUND
-Potential identity rules:
-- restrained narrator/character performance;
-- calm visual rhythm against absurd subject matter;
-- character reaction amplitude remains lower than environment intensity.
+Reusable Program assets may include character canon, hair/costume/accessory turnarounds, motif, palette, logo/watermark, thumbnail/intro/outro systems and environment references.
 
 ### BRAND_QA
-Import:
-- target advertiser pools;
-- product-truth boundary;
-- natural integration principle;
-- distinction between publishing fee and usage/paid-media rights.
+Consume current commercial-fit, product-truth and rights-boundary decisions. Commercial pressure cannot override product truth, audience trust, rights or hard QA.
 
 ### PERFORMANCE / LEARN
-Do not promote project-local preferences into global Technique Library solely because they were used.
-Only verified generalized techniques should enter the owner's learning/evolution path under current admission rules.
+Episode performance feeds Media Growth and may create domain learning candidates. One episode does not automatically rewrite global Technique Library or Program policy.
 
-## Character-asset authority rule
+## Character-asset authority
 
-Before the character is formally locked:
-- no random generated image becomes authority merely because it looks good;
-- rejected photoreal/cosplay/generic-game-character outputs remain historical references only;
-- large-form concept approval comes before face/hair/costume turnarounds;
-- after identity lock, later images should be controlled edits / reference-bound outputs rather than identity re-rolls.
+Before character canon lock:
+- random generated images never become authority merely because they look good;
+- rejected/cosplay/generic-game-character outputs remain historical only;
+- controlled edits branch from the last accepted base;
+- identity-dependent downstream artifacts remain blocked only where canon identity is actually required.
 
-## Future suggested asset tree
+After canon lock, later identity assets use reference-bound controlled generation/editing rather than identity re-rolls.
 
-When the concept passes, extend this folder rather than mixing assets into Pilot 002:
+## Non-interference
 
-```text
-projects/ai-self-media-commercialization/
-  PROJECT_MANIFEST.json
-  README.md
-  ACCOUNT_POSITIONING.md
-  CHARACTER_DESIGN_BIBLE_V1.md
-  CONCEPT_GENERATION_PROMPT_V1.md
-  PRODUCTION_AND_COST_STRATEGY.md
-  WORKFLOW_INTEGRATION.md
-  DECISION_LOG.md
-  character/
-    canon/
-    hair/
-    costume/
-    accessory/
-    expressions/
-    turnarounds/
-  brand/
-    visual-bible/
-    logo/
-    banner/
-    thumbnails/
-    intro-outro/
-  research/
-  episode-pilots/
-```
-
-Binary images/video do not need to be committed blindly to Git. Store stable refs/digests/authorized asset locations according to the owner artifact policy when the production phase begins.
-
-## Non-interference rule
-
-This project must not:
-- write to `continuity/tasks/video-growth-main/*` for its own progress;
-- change Pilot 002 stage/gates/blockers;
-- reuse Pilot 002 rejected candidates as accepted evidence;
-- alter global Skill/runtime policy merely to accommodate local character preferences;
-- enter the global Technique Library without explicit verified learning promotion.
+This Program must not:
+- rewrite Pilot 001/002 state unless the user explicitly changes those projects;
+- use rejected Pilot 002 candidates as accepted evidence;
+- weaken global runtime/Skill hard gates for local convenience;
+- auto-promote local preferences into global Technique Library;
+- create a repository-local parent controller or mirror UAOS task identities.

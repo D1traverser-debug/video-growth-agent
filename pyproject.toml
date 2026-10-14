@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "video-growth-agent"
-version = "0.5.2"
-description = "Executable agentic-studio runtime for low-cost short-video production, blind review and continuous learning"
+version = "0.6.0"
+description = "Executable AI-media growth, original digital-IP, commercialization and production runtime with domain-owned program orchestration"
 requires-python = ">=3.11"
 
 [project.scripts]

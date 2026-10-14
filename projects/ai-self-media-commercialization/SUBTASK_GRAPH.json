@@ -1,0 +1,34 @@
+{
+  "schema_version":"1.1",
+  "program_id":"ai-self-media-commercialization",
+  "owner":"VIDEO_GROWTH_AGENT",
+  "policy_ref":"video_growth_agent/data/coordination-policy.json",
+  "graph_status":"ACTIVE_PLANNING_AUTHORITY",
+  "nodes":[
+    {"id":"ip_h1_a2_upper_face","workstream":"ORIGINAL_DIGITAL_IP","status":"READY","coordination":"SERIAL_DEPENDENCY","depends_on":[],"outputs":["a2_upper_face_candidate","a2_comparison_evidence"],"decision_owner":"creative_director"},
+    {"id":"growth_baseline_and_topic_hypotheses","workstream":"MEDIA_GROWTH","status":"READY","coordination":"INDEPENDENT_PARALLEL","depends_on":[],"outputs":["growth_baseline","topic_hypothesis_set"],"decision_owner":"growth_strategist","authority_inputs":["ACCOUNT_POSITIONING.md"]},
+    {"id":"commercial_advertiser_map","workstream":"COMMERCIALIZATION","status":"READY","coordination":"INDEPENDENT_PARALLEL","depends_on":[],"outputs":["advertiser_map","commercial_fit_criteria"],"decision_owner":"commercial_director","authority_inputs":["ACCOUNT_POSITIONING.md"]},
+    {"id":"commercial_offer_candidate_native_integration","workstream":"COMMERCIALIZATION","status":"WAITING_FOR_ADVERTISER_MAP","coordination":"COMPETITIVE_CANDIDATES","depends_on":["commercial_advertiser_map"],"inputs":["advertiser_map","commercial_fit_criteria"],"decision_group":"commercial_offer_architecture","outputs":["offer_candidate_native_integration"]},
+    {"id":"commercial_offer_candidate_series_package","workstream":"COMMERCIALIZATION","status":"WAITING_FOR_ADVERTISER_MAP","coordination":"COMPETITIVE_CANDIDATES","depends_on":["commercial_advertiser_map"],"inputs":["advertiser_map","commercial_fit_criteria"],"decision_group":"commercial_offer_architecture","outputs":["offer_candidate_series_package"]},
+    {"id":"commercial_offer_critique","workstream":"COMMERCIALIZATION","status":"WAITING","coordination":"STRUCTURED_CRITIQUE_AND_REVISION","depends_on":["commercial_offer_candidate_native_integration","commercial_offer_candidate_series_package"],"inputs":["offer_candidate_native_integration","offer_candidate_series_package","commercial_fit_criteria"],"outputs":["offer_candidate_critiques"],"advisory_only":true},
+    {"id":"commercial_offer_adjudication","workstream":"COMMERCIALIZATION","status":"WAITING","coordination":"OWNER_ADJUDICATION","depends_on":["commercial_offer_candidate_native_integration","commercial_offer_candidate_series_package","commercial_offer_critique"],"consumes_group":"commercial_offer_architecture","inputs":["offer_candidate_critiques"],"outputs":["commercial_offer_decision"],"adjudicator":"commercial_director"},
+    {"id":"ip_h1_front_selection","workstream":"ORIGINAL_DIGITAL_IP","status":"WAITING","coordination":"FAN_OUT_FAN_IN","depends_on":["ip_h1_a2_upper_face"],"inputs":["a2_upper_face_candidate","a2_comparison_evidence"],"outputs":["h1_front_decision"],"decision_owner":"creative_director"},
+    {"id":"ip_three_quarter_validation","workstream":"ORIGINAL_DIGITAL_IP","status":"BLOCKED_BY_H1_FRONT_DECISION","coordination":"SERIAL_DEPENDENCY","depends_on":["ip_h1_front_selection"],"inputs":["h1_front_decision"],"outputs":["h1_three_quarter_validation"]},
+    {"id":"ip_canon_lock","workstream":"ORIGINAL_DIGITAL_IP","status":"WAITING","coordination":"FAN_OUT_FAN_IN","depends_on":["ip_three_quarter_validation"],"inputs":["h1_three_quarter_validation"],"outputs":["character_canon_identity"]},
+    {"id":"brand_identity_system","workstream":"MEDIA_GROWTH","status":"WAITING_FOR_POSITIONING_AND_CANON","coordination":"FAN_OUT_FAN_IN","depends_on":["growth_baseline_and_topic_hypotheses","ip_canon_lock"],"inputs":["growth_baseline","character_canon_identity"],"outputs":["brand_identity_system"]},
+    {"id":"pilot_topic_candidate_system_mechanism","workstream":"MEDIA_GROWTH","status":"WAITING_FOR_GROWTH_BASELINE","coordination":"COMPETITIVE_CANDIDATES","depends_on":["growth_baseline_and_topic_hypotheses"],"inputs":["growth_baseline","topic_hypothesis_set"],"decision_group":"pilot_topic_slate","outputs":["pilot_topic_candidate_system_mechanism"]},
+    {"id":"pilot_topic_candidate_business_story","workstream":"MEDIA_GROWTH","status":"WAITING_FOR_GROWTH_BASELINE","coordination":"COMPETITIVE_CANDIDATES","depends_on":["growth_baseline_and_topic_hypotheses"],"inputs":["growth_baseline","topic_hypothesis_set"],"decision_group":"pilot_topic_slate","outputs":["pilot_topic_candidate_business_story"]},
+    {"id":"pilot_topic_slate_adjudication","workstream":"MEDIA_GROWTH","status":"WAITING","coordination":"OWNER_ADJUDICATION","depends_on":["pilot_topic_candidate_system_mechanism","pilot_topic_candidate_business_story"],"consumes_group":"pilot_topic_slate","outputs":["pilot_topic_decision"],"adjudicator":"showrunner"},
+    {"id":"sponsor_integration_consultation","workstream":"COMMERCIALIZATION","status":"WAITING_FOR_COMMERCIAL_DECISION","coordination":"CONSULTATIVE_ADVICE","depends_on":["commercial_offer_adjudication","growth_baseline_and_topic_hypotheses"],"inputs":["commercial_offer_decision","growth_baseline"],"outputs":["sponsor_integration_advice"],"decision_owner":"showrunner","advisory_only":true}
+  ],
+  "parallel_now":["ip_h1_a2_upper_face","growth_baseline_and_topic_hypotheses","commercial_advertiser_map"],
+  "invariants":[
+    "No dependency cycle.",
+    "A node waits only for declared dependencies plus required runtime artifacts/capabilities; durable authority files may be declared separately as authority_inputs.",
+    "Advisory outputs do not become decisions without an authorized owner/adjudicator.",
+    "Every decision_group has at least two independent candidate nodes.",
+    "An OWNER_ADJUDICATION consuming a decision_group depends on every candidate node in that group.",
+    "Rejected IP candidates remain historical evidence and never become downstream canon inputs."
+  ],
+  "updated_at":"2026-10-15T02:26:00+08:00"
+}

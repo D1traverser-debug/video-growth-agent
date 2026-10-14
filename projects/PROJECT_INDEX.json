@@ -1,0 +1,41 @@
+{
+  "schema_version":"1.0",
+  "authority":"VIDEO_GROWTH_AGENT",
+  "identity_rule":"VIDEO_BUSINESS_PROJECT_PROGRAM_WORKSTREAM_AND_SUBTASK_IDENTITIES_ARE_CHILD_OWNED__UAOS_PARENT_ROUTER_ID_IS_DISTINCT",
+  "default_project_id":"ai-self-media-commercialization",
+  "projects":[
+    {
+      "project_id":"ai-self-media-commercialization",
+      "kind":"INTEGRATED_MEDIA_GROWTH_IP_COMMERCIALIZATION_PROGRAM",
+      "status":"ACTIVE",
+      "default_for_generic_domain_intent":true,
+      "aliases":["AI自媒体视频商业化与原创数字IP","AI自媒体视频商业化","AI视频涨粉与商业化","AI视频自媒体增长商业化","原创数字IP","原创数字IP设计","ai-self-media-commercialization"],
+      "state_refs":["projects/ai-self-media-commercialization/PROJECT_MANIFEST.json","projects/ai-self-media-commercialization/PROGRAM_STATE.json","projects/ai-self-media-commercialization/CURRENT_PROGRESS.md"],
+      "resume_ref":"projects/ai-self-media-commercialization/RESUME_ENTRY.md"
+    },
+    {
+      "project_id":"pilot-002",
+      "kind":"HISTORICAL_EPISODE_PRODUCTION_PROJECT",
+      "status":"HOLD",
+      "default_for_generic_domain_intent":false,
+      "aliases":["pilot-002","Pilot 002","video-growth:main","旧视频主项目"],
+      "legacy_alias_semantics":"video-growth:main is an exact child-domain compatibility alias only; it is not a UAOS task identity",
+      "state_refs":["projects/pilot-002/PROGRAM_STATE.json"]
+    },
+    {
+      "project_id":"pilot-001",
+      "kind":"HISTORICAL_PROJECT_REFERENCE",
+      "status":"HISTORICAL",
+      "default_for_generic_domain_intent":false,
+      "aliases":["pilot-001","Pilot 001"],
+      "state_refs":["projects/pilot-001/README.md"]
+    }
+  ],
+  "resolution_rules":[
+    "Exact project_id or exact legacy alias wins over generic intent.",
+    "Generic Video/AI-video/growth/commercialization/original-IP intent without another exact project reference resolves to default_project_id.",
+    "Repository search rank, newest file and chat memory do not select a project.",
+    "Parent UAOS may carry an opaque child state reference but must not recreate these project identities as parent tasks."
+  ],
+  "updated_at":"2026-10-15T02:26:00+08:00"
+}
