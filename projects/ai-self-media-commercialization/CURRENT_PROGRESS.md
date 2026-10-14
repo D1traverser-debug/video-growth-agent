@@ -29,27 +29,26 @@ It must not mutate or advance any existing Video Growth task stage, gate, blocke
 
 The first full-body concept is rejected at macro level: generic CG handsome face, fashion-model elongation, weak hair masses, generic white/black/cyan techwear, weak pixel-glasses scale, lookbook pose and shallow motif fusion.
 
-Authority:
-- `CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md`
-
 Anti-regression:
 - do not use V1 as a V2 visual reference;
 - do not crop/refine its face;
 - do not preserve its jacket/pants/shoes;
 - clean rendering is not design PASS.
 
-## V2 method evolution
+Authority: `CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md`
 
-Project methods now include:
-- `DESIGN_RESEARCH_METHOD_V2.md` — macro-to-micro professional design method;
-- `DESIGN_SPACE_EXPLORATION_V2.md` — comparative sweep across body/face/hair/fashion/runway systems;
-- `HUMAN_CORE_CONSTRUCTION_STACK_V2.md` — current dependency order, human-related specialist stack, reference-fusion policy and gate Harness;
-- `H0_REFERENCE_ASSESSMENT_2026-10-14.md` — reference reliability and role split;
-- `H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md` — current face-structure extraction and H1 candidate architectures;
-- `H1_FACE_COMPARISON_PROMPTS_V2.md` — controlled prompt matrix for F1–F5 face-mass comparison;
-- `GPT_IMAGE_PROMPTING_METHOD_V2.md` — GPT Images-specific prompt compilation, reference-image and controlled-edit rules.
+## Active V2 method authorities
 
-### Governance rule
+- `DESIGN_RESEARCH_METHOD_V2.md`
+- `DESIGN_SPACE_EXPLORATION_V2.md`
+- `HUMAN_CORE_CONSTRUCTION_STACK_V2.md`
+- `H0_REFERENCE_ASSESSMENT_2026-10-14.md`
+- `H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md`
+- `H1_FACE_COMPARISON_PROMPTS_V2.md`
+- `GPT_IMAGE_PROMPTING_METHOD_V2.md`
+- `H1_F1_F5_FRONT_REVIEW_2026-10-14.md`
+
+## Governance rule
 
 Do not automatically accept a user suggestion as design truth.
 For material decisions:
@@ -60,31 +59,34 @@ For material decisions:
 5. persist as PROPOSED until adopted;
 6. only then compile detailed authority/prompt.
 
-## Critical dependency correction — Presentation Modes are downstream
+## Dependency order
 
-CANON / EDITORIAL / CINEMATIC / SURREAL / COMMERCIAL remain useful only as future derivative modes.
+Presentation Modes remain downstream and dormant.
 
-Current dependency order:
-1. HUMAN CORE;
-2. IDENTITY DNA;
-3. WARDROBE CHASSIS;
-4. SIGNATURE DETAIL / MOTIF;
-5. CANON CHARACTER;
-6. PRESENTATION MODES.
+1. HUMAN CORE
+2. IDENTITY DNA
+3. WARDROBE CHASSIS
+4. SIGNATURE DETAIL / MOTIF
+5. CANON CHARACTER
+6. PRESENTATION MODES
 
 No runway styling, makeup, clothing, lensing or presentation mode may rescue an unresolved person.
 
-## Current reference-fusion policy
+## Reference-fusion policy
 
-### Real certificate photo
-Primary structural face source only. Use face envelope, brow-eye relation, eye spacing/orbital placement, nose-mouth relation and cheek/jaw/chin distribution.
+### Creator certificate portrait
+Structural face source only:
+- face envelope;
+- brow-eye relation;
+- eye spacing/orbital placement;
+- nose-mouth relation;
+- cheek/jaw/chin distribution;
+- adult Chinese male anchor.
 
-Ignore makeup, retouching, whitening, smoothing, hairstyle, suit styling and photographic color cast.
+Ignore whitening, smoothing, makeup/retouch finish, hairstyle, suit styling and photo color.
 
-### Real life/full-body photos
-Support source for true skin value, shoulder/limb plausibility, tall-slim physical origin, posture and later movement/garment constraints.
-
-Body is not a primary likeness source and must not be copied literally.
+### Real life / full-body photos
+Support source only for body plausibility, true-skin tendency, posture, limb/shoulder tendencies and later motion/garment constraints. Body is not a primary likeness target.
 
 ### Pixel avatar
 Brand/graphic DNA only: ice-cyan/cyan-blue head color family, deep blue-violet iris concept, black/white pixel sunglasses, white/ice-blue/black lineage, internet-native/pixel DNA and optional rare red anomaly accent.
@@ -93,8 +95,6 @@ Brand/graphic DNA only: ice-cyan/cyan-blue head color family, deep blue-violet i
 Narrative/contradiction source only: impossible hybrid treated as normal, deadpan grammar, mismatch between rule systems and later macro/meso/micro motif hierarchy.
 
 ## H1 face morphology — ACTIVE
-
-The certificate portrait has been decomposed into reusable structure rather than copied appearance.
 
 Strong same-source structural anchors extracted:
 - moderately elongated soft-rectangular/oval face envelope rather than narrow V-face;
@@ -110,93 +110,62 @@ Explicit anti-copy rules:
 - no direct photo-clone target;
 - no current hairstyle/wardrobe inheritance;
 - no micro-asymmetry treated as primary identity;
-- no profile assumptions from this frontal photo.
+- no profile assumptions from the frontal certificate image.
 
-Authority:
-- `H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md`
+## F1–F5 front-view comparison — REVIEWED
 
-### H1 candidate face architectures
-- F1 Same-Source Natural — control / closest structural resonance;
-- F2 Blunt Analytical — stronger cheek/jaw stability, compact chin, anti-generic;
-- F3 Editorial Plane — clearer facial planes without idol beautification;
-- F4 Compact Deadpan — compressed expression read / calm horizontal emphasis;
-- F5 Controlled Uncanny Human — one subtle proportion anomaly as boundary experiment.
+The five GPT-generated front studies were reviewed together with the certificate portrait used only after generation as a structural comparator.
 
-Current independent recommendation before visual comparison:
-- prioritize F2, F3 and F4;
-- keep F1 as control;
-- keep F5 as edge/boundary test.
+Major finding:
+- all five partially collapsed toward the same generic attractive East-Asian male studio-portrait prior;
+- the intended differences appeared, but not strongly enough to justify choosing a single winner;
+- text-only morphology exploration was useful for direction finding but insufficient for final same-source calibration.
 
-No face direction is locked yet.
+Candidate disposition:
+- F1 Same-Source Natural — retain as face-envelope / soft-tissue donor;
+- F2 Blunt Analytical — reject as final direction; insufficient anti-generic gain;
+- F3 Editorial Plane — reject as base architecture; too heavy/rugged/editorial-masculine;
+- F4 Compact Deadpan — retain as eye-aperture / low-expression donor;
+- F5 Controlled Uncanny Human — retain as cheek→jaw→compact-chin rhythm donor.
 
-## H1 comparison protocol — READY
+No single F1–F5 candidate is locked.
 
-The controlled generation protocol is frozen in `H1_FACE_COMPARISON_PROMPTS_V2.md`.
+Authority: `H1_F1_F5_FRONT_REVIEW_2026-10-14.md`
 
-Execution rules:
-- first pass is FRONT VIEW ONLY;
-- one fresh image-generation conversation per F1–F5 candidate;
-- do not upload the certificate photo in first-pass generation; use the extracted morphology text instead to avoid digital-clone collapse;
-- identical camera/light/hair/eyes/background/render conditions across all five candidates;
-- dark/plain hair, dark eyes, no accessories, no cyan, no fashion, no dramatic lighting;
-- generate exactly one image per candidate;
-- after all five front views are reviewed, only the top 2–3 advance to 3/4 view;
-- H1 cannot pass until the selected architecture survives both front and 3/4 views.
+## Current face proposal — H1-HYBRID-A
 
-Review dimensions:
-- distinctiveness without branding;
-- adult male credibility;
-- same-source resonance;
-- anti-generic strength;
-- deadpan compatibility;
-- commercial trust;
-- AI-video stability;
-- survival under dark-hair/dark-eye/no-accessory identity-strip conditions.
+PROPOSED, not yet locked.
 
-## GPT Images execution method — ACTIVE
+Construct a deliberate hybrid:
+- F1: overall soft-rectangular/oval envelope and natural soft-tissue behavior;
+- F4: moderately reduced eye aperture and calm low-expression baseline;
+- F5: subtly less-conventional cheek→jaw→compact-chin transition;
+- certificate portrait: source calibration only for face width/length tendency, brow-eye relationship, eye spacing, natural nose-mouth proportion and cheek/jaw/chin distribution.
 
-Because generation is done with GPT/ChatGPT Images, the project now uses model-specific prompt rules rather than generic diffusion-model prompt habits.
+Anti-generic corrections:
+- soften heroic brow/orbital mass;
+- avoid thick aggressive brows;
+- eyes horizontal and moderately narrow, not fashion-model sharpened;
+- nose medium/natural, not high/narrow/straightened;
+- lips quiet/unsculpted;
+- cheek support present without macho jaw broadening;
+- chin compact, blunt/rounded, never pointed;
+- no conventional-handsomeness optimization.
 
-Key rules:
-- use clear natural-language instructions; no secret syntax or weighted-token syntax is assumed;
-- define intended result, subject, visible design variable, composition and constraints;
-- for complex studies, concise labeled sections are allowed, but generator-facing prompts should remain much shorter than the design Bible;
-- for F1–F5, one compact common base prompt must stay identical and only the face-architecture block changes;
-- use a small set of explicitly role-labeled reference images only when references are actually needed;
-- first-pass H1 uses no uploaded portrait in the generator because morphology has already been extracted;
-- after a candidate passes, converge through targeted edits with explicit preservation language: change only X; keep identity, skull, camera, light, expression and all other features unchanged;
-- camera/lens terms are appearance cues rather than exact physical guarantees;
-- use short high-value exclusion constraints instead of giant negative-prompt dumps;
-- debug one structural failure at a time rather than rewriting the entire character prompt.
+## GPT Images method — ACTIVE
 
-Authority:
-- `GPT_IMAGE_PROMPTING_METHOD_V2.md`
-
-### Optional additional-photo acquisition
-No new photo is required to execute the first-pass F1–F5 front comparison.
-
-Before final H1 Human Core lock, useful optional face references are:
-- neutral, unfiltered front;
-- left 3/4;
-- right 3/4;
-- clean side profile, preferably both sides if convenient;
-- eye-level, neutral expression, diffuse natural light;
-- no beauty filter/heavy makeup and no ultra-wide selfie distortion;
-- hair kept away enough to reveal the face outline when possible.
-
-For later H2/H9, optional body truth references are:
-- front / side / back full-body;
-- plain fitted clothing;
-- flat shoes or barefoot;
-- neutral stance with arms relaxed;
-- rear camera at enough distance to limit perspective distortion.
-
-These additional photos are structural verification sources, not literal likeness targets.
+- generator-facing prompt shorter than the design Bible;
+- clear natural-language instructions, no weighted-token syntax;
+- small, role-labeled reference set only when needed;
+- broad F1–F5 exploration used no portrait upload;
+- **next calibration step SHOULD upload the certificate portrait because the task has changed from exploration to source-structure calibration**;
+- certificate image role must be explicitly constrained to structure only;
+- after a direction stabilizes, converge with targeted edits: change only X; keep identity/skull/camera/light/expression unchanged.
 
 ## Human Core Harness
 
 - H0 Reference Decomposition — COMPLETE ENOUGH TO ENTER H1;
-- H1 Face Primary Masses — ACTIVE / COMPARISON READY;
+- H1 Face Primary Masses — ACTIVE / HYBRID CALIBRATION;
 - H2 Base Body Archetype — PENDING;
 - H3 Hair Architecture — PENDING;
 - H4 Skin/Grooming — PENDING;
@@ -211,8 +180,7 @@ No later gate can compensate for an earlier failure.
 
 ## Design-space status
 
-`Glitch Dandy / 异常绅士` remains a PROPOSED downstream wardrobe/whole-look direction, not the Human Core and not locked canon.
-
+`Glitch Dandy / 异常绅士` remains a PROPOSED downstream wardrobe/whole-look direction, not Human Core authority.
 Techwear remains rejected as the base clothing chassis.
 
 ## Current stage
@@ -221,19 +189,18 @@ Techwear remains rejected as the base clothing chassis.
 
 ## Current next action
 
-Do not generate a finished character.
+Do not advance to H2 and do not add cyan hair / pixel glasses / fashion yet.
 
 Next:
-1. execute F1–F5 front-view face studies using concise GPT Images-specific prompts compiled from the design spec;
-2. do not upload the certificate portrait in first-pass F1–F5 generation;
-3. review all five together by structure rather than attractiveness;
-4. reject automatic failures and retain the top 2–3 architectures;
-5. generate 3/4 studies only for those finalists;
-6. if neutral unfiltered 3/4/profile photos become available, use them to verify structure before final H1 lock;
-7. select one base face architecture or a deliberate hybrid;
-8. require identity to survive grayscale / dark-hair / no-accessory conditions;
-9. only after H1 PASS proceed to H2 body archetype;
-10. only after Human Core passes identity-strip tests reintroduce pixel-avatar DNA, wardrobe/runway and motif systems.
+1. generate ONE neutral front-view `H1-HYBRID-A` study;
+2. upload the creator certificate portrait for this calibration pass only;
+3. state explicitly that the photo calibrates structural relations only and must not be copied as a portrait;
+4. use F1 envelope + F4 eye/deadpan rhythm + F5 cheek-to-chin transition;
+5. correct the generic-male drift in brow, orbit, nose, mouth and jaw;
+6. review the front view before any 3/4 generation;
+7. if the hybrid front passes, generate a matching 3/4 study;
+8. lock H1 only after front + 3/4 coherence and identity-strip viability;
+9. only then proceed to H2 body archetype.
 
 ## Future workflow integration rule
 
