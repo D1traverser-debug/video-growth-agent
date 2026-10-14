@@ -1,5 +1,5 @@
 {
-  "schema_version": "2.0",
+  "schema_version": "2.1",
   "project_id": "ai-self-media-commercialization",
   "display_name_zh": "AI自媒体视频商业化与原创数字IP",
   "project_kind": "INCUBATION_REFERENCE_PACKAGE",
@@ -31,6 +31,7 @@
       "FACIAL_MORPHOLOGY",
       "FACE_PRIMARY_MASSES",
       "SCULPTURAL_MASSING",
+      "S1_S3_HYBRID",
       "GPT_IMAGE_PROMPTING",
       "BODY_PROPORTION",
       "REFERENCE_DECOMPOSITION",
@@ -39,22 +40,18 @@
       "FASHION_RUNWAY_RESEARCH",
       "LOOKDEV_INPUT"
     ],
-    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. V1 is rejected. F1-F5 text exploration and the source-calibrated photoreal Hybrid A pass are complete; neither produced a lockable Human Core. H1 now uses neutral clay/maquette sculptural massing to isolate face geometry before any return to stylized skin/hair, body, brand DNA, wardrobe, motif or Presentation Modes.",
+    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. V1, F1-F5 standalone faces and photoreal Hybrid A are not locked. H1 sculptural massing S1-S3 is reviewed: S1 is the primary base donor, S2 is rejected, and S3 is retained only for subtle cheek-to-jaw-to-compact-chin rhythm. The active step is one controlled S1+S3 front-view clay hybrid before any 3/4 validation.",
     "resume_entry": "RESUME_ENTRY.md",
     "current_progress": "CURRENT_PROGRESS.md",
-    "latest_failure_audit": "H1_HYBRID_A_REVIEW_2026-10-14.md",
-    "current_design_method": "DESIGN_RESEARCH_METHOD_V2.md",
-    "current_design_space": "DESIGN_SPACE_EXPLORATION_V2.md",
-    "human_core_stack": "HUMAN_CORE_CONSTRUCTION_STACK_V2.md",
-    "current_reference_assessment": "H0_REFERENCE_ASSESSMENT_2026-10-14.md",
-    "current_face_morphology": "H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md",
-    "current_face_review": "H1_HYBRID_A_REVIEW_2026-10-14.md",
-    "current_face_prompt": "H1_SCULPTURAL_MASSING_PROMPTS_V2.md",
-    "gpt_image_prompting_method": "GPT_IMAGE_PROMPTING_METHOD_V2.md"
+    "latest_face_review": "H1_S1_S2_S3_SCULPT_REVIEW_2026-10-14.md",
+    "current_face_prompt": "H1_S13_HYBRID_SCULPT_PROMPT_V2.md",
+    "personal_inheritance_policy": "HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md",
+    "gpt_image_prompting_method": "GPT_IMAGE_PROMPTING_METHOD_V2.md",
+    "human_core_stack": "HUMAN_CORE_CONSTRUCTION_STACK_V2.md"
   },
   "current_stage": "H1_SCULPTURAL_MASSING_V2",
-  "current_state": "F1-F5 front exploration revealed a generic attractive-male prior. Hybrid A direct certificate-photo calibration improved source relations but failed as a lock because photoreal skin/hair and portrait synthesis hid the primary masses and pulled the output toward an ordinary transformed real person. H1 therefore moves to matte-gray clay/maquette geometry studies S1-S3.",
-  "next_action": "Generate S1 Source-Calibrated Neutral, S2 Structural Compression and S3 Anti-Generic Cheek/Jaw Rhythm as separate neutral clay head studies using the certificate portrait only as structural calibration. Compare geometry only, select one sculpt base or deliberate hybrid, then validate the selected geometry in 3/4 before reintroducing stylized skin/hair or proceeding to H2.",
+  "current_state": "S1-S3 front clay studies are reviewed. S1 provides the best same-source envelope, orbit and calm massing. S2 is rejected because the requested compression drifted into broader/more conventional masculine regularization. S3 provides the strongest useful anti-generic cheek-jaw-chin transition but should not be copied wholesale. H1-S13-HYBRID is proposed and ready for one controlled front-view sculpt generation.",
+  "next_action": "Open a fresh GPT Images conversation and upload the creator certificate portrait as Image 1 structural ancestry only, S1 sculpt as Image 2 primary geometry base, and S3 sculpt as Image 3 lower-face transition donor only. Execute H1_S13_HYBRID_SCULPT_PROMPT_V2.md and generate exactly one front-view matte-gray hybrid sculpt. Review it before any 3/4 study. If accepted, validate the same geometry in 3/4, then only later return to stylized skin/hair and proceed toward H2.",
   "workflow_integration": {
     "mode": "FUTURE_EXPLICIT_IMPORT",
     "do_not_auto_promote": true,
@@ -72,41 +69,41 @@
   "primary_files": [
     "RESUME_ENTRY.md",
     "CURRENT_PROGRESS.md",
-    "CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md",
-    "H0_REFERENCE_ASSESSMENT_2026-10-14.md",
-    "H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md",
-    "H1_F1_F5_FRONT_REVIEW_2026-10-14.md",
-    "H1_HYBRID_A_REVIEW_2026-10-14.md",
+    "HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md",
+    "H1_S1_S2_S3_SCULPT_REVIEW_2026-10-14.md",
+    "H1_S13_HYBRID_SCULPT_PROMPT_V2.md",
     "H1_SCULPTURAL_MASSING_PROMPTS_V2.md",
+    "H1_HYBRID_A_REVIEW_2026-10-14.md",
+    "H1_F1_F5_FRONT_REVIEW_2026-10-14.md",
+    "H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md",
+    "H0_REFERENCE_ASSESSMENT_2026-10-14.md",
     "GPT_IMAGE_PROMPTING_METHOD_V2.md",
     "HUMAN_CORE_CONSTRUCTION_STACK_V2.md",
     "DESIGN_RESEARCH_METHOD_V2.md",
     "DESIGN_SPACE_EXPLORATION_V2.md",
-    "CHARACTER_DESIGN_BIBLE_V1.md",
-    "CONCEPT_GENERATION_PROMPT_V1.md",
-    "PRODUCTION_AND_COST_STRATEGY.md",
-    "WORKFLOW_INTEGRATION.md",
     "DECISION_LOG.md"
   ],
   "supersession": {
     "CHARACTER_DESIGN_BIBLE_V1.md": "HISTORICAL_INPUT_PENDING_V2_REWRITE",
     "CONCEPT_GENERATION_PROMPT_V1.md": "DO_NOT_USE_FOR_V2",
-    "H1_HYBRID_A_GPT_PROMPT_V2.md": "EXECUTED_REVIEWED_NOT_LOCKED"
+    "H1_HYBRID_A_GPT_PROMPT_V2.md": "EXECUTED_REVIEWED_NOT_LOCKED",
+    "H1_SCULPTURAL_MASSING_PROMPTS_V2.md": "EXECUTED_S1_S3_REVIEWED"
   },
   "proposals": {
     "whole_look_direction": "Glitch Dandy / 异常绅士",
     "whole_look_status": "PROPOSED_DOWNSTREAM_NOT_LOCKED",
     "personal_feature_policy": "SELECTIVE_STRUCTURAL_INHERITANCE",
     "body_reference_policy": "PLAUSIBILITY_SUPPORT_NOT_PRIMARY_LIKENESS",
-    "face_exploration_status": "F1_F5_COMPLETE_HYBRID_A_FAIL_SCULPT_PASS_ACTIVE",
     "current_face_method": "SCULPTURAL_GEOMETRY_ISOLATION",
-    "current_face_variants": [
-      "S1 Source-Calibrated Neutral",
-      "S2 Structural Compression",
-      "S3 Anti-Generic Cheek/Jaw Rhythm"
-    ],
+    "sculpt_disposition": {
+      "S1 Source-Calibrated Neutral": "PRIMARY_BASE_DONOR",
+      "S2 Structural Compression": "REJECTED",
+      "S3 Anti-Generic Cheek/Jaw Rhythm": "LOWER_FACE_RHYTHM_DONOR_ONLY"
+    },
+    "current_face_proposal": "H1-S13-HYBRID",
+    "current_face_proposal_status": "PROPOSED_READY_FOR_FRONT_EXECUTION",
     "presentation_modes_status": "DORMANT_UNTIL_CANON_H9"
   },
   "created_at": "2026-10-14T00:14:38Z",
-  "updated_at": "2026-10-14T03:32:00Z"
+  "updated_at": "2026-10-14T03:48:00Z"
 }
