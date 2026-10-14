@@ -1,31 +1,32 @@
 {
-  "schema_version": "1.0-uaos",
-  "program_id": "video-growth:main",
-  "display_name_zh": "AI视频涨粉与商业化｜Pilot 002 旧主项目",
-  "project_ref": "projects/pilot-002",
-  "controller_authority": "D1traverser-debug/universal-agent-os@main",
-  "controller_task_ref": "state/tasks/video-growth-main.json",
-  "domain_binding_ref": ".uaos/MANIFEST.json",
-  "runtime_version": "0.5.2",
-  "status": "HOLD",
-  "resume_mode": "EXPLICIT_ONLY_VIA_UAOS",
-  "current_stage": "VISUAL_PREVIEW_PROCESS_REENTRY",
-  "next_action": "When explicitly resumed through UAOS, reread this program state and the exact current Pilot 002 evidence. Keep quality-critical generation fail-closed. Prove any candidate real-video/still reviewer adapter against actual modality access and truthful provider/model/run/context evidence before trust registration. Deterministic Shot B BEFORE -> CROSSING -> AFTER timing/compositing may continue independently. Review locked Shot A/D generation briefs only when separate isolated Art Director, Creative Director and Red Team pre-generation evidence is genuinely executable. Keep the 59.5-second rebuild frozen until sample quality passes.",
-  "stage_state": {
-    "previous_release_candidate": "REJECTED_BY_USER_FOR_INSUFFICIENT_QUALITY",
-    "previous_release_gate_valid": false,
-    "publication_status": "NOT_PUBLISHED",
-    "performance_stage_entered": false,
-    "full_build_frozen_until_sample_pass": true,
-    "sample_v2_status": "PROCESS_INVALID_AND_VISUAL_FAIL",
-    "production_trusted_reviewer_executors": "EMPTY_FAIL_CLOSED",
-    "shot_a_status": "BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW",
-    "shot_d_status": "BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW",
-    "shot_b_status": "DETERMINISTIC_THREE_STATE_DESIGN_ALLOWED",
-    "quality_critical_generation_gateway": "UNAVAILABLE_FAIL_CLOSED",
-    "isolated_pregen_review_resolver": "UNAVAILABLE_FAIL_CLOSED"
+  "schema_version":"1.1",
+  "project_id":"pilot-002",
+  "display_name_zh":"Pilot 002｜AI视频涨粉与商业化旧主项目",
+  "owner":"VIDEO_GROWTH_AGENT",
+  "business_identity_authority":"projects/pilot-002/PROGRAM_STATE.json::project_id",
+  "legacy_aliases":["video-growth:main","旧视频主项目"],
+  "legacy_alias_semantics":"Compatibility lookup inside DOMAIN:video only; not a UAOS task identity and no parent/child ID equality is required.",
+  "domain_binding_ref":".uaos/MANIFEST.json",
+  "runtime_version":"0.6.0",
+  "status":"HOLD",
+  "resume_mode":"EXPLICIT_CHILD_PROJECT_REF",
+  "current_stage":"VISUAL_PREVIEW_PROCESS_REENTRY",
+  "next_action":"When explicitly resumed, reread this exact Pilot 002 state and current project evidence. Keep quality-critical generation fail-closed. Prove any candidate real-video/still reviewer adapter against actual modality access and truthful provider/model/run/context evidence before trust registration. Deterministic Shot B BEFORE -> CROSSING -> AFTER timing/compositing may continue independently. Review locked Shot A/D generation briefs only when separate isolated Art Director, Creative Director and Red Team pre-generation evidence is genuinely executable. Keep the 59.5-second rebuild frozen until sample quality passes.",
+  "stage_state":{
+    "previous_release_candidate":"REJECTED_BY_USER_FOR_INSUFFICIENT_QUALITY",
+    "previous_release_gate_valid":false,
+    "publication_status":"NOT_PUBLISHED",
+    "performance_stage_entered":false,
+    "full_build_frozen_until_sample_pass":true,
+    "sample_v2_status":"PROCESS_INVALID_AND_VISUAL_FAIL",
+    "production_trusted_reviewer_executors":"EMPTY_FAIL_CLOSED",
+    "shot_a_status":"BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW",
+    "shot_d_status":"BLOCKED_PENDING_ISOLATED_PREGEN_REVIEW",
+    "shot_b_status":"DETERMINISTIC_THREE_STATE_DESIGN_ALLOWED",
+    "quality_critical_generation_gateway":"UNAVAILABLE_FAIL_CLOSED",
+    "isolated_pregen_review_resolver":"UNAVAILABLE_FAIL_CLOSED"
   },
-  "blockers": [
+  "blockers":[
     "Production trusted reviewer executors are empty; configured roles/adapters are not independent execution proof.",
     "Shot A and Shot D remain blocked pending separate isolated Art Director, Creative Director and Red Team pre-generation evidence.",
     "The isolated pre-generation review resolver and single enforced quality-critical generation gateway are unavailable.",
@@ -33,29 +34,22 @@
     "Learning-source admission is default-deny by policy, but universal lowest-boundary external source-manifest enforcement is not yet implemented.",
     "Sample V2 and H3 Transition V1 are rejected/process-invalid evidence and may not be replayed as accepted progress."
   ],
-  "authoritative_artifacts": {
-    "rejected_candidate_v4": {
-      "library_path": "/Video Growth Agent/Pilot 002/Release V4/Pilot002_FINAL_RELEASE_V4.mp4",
-      "sha256": "eec364e8530067dbc87a08a9ccbf2dd6e6e8a5ab32fb87f648c794a4000628eb",
-      "status": "HISTORICAL_REJECTED_CANDIDATE"
-    },
-    "sample_v2": {
-      "library_path": "/Video Growth Agent/Pilot 002/Sample V2/Pilot002_Sample_V2.mp4",
-      "status": "PROCESS_INVALID_AND_VISUAL_FAIL_PREVIS_ONLY",
-      "github_record": "projects/pilot-002/SAMPLE_V2.md"
-    },
-    "h3_transition_v1_audit": "projects/pilot-002/H3_TRANSITION_V1_AUDIT.md",
-    "sample_v3_shot_repair_matrix": "projects/pilot-002/SAMPLE_V3_SHOT_REPAIR_MATRIX.md",
-    "sample_v3_shot_a_generation_brief": "projects/pilot-002/SAMPLE_V3_GENERATION_BRIEF.json",
-    "sample_v3_shot_d_generation_brief": "projects/pilot-002/SAMPLE_V3_SHOT_D_GENERATION_BRIEF.json",
-    "generation_governance": "skills/video-growth-agent/references/generation-governance.md",
-    "reviewer_execution_attestation_contract": "skills/video-growth-agent/references/reviewer-execution-attestation.md",
-    "latest_system_self_audit": "audits/SYSTEM_SELF_AUDIT_2026-10-11.md"
+  "authoritative_artifacts":{
+    "rejected_candidate_v4":{"library_path":"/Video Growth Agent/Pilot 002/Release V4/Pilot002_FINAL_RELEASE_V4.mp4","sha256":"eec364e8530067dbc87a08a9ccbf2dd6e6e8a5ab32fb87f648c794a4000628eb","status":"HISTORICAL_REJECTED_CANDIDATE"},
+    "sample_v2":{"library_path":"/Video Growth Agent/Pilot 002/Sample V2/Pilot002_Sample_V2.mp4","status":"PROCESS_INVALID_AND_VISUAL_FAIL_PREVIS_ONLY","github_record":"projects/pilot-002/SAMPLE_V2.md"},
+    "h3_transition_v1_audit":"projects/pilot-002/H3_TRANSITION_V1_AUDIT.md",
+    "sample_v3_shot_repair_matrix":"projects/pilot-002/SAMPLE_V3_SHOT_REPAIR_MATRIX.md",
+    "sample_v3_shot_a_generation_brief":"projects/pilot-002/SAMPLE_V3_GENERATION_BRIEF.json",
+    "sample_v3_shot_d_generation_brief":"projects/pilot-002/SAMPLE_V3_SHOT_D_GENERATION_BRIEF.json",
+    "generation_governance":"skills/video-growth-agent/references/generation-governance.md",
+    "reviewer_execution_attestation_contract":"skills/video-growth-agent/references/reviewer-execution-attestation.md",
+    "latest_system_self_audit":"audits/SYSTEM_SELF_AUDIT_2026-10-11.md"
   },
-  "negative_space": {
-    "old_task_manifest": "RETIRED_TO_GIT_HISTORY",
-    "old_checkpoint": "RETIRED_TO_GIT_HISTORY",
-    "lease_resume_epoch_protocol": "NOT_SUPPORTED"
+  "negative_space":{
+    "uaos_controller_task_ref":"RETIRED_AS_BUSINESS_IDENTITY_AUTHORITY",
+    "old_task_manifest":"RETIRED_TO_GIT_HISTORY",
+    "old_checkpoint":"RETIRED_TO_GIT_HISTORY",
+    "lease_resume_epoch_protocol":"NOT_SUPPORTED"
   },
-  "updated_at": "2026-10-14"
+  "updated_at":"2026-10-15"
 }
