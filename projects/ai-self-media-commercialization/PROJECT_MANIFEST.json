@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.5",
+  "schema_version": "1.6",
   "project_id": "ai-self-media-commercialization",
   "display_name_zh": "AI自媒体视频商业化与原创数字IP",
   "project_kind": "INCUBATION_REFERENCE_PACKAGE",
@@ -29,6 +29,7 @@
       "CHARACTER_DESIGN",
       "HUMAN_CORE_ARCHITECTURE",
       "FACIAL_MORPHOLOGY",
+      "FACE_PRIMARY_MASSES",
       "BODY_PROPORTION",
       "REFERENCE_DECOMPOSITION",
       "HAIR_ARCHITECTURE",
@@ -40,18 +41,19 @@
       "MODEL_ROUTER",
       "LOOKDEV_INPUT"
     ],
-    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. Concept V1 is rejected. V2 is now focused on constructing the Human Core—face morphology first, body as plausibility/silhouette/motion support, then hair architecture, skin/grooming and neutral performance—before wardrobe, motif, canon presentation or Presentation Modes. It is not an active continuity task and must not mutate Pilot 002 state or gates.",
+    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. Concept V1 is rejected. V2 has completed initial reference decomposition and is now actively comparing face primary-mass architectures before body, hair, brand DNA, wardrobe, motif or Presentation Modes are allowed to define the character.",
     "resume_entry": "RESUME_ENTRY.md",
     "current_progress": "CURRENT_PROGRESS.md",
     "latest_failure_audit": "CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md",
     "current_design_method": "DESIGN_RESEARCH_METHOD_V2.md",
     "current_design_space": "DESIGN_SPACE_EXPLORATION_V2.md",
     "human_core_stack": "HUMAN_CORE_CONSTRUCTION_STACK_V2.md",
-    "current_reference_assessment": "H0_REFERENCE_ASSESSMENT_2026-10-14.md"
+    "current_reference_assessment": "H0_REFERENCE_ASSESSMENT_2026-10-14.md",
+    "current_face_morphology": "H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md"
   },
-  "current_stage": "HUMAN_CORE_ARCHITECTURE_V2",
-  "current_state": "H0 reference decomposition has begun. The certificate portrait is the primary structural face source but not a skin/style target. The two full-body photos are supporting references for tall-slim plausibility, limb/posture/skin truth and later movement/garment constraints; they are not primary likeness sources and must not force literal body replication.",
-  "next_action": "Extract a neutral face-morphology sheet from the certificate portrait first. Use the life and graduation photos only to define body plausibility boundaries and cross-check skin/posture/limb tendencies. Then compare 4–5 face primary-mass systems and 4 base-body archetypes before cyan hair, pixel accessories or wardrobe are reintroduced.",
+  "current_stage": "H1_FACE_PRIMARY_MASSES_V2",
+  "current_state": "The creator certificate portrait has been decomposed into reusable structural face anchors without copying makeup, retouching, hairstyle or direct likeness. Strong anchors include a moderately elongated soft-rectangular/oval envelope, cheek support, compact blunt/rounded chin, horizontal brow-eye organization, moderate-narrow eye aperture, natural medium nose volume and compact mouth-to-chin relation. Five face-architecture hypotheses F1-F5 are defined; none is locked yet.",
+  "next_action": "Compare F1-F5 as neutral grayscale front and 3/4 head studies with dark/plain hair, dark eyes, no pixel glasses, no fashion and no dramatic lighting. Prioritize F2 Blunt Analytical, F3 Editorial Plane and F4 Compact Deadpan; keep F1 as control and F5 as boundary experiment. Select one architecture or deliberate hybrid before proceeding to H2 body archetype.",
   "workflow_integration": {
     "mode": "FUTURE_EXPLICIT_IMPORT",
     "do_not_auto_promote": true,
@@ -76,6 +78,7 @@
     "DESIGN_SPACE_EXPLORATION_V2.md",
     "HUMAN_CORE_CONSTRUCTION_STACK_V2.md",
     "H0_REFERENCE_ASSESSMENT_2026-10-14.md",
+    "H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md",
     "CHARACTER_DESIGN_BIBLE_V1.md",
     "CONCEPT_GENERATION_PROMPT_V1.md",
     "PRODUCTION_AND_COST_STRATEGY.md",
@@ -91,8 +94,20 @@
     "whole_look_status": "PROPOSED_DOWNSTREAM_NOT_LOCKED",
     "personal_feature_policy": "SELECTIVE_STRUCTURAL_INHERITANCE_PROPOSED",
     "body_reference_policy": "PLAUSIBILITY_SUPPORT_NOT_PRIMARY_LIKENESS",
+    "face_candidates": [
+      "F1 Same-Source Natural",
+      "F2 Blunt Analytical",
+      "F3 Editorial Plane",
+      "F4 Compact Deadpan",
+      "F5 Controlled Uncanny Human"
+    ],
+    "face_leading_set": [
+      "F2 Blunt Analytical",
+      "F3 Editorial Plane",
+      "F4 Compact Deadpan"
+    ],
     "presentation_modes_status": "DORMANT_UNTIL_CANON_H9"
   },
   "created_at": "2026-10-14T00:14:38Z",
-  "updated_at": "2026-10-14T02:32:00Z"
+  "updated_at": "2026-10-14T02:45:00Z"
 }
