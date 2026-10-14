@@ -42,6 +42,11 @@ Active policy: selective structural inheritance / same-source original.
 Keep useful proportional ancestry, redesign weak/generic/noisy relationships, and do not optimize toward standard handsome-male priors.
 Authority: `HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md`.
 
+Important refinement:
+- exact creator brow shape, brow thickness, eyelid contour and eye aperture are NOT mandatory likeness anchors;
+- eye spacing / orbital placement tendency and broad horizontal organization may remain as ancestry while brow-eye aesthetics are deliberately redesigned.
+Authority: `H1_BROW_EYE_RECONSIDERATION_2026-10-14.md`.
+
 ### Pixel avatar
 Brand/graphic DNA only; remains downstream.
 
@@ -56,39 +61,42 @@ Narrative/contradiction grammar only; remains downstream.
   - S1 = primary base donor.
   - S2 = rejected.
   - S3 = lower-face cheek→jaw→compact-chin rhythm donor only.
+- Corrected H1-S13 front sculpt remains the active face-shell candidate.
 
-## Corrected H1-S13 front review — ACTIVE AUTHORITY
+## Brow-eye reconsideration — ACTIVE
 
-The image first reviewed as the S1+S3 hybrid was later identified by the user as the wrong uploaded file. That earlier provisional-pass review is superseded and must not be used as authority.
+The user correctly identified that the current corrected S1+S3 sculpt still feels too close to the creator, especially in the brow-eye system.
 
-Authority: `H1_S13_HYBRID_FRONT_REVIEW_CORRECTED_2026-10-14.md`.
+Independent decision:
+- do NOT preserve creator brow/eye appearance wholesale;
+- preserve only useful ancestry such as eye spacing/orbital placement and broad horizontal organization;
+- explicitly redesign brow silhouette, brow density, lid contour, eye horizontal length, aperture and subtle canthal behavior.
 
-The corrected front sculpt preserves useful geometry:
+Do NOT solve this with generic beauty priors such as big eyes, heroic brows, fox-eye tilt, K-idol styling or deep-set fashion-model orbit.
+
+Controlled comparison directions:
+- E1 Source Quiet Control — source-like control only;
+- E2 Refined Analytical — RECOMMENDED leading direction: slightly longer horizontal eye read, restrained vertical opening, cleaner upper lid, firmer lower lid, straighter cleaner medium brow with subtle outer-third lift;
+- E3 Editorial Quiet — more graphic/architectural and flatter, with higher fashion-face risk.
+
+Authority: `H1_BROW_EYE_RECONSIDERATION_2026-10-14.md`.
+
+## Current face-shell truth
+
+The current corrected S1+S3 front sculpt remains useful for:
 - moderately elongated soft-rectangular / oval envelope;
-- calm horizontal orbital organization;
-- restrained eye opening;
 - light/non-macho facial massing;
 - compact rounded-blunt chin tendency;
 - conservative nose/mouth salience;
-- fully believable adult Chinese male anatomy.
+- believable adult Chinese male anatomy.
 
-But the intended S3 contribution is still too weak:
-- lateral cheek support is only mildly legible;
-- cheek→jaw→compact-chin transition remains too uniformly smooth;
-- the result still reads closer to S1 than to a meaningful S1+S3 synthesis.
-
-Decision:
-- do NOT reopen broad face search;
-- do NOT proceed to 3/4 yet;
-- perform exactly ONE targeted front-view geometry edit;
-- change only cheek→jaw rhythm, preserving all other geometry and presentation variables.
-
-Execution authority: `H1_S13_FRONT_MICROCORRECTION_PROMPT_V2.md`.
+Its brow-eye system is NOT locked and should not be treated as the final aesthetic identity.
+The previously planned cheek→jaw-only micro-correction is PAUSED until brow-eye selection is complete.
 
 ## Human Core Harness
 
 - H0 Reference Decomposition — COMPLETE ENOUGH;
-- H1 Face Primary Masses — ACTIVE / ONE-VARIABLE FRONT MICRO-CORRECTION;
+- H1 Face Primary Masses — ACTIVE / BROW-EYE CONTROLLED COMPARISON INSERTED;
 - H2 Base Body Archetype — PENDING;
 - H3 Hair Architecture — PENDING;
 - H4 Skin/Grooming — PENDING;
@@ -105,28 +113,18 @@ Execution authority: `H1_S13_FRONT_MICROCORRECTION_PROMPT_V2.md`.
 
 ## Current next action
 
-Stay in the same GPT Images conversation as the CORRECTED H1-S13 front sculpt.
+Do not execute the cheek→jaw micro-correction or 3/4 yet.
 
-1. Execute `H1_S13_FRONT_MICROCORRECTION_PROMPT_V2.md`.
-2. Generate exactly one edited strict-front matte-gray sculpt.
-3. Change only:
-   - slightly clearer lateral cheek support;
-   - slightly less uniformly smooth cheek→mandibular-body transition.
-4. Preserve exactly:
-   - face width/length;
-   - forehead/temple proportion;
-   - orbit/eye opening;
-   - brow;
-   - nose;
-   - mouth;
-   - jaw width;
-   - chin width/height/projection;
-   - expression;
-   - neck;
-   - camera/light/material/background.
-5. Review this edited front.
-6. Only if it passes, generate one 30–35° 3/4 clay validation of the SAME geometry using `H1_S13_3Q_SCULPT_PROMPT_V2.md`.
-7. H1 must pass before H2 body archetype, skin/hair, brand DNA, wardrobe, motif or Presentation Modes.
+Next:
+1. stay with the CURRENT corrected S1+S3 front gray sculpt as the fixed face shell;
+2. generate three strict-front gray-sculpt brow-eye variants E1/E2/E3;
+3. keep face envelope, cheek, jaw, chin, nose, mouth, neck, camera, material and light unchanged;
+4. change ONLY brow-eye system variables;
+5. compare appeal, calm intelligence, adult credibility, distinctiveness and anti-generic behavior;
+6. select a brow-eye system, with E2 as current leading recommendation but not locked;
+7. after brow-eye selection, reassess whether the subtle cheek→jaw micro-correction is still required;
+8. only after final front geometry is accepted, run one 30–35° 3/4 consistency validation;
+9. H1 must pass before H2 body archetype, skin/hair, brand DNA, wardrobe, motif or Presentation Modes.
 
 ## Persistence rule
 
