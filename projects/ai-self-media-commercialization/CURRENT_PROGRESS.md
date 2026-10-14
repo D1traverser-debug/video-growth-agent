@@ -46,7 +46,8 @@ Project methods now include:
 - `HUMAN_CORE_CONSTRUCTION_STACK_V2.md` — current dependency order, human-related specialist stack, reference-fusion policy and gate Harness;
 - `H0_REFERENCE_ASSESSMENT_2026-10-14.md` — reference reliability and role split;
 - `H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md` — current face-structure extraction and H1 candidate architectures;
-- `H1_FACE_COMPARISON_PROMPTS_V2.md` — controlled prompt matrix for F1–F5 face-mass comparison.
+- `H1_FACE_COMPARISON_PROMPTS_V2.md` — controlled prompt matrix for F1–F5 face-mass comparison;
+- `GPT_IMAGE_PROMPTING_METHOD_V2.md` — GPT Images-specific prompt compilation, reference-image and controlled-edit rules.
 
 ### Governance rule
 
@@ -130,7 +131,7 @@ No face direction is locked yet.
 
 ## H1 comparison protocol — READY
 
-The controlled generation protocol is now frozen in `H1_FACE_COMPARISON_PROMPTS_V2.md`.
+The controlled generation protocol is frozen in `H1_FACE_COMPARISON_PROMPTS_V2.md`.
 
 Execution rules:
 - first pass is FRONT VIEW ONLY;
@@ -151,6 +152,46 @@ Review dimensions:
 - commercial trust;
 - AI-video stability;
 - survival under dark-hair/dark-eye/no-accessory identity-strip conditions.
+
+## GPT Images execution method — ACTIVE
+
+Because generation is done with GPT/ChatGPT Images, the project now uses model-specific prompt rules rather than generic diffusion-model prompt habits.
+
+Key rules:
+- use clear natural-language instructions; no secret syntax or weighted-token syntax is assumed;
+- define intended result, subject, visible design variable, composition and constraints;
+- for complex studies, concise labeled sections are allowed, but generator-facing prompts should remain much shorter than the design Bible;
+- for F1–F5, one compact common base prompt must stay identical and only the face-architecture block changes;
+- use a small set of explicitly role-labeled reference images only when references are actually needed;
+- first-pass H1 uses no uploaded portrait in the generator because morphology has already been extracted;
+- after a candidate passes, converge through targeted edits with explicit preservation language: change only X; keep identity, skull, camera, light, expression and all other features unchanged;
+- camera/lens terms are appearance cues rather than exact physical guarantees;
+- use short high-value exclusion constraints instead of giant negative-prompt dumps;
+- debug one structural failure at a time rather than rewriting the entire character prompt.
+
+Authority:
+- `GPT_IMAGE_PROMPTING_METHOD_V2.md`
+
+### Optional additional-photo acquisition
+No new photo is required to execute the first-pass F1–F5 front comparison.
+
+Before final H1 Human Core lock, useful optional face references are:
+- neutral, unfiltered front;
+- left 3/4;
+- right 3/4;
+- clean side profile, preferably both sides if convenient;
+- eye-level, neutral expression, diffuse natural light;
+- no beauty filter/heavy makeup and no ultra-wide selfie distortion;
+- hair kept away enough to reveal the face outline when possible.
+
+For later H2/H9, optional body truth references are:
+- front / side / back full-body;
+- plain fitted clothing;
+- flat shoes or barefoot;
+- neutral stance with arms relaxed;
+- rear camera at enough distance to limit perspective distortion.
+
+These additional photos are structural verification sources, not literal likeness targets.
 
 ## Human Core Harness
 
@@ -183,15 +224,16 @@ Techwear remains rejected as the base clothing chassis.
 Do not generate a finished character.
 
 Next:
-1. execute F1–F5 front-view face studies using `H1_FACE_COMPARISON_PROMPTS_V2.md`;
-2. review all five together by structure rather than attractiveness;
-3. reject automatic failures and retain the top 2–3 architectures;
-4. generate 3/4 studies only for those finalists;
-5. select one base face architecture or a deliberate hybrid;
-6. require identity to survive grayscale / dark-hair / no-accessory conditions;
-7. only after H1 PASS proceed to H2 body archetype;
-8. later design hair architecture on the approved head;
-9. only after Human Core passes identity-strip tests reintroduce pixel-avatar DNA, wardrobe/runway and motif systems.
+1. execute F1–F5 front-view face studies using concise GPT Images-specific prompts compiled from the design spec;
+2. do not upload the certificate portrait in first-pass F1–F5 generation;
+3. review all five together by structure rather than attractiveness;
+4. reject automatic failures and retain the top 2–3 architectures;
+5. generate 3/4 studies only for those finalists;
+6. if neutral unfiltered 3/4/profile photos become available, use them to verify structure before final H1 lock;
+7. select one base face architecture or a deliberate hybrid;
+8. require identity to survive grayscale / dark-hair / no-accessory conditions;
+9. only after H1 PASS proceed to H2 body archetype;
+10. only after Human Core passes identity-strip tests reintroduce pixel-avatar DNA, wardrobe/runway and motif systems.
 
 ## Future workflow integration rule
 
