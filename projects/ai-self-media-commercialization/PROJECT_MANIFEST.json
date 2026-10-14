@@ -1,5 +1,5 @@
 {
-  "schema_version": "2.2",
+  "schema_version": "2.3",
   "project_id": "ai-self-media-commercialization",
   "display_name_zh": "AI自媒体视频商业化与原创数字IP",
   "project_kind": "INCUBATION_REFERENCE_PACKAGE",
@@ -32,7 +32,7 @@
       "FACE_PRIMARY_MASSES",
       "SCULPTURAL_MASSING",
       "S1_S3_HYBRID",
-      "THREE_QUARTER_VALIDATION",
+      "TARGETED_GEOMETRY_EDIT",
       "GPT_IMAGE_PROMPTING",
       "BODY_PROPORTION",
       "REFERENCE_DECOMPOSITION",
@@ -41,18 +41,18 @@
       "FASHION_RUNWAY_RESEARCH",
       "LOOKDEV_INPUT"
     ],
-    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. V1, F1-F5 standalone faces and photoreal Hybrid A are not locked. Sculptural massing S1-S3 produced a controlled S1+S3 front hybrid that now has a provisional front-geometry pass. The active step is a 30-35 degree three-quarter clay validation of the same face before any H1 lock, body, styling, brand DNA, wardrobe, motif or Presentation Modes.",
+    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. V1, F1-F5 standalone faces and photoreal Hybrid A are not locked. Sculptural massing S1-S3 established S1 as the base donor and S3 as a lower-face rhythm donor. The first front-review record was invalidated because it was based on the wrong uploaded image. The corrected H1-S13 front sculpt is now the active candidate, but it still needs one subtle cheek-to-jaw geometry correction before any three-quarter validation.",
     "resume_entry": "RESUME_ENTRY.md",
     "current_progress": "CURRENT_PROGRESS.md",
-    "latest_face_review": "H1_S13_HYBRID_FRONT_REVIEW_2026-10-14.md",
-    "current_face_prompt": "H1_S13_3Q_SCULPT_PROMPT_V2.md",
+    "latest_face_review": "H1_S13_HYBRID_FRONT_REVIEW_CORRECTED_2026-10-14.md",
+    "current_face_prompt": "H1_S13_FRONT_MICROCORRECTION_PROMPT_V2.md",
     "personal_inheritance_policy": "HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md",
     "gpt_image_prompting_method": "GPT_IMAGE_PROMPTING_METHOD_V2.md",
     "human_core_stack": "HUMAN_CORE_CONSTRUCTION_STACK_V2.md"
   },
   "current_stage": "H1_SCULPTURAL_MASSING_V2",
-  "current_state": "The S1+S3 controlled front sculpt has been reviewed and receives a provisional front-geometry pass. It retains S1's calm envelope/orbit/light massing while adding reduced-intensity S3 cheek-to-jaw-to-compact-chin rhythm. H1 is not locked because 3D depth consistency has not yet been tested.",
-  "next_action": "Use the accepted H1-S13-HYBRID front sculpt as the primary identity/geometry reference, preferably in the same GPT Images conversation, and execute H1_S13_3Q_SCULPT_PROMPT_V2.md. Generate exactly one 30-35 degree three-quarter matte-gray sculpt of the same character. Review geometry consistency before any skin/hair, H2 body, brand DNA, wardrobe, motif or Presentation Modes.",
+  "current_state": "The corrected H1-S13 front sculpt has been reviewed. It preserves the desired calm, light, believable human geometry, but the S3 lower-face contribution is still too weak: cheek-to-jaw taper remains too uniformly smooth. Broad search remains closed. One targeted front-view geometry edit is required before 3/4 validation.",
+  "next_action": "Stay in the same GPT Images conversation as the corrected H1-S13 front sculpt and execute H1_S13_FRONT_MICROCORRECTION_PROMPT_V2.md. Change only the cheek-to-jaw transition: make lateral cheek support slightly clearer and the transition into the mandibular body slightly less uniformly smooth, while preserving jaw width, chin geometry, orbit, brow, nose, mouth, camera, light and material. Review that one edited front before any three-quarter study.",
   "workflow_integration": {
     "mode": "FUTURE_EXPLICIT_IMPORT",
     "do_not_auto_promote": true,
@@ -73,7 +73,8 @@
     "HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md",
     "H1_S1_S2_S3_SCULPT_REVIEW_2026-10-14.md",
     "H1_S13_HYBRID_SCULPT_PROMPT_V2.md",
-    "H1_S13_HYBRID_FRONT_REVIEW_2026-10-14.md",
+    "H1_S13_HYBRID_FRONT_REVIEW_CORRECTED_2026-10-14.md",
+    "H1_S13_FRONT_MICROCORRECTION_PROMPT_V2.md",
     "H1_S13_3Q_SCULPT_PROMPT_V2.md",
     "H1_SCULPTURAL_MASSING_PROMPTS_V2.md",
     "H1_HYBRID_A_REVIEW_2026-10-14.md",
@@ -91,7 +92,8 @@
     "CONCEPT_GENERATION_PROMPT_V1.md": "DO_NOT_USE_FOR_V2",
     "H1_HYBRID_A_GPT_PROMPT_V2.md": "EXECUTED_REVIEWED_NOT_LOCKED",
     "H1_SCULPTURAL_MASSING_PROMPTS_V2.md": "EXECUTED_S1_S3_REVIEWED",
-    "H1_S13_HYBRID_SCULPT_PROMPT_V2.md": "EXECUTED_FRONT_PROVISIONAL_PASS"
+    "H1_S13_HYBRID_SCULPT_PROMPT_V2.md": "EXECUTED_CORRECTED_IMAGE_REVIEWED",
+    "H1_S13_HYBRID_FRONT_REVIEW_2026-10-14.md": "SUPERSEDED_WRONG_IMAGE"
   },
   "proposals": {
     "whole_look_direction": "Glitch Dandy / 异常绅士",
@@ -103,12 +105,12 @@
       "S1 Source-Calibrated Neutral": "PRIMARY_BASE_DONOR",
       "S2 Structural Compression": "REJECTED",
       "S3 Anti-Generic Cheek/Jaw Rhythm": "LOWER_FACE_RHYTHM_DONOR_ONLY",
-      "H1-S13-HYBRID front": "PROVISIONAL_FRONT_PASS"
+      "H1-S13-HYBRID corrected front": "TARGETED_MICROCORRECTION_REQUIRED"
     },
     "current_face_proposal": "H1-S13-HYBRID",
-    "current_face_proposal_status": "FRONT_PASS_PENDING_3Q_VALIDATION",
+    "current_face_proposal_status": "CORRECTED_FRONT_PENDING_ONE_VARIABLE_EDIT",
     "presentation_modes_status": "DORMANT_UNTIL_CANON_H9"
   },
   "created_at": "2026-10-14T00:14:38Z",
-  "updated_at": "2026-10-14T06:09:00Z"
+  "updated_at": "2026-10-14T06:14:00Z"
 }
