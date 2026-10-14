@@ -1,5 +1,5 @@
 {
-  "schema_version": "2.4",
+  "schema_version": "2.5",
   "project_id": "ai-self-media-commercialization",
   "display_name_zh": "AI自媒体视频商业化与原创数字IP",
   "project_kind": "INCUBATION_REFERENCE_PACKAGE",
@@ -8,112 +8,27 @@
   "authority_scope": "PROJECT_LOCAL_ONLY",
   "continuity_task": false,
   "continuity_task_ref": null,
-  "isolated_from": [
-    "continuity/tasks/video-growth-main",
-    "projects/pilot-001",
-    "projects/pilot-002"
-  ],
+  "isolated_from": ["continuity/tasks/video-growth-main","projects/pilot-001","projects/pilot-002"],
   "scan": {
     "discoverable": true,
     "root_pattern": "projects/*",
-    "aliases": [
-      "AI自媒体视频商业化与原创数字IP",
-      "原创数字IP设计",
-      "ai-self-media-commercialization"
-    ],
-    "tags": [
-      "AI_VIDEO",
-      "SELF_MEDIA",
-      "COMMERCIALIZATION",
-      "ORIGINAL_DIGITAL_IP",
-      "CHARACTER_DESIGN",
-      "HUMAN_CORE_ARCHITECTURE",
-      "FACIAL_MORPHOLOGY",
-      "FACE_PRIMARY_MASSES",
-      "SCULPTURAL_MASSING",
-      "BROW_EYE_DESIGN",
-      "CONTROLLED_COMPARISON",
-      "S1_S3_HYBRID",
-      "GPT_IMAGE_PROMPTING",
-      "BODY_PROPORTION",
-      "REFERENCE_DECOMPOSITION",
-      "HAIR_ARCHITECTURE",
-      "GROOMING_MAKEUP",
-      "FASHION_RUNWAY_RESEARCH",
-      "LOOKDEV_INPUT"
-    ],
-    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. V1, F1-F5 standalone faces and photoreal Hybrid A are not locked. Sculptural massing established a useful S1+S3 face-shell candidate, but the creator-derived brow-eye system remains too close to the real creator and is now explicitly redesignable. The active step is a controlled E1/E2/E3 brow-eye comparison on a fixed gray-sculpt face shell before any jaw micro-correction or three-quarter validation.",
+    "aliases": ["AI自媒体视频商业化与原创数字IP","原创数字IP设计","ai-self-media-commercialization"],
+    "tags": ["AI_VIDEO","SELF_MEDIA","COMMERCIALIZATION","ORIGINAL_DIGITAL_IP","CHARACTER_DESIGN","HUMAN_CORE_ARCHITECTURE","FACIAL_MORPHOLOGY","FACE_PRIMARY_MASSES","SCULPTURAL_MASSING","BROW_EYE_DESIGN","CONTROLLED_COMPARISON","S1_S3_HYBRID","GPT_IMAGE_PROMPTING","BODY_PROPORTION","REFERENCE_DECOMPOSITION","HAIR_ARCHITECTURE","GROOMING_MAKEUP","FASHION_RUNWAY_RESEARCH","LOOKDEV_INPUT"],
+    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. The current corrected S1+S3 front gray sculpt is retained as a fixed face shell and also serves as E1 source-quiet control. Because its brow-eye system remains too close to the creator, exact creator brow/eye appearance is now explicitly redesignable. The active step is to generate only E2 Refined Analytical and E3 Editorial Quiet controlled brow-eye edits from the same gray face shell, without the certificate photo, before any cheek-jaw micro-correction or three-quarter validation.",
     "resume_entry": "RESUME_ENTRY.md",
     "current_progress": "CURRENT_PROGRESS.md",
     "latest_face_review": "H1_BROW_EYE_RECONSIDERATION_2026-10-14.md",
-    "current_face_prompt": null,
     "personal_inheritance_policy": "HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md",
     "gpt_image_prompting_method": "GPT_IMAGE_PROMPTING_METHOD_V2.md",
     "human_core_stack": "HUMAN_CORE_CONSTRUCTION_STACK_V2.md"
   },
   "current_stage": "H1_SCULPTURAL_MASSING_V2",
-  "current_state": "The corrected S1+S3 front sculpt remains the active face-shell candidate, but the brow-eye system is no longer treated as a preserved creator anchor. Eye spacing/orbital placement and broad horizontal organization may retain ancestry, while brow silhouette, lid contour, eye length/aperture and canthal behavior must be deliberately redesigned. The previous cheek-to-jaw micro-correction is paused until a brow-eye system is selected.",
-  "next_action": "Using the current corrected S1+S3 strict-front gray sculpt as a fixed face shell, generate three controlled brow-eye variants: E1 Source Quiet Control, E2 Refined Analytical, and E3 Editorial Quiet. Keep face envelope, cheek, jaw, chin, nose, mouth, neck, camera, material and lighting fixed. Change only brow-eye system variables. Select the best brow-eye system; only then reassess the cheek-to-jaw micro-correction and proceed later to one 30-35 degree three-quarter geometry validation.",
-  "workflow_integration": {
-    "mode": "FUTURE_EXPLICIT_IMPORT",
-    "do_not_auto_promote": true,
-    "candidate_inputs": [
-      "POSITIONING",
-      "SCRIPT",
-      "STORYBOARD",
-      "LOOKDEV",
-      "VISUAL_PREVIEW",
-      "ASSET_BUILD",
-      "BRAND_QA"
-    ],
-    "notes_ref": "WORKFLOW_INTEGRATION.md"
-  },
-  "primary_files": [
-    "RESUME_ENTRY.md",
-    "CURRENT_PROGRESS.md",
-    "H1_BROW_EYE_RECONSIDERATION_2026-10-14.md",
-    "HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md",
-    "H1_S13_HYBRID_FRONT_REVIEW_CORRECTED_2026-10-14.md",
-    "H1_S1_S2_S3_SCULPT_REVIEW_2026-10-14.md",
-    "H1_S13_HYBRID_SCULPT_PROMPT_V2.md",
-    "H1_S13_FRONT_MICROCORRECTION_PROMPT_V2.md",
-    "H1_S13_3Q_SCULPT_PROMPT_V2.md",
-    "H1_SCULPTURAL_MASSING_PROMPTS_V2.md",
-    "H1_HYBRID_A_REVIEW_2026-10-14.md",
-    "H1_F1_F5_FRONT_REVIEW_2026-10-14.md",
-    "H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md",
-    "H0_REFERENCE_ASSESSMENT_2026-10-14.md",
-    "GPT_IMAGE_PROMPTING_METHOD_V2.md",
-    "HUMAN_CORE_CONSTRUCTION_STACK_V2.md",
-    "DESIGN_RESEARCH_METHOD_V2.md",
-    "DESIGN_SPACE_EXPLORATION_V2.md",
-    "DECISION_LOG.md"
-  ],
-  "supersession": {
-    "CHARACTER_DESIGN_BIBLE_V1.md": "HISTORICAL_INPUT_PENDING_V2_REWRITE",
-    "CONCEPT_GENERATION_PROMPT_V1.md": "DO_NOT_USE_FOR_V2",
-    "H1_HYBRID_A_GPT_PROMPT_V2.md": "EXECUTED_REVIEWED_NOT_LOCKED",
-    "H1_SCULPTURAL_MASSING_PROMPTS_V2.md": "EXECUTED_S1_S3_REVIEWED",
-    "H1_S13_HYBRID_SCULPT_PROMPT_V2.md": "EXECUTED_CORRECTED_IMAGE_REVIEWED",
-    "H1_S13_HYBRID_FRONT_REVIEW_2026-10-14.md": "SUPERSEDED_WRONG_IMAGE",
-    "H1_S13_FRONT_MICROCORRECTION_PROMPT_V2.md": "PAUSED_PENDING_BROW_EYE_SELECTION",
-    "H1_S13_3Q_SCULPT_PROMPT_V2.md": "BLOCKED_PENDING_FINAL_FRONT_SELECTION"
-  },
-  "proposals": {
-    "whole_look_direction": "Glitch Dandy / 异常绅士",
-    "whole_look_status": "PROPOSED_DOWNSTREAM_NOT_LOCKED",
-    "personal_feature_policy": "SELECTIVE_STRUCTURAL_INHERITANCE",
-    "body_reference_policy": "PLAUSIBILITY_SUPPORT_NOT_PRIMARY_LIKENESS",
-    "current_face_method": "FIXED_FACE_SHELL_BROW_EYE_COMPARISON",
-    "current_face_shell": "CORRECTED_H1_S13_FRONT",
-    "brow_eye_variants": {
-      "E1 Source Quiet Control": "CONTROL_ONLY",
-      "E2 Refined Analytical": "LEADING_RECOMMENDATION_NOT_LOCKED",
-      "E3 Editorial Quiet": "BOUNDARY_OPTION"
-    },
-    "current_face_proposal_status": "BROW_EYE_SELECTION_PENDING",
-    "presentation_modes_status": "DORMANT_UNTIL_CANON_H9"
-  },
+  "current_state": "The corrected S1+S3 front sculpt is the fixed face-shell candidate and E1 control. The face shell is structurally useful but the brow-eye system remains too source-like. Eye spacing/orbital placement and broad horizontal organization may remain as ancestry, while brow silhouette/density, eyelid contour, eye length/aperture and subtle canthal behavior are deliberate design variables.",
+  "next_action": "Do not regenerate E1 and do not upload the certificate photo. From the current corrected S1+S3 strict-front gray sculpt, generate two separate controlled edits: E2 Refined Analytical and E3 Editorial Quiet. Keep all non-brow-eye geometry and presentation fixed. Compare E1/E2/E3, select a brow-eye system, then reassess the paused cheek-to-jaw micro-correction and only later run one 30-35 degree three-quarter consistency validation.",
+  "workflow_integration": {"mode":"FUTURE_EXPLICIT_IMPORT","do_not_auto_promote":true,"candidate_inputs":["POSITIONING","SCRIPT","STORYBOARD","LOOKDEV","VISUAL_PREVIEW","ASSET_BUILD","BRAND_QA"],"notes_ref":"WORKFLOW_INTEGRATION.md"},
+  "primary_files": ["RESUME_ENTRY.md","CURRENT_PROGRESS.md","H1_BROW_EYE_RECONSIDERATION_2026-10-14.md","HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md","H1_S13_HYBRID_FRONT_REVIEW_CORRECTED_2026-10-14.md","H1_S1_S2_S3_SCULPT_REVIEW_2026-10-14.md","GPT_IMAGE_PROMPTING_METHOD_V2.md","HUMAN_CORE_CONSTRUCTION_STACK_V2.md","DECISION_LOG.md"],
+  "supersession": {"CHARACTER_DESIGN_BIBLE_V1.md":"HISTORICAL_INPUT_PENDING_V2_REWRITE","CONCEPT_GENERATION_PROMPT_V1.md":"DO_NOT_USE_FOR_V2","H1_HYBRID_A_GPT_PROMPT_V2.md":"EXECUTED_REVIEWED_NOT_LOCKED","H1_S13_HYBRID_FRONT_REVIEW_2026-10-14.md":"SUPERSEDED_WRONG_IMAGE","H1_S13_FRONT_MICROCORRECTION_PROMPT_V2.md":"PAUSED_PENDING_BROW_EYE_SELECTION","H1_S13_3Q_SCULPT_PROMPT_V2.md":"BLOCKED_PENDING_FINAL_FRONT_SELECTION"},
+  "proposals": {"whole_look_direction":"Glitch Dandy / 异常绅士","whole_look_status":"PROPOSED_DOWNSTREAM_NOT_LOCKED","personal_feature_policy":"SELECTIVE_STRUCTURAL_INHERITANCE","body_reference_policy":"PLAUSIBILITY_SUPPORT_NOT_PRIMARY_LIKENESS","current_face_method":"FIXED_FACE_SHELL_BROW_EYE_COMPARISON","current_face_shell":"CORRECTED_H1_S13_FRONT_EQUALS_E1_CONTROL","brow_eye_variants":{"E1 Source Quiet Control":"CURRENT_IMAGE_CONTROL_DO_NOT_REGENERATE","E2 Refined Analytical":"LEADING_RECOMMENDATION_NOT_LOCKED","E3 Editorial Quiet":"BOUNDARY_OPTION"},"current_face_proposal_status":"E2_E3_GENERATION_PENDING","presentation_modes_status":"DORMANT_UNTIL_CANON_H9"},
   "created_at": "2026-10-14T00:14:38Z",
-  "updated_at": "2026-10-14T06:18:00Z"
+  "updated_at": "2026-10-14T06:20:00Z"
 }
