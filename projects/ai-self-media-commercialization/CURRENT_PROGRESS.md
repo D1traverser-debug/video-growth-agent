@@ -50,54 +50,45 @@ Narrative/contradiction grammar only; remains downstream.
 
 ## H1 history
 
-### F1–F5 text-only exploration
-Complete. All five partially collapsed toward a generic attractive East-Asian male prior.
+- F1–F5 text-only exploration: complete; no standalone winner.
+- H1-HYBRID-A photoreal calibration: reviewed and failed as a lock.
+- Sculptural massing S1–S3: reviewed.
+  - S1 = primary base donor.
+  - S2 = rejected.
+  - S3 = lower-face cheek→jaw→compact-chin rhythm donor only.
 
-### H1-HYBRID-A photoreal calibration
-Reviewed and failed as a lock. Direct portrait reference + photoreal representation still produced an ordinary plausible studio portrait and hid geometry.
+## Corrected H1-S13 front review — ACTIVE AUTHORITY
 
-### Sculptural massing S1–S3
-Reviewed.
-- S1 = primary base donor;
-- S2 = rejected;
-- S3 = lower-face cheek→jaw→compact-chin rhythm donor only.
-Authority: `H1_S1_S2_S3_SCULPT_REVIEW_2026-10-14.md`.
+The image first reviewed as the S1+S3 hybrid was later identified by the user as the wrong uploaded file. That earlier provisional-pass review is superseded and must not be used as authority.
 
-## H1-S13-HYBRID front — PROVISIONAL PASS
+Authority: `H1_S13_HYBRID_FRONT_REVIEW_CORRECTED_2026-10-14.md`.
 
-Authority: `H1_S13_HYBRID_FRONT_REVIEW_2026-10-14.md`.
-
-The controlled S1+S3 front sculpt is accepted strongly enough to stop broad front-view searching and move to a 3/4 consistency validation.
-
-Useful geometry now retained:
+The corrected front sculpt preserves useful geometry:
 - moderately elongated soft-rectangular / oval envelope;
-- quiet horizontal orbital organization;
+- calm horizontal orbital organization;
 - restrained eye opening;
-- slightly clearer cheek support than S1 alone;
-- subtly less-uniform cheek→jaw→compact-chin rhythm;
-- moderate/light jaw, not macho or square;
-- compact rounded-blunt chin;
-- conservative, low-salience nose and mouth.
+- light/non-macho facial massing;
+- compact rounded-blunt chin tendency;
+- conservative nose/mouth salience;
+- fully believable adult Chinese male anatomy.
 
-This is NOT yet an H1 lock because front view alone does not establish 3D stability.
+But the intended S3 contribution is still too weak:
+- lateral cheek support is only mildly legible;
+- cheek→jaw→compact-chin transition remains too uniformly smooth;
+- the result still reads closer to S1 than to a meaningful S1+S3 synthesis.
 
-Non-authoritative details:
-- sculpt hair/scalp placeholder;
-- neck geometry.
+Decision:
+- do NOT reopen broad face search;
+- do NOT proceed to 3/4 yet;
+- perform exactly ONE targeted front-view geometry edit;
+- change only cheek→jaw rhythm, preserving all other geometry and presentation variables.
 
-## Current 3/4 validation risks
-
-The next angle must prove that depth does not reintroduce generic handsome-male drift:
-- nose must not become higher/narrower/model-like;
-- cheek support must not disappear or become sharp-fashion angular;
-- jaw must not collapse into a V or broaden into a square jaw;
-- chin must not project, enlarge, point or lengthen;
-- orbit/brow depth must not become heroic/aggressive.
+Execution authority: `H1_S13_FRONT_MICROCORRECTION_PROMPT_V2.md`.
 
 ## Human Core Harness
 
 - H0 Reference Decomposition — COMPLETE ENOUGH;
-- H1 Face Primary Masses — ACTIVE / FRONT PROVISIONAL PASS, 3/4 VALIDATION NEXT;
+- H1 Face Primary Masses — ACTIVE / ONE-VARIABLE FRONT MICRO-CORRECTION;
 - H2 Base Body Archetype — PENDING;
 - H3 Hair Architecture — PENDING;
 - H4 Skin/Grooming — PENDING;
@@ -114,17 +105,28 @@ The next angle must prove that depth does not reintroduce generic handsome-male 
 
 ## Current next action
 
-Do not return to broad face exploration and do not add skin, hair styling, cyan/blue brand DNA, pixel glasses, wardrobe or meme motifs.
+Stay in the same GPT Images conversation as the CORRECTED H1-S13 front sculpt.
 
-Next:
-1. preferably stay in the same GPT Images conversation as the accepted front hybrid;
-2. use the accepted front `H1-S13-HYBRID` as the primary identity/geometry reference;
-3. execute `H1_S13_3Q_SCULPT_PROMPT_V2.md`;
-4. generate exactly one 30–35° three-quarter matte-gray sculpt of the SAME character;
-5. compare front vs 3/4 for skull envelope, orbit, cheek, jaw, chin, nose and mouth consistency;
-6. if coherent, move H1 toward geometry-candidate lock and run the identity-strip / plain-representation check;
-7. if drift occurs, edit one geometric variable at a time on the same face;
-8. H1 must pass before H2 body archetype.
+1. Execute `H1_S13_FRONT_MICROCORRECTION_PROMPT_V2.md`.
+2. Generate exactly one edited strict-front matte-gray sculpt.
+3. Change only:
+   - slightly clearer lateral cheek support;
+   - slightly less uniformly smooth cheek→mandibular-body transition.
+4. Preserve exactly:
+   - face width/length;
+   - forehead/temple proportion;
+   - orbit/eye opening;
+   - brow;
+   - nose;
+   - mouth;
+   - jaw width;
+   - chin width/height/projection;
+   - expression;
+   - neck;
+   - camera/light/material/background.
+5. Review this edited front.
+6. Only if it passes, generate one 30–35° 3/4 clay validation of the SAME geometry using `H1_S13_3Q_SCULPT_PROMPT_V2.md`.
+7. H1 must pass before H2 body archetype, skin/hair, brand DNA, wardrobe, motif or Presentation Modes.
 
 ## Persistence rule
 
