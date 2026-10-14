@@ -43,38 +43,52 @@ Authority: `H1_BROW_EYE_RECONSIDERATION_2026-10-14.md`.
 - S1/S2/S3 sculpt pass reviewed: S1 primary base, S2 rejected, S3 lower-face donor only.
 - Corrected S1+S3 front sculpt remains the active FIXED FACE SHELL candidate.
 
-## Current issue
-The current face shell is structurally useful, but the brow-eye system still feels too close to the creator and is not yet the desired IP aesthetic anchor.
+## E1/E2/E3 brow-eye comparison — INCONCLUSIVE
+The three generated brow-eye variants are visually too similar. The generator under-executed the requested variable range, so the comparison does not provide a meaningful design decision.
 
-Decision:
-- pause cheek→jaw micro-correction;
-- pause 3/4 validation;
-- redesign brow-eye system on the fixed face shell before proceeding.
+Do not interpret the similarity as proof that brow-eye design is unimportant; it indicates the prompts were too tightly constrained and/or the model preserved the face too strongly.
 
-## Brow-eye comparison
-E1 Source Quiet Control:
-- CURRENT corrected S1+S3 front sculpt itself;
-- do NOT regenerate.
+E1/E2/E3 are therefore not a valid final selection set.
 
-E2 Refined Analytical — LEADING RECOMMENDATION, NOT LOCKED:
-- preserve eye spacing/orbital placement;
-- slightly longer horizontal eye read without larger vertical opening;
-- cleaner calmer upper lid;
-- slightly firmer lower lid;
-- nearly level outer canthus with at most a tiny rise;
-- straighter cleaner medium brow, subtle lift only in outer third;
-- slightly more resolved brow tail;
-- target: intelligent, calm, adult, attractive without idolization.
+## Male-aesthetic research — ACTIVE
+Authority: `H1_MALE_AESTHETIC_TUNING_RESEARCH_2026-10-14.md`.
 
-E3 Editorial Quiet — boundary option:
-- longer/flatter eye than E2;
-- restrained vertical opening;
-- flatter, more graphic/architectural brow;
-- stronger design read but higher runway/fashion-face risk.
+Project-applicable findings:
+- do not maximize masculinity as a proxy for attractiveness;
+- preserve East Asian facial plausibility rather than Westernized deep-set/high-crease eye logic;
+- a straighter / triangular-straight male brow is a useful high-leverage direction;
+- improve eyes mainly by horizontal refinement, not vertical enlargement;
+- keep orbit depth conservative;
+- keep current face shell, cheek mass, jaw/chin scale and nose-mouth placement unless later 3/4 validation reveals a depth problem;
+- postpone major nose projection, chin projection and jaw-angle redesign until 3/4 exists.
+
+## New front aesthetic target — A1 Refined East-Asian Male Appeal
+Keep the current corrected S1+S3 front sculpt as the sole geometry base.
+
+A1 upper-face changes should be visibly meaningful but still natural:
+- brow becomes straighter / triangular-straight, with a cleaner denser body, lower arch and resolved tapered tail;
+- brow apex reads toward or slightly outside the lateral canthus rather than as a soft central arch;
+- horizontal palpebral fissure length increases modestly (roughly 4–7% visual effect);
+- vertical eye aperture stays essentially unchanged;
+- upper lid becomes cleaner with a low/subtle East-Asian male crease/plane, not a high Westernized crease;
+- lower lid becomes slightly firmer / cleaner;
+- outer canthus remains level to only minimally positive, roughly 1–2° visually;
+- inner corner remains natural, no aggressive epicanthal opening;
+- brow-eye distance remains compact but not compressed/aggressive;
+- orbit depth remains unchanged/conservative.
+
+Target read:
+- more attractive than the source-like brow-eye system;
+- adult Chinese male;
+- calm, intelligent, observant;
+- not idol, fox-eye, heroic, runway or Westernized.
+
+## Secondary lower-face note
+The cheek→jaw micro-correction remains PAUSED, not discarded. Reassess only after A1 brow-eye tuning. The current face shell is acceptable enough that the main visible aesthetic weakness is the upper-face package.
 
 ## Human Core Harness
 - H0 Reference Decomposition — COMPLETE ENOUGH;
-- H1 Face Primary Masses — ACTIVE / FIXED FACE SHELL + BROW-EYE DESIGN PASS;
+- H1 Face Primary Masses — ACTIVE / FIXED FACE SHELL + AESTHETIC TUNING PASS;
 - H2 Base Body Archetype — PENDING;
 - H3 Hair Architecture — PENDING;
 - H4 Skin/Grooming — PENDING;
@@ -89,16 +103,15 @@ E3 Editorial Quiet — boundary option:
 `H1_SCULPTURAL_MASSING_V2`
 
 ## Current next action
-1. Keep the CURRENT corrected S1+S3 front gray sculpt as E1 control and fixed face shell.
-2. Generate only E2 and E3 as two separate controlled edits from that same sculpt.
-3. Do NOT upload the creator certificate portrait for E2/E3; it may pull the brow-eye system back toward source likeness.
-4. Keep face envelope, cheek, jaw, chin, nose, mouth, neck, camera, material and light unchanged.
-5. Change ONLY brow-eye variables.
-6. Compare E1/E2/E3 for character appeal, calm intelligence, adult credibility, distinctiveness and anti-generic behavior.
-7. Select brow-eye system.
-8. Then reassess whether cheek→jaw micro-correction is still needed.
-9. Only after final front geometry passes, run 30–35° 3/4 validation.
-10. H1 must pass before H2, skin/hair, brand DNA, wardrobe, motif or Presentation Modes.
+1. Use the CURRENT corrected S1+S3 front gray sculpt as the only input/reference.
+2. Do NOT upload the creator certificate portrait, E2/E3 outputs, pixel avatar, meme, or any downstream styling reference.
+3. Execute one stronger controlled A1 upper-face aesthetic edit on the same face shell.
+4. Keep face envelope, cheek mass, jaw width/taper, chin geometry, nose, mouth, neck, camera, material and lighting unchanged.
+5. Change brow-eye system only, but with enough amplitude to be visibly different from the current face.
+6. Compare A1 directly against the current original front sculpt.
+7. If A1 succeeds, select it as brow-eye candidate and then reassess whether cheek→jaw micro-correction remains necessary.
+8. Only after final front design passes, run 30–35° 3/4 validation.
+9. H1 must pass before H2, skin/hair, brand DNA, wardrobe, motif or Presentation Modes.
 
 ## Persistence rule
 Material decisions update `CURRENT_PROGRESS.md` in the same session. Stage/next-action changes also update `PROJECT_MANIFEST.json` and `RESUME_ENTRY.md`.
