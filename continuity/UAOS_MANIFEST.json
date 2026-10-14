@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "agent_id": "video",
+  "domain_id": "video",
+  "controller": "D1traverser-debug/universal-agent-os@main",
+  "status": "UAOS_CONTROL_PLANE_ACTIVE",
+  "skill": {"entrypoint": "skills/video-growth-agent/SKILL.md"},
+  "continuity": {
+    "controller_ref": "D1traverser-debug/universal-agent-os@main:CURRENT_SYSTEM.json",
+    "uaos_adapter_ref": "continuity/UAOS_ADAPTER.json"
+  },
+  "capability_ref": "continuity/EXECUTION_CAPABILITIES.json",
+  "domain_authority": {
+    "runtime_root": "video_growth_agent",
+    "machine_resource_root": "video_growth_agent/data",
+    "project_root": "projects",
+    "business_manifest_ref": "continuity/AGENT_MANIFEST.json",
+    "business_manifest_role": "DOMAIN_INTERNAL_NOT_CONTROLLER"
+  }
+}
