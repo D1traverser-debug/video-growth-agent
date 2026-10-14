@@ -1,29 +1,38 @@
 {
-  "schema_version": "2.1",
-  "agent_id": "video",
-  "domain_id": "video",
-  "controller": "D1traverser-debug/universal-agent-os@main",
-  "status": "UAOS_CONTROL_PLANE_ACTIVE",
-  "skill": {"entrypoint": "UAOS_SKILL.md"},
-  "binding": {
-    "controller_ref": "D1traverser-debug/universal-agent-os@main:CURRENT_SYSTEM.json",
-    "adapter_ref": ".uaos/ADAPTER.json",
-    "capability_ref": ".uaos/CAPABILITIES.json"
+  "schema_version":"2.2",
+  "agent_id":"video",
+  "domain_id":"video",
+  "controller":"D1traverser-debug/universal-agent-os@main",
+  "status":"UAOS_CONTROL_PLANE_ACTIVE",
+  "skill":{"entrypoint":"UAOS_SKILL.md"},
+  "binding":{
+    "controller_ref":"D1traverser-debug/universal-agent-os@main:CURRENT_SYSTEM.json",
+    "common_capabilities_ref":"D1traverser-debug/universal-agent-os@main:config/COMMON_CAPABILITIES.json",
+    "deliberation_policy_ref":"D1traverser-debug/universal-agent-os@main:config/DELIBERATION_POLICY.json",
+    "adapter_ref":".uaos/ADAPTER.json",
+    "capability_ref":".uaos/CAPABILITIES.json"
   },
-  "runtime": {
-    "version": "0.5.2",
-    "entrypoint": "video_growth_agent/runtime.py",
-    "workflow": "video_growth_agent/data/workflow.json",
-    "execution_plan": "video_growth_agent/data/execution-plan.json",
-    "agent_registry": "video_growth_agent/data/agents.json",
-    "system_audit": "vga system-audit --repo-root ."
+  "runtime":{
+    "version":"0.6.0",
+    "entrypoint":"video_growth_agent/runtime.py",
+    "episode_workflow":"video_growth_agent/data/workflow.json",
+    "execution_plan":"video_growth_agent/data/execution-plan.json",
+    "agent_registry":"video_growth_agent/data/agents.json",
+    "program_orchestration":"video_growth_agent/program_orchestration.py",
+    "coordination_policy":"video_growth_agent/data/coordination-policy.json",
+    "system_audit":"vga system-audit --repo-root ."
   },
-  "domain_authority": {
-    "runtime_root": "video_growth_agent",
-    "project_root": "projects",
-    "project_discovery": "projects/*/PROJECT_MANIFEST.json or UAOS-supplied exact business state ref",
-    "media_rule_root": "skills/video-growth-agent/references",
-    "generic_program_state_pattern": "projects/<project>/PROGRAM_STATE.json"
+  "domain_authority":{
+    "runtime_root":"video_growth_agent",
+    "product_requirements":"docs/product_requirements.md",
+    "architecture":"docs/architecture.md",
+    "project_root":"projects",
+    "project_index":"projects/PROJECT_INDEX.json",
+    "project_discovery":"projects/PROJECT_INDEX.json -> exact child state refs",
+    "business_identity":"projects/PROJECT_INDEX.json plus exact project/program/workstream/subtask state",
+    "media_rule_root":"skills/video-growth-agent/references",
+    "generic_program_state_pattern":"projects/<project>/PROGRAM_STATE.json",
+    "integrated_default_program":"projects/ai-self-media-commercialization/PROGRAM_STATE.json"
   },
-  "retired_active_surface": {"continuity_directory_allowed": false}
+  "retired_active_surface":{"continuity_directory_allowed":false,"parent_business_task_identity_in_child":false}
 }
