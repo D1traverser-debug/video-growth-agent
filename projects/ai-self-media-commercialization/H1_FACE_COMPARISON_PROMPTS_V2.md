@@ -150,17 +150,14 @@ Do NOT make him sleepy, sad, bored, expressionless like an android, or childishl
 
 ### F5 — Controlled Uncanny Human / boundary experiment
 
-Preserve fully believable human anatomy and the same-source face envelope, but introduce exactly ONE subtle proportion anomaly.
+Preserve fully believable human anatomy and the same-source face envelope, but introduce exactly ONE subtle proportion anomaly:
+- keep cheek support strong;
+- make the cheek-to-chin transition slightly less conventional than an ordinary attractive male face, so the compact blunt chin arrives with a faintly unexpected rhythm;
+- all other facial relationships remain natural and conservative.
 
-Choose only one of these anomaly strategies and keep all other facial relationships natural:
-A. slightly tighter-than-usual brow-to-eye spacing while remaining believable;
-OR
-B. a subtly unusual cheek-to-chin transition where the cheek support remains strong and the compact chin arrives with a slightly unexpected rhythm.
+Do not alter brow-eye spacing, eye color, skin, ears, nose, hair or any other feature to create strangeness.
 
-Do not combine both anomaly strategies.
-Do not alter eye color, skin, ears, nose, hair or any other feature to create strangeness.
-
-The result should be recognizably human at first glance, with a faint second-look distinctiveness.
+The result should be recognizably human at first glance, with only a faint second-look distinctiveness.
 
 Reject if it reads alien, synthetic, uncanny-valley, fashion-experimental, or obviously stylized.
 
