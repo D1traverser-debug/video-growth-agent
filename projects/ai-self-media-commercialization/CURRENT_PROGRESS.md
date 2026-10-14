@@ -12,9 +12,9 @@ This file belongs only to `projects/ai-self-media-commercialization/` and is not
 ## Stable project truth
 
 - account positioning: technology × business/capital × internet culture;
-- long-form AI-heavy cinematic explainers remain an early format hypothesis;
+- AI-heavy cinematic explainers remain an early primary format hypothesis;
 - commercial targets prioritize brand integrations, sponsorships, rights and series sponsorship;
-- high AI visual share is desired, with model routing / retry budgets / graceful degradation.
+- high AI visual share is desired with model routing, retry budgets and graceful degradation.
 
 ## Character dependency order
 
@@ -25,7 +25,7 @@ This file belongs only to `projects/ai-self-media-commercialization/` and is not
 5. CANON CHARACTER
 6. PRESENTATION MODES
 
-Presentation Modes remain dormant. No styling, makeup, wardrobe or lensing may rescue an unresolved Human Core.
+Presentation Modes remain dormant. Styling, makeup, wardrobe or lensing may not rescue an unresolved Human Core.
 
 ## V1 status
 
@@ -39,7 +39,7 @@ Do not import whitening, smoothing, makeup, hairstyle, suit, exact expression or
 
 ### Personal inheritance
 Active policy: selective structural inheritance / same-source original.
-Keep only useful proportional ancestry; redesign generic/noisy traits; do not optimize toward standard handsome-male priors.
+Keep useful proportional ancestry, redesign weak/generic/noisy relationships, and do not optimize toward standard handsome-male priors.
 Authority: `HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md`.
 
 ### Pixel avatar
@@ -52,72 +52,52 @@ Narrative/contradiction grammar only; remains downstream.
 
 ### F1–F5 text-only exploration
 Complete. All five partially collapsed toward a generic attractive East-Asian male prior.
-- F1 retained only as envelope/soft-tissue donor;
-- F2 rejected as standalone base;
-- F3 rejected as standalone base;
-- F4 retained only as eye/deadpan donor;
-- F5 retained only as cheek→jaw→chin rhythm donor.
 
 ### H1-HYBRID-A photoreal calibration
 Reviewed and failed as a lock. Direct portrait reference + photoreal representation still produced an ordinary plausible studio portrait and hid geometry.
-Do not edit it further or use it as later face reference.
 
-### Sculptural massing method
-Active. Matte-gray clay/maquette studies isolate geometry from skin/hair/beauty priors.
-
-## S1–S3 sculptural front review — COMPLETE
-
+### Sculptural massing S1–S3
+Reviewed.
+- S1 = primary base donor;
+- S2 = rejected;
+- S3 = lower-face cheek→jaw→compact-chin rhythm donor only.
 Authority: `H1_S1_S2_S3_SCULPT_REVIEW_2026-10-14.md`.
 
-### S1 Source-Calibrated Neutral
-RETAIN as primary base donor.
-Useful traits:
-- best same-source plausibility;
-- moderately elongated envelope;
+## H1-S13-HYBRID front — PROVISIONAL PASS
+
+Authority: `H1_S13_HYBRID_FRONT_REVIEW_2026-10-14.md`.
+
+The controlled S1+S3 front sculpt is accepted strongly enough to stop broad front-view searching and move to a 3/4 consistency validation.
+
+Useful geometry now retained:
+- moderately elongated soft-rectangular / oval envelope;
 - quiet horizontal orbital organization;
-- relatively light lower face;
-- compact rounded chin tendency;
-- strongest calm-observer compatibility.
+- restrained eye opening;
+- slightly clearer cheek support than S1 alone;
+- subtly less-uniform cheek→jaw→compact-chin rhythm;
+- moderate/light jaw, not macho or square;
+- compact rounded-blunt chin;
+- conservative, low-salience nose and mouth.
 
-Weakness:
-- cheek→jaw taper remains too uniformly smooth/generic.
+This is NOT yet an H1 lock because front view alone does not establish 3D stability.
 
-### S2 Structural Compression
-REJECT as standalone and as next-hybrid donor.
-Observed execution drift:
-- compression partly became broadening/regularization;
-- eye opening was not clearly reduced vs S1;
-- brow/jaw became more conventionally masculine;
-- insufficient anti-generic benefit.
+Non-authoritative details:
+- sculpt hair/scalp placeholder;
+- neck geometry.
 
-### S3 Anti-Generic Cheek/Jaw Rhythm
-RETAIN only as lower-face transition donor.
-Useful traits:
-- strongest second-look distinction in cheek→jaw→chin rhythm;
-- clearer cheek support without square jaw;
-- remains fully human/commercially plausible.
+## Current 3/4 validation risks
 
-Do not inherit:
-- S3 hair placeholder;
-- any further jaw/chin widening;
-- its entire eye/orbit system.
-
-## Current face proposal — H1-S13-HYBRID
-
-PROPOSED / READY FOR FRONT EXECUTION, not locked.
-
-Construction:
-- S1 = overall face envelope, forehead/temple proportions, orbit/eye opening, calm baseline, nose-mouth placement, compact chin height and light massing;
-- S3 = only subtle cheek→jaw→compact-chin transition rhythm, at reduced intensity;
-- certificate portrait = structural ancestry calibration only;
-- S2 = not used.
-
-Execution authority: `H1_S13_HYBRID_SCULPT_PROMPT_V2.md`.
+The next angle must prove that depth does not reintroduce generic handsome-male drift:
+- nose must not become higher/narrower/model-like;
+- cheek support must not disappear or become sharp-fashion angular;
+- jaw must not collapse into a V or broaden into a square jaw;
+- chin must not project, enlarge, point or lengthen;
+- orbit/brow depth must not become heroic/aggressive.
 
 ## Human Core Harness
 
 - H0 Reference Decomposition — COMPLETE ENOUGH;
-- H1 Face Primary Masses — ACTIVE / CONTROLLED S1+S3 HYBRID;
+- H1 Face Primary Masses — ACTIVE / FRONT PROVISIONAL PASS, 3/4 VALIDATION NEXT;
 - H2 Base Body Archetype — PENDING;
 - H3 Hair Architecture — PENDING;
 - H4 Skin/Grooming — PENDING;
@@ -128,28 +108,24 @@ Execution authority: `H1_S13_HYBRID_SCULPT_PROMPT_V2.md`.
 - H9 Canon Character — PENDING;
 - H10 Presentation Modes — DORMANT.
 
-No later gate can compensate for an earlier failure.
-
 ## Current stage
 
 `H1_SCULPTURAL_MASSING_V2`
 
 ## Current next action
 
-Do not advance to 3/4 yet.
+Do not return to broad face exploration and do not add skin, hair styling, cyan/blue brand DNA, pixel glasses, wardrobe or meme motifs.
 
-1. Open one fresh GPT Images conversation.
-2. Upload three role-labeled references:
-   - Image 1 = creator certificate portrait, structural ancestry only;
-   - Image 2 = S1 sculpt, PRIMARY GEOMETRY BASE;
-   - Image 3 = S3 sculpt, cheek→jaw→compact-chin rhythm donor only.
-3. Execute `H1_S13_HYBRID_SCULPT_PROMPT_V2.md`.
-4. Generate exactly one front-view matte-gray hybrid sculpt.
-5. Review the front geometry.
-6. If accepted, generate a matching 3/4 sculpt while preserving identity and geometry.
-7. Only after front + 3/4 geometry coherence return to stylized skin/hair.
+Next:
+1. preferably stay in the same GPT Images conversation as the accepted front hybrid;
+2. use the accepted front `H1-S13-HYBRID` as the primary identity/geometry reference;
+3. execute `H1_S13_3Q_SCULPT_PROMPT_V2.md`;
+4. generate exactly one 30–35° three-quarter matte-gray sculpt of the SAME character;
+5. compare front vs 3/4 for skull envelope, orbit, cheek, jaw, chin, nose and mouth consistency;
+6. if coherent, move H1 toward geometry-candidate lock and run the identity-strip / plain-representation check;
+7. if drift occurs, edit one geometric variable at a time on the same face;
 8. H1 must pass before H2 body archetype.
 
 ## Persistence rule
 
-Material decisions update `CURRENT_PROGRESS.md` in the same session. Stage/next-action changes also update `PROJECT_MANIFEST.json` and `RESUME_ENTRY.md`. Rejected/reviewed outputs receive dated review artifacts.
+Material decisions update `CURRENT_PROGRESS.md` in the same session. Stage/next-action changes also update `PROJECT_MANIFEST.json` and `RESUME_ENTRY.md`. Reviewed outputs receive dated review artifacts.
