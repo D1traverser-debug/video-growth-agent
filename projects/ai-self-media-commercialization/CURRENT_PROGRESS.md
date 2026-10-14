@@ -43,7 +43,9 @@ Anti-regression:
 Project methods now include:
 - `DESIGN_RESEARCH_METHOD_V2.md` — macro-to-micro professional design method;
 - `DESIGN_SPACE_EXPLORATION_V2.md` — comparative sweep across body/face/hair/fashion/runway systems;
-- `HUMAN_CORE_CONSTRUCTION_STACK_V2.md` — current dependency order, human-related specialist stack, reference-fusion policy and gate Harness.
+- `HUMAN_CORE_CONSTRUCTION_STACK_V2.md` — current dependency order, human-related specialist stack, reference-fusion policy and gate Harness;
+- `H0_REFERENCE_ASSESSMENT_2026-10-14.md` — reference reliability and role split;
+- `H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md` — current face-structure extraction and H1 candidate architectures.
 
 ### Governance rule
 
@@ -58,7 +60,7 @@ For material decisions:
 
 ## Critical dependency correction — Presentation Modes are downstream
 
-The earlier CANON / EDITORIAL / CINEMATIC / SURREAL / COMMERCIAL idea remains useful as a future derivative system, but it is **dormant** now.
+CANON / EDITORIAL / CINEMATIC / SURREAL / COMMERCIAL remain useful only as future derivative modes.
 
 Current dependency order:
 1. HUMAN CORE;
@@ -73,141 +75,97 @@ No runway styling, makeup, clothing, lensing or presentation mode may rescue an 
 ## Current reference-fusion policy
 
 ### Real certificate photo
-Use only as a structural face source:
-- face length/width tendency;
-- brow-eye relation;
-- eye spacing/orbital placement;
-- nose-mouth spacing;
-- cheek/jaw/chin distribution;
-- adult Chinese male anchor.
+Primary structural face source only. Use face envelope, brow-eye relation, eye spacing/orbital placement, nose-mouth relation and cheek/jaw/chin distribution.
 
 Ignore makeup, retouching, whitening, smoothing, hairstyle, suit styling and photographic color cast.
 
-Do not use it as the dominant direct generation reference for the first V2 face concept. First extract morphology into a structure sheet.
-
 ### Real life/full-body photos
-Primary source for:
-- true skin value/undertone;
-- shoulder slope;
-- torso/leg relation;
-- limb length;
-- tall-slim 182/67 physical origin;
-- posture/adult male presence.
+Support source for true skin value, shoulder/limb plausibility, tall-slim physical origin, posture and later movement/garment constraints.
+
+Body is not a primary likeness source and must not be copied literally.
 
 ### Pixel avatar
-Brand/graphic DNA only:
-- ice-cyan/cyan-blue head color family;
-- deep blue-violet iris concept;
-- black/white pixel sunglasses;
-- white/ice-blue/black visual lineage;
-- pixel/internet-native/geek DNA;
-- red may survive only as rare anomaly accent.
-
-Do not derive face/body anatomy from the sprite.
+Brand/graphic DNA only: ice-cyan/cyan-blue head color family, deep blue-violet iris concept, black/white pixel sunglasses, white/ice-blue/black lineage, internet-native/pixel DNA and optional rare red anomaly accent.
 
 ### Shiba-carp meme
-Narrative/contradiction source only:
-- impossible hybrid treated as normal;
-- deadpan grammar;
-- mismatch between two rule systems;
-- later macro/meso/micro motif hierarchy.
+Narrative/contradiction source only: impossible hybrid treated as normal, deadpan grammar, mismatch between rule systems and later macro/meso/micro motif hierarchy.
 
-Do not derive animal anatomy from it.
+## H1 face morphology — ACTIVE
 
-## Personal-feature inheritance recommendation — PROPOSED
+The certificate portrait has now been decomposed into reusable structure rather than copied appearance.
 
-Yes, retain selected creator traits, but through structural inheritance rather than likeness copying.
+Strong same-source structural anchors extracted:
+- moderately elongated soft-rectangular/oval face envelope rather than narrow V-face;
+- meaningful cheek support;
+- compact rounded/blunt chin rather than long pointed chin;
+- horizontal brow-eye organization;
+- moderate-narrow eye aperture without aggressive upward cant;
+- natural medium nose volume rather than hyper-narrow CG nose;
+- compact mouth-to-chin relationship.
 
-Tier A — must inherit:
-- Chinese adult male;
-- mid-20s age band;
-- tall/slim physical origin;
-- warm-neutral somewhat deeper natural skin value;
-- real shoulder/limb plausibility;
-- analytical, non-performative presence.
+Explicit anti-copy rules:
+- no portrait whitening/beauty smoothing;
+- no direct photo-clone target;
+- no current hairstyle/wardrobe inheritance;
+- no micro-asymmetry treated as primary identity;
+- no profile assumptions from this frontal photo.
 
-Tier B — selectively compare:
-- face aspect ratio;
-- brow-eye relationship / eye spacing;
-- nose-mouth spacing;
-- cheek/jaw relation;
-- one or two natural asymmetries.
+Authority:
+- `H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md`
 
-Tier C — reject:
-- certificate makeup/retouch/whitening;
-- real hairstyle/wardrobe;
-- accidental expression;
-- lens distortion;
-- direct digital-double likeness goal.
+### H1 candidate face architectures
+- F1 Same-Source Natural — control / closest structural resonance;
+- F2 Blunt Analytical — stronger cheek/jaw stability, compact chin, anti-generic;
+- F3 Editorial Plane — clearer facial planes without idol beautification;
+- F4 Compact Deadpan — compressed expression read / calm horizontal emphasis;
+- F5 Controlled Uncanny Human — one subtle proportion anomaly as boundary experiment.
 
-Goal: **same-source resonance, not virtual clone.**
+Current independent recommendation before visual comparison:
+- prioritize F2, F3 and F4;
+- keep F1 as control;
+- keep F5 as edge/boundary test.
 
-## Current human-related capability stack
-
-Defined project roles/capabilities:
-- Human Core Director;
-- Facial Morphology / Character Sculptor;
-- Body Anatomy & Proportion Designer;
-- Hair Architecture Specialist;
-- Grooming / Makeup Director;
-- Fashion / Tailoring / Runway Designer — downstream of Human Core;
-- Character Acting / Movement Director;
-- IP Motif / Semiotics Designer;
-- Generative Consistency Engineer;
-- Commercial Art Director / Brand Fit Reviewer;
-- Genericness / Regression Red Team.
-
-These are capability roles only. They do not count as executed agents without real invocation/evidence paths.
+No face direction is locked yet.
 
 ## Human Core Harness
 
-Current gate order:
-- H0 Reference Decomposition;
-- H1 Face Primary Masses;
-- H2 Base Body Archetype;
-- H3 Hair Architecture;
-- H4 Skin/Grooming;
-- H5 Identity Strip Test — dark hair/dark eyes/no glasses/grayscale;
-- H6 Brand DNA Reintroduction;
-- H7 Wardrobe Chassis;
-- H8 Motif Fusion;
-- H9 Canon Character;
-- H10 Presentation Modes.
+- H0 Reference Decomposition — COMPLETE ENOUGH TO ENTER H1;
+- H1 Face Primary Masses — ACTIVE;
+- H2 Base Body Archetype — PENDING;
+- H3 Hair Architecture — PENDING;
+- H4 Skin/Grooming — PENDING;
+- H5 Identity Strip Test — PENDING;
+- H6 Brand DNA Reintroduction — PENDING;
+- H7 Wardrobe Chassis — PENDING;
+- H8 Motif Fusion — PENDING;
+- H9 Canon Character — PENDING;
+- H10 Presentation Modes — DORMANT.
 
 No later gate can compensate for an earlier failure.
 
 ## Design-space status
 
-`Glitch Dandy / 异常绅士` remains a **PROPOSED wardrobe/whole-look direction**, not the Human Core and not locked canon.
-
-It must not determine the face/body before H1/H2 pass.
+`Glitch Dandy / 异常绅士` remains a PROPOSED downstream wardrobe/whole-look direction, not the Human Core and not locked canon.
 
 Techwear remains rejected as the base clothing chassis.
 
-## Tool/plugin status
-
-- Built-in image generation: structural alternatives and controlled edits, not one-shot full-person invention.
-- Canva is already available and is appropriate for comparison boards/contact sheets/design-bible layout; it is not anatomy authority.
-- Adobe-class portrait/retouch tools are optional downstream for cleanup/color/skin presentation, not required to solve Human Core.
-- GitHub project package remains authority for decisions, gate state, failure records, resume state and anti-regression.
-
 ## Current stage
 
-`HUMAN_CORE_ARCHITECTURE_V2`
+`H1_FACE_PRIMARY_MASSES_V2`
 
 ## Current next action
 
-Do **not** design Presentation Modes and do **not** generate a dressed final character yet.
+Do not generate a finished character.
 
-Next work packet:
-1. extract a neutral face-morphology sheet from the creator certificate photo while stripping makeup/retouch/camera styling;
-2. extract body/skin/posture truth from life/full-body photos;
-3. propose and compare 4–5 face primary-mass systems, each using only selected same-source traits;
-4. propose and compare 4 base-body archetypes;
-5. choose face/body direction before cyan hair, pixel sunglasses, fashion/runway clothing or easter eggs;
-6. then design hair architecture on the approved head;
-7. only after the Human Core passes identity-strip tests, reintroduce pixel-avatar DNA and resume wardrobe/runway synthesis;
-8. consolidate approved Human Core into `CHARACTER_DESIGN_BIBLE_V2` before any new final-character prompt.
+Next:
+1. compare F1–F5 as neutral grayscale head/face studies;
+2. keep hair dark/plain, eyes dark, no pixel glasses, no fashion, no dramatic lighting;
+3. compare front + 3/4 first;
+4. select one base face architecture or a deliberate hybrid;
+5. require identity to survive grayscale / dark-hair / no-accessory conditions;
+6. only after H1 PASS proceed to H2 body archetype;
+7. later design hair architecture on the approved head;
+8. only after Human Core passes identity-strip tests reintroduce pixel-avatar DNA, wardrobe/runway and motif systems.
 
 ## Future workflow integration rule
 
