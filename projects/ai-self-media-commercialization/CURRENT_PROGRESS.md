@@ -45,7 +45,8 @@ Project methods now include:
 - `DESIGN_SPACE_EXPLORATION_V2.md` — comparative sweep across body/face/hair/fashion/runway systems;
 - `HUMAN_CORE_CONSTRUCTION_STACK_V2.md` — current dependency order, human-related specialist stack, reference-fusion policy and gate Harness;
 - `H0_REFERENCE_ASSESSMENT_2026-10-14.md` — reference reliability and role split;
-- `H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md` — current face-structure extraction and H1 candidate architectures.
+- `H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md` — current face-structure extraction and H1 candidate architectures;
+- `H1_FACE_COMPARISON_PROMPTS_V2.md` — controlled prompt matrix for F1–F5 face-mass comparison.
 
 ### Governance rule
 
@@ -92,7 +93,7 @@ Narrative/contradiction source only: impossible hybrid treated as normal, deadpa
 
 ## H1 face morphology — ACTIVE
 
-The certificate portrait has now been decomposed into reusable structure rather than copied appearance.
+The certificate portrait has been decomposed into reusable structure rather than copied appearance.
 
 Strong same-source structural anchors extracted:
 - moderately elongated soft-rectangular/oval face envelope rather than narrow V-face;
@@ -127,10 +128,34 @@ Current independent recommendation before visual comparison:
 
 No face direction is locked yet.
 
+## H1 comparison protocol — READY
+
+The controlled generation protocol is now frozen in `H1_FACE_COMPARISON_PROMPTS_V2.md`.
+
+Execution rules:
+- first pass is FRONT VIEW ONLY;
+- one fresh image-generation conversation per F1–F5 candidate;
+- do not upload the certificate photo in first-pass generation; use the extracted morphology text instead to avoid digital-clone collapse;
+- identical camera/light/hair/eyes/background/render conditions across all five candidates;
+- dark/plain hair, dark eyes, no accessories, no cyan, no fashion, no dramatic lighting;
+- generate exactly one image per candidate;
+- after all five front views are reviewed, only the top 2–3 advance to 3/4 view;
+- H1 cannot pass until the selected architecture survives both front and 3/4 views.
+
+Review dimensions:
+- distinctiveness without branding;
+- adult male credibility;
+- same-source resonance;
+- anti-generic strength;
+- deadpan compatibility;
+- commercial trust;
+- AI-video stability;
+- survival under dark-hair/dark-eye/no-accessory identity-strip conditions.
+
 ## Human Core Harness
 
 - H0 Reference Decomposition — COMPLETE ENOUGH TO ENTER H1;
-- H1 Face Primary Masses — ACTIVE;
+- H1 Face Primary Masses — ACTIVE / COMPARISON READY;
 - H2 Base Body Archetype — PENDING;
 - H3 Hair Architecture — PENDING;
 - H4 Skin/Grooming — PENDING;
@@ -158,14 +183,15 @@ Techwear remains rejected as the base clothing chassis.
 Do not generate a finished character.
 
 Next:
-1. compare F1–F5 as neutral grayscale head/face studies;
-2. keep hair dark/plain, eyes dark, no pixel glasses, no fashion, no dramatic lighting;
-3. compare front + 3/4 first;
-4. select one base face architecture or a deliberate hybrid;
-5. require identity to survive grayscale / dark-hair / no-accessory conditions;
-6. only after H1 PASS proceed to H2 body archetype;
-7. later design hair architecture on the approved head;
-8. only after Human Core passes identity-strip tests reintroduce pixel-avatar DNA, wardrobe/runway and motif systems.
+1. execute F1–F5 front-view face studies using `H1_FACE_COMPARISON_PROMPTS_V2.md`;
+2. review all five together by structure rather than attractiveness;
+3. reject automatic failures and retain the top 2–3 architectures;
+4. generate 3/4 studies only for those finalists;
+5. select one base face architecture or a deliberate hybrid;
+6. require identity to survive grayscale / dark-hair / no-accessory conditions;
+7. only after H1 PASS proceed to H2 body archetype;
+8. later design hair architecture on the approved head;
+9. only after Human Core passes identity-strip tests reintroduce pixel-avatar DNA, wardrobe/runway and motif systems.
 
 ## Future workflow integration rule
 
