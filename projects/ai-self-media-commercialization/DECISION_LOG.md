@@ -1,5 +1,48 @@
 # Decision Log
 
+## 2026-10-14 — Design governance changed from reactive to comparative
+
+Decision:
+- do **not** treat the user's latest suggestion as automatic design truth;
+- do not immediately convert every suggestion into a prompt or system mutation;
+- for material character-design choices, actively construct a representative option space, compare trade-offs, state an independent recommendation, and keep it `PROPOSED` until it survives comparison/selection;
+- expand the design research boundary to include runway/show design, tailoring, deconstruction, dandyism, anti-fashion, sculptural minimalism, soft drape, styling and presentation—not only conventional character concept art.
+
+Reason:
+V1 failed partly because the process converged too early on verbal requirements and local fixes. The long-term IP requires art-direction judgment, not obedient accumulation of requested attributes.
+
+Current design-space artifact:
+- `DESIGN_SPACE_EXPLORATION_V2.md`
+
+Current leading recommendation:
+- `Glitch Dandy / 异常绅士` — `PROPOSED_NOT_LOCKED`.
+
+Current synthesis hypothesis:
+- 40% Precision Observer;
+- 25% Deconstructed Analyst;
+- 20% Neo-Dandy;
+- 10% Soft Drape Archivist;
+- 5% Anti-Fashion Internet Native.
+
+Explicit rejection:
+- techwear is not the V2 base chassis.
+
+Before locking, compare body, face, hair, garment, accessory-scale and macro-contradiction options abstractly rather than generating another polished full character.
+
+## 2026-10-14 — Concept V1 rejected as a whole
+
+Decision:
+- the first full-body concept is not a refinement base;
+- do not preserve/crop its face, body, hair, jacket, trousers, shoes or fashion-pose logic;
+- clean rendering and apparent commercial polish do not count as design PASS.
+
+Authority:
+- `CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md`
+
+Consequence:
+- V1 prompt is historical only and must not be reused for V2;
+- V2 starts from macro-form design research and comparative direction exploration.
+
 ## 2026-10-14 — Persistence boundary corrected
 
 Decision:
@@ -86,95 +129,63 @@ Reason rejected:
 - too close to feature copying / motif pasting;
 - did not make the reference influence costume architecture, material contradiction, performance grammar and recurring narrative callbacks as one system.
 
-## Current character direction accepted
+## Character-level concepts still retained as project DNA
 
-Core concept:
+Core narrative hypothesis remains useful but is no longer sufficient as visual authority:
 
 > **A high-resolution observer carrying low-resolution anomalies.**
 
-Reference roles:
-- pixel avatar = first-read digital identity;
-- Shiba-carp meme = hybrid/absurdity grammar + deadpan performance + organic/rigid contradiction + easter-egg system;
-- real creator = weak physical host anchor only.
+Reference roles retained:
+- pixel avatar = first-read digital identity source;
+- Shiba-carp meme = hybrid/absurdity grammar + deadpan performance + incompatible-system logic + easter-egg potential;
+- real creator = weak host anchor, not a literal face/body template.
 
-Accepted physical host anchor:
+Retained anchors:
 - Chinese adult male, mid-20s visual age;
-- 182cm / 67kg tall-slim archetype;
-- long limbs, natural/slightly narrow shoulders, non-muscular;
-- warm-neutral, somewhat deeper East Asian skin tone.
+- 182cm / 67kg real-world tall-slim origin, but V2 may stylize proportions;
+- ice-cyan / blue family;
+- deep blue-violet eye concept;
+- black/white pixel accessory;
+- technology × business × internet-culture narrative role;
+- no literal dog/fish hybridization.
 
-Accepted visual principles:
-- vertical I-shaped silhouette;
-- memorable but not optimized/generic handsome face;
-- long narrow eyes and controlled facial asymmetry;
-- fixed deadpan mouth/brow read;
-- five large hair masses before strands;
-- asymmetric front locks;
-- subtle non-animal triangular silhouette rhythm;
-- split rear hair flow;
-- pixel sunglasses remain visibly low-resolution rather than being normalized into luxury eyewear;
-- costume mostly geometric/engineered, with one structural path transitioning into organic flow;
-- offset two-part rear hem;
-- hidden Pixel→Scale interior textile;
-- tiny warm anomaly-color system;
-- tiered easter eggs rather than all references appearing immediately.
+Previously accepted V1-specific prescriptions such as exact five hair masses, exact hem construction or exact micro-asymmetry are no longer automatically authoritative; they must be re-tested in the V2 comparative design space.
 
-## Performance decisions accepted
+## Performance principle retained
 
 The character is not a virtual-news-anchor performer.
 
-Default behavior:
-- calm;
-- low expression amplitude;
-- restrained gestures;
-- natural ~2–3° head bias;
-- when something becomes absurd, the head tilt increases slightly and pauses instead of producing a large facial reaction.
-
-Directorial principle:
-
+Useful behavioral principle:
 > The environment may become increasingly irrational while the observer remains compositionally and emotionally stable.
 
-## Prompt-writing decisions accepted
+This remains a narrative/performance hypothesis and must be tested against the eventual selected visual archetype.
+
+## Prompt-writing decision retained
 
 Do not use adjective piles as design authority.
 
-The design stack should separate:
-1. narrative function;
-2. audience first/second/third read;
-3. silhouette;
-4. shape language;
-5. face architecture;
-6. hair architecture;
-7. grooming;
-8. costume architecture;
-9. motif fusion;
-10. easter-egg hierarchy;
-11. color/material hierarchy;
-12. pose/performance;
-13. camera/light/render language;
-14. exclusions;
-15. output contract.
-
-Do not ask one image-generation pass to solve every final asset. Validate large forms first, then converge through controlled edits.
+Prompt is an execution spec after design decisions are made; it is not the place where the model is asked to invent the full identity.
 
 ## Current next action
 
-Use `CONCEPT_GENERATION_PROMPT_V1.md` in a fresh image-generation conversation with the four reference roles correctly assigned.
+Current stage: `CHARACTER_DIRECTION_EXPLORATION_V2`.
 
-Generate **one** complete concept character.
+Do not generate another finished character yet.
 
-Review only:
-- silhouette;
-- face architecture;
-- hair masses;
-- pixel sunglasses logic;
-- primary costume architecture;
-- deadpan identity;
-- commercial compatibility.
+Compare representative alternatives for:
+- 4 body silhouettes;
+- 5 face primary-mass archetypes;
+- 4 hair silhouettes;
+- 6 garment silhouettes;
+- 3 pixel-accessory scale/placement options;
+- 3 macro Shiba-carp contradiction systems.
 
-If those pass:
-- keep the same character identity;
-- refine face/hair/costume through controlled edits;
-- then build canon face/body, turnarounds, expressions, accessory sheet, costume sheet and brand visual bible.
+Stress-test leading combinations for:
+- long-term recognizability;
+- technology/business editorial credibility;
+- meme/internet distinctiveness;
+- sponsor/commercial adaptability;
+- AI-video consistency;
+- wardrobe/world extensibility.
 
-Do not reopen random identity exploration unless the large-form concept fundamentally fails.
+Then select/reject the proposed `Glitch Dandy / 异常绅士` synthesis. Only after selection should `CHARACTER_DESIGN_BIBLE_V2` and a new generation prompt be written.
