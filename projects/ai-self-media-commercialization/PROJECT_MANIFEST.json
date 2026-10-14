@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.3",
+  "schema_version": "1.4",
   "project_id": "ai-self-media-commercialization",
   "display_name_zh": "AI自媒体视频商业化与原创数字IP",
   "project_kind": "INCUBATION_REFERENCE_PACKAGE",
@@ -27,8 +27,11 @@
       "COMMERCIALIZATION",
       "ORIGINAL_DIGITAL_IP",
       "CHARACTER_DESIGN",
-      "CHARACTER_REDESIGN_V2",
-      "CHARACTER_DIRECTION_EXPLORATION",
+      "HUMAN_CORE_ARCHITECTURE",
+      "FACIAL_MORPHOLOGY",
+      "BODY_PROPORTION",
+      "HAIR_ARCHITECTURE",
+      "GROOMING_MAKEUP",
       "FASHION_RUNWAY_RESEARCH",
       "AIGC_LONGFORM",
       "BILIBILI",
@@ -36,16 +39,17 @@
       "MODEL_ROUTER",
       "LOOKDEV_INPUT"
     ],
-    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. Concept V1 is rejected. V2 is currently in comparative character-direction exploration using fashion/runway, tailoring, deconstruction, styling and macro-form design research before any new finished generation. It is not an active continuity task and must not mutate Pilot 002 state or gates.",
+    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. Concept V1 is rejected. V2 is now focused on constructing the Human Core—face morphology, body archetype, hair architecture, skin/grooming and neutral performance—before wardrobe, motif, canon presentation or Presentation Modes. It is not an active continuity task and must not mutate Pilot 002 state or gates.",
     "resume_entry": "RESUME_ENTRY.md",
     "current_progress": "CURRENT_PROGRESS.md",
     "latest_failure_audit": "CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md",
     "current_design_method": "DESIGN_RESEARCH_METHOD_V2.md",
-    "current_design_space": "DESIGN_SPACE_EXPLORATION_V2.md"
+    "current_design_space": "DESIGN_SPACE_EXPLORATION_V2.md",
+    "human_core_stack": "HUMAN_CORE_CONSTRUCTION_STACK_V2.md"
   },
-  "current_stage": "CHARACTER_DIRECTION_EXPLORATION_V2",
-  "current_state": "Concept V1 is rejected as a whole. The project no longer treats user suggestions or previous prompt assumptions as automatic design truth. A representative design space has been swept across body, face, hair, tailoring/drape, styling contradiction, performance and presentation. Glitch Dandy / 异常绅士 is the current independent recommendation, explicitly PROPOSED and not locked.",
-  "next_action": "Do not generate a finished character yet. Compare 4 body silhouettes, 5 face-mass archetypes, 4 hair silhouettes, 6 garment silhouette systems, 3 pixel-accessory scale tests and 3 macro Shiba-carp contradiction systems. Stress-test the leading combinations for commercial, cinematic, meme/internet and AI-video use. Then select/reject the proposed Glitch Dandy direction and only afterward write CHARACTER_DESIGN_BIBLE_V2 and a new generation prompt.",
+  "current_stage": "HUMAN_CORE_ARCHITECTURE_V2",
+  "current_state": "Concept V1 is rejected as a whole. Presentation Modes and fashion/runway directions are now explicitly downstream. The active task is to construct the base human identity from reference-decomposed face/body truth, compare multiple face and body architectures, and pass identity-strip tests before cyan hair, pixel sunglasses, wardrobe or motif systems are allowed to define the character.",
+  "next_action": "Extract a neutral face-morphology sheet from the creator certificate photo and body/skin/posture truth from real-life/full-body photos. Compare 4–5 face primary-mass systems and 4 base-body archetypes. Select face/body direction before hair color, pixel accessories or wardrobe. Then design hair architecture, grooming and identity-strip tests, consolidate the approved Human Core into CHARACTER_DESIGN_BIBLE_V2, and only afterward resume clothing/runway/motif design.",
   "workflow_integration": {
     "mode": "FUTURE_EXPLICIT_IMPORT",
     "do_not_auto_promote": true,
@@ -68,6 +72,7 @@
     "CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md",
     "DESIGN_RESEARCH_METHOD_V2.md",
     "DESIGN_SPACE_EXPLORATION_V2.md",
+    "HUMAN_CORE_CONSTRUCTION_STACK_V2.md",
     "CHARACTER_DESIGN_BIBLE_V1.md",
     "CONCEPT_GENERATION_PROMPT_V1.md",
     "PRODUCTION_AND_COST_STRATEGY.md",
@@ -79,10 +84,11 @@
     "CONCEPT_GENERATION_PROMPT_V1.md": "DO_NOT_USE_FOR_V2"
   },
   "proposals": {
-    "leading_direction": "Glitch Dandy / 异常绅士",
-    "status": "PROPOSED_NOT_LOCKED",
-    "source": "DESIGN_SPACE_EXPLORATION_V2.md"
+    "whole_look_direction": "Glitch Dandy / 异常绅士",
+    "whole_look_status": "PROPOSED_DOWNSTREAM_NOT_LOCKED",
+    "personal_feature_policy": "SELECTIVE_STRUCTURAL_INHERITANCE_PROPOSED",
+    "presentation_modes_status": "DORMANT_UNTIL_CANON_H9"
   },
   "created_at": "2026-10-14T00:14:38Z",
-  "updated_at": "2026-10-14T02:08:00Z"
+  "updated_at": "2026-10-14T02:20:00Z"
 }
