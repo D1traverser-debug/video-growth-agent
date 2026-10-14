@@ -1,0 +1,14 @@
+{
+  "schema_version":"2.0",
+  "profile_version":2,
+  "domain_id":"video",
+  "policy":"QUALITY_CRITICAL_GENERATION_FAIL_CLOSED__CURRENT_SESSION_HANDSHAKE__ASSET_IDENTITY_BOUND",
+  "capabilities":[
+    {"capability_id":"project_design_and_planning","required":["model_runtime"],"side_channel_allowed":false},
+    {"capability_id":"image_generation","required":["image_generation_capability","bound_reference_assets"],"side_channel_allowed":false},
+    {"capability_id":"video_generation","required":["video_generation_capability","shot_contract","asset_identity"],"side_channel_allowed":false},
+    {"capability_id":"visual_review","required":["actual_modality_access"],"assurance_rule":"ROLE_LABEL_IS_NOT_EXECUTION_PROOF","side_channel_allowed":false},
+    {"capability_id":"artifact_continuity","required":["project_manifest","asset_version_identity"],"side_channel_allowed":false},
+    {"capability_id":"learning_promotion","required":["replay_or_cross_project_evidence"],"side_channel_allowed":false}
+  ]
+}
