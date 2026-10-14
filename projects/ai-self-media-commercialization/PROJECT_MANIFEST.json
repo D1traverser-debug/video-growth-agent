@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.7",
+  "schema_version": "1.8",
   "project_id": "ai-self-media-commercialization",
   "display_name_zh": "AI自媒体视频商业化与原创数字IP",
   "project_kind": "INCUBATION_REFERENCE_PACKAGE",
@@ -31,6 +31,7 @@
       "FACIAL_MORPHOLOGY",
       "FACE_PRIMARY_MASSES",
       "FACE_COMPARISON_PROMPTS",
+      "GPT_IMAGE_PROMPTING",
       "BODY_PROPORTION",
       "REFERENCE_DECOMPOSITION",
       "HAIR_ARCHITECTURE",
@@ -42,7 +43,7 @@
       "MODEL_ROUTER",
       "LOOKDEV_INPUT"
     ],
-    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. Concept V1 is rejected. V2 has completed initial reference decomposition and face-morphology extraction; H1 is now ready to execute controlled F1-F5 front-view face-architecture comparisons before body, hair, brand DNA, wardrobe, motif or Presentation Modes are allowed to define the character.",
+    "semantic_summary": "Independent project-local design package for an AI-native commercial self-media account and original male digital IP. Concept V1 is rejected. V2 has completed initial reference decomposition and face-morphology extraction; H1 is ready for controlled GPT Images-specific F1-F5 front-view face-architecture comparisons using concise prompts and targeted-edit convergence before body, hair, brand DNA, wardrobe, motif or Presentation Modes are allowed to define the character.",
     "resume_entry": "RESUME_ENTRY.md",
     "current_progress": "CURRENT_PROGRESS.md",
     "latest_failure_audit": "CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md",
@@ -51,11 +52,12 @@
     "human_core_stack": "HUMAN_CORE_CONSTRUCTION_STACK_V2.md",
     "current_reference_assessment": "H0_REFERENCE_ASSESSMENT_2026-10-14.md",
     "current_face_morphology": "H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md",
-    "current_face_comparison_prompts": "H1_FACE_COMPARISON_PROMPTS_V2.md"
+    "current_face_comparison_prompts": "H1_FACE_COMPARISON_PROMPTS_V2.md",
+    "gpt_image_prompting_method": "GPT_IMAGE_PROMPTING_METHOD_V2.md"
   },
   "current_stage": "H1_FACE_PRIMARY_MASSES_V2",
-  "current_state": "The creator certificate portrait has been decomposed into reusable structural face anchors without copying makeup, retouching, hairstyle or direct likeness. Five face-architecture hypotheses F1-F5 are defined. A controlled first-pass generation protocol is now ready: one fresh conversation per candidate, front view only, no certificate-photo upload, dark/plain hair and dark eyes, no accessories/fashion/branding, identical camera/light/render conditions.",
-  "next_action": "Execute F1-F5 front-view head studies using H1_FACE_COMPARISON_PROMPTS_V2.md. Review all five together by structural quality, retain only the top 2-3, then generate matching 3/4 studies for finalists. Select one face architecture or deliberate hybrid before proceeding to H2 body archetype.",
+  "current_state": "The creator certificate portrait has been decomposed into reusable structural face anchors without copying makeup, retouching, hairstyle or direct likeness. Five face-architecture hypotheses F1-F5 are defined. GPT Images-specific execution rules are now active: concise natural-language prompts, no certificate-photo upload in first-pass H1, identical non-face variables, small role-labeled reference sets only when needed, and targeted one-variable edits after selection.",
+  "next_action": "Execute F1-F5 front-view head studies with concise GPT Images-specific prompts compiled from H1_FACE_COMPARISON_PROMPTS_V2.md and GPT_IMAGE_PROMPTING_METHOD_V2.md. Review all five together by structural quality, retain only the top 2-3, then generate matching 3/4 studies for finalists. Optional neutral unfiltered 3/4/profile photos may be used for structural verification before final H1 lock. Select one face architecture or deliberate hybrid before H2 body archetype.",
   "workflow_integration": {
     "mode": "FUTURE_EXPLICIT_IMPORT",
     "do_not_auto_promote": true,
@@ -82,6 +84,7 @@
     "H0_REFERENCE_ASSESSMENT_2026-10-14.md",
     "H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md",
     "H1_FACE_COMPARISON_PROMPTS_V2.md",
+    "GPT_IMAGE_PROMPTING_METHOD_V2.md",
     "CHARACTER_DESIGN_BIBLE_V1.md",
     "CONCEPT_GENERATION_PROMPT_V1.md",
     "PRODUCTION_AND_COST_STRATEGY.md",
@@ -112,5 +115,5 @@
     "presentation_modes_status": "DORMANT_UNTIL_CANON_H9"
   },
   "created_at": "2026-10-14T00:14:38Z",
-  "updated_at": "2026-10-14T02:52:00Z"
+  "updated_at": "2026-10-14T03:08:00Z"
 }
