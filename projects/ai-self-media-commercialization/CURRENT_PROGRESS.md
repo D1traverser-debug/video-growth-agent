@@ -7,25 +7,16 @@ Continuity task: NO
 
 ## Isolation boundary
 
-This file belongs only to `projects/ai-self-media-commercialization/`.
-It is not a child task or subtask of `video-growth:main`, Pilot 001 or Pilot 002 and must not mutate those tasks.
+This file belongs only to `projects/ai-self-media-commercialization/` and is not a child/subtask of `video-growth:main`, Pilot 001 or Pilot 002.
 
 ## Stable project truth
 
 - account positioning: technology × business/capital × internet culture;
 - long-form AI-heavy cinematic explainers remain an early format hypothesis;
 - commercial targets prioritize brand integrations, sponsorships, rights and series sponsorship;
-- high AI visual share is desired, but model routing / retry budgets / graceful degradation remain mandatory.
+- high AI visual share is desired, with model routing / retry budgets / graceful degradation.
 
-## V1 status
-
-Concept V1 is rejected as a whole: generic CG handsome face, fashion-model elongation, weak hair masses, generic white/black/cyan techwear, weak pixel-glasses scale, lookbook pose and shallow motif fusion.
-
-Do not reuse V1 face, body, hair, jacket, pants or shoes as V2 visual authority.
-
-Authority: `CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md`
-
-## Dependency order
+## Character dependency order
 
 1. HUMAN CORE
 2. IDENTITY DNA
@@ -36,148 +27,97 @@ Authority: `CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md`
 
 Presentation Modes remain dormant. No styling, makeup, wardrobe or lensing may rescue an unresolved Human Core.
 
-## Reference-fusion policy
+## V1 status
+
+Concept V1 is rejected as a whole. Do not reuse its face/body/hair/techwear/shoes as V2 authority.
+
+## Reference policy
 
 ### Creator certificate portrait
-Structural face source only. May inform:
-- face envelope;
-- brow-eye relation;
-- eye spacing/orbital placement;
-- nose-mouth relation;
-- cheek/jaw/chin distribution;
-- adult Chinese male anchor.
+Structural ancestry only: face envelope, brow-eye relation, eye spacing/orbital placement, nose-mouth relation, cheek/jaw/chin distribution and adult Chinese male anchor.
+Do not import whitening, smoothing, makeup, hairstyle, suit, exact expression or direct digital-double target.
 
-Must not import:
-- whitening / smoothing / makeup / retouch finish;
-- hairstyle;
-- suit styling;
-- exact expression;
-- direct digital-double target.
-
-### Selective personal inheritance — ACTIVE
-
-The creator does not need to be conventionally handsome for creator-derived traits to remain useful.
-
-Current policy is **selective structural inheritance**, not literal likeness and not total replacement:
-- strongly calibrate source-specific relationships that provide same-source resonance;
-- deliberately redesign generic/weak/noisy relationships when they do not help identity;
-- never replace the whole face with a standard beauty/model prior;
-- do not preserve transient imperfections merely because they appear in one photo;
-- optimize for character ownership, recognizability, coherence, AI-video stability and extensibility rather than maximum handsomeness or maximum similarity.
-
-Tier-A candidate anchors to preserve/calibrate:
-- overall face width/length tendency;
-- horizontal brow-eye organization;
-- eye spacing/orbital placement tendency;
-- meaningful cheek support;
-- compact mouth-to-chin relation;
-- compact rounded/blunt chin tendency;
-- natural medium nose volume;
-- adult Chinese male baseline.
-
-Tier-B relationships may be redesigned:
-- cheek→jaw→chin rhythm;
-- eye aperture;
-- brow mass;
-- lower-face vertical rhythm;
-- soft-tissue fullness;
-- plane clarity;
-- asymmetry level.
-
-Tier-C non-identity details should not be preserved: makeup/retouch/whitening, current haircut, transient skin texture, suit styling, camera distortion and unstable micro-asymmetry.
-
-Authority: `HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md`
+### Personal inheritance
+Active policy: selective structural inheritance / same-source original.
+Keep only useful proportional ancestry; redesign generic/noisy traits; do not optimize toward standard handsome-male priors.
+Authority: `HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md`.
 
 ### Pixel avatar
-Brand/graphic DNA only: ice-cyan/cyan-blue head color family, deep blue-violet iris concept, black/white pixel sunglasses, white/ice-blue/black lineage, internet-native/pixel DNA and optional rare red anomaly accent.
+Brand/graphic DNA only; remains downstream.
 
 ### Shiba-carp meme
-Narrative/contradiction source only: impossible hybrid treated as normal, deadpan grammar, mismatch between rule systems and later macro/meso/micro motif hierarchy.
+Narrative/contradiction grammar only; remains downstream.
 
-### Body photos
-Support only for plausibility, posture, limb/shoulder tendencies, natural skin value and later movement/garment constraints. Body is not a primary likeness target.
+## H1 history
 
-## H1 face morphology — extracted
-
-Strong same-source anchors:
-- moderately elongated soft-rectangular/oval face envelope, not narrow V-face;
-- meaningful cheek support;
-- compact rounded/blunt chin;
-- horizontal brow-eye organization;
-- moderate-narrow eye aperture without aggressive upward cant;
-- natural medium nose volume;
-- compact mouth-to-chin relation.
-
-Authority: `H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md`
-
-## F1–F5 exploration — complete
-
-All five text-only front studies partially collapsed toward the same generic attractive East-Asian male prior.
-
-Disposition:
-- F1 retained only as envelope / soft-tissue donor;
+### F1–F5 text-only exploration
+Complete. All five partially collapsed toward a generic attractive East-Asian male prior.
+- F1 retained only as envelope/soft-tissue donor;
 - F2 rejected as standalone base;
 - F3 rejected as standalone base;
-- F4 retained only as eye-aperture / low-expression donor;
-- F5 retained only as cheek→jaw→compact-chin rhythm donor.
+- F4 retained only as eye/deadpan donor;
+- F5 retained only as cheek→jaw→chin rhythm donor.
 
-No standalone candidate was locked.
+### H1-HYBRID-A photoreal calibration
+Reviewed and failed as a lock. Direct portrait reference + photoreal representation still produced an ordinary plausible studio portrait and hid geometry.
+Do not edit it further or use it as later face reference.
 
-Authority: `H1_F1_F5_FRONT_REVIEW_2026-10-14.md`
+### Sculptural massing method
+Active. Matte-gray clay/maquette studies isolate geometry from skin/hair/beauty priors.
 
-## H1-HYBRID-A source-calibrated front — REVIEWED / FAIL AS LOCK
+## S1–S3 sculptural front review — COMPLETE
 
-Hybrid A improved some source-specific relations, but the direct portrait-reference + photoreal rendering domain produced an ordinary plausible East-Asian male studio portrait rather than a deliberately designed Human Core.
+Authority: `H1_S1_S2_S3_SCULPT_REVIEW_2026-10-14.md`.
 
-Observed failure:
-- still inside generic attractive-male basin;
-- brow/jaw/nose/mouth remain conventionally polished;
-- insufficient independent IP identity;
-- realistic skin/hair/eyes hide the geometry being judged;
-- direct certificate calibration pulled the model toward a transformed real person rather than a new face architecture.
+### S1 Source-Calibrated Neutral
+RETAIN as primary base donor.
+Useful traits:
+- best same-source plausibility;
+- moderately elongated envelope;
+- quiet horizontal orbital organization;
+- relatively light lower face;
+- compact rounded chin tendency;
+- strongest calm-observer compatibility.
 
-Decision:
-- do not generate Hybrid A 3/4 in the same photoreal domain;
-- do not continue editing this output;
-- do not use it as later face reference.
+Weakness:
+- cheek→jaw taper remains too uniformly smooth/generic.
 
-Authority: `H1_HYBRID_A_REVIEW_2026-10-14.md`
+### S2 Structural Compression
+REJECT as standalone and as next-hybrid donor.
+Observed execution drift:
+- compression partly became broadening/regularization;
+- eye opening was not clearly reduced vs S1;
+- brow/jaw became more conventionally masculine;
+- insufficient anti-generic benefit.
 
-## Method correction — sculptural massing pass
+### S3 Anti-Generic Cheek/Jaw Rhythm
+RETAIN only as lower-face transition donor.
+Useful traits:
+- strongest second-look distinction in cheek→jaw→chin rhythm;
+- clearer cheek support without square jaw;
+- remains fully human/commercially plausible.
 
-The next H1 step is to remove portrait/beauty cues and force geometry to be solved as form.
+Do not inherit:
+- S3 hair placeholder;
+- any further jaw/chin widening;
+- its entire eye/orbit system.
 
-Use matte-gray clay / maquette head studies with:
-- no realistic skin;
-- no hair strands;
-- no eyebrow/eyelash detail;
-- neutral eye geometry, no iris color;
-- no fashion or accessories;
-- strict front view first;
-- identical neutral light/camera.
+## Current face proposal — H1-S13-HYBRID
 
-Compare only three geometry variants:
-- S1 Source-Calibrated Neutral;
-- S2 Structural Compression;
-- S3 Anti-Generic Cheek/Jaw Rhythm.
+PROPOSED / READY FOR FRONT EXECUTION, not locked.
 
-Authority / execution prompts: `H1_SCULPTURAL_MASSING_PROMPTS_V2.md`
+Construction:
+- S1 = overall face envelope, forehead/temple proportions, orbit/eye opening, calm baseline, nose-mouth placement, compact chin height and light massing;
+- S3 = only subtle cheek→jaw→compact-chin transition rhythm, at reduced intensity;
+- certificate portrait = structural ancestry calibration only;
+- S2 = not used.
 
-## GPT Images method — ACTIVE
-
-- generator-facing prompts remain shorter than design authority;
-- no weighted-token / secret-syntax assumptions;
-- reference images get explicit roles;
-- one structural variable at a time;
-- targeted edits only after geometry is selected;
-- photoreal portrait rendering is now explicitly disallowed during H1 primary-mass comparison because it reactivates beauty/identity priors.
-
-Authority: `GPT_IMAGE_PROMPTING_METHOD_V2.md`
+Execution authority: `H1_S13_HYBRID_SCULPT_PROMPT_V2.md`.
 
 ## Human Core Harness
 
 - H0 Reference Decomposition — COMPLETE ENOUGH;
-- H1 Face Primary Masses — ACTIVE / SCULPTURAL MASSING;
+- H1 Face Primary Masses — ACTIVE / CONTROLLED S1+S3 HYBRID;
 - H2 Base Body Archetype — PENDING;
 - H3 Hair Architecture — PENDING;
 - H4 Skin/Grooming — PENDING;
@@ -190,29 +130,26 @@ Authority: `GPT_IMAGE_PROMPTING_METHOD_V2.md`
 
 No later gate can compensate for an earlier failure.
 
-## Downstream design-space status
-
-`Glitch Dandy / 异常绅士` remains a PROPOSED downstream whole-look/wardrobe direction only. It is not Human Core authority.
-Techwear remains rejected as the base clothing chassis.
-
 ## Current stage
 
 `H1_SCULPTURAL_MASSING_V2`
 
 ## Current next action
 
-Do not advance to H2, hair, cyan/blue brand DNA, glasses, wardrobe or motif.
+Do not advance to 3/4 yet.
 
-Next:
-1. open three fresh GPT Images conversations;
-2. upload the creator certificate portrait in each, explicitly as structural calibration only;
-3. execute S1, S2 and S3 from `H1_SCULPTURAL_MASSING_PROMPTS_V2.md`;
-4. keep all rendering variables identical and compare geometry only;
-5. select one sculpt geometry or deliberately hybridize two;
-6. only after front sculpt geometry is accepted, make a matching 3/4 sculpt;
-7. only after front + 3/4 geometry coherence return to stylized skin/hair representation;
+1. Open one fresh GPT Images conversation.
+2. Upload three role-labeled references:
+   - Image 1 = creator certificate portrait, structural ancestry only;
+   - Image 2 = S1 sculpt, PRIMARY GEOMETRY BASE;
+   - Image 3 = S3 sculpt, cheek→jaw→compact-chin rhythm donor only.
+3. Execute `H1_S13_HYBRID_SCULPT_PROMPT_V2.md`.
+4. Generate exactly one front-view matte-gray hybrid sculpt.
+5. Review the front geometry.
+6. If accepted, generate a matching 3/4 sculpt while preserving identity and geometry.
+7. Only after front + 3/4 geometry coherence return to stylized skin/hair.
 8. H1 must pass before H2 body archetype.
 
 ## Persistence rule
 
-Any material design decision changes `CURRENT_PROGRESS.md` in the same work session. Stage/next-action changes also update `PROJECT_MANIFEST.json` and `RESUME_ENTRY.md`. Rejected outputs receive dated review/failure artifacts.
+Material decisions update `CURRENT_PROGRESS.md` in the same session. Stage/next-action changes also update `PROJECT_MANIFEST.json` and `RESUME_ENTRY.md`. Rejected/reviewed outputs receive dated review artifacts.
