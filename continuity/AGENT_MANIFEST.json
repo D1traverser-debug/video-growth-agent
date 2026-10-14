@@ -12,7 +12,7 @@
   "skill": {
     "role": "ROUTER_AND_OPERATING_CONTRACT",
     "entrypoint": "skills/video-growth-agent/SKILL.md",
-    "current_note": "The Skill is the single ChatGPT-facing Video Growth product entry and remains above a thin-router target because it carries fail-closed operating semantics. Internal execution/assurance modes are selected by the system; executable proof still comes from runtime state, work orders, receipts, machine guards and execution evidence."
+    "current_note": "UAOS is the cross-domain controller. This Skill remains the Video domain operating contract and business execution surface; continuity is translated through continuity/UAOS_ADAPTER.json."
   },
   "runtime": {
     "runtime_type": "HYBRID",
@@ -21,7 +21,7 @@
     "machine_resource_root": "video_growth_agent/data",
     "tool_surface_refs": ["video_growth_agent/cli.py"],
     "judgment_execution": "EXECUTABLE_WITH_ASSURANCE_BOUNDARIES",
-    "note": "AgenticStudio work orders are bound to current input digests and active output provenance; invalidation retires active downstream evidence while preserving immutable history. CHAT_BRIDGED ordinary execution and ATTESTED_ISOLATED critical review remain distinct internal assurance classes for one Video Growth product workflow, not user-selected routes."
+    "note": "Domain work-order, evidence and media semantics remain local. UAOS owns task identity, cross-chat continuation and host-capability orchestration."
   },
   "workflow": {
     "state_authority_refs": ["video_growth_agent/storage.py", "video_growth_agent/models.py", "video_growth_agent/data/workflow.json"],
@@ -40,10 +40,13 @@
     "known_required_mirror": "skills/video-growth-agent/references/team.md <-> video_growth_agent/data/team.md"
   },
   "continuity": {
+    "controller_ref": "D1traverser-debug/universal-agent-os@main:CURRENT_SYSTEM.json",
+    "uaos_adapter_ref": "continuity/UAOS_ADAPTER.json",
     "task_index_ref": "continuity/TASK_INDEX.md",
-    "protocol_adapter_ref": "continuity/OWNER_ADAPTER.json",
     "execution_capability_ref": "continuity/EXECUTION_CAPABILITIES.json",
     "active_task_manifest_ref": "continuity/tasks/video-growth-main/TASK_MANIFEST.json",
-    "active_task_checkpoint_ref": "continuity/tasks/video-growth-main/CHECKPOINT.json"
+    "active_task_checkpoint_ref": "continuity/tasks/video-growth-main/CHECKPOINT.json",
+    "legacy_protocol_adapter_ref": "continuity/OWNER_ADAPTER.json",
+    "legacy_protocol_status": "READ_ONLY_COMPATIBILITY_EVIDENCE"
   }
 }
