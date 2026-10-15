@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Iterable, Mapping
 
+from .production_os import ReferenceBinding, ShotContract
+
 
 class EditorialPlanningError(ValueError):
     pass
@@ -142,6 +144,10 @@ class EditorialPlan:
             raise EditorialPlanningError("derived editorial plan requires revision_reason")
         self.validate()
 
+    @property
+    def plan_ref(self) -> str:
+        return f"editorial-plan://{self.intent.episode_id}@{self.plan_version}"
+
     def validate(self) -> None:
         claims = {item.claim_id: item for item in self.claims}
         beats = {item.beat_id: item for item in self.beats}
@@ -222,6 +228,8 @@ class EditorialPlan:
     def impact_of_revision(self, newer: "EditorialPlan") -> Mapping[str, tuple[str, ...]]:
         if newer.intent.episode_id != self.intent.episode_id:
             raise EditorialPlanningError("cannot compare plans from different episodes")
+        old_claims = {item.claim_id: item for item in self.claims}
+        new_claims = {item.claim_id: item for item in newer.claims}
         old_beats = {item.beat_id: item for item in self.beats}
         new_beats = {item.beat_id: item for item in newer.beats}
         old_shots = {item.shot_id: item for item in self.shots}
@@ -235,12 +243,60 @@ class EditorialPlan:
             if old_shots.get(shot_id) != new_shots.get(shot_id)
         )
         changed_claims = sorted(
-            claim_id for claim_id in {item.claim_id for item in self.claims} | {item.claim_id for item in newer.claims}
-            if {item.claim_id: item for item in self.claims}.get(claim_id)
-            != {item.claim_id: item for item in newer.claims}.get(claim_id)
+            claim_id for claim_id in set(old_claims) | set(new_claims)
+            if old_claims.get(claim_id) != new_claims.get(claim_id)
         )
         return {
             "changed_claim_ids": tuple(changed_claims),
             "changed_beat_ids": tuple(changed_beats),
             "changed_shot_ids": tuple(changed_shots),
         }
+
+    def shot(self, shot_id: str) -> ShotIntent:
+        for shot in self.shots:
+            if shot.shot_id == shot_id:
+                return shot
+        raise EditorialPlanningError(f"shot not found in editorial plan: {shot_id}")
+
+
+def materialize_shot_contract(
+    plan: EditorialPlan,
+    *,
+    shot_id: str,
+    sequence_id: str,
+    required_capabilities: frozenset[str],
+    quality_targets: Mapping[str, float],
+    references: tuple[ReferenceBinding, ...] = (),
+    continuity_ref: str = "",
+    graceful_degradation: tuple[str, ...] = (),
+    stop_conditions: tuple[str, ...] = (),
+    budget_usd: float | None = None,
+    disclosure_required: bool = False,
+) -> ShotContract:
+    """Cross the explicit boundary from editorial intent into production execution."""
+    shot = plan.shot(shot_id)
+    if shot.truth_mode == "PRODUCT_TRUTH" and not references:
+        raise EditorialPlanningError("PRODUCT_TRUTH shot cannot materialize without verified references")
+    return ShotContract(
+        shot_id=shot.shot_id,
+        sequence_id=sequence_id,
+        narrative_job=shot.visual_job,
+        duration_seconds=shot.target_duration_seconds,
+        truth_mode=shot.truth_mode,
+        risk=shot.risk,
+        allowed_modes=shot.allowed_production_modes,
+        required_capabilities=required_capabilities,
+        quality_targets=quality_targets,
+        references=references,
+        must_have=shot.must_show,
+        must_not_have=shot.must_avoid,
+        graceful_degradation=graceful_degradation,
+        stop_conditions=stop_conditions,
+        budget_usd=budget_usd,
+        disclosure_required=disclosure_required,
+        editorial_plan_ref=plan.plan_ref,
+        beat_id=shot.beat_id,
+        source_claim_ids=shot.source_claim_ids,
+        continuity_ref=continuity_ref,
+        value_vector=shot.value_vector,
+    )
