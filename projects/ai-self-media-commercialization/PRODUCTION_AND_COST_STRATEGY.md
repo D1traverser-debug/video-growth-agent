@@ -1,15 +1,16 @@
-# Production and Cost Strategy — V2
+# Production and Cost Strategy — V3
 
-Status: `CANDIDATE_MEDIA_BUSINESS_OS_0_7`
+Status: `MEDIA_BUSINESS_OS_0_8_RELEASE_CANDIDATE__0_7_PRODUCTION_BASELINE`
 Owner: `DOMAIN:video`
 Architecture: `docs/media_business_os.md`
+Agent-operability scenarios: `docs/agent_operability_scenarios.md`
 Benchmark method: `docs/provider_benchmark_protocol.md`
 
 ## Objective
 
 Maximize **published audience/business value per unit of cash and creator attention** while protecting editorial truth, audiovisual quality, distinctive IP and reusable rights.
 
-The objective is not to maximize AI-video percentage, cheapest generated seconds or cinematic spectacle.
+The objective is not to maximize AI-video percentage, cheapest generated seconds, one quality scalar or cinematic spectacle.
 
 The account is an AI-native technology-business media product. AI is the studio/infrastructure; the audience proposition is explanation, story, mechanisms, distinctive IP and trustworthy production.
 
@@ -32,7 +33,7 @@ For every shot, choose from the admissible mode set:
 
 Allocation is driven by:
 
-1. narrative/explanatory job;
+1. narrative/explanatory job inherited from the exact EditorialPlan/Beat/ShotIntent;
 2. risk/truth class;
 3. identity/continuity need;
 4. expected audience/IP/commercial leverage;
@@ -41,7 +42,7 @@ Allocation is driven by:
 7. current cost/latency;
 8. rights/provenance constraints.
 
-A prior rough range (for example 10–25% premium video) may be used as a planning prior when no project evidence exists, but it is not production doctrine.
+A prior rough range may be used as a planning prior when no project evidence exists, but it is not production doctrine.
 
 ## 2. Shot investment classes
 
@@ -57,7 +58,7 @@ Use top admissible production resources when the shot materially drives:
 Hero does not mean "always use the most expensive model". A verified real product macro, programmatic simulation or reusable 3D/graphic asset can be the correct hero route.
 
 ### CORE narrative
-Use the cheapest route that repeatedly clears the shot-specific quality vector and continuity floor. Favor editable/reusable assets over one-off spectacle when audience value is equivalent.
+Use the lowest expected accepted-take cost among routes that repeatedly clear all hard constraints and the shot-specific quality vector. Favor editable/reusable assets over one-off spectacle when audience value is equivalent.
 
 ### SUPPORT / bridge
 Prefer still-motion, graphics, archive, reusable environments, crop/reframe, edit/extend or low-cost generation. Support shots should not consume hero retry budgets by default.
@@ -72,7 +73,7 @@ Prefer diagrams, charts, labels, code/system schematics, verified product media 
 Goal: reduce uncertainty cheaply.
 
 - low resolution/keyframes/stills/short takes encouraged;
-- cheapest sufficient current engine after hard rights/capability gates;
+- cheapest sufficient current engine after hard rights/capability/operation-profile gates;
 - no release-grade reviewer requirement merely to create a candidate;
 - strict retry/credit ceilings;
 - outputs remain candidate-only.
@@ -82,7 +83,10 @@ Goal: reduce uncertainty cheaply.
 Goal: produce promotable takes.
 
 - quality/continuity/truth first after hard constraints;
-- route on owner benchmark quality vectors;
+- compare only evidence that is sufficiently compatible in rubric/calibration scope;
+- apply uncertainty-aware floors before ranking;
+- keep the non-dominated/Pareto set when models trade quality dimensions rather than hiding the tradeoff in one weighted average;
+- use explicit shot priorities to resolve remaining tradeoffs;
 - calculate cost per **accepted** take, not only provider cost per second;
 - retries create new takes and accumulate cost/waste evidence.
 
@@ -103,7 +107,7 @@ Provider/model observations are dated and evidence-bound. Current external model
 
 Use `model_registry.py` + the owner benchmark protocol to compare:
 
-- supported generation/edit/reference modes;
+- operation-specific generation/edit/reference modes and legal combinations;
 - identity/continuity quality;
 - motion/physics;
 - prompt/shot adherence;
@@ -117,9 +121,11 @@ Use `model_registry.py` + the owner benchmark protocol to compare:
 - commercial-use/terms/provenance;
 - deprecation risk.
 
+A provider feature list is not a Cartesian-product capability guarantee. Reference count, source type, resolution, duration, extension and audio constraints travel with the relevant operation profile.
+
 Provider lifecycle is a first-class risk. A discontinued provider never forces a business-architecture rewrite.
 
-## 5. Reference and asset strategy
+## 5. Reference, continuity and asset strategy
 
 The highest leverage cost reduction is often **asset reuse and controlled editing**, not a cheaper fresh generation.
 
@@ -135,11 +141,17 @@ Build reusable:
 - verified sponsor/product assets;
 - platform-safe layout/caption systems.
 
-Every reuse keeps exact version/rights lineage.
+Every reuse keeps exact version/rights lineage. Cross-shot continuity is dimension-level state with explicit preserve/expect/allow-change semantics rather than prompt memory.
 
-When a generated take is close, prefer a controlled edit/modify/extend/local repair when the provider/tool supports it and the expected acceptance cost is lower than regeneration.
+When a generated take is close, prefer a controlled edit/modify/extend/local repair when the provider/tool supports the exact operation and the expected acceptance cost is lower than regeneration.
 
-## 6. Cost accounting
+## 6. Editorial-plan change cost
+
+Production begins from a versioned EditorialPlan rather than hidden Agent memory. Material claim/beat/shot changes create a new plan version. The old plan asset remains historical, and the MediaGraph invalidates only descendants that actually consumed the superseded version.
+
+Track downstream waste caused by upstream changes separately from ordinary generation rejection. Do not re-render unaffected shots merely because one beat changed.
+
+## 7. Cost accounting
 
 Track by episode, sequence, shot, provider and asset:
 
@@ -172,12 +184,12 @@ Track by episode, sequence, shot, provider and asset:
 - abandoned sponsor deliverables;
 - unreusable one-off assets.
 
-## 7. Core economics metrics
+## 8. Core economics metrics
 
 At minimum:
 
 - cost per accepted generated take;
-- rejection/retry rate by provider × shot archetype;
+- rejection/retry rate by provider × operation profile × shot archetype;
 - cash cost per published minute;
 - creator minutes per published minute;
 - premium-generation seconds per published minute;
@@ -191,7 +203,7 @@ At minimum:
 
 Do not collapse these into one permanent score.
 
-## 8. Product-truth and sponsor mode
+## 9. Product-truth and sponsor mode
 
 When exact physical sponsor/product truth matters:
 
@@ -200,7 +212,7 @@ When exact physical sponsor/product truth matters:
 - synthetic material must not impersonate factual product evidence;
 - commercial deliverables bind rights, usage duration, territory, paid-media/whitelisting/cutdown permissions and exclusivity where relevant.
 
-## 9. Resolution and master strategy
+## 10. Resolution and master strategy
 
 Do not default every source operation to native 4K.
 
@@ -208,7 +220,7 @@ Choose generation resolution by expected delivered value and provider acceptance
 
 High resolution is not a substitute for temporal consistency, identity, good edit or truthful visual explanation.
 
-## 10. Audio economics
+## 11. Audio economics
 
 Audio is not an afterthought. Scene-level generated audio can reduce assembly work, but reusable voice/music/rights-critical components may be independently versioned.
 
@@ -220,7 +232,15 @@ Track:
 - human mix/review time;
 - regeneration due to timing/performance failures.
 
-## 11. Platform derivatives
+## 12. External editor roundtrip
+
+The canonical timeline remains internal owner state even when Descript, Premiere, DaVinci, Final Cut or another editor performs an edit.
+
+A handoff binds the exact timeline version and asset digests plus the external project/composition identity. Returned work needs an execution receipt/change summary and becomes a new derived timeline/artifact state; the external editor does not silently replace canonical truth.
+
+Track marginal external-editor time/cost and avoid manual reassembly where a verified interchange/roundtrip path exists.
+
+## 13. Platform derivatives and experiments
 
 Budget platform variants as transforms of one master asset/story graph:
 
@@ -230,13 +250,15 @@ Budget platform variants as transforms of one master asset/story graph:
 
 Measure marginal derivative cost and incremental audience/commercial value. Stop producing a derivative if repeated evidence shows poor marginal value.
 
-## 12. Portfolio-level investment
+Where causal learning matters, pre-register variant identities, changed/fixed variables, primary metric semantics, guardrails and stop/observation rules. Treat `NO_CLEAR_WINNER` and `INCONCLUSIVE` as legitimate outcomes. A multivariable packaging test must not be retrospectively narrated as proof of one changed variable.
+
+## 14. Portfolio-level investment
 
 Episode budgets compete across a portfolio. Premium capacity should follow expected information/story leverage, distinctive-IP value, audience potential, sponsor value and reusable asset creation.
 
 A visually expensive episode can be rational if it creates durable series/IP assets; a cheap viral post can be strategically weak if it attracts the wrong audience and creates no reusable value.
 
-## 13. Learning loop
+## 15. Learning loop
 
 After every formal episode or material production batch:
 
@@ -250,7 +272,7 @@ After every formal episode or material production batch:
 
 Provider-specific lessons expire faster than storytelling/business mechanisms.
 
-## 14. Human gates
+## 16. Human gates
 
 Long-term preferred creator gates remain few and high leverage:
 
@@ -262,7 +284,7 @@ Long-term preferred creator gates remain few and high leverage:
 
 Everything else is an automation candidate only after quality and recovery can be measured.
 
-## 15. Stop conditions
+## 17. Stop conditions
 
 A shot or method stops consuming budget when:
 
