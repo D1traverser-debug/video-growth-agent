@@ -1,5 +1,5 @@
 {
-  "schema_version":"1.1",
+  "schema_version":"1.2",
   "program_id":"ai-self-media-commercialization",
   "display_name_zh":"AI自媒体视频增长、商业化与原创数字IP",
   "owner":"VIDEO_GROWTH_AGENT",
@@ -15,7 +15,7 @@
   "workstreams":{
     "MEDIA_GROWTH":{
       "status":"READY_ACTIVE_BASELINE",
-      "current_state":"Account positioning, audience hypothesis, content pillars, format and early growth metrics are defined in ACCOUNT_POSITIONING.md. Topic portfolio and pilot learning can progress independently of unfinished character sculpting and now feed IP-distinctiveness, production-investment and commercial-fit decisions through BUSINESS_FLYWHEEL.json.",
+      "current_state":"Account positioning, audience hypothesis, content pillars, format and early growth metrics are defined in ACCOUNT_POSITIONING.md. Topic portfolio and pilot learning can progress independently of unfinished character sculpting and feed IP-distinctiveness, production-investment and commercial-fit decisions through BUSINESS_FLYWHEEL.json.",
       "authority_refs":["ACCOUNT_POSITIONING.md","BUSINESS_FLYWHEEL.json"],
       "blocked_by":[]
     },
@@ -33,9 +33,9 @@
       "blocked_by":[]
     },
     "PRODUCTION_SYSTEM":{
-      "status":"MEDIA_BUSINESS_OS_0_7_CANDIDATE",
-      "current_state":"0.6 work-order/runtime/QA remains production baseline while 0.7 candidate introduces provider-neutral model observations, shot/reference/take contracts, candidate-generation vs promotion vs release boundaries, non-destructive asset/timeline semantics, vector business outcomes and owner-native Common Behavior 1.2. Quality-critical exploration is no longer conceptually blocked by unavailable release-grade reviewers; accepted/final promotion remains fail-closed and risk-proportional.",
-      "authority_refs":["../../docs/media_business_os.md","../../docs/provider_benchmark_protocol.md","../../video_growth_agent/model_registry.py","../../video_growth_agent/production_os.py","../../video_growth_agent/business_metrics.py","../../video_growth_agent/owner_behavior_admission.py"],
+      "status":"ACTIVE_MEDIA_BUSINESS_OS_0_7_PRODUCTION",
+      "current_state":"Media Business OS 0.7.0 is the verified production baseline. It owns a canonical stable media graph, shot/reference/take generation-promotion-release admission, non-destructive editorial timeline, typed growth/IP/commercial objects, provider-neutral evidence-bound routing, vector business outcomes and owner-native Common Behavior 1.2. Safe candidate exploration is separated from acceptance; promotion/release remain fail-closed and risk-proportional. Legacy work-order/runtime/QA paths remain supported adapters rather than the whole product ontology.",
+      "authority_refs":["../../docs/media_business_os.md","../../docs/provider_benchmark_protocol.md","../../video_growth_agent/media_graph.py","../../video_growth_agent/production_os.py","../../video_growth_agent/timeline.py","../../video_growth_agent/business_objects.py","../../video_growth_agent/model_registry.py","../../video_growth_agent/business_metrics.py","../../video_growth_agent/owner_behavior_admission.py","../../audits/EVOLUTION_INDEX.json"],
       "blocked_by":[]
     }
   },
@@ -51,6 +51,6 @@
   ],
   "current_focus":"ORIGINAL_DIGITAL_IP/H1_SCULPTURAL_MASSING_V2",
   "current_next_action":"Execute A2 positive-morph upper-face edit on the original corrected S1+S3 fixed face shell; compare directly to the accepted base before cheek-jaw correction or three-quarter validation. System redesign must not advance this creative action automatically.",
-  "system_candidate_next_action":"Validate AI_NATIVE_MEDIA_BUSINESS_OS_0_7 through architecture/trajectory tests, existing regressions, system audit, package smoke and governed promotion before changing the production assurance level.",
-  "updated_at":"2026-10-15T11:40:05+08:00"
+  "system_next_action":"Production-system redesign is closed at 0.7.0. Future production evolution consumes owner benchmark evidence, real episode economics/quality trajectories and live growth/IP/commercial outcomes through bounded learning candidates; lack of future live observations is not an implementation blocker.",
+  "updated_at":"2026-10-15T14:08:00+08:00"
 }
