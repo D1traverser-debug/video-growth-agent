@@ -33,6 +33,14 @@ Primary shared objects:
 
 Roles and providers execute or review tasks; they are not the source of business truth.
 
+The executable object layer is explicit:
+
+- `media_graph.py` owns stable Context/AssetVersion/Task/Evidence/Decision metadata, promotion pointers, persistence and downstream invalidation;
+- `production_os.py` owns Shot/Reference/Take and generation/promotion/release admission;
+- `timeline.py` owns editor-neutral non-destructive timeline versions and platform-variant lineage;
+- `business_objects.py` owns typed portfolio/distinctive-asset/commercial-fit/rights/offer/business-decision contracts;
+- `model_registry.py`, `business_metrics.py` and `owner_behavior_admission.py` own volatile execution routing, outcome evidence and owner-native common behavior respectively.
+
 ## 3. Business hierarchy
 
 `DOMAIN:video` is the one user-facing Video owner.
@@ -56,7 +64,7 @@ The existing `workflow.json` / `execution-plan.json` stage machine remains a sup
 
 ## 5. Provider/model boundary
 
-`video_growth_agent/model_registry.py` is the new evidence-bound provider-neutral routing layer.
+`video_growth_agent/model_registry.py` is the evidence-bound provider-neutral routing layer.
 
 Provider observations carry:
 
@@ -75,7 +83,7 @@ Named providers are replaceable observations, not architecture.
 
 ## 6. Shot/asset state and promotion
 
-`video_growth_agent/production_os.py` separates three boundaries:
+`video_growth_agent/media_graph.py` is the canonical media metadata graph and `video_growth_agent/production_os.py` is the shot-specific admission layer. Together they preserve stable asset-version identity/lineage and separate three boundaries:
 
 1. candidate generation admission;
 2. candidate/take promotion to accepted project asset;
@@ -87,6 +95,8 @@ This prevents two opposite failure modes:
 - unavailable release-grade reviewers cannot prevent every safe low-risk exploration from producing learnable candidates.
 
 High/HERO/brand-truth promotion requires risk-proportional independent evidence. Release always binds final media/timeline, technical QA, rights, truth, provenance, disclosure/platform validation and release owner.
+
+Upstream asset changes stale only their downstream dependency closure; historical versions and decisions remain inspectable.
 
 ## 7. Product-truth boundary
 
@@ -100,11 +110,11 @@ Canon is a versioned graph covering identity geometry, expressions, wardrobe/pro
 
 Identity-sensitive shots bind exact canon versions. Upstream canon changes stale/invalidate only consuming descendants. Historical rejected variants remain evidence but are never active canon.
 
-IP performance can consume growth/commercial evidence through the business flywheel; aesthetic approval alone does not prove distinctive-asset value.
+IP performance can consume growth/commercial evidence through the business flywheel; aesthetic approval alone does not prove distinctive-asset value. `business_objects.py` supplies typed `DistinctiveAssetObservation` and related business contracts rather than hiding these claims in prose.
 
 ## 9. Timeline/edit architecture
 
-Master editorial state is non-destructive and timeline-oriented, conceptually compatible with OpenTimelineIO. Media assets remain externally referenced and lineage-bound. Generated extensions/replacements/retimes are derived assets rather than destructive overwrites.
+`video_growth_agent/timeline.py` makes the master editorial state non-destructive and editor-neutral. Clips reference exact external asset versions and may require those assets to be promoted; derived timeline versions record their source version and edit reason. Platform variants must preserve explicit lineage to the master.
 
 Descript, Premiere, DaVinci and future NLE/agent editors are adapters. None owns project/business authority.
 
@@ -118,9 +128,11 @@ One master story may create multiple authored derivatives. Each `PlatformVariant
 
 Variants preserve lineage but may rewrite opening/pacing/conclusion; simple clip dumping is not the default.
 
-## 12. Business measurement
+## 12. Business measurement and commercialization objects
 
 `business_metrics.py` stores platform, production and commercial outcomes as separate evidence classes and derives interpretable economics such as cost/creator-minutes per published minute, rejection rate and commercial gross margin.
+
+`business_objects.py` carries typed content-portfolio, distinctive-asset observation, commercial-fit, rights-package, offer-candidate and business-hypothesis decisions. Commercial fit cannot disable editorial independence; expanded rights/pricing claims require evidence.
 
 There is deliberately no universal composite score. Portfolio decisions must inspect the outcome vector and strategic context.
 
@@ -159,7 +171,7 @@ Competition uses independently inspectable candidate artifacts and explicit deci
 - use safe bounded provisional continuation when possible;
 - a detected repairable problem with available authority/tooling cannot terminate as recommendation-only.
 
-The domain will expose `audits/EVOLUTION_INDEX.json` as the canonical evolution evidence entrypoint; deeper causal audits stay owner-native.
+The domain exposes `audits/EVOLUTION_INDEX.json` as the canonical evolution evidence entrypoint; deeper causal audits stay owner-native.
 
 ## 16. Assurance layers
 
@@ -170,6 +182,8 @@ The domain will expose `audits/EVOLUTION_INDEX.json` as the canonical evolution 
 - `ATTESTED_ISOLATED`: isolated execution bound to provider/run/context/trace/artifact evidence.
 
 Architecture claims never exceed available evidence.
+
+`vga system-audit --repo-root .` mechanically checks every canonical 0.7 runtime surface declared in the manifest/capability profile and fails closed if a required module or binding disappears or drifts.
 
 ## 17. Recovery/invalidation
 
