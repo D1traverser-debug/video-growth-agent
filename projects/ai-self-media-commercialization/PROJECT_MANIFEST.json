@@ -19,7 +19,7 @@
     "root_pattern":"projects/*",
     "aliases":["AI自媒体视频商业化与原创数字IP","AI自媒体视频商业化","AI视频涨粉与商业化","AI视频自媒体增长商业化","原创数字IP设计","原创数字IP","ai-self-media-commercialization"],
     "tags":["AI_VIDEO","MEDIA_BUSINESS_OS","AGENT_OPERABLE_MEDIA_OS","MEDIA_GROWTH","SELF_MEDIA","COMMERCIALIZATION","ORIGINAL_DIGITAL_IP","CHARACTER_DESIGN","CONTENT_STRATEGY","SPONSORSHIP","RIGHTS","PRODUCTION_SYSTEM","EDITORIAL_PLAN","SHOT_ASSET_GRAPH","CONTINUITY","MODEL_ROUTING","EDITOR_INTERCHANGE","EXPERIMENTS","HUMAN_CORE_ARCHITECTURE","FACIAL_MORPHOLOGY","GPT_IMAGE_PROMPTING"],
-    "semantic_summary":"Default integrated Video-domain Media Business Program. Growth, original IP, commercialization and production are evidence-coupled through BUSINESS_FLYWHEEL.json. Current foreground business cursor remains H1 original-character face-shell work: corrected S1+S3 front gray sculpt is fixed; E1/E2/E3 were inconclusive; A1 was rejected; A2 positive-morph upper-face tuning is next. Media Business OS 0.8 is under controlled promotion to make the current Agent operable from editorial intent through production, editor handoff, experiments and recovery; this system work must not advance or overwrite the H1 creative cursor.",
+    "semantic_summary":"Default integrated Video-domain Media Business Program. Growth, original IP, commercialization and production are evidence-coupled through BUSINESS_FLYWHEEL.json. Current foreground business cursor remains H1 original-character face-shell work: corrected S1+S3 front gray sculpt is fixed; E1/E2/E3 were inconclusive; A1 was rejected; A2 positive-morph upper-face tuning is next. Media Business OS 0.8.0 is the verified production core and makes the current Agent operable from editorial intent through production, editor handoff, experiments, recovery and learning. This system promotion did not advance or overwrite the H1 creative cursor.",
     "resume_entry":"RESUME_ENTRY.md",
     "current_progress":"CURRENT_PROGRESS.md",
     "program_state":"PROGRAM_STATE.json",
@@ -35,7 +35,7 @@
     "MEDIA_GROWTH":{"status":"READY_ACTIVE_BASELINE","state_ref":"PROGRAM_STATE.json#workstreams.MEDIA_GROWTH"},
     "ORIGINAL_DIGITAL_IP":{"status":"ACTIVE","state_ref":"PROGRAM_STATE.json#workstreams.ORIGINAL_DIGITAL_IP"},
     "COMMERCIALIZATION":{"status":"READY_FOR_PARALLEL_RESEARCH","state_ref":"PROGRAM_STATE.json#workstreams.COMMERCIALIZATION"},
-    "PRODUCTION_SYSTEM":{"status":"MEDIA_BUSINESS_OS_0_8_RELEASE_CANDIDATE__0_7_PRODUCTION_BASELINE","state_ref":"PROGRAM_STATE.json#workstreams.PRODUCTION_SYSTEM"}
+    "PRODUCTION_SYSTEM":{"status":"ACTIVE_MEDIA_BUSINESS_OS_0_8_PRODUCTION","state_ref":"PROGRAM_STATE.json#workstreams.PRODUCTION_SYSTEM"}
   },
   "cross_workstream_authority":{
     "flywheel":"BUSINESS_FLYWHEEL.json",
@@ -48,7 +48,8 @@
   "next_action":"Use only the ORIGINAL corrected S1+S3 strict-front gray sculpt and execute one A2 positive-morph upper-face edit: slightly higher straight-to-soft-triangular brow with increased brow-eye clearance, restrained long almond aperture, taut low upper-lid arc with subtle low East-Asian crease, smooth supported lower lid, level-to-slightly-positive outer canthus, firm upper-lid soft tissue, clean under-eye transition and tiny mouth-corner relaxation. Keep face shell/nose/cheek/jaw/chin/neck/camera/light/gray material fixed and use a neutral cranial cap. Compare A2 directly with the original before cheek-jaw correction or 3/4 validation.",
   "workflow_integration":{
     "mode":"AGENT_OPERABLE_MEDIA_BUSINESS_OS_WITH_VERSIONED_LEGACY_EPISODE_ADAPTER",
-    "core_runtime_candidate":"0.8.0",
+    "core_runtime":"0.8.0",
+    "core_runtime_assurance":"PRODUCTION_VERIFIED__PR_15__CANDIDATE_CI_649__PRODUCTION_COMMIT_02d39d8e3609c6d988009f4bc5a7f5d0378128ec__MAIN_CI_650_PASS",
     "legacy_episode_adapter_bundle":"0.7.0",
     "episode_workflow_remains_supported_state_machine":true,
     "primary_production_semantics":"docs/media_business_os.md -> editorial intent/claim/beat/shot plan -> shot/reference/take/continuity/promotion/timeline/editor-interchange/experiment/release",
@@ -82,5 +83,5 @@
     "presentation_modes_status":"DORMANT_UNTIL_CANON_H9"
   },
   "created_at":"2026-10-14T00:14:38Z",
-  "updated_at":"2026-10-15T18:57:42+08:00"
+  "updated_at":"2026-10-15T19:15:03+08:00"
 }
