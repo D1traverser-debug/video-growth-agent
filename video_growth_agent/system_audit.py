@@ -28,8 +28,11 @@ CURRENT_GLOBAL_FILES = (
     ".uaos/CAPABILITIES.json",
     "README.md",
     "docs/product_requirements.md",
+    "docs/media_business_os.md",
     "docs/architecture.md",
+    "docs/provider_benchmark_protocol.md",
     "projects/PROJECT_INDEX.json",
+    "audits/EVOLUTION_INDEX.json",
 )
 RETIRED_ACTIVE_PATHS = ("continuity",)
 VERSIONED_PROJECT_STATE_RE = re.compile(r"\b(?:sample|release)\s+v\d+\b", re.IGNORECASE)
@@ -61,7 +64,6 @@ def _repo_runtime_version(root: Path) -> str:
 
 
 def _project_aliases(root: Path) -> set[str]:
-    """Historical helper retained for compatibility; aliases are now allowed in global routing docs."""
     projects = root / "projects"
     if not projects.is_dir():
         return set()
@@ -97,7 +99,11 @@ def _artifact_reachability_failures(workflow: dict[str, Any], plan: dict[str, An
         tasks = stage_plan.get("tasks", [])
         waves = sorted({int(task.get("wave", 0)) for task in tasks if isinstance(task, dict)})
         for wave in waves:
-            wave_tasks = [task for task in tasks if isinstance(task, dict) and int(task.get("wave", 0)) == wave]
+            wave_tasks = [
+                task
+                for task in tasks
+                if isinstance(task, dict) and int(task.get("wave", 0)) == wave
+            ]
             wave_outputs: set[str] = set()
             for task in wave_tasks:
                 task_id = str(task.get("id") or "")
@@ -108,10 +114,14 @@ def _artifact_reachability_failures(workflow: dict[str, Any], plan: dict[str, An
                 for output_name in task.get("outputs", []):
                     name = str(output_name)
                     if name in wave_outputs:
-                        failures.append(f"artifact_duplicate_same_wave_output:{stage}:wave={wave}:{name}")
+                        failures.append(
+                            f"artifact_duplicate_same_wave_output:{stage}:wave={wave}:{name}"
+                        )
                     prior = producer.get(name)
                     if prior:
-                        failures.append(f"artifact_multiple_producers:{name}:{prior},{stage}/{task_id}")
+                        failures.append(
+                            f"artifact_multiple_producers:{name}:{prior},{stage}/{task_id}"
+                        )
                     wave_outputs.add(name)
                     producer[name] = f"{stage}/{task_id}"
             stage_available.update(wave_outputs)
@@ -145,12 +155,24 @@ def _technique_failures() -> list[str]:
             if not refs:
                 failures.append(f"external_candidate_evidence_missing:{technique_id}")
             for ref in refs:
-                if not (ref.startswith("skills/") or ref.startswith("projects/") or ref.startswith("https://")):
-                    failures.append(f"external_candidate_evidence_not_durable:{technique_id}:{ref}")
+                if not (
+                    ref.startswith("skills/")
+                    or ref.startswith("projects/")
+                    or ref.startswith("https://")
+                ):
+                    failures.append(
+                        f"external_candidate_evidence_not_durable:{technique_id}:{ref}"
+                    )
     library = TechniqueLibrary()
-    candidate_ids = {item.technique_id for item in library.techniques.values() if item.status == "candidate"}
+    candidate_ids = {
+        item.technique_id for item in library.techniques.values() if item.status == "candidate"
+    }
     broad_tags = {tag for item in library.techniques.values() for tag in item.tags}
-    leaked = {item.technique_id for item in library.find(broad_tags) if item.technique_id in candidate_ids}
+    leaked = {
+        item.technique_id
+        for item in library.find(broad_tags)
+        if item.technique_id in candidate_ids
+    }
     if leaked:
         failures.append("candidate_techniques_visible_by_default:" + ",".join(sorted(leaked)))
     return failures
@@ -180,6 +202,13 @@ def package_audit() -> dict[str, Any]:
         failures.append("coordination_peer_chat_enabled")
     if coordination.get("artifact_handoffs_required") is not True:
         failures.append("coordination_artifact_handoffs_not_required")
+    if coordination.get("media_candidate_contract", {}).get("candidate_generation_is_acceptance") is not False:
+        failures.append("media_candidate_generation_acceptance_boundary_missing")
+    if coordination.get("media_candidate_contract", {}).get("promotion_decision_required_for_accepted_asset") is not True:
+        failures.append("media_asset_promotion_boundary_missing")
+    if coordination.get("media_candidate_contract", {}).get("release_decision_separate_from_asset_promotion") is not True:
+        failures.append("media_release_boundary_missing")
+
     patterns = set(coordination.get("patterns", {}))
     required_patterns = {
         "SERIAL_DEPENDENCY",
@@ -200,7 +229,9 @@ def package_audit() -> dict[str, Any]:
         failures.append("workflow_execution_plan_stage_order_drift")
 
     used_agents: set[str] = set()
-    workflow_by_stage = {item["id"]: item for item in workflow.get("stages", []) if item.get("id")}
+    workflow_by_stage = {
+        item["id"]: item for item in workflow.get("stages", []) if item.get("id")
+    }
     for stage, spec in planner.config.get("stages", {}).items():
         review_roles: set[str] = set()
         for task in spec.get("tasks", []):
@@ -213,7 +244,9 @@ def package_audit() -> dict[str, Any]:
         required = set(workflow_by_stage.get(stage, {}).get("required_roles", []))
         missing = sorted(required - review_roles)
         if missing:
-            failures.append(f"workflow_required_role_without_review_task:{stage}:{','.join(missing)}")
+            failures.append(
+                f"workflow_required_role_without_review_task:{stage}:{','.join(missing)}"
+            )
 
     registered = set(agents.config.get("agents", {}))
     dead = sorted(registered - used_agents - {"executive_producer"})
@@ -246,6 +279,80 @@ def package_audit() -> dict[str, Any]:
     }
 
 
+def _media_business_failures(root: Path, runtime_version: str) -> list[str]:
+    failures: list[str] = []
+    product_doc = root / "docs/media_business_os.md"
+    benchmark_doc = root / "docs/provider_benchmark_protocol.md"
+    flywheel_path = root / "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json"
+    evolution_path = root / "audits/EVOLUTION_INDEX.json"
+
+    for path, label in (
+        (product_doc, "media_business_os_missing"),
+        (benchmark_doc, "provider_benchmark_protocol_missing"),
+        (flywheel_path, "business_flywheel_missing"),
+        (evolution_path, "evolution_index_missing"),
+    ):
+        if not path.is_file():
+            failures.append(label)
+
+    if product_doc.is_file():
+        text = product_doc.read_text(encoding="utf-8")
+        for token in (
+            "Program -> Series -> Episode -> Sequence -> Scene -> Shot -> Take",
+            "generation admission != asset promotion != release admission",
+            "AI-native media business operating system",
+        ):
+            if token not in text:
+                failures.append(f"media_business_os_semantic_missing:{token}")
+
+    if benchmark_doc.is_file():
+        text = benchmark_doc.read_text(encoding="utf-8")
+        for benchmark_id in ("B01", "B04", "B06", "B08", "B10"):
+            if benchmark_id not in text:
+                failures.append(f"provider_benchmark_archetype_missing:{benchmark_id}")
+
+    if flywheel_path.is_file():
+        flywheel = _json(flywheel_path)
+        if flywheel.get("owner") != "VIDEO_GROWTH_AGENT":
+            failures.append("business_flywheel_owner_drift")
+        loop_ids = {str(item.get("id")) for item in flywheel.get("loops", [])}
+        required = {
+            "AUDIENCE_TO_PORTFOLIO",
+            "PORTFOLIO_TO_IP",
+            "IP_TO_GROWTH",
+            "PORTFOLIO_TO_COMMERCIAL",
+            "COMMERCIAL_TO_PRODUCTION",
+            "PRODUCTION_TO_PORTFOLIO",
+            "ALL_OUTCOMES_TO_EVOLUTION",
+        }
+        if not required <= loop_ids:
+            failures.append("business_flywheel_required_loops_missing")
+        serialized = json.dumps(flywheel, ensure_ascii=False)
+        if "views" not in serialized.lower():
+            failures.append("business_flywheel_views_counterexample_missing")
+
+    if evolution_path.is_file():
+        evolution = _json(evolution_path)
+        if evolution.get("owner") != "DOMAIN:video":
+            failures.append("video_evolution_owner_drift")
+        if evolution.get("common_behavior_assurance_min") != "1.2.0":
+            failures.append("video_evolution_common_behavior_min_drift")
+        if not evolution.get("current_open_items") and not evolution.get("recent_resolved_or_promoted"):
+            failures.append("video_evolution_index_empty")
+
+    required_runtime_files = (
+        "video_growth_agent/model_registry.py",
+        "video_growth_agent/production_os.py",
+        "video_growth_agent/business_metrics.py",
+        "video_growth_agent/owner_behavior_admission.py",
+    )
+    for rel in required_runtime_files:
+        if not (root / rel).is_file():
+            failures.append(f"media_business_runtime_missing:{rel}")
+
+    return failures
+
+
 def repository_audit(repo_root: Path) -> dict[str, Any]:
     root = repo_root.resolve()
     failures: list[str] = []
@@ -276,6 +383,10 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
         failures.append("uaos_skill_identity_boundary_missing")
     if "unbounded" not in skill_lower or "peer chat" not in skill_lower:
         failures.append("uaos_skill_bounded_negotiation_missing")
+    if "candidate generation, project-asset promotion and release are separate boundaries" not in skill_lower:
+        failures.append("uaos_skill_candidate_promotion_release_boundary_missing")
+    if "audits/evolution_index.json" not in skill_lower:
+        failures.append("uaos_skill_evolution_entrypoint_missing")
 
     capability_path = root / ".uaos/CAPABILITIES.json"
     if capability_path.is_file():
@@ -288,10 +399,14 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             failures.append("uaos_capability_owner_drift")
         if capability.get("execution_readiness_contract") != "2.0":
             failures.append("uaos_execution_readiness_contract_drift")
-        if capability.get("profile_version") != 7:
+        if capability.get("profile_version") != 8:
             failures.append("uaos_capability_profile_drift")
         if capability.get("uaos_common_capabilities_contract_min") != "1.6.0":
             failures.append("uaos_common_capability_minimum_drift")
+        if capability.get("uaos_common_behavior_assurance_min") != "1.2.0":
+            failures.append("uaos_common_behavior_minimum_drift")
+        if capability.get("canonical_evolution_entrypoint") != "audits/EVOLUTION_INDEX.json":
+            failures.append("uaos_capability_evolution_entrypoint_drift")
         required_common = set(capability.get("required_uaos_common_capabilities", []))
         for required in (
             "product_requirements_and_architecture_governance",
@@ -309,6 +424,20 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             "EXTERNAL_METHOD_OR_ARCHITECTURE_RESEARCH",
         ]:
             failures.append("uaos_problem_response_floor_drift")
+        capability_ids = {str(item.get("capability_id")) for item in capability.get("capabilities", [])}
+        for required_id in (
+            "media_business_program_orchestration",
+            "shot_asset_production_os",
+            "evidence_bound_model_routing",
+            "business_outcome_measurement",
+            "owner_common_behavior_admission",
+            "studio_work_order_orchestration",
+            "critical_blind_multimodal_review",
+            "deterministic_media_qa",
+            "learning_and_evolution",
+        ):
+            if required_id not in capability_ids:
+                failures.append(f"media_business_capability_missing:{required_id}")
 
     manifest_path = root / ".uaos/MANIFEST.json"
     if manifest_path.is_file():
@@ -319,16 +448,30 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             failures.append("uaos_manifest_status_drift")
         if manifest.get("skill", {}).get("entrypoint") != "UAOS_SKILL.md":
             failures.append("uaos_manifest_skill_entrypoint_drift")
-        if manifest.get("runtime", {}).get("version") != runtime_version:
+        runtime = manifest.get("runtime", {})
+        if runtime.get("version") != runtime_version:
             failures.append("uaos_manifest_runtime_version_drift")
-        if manifest.get("runtime", {}).get("episode_workflow") != "video_growth_agent/data/workflow.json":
-            failures.append("uaos_manifest_workflow_authority_drift")
-        if manifest.get("runtime", {}).get("program_orchestration") != "video_growth_agent/program_orchestration.py":
-            failures.append("uaos_manifest_program_orchestration_drift")
-        if manifest.get("domain_authority", {}).get("project_index") != "projects/PROJECT_INDEX.json":
+        expected_runtime_refs = {
+            "episode_workflow": "video_growth_agent/data/workflow.json",
+            "program_orchestration": "video_growth_agent/program_orchestration.py",
+            "media_business_os": "video_growth_agent/production_os.py",
+            "model_registry": "video_growth_agent/model_registry.py",
+            "business_metrics": "video_growth_agent/business_metrics.py",
+            "owner_behavior_admission": "video_growth_agent/owner_behavior_admission.py",
+            "system_audit": "vga system-audit --repo-root .",
+        }
+        for key, expected in expected_runtime_refs.items():
+            if runtime.get(key) != expected:
+                failures.append(f"uaos_manifest_runtime_ref_drift:{key}")
+        domain_authority = manifest.get("domain_authority", {})
+        if domain_authority.get("project_index") != "projects/PROJECT_INDEX.json":
             failures.append("uaos_manifest_project_index_drift")
-        if manifest.get("runtime", {}).get("system_audit") != "vga system-audit --repo-root .":
-            failures.append("uaos_manifest_harness_entrypoint_drift")
+        if domain_authority.get("architecture") != "docs/media_business_os.md":
+            failures.append("uaos_manifest_media_business_architecture_drift")
+        if domain_authority.get("canonical_evolution_entrypoint") != "audits/EVOLUTION_INDEX.json":
+            failures.append("uaos_manifest_evolution_entrypoint_drift")
+        if domain_authority.get("integrated_business_flywheel") != "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json":
+            failures.append("uaos_manifest_business_flywheel_drift")
 
     adapter_path = root / ".uaos/ADAPTER.json"
     if adapter_path.is_file():
@@ -353,14 +496,8 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
     elif skill_team.read_bytes() != packaged_team.read_bytes():
         failures.append("team_prompt_mirror_drift")
 
-    # Global routing/product documents may name projects through PROJECT_INDEX. They must not
-    # embed transient project-stage/version state or retired root-config authority.
     global_docs = sorted((root / "skills/video-growth-agent").rglob("*.md"))
-    global_docs.extend(
-        root / rel
-        for rel in CURRENT_GLOBAL_FILES
-        if rel.endswith(".md")
-    )
+    global_docs.extend(root / rel for rel in CURRENT_GLOBAL_FILES if rel.endswith(".md"))
     for path in global_docs:
         try:
             rel = path.relative_to(root).as_posix()
@@ -370,7 +507,15 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             failures.append(f"global_reference_missing:{rel}")
             continue
         text = path.read_text(encoding="utf-8")
-        if any(stale in text for stale in ("config/workflow.json", "config/roles.json", "config/quality-rubric.json", "config/techniques.json")):
+        if any(
+            stale in text
+            for stale in (
+                "config/workflow.json",
+                "config/roles.json",
+                "config/quality-rubric.json",
+                "config/techniques.json",
+            )
+        ):
             failures.append(f"stale_root_config_reference:{rel}")
         match = VERSIONED_PROJECT_STATE_RE.search(text)
         if match:
@@ -413,14 +558,27 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
         if "UAOS task identity" not in str(pilot.get("legacy_alias_semantics", "")):
             failures.append("pilot002_legacy_alias_semantics_missing")
         serialized = json.dumps(pilot, ensure_ascii=False)
-        for retired_marker in ("continuity_protocol_version", "resume_epoch", "active_lease", "Universal Continuity"):
+        for retired_marker in (
+            "continuity_protocol_version",
+            "resume_epoch",
+            "active_lease",
+            "Universal Continuity",
+        ):
             if retired_marker in serialized:
                 failures.append(f"pilot002_program_legacy_control_marker:{retired_marker}")
         if pilot.get("controller_authority") or pilot.get("controller_task_ref"):
             failures.append("pilot002_parent_business_identity_returned")
+        if pilot.get("stage_state", {}).get("previous_release_gate_valid") is not False:
+            failures.append("pilot002_rejected_release_gate_resurrected")
+        if "CANDIDATE_GENERATION_ALLOWED_ONLY_AFTER_CURRENT_0_7_ADMISSION" not in str(
+            pilot.get("stage_state", {}).get("shot_a_status", "")
+        ):
+            failures.append("pilot002_candidate_promotion_migration_missing")
 
     integrated_state_path = root / "projects/ai-self-media-commercialization/PROGRAM_STATE.json"
     graph_path = root / "projects/ai-self-media-commercialization/SUBTASK_GRAPH.json"
+    manifest_project_path = root / "projects/ai-self-media-commercialization/PROJECT_MANIFEST.json"
+    flywheel_path = root / "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json"
     if not integrated_state_path.is_file():
         failures.append("integrated_program_state_missing")
     else:
@@ -430,12 +588,28 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
         if integrated.get("owner") != "VIDEO_GROWTH_AGENT":
             failures.append("integrated_program_owner_drift")
         workstreams = set(integrated.get("workstreams", {}))
-        if workstreams != {"MEDIA_GROWTH", "ORIGINAL_DIGITAL_IP", "COMMERCIALIZATION", "PRODUCTION_SYSTEM"}:
+        if workstreams != {
+            "MEDIA_GROWTH",
+            "ORIGINAL_DIGITAL_IP",
+            "COMMERCIALIZATION",
+            "PRODUCTION_SYSTEM",
+        }:
             failures.append("integrated_program_workstream_set_drift")
         if integrated.get("current_focus") != "ORIGINAL_DIGITAL_IP/H1_SCULPTURAL_MASSING_V2":
             failures.append("integrated_program_h1_focus_drift")
-        if "DISTINCT_FROM_UAOS_ROUTER_ID" not in str(integrated.get("parent_identity_semantics", "")):
-            failures.append("integrated_program_parent_identity_boundary_drift")
+        if "A2 positive-morph upper-face edit" not in str(integrated.get("current_next_action", "")):
+            failures.append("integrated_program_h1_next_action_drift")
+        if integrated.get("business_flywheel_ref") != "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json":
+            failures.append("integrated_program_business_flywheel_ref_drift")
+
+    if manifest_project_path.is_file():
+        project_manifest = _json(manifest_project_path)
+        if project_manifest.get("business_flywheel_ref") != "BUSINESS_FLYWHEEL.json":
+            failures.append("integrated_project_manifest_flywheel_ref_drift")
+        if project_manifest.get("product_architecture_ref") != "../../docs/media_business_os.md":
+            failures.append("integrated_project_manifest_architecture_ref_drift")
+    else:
+        failures.append("integrated_project_manifest_missing")
 
     if not graph_path.is_file():
         failures.append("integrated_subtask_graph_missing")
@@ -457,6 +631,8 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
                     failures.append(f"integrated_program_competition_missing:{required_group}")
         except (ValueError, KeyError, TypeError) as exc:
             failures.append(f"integrated_subtask_graph_invalid:{exc}")
+
+    failures.extend(_media_business_failures(root, runtime_version))
 
     coordination = _json(root / "video_growth_agent/data/coordination-policy.json")
     workflow = _json(root / "video_growth_agent/data/workflow.json")
