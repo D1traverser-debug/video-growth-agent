@@ -13,19 +13,25 @@ Current workstreams:
 - `MEDIA_GROWTH` — READY_ACTIVE_BASELINE; account positioning and audience/content hypotheses exist and can progress now;
 - `ORIGINAL_DIGITAL_IP` — ACTIVE; current foreground work is H1 face massing/A2 upper-face tuning;
 - `COMMERCIALIZATION` — READY_FOR_PARALLEL_RESEARCH; advertiser mapping and offer/rights architecture can progress independently;
-- `PRODUCTION_SYSTEM` — MEDIA_BUSINESS_OS_0_8_RELEASE_CANDIDATE__0_7_PRODUCTION_BASELINE; 0.8 core is under controlled promotion while the unchanged 0.7 work-order adapter remains available where current-session generation/review capability is actually executable.
+- `PRODUCTION_SYSTEM` — MEDIA_BUSINESS_OS_0_8_PRODUCTION_BASELINE; core runtime 0.8.0 is verified on main, while the unchanged historical/specialized 0.7 work-order adapter remains available as a compatibility surface where its workflow is still applicable.
 
 Only declared dependencies block work. Unfinished character design does not block topic/audience research or advertiser research. Character-canon-dependent brand assets do wait for canon.
 
 Pilot 002 remains a separate historical child project. Its rejected/process-invalid artifacts are not accepted inputs here and it retains the legacy 0.7 adapter/runtime identity rather than being silently rewritten into the 0.8 core identity.
 
-## Production-system evolution now
+## Production-system state
 
-The 0.8 release candidate closes the gap between business/editorial intent and the 0.7 shot/asset runtime. Its current executable chain is:
+Video 0.8.0 is now the verified production core. Promotion evidence:
+- PR #15 merged into `main`;
+- candidate head `50bc4a74d7c641875c9625626d5c4634b97ba1fd` passed CI run `38725408205` (#649);
+- merge commit `02d39d8e3609c6d988009f4bc5a7f5d0378128ec` passed main production CI run `38725890405` (#650);
+- closure evidence: `../../audits/VIDEO_0_8_PRODUCTION_CLOSURE_2026-10-15.md`.
+
+The current executable chain is:
 
 `EpisodeIntent -> ClaimSpec -> BeatSpec -> ShotIntent -> EditorialPlan -> ShotContract -> operation-specific ModelRoutingDecision -> CandidateTake -> ContinuityAssessment -> Promotion -> Timeline -> editor handoff/roundtrip -> PlatformVariant -> Release -> Experiment/Outcome -> LearningCandidate`
 
-Added owner-native surfaces:
+Owner-native surfaces include:
 - versioned editorial planning and claim/beat/shot traceability;
 - editorial plan as an upstream MediaGraph asset so revisions stale only affected descendants;
 - cross-shot dimension-level continuity (`PRESERVE` / `EXPECT` / `ALLOW_CHANGE`, hard/soft);
@@ -35,7 +41,7 @@ Added owner-native surfaces:
 - a recomputable CURRENT_AGENT operator projection for ready/blocking actions, stale evidence, risks and recovery refs, with no mutation/promotion/controller authority;
 - CURRENT_AGENT dogfood scenarios as an architecture acceptance surface.
 
-Promotion remains incomplete until PR candidate CI, merge, main production CI, production reread and evolution closure are all verified.
+A separate UAOS parent observation refresh remains pending under parent authority. That metadata synchronization does not block Video 0.8.0 child-domain operation.
 
 ## Character dependency order
 1. HUMAN CORE

@@ -1,10 +1,11 @@
 # Production and Cost Strategy — V3
 
-Status: `MEDIA_BUSINESS_OS_0_8_RELEASE_CANDIDATE__0_7_PRODUCTION_BASELINE`
+Status: `MEDIA_BUSINESS_OS_0_8_PRODUCTION_BASELINE`
 Owner: `DOMAIN:video`
 Architecture: `docs/media_business_os.md`
 Agent-operability scenarios: `docs/agent_operability_scenarios.md`
 Benchmark method: `docs/provider_benchmark_protocol.md`
+Production evidence: `../../audits/VIDEO_0_8_PRODUCTION_CLOSURE_2026-10-15.md`
 
 ## Objective
 
