@@ -1,5 +1,5 @@
 {
-  "schema_version":"2.4",
+  "schema_version":"2.5",
   "agent_id":"video",
   "domain_id":"video",
   "controller":"D1traverser-debug/universal-agent-os@main",
@@ -9,6 +9,7 @@
     "controller_ref":"D1traverser-debug/universal-agent-os@main:CURRENT_SYSTEM.json",
     "common_capabilities_ref":"D1traverser-debug/universal-agent-os@main:config/COMMON_CAPABILITIES.json",
     "common_behavior_assurance_ref":"D1traverser-debug/universal-agent-os@main:config/COMMON_BEHAVIOR_ASSURANCE.json",
+    "common_behavior_assurance_min":"1.3.0",
     "architecture_experience_policy_ref":"D1traverser-debug/universal-agent-os@main:config/ARCHITECTURE_EXPERIENCE_POLICY.json",
     "deliberation_policy_ref":"D1traverser-debug/universal-agent-os@main:config/DELIBERATION_POLICY.json",
     "adapter_ref":".uaos/ADAPTER.json",
@@ -30,6 +31,7 @@
     "business_metrics":"video_growth_agent/business_metrics.py",
     "operator_view":"video_growth_agent/operator_view.py",
     "owner_behavior_admission":"video_growth_agent/owner_behavior_admission.py",
+    "root_scope_admission":"video_growth_agent/owner_behavior_admission.py:require_root_scope_admission",
     "episode_workflow":"video_growth_agent/data/workflow.json",
     "execution_plan":"video_growth_agent/data/execution-plan.json",
     "agent_registry":"video_growth_agent/data/agents.json",
