@@ -1,12 +1,25 @@
 {
   "schema_version":"1.0",
   "owner":"DOMAIN:video",
-  "revision":"1.3",
-  "updated_at":"2026-10-15T18:39:10+08:00",
+  "revision":"1.4",
+  "updated_at":"2026-10-15T18:48:00+08:00",
   "common_behavior_assurance_min":"1.2.0",
   "current_open_items":["V-20261015-02-AGENT_OPERABLE_MEDIA_OS"],
   "current_problem_refs":{
     "V-20261015-02-AGENT_OPERABLE_MEDIA_OS":"audits/VIDEO_AGENT_OPERABILITY_REDESIGN_2026-10-15.md"
+  },
+  "current_resume_ref":"audits/VIDEO_0_8_RESUME_CHECKPOINT_2026-10-15.md",
+  "current_candidate":{
+    "evolution_id":"V-20261015-02-AGENT_OPERABLE_MEDIA_OS",
+    "pr":15,
+    "branch":"feat/agent-operable-media-os-0-8-20261015",
+    "checkpoint_commit":"bfaa3c6926f8d5064088311bd5029813e4e90c60",
+    "latest_verified_runtime_candidate_head":"b5d7da1c4a7f851319b9a2304470f53a5ab48ca4",
+    "latest_verified_runtime_candidate_ci_run":38721670861,
+    "latest_pre_checkpoint_head_with_failed_reconciliation_ci":"9bc5abad9dd91e2970dc17f19fcc3bef7dcb8bc9",
+    "latest_failed_ci_run":38722504017,
+    "latest_failed_ci_summary":"SYSTEM_AUDIT_PASS__PYTEST_176_PASS_3_FAIL__SEMANTIC_DOC_EVOLUTION_TEST_RECONCILIATION_PENDING",
+    "promotion_state":"DO_NOT_MERGE__CANDIDATE_OPEN"
   },
   "recent_resolved_or_promoted":[
     {
@@ -73,5 +86,5 @@
     "audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md",
     "projects/pilot-002/PROGRAM_STATE.json"
   ],
-  "assurance":"PRODUCTION_0_7_0_BASELINE__0_8_AGENT_OPERABILITY_CANDIDATE_UNDER_FULL_VALIDATION"
+  "assurance":"PRODUCTION_0_7_0_BASELINE__0_8_AGENT_OPERABILITY_CANDIDATE_INTERRUPTED_WITH_DURABLE_RESUME_CHECKPOINT"
 }
