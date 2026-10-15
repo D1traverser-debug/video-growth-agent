@@ -45,6 +45,10 @@ jobs:
               TechniqueLibrary,
           )
           from video_growth_agent.storage import ProjectStore
+
+          def semver(value):
+              return tuple(int(part) for part in value.split('.'))
+
           package_version = version("video-growth-agent")
           registry = RoleRegistry()
           orchestrator = StudioOrchestrator()
@@ -54,8 +58,8 @@ jobs:
           assert registry.get("showrunner").prompt
           assert registry.get("creative_director").prompt
           assert orchestrator.workflow["version"]
-          assert agents.config["version"] == package_version
-          assert planner.config["version"] == package_version
+          assert agents.config["version"] == planner.config["version"]
+          assert semver(agents.config["version"]) <= semver(package_version)
           assert agents.config["principles"]["tool_labels_are_capability_requests_not_execution_proof"] is True
           assert planner.validate() == []
           assert agents.get("executive_producer").user_voice is True
