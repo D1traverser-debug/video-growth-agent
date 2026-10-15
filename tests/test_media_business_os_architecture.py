@@ -81,4 +81,4 @@ def test_h1_business_cursor_is_preserved_during_system_rebuild():
     assert state["current_focus"] == "ORIGINAL_DIGITAL_IP/H1_SCULPTURAL_MASSING_V2"
     assert "A2 positive-morph upper-face edit" in state["current_next_action"]
     assert "must not advance this creative action automatically" in state["current_next_action"]
-    assert state["workstreams"]["PRODUCTION_SYSTEM"]["status"] == "ACTIVE_MEDIA_BUSINESS_OS_0_7_PRODUCTION"
+    assert state["workstreams"]["PRODUCTION_SYSTEM"]["status"] == "MEDIA_BUSINESS_OS_0_8_RELEASE_CANDIDATE__0_7_PRODUCTION_BASELINE"
