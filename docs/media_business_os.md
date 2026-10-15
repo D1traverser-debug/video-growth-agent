@@ -1,6 +1,6 @@
 # AI-Native Media Business OS
 
-Status: `CANDIDATE_0_7_0`
+Status: `PRODUCTION_0_7_0`
 Owner: `DOMAIN:video`
 Date: `2026-10-15`
 Parent behavior dependency: `UAOS COMMON_BEHAVIOR_ASSURANCE >= 1.2.0`
