@@ -1,6 +1,6 @@
 # Resume Entry — AI自媒体视频增长、商业化与原创数字IP
 
-Status: ACTIVE_INTEGRATED_PROGRAM  
+Status: `ACTIVE_INTEGRATED_MEDIA_BUSINESS_PROGRAM`  
 Owner: `DOMAIN:video`  
 Program ID: `ai-self-media-commercialization`
 
@@ -15,7 +15,7 @@ Generic Video intents below resolve to this default Program unless the user supp
 
 Preferred current continuation:
 
-> `继承 AI自媒体视频增长、商业化与原创数字IP。读取 PROJECT_MANIFEST.json、PROGRAM_STATE.json、SUBTASK_GRAPH.json 和 CURRENT_PROGRESS.md。当前前台焦点仍是 ORIGINAL_DIGITAL_IP / H1_SCULPTURAL_MASSING_V2：固定脸壳是原始正确 S1+S3 正面灰模，E1/E2/E3 无效，A1 已否决，下一步从原始固定脸壳执行 A2 positive morph 上半脸修正。增长基线和商业化广告主映射属于可并行工作，不需要等角色定稿。`
+> `继承 AI自媒体视频增长、商业化与原创数字IP。读取 PROJECT_MANIFEST.json、PROGRAM_STATE.json、SUBTASK_GRAPH.json、BUSINESS_FLYWHEEL.json 和 CURRENT_PROGRESS.md。当前前台焦点仍是 ORIGINAL_DIGITAL_IP / H1_SCULPTURAL_MASSING_V2：固定脸壳是原始正确 S1+S3 正面灰模，E1/E2/E3 无效，A1 已否决，下一步从原始固定脸壳执行 A2 positive morph 上半脸修正。增长、商业化、IP 和生产系统属于同一 Media Business Program，通过 BUSINESS_FLYWHEEL 显式互相提供证据；未声明依赖的工作可并行。`
 
 Exact historical child project override:
 - `继续 Pilot 002` or `继承 video-growth:main` means exact child project `pilot-002`; it does not mean this integrated Program and does not create/adopt a UAOS task identity.
@@ -25,8 +25,10 @@ Exact historical child project override:
 2. `PROJECT_MANIFEST.json`
 3. `PROGRAM_STATE.json`
 4. `SUBTASK_GRAPH.json`
-5. `CURRENT_PROGRESS.md`
-6. only the current workstream-specific authority files needed by the next action.
+5. `BUSINESS_FLYWHEEL.json`
+6. `CURRENT_PROGRESS.md`
+7. `../../docs/media_business_os.md` when the task touches production architecture, provider routing, growth/IP/commercial coupling, asset promotion or system evolution;
+8. only the current workstream/action-specific authority files needed next.
 
 For current H1/A2 work, progressively read:
 - `H1_A1_REVIEW_2026-10-14.md`
@@ -62,14 +64,22 @@ Do not preload unrelated Pilot 001/002 state merely because those folders are ne
 9. if A2 passes, reassess cheek→jaw micro-correction and then 30–35° three-quarter validation;
 10. H1 passes before H2 body archetype.
 
+System/architecture maintenance must not execute these creative steps automatically.
+
 ## Parallel-ready Program work
-While H1 is active, these workstreams may also progress if useful:
-- Media Growth: baseline metrics, topic hypotheses, pilot slate candidates;
-- Commercialization: advertiser map, sponsor-fit criteria, offer/rights architecture research.
+While H1 is active, these workstreams may progress if useful and their own dependencies/capabilities are ready:
+- Media Growth: baseline metrics, topic/series hypotheses, pilot slate candidates, packaging/distribution research;
+- Commercialization: advertiser map, sponsor-fit criteria, offer/rights/measurement research;
+- Production System: provider benchmark protocol, shot/asset/timeline methods, deterministic QA and cost/reuse methods that do not require a locked character canon.
 
 They do not wait for H1 unless a concrete output declares a character-canon dependency.
 
+## Business flywheel rule
+Cross-workstream effects are explicit. Growth evidence may create IP/production/commercial learning candidates; IP assets may inform packaging and sponsor value; commercial deliverables may add rights/product-truth requirements; production economics may change future format investment. None of these signals silently mutates canon, editorial truth, provider rankings or pricing authority.
+
 ## Persistence/report rule
-Material changes update the owning child authority in the same session. Workstream stage/next-action changes reconcile `PROGRAM_STATE.json`, `SUBTASK_GRAPH.json`, `PROJECT_MANIFEST.json` and `CURRENT_PROGRESS.md` where relevant. Reviewed selections/merges/rejections receive durable decision evidence.
+Material changes update the owning child authority in the same session. Workstream stage/next-action changes reconcile `PROGRAM_STATE.json`, `SUBTASK_GRAPH.json`, `PROJECT_MANIFEST.json`, `BUSINESS_FLYWHEEL.json` and `CURRENT_PROGRESS.md` where relevant. Reviewed selections/merges/rejections receive durable decision evidence.
+
+Video-system changes also reconcile `audits/EVOLUTION_INDEX.json` plus the deeper causal audit/ref and only upcall cross-domain/common mechanisms to UAOS.
 
 Do not claim persistence if these records were not actually updated.
