@@ -21,12 +21,21 @@ def test_uaos_is_the_only_parent_controller_while_video_owns_business_identity()
     assert manifest["controller"] == "D1traverser-debug/universal-agent-os@main"
     assert manifest["status"] == "UAOS_CONTROL_PLANE_ACTIVE"
     assert manifest["skill"]["entrypoint"] == "UAOS_SKILL.md"
-    assert manifest["runtime"]["version"] == runtime_version()
+    assert manifest["runtime"]["version"] == runtime_version() == "0.8.0"
     assert manifest["runtime"]["media_graph"] == "video_growth_agent/media_graph.py"
+    assert manifest["runtime"]["editorial_planning"] == "video_growth_agent/editorial_planning.py"
+    assert manifest["runtime"]["plan_graph_bridge"] == "video_growth_agent/plan_graph_bridge.py"
     assert manifest["runtime"]["media_business_os"] == "video_growth_agent/production_os.py"
+    assert manifest["runtime"]["continuity"] == "video_growth_agent/continuity.py"
     assert manifest["runtime"]["timeline"] == "video_growth_agent/timeline.py"
+    assert manifest["runtime"]["editorial_interchange"] == "video_growth_agent/editorial_interchange.py"
+    assert manifest["runtime"]["experiments"] == "video_growth_agent/experiments.py"
     assert manifest["runtime"]["business_objects"] == "video_growth_agent/business_objects.py"
+    assert manifest["runtime"]["model_registry"] == "video_growth_agent/model_registry.py"
+    assert manifest["runtime"]["operator_view"] == "video_growth_agent/operator_view.py"
+    assert manifest["runtime"]["legacy_adapter_bundle_version"] == "0.7.0"
     assert manifest["domain_authority"]["architecture"] == "docs/media_business_os.md"
+    assert manifest["domain_authority"]["agent_operability_scenarios"] == "docs/agent_operability_scenarios.md"
     assert manifest["domain_authority"]["canonical_evolution_entrypoint"] == "audits/EVOLUTION_INDEX.json"
 
     assert adapter["controller_task_identity_authority"] == "UAOS"
@@ -41,14 +50,15 @@ def test_uaos_is_the_only_parent_controller_while_video_owns_business_identity()
     assert not (ROOT / "continuity").exists()
 
 
-def test_current_capability_profile_exposes_media_business_os_and_common_behavior_1_2():
+def test_current_capability_profile_exposes_agent_operable_media_os_and_common_behavior_1_2():
     profile = load_json(ROOT / ".uaos" / "CAPABILITIES.json")
     assert profile["execution_readiness_contract"] == "2.0"
     assert profile["owner"] == "VIDEO_GROWTH_AGENT"
-    assert profile["profile_version"] == 8
+    assert profile["profile_version"] == 9
     assert profile["uaos_common_capabilities_contract_min"] == "1.6.0"
     assert profile["uaos_common_behavior_assurance_min"] == "1.2.0"
     assert profile["canonical_evolution_entrypoint"] == "audits/EVOLUTION_INDEX.json"
+    assert profile["agent_operability_scenarios_ref"] == "docs/agent_operability_scenarios.md"
     assert set(profile["assurance_taxonomy"]) == {
         "DECLARED_ONLY",
         "HARNESS_WIRED",
@@ -60,11 +70,16 @@ def test_current_capability_profile_exposes_media_business_os_and_common_behavio
     assert {
         "media_business_program_orchestration",
         "canonical_media_graph",
+        "editorial_planning_and_traceability",
         "shot_asset_production_os",
+        "cross_shot_continuity",
         "non_destructive_editorial_timeline",
+        "editor_interchange_roundtrip",
         "shared_growth_ip_commercial_objects",
         "evidence_bound_model_routing",
+        "experiment_governance",
         "business_outcome_measurement",
+        "current_agent_operator_projection",
         "owner_common_behavior_admission",
         "studio_work_order_orchestration",
         "ordinary_specialist_execution",
@@ -88,15 +103,16 @@ def test_current_capability_profile_exposes_media_business_os_and_common_behavio
     ]
 
 
-def test_pilot002_preserves_rejection_truth_but_migrates_candidate_promotion_boundary():
+def test_pilot002_preserves_rejection_truth_and_remains_legacy_adapter_project():
     state = load_json(PROGRAM_STATE)
+    manifest = load_json(ROOT / ".uaos" / "MANIFEST.json")
     assert state["schema_version"] == "1.2"
     assert state["project_id"] == "pilot-002"
     assert state["owner"] == "VIDEO_GROWTH_AGENT"
     assert state["business_identity_authority"] == "projects/pilot-002/PROGRAM_STATE.json::project_id"
     assert "video-growth:main" in state["legacy_aliases"]
     assert "not a UAOS task identity" in state["legacy_alias_semantics"]
-    assert state["runtime_version"] == runtime_version()
+    assert state["runtime_version"] == manifest["runtime"]["legacy_adapter_bundle_version"] == "0.7.0"
     assert state["status"] == "HOLD"
     assert state["resume_mode"] == "EXPLICIT_CHILD_PROJECT_REF"
     assert state["current_stage"] == "VISUAL_PREVIEW_PROCESS_REENTRY"
