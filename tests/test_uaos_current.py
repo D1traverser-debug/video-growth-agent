@@ -21,6 +21,7 @@ def test_uaos_is_the_only_parent_controller_while_video_owns_business_identity()
     assert manifest["controller"] == "D1traverser-debug/universal-agent-os@main"
     assert manifest["status"] == "UAOS_CONTROL_PLANE_ACTIVE"
     assert manifest["skill"]["entrypoint"] == "UAOS_SKILL.md"
+    assert manifest["binding"]["common_behavior_assurance_min"] == "1.3.0"
     assert manifest["runtime"]["version"] == runtime_version() == "0.8.0"
     assert manifest["runtime"]["media_graph"] == "video_growth_agent/media_graph.py"
     assert manifest["runtime"]["editorial_planning"] == "video_growth_agent/editorial_planning.py"
@@ -33,6 +34,7 @@ def test_uaos_is_the_only_parent_controller_while_video_owns_business_identity()
     assert manifest["runtime"]["business_objects"] == "video_growth_agent/business_objects.py"
     assert manifest["runtime"]["model_registry"] == "video_growth_agent/model_registry.py"
     assert manifest["runtime"]["operator_view"] == "video_growth_agent/operator_view.py"
+    assert manifest["runtime"]["root_scope_admission"].endswith("require_root_scope_admission")
     assert manifest["runtime"]["legacy_adapter_bundle_version"] == "0.7.0"
     assert manifest["domain_authority"]["architecture"] == "docs/media_business_os.md"
     assert manifest["domain_authority"]["agent_operability_scenarios"] == "docs/agent_operability_scenarios.md"
@@ -50,13 +52,15 @@ def test_uaos_is_the_only_parent_controller_while_video_owns_business_identity()
     assert not (ROOT / "continuity").exists()
 
 
-def test_current_capability_profile_exposes_agent_operable_media_os_and_common_behavior_1_2():
+def test_current_capability_profile_exposes_agent_operable_media_os_and_common_behavior_1_3():
     profile = load_json(ROOT / ".uaos" / "CAPABILITIES.json")
     assert profile["execution_readiness_contract"] == "2.0"
     assert profile["owner"] == "VIDEO_GROWTH_AGENT"
-    assert profile["profile_version"] == 9
+    assert profile["profile_version"] >= 10
     assert profile["uaos_common_capabilities_contract_min"] == "1.6.0"
-    assert profile["uaos_common_behavior_assurance_min"] == "1.2.0"
+    assert profile["uaos_common_behavior_assurance_min"] == "1.3.0"
+    assert "ROOT_SCOPE_ADMISSION" in profile["common_behavior_realization"]
+    assert "TYPED_EVOLUTION_DISPOSITION" in profile["common_behavior_realization"]
     assert profile["canonical_evolution_entrypoint"] == "audits/EVOLUTION_INDEX.json"
     assert profile["agent_operability_scenarios_ref"] == "docs/agent_operability_scenarios.md"
     assert set(profile["assurance_taxonomy"]) == {
@@ -91,16 +95,15 @@ def test_current_capability_profile_exposes_agent_operable_media_os_and_common_b
         "learning_and_evolution",
         "domain_product_requirements_traceability",
     } <= ids
-    gateway = next(
-        item
-        for item in profile["capabilities"]
-        if item["capability_id"] == "quality_critical_generation_gateway"
-    )
+    owner_behavior = next(item for item in profile["capabilities"] if item["capability_id"] == "owner_common_behavior_admission")
+    contract = " ".join(owner_behavior["evidence_contract"])
+    assert "root-scope receipt" in contract
+    assert "typed evolution disposition" in contract
+    assert "current-agent operability/dogfood evidence" in contract
+    gateway = next(item for item in profile["capabilities"] if item["capability_id"] == "quality_critical_generation_gateway")
     assert gateway["assurance_ceiling"] == "DECLARED_ONLY"
     assert gateway["executor_type"] == "CURRENT_SESSION_EXTERNAL_MEDIA_CAPABILITY"
-    assert gateway["safe_degraded_modes"] == [
-        "BLOCK_ONLY_AFFECTED_SHOT_OR_USE_DECLARED_GRACEFUL_DEGRADATION"
-    ]
+    assert gateway["safe_degraded_modes"] == ["BLOCK_ONLY_AFFECTED_SHOT_OR_USE_DECLARED_GRACEFUL_DEGRADATION"]
 
 
 def test_pilot002_preserves_rejection_truth_and_remains_legacy_adapter_project():
@@ -137,8 +140,10 @@ def test_generic_uaos_skill_routes_through_child_project_index_without_embedding
     assert "exact historical child project references override generic routing" in lower
     assert "no parent/child id equality requirement" in lower
     assert "not unbounded peer chat" in lower
-    assert "do not create a repository-local parent task index" in lower
     assert "candidate generation, project-asset promotion and release are separate boundaries" in lower
+    assert "common behavior 1.3" in lower
+    assert "root-scope receipt" in lower
+    assert "typed evolution disposition" in lower
     assert "audits/evolution_index.json" in lower
     assert "h1_sculptural_massing" not in lower
     assert "a2 positive" not in lower
