@@ -1,6 +1,6 @@
 # Video Growth Agent — Product Requirements Baseline
 
-Status: `CANDIDATE_0_7_0`
+Status: `PRODUCTION_0_7_0`
 Date: `2026-10-15`
 Owner: `DOMAIN:video`
 Parent dependencies: `UAOS COMMON_CAPABILITIES >= 1.6.0 / COMMON_BEHAVIOR_ASSURANCE >= 1.2.0`
@@ -253,4 +253,4 @@ The existing episode stage workflow/work-order runtime remains supported for his
 11. Production reread verifies version/binding/evidence.
 12. UAOS parent observation is refreshed only after child production evidence passes.
 
-Post-promotion live assurance remains open for real episode growth/IP/commercial outcomes; code/tests cannot substitute for published-media results.
+All 0.7.0 implementation criteria above are satisfied by the controlled production promotion and closure evidence. Future live episode growth/IP/commercial outcomes remain runtime observations; code/tests cannot substitute for published-media results and their future absence does not reopen implementation completion.
