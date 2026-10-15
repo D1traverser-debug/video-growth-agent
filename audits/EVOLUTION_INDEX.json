@@ -1,8 +1,8 @@
 {
   "schema_version":"1.0",
   "owner":"DOMAIN:video",
-  "revision":"1.0",
-  "updated_at":"2026-10-15T11:40:05+08:00",
+  "revision":"1.1",
+  "updated_at":"2026-10-15T14:02:00+08:00",
   "common_behavior_assurance_min":"1.2.0",
   "current_open_items":[
     "V-20261015-01-AI_NATIVE_MEDIA_BUSINESS_OS_REDESIGN"
@@ -42,14 +42,22 @@
     "docs/media_business_os.md",
     "docs/provider_benchmark_protocol.md",
     "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json",
-    "video_growth_agent/model_registry.py",
+    "video_growth_agent/media_graph.py",
     "video_growth_agent/production_os.py",
+    "video_growth_agent/timeline.py",
+    "video_growth_agent/business_objects.py",
+    "video_growth_agent/model_registry.py",
     "video_growth_agent/business_metrics.py",
     "video_growth_agent/owner_behavior_admission.py",
-    "tests/test_model_registry.py",
+    "tests/test_media_graph.py",
     "tests/test_production_os.py",
+    "tests/test_timeline.py",
+    "tests/test_business_objects.py",
+    "tests/test_model_registry.py",
     "tests/test_business_metrics.py",
-    "tests/test_owner_behavior_admission.py"
+    "tests/test_owner_behavior_admission.py",
+    "tests/test_system_audit.py",
+    "tests/test_uaos_current.py"
   ],
   "historical_evidence_refs":[
     "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
