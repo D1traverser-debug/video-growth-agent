@@ -50,6 +50,11 @@ class ShotContract:
     stop_conditions: tuple[str, ...] = ()
     budget_usd: float | None = None
     disclosure_required: bool = False
+    editorial_plan_ref: str = ""
+    beat_id: str = ""
+    source_claim_ids: tuple[str, ...] = ()
+    continuity_ref: str = ""
+    value_vector: Mapping[str, float] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         if not self.shot_id.strip() or not self.sequence_id.strip() or not self.narrative_job.strip():
@@ -67,8 +72,17 @@ class ShotContract:
         for name, score in self.quality_targets.items():
             if not 0 <= float(score) <= 5:
                 raise ProductionAdmissionError(f"quality target out of range: {name}={score}")
+        for name, score in self.value_vector.items():
+            if not 0 <= float(score) <= 5:
+                raise ProductionAdmissionError(f"value vector out of range: {name}={score}")
         if self.truth_mode == "PRODUCT_TRUTH" and not self.references:
             raise ProductionAdmissionError("PRODUCT_TRUTH shots require verified reference bindings")
+        if bool(self.editorial_plan_ref) != bool(self.beat_id):
+            raise ProductionAdmissionError("editorial_plan_ref and beat_id must be supplied together")
+
+    @property
+    def editorially_traceable(self) -> bool:
+        return bool(self.editorial_plan_ref and self.beat_id)
 
 
 @dataclass(frozen=True)
