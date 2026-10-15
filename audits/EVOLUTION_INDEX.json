@@ -1,11 +1,13 @@
 {
   "schema_version":"1.0",
   "owner":"DOMAIN:video",
-  "revision":"1.2",
-  "updated_at":"2026-10-15T14:09:00+08:00",
+  "revision":"1.3",
+  "updated_at":"2026-10-15T18:39:10+08:00",
   "common_behavior_assurance_min":"1.2.0",
-  "current_open_items":[],
-  "current_problem_refs":{},
+  "current_open_items":["V-20261015-02-AGENT_OPERABLE_MEDIA_OS"],
+  "current_problem_refs":{
+    "V-20261015-02-AGENT_OPERABLE_MEDIA_OS":"audits/VIDEO_AGENT_OPERABILITY_REDESIGN_2026-10-15.md"
+  },
   "recent_resolved_or_promoted":[
     {
       "id":"V-20261015-01-AI_NATIVE_MEDIA_BUSINESS_OS_REDESIGN",
@@ -36,20 +38,31 @@
   "execution_refs":[
     "docs/media_business_os.md",
     "docs/provider_benchmark_protocol.md",
+    "docs/agent_operability_scenarios.md",
     "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json",
     "video_growth_agent/media_graph.py",
+    "video_growth_agent/editorial_planning.py",
+    "video_growth_agent/plan_graph_bridge.py",
     "video_growth_agent/production_os.py",
-    "video_growth_agent/timeline.py",
-    "video_growth_agent/business_objects.py",
+    "video_growth_agent/continuity.py",
     "video_growth_agent/model_registry.py",
+    "video_growth_agent/timeline.py",
+    "video_growth_agent/editorial_interchange.py",
+    "video_growth_agent/experiments.py",
+    "video_growth_agent/business_objects.py",
     "video_growth_agent/business_metrics.py",
+    "video_growth_agent/operator_view.py",
     "video_growth_agent/owner_behavior_admission.py",
-    "tests/test_media_graph.py",
-    "tests/test_production_os.py",
-    "tests/test_timeline.py",
-    "tests/test_business_objects.py",
+    "tests/test_editorial_planning.py",
+    "tests/test_plan_graph_bridge.py",
+    "tests/test_continuity.py",
     "tests/test_model_registry.py",
+    "tests/test_timeline.py",
+    "tests/test_editorial_interchange.py",
+    "tests/test_experiments.py",
+    "tests/test_business_objects.py",
     "tests/test_business_metrics.py",
+    "tests/test_operator_view.py",
     "tests/test_owner_behavior_admission.py",
     "tests/test_system_audit.py",
     "tests/test_uaos_current.py"
@@ -60,5 +73,5 @@
     "audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md",
     "projects/pilot-002/PROGRAM_STATE.json"
   ],
-  "assurance":"PRODUCTION_0_7_0_EXECUTABLE_AND_TRAJECTORY_VERIFIED__LIVE_OUTCOME_OBSERVATION_OPEN_BY_DESIGN"
+  "assurance":"PRODUCTION_0_7_0_BASELINE__0_8_AGENT_OPERABILITY_CANDIDATE_UNDER_FULL_VALIDATION"
 }
