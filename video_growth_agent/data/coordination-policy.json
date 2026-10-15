@@ -1,10 +1,11 @@
 {
-  "version":"0.6.0",
+  "version":"0.7.0",
   "authority":"VIDEO_GROWTH_AGENT",
   "parent_common_semantics_ref":"D1traverser-debug/universal-agent-os@main:config/COMMON_CAPABILITIES.json#domain_internal_work_orchestration",
   "single_user_owner":"executive_producer",
   "peer_chat_allowed":false,
   "artifact_handoffs_required":true,
+  "object_graph_semantics":"PROGRAM_BUSINESS_GRAPH__MEDIA_ASSET_CONTEXT_GRAPH__EDITORIAL_TIMELINE_ARE_DISTINCT_BUT_LINKED",
   "dependency_model":{
     "explicit_depends_on_precedence":"EXPLICIT_DEPENDENCIES_OVERRIDE_GLOBAL_LOWER_WAVE_BARRIER",
     "legacy_fallback":"WHEN_depends_on_IS_ABSENT_USE_EXISTING_LOWER_WAVE_COMPLETION_RULE",
@@ -28,6 +29,12 @@
     "decision_receipt_required":true,
     "same_context_diversity_is_independent_verification":false
   },
+  "media_candidate_contract":{
+    "candidate_generation_is_acceptance":false,
+    "promotion_decision_required_for_accepted_asset":true,
+    "release_decision_separate_from_asset_promotion":true,
+    "rejected_or_stale_asset_may_not_reenter_without_new_promotion":true
+  },
   "negotiation_contract":{
     "allowed_shape":"BOUNDED_ARTIFACT_ROUNDS",
     "examples":["proposal -> critique -> revision -> adjudication","candidate set -> independent reviews -> synthesis/selection"],
@@ -38,8 +45,11 @@
   "reliability":[
     "least context",
     "explicit artifact provenance",
-    "stale downstream invalidation after upstream digest change",
+    "stable context and asset identities",
+    "non-destructive derived assets",
+    "stale downstream invalidation after upstream digest/version change",
     "producer/reviewer separation where required",
-    "hard gates remain fail closed"
+    "candidate generation does not bypass promotion/release gates",
+    "hard truth rights provenance and release gates remain fail closed"
   ]
 }
