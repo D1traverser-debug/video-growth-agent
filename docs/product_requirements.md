@@ -105,7 +105,7 @@ Shared object classes:
 - `CommercialOutcomeReceipt`;
 - `LearningCandidate`.
 
-Stable IDs and artifact digests outrank file names/chat memory.
+Stable IDs and artifact digests outrank file names/chat memory. `video_growth_agent/media_graph.py` is the canonical executable metadata graph for Context, AssetVersion, Task, Evidence and Decision records; promotion pointers and invalidation never erase historical versions.
 
 ## 6. Model/provider requirements
 
@@ -161,6 +161,8 @@ The Digital Observer/Narrator remains a reusable anchor, not a virtual presenter
 
 Every monetizable series/episode can carry `CommercialFit` and `RightsPackage` evidence covering advertiser adjacency, natural integration surfaces, product-truth requirements, deliverables, territories/duration/exclusivity/paid-media rights, production uplift, measurement and reuse/case-study value.
 
+These business contracts are typed in `video_growth_agent/business_objects.py`; commercial fit cannot disable editorial independence and expanded/priced rights require evidence.
+
 Pricing should learn from real audience, production cost, rights scope and outcomes rather than a single static rate card.
 
 ## 11. Truth, rights, provenance and disclosure
@@ -209,14 +211,17 @@ The existing episode stage workflow/work-order runtime remains supported for his
 | --- | --- | --- |
 | Product architecture | `docs/media_business_os.md` | architecture tests + audit |
 | Business flywheel | `BUSINESS_FLYWHEEL.json` | schema/invariant tests |
-| Provider-neutral model evidence | `model_registry.py` | routing trajectory tests |
+| Canonical media context/asset/evidence/decision graph | `media_graph.py` | identity/lineage/promotion/invalidation/persistence tests |
 | Shot/reference/take/promotion/release | `production_os.py` | admission tests |
+| Non-destructive master/platform timeline | `timeline.py` | exact promoted-asset refs + derivation/variant-lineage tests |
+| Growth/IP/commercial shared typed objects | `business_objects.py` | portfolio/distinctive-asset/commercial-fit/rights/offer tests |
+| Provider-neutral model evidence | `model_registry.py` | routing trajectory tests |
 | Vector business outcomes | `business_metrics.py` | metric tests |
 | Common Behavior 1.2 | `owner_behavior_admission.py` | recovery/closure trajectory tests |
 | Canonical evolution evidence | `audits/EVOLUTION_INDEX.json` | architecture audit |
 | Existing Program graph | `PROGRAM_STATE.json` + `SUBTASK_GRAPH.json` | orchestration tests |
 | Existing work-order/attestation/QA | current runtime modules | regression suite |
-| Packaging/install | package + CI | system audit, pytest, installed smoke |
+| Packaging/install + canonical runtime integrity | package + `system_audit.py` + CI | fail-closed system audit, pytest, installed smoke |
 
 ## 17. Non-functional requirements
 
@@ -236,14 +241,16 @@ The existing episode stage workflow/work-order runtime remains supported for his
 ## 18. Product completion criteria for 0.7.0
 
 1. New media-business architecture and business flywheel are durable and discoverable.
-2. Provider-neutral quality-vector routing is executable and trajectory-tested.
-3. Candidate-generation, asset-promotion and release boundaries are distinct and tested.
-4. Product-truth/rights/provenance/disclosure stay fail-closed where they matter.
-5. Common Behavior 1.2 is owner-natively executable and tested.
-6. Existing 0.6 work-order/attestation/QA/project/orchestration tests remain green.
-7. system audit, full pytest and installed-package smoke pass on candidate and production.
-8. Canonical evolution index preserves causal redesign evidence.
-9. Production reread verifies version/binding/evidence.
-10. UAOS parent observation is refreshed only after child production evidence passes.
+2. Canonical MediaGraph, non-destructive Timeline and shared growth/IP/commercial business objects are executable and tested.
+3. Provider-neutral quality-vector routing is executable and trajectory-tested.
+4. Candidate-generation, asset-promotion and release boundaries are distinct and tested.
+5. Product-truth/rights/provenance/disclosure stay fail-closed where they matter.
+6. Common Behavior 1.2 is owner-natively executable and tested.
+7. Existing 0.6 work-order/attestation/QA/project/orchestration tests remain green.
+8. System audit fails closed if any declared canonical 0.7 runtime surface disappears or drifts.
+9. system audit, full pytest and installed-package smoke pass on candidate and production.
+10. Canonical evolution index preserves causal redesign evidence.
+11. Production reread verifies version/binding/evidence.
+12. UAOS parent observation is refreshed only after child production evidence passes.
 
 Post-promotion live assurance remains open for real episode growth/IP/commercial outcomes; code/tests cannot substitute for published-media results.
