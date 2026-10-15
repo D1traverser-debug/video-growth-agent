@@ -22,7 +22,7 @@ def test_media_business_os_is_primary_architecture_and_legacy_stage_machine_is_a
     assert plan["policy"]["architecture_role"] == "LEGACY_AND_SPECIALIZED_EPISODE_EXECUTION_ADAPTER_UNDER_MEDIA_BUSINESS_OS"
     text = (ROOT / "docs/media_business_os.md").read_text(encoding="utf-8")
     assert "Program -> Series -> Episode -> Sequence -> Scene -> Shot -> Take" in text
-    assert "The legacy stage workflow remains a compatibility adapter" in text
+    assert "The legacy stage/work-order engine remains a historical/specialized compatibility adapter" in text
     assert "Status: `CANDIDATE_0_8_0`" in text
 
 
