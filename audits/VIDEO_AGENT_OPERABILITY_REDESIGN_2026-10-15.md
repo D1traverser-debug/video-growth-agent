@@ -1,227 +1,115 @@
 # Video Agent Operability Redesign — 2026-10-15
 
-Status: `CANDIDATE_EVALUATION`
+Status: `RESOLVED_PRODUCTION_0_8_0`
 Owner: `DOMAIN:video`
 Evolution ID: `V-20261015-02-AGENT_OPERABLE_MEDIA_OS`
+Resolved at: `2026-10-15T19:15:03+08:00`
 Parent method: UAOS Architecture Experience Evaluation 1.0 + Common Behavior Assurance 1.2
 
 ## Trigger
 
-User asked for Video architecture to be evaluated from lived use, not merely static framework completeness, and explicitly permitted using all relevant previously learned skills/methods. User examples such as spatial frameworks and sequence construction were treated as hints, not binding architecture requirements.
+The Video architecture was challenged from lived use rather than static framework completeness: act as the current Video Agent and ask where it would lose state, choose a plausible-but-wrong action, fail to recover, or need hidden chat memory. Spatial/structural and sequential representations were treated as tools selected by concern rather than fixed requirements.
 
 ## Governing outcome
 
-Make Video an AI-native media business operating system that a current Agent can actually understand, operate, recover and evolve across editorial planning, production, original IP, growth and commercialization without reconstructing key state in hidden chat memory.
+Make Video an AI-native media business operating system that a current Agent can understand, operate, recover and evolve across editorial planning, production, original IP, growth and commercialization without reconstructing key state in hidden reasoning.
 
 ## Baseline
 
-Production baseline before this redesign:
-- Video 0.7.0 / Profile 8;
-- main `55f605e641671a513637ffb03b532c66335a2ad9`;
-- production CI #565 PASS;
-- H1/A2 creative cursor preserved and outside this maintenance scope.
+Verified baseline before this evolution was Video 0.7.0 / Profile 8 at main `55f605e641671a513637ffb03b532c66335a2ad9`. 0.7 had already established MediaGraph, Shot/Take candidate-promotion-release boundaries, non-destructive timelines, typed business objects, provider-neutral routing intent, business outcomes, the Business Flywheel and owner-native Common Behavior. The H1/A2 creative cursor was explicitly outside this system-maintenance scope.
 
-0.7 correctly established:
-- stable MediaGraph context/assets/evidence/decisions/tasks;
-- ShotContract/Take candidate->promotion->release separation;
-- non-destructive TimelineSpec;
-- typed business/commercial objects;
-- provider-neutral routing intent;
-- vector business outcome receipts;
-- Business Flywheel across growth/IP/commercial/production;
-- owner-native Common Behavior admission and evolution evidence.
+## CURRENT_AGENT dogfood and observed problems
 
-## CURRENT_AGENT dogfood
+Ten lived scenarios were walked: topic-to-episode, cross-shot IP continuity, upstream-plan change after generation, provider/API change, budget cut, sponsor insertion, external editor roundtrip, long-to-short re-authoring, interrupted-session resume, and post-publication learning. `docs/agent_operability_scenarios.md` is the durable acceptance surface.
 
-The current Agent walked the system as if executing ten real scenarios rather than reading module names only:
-1. natural-language topic -> executable episode;
-2. digital-IP continuity across shots;
-3. upstream claim/plan change after paid generation;
-4. provider/model deprecation or capability-combination change;
-5. budget cut mid-production;
-6. sponsor enters after planning starts;
-7. external editor/NLE handoff and roundtrip;
-8. long-form master -> authored short-form derivatives;
-9. session interruption/resume;
-10. published audience/business outcome -> learning/evolution.
+The walk exposed eight material gaps:
 
-Detailed walkthrough authority: `docs/agent_operability_scenarios.md`.
-
-## Observed gaps
-
-### G1 — Editorial decision bridge existed in documentation, not runtime
-
-`docs/media_business_os.md` described:
-`EpisodeIntent -> ClaimAndSourceMap -> BeatMap -> ShotPlan -> ...`
-
-but current runtime began materially at `ShotContract`. The current Agent therefore had to keep audience contract, claims, argument order, beat function and shot-to-claim traceability in its own working memory.
-
-Consequence: generated media could be technically well governed while the editorial reasoning that justified the shots remained under-specified and hard to recover.
-
-### G2 — Cross-shot continuity remained too implicit
-
-Asset identity/versioning existed, but “what must remain the same between these two shots?” remained distributed across canon, references and review judgment. A vague single continuity score cannot distinguish hard identity preservation from intentional changes in location, wardrobe, lighting or time.
-
-### G3 — Model router re-collapsed a quality vector into a scalar
-
-`model_registry.py` stored dimensional quality scores but production selection computed a hidden weighted-average `quality_utility` and sorted on it. This recreated the failure mode the architecture explicitly tried to avoid: non-substitutable identity/motion/camera/audio/editability tradeoffs could be erased by one arithmetic average.
-
-It also allowed numeric comparisons without proving the scores came from the same rubric/calibration scope.
-
-### G4 — Provider capabilities were flat when real APIs are conditional
-
-Current provider documentation shows combinations matter. Example: modern video APIs may constrain reference images, duration, resolution, extension source/origin and other modes jointly. A flat set such as `IMAGE_REFERENCES + 1080P + EXTEND` does not prove the requested combination is legal.
-
-Selected external evidence:
-- Google/Veo current official documentation for operation/duration/resolution/reference constraints;
-- Runway current API changelog as evidence of rapid model lifecycle/capability changes.
-
-Architecture implication: provider facts belong in dated operation profiles, not business-code conditionals or permanent vendor branches.
-
-### G5 — Timeline existed, editor handoff identity did not
-
-`TimelineSpec` handled internal non-destructive assembly but had no first-class contract for external editor project/composition identity, exported interchange version, source asset digests or roundtrip receipt.
-
-CURRENT_AGENT read-only dogfood against the connected Descript environment found real prior Pilot 001/002 projects, compositions and published artifacts. That confirmed that external project/composition identity is operationally material; “sent to editor” is not sufficient state.
-
-No external project was mutated during this audit.
-
-### G6 — Growth learning lacked preregistered experiment semantics
-
-Business outcomes correctly remained a vector, but there was no typed object forcing hypothesis, changed variables, metric semantics, guardrails, observation/stop rule and `NO_CLEAR_WINNER`/`INCONCLUSIVE` outcomes to exist before interpretation.
-
-External method evidence:
-- current YouTube title/thumbnail testing explicitly optimizes overall watch time rather than CTR alone and may return no clear winner;
-- controlled experiment methods distinguish single-variable attribution from multi-variable package tests.
-
-### G7 — Current Agent had authority files, but no compact derived operating projection
-
-A resumed Agent can read Program state, subtask graph, project progress, capability evidence and stale assets, but it still has to mentally synthesize “what outcomes matter, what actions are actually ready in parallel, what is blocked, what is stale, what evidence proves progress, where do I recover?”
-
-A new controller would be wrong. The missing artifact is a derived, non-authoritative operator projection.
-
-### G8 — Production/cost method authority drift
-
-`projects/ai-self-media-commercialization/PRODUCTION_AND_COST_STRATEGY.md` still declared `CANDIDATE_MEDIA_BUSINESS_OS_0_7` although 0.7 was already production. `docs/provider_benchmark_protocol.md` similarly labeled the method `CANDIDATE_1.0` even though current architecture depended on it. This can mislead recovery Agents even when runtime is correct.
+1. **Editorial decision bridge was documentary, not executable.** Runtime became mechanical at ShotContract, so audience contract, claim evidence, beat function and shot-to-claim traceability could remain in Agent working memory.
+2. **Cross-shot continuity was too implicit.** Asset identity existed, but hard identity preservation versus intentional world/wardrobe/light/time changes was not represented as explicit relationships.
+3. **Quality vectors were re-collapsed at selection time.** The router stored dimensions but ranked production candidates through a weighted scalar, hiding non-substitutable tradeoffs and calibration differences.
+4. **Provider capabilities were flat.** Feature presence could be mistaken for proof that a particular duration × resolution × reference × source-origin operation combination was legal.
+5. **External-editor identity was missing.** Internal TimelineSpec existed, but project/composition identity, exact exported timeline version, asset digests and return receipts were not first-class. Read-only Descript dogfood against real prior Pilot projects confirmed this mattered operationally; no external project was mutated.
+6. **Growth learning lacked preregistration semantics.** Hypothesis, changed variables, metric semantics, guardrails and no-clear-winner/inconclusive outcomes could be reconstructed after seeing results.
+7. **Resume required excessive mental synthesis.** Authority existed, but there was no compact derived view of governing outcome, parallel-ready work, blockers, stale evidence and recovery refs.
+8. **Method authority drift existed.** Production/cost and benchmark entrypoints still carried stale candidate labels after their surrounding architecture had advanced.
 
 ## Governing assumptions challenged
 
-1. **“If low-level media objects are executable, the Agent can reconstruct editorial planning.”** Rejected. Hidden reconstruction creates recovery and traceability risk.
-2. **“A multidimensional score remains multidimensional if only storage is vectorized.”** Rejected. Selection semantics also must remain vector-aware.
-3. **“A provider capability can be represented as a boolean feature set.”** Rejected for conditional combinations.
-4. **“Internal timeline lineage is enough; external editor state is operational detail.”** Rejected by real connected-editor dogfood.
-5. **“Post-publication metrics are enough to learn.”** Rejected when hypotheses/metric semantics are defined after results.
-6. **“One global next action simplifies operation.”** Rejected because the integrated Program intentionally supports parallel ready workstreams.
-7. **“Adding a universal sequence layer would solve lived-operability.”** Rejected. Representation must follow the concern; sequence/timeline is useful for temporal concerns but not sufficient for authority, causal tradeoffs or cognitive use.
+- “Executable low-level media objects are enough; the Agent can reconstruct editorial logic.” — rejected.
+- “Vector storage is sufficient even if ranking is scalar.” — rejected.
+- “Provider capability can be a flat boolean feature set.” — rejected for conditional combinations.
+- “Internal timeline lineage makes editor project identity an implementation detail.” — rejected by connected-editor dogfood.
+- “Metrics after publication are enough for learning.” — rejected when causal hypotheses and semantics can be authored post hoc.
+- “One global next action is simpler.” — rejected because legitimate Program workstreams can be ready in parallel.
+- “A universal sequence layer would solve operability.” — rejected; structural, temporal, causal and cognitive concerns require different representations.
 
 ## External method synthesis
 
-### MovieLabs OMC / software-defined production
+The redesign reused stable properties rather than vendor recipes:
 
-Useful principle retained:
-- Narrative information should connect to Production elements rather than disappear before production;
-- Context, Task, Asset and Participant relationships make dependencies and consequences of change explicit;
-- upstream narrative changes can propagate to affected downstream production work.
+- MovieLabs/software-defined production: preserve narrative-to-production relationships and make change consequences traceable.
+- Controlled/platform experiment methods: predeclare hypotheses/variants/metric semantics and allow no-clear-winner outcomes.
+- Current provider documentation: use dated evidence for legal operation combinations and lifecycle; do not treat vendor documentation as owner quality ranking.
+- Timeline/editor interchange practice: exchange versioned relationships/metadata without moving business authority into the editor.
 
-Adaptation here:
-- use Video's existing MediaGraph instead of copying MovieLabs ontology wholesale;
-- add editorial-plan versions as first-class upstream assets and bind production outputs to exact versions.
+## Implemented architecture
 
-### Platform experiment methods
+Video 0.8 adds these owner-native bridges:
 
-Useful principle retained:
-- predeclare measurable hypotheses/variants/metric semantics;
-- allow inconclusive/no-clear-winner results;
-- avoid treating CTR or one vanity metric as the sole objective.
+1. `editorial_planning.py` — `EpisodeIntent`, `ClaimSpec`, `BeatSpec`, `ShotIntent`, immutable `EditorialPlan`, evidence gates and explicit ShotContract materialization.
+2. `plan_graph_bridge.py` — EditorialPlan versions become upstream MediaGraph assets so existing invalidation semantics stale only consuming descendants.
+3. `continuity.py` — dimension-level `PRESERVE` / `EXPECT` / `ALLOW_CHANGE`, hard/soft rules and assessments.
+4. `model_registry.py` — operation profiles, rubric/calibration-bound `QualityObservation`, uncertainty-aware floors, Pareto/non-dominated production selection and explicit priority resolution.
+5. `experiments.py` — preregistered hypotheses, changed/fixed variables, metric semantics, guardrails, stop/observation rules and explicit inconclusive/no-clear-winner outcomes.
+6. `editorial_interchange.py` — timeline/version/asset-digest/external-project-composition-bound handoff and roundtrip receipts.
+7. `operator_view.py` — recomputable non-authoritative projection of outcome/focus/ready+blocked actions/stale evidence/risks/recovery; no promotion, mutation or controller authority.
+8. `production_os.py` — ShotContract carries exact editorial plan/beat/claim/continuity/value lineage.
 
-### Provider documentation
+The historical/specialized work-order engine remains an explicit versioned 0.7 compatibility bundle. It was not falsely relabeled 0.8 because its contract did not change. System audit now validates internal adapter-bundle alignment and compatibility with the 0.8 core.
 
-Useful principle retained:
-- official docs establish current capability/limits/terms, not owner production-quality ranking;
-- conditional combinations and provider lifecycle must be represented explicitly;
-- quality remains owner benchmark evidence.
+## Rejected alternatives and failed paths
 
-### Editor interchange
+- Documentation-only repair was rejected because the original failure was precisely that conceptual planning was not runtime state.
+- A universal fixed sequence layer was rejected because representation must follow the concern.
+- Keeping the hidden weighted quality utility while storing vectors was rejected because selection would still be scalar.
+- Vendor-specific business-code branches were rejected because providers are volatile execution substrates.
+- Making OperatorSnapshot canonical state was rejected because it would create a shadow controller.
+- Forcing every experiment to isolate one variable was rejected; multivariate tests are allowed but cannot claim single-variable causality.
 
-Useful principle retained:
-- timeline interchange is metadata/relationship exchange, not media-authority duplication;
-- external adapter capability must be current-session evidence, not repository declaration alone.
+Candidate hardening also preserved several implementation failures rather than rewriting them out:
+- CI `38722504017`: system audit passed, but 3 brittle legacy assertions treated old documentation phrases and an always-empty evolution list as architecture truth.
+- CI `38723241908`: one remaining legacy literal assertion failed after the first repair.
+- CI `38724742019`: system audit and 179 tests passed, but installed-package smoke still incorrectly required the unchanged 0.7 legacy adapter version to equal core package 0.8.0.
 
-## Candidate architecture
+Those failures changed the architecture assurance itself: tests now assert semantic invariants, active evolution items are valid when they resolve to durable refs, and the legacy adapter bundle is explicitly versioned and audited rather than cosmetically relabeled.
 
-Selected six bridges:
+## Final verification and promotion
 
-1. `editorial_planning.py`
-   - `EpisodeIntent`, `ClaimSpec`, `BeatSpec`, `ShotIntent`, immutable `EditorialPlan`;
-   - fact/product-truth evidence gates, beat DAG, shot traceability;
-   - explicit materialization into `ShotContract`.
+Candidate PR: `#15`
+Candidate head: `50bc4a74d7c641875c9625626d5c4634b97ba1fd`
+Candidate CI: `38725408205` / #649 — PASS
 
-2. `continuity.py`
-   - dimension-level hard/soft preserve/expect/allow-change rules;
-   - continuity becomes explicit relationship evidence, not one vague score.
+Candidate gate passed:
+- system hygiene audit;
+- 180-test pytest suite including `tests/test_agent_operable_media_os_trajectory.py`;
+- installed-package CLI smoke outside the repository.
 
-3. `model_registry.py` 0.8 semantics
-   - `OperationProfile` models legal capability combinations;
-   - `QualityObservation` binds score, rubric, calibration scope, uncertainty, evidence class/refs;
-   - hard floors use uncertainty-aware lower bounds;
-   - production forms a Pareto front and uses explicit priorities rather than hidden weighted averages.
+Controlled production merge:
+- production commit: `02d39d8e3609c6d988009f4bc5a7f5d0378128ec`;
+- main production CI: `38725890405` / #650 — PASS;
+- production CI passed system audit, full tests and installed-package smoke.
 
-4. `experiments.py`
-   - preregistered hypotheses, changed/fixed variables, metric semantics, guardrails, observation/stop rules;
-   - single-variable causal attribution is mechanically rejected when multiple variables change;
-   - no-clear-winner/inconclusive are first-class outcomes.
+The end-to-end CURRENT_AGENT trajectory proves one episode can carry durable editorial intent/claim/beat/shot lineage through operation-specific routing, candidate admission, continuity assessment, promotion, MediaGraph lineage, timeline/editor roundtrip, experiment interpretation and later upstream invalidation without hidden state being the only connective tissue.
 
-5. `editorial_interchange.py`
-   - exact internal timeline version, asset refs/digests, adapter capability, external project/composition identity and roundtrip receipt.
+## Protected state / non-goals
 
-6. `operator_view.py`
-   - derived governing outcome/current focus/ready+blocked actions/stale evidence/budget/capability/recovery projection;
-   - explicitly no promotion/mutation/controller authority.
+- H1/A2 image editing was not executed or advanced.
+- Accepted/rejected IP creative decisions were not changed.
+- No provider became a permanent default or received an unevidenced quality ranking.
+- Operator projection did not become authority.
+- No external editor project was mutated during architecture dogfood.
+- Future live published-episode growth/IP/commercial outcomes remain runtime observations; their absence does not reopen implementation completion.
 
-Supporting bridge:
-- `plan_graph_bridge.py` registers immutable editorial-plan versions as MediaGraph assets so existing downstream invalidation mechanics can be reused rather than creating another dependency graph.
+## Result
 
-## Rejected alternatives
-
-### R1 — Documentation-only repair
-Rejected because the original gap was specifically that documentation described intent/beat/shot concepts but runtime did not preserve them.
-
-### R2 — Universal fixed sequence/workflow layer
-Rejected because the user's mention of sequence was illustrative and because structural, temporal, causal and cognitive concerns need different views.
-
-### R3 — Keep weighted quality utility but store vectors alongside it
-Rejected because the actual selection decision would remain scalar even if the database looked multidimensional.
-
-### R4 — Vendor-specific provider subclasses in business code
-Rejected because provider APIs/pricing/lifecycles change quickly and would couple business architecture to vendors.
-
-### R5 — Make OperatorSnapshot a new canonical state/controller
-Rejected because it would create a shadow authority. It is a recomputable projection only.
-
-### R6 — Force every growth test to isolate exactly one variable
-Rejected. Package/creative multivariate tests are useful; they simply cannot claim single-variable causal attribution.
-
-## Verification trajectory so far
-
-- candidate branch created from verified production main before material writes;
-- runtime/test candidate opened as PR #15;
-- first full candidate CI #589 passed system hygiene audit, full pytest and installed CLI smoke test;
-- full architecture/profile/version/system-audit reconciliation is still pending and therefore this evolution remains candidate/open.
-
-## Non-goals / protected state
-
-- do not execute H1/A2 image editing during system maintenance;
-- do not change accepted/rejected IP creative decisions;
-- do not make any provider a permanent default;
-- do not claim owner quality rankings before benchmarks exist;
-- do not convert the operator projection into a second business authority;
-- do not auto-publish or mutate external editor projects as part of architecture dogfood.
-
-## Next candidate checks
-
-1. update system audit to fail closed if 0.8 current surfaces disappear;
-2. update product/architecture/Skill/Manifest/Capabilities/runtime version coherently;
-3. add scenario-level trajectory tests across editorial plan -> production -> graph invalidation -> operator recovery;
-4. rerun full CI on latest head;
-5. reverse-audit docs vs runtime for residual 0.7/candidate authority drift;
-6. only then promote through controlled merge + production CI + closure evidence + UAOS parent observation refresh.
+`V-20261015-02-AGENT_OPERABLE_MEDIA_OS` is resolved. Video 0.8.0 is the verified production core. The current Agent now has durable creative-decision state, explicit continuity, condition-aware provider routing, editor roundtrip identity, preregistered experimentation, recomputable operating context and an end-to-end recovery/invalidation path, while preserving the existing Program/business/asset authorities and the 0.7 compatibility adapter bundle.
