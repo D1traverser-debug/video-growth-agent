@@ -1,7 +1,7 @@
 # AI-Native Media Business OS — Global Redesign Audit
 
 Date: 2026-10-15
-Status: `CANDIDATE_IMPLEMENTATION`
+Status: `PROMOTED_RESOLVED_PRODUCTION_0_7_0`
 Owner: `DOMAIN:video`
 Scope: full product/architecture reconsideration of AI-video production + media growth + original digital IP + commercialization.
 
@@ -315,30 +315,45 @@ Retain as compatibility/support surfaces:
 - program orchestration graph;
 - historical audits/rejected evidence.
 
-Promote the new object/shot/business architecture as the primary conceptual authority, then migrate execution paths incrementally behind tests. This avoids a big-bang deletion that destroys validated recovery semantics.
+Promote the new object/shot/business architecture as the primary conceptual authority while retaining these proven adapters behind regression tests. This avoided a big-bang deletion that would have destroyed validated recovery semantics.
 
-## 7. Candidate acceptance criteria
+## 7. Acceptance criteria and result
 
-1. Existing system audit remains green; old hard gates are not weakened for historical paths.
-2. Existing pytest remains green.
-3. Canonical `MediaGraph` tests prove stable identity, non-destructive asset versions, evidence-bound decisions, promotion pointers, persistence and downstream invalidation.
-4. Timeline tests prove exact asset-version references, promoted-asset admission and non-destructive master/platform-variant lineage.
-5. Typed business-object tests prove content portfolio, distinctive-asset observations, CommercialFit, RightsPackage and priced offer evidence constraints.
-6. New model-registry tests prove current evidence, deprecation, reference budgets, commercial terms and quality vectors affect routing.
-7. New production tests prove candidate generation != promotion != release.
-8. Product-truth cannot be satisfied by an unverified synthetic route.
-9. High-risk/HERO promotion requires independent review evidence; low-risk exploration can proceed without unavailable release-grade reviewer infrastructure.
-10. New business metrics remain vector-valued and do not collapse into one vanity score.
-11. Video Common Behavior 1.2 behavior is trajectory-tested: recover before asking user; repair-or-block closure.
-12. System audit must fail closed if any canonical 0.7 runtime surface declared by the manifest/capability profile disappears or drifts.
-13. New evolution entrypoint exposes the redesign and deeper causal audit.
-14. Package/install smoke proves new public modules ship.
-15. Candidate CI then production CI must pass before parent UAOS observation is refreshed.
+1. Existing system audit remains green; old hard gates are not weakened for historical paths. — PASS.
+2. Existing pytest remains green. — PASS.
+3. Canonical `MediaGraph` tests prove stable identity, non-destructive asset versions, evidence-bound decisions, promotion pointers, persistence and downstream invalidation. — PASS.
+4. Timeline tests prove exact asset-version references, promoted-asset admission and non-destructive master/platform-variant lineage. — PASS.
+5. Typed business-object tests prove content portfolio, distinctive-asset observations, CommercialFit, RightsPackage and priced offer evidence constraints. — PASS.
+6. New model-registry tests prove current evidence, deprecation, reference budgets, commercial terms and quality vectors affect routing. — PASS.
+7. New production tests prove candidate generation != promotion != release. — PASS.
+8. Product-truth cannot be satisfied by an unverified synthetic route. — PASS.
+9. High-risk/HERO promotion requires independent review evidence; low-risk exploration can proceed without unavailable release-grade reviewer infrastructure. — PASS.
+10. New business metrics remain vector-valued and do not collapse into one vanity score. — PASS.
+11. Video Common Behavior 1.2 behavior is trajectory-tested: recover before asking user; repair-or-block closure. — PASS.
+12. System audit fails closed if any canonical 0.7 runtime surface declared by the manifest/capability profile disappears or drifts. — PASS, including negative deletion regression.
+13. New evolution entrypoint exposes the redesign and deeper causal audit. — PASS.
+14. Package/install smoke proves new public modules ship. — PASS.
+15. Candidate CI then production CI must pass before parent UAOS observation is refreshed. — PASS.
 
-## 8. Remaining assurance boundary before promotion
+## 8. Production promotion evidence
 
-This candidate can mechanically verify architecture, routing semantics, admissions and package integrity. It cannot by itself prove one specific provider will outperform another on the user's real content, nor can it prove live account growth/sponsor outcomes before real episodes exist.
+Controlled promotion path:
 
-Therefore provider quality observations remain dated/replaceable and the post-promotion business assurance ceiling will be:
+- candidate PR: `#12` — `architecture: rebuild Video as AI-native media business OS 0.7`;
+- final candidate head: `99288175d3b34550586236d1e809960e60203baa`;
+- final candidate CI: run `38690408574` / #552 — PASS for system hygiene audit, full pytest and installed CLI smoke;
+- production merge commit: `ad51bb76188eb0184cf8434384109c5c1257a60c`;
+- production main CI: run `38690550495` / #554 — PASS for system hygiene audit, full pytest and installed CLI smoke;
+- production reread confirms package/runtime `0.7.0`, Manifest canonical runtime refs, capability profile `8`, Common Behavior minimum `1.2.0`, preserved H1 A2 business cursor and preserved Pilot 002 rejection/process-invalid evidence.
+
+No creative H1/A2 action was executed by this system maintenance. The original corrected S1+S3 front gray sculpt remains the accepted fixed face shell; A2 positive-morph upper-face tuning remains the next creative action.
+
+## 9. Post-promotion assurance boundary
+
+The production system mechanically verifies architecture, routing semantics, admissions, canonical runtime integrity and package behavior. It does not fabricate evidence that one provider will outperform another on future real content, and it cannot prove live account growth/sponsor outcomes before published episodes create those observations.
+
+Therefore provider quality observations remain dated/replaceable and the active business assurance ceiling is:
 
 `EXECUTABLE_MEDIA_BUSINESS_OS_AND_TRAJECTORY_VERIFIED__LIVE_EPISODE_GROWTH_IP_COMMERCIAL_OUTCOME_OBSERVATION_OPEN`.
+
+That open observation boundary is an intended runtime-learning condition, not unfinished 0.7 implementation. Future evidence enters bounded learning candidates and does not reopen this resolved redesign unless it falsifies a governing invariant or exposes a new failure class.

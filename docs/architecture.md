@@ -1,6 +1,6 @@
 # Video Growth Agent — Architecture
 
-Status: `CANDIDATE_0_7_0`
+Status: `PRODUCTION_0_7_0`
 Owner: `DOMAIN:video`
 Primary product architecture: `docs/media_business_os.md`
 

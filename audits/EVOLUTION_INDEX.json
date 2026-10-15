@@ -1,29 +1,24 @@
 {
   "schema_version":"1.0",
   "owner":"DOMAIN:video",
-  "revision":"1.1",
-  "updated_at":"2026-10-15T14:02:00+08:00",
+  "revision":"1.2",
+  "updated_at":"2026-10-15T14:09:00+08:00",
   "common_behavior_assurance_min":"1.2.0",
-  "current_open_items":[
-    "V-20261015-01-AI_NATIVE_MEDIA_BUSINESS_OS_REDESIGN"
-  ],
-  "current_problem_refs":{
-    "V-20261015-01-AI_NATIVE_MEDIA_BUSINESS_OS_REDESIGN":{
-      "status":"CANDIDATE_VALIDATION",
-      "evidence_ref":"audits/AI_NATIVE_MEDIA_BUSINESS_OS_REDESIGN_2026-10-15.md",
-      "failure_classes":[
-        "STAGE_ROLE_PIPELINE_OVERFIT",
-        "PREGEN_REVIEW_PARALYSIS",
-        "SCALAR_MODEL_QUALITY_OVERCOMPRESSION",
-        "ADJACENT_WORKSTREAMS_WITH_INSUFFICIENT_FEEDBACK_EDGES",
-        "COMMON_BEHAVIOR_DECLARATION_WITHOUT_VIDEO_OWNER_NATIVE_ADMISSION"
-      ],
-      "candidate_branch":"feat/video-production-os-v1-20261015",
-      "target_release":"0.7.0",
-      "assurance_target":"EXECUTABLE_MEDIA_BUSINESS_OS_AND_TRAJECTORY_VERIFIED__LIVE_EPISODE_GROWTH_IP_COMMERCIAL_OUTCOME_OPEN"
-    }
-  },
+  "current_open_items":[],
+  "current_problem_refs":{},
   "recent_resolved_or_promoted":[
+    {
+      "id":"V-20261015-01-AI_NATIVE_MEDIA_BUSINESS_OS_REDESIGN",
+      "ref":"audits/AI_NATIVE_MEDIA_BUSINESS_OS_REDESIGN_2026-10-15.md",
+      "status":"RESOLVED_PRODUCTION_0_7_0",
+      "release":"0.7.0",
+      "candidate_pr":12,
+      "candidate_head":"99288175d3b34550586236d1e809960e60203baa",
+      "candidate_ci_run":38690408574,
+      "production_commit":"ad51bb76188eb0184cf8434384109c5c1257a60c",
+      "production_ci_run":38690550495,
+      "assurance":"EXECUTABLE_MEDIA_BUSINESS_OS_AND_TRAJECTORY_VERIFIED__LIVE_EPISODE_GROWTH_IP_COMMERCIAL_OUTCOME_OBSERVATION_OPEN"
+    },
     {
       "ref":"audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md",
       "status":"HISTORICAL_0_6_PRODUCT_ORCHESTRATION_REPAIR__SUPERSEDED_IN_PART_BY_0_7_MEDIA_BUSINESS_OS"
@@ -65,5 +60,5 @@
     "audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md",
     "projects/pilot-002/PROGRAM_STATE.json"
   ],
-  "assurance":"CANDIDATE_ONLY__PRODUCTION_0_6_REMAINS_AUTHORITY_UNTIL_0_7_VALIDATION_AND_CONTROLLED_PROMOTION"
+  "assurance":"PRODUCTION_0_7_0_EXECUTABLE_AND_TRAJECTORY_VERIFIED__LIVE_OUTCOME_OBSERVATION_OPEN_BY_DESIGN"
 }
