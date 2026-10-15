@@ -38,6 +38,8 @@ class EditorialHandoff:
     asset_digests: tuple[str, ...]
     source_refs: tuple[str, ...]
     purpose: str
+    external_project_ref: str = ""
+    external_composition_ref: str = ""
 
     def __post_init__(self) -> None:
         if not all(str(value).strip() for value in (self.handoff_id, self.adapter_id, self.timeline_id, self.timeline_version, self.interchange_format, self.purpose)):
@@ -48,6 +50,8 @@ class EditorialHandoff:
             raise InterchangeError("handoff asset refs and digests must align")
         if not self.source_refs:
             raise InterchangeError("handoff requires source_refs")
+        if bool(self.external_composition_ref) and not bool(self.external_project_ref):
+            raise InterchangeError("external composition requires external project identity")
 
 
 @dataclass(frozen=True)
@@ -60,6 +64,8 @@ class EditorialRoundTripReceipt:
     returned_format: str
     change_summary_ref: str
     executable_receipt_refs: tuple[str, ...]
+    external_project_ref: str = ""
+    external_composition_ref: str = ""
 
     def __post_init__(self) -> None:
         if not all(
@@ -77,6 +83,8 @@ class EditorialRoundTripReceipt:
             raise InterchangeError("roundtrip receipt fields are required")
         if not self.executable_receipt_refs:
             raise InterchangeError("roundtrip requires execution evidence")
+        if bool(self.external_composition_ref) and not bool(self.external_project_ref):
+            raise InterchangeError("roundtrip external composition requires project identity")
 
 
 def prepare_editorial_handoff(
@@ -88,6 +96,8 @@ def prepare_editorial_handoff(
     interchange_format: str,
     purpose: str,
     source_refs: tuple[str, ...],
+    external_project_ref: str = "",
+    external_composition_ref: str = "",
 ) -> EditorialHandoff:
     if not adapter.executable_now:
         raise InterchangeError("editor adapter is not executable in the current session")
@@ -109,6 +119,8 @@ def prepare_editorial_handoff(
         asset_digests=tuple(digests),
         source_refs=source_refs,
         purpose=purpose,
+        external_project_ref=external_project_ref,
+        external_composition_ref=external_composition_ref,
     )
 
 
@@ -128,4 +140,8 @@ def validate_roundtrip(
         raise InterchangeError("roundtrip imported the wrong timeline version")
     if receipt.returned_format not in adapter.export_formats:
         raise InterchangeError("returned format is not currently supported")
+    if handoff.external_project_ref and receipt.external_project_ref != handoff.external_project_ref:
+        raise InterchangeError("roundtrip returned from a different external project")
+    if handoff.external_composition_ref and receipt.external_composition_ref != handoff.external_composition_ref:
+        raise InterchangeError("roundtrip returned from a different external composition")
     return "ROUNDTRIP_VERIFIED"
