@@ -9,33 +9,50 @@ Executable AI-native media business domain owner under `D1traverser-debug/univer
 - `docs/product_requirements.md` — current product requirements.
 - `docs/media_business_os.md` — primary media-business architecture.
 - `docs/architecture.md` — compact architecture/compatibility view.
+- `docs/agent_operability_scenarios.md` — CURRENT_AGENT dogfood, failure/recovery and resume acceptance scenarios.
 - `docs/provider_benchmark_protocol.md` — owner benchmark method for volatile provider quality/cost evidence.
 - `projects/PROJECT_INDEX.json` — child-owned project/program discovery authority.
 - `projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json` — growth/IP/commercial/production feedback loops.
 - `audits/EVOLUTION_INDEX.json` — canonical Video evolution-evidence entrypoint.
-- `video_growth_agent/data/` — legacy/specialized episode workflow, specialists and coordination resources.
+- `video_growth_agent/data/` — versioned legacy/specialized episode workflow, specialists and coordination resources.
 - binary/media stores — evidence only when bound by stable refs/digests; never business authority by presence alone.
 
 There is no active repository-local parent task index, lease/resume protocol or second cross-chat controller. UAOS router identity remains distinct from all Video business identities.
 
-## Runtime 0.7.0
+## Runtime 0.8.0 candidate
 
-Video 0.7.0 uses three linked but distinct operational graphs:
+Video 0.8 makes the media-business system operable from natural-language/editorial intent through production and learning rather than starting mechanically at the Shot layer.
+
+The current executable chain is:
+
+`EpisodeIntent -> ClaimSpec -> BeatSpec -> ShotIntent -> EditorialPlan -> ShotContract -> ModelRoutingDecision -> CandidateTake -> ContinuityAssessment -> Promotion -> Timeline -> Editor handoff/roundtrip -> PlatformVariant -> Release -> Experiment/Outcome -> LearningCandidate`
+
+Linked state surfaces remain distinct:
 
 1. **Media-business Program graph** — portfolio/growth/IP/commercial/production tasks and decisions.
-2. **Media context/asset graph** — `Program -> Series -> Episode -> Sequence -> Scene -> Shot -> Take`, versioned assets, references, lineage, evidence and promotion.
-3. **Editorial timeline** — non-destructive temporal assembly and platform variants.
+2. **Editorial decision state** — episode intent, claims, beats, shot intents and immutable plan versions.
+3. **Media context/asset graph** — `Program -> Series -> Episode -> Sequence -> Scene -> Shot -> Take`, versioned assets, references, lineage, evidence and promotion.
+4. **Continuity relations** — dimension-level preserve/expect/allowed-change state across shots.
+5. **Editorial timeline/interchange** — non-destructive temporal assembly, platform variants and external-editor handoff/return identity.
+6. **Experiment/outcome state** — pre-registered tests and typed growth/production/commercial observations.
+7. **Operator projection** — recomputable current-Agent view of outcome, ready/blocking actions, stale evidence and recovery refs; never authority.
 
-The previous stage/work-order episode engine is retained as a proven execution/compatibility adapter. It is not the entire product ontology.
+The previous stage/work-order episode engine remains a proven 0.7 compatibility adapter bundle. Its resource version may trail the 0.8 core while unchanged; the bundle must remain internally version-aligned and system-audit verified.
 
-Core runtime surfaces:
+Core 0.8 runtime surfaces:
 
 - `media_graph.py` — stable Context/AssetVersion/Task/Evidence/Decision identities, promotion pointers, persistence, lineage and downstream invalidation;
-- `production_os.py` — shot/reference/take contracts, candidate-generation admission, asset promotion and release admission;
-- `timeline.py` — editor-neutral non-destructive master/variant timeline metadata bound to exact promoted asset versions;
+- `editorial_planning.py` — EpisodeIntent/Claim/Beat/ShotIntent/EditorialPlan and explicit materialization into production contracts;
+- `plan_graph_bridge.py` — editorial-plan versions as MediaGraph upstream assets so revisions stale only affected descendants;
+- `production_os.py` — editorial-traceable shot/reference/take contracts and generation/promotion/release admission;
+- `continuity.py` — cross-shot dimension-level continuity contracts and assessments;
+- `model_registry.py` — provider-neutral operation-profile legality plus rubric/calibration-bound, uncertainty-aware Pareto routing;
+- `timeline.py` — editor-neutral non-destructive master/variant timeline metadata bound to promoted asset versions;
+- `editorial_interchange.py` — external editor/NLE handoff and roundtrip receipts bound to timeline/project/composition identity;
+- `experiments.py` — pre-registered hypothesis/variant/metric/guardrail/stop-rule contracts and causal-attribution boundaries;
 - `business_objects.py` — typed content-portfolio, distinctive-asset, commercial-fit, rights-package, offer and business-decision objects;
-- `model_registry.py` — provider-neutral, dated capability/quality/cost/terms routing;
 - `business_metrics.py` — platform, production and commercial outcome receipts without one vanity score;
+- `operator_view.py` — non-authoritative CURRENT_AGENT projection;
 - `owner_behavior_admission.py` — UAOS Common Behavior 1.2 owner-native recovery/escalation/repair closure.
 
 ## Integrated Media Business Program
@@ -50,7 +67,7 @@ The Program keeps four business views:
 
 They are evidence-coupled rather than isolated. Audience evidence changes portfolio hypotheses; portfolio/series strategy informs IP and advertiser fit; promoted IP assets affect packaging/recognition/production; commercial deliverables and rights can affect verified product-asset needs; production cost/retry/reuse evidence feeds future format investment. Editorial truth and audience trust remain hard constraints.
 
-Historical Pilot projects remain separately resumable and keep rejected/process-invalid evidence.
+Historical Pilot projects remain separately resumable and retain their own adapter/runtime identity plus rejected/process-invalid evidence.
 
 ## Candidate -> promotion -> release
 
@@ -61,21 +78,19 @@ Safe exploration is not the same as approval.
 - HIGH/HERO/BRAND_TRUTH promotion can require independent/attested review.
 - Release remains fail-closed on final-media identity, technical QA, rights, claim/product truth, provenance, disclosure/platform validation and release authority.
 
-This avoids both unsafe auto-promotion and the old failure mode where unavailable release-grade reviewers could prevent every learnable candidate from existing.
-
 ## Provider/model strategy
 
 No vendor is permanent architecture. Current provider/model facts are dated observations.
 
-The router can reason about generation/edit mode, reference budgets, identity/continuity, camera/action/audio, duration/resolution, quality-vector floors, current availability/deprecation, commercial terms/provenance, price and latency.
+Capability is expressed by operation profile so a model cannot be treated as supporting every combination merely because its feature list separately mentions references, resolution or extension. Production quality evidence must bind compatible rubric/calibration scope and uncertainty. After hard capability/rights/terms/budget floors, production selection uses non-dominated quality vectors and explicit shot priorities rather than a hidden weighted-average authority.
 
-Official vendor documentation establishes capabilities/limits/terms, not our quality ranking. Production quality scores require the stable benchmark pack in `docs/provider_benchmark_protocol.md` or exact production evidence.
+Official vendor documentation establishes capabilities/limits/terms, not our quality ranking. Production observations require the stable benchmark pack in `docs/provider_benchmark_protocol.md` or exact production evidence.
 
-## IP, growth and commercialization
+## IP, growth, experiments and commercialization
 
 IP is a reusable distinctive asset system, not only character aesthetics. Canon is versioned and can include structural identity, expression, wardrobe/props, color/material/light, voice/performance, gesture, world grammar and distinctive audio/visual motifs.
 
-Platform derivatives preserve master lineage but re-author hook, packaging, pacing and conclusion for the destination platform; short-form is not blind clipping.
+Platform derivatives preserve master lineage but re-author hook, packaging, pacing and conclusion for the destination platform. Material packaging/content/IP tests are pre-registered where causal learning matters; `NO_CLEAR_WINNER` and `INCONCLUSIVE` are valid outcomes and multivariable tests cannot masquerade as single-variable causality.
 
 Commercial planning may begin before production when rights, sponsor deliverables, product-truth media or measurement alter the work. Sponsorship never overrides factual/editorial truth. Pricing learns from audience evidence, production cost, rights scope and real outcomes rather than a single static rate card.
 
@@ -87,9 +102,9 @@ Before generation/edit/review/QA/release, handshake the exact current-session ca
 
 Missing a high-assurance reviewer blocks only operations that require that tier. Missing a real generation provider blocks the affected shot or activates its declared degradation path; it never authorizes fabricated execution.
 
-## Cognition and evolution
+## Cognition, dogfood and evolution
 
-Video inherits UAOS common cognition and Common Behavior Assurance 1.2. It must recover current authority/evidence before asking the user for a plausibly recoverable dependency. A repairable system problem with available authority/tooling cannot stop at a recommendation; it must be repaired, concretely blocked or preserved with evidence-backed no-change.
+Video inherits UAOS common cognition, Common Behavior Assurance 1.2 and the Architecture Experience policy. Material architecture/Agent-experience changes are exercised through concern-appropriate structural/temporal/causal/cognitive views and CURRENT_AGENT scenarios rather than accepted from document completeness alone.
 
 Video-specific media/growth/IP/commercial rules remain Video-owned. Cross-domain/common mechanisms upcall UAOS. Durable evolution requires causal history plus tests/replay and post-promotion observation.
 
@@ -102,6 +117,6 @@ vga system-audit --repo-root .
 pytest -q
 ```
 
-The system audit covers parent/common binding, Video business ownership, all canonical 0.7 runtime surfaces, Media Business OS authorities, project/flywheel integrity, provider-neutral capability semantics, Program graph validity, absence of a parallel controller, artifact reachability, specialist/task consistency, evolution discoverability and runtime-version consistency. It fails closed when a declared canonical runtime surface disappears or drifts.
+The system audit covers parent/common binding, Video business ownership, all canonical 0.8 runtime surfaces, agent-operability scenario presence, Media Business OS authorities, project/flywheel integrity, provider-neutral capability semantics, Program graph validity, absence of a parallel controller, artifact reachability, legacy-adapter bundle consistency, evolution discoverability and runtime-version consistency. It fails closed when a declared canonical runtime surface disappears or drifts.
 
 CI success is validation evidence, not branch-protection enforcement unless GitHub separately reports branch protection/rulesets as enabled.

@@ -1,5 +1,5 @@
 {
-  "schema_version":"1.2",
+  "schema_version":"1.3",
   "program_id":"ai-self-media-commercialization",
   "display_name_zh":"AI自媒体视频增长、商业化与原创数字IP",
   "owner":"VIDEO_GROWTH_AGENT",
@@ -33,9 +33,9 @@
       "blocked_by":[]
     },
     "PRODUCTION_SYSTEM":{
-      "status":"ACTIVE_MEDIA_BUSINESS_OS_0_7_PRODUCTION",
-      "current_state":"Media Business OS 0.7.0 is the verified production baseline. It owns a canonical stable media graph, shot/reference/take generation-promotion-release admission, non-destructive editorial timeline, typed growth/IP/commercial objects, provider-neutral evidence-bound routing, vector business outcomes and owner-native Common Behavior 1.2. Safe candidate exploration is separated from acceptance; promotion/release remain fail-closed and risk-proportional. Legacy work-order/runtime/QA paths remain supported adapters rather than the whole product ontology.",
-      "authority_refs":["../../docs/media_business_os.md","../../docs/provider_benchmark_protocol.md","../../video_growth_agent/media_graph.py","../../video_growth_agent/production_os.py","../../video_growth_agent/timeline.py","../../video_growth_agent/business_objects.py","../../video_growth_agent/model_registry.py","../../video_growth_agent/business_metrics.py","../../video_growth_agent/owner_behavior_admission.py","../../audits/EVOLUTION_INDEX.json"],
+      "status":"MEDIA_BUSINESS_OS_0_8_RELEASE_CANDIDATE__0_7_PRODUCTION_BASELINE",
+      "current_state":"Media Business OS 0.7.0 remains the current production baseline while 0.8.0 is under controlled promotion. The 0.8 candidate makes the system current-Agent-operable from EpisodeIntent/Claim/Beat/ShotIntent through plan-version lineage, ShotContract, dimension-level continuity, operation-specific calibrated/Pareto model routing, non-destructive timeline/editor roundtrip, pre-registered experiments, outcome learning and a non-authoritative operator projection. Core 0.8 runtime surfaces are versioned separately from the unchanged 0.7 legacy work-order adapter bundle. Candidate existence does not imply production promotion.",
+      "authority_refs":["../../docs/media_business_os.md","../../docs/agent_operability_scenarios.md","../../docs/provider_benchmark_protocol.md","../../video_growth_agent/media_graph.py","../../video_growth_agent/editorial_planning.py","../../video_growth_agent/plan_graph_bridge.py","../../video_growth_agent/production_os.py","../../video_growth_agent/continuity.py","../../video_growth_agent/model_registry.py","../../video_growth_agent/timeline.py","../../video_growth_agent/editorial_interchange.py","../../video_growth_agent/experiments.py","../../video_growth_agent/operator_view.py","../../video_growth_agent/business_objects.py","../../video_growth_agent/business_metrics.py","../../video_growth_agent/owner_behavior_admission.py","../../audits/EVOLUTION_INDEX.json"],
       "blocked_by":[]
     }
   },
@@ -51,6 +51,6 @@
   ],
   "current_focus":"ORIGINAL_DIGITAL_IP/H1_SCULPTURAL_MASSING_V2",
   "current_next_action":"Execute A2 positive-morph upper-face edit on the original corrected S1+S3 fixed face shell; compare directly to the accepted base before cheek-jaw correction or three-quarter validation. System redesign must not advance this creative action automatically.",
-  "system_next_action":"Production-system redesign is closed at 0.7.0. Future production evolution consumes owner benchmark evidence, real episode economics/quality trajectories and live growth/IP/commercial outcomes through bounded learning candidates; lack of future live observations is not an implementation blocker.",
-  "updated_at":"2026-10-15T14:08:00+08:00"
+  "system_next_action":"Finish 0.8.0 controlled promotion: full system audit + pytest + installed CLI smoke on PR #15, merge only after candidate CI passes, verify main production CI, reread production authority, then close V-20261015-02 with exact production evidence. Do not advance H1/A2 as part of system promotion.",
+  "updated_at":"2026-10-15T18:57:42+08:00"
 }

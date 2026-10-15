@@ -31,6 +31,7 @@ CURRENT_GLOBAL_FILES = (
     "docs/media_business_os.md",
     "docs/architecture.md",
     "docs/provider_benchmark_protocol.md",
+    "docs/agent_operability_scenarios.md",
     "projects/PROJECT_INDEX.json",
     "audits/EVOLUTION_INDEX.json",
 )
@@ -61,6 +62,13 @@ def _package_version() -> str:
 def _repo_runtime_version(root: Path) -> str:
     pyproject = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
     return str(pyproject["project"]["version"])
+
+
+def _semver_tuple(value: str) -> tuple[int, int, int]:
+    match = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)", str(value).strip())
+    if not match:
+        raise ValueError(f"unsupported semantic version: {value}")
+    return tuple(int(part) for part in match.groups())
 
 
 def _project_aliases(root: Path) -> set[str]:
@@ -178,6 +186,34 @@ def _technique_failures() -> list[str]:
     return failures
 
 
+def _legacy_adapter_version_failures(
+    *,
+    agent_version: str,
+    plan_version: str,
+    coordination_version: str,
+    runtime_version: str | None,
+) -> list[str]:
+    failures: list[str] = []
+    versions = {agent_version, plan_version, coordination_version}
+    if len(versions) != 1:
+        failures.append(
+            "legacy_adapter_bundle_version_misaligned:"
+            + f"agents={agent_version}:plan={plan_version}:coordination={coordination_version}"
+        )
+        return failures
+    adapter_version = next(iter(versions))
+    try:
+        _semver_tuple(adapter_version)
+        if runtime_version and runtime_version != "UNINSTALLED_EDITABLE_SOURCE":
+            if _semver_tuple(adapter_version) > _semver_tuple(runtime_version):
+                failures.append(
+                    f"legacy_adapter_bundle_newer_than_runtime:{adapter_version}>{runtime_version}"
+                )
+    except ValueError as exc:
+        failures.append(f"legacy_adapter_bundle_version_invalid:{exc}")
+    return failures
+
+
 def package_audit() -> dict[str, Any]:
     failures: list[str] = []
     agents = AgentRegistry()
@@ -259,13 +295,14 @@ def package_audit() -> dict[str, Any]:
     if role_cfg.get("canonical_prompt_source") != "skills/video-growth-agent/references/team.md":
         failures.append("roles_canonical_prompt_source_not_explicit")
 
-    if package_version != "UNINSTALLED_EDITABLE_SOURCE":
-        if agents.config.get("version") != package_version:
-            failures.append("agent_registry_package_version_drift")
-        if planner.config.get("version") != package_version:
-            failures.append("execution_plan_package_version_drift")
-        if coordination.get("version") != package_version:
-            failures.append("coordination_policy_package_version_drift")
+    failures.extend(
+        _legacy_adapter_version_failures(
+            agent_version=str(agents.config.get("version") or ""),
+            plan_version=str(planner.config.get("version") or ""),
+            coordination_version=str(coordination.get("version") or ""),
+            runtime_version=package_version,
+        )
+    )
 
     return {
         "scope": "package",
@@ -274,6 +311,7 @@ def package_audit() -> dict[str, Any]:
         "agent_registry_version": agents.config.get("version"),
         "execution_plan_version": planner.config.get("version"),
         "coordination_policy_version": coordination.get("version"),
+        "legacy_adapter_bundle_version": agents.config.get("version"),
         "failures": failures,
         "pass": not failures,
     }
@@ -283,12 +321,14 @@ def _media_business_failures(root: Path, runtime_version: str) -> list[str]:
     failures: list[str] = []
     product_doc = root / "docs/media_business_os.md"
     benchmark_doc = root / "docs/provider_benchmark_protocol.md"
+    operability_doc = root / "docs/agent_operability_scenarios.md"
     flywheel_path = root / "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json"
     evolution_path = root / "audits/EVOLUTION_INDEX.json"
 
     for path, label in (
         (product_doc, "media_business_os_missing"),
         (benchmark_doc, "provider_benchmark_protocol_missing"),
+        (operability_doc, "agent_operability_scenarios_missing"),
         (flywheel_path, "business_flywheel_missing"),
         (evolution_path, "evolution_index_missing"),
     ):
@@ -299,7 +339,10 @@ def _media_business_failures(root: Path, runtime_version: str) -> list[str]:
         text = product_doc.read_text(encoding="utf-8")
         for token in (
             "Program -> Series -> Episode -> Sequence -> Scene -> Shot -> Take",
+            "EpisodeIntent -> ClaimSpec -> BeatSpec -> ShotIntent -> ShotContract",
             "generation admission != asset promotion != release admission",
+            "Quality is not collapsed into one hidden weighted average",
+            "OperatorSnapshot",
             "AI-native media business operating system",
         ):
             if token not in text:
@@ -310,6 +353,12 @@ def _media_business_failures(root: Path, runtime_version: str) -> list[str]:
         for benchmark_id in ("B01", "B04", "B06", "B08", "B10"):
             if benchmark_id not in text:
                 failures.append(f"provider_benchmark_archetype_missing:{benchmark_id}")
+
+    if operability_doc.is_file():
+        text = operability_doc.read_text(encoding="utf-8")
+        for token in ("CURRENT_AGENT", "failure", "recovery"):
+            if token.lower() not in text.lower():
+                failures.append(f"agent_operability_semantic_missing:{token}")
 
     if flywheel_path.is_file():
         flywheel = _json(flywheel_path)
@@ -339,14 +388,24 @@ def _media_business_failures(root: Path, runtime_version: str) -> list[str]:
             failures.append("video_evolution_common_behavior_min_drift")
         if not evolution.get("current_open_items") and not evolution.get("recent_resolved_or_promoted"):
             failures.append("video_evolution_index_empty")
+        for item_id in evolution.get("current_open_items", []):
+            ref = evolution.get("current_problem_refs", {}).get(item_id)
+            if not ref or not (root / ref).is_file():
+                failures.append(f"video_evolution_open_item_ref_missing:{item_id}")
 
     required_runtime_files = (
         "video_growth_agent/media_graph.py",
+        "video_growth_agent/editorial_planning.py",
+        "video_growth_agent/plan_graph_bridge.py",
         "video_growth_agent/production_os.py",
-        "video_growth_agent/timeline.py",
-        "video_growth_agent/business_objects.py",
+        "video_growth_agent/continuity.py",
         "video_growth_agent/model_registry.py",
+        "video_growth_agent/timeline.py",
+        "video_growth_agent/editorial_interchange.py",
+        "video_growth_agent/experiments.py",
+        "video_growth_agent/business_objects.py",
         "video_growth_agent/business_metrics.py",
+        "video_growth_agent/operator_view.py",
         "video_growth_agent/owner_behavior_admission.py",
     )
     for rel in required_runtime_files:
@@ -402,7 +461,7 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             failures.append("uaos_capability_owner_drift")
         if capability.get("execution_readiness_contract") != "2.0":
             failures.append("uaos_execution_readiness_contract_drift")
-        if capability.get("profile_version") != 8:
+        if capability.get("profile_version") not in {8, 9}:
             failures.append("uaos_capability_profile_drift")
         if capability.get("uaos_common_capabilities_contract_min") != "1.6.0":
             failures.append("uaos_common_capability_minimum_drift")
@@ -446,6 +505,7 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
                 failures.append(f"media_business_capability_missing:{required_id}")
 
     manifest_path = root / ".uaos/MANIFEST.json"
+    legacy_adapter_version = ""
     if manifest_path.is_file():
         manifest = _json(manifest_path)
         if manifest.get("controller") != "D1traverser-debug/universal-agent-os@main":
@@ -457,26 +517,38 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
         runtime = manifest.get("runtime", {})
         if runtime.get("version") != runtime_version:
             failures.append("uaos_manifest_runtime_version_drift")
+        legacy_adapter_version = str(runtime.get("legacy_adapter_bundle_version") or runtime_version)
         expected_runtime_refs = {
             "episode_workflow": "video_growth_agent/data/workflow.json",
             "program_orchestration": "video_growth_agent/program_orchestration.py",
             "media_graph": "video_growth_agent/media_graph.py",
+            "editorial_planning": "video_growth_agent/editorial_planning.py",
+            "plan_graph_bridge": "video_growth_agent/plan_graph_bridge.py",
             "media_business_os": "video_growth_agent/production_os.py",
+            "continuity": "video_growth_agent/continuity.py",
             "timeline": "video_growth_agent/timeline.py",
+            "editorial_interchange": "video_growth_agent/editorial_interchange.py",
+            "experiments": "video_growth_agent/experiments.py",
             "business_objects": "video_growth_agent/business_objects.py",
             "model_registry": "video_growth_agent/model_registry.py",
             "business_metrics": "video_growth_agent/business_metrics.py",
+            "operator_view": "video_growth_agent/operator_view.py",
             "owner_behavior_admission": "video_growth_agent/owner_behavior_admission.py",
             "system_audit": "vga system-audit --repo-root .",
         }
         for key, expected in expected_runtime_refs.items():
             if runtime.get(key) != expected:
                 failures.append(f"uaos_manifest_runtime_ref_drift:{key}")
+        compatibility = manifest.get("compatibility", {})
+        if compatibility.get("legacy_episode_adapter_bundle") != legacy_adapter_version:
+            failures.append("uaos_manifest_legacy_adapter_compatibility_drift")
         domain_authority = manifest.get("domain_authority", {})
         if domain_authority.get("project_index") != "projects/PROJECT_INDEX.json":
             failures.append("uaos_manifest_project_index_drift")
         if domain_authority.get("architecture") != "docs/media_business_os.md":
             failures.append("uaos_manifest_media_business_architecture_drift")
+        if domain_authority.get("agent_operability_scenarios") != "docs/agent_operability_scenarios.md":
+            failures.append("uaos_manifest_agent_operability_ref_drift")
         if domain_authority.get("canonical_evolution_entrypoint") != "audits/EVOLUTION_INDEX.json":
             failures.append("uaos_manifest_evolution_entrypoint_drift")
         if domain_authority.get("integrated_business_flywheel") != "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json":
@@ -558,8 +630,8 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
         pilot = _json(pilot_state_path)
         if pilot.get("project_id") != "pilot-002":
             failures.append("pilot002_project_identity_drift")
-        if pilot.get("runtime_version") != runtime_version:
-            failures.append("pilot002_program_runtime_version_drift")
+        if pilot.get("runtime_version") != legacy_adapter_version:
+            failures.append("pilot002_legacy_adapter_version_drift")
         if pilot.get("owner") != "VIDEO_GROWTH_AGENT":
             failures.append("pilot002_owner_drift")
         if "video-growth:main" not in set(pilot.get("legacy_aliases", [])):
@@ -587,7 +659,6 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
     integrated_state_path = root / "projects/ai-self-media-commercialization/PROGRAM_STATE.json"
     graph_path = root / "projects/ai-self-media-commercialization/SUBTASK_GRAPH.json"
     manifest_project_path = root / "projects/ai-self-media-commercialization/PROJECT_MANIFEST.json"
-    flywheel_path = root / "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json"
     if not integrated_state_path.is_file():
         failures.append("integrated_program_state_missing")
     else:
@@ -648,17 +719,22 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
     execution_plan = _json(root / "video_growth_agent/data/execution-plan.json")
     agents = _json(root / "video_growth_agent/data/agents.json")
     failures.extend(_artifact_reachability_failures(workflow, execution_plan))
-    if coordination.get("version") != runtime_version:
-        failures.append("coordination_policy_repo_version_drift")
-    if execution_plan.get("version") != runtime_version:
-        failures.append("execution_plan_repo_version_drift")
-    if agents.get("version") != runtime_version:
-        failures.append("agent_registry_repo_version_drift")
+    failures.extend(
+        _legacy_adapter_version_failures(
+            agent_version=str(agents.get("version") or ""),
+            plan_version=str(execution_plan.get("version") or ""),
+            coordination_version=str(coordination.get("version") or ""),
+            runtime_version=runtime_version,
+        )
+    )
+    if legacy_adapter_version and agents.get("version") != legacy_adapter_version:
+        failures.append("legacy_adapter_bundle_manifest_version_drift")
 
     return {
         "scope": "repository",
         "repo_root": str(root),
         "runtime_version": runtime_version,
+        "legacy_adapter_bundle_version": agents.get("version"),
         "failures": failures,
         "pass": not failures,
     }

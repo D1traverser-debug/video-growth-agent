@@ -27,7 +27,7 @@ def test_video_owns_business_identity_and_parent_reference_is_opaque():
     assert manifest["runtime"]["program_orchestration"] == "video_growth_agent/program_orchestration.py"
     assert manifest["runtime"]["media_business_os"] == "video_growth_agent/production_os.py"
 
-    assert caps["profile_version"] == 8
+    assert caps["profile_version"] == 9
     assert caps["uaos_common_capabilities_contract_min"] == "1.6.0"
     assert caps["uaos_common_behavior_assurance_min"] == "1.2.0"
     assert "domain_internal_work_orchestration" in caps["required_uaos_common_capabilities"]
@@ -117,9 +117,8 @@ def test_media_business_docs_reject_vendor_lockin_scalar_quality_and_stage_role_
     assert "Program -> Series -> Episode -> Sequence -> Scene -> Shot -> Take" in architecture
     assert "generation admission != asset promotion != release admission" in architecture
     assert "no single-vendor production lock-in" in architecture
-    assert "Quality is a vector" in architecture
-    assert "stage workflow/work-order runtime remains supported" in requirements
-    assert "It is no longer the sole conceptual product architecture" in requirements
+    assert "Quality is not collapsed into one hidden weighted average" in architecture
+    assert "Legacy work-order/attestation/QA" in requirements
     assert "Official documentation can establish" in benchmark
     assert "does **not** establish our production quality score" in benchmark
 
