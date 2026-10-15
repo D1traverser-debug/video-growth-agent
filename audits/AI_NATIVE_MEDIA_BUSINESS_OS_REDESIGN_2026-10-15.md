@@ -295,10 +295,13 @@ Business loops are durable in `projects/ai-self-media-commercialization/BUSINESS
 
 Production semantics are durable in `docs/media_business_os.md` and executable modules:
 
-- `video_growth_agent/model_registry.py`;
-- `video_growth_agent/production_os.py`;
-- `video_growth_agent/business_metrics.py`;
-- `video_growth_agent/owner_behavior_admission.py`.
+- `video_growth_agent/media_graph.py` — stable Context/AssetVersion/Task/Evidence/Decision identities, lineage, promotion pointers, persistence and downstream invalidation;
+- `video_growth_agent/production_os.py` — Shot/Reference/Take/generation/promotion/release admission boundaries;
+- `video_growth_agent/timeline.py` — editor-neutral non-destructive timeline versions and authored platform-variant lineage;
+- `video_growth_agent/business_objects.py` — typed content-portfolio, distinctive-asset, commercial-fit, rights, offer and business-decision contracts;
+- `video_growth_agent/model_registry.py` — provider-neutral, evidence-bound routing;
+- `video_growth_agent/business_metrics.py` — typed platform, production and commercial outcome receipts;
+- `video_growth_agent/owner_behavior_admission.py` — recover-before-escalation and repair-or-block closure.
 
 ## 6. Migration strategy
 
@@ -318,15 +321,19 @@ Promote the new object/shot/business architecture as the primary conceptual auth
 
 1. Existing system audit remains green; old hard gates are not weakened for historical paths.
 2. Existing pytest remains green.
-3. New model-registry tests prove current evidence, deprecation, reference budgets, commercial terms and quality vectors affect routing.
-4. New production tests prove candidate generation != promotion != release.
-5. Product-truth cannot be satisfied by an unverified synthetic route.
-6. High-risk/HERO promotion requires independent review evidence; low-risk exploration can proceed without unavailable release-grade reviewer infrastructure.
-7. New business metrics remain vector-valued and do not collapse into one vanity score.
-8. Video Common Behavior 1.2 behavior is trajectory-tested: recover before asking user; repair-or-block closure.
-9. New evolution entrypoint exposes the redesign and deeper causal audit.
-10. Package/install smoke proves new public modules ship.
-11. Candidate CI then production CI must pass before parent UAOS observation is refreshed.
+3. Canonical `MediaGraph` tests prove stable identity, non-destructive asset versions, evidence-bound decisions, promotion pointers, persistence and downstream invalidation.
+4. Timeline tests prove exact asset-version references, promoted-asset admission and non-destructive master/platform-variant lineage.
+5. Typed business-object tests prove content portfolio, distinctive-asset observations, CommercialFit, RightsPackage and priced offer evidence constraints.
+6. New model-registry tests prove current evidence, deprecation, reference budgets, commercial terms and quality vectors affect routing.
+7. New production tests prove candidate generation != promotion != release.
+8. Product-truth cannot be satisfied by an unverified synthetic route.
+9. High-risk/HERO promotion requires independent review evidence; low-risk exploration can proceed without unavailable release-grade reviewer infrastructure.
+10. New business metrics remain vector-valued and do not collapse into one vanity score.
+11. Video Common Behavior 1.2 behavior is trajectory-tested: recover before asking user; repair-or-block closure.
+12. System audit must fail closed if any canonical 0.7 runtime surface declared by the manifest/capability profile disappears or drifts.
+13. New evolution entrypoint exposes the redesign and deeper causal audit.
+14. Package/install smoke proves new public modules ship.
+15. Candidate CI then production CI must pass before parent UAOS observation is refreshed.
 
 ## 8. Remaining assurance boundary before promotion
 
