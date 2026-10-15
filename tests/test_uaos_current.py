@@ -22,6 +22,10 @@ def test_uaos_is_the_only_parent_controller_while_video_owns_business_identity()
     assert manifest["status"] == "UAOS_CONTROL_PLANE_ACTIVE"
     assert manifest["skill"]["entrypoint"] == "UAOS_SKILL.md"
     assert manifest["runtime"]["version"] == runtime_version()
+    assert manifest["runtime"]["media_graph"] == "video_growth_agent/media_graph.py"
+    assert manifest["runtime"]["media_business_os"] == "video_growth_agent/production_os.py"
+    assert manifest["runtime"]["timeline"] == "video_growth_agent/timeline.py"
+    assert manifest["runtime"]["business_objects"] == "video_growth_agent/business_objects.py"
     assert manifest["domain_authority"]["architecture"] == "docs/media_business_os.md"
     assert manifest["domain_authority"]["canonical_evolution_entrypoint"] == "audits/EVOLUTION_INDEX.json"
 
@@ -55,7 +59,10 @@ def test_current_capability_profile_exposes_media_business_os_and_common_behavio
     ids = {item["capability_id"] for item in profile["capabilities"]}
     assert {
         "media_business_program_orchestration",
+        "canonical_media_graph",
         "shot_asset_production_os",
+        "non_destructive_editorial_timeline",
+        "shared_growth_ip_commercial_objects",
         "evidence_bound_model_routing",
         "business_outcome_measurement",
         "owner_common_behavior_admission",
