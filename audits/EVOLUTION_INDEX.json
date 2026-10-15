@@ -1,11 +1,26 @@
 {
   "schema_version":"1.0",
   "owner":"DOMAIN:video",
-  "revision":"1.2",
-  "updated_at":"2026-10-15T14:09:00+08:00",
+  "revision":"1.3",
+  "updated_at":"2026-10-15T16:21:00+08:00",
   "common_behavior_assurance_min":"1.2.0",
-  "current_open_items":[],
-  "current_problem_refs":{},
+  "current_open_items":[
+    "V-20261015-02-CROSS_CHAT_NODE_CLAIM_GAP"
+  ],
+  "current_problem_refs":{
+    "V-20261015-02-CROSS_CHAT_NODE_CLAIM_GAP":{
+      "status":"OPEN_PARENT_GUIDANCE_REQUIRED",
+      "evidence_ref":"audits/CROSS_CHAT_PARALLEL_NODE_CLAIM_GAP_2026-10-15.md",
+      "failure_classes":[
+        "LOGICAL_DAG_PARALLELISM_WITHOUT_CROSS_SESSION_EXECUTION_OWNERSHIP",
+        "SHARED_PROGRAM_STATE_WITHOUT_CLAIM_LEASE_AND_CAS",
+        "INHERITED_COGNITION_NOT_OPERATIONALIZED_IN_INITIAL_RESPONSE"
+      ],
+      "owner_scope":"COMMON_CAPABILITY_GUIDANCE_WITH_VIDEO_OWNER_NATIVE_ADOPTION",
+      "candidate_branch":"evolution/cross-chat-node-claim-upcall-20261015",
+      "terminal_disposition":"BLOCKED_WITH_REASON__DOMAIN_CANNOT_MUTATE_PARENT_COMMON_AUTHORITY"
+    }
+  },
   "recent_resolved_or_promoted":[
     {
       "id":"V-20261015-01-AI_NATIVE_MEDIA_BUSINESS_OS_REDESIGN",
@@ -32,7 +47,9 @@
       "status":"HISTORICAL_FAILURE_AND_HARDENING_EVIDENCE_RETAINED"
     }
   ],
-  "open_parent_guidance_refs":[],
+  "open_parent_guidance_refs":[
+    "audits/CROSS_CHAT_PARALLEL_NODE_CLAIM_GAP_2026-10-15.md"
+  ],
   "execution_refs":[
     "docs/media_business_os.md",
     "docs/provider_benchmark_protocol.md",
@@ -60,5 +77,5 @@
     "audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md",
     "projects/pilot-002/PROGRAM_STATE.json"
   ],
-  "assurance":"PRODUCTION_0_7_0_EXECUTABLE_AND_TRAJECTORY_VERIFIED__LIVE_OUTCOME_OBSERVATION_OPEN_BY_DESIGN"
+  "assurance":"PRODUCTION_0_7_0_EXECUTABLE_AND_TRAJECTORY_VERIFIED__OPEN_PARENT_GUIDANCE_FOR_CROSS_CHAT_NODE_CLAIM_CONCURRENCY"
 }
