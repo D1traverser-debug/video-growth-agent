@@ -6,7 +6,7 @@
   "common_behavior_assurance_min":"1.3.0",
   "current_open_items":["V-20261016-03-COMMON-BEHAVIOR-1-3-ROOT-SCOPE-ADOPTION"],
   "current_problem_refs":{
-    "V-20261016-03-COMMON-BEHAVIOR-1-3-ROOT-SCOPE-ADOPTION":"video_growth_agent/owner_behavior_admission.py + tests/test_owner_behavior_admission.py"
+    "V-20261016-03-COMMON-BEHAVIOR-1-3-ROOT-SCOPE-ADOPTION":"video_growth_agent/owner_behavior_admission.py"
   },
   "current_resume_ref":null,
   "current_candidate":{
@@ -53,7 +53,7 @@
       "status":"RESOLVED_PRODUCTION_0_7_0__SUPERSEDED_BY_0_8_CORE_WITH_LEGACY_ADAPTER_COMPATIBILITY_RETAINED",
       "release":"0.7.0",
       "candidate_pr":12,
-      "candidate_head":"99288175d3b34550586236d1e809960e60203baa",
+      "candidate_head":"99288175d3b3455058625626d5c4634b97ba1fd",
       "candidate_ci_run":38690408574,
       "production_commit":"ad51bb76188eb0184cf8434384109c5c1257a60c",
       "production_ci_run":38690550495,
