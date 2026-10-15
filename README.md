@@ -28,10 +28,13 @@ Video 0.7.0 uses three linked but distinct operational graphs:
 
 The previous stage/work-order episode engine is retained as a proven execution/compatibility adapter. It is not the entire product ontology.
 
-Core runtime additions:
+Core runtime surfaces:
 
-- `model_registry.py` — provider-neutral, dated capability/quality/cost/terms routing;
+- `media_graph.py` — stable Context/AssetVersion/Task/Evidence/Decision identities, promotion pointers, persistence, lineage and downstream invalidation;
 - `production_os.py` — shot/reference/take contracts, candidate-generation admission, asset promotion and release admission;
+- `timeline.py` — editor-neutral non-destructive master/variant timeline metadata bound to exact promoted asset versions;
+- `business_objects.py` — typed content-portfolio, distinctive-asset, commercial-fit, rights-package, offer and business-decision objects;
+- `model_registry.py` — provider-neutral, dated capability/quality/cost/terms routing;
 - `business_metrics.py` — platform, production and commercial outcome receipts without one vanity score;
 - `owner_behavior_admission.py` — UAOS Common Behavior 1.2 owner-native recovery/escalation/repair closure.
 
@@ -99,6 +102,6 @@ vga system-audit --repo-root .
 pytest -q
 ```
 
-The system audit covers parent/common binding, Video business ownership, Media Business OS authorities, project/flywheel integrity, provider-neutral capability semantics, Program graph validity, absence of a parallel controller, artifact reachability, specialist/task consistency, evolution discoverability and runtime-version consistency.
+The system audit covers parent/common binding, Video business ownership, all canonical 0.7 runtime surfaces, Media Business OS authorities, project/flywheel integrity, provider-neutral capability semantics, Program graph validity, absence of a parallel controller, artifact reachability, specialist/task consistency, evolution discoverability and runtime-version consistency. It fails closed when a declared canonical runtime surface disappears or drifts.
 
 CI success is validation evidence, not branch-protection enforcement unless GitHub separately reports branch protection/rulesets as enabled.
