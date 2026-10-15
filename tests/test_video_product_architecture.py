@@ -117,7 +117,7 @@ def test_media_business_docs_reject_vendor_lockin_scalar_quality_and_stage_role_
     assert "Program -> Series -> Episode -> Sequence -> Scene -> Shot -> Take" in architecture
     assert "generation admission != asset promotion != release admission" in architecture
     assert "no single-vendor production lock-in" in architecture
-    assert "Quality is a vector" in architecture
+    assert "Quality is not collapsed into one hidden weighted average" in architecture
     assert "stage workflow/work-order runtime remains supported" in requirements
     assert "It is no longer the sole conceptual product architecture" in requirements
     assert "Official documentation can establish" in benchmark
