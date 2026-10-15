@@ -1,14 +1,32 @@
 {
-  "schema_version":"1.0",
+  "schema_version":"1.1",
   "owner":"DOMAIN:video",
-  "revision":"1.5",
-  "updated_at":"2026-10-15T19:14:53+08:00",
-  "common_behavior_assurance_min":"1.2.0",
-  "current_open_items":[],
-  "current_problem_refs":{},
+  "revision":"1.6",
+  "updated_at":"2026-10-16T01:25:00+08:00",
+  "common_behavior_assurance_min":"1.3.0",
+  "current_open_items":["V-20261016-01-COMMON-BEHAVIOR-1_3-ROOT-SCOPE"],
+  "current_problem_refs":{
+    "V-20261016-01-COMMON-BEHAVIOR-1_3-ROOT-SCOPE":"maintenance/common-behavior-1-3-root-scope"
+  },
   "current_resume_ref":null,
-  "current_candidate":null,
+  "current_candidate":"V-20261016-01-COMMON-BEHAVIOR-1_3-ROOT-SCOPE",
   "recent_resolved_or_promoted":[
+    {
+      "id":"V-20261016-01-COMMON-BEHAVIOR-1_3-ROOT-SCOPE",
+      "status":"CANDIDATE_IMPLEMENTED__DOMAIN_CI_PENDING",
+      "failure_class":"FC-PREMATURE-PROBLEM-FRAMING-AND-REPAIR-BEFORE-ROOT-SCOPE-001",
+      "governance_basis":"UAOS FROZEN_REQUIREMENTS_v2.2 + COMMON_BEHAVIOR_ASSURANCE 1.3",
+      "selected_repair":"extend existing owner_behavior_admission with Video-native competing root hypotheses/receipt and require root scope plus evolution disposition before repair/no-change",
+      "rejected_paths":[
+        "copy parent UAOS kernel into Video",
+        "create a second cognition controller",
+        "treat provider/user/external method claims as root cause authority",
+        "rebuild the media business OS without evidence that the failure class originates in the media topology"
+      ],
+      "verification_refs":["tests/test_owner_behavior_admission.py","tests/test_system_audit.py","tests/test_uaos_current.py"],
+      "parent_ref":"UAOS:EVO-20261016-PROBLEM-COGNITION-ACTION-TRANSACTION",
+      "open_followup":"candidate CI then production/live media-business observation"
+    },
     {
       "id":"V-20261015-02-AGENT_OPERABLE_MEDIA_OS",
       "ref":"audits/VIDEO_AGENT_OPERABILITY_REDESIGN_2026-10-15.md",
@@ -35,58 +53,14 @@
       "production_ci_run":38690550495,
       "assurance":"EXECUTABLE_MEDIA_BUSINESS_OS_AND_TRAJECTORY_VERIFIED__LIVE_EPISODE_GROWTH_IP_COMMERCIAL_OUTCOME_OBSERVATION_OPEN"
     },
-    {
-      "ref":"audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md",
-      "status":"HISTORICAL_0_6_PRODUCT_ORCHESTRATION_REPAIR__SUPERSEDED_IN_PART_BY_0_7_AND_0_8_MEDIA_BUSINESS_OS"
-    },
-    {
-      "ref":"audits/SYSTEM_SELF_AUDIT_2026-10-11.md",
-      "status":"HISTORICAL_HARDENING_EVIDENCE_RETAINED"
-    },
-    {
-      "ref":"audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
-      "status":"HISTORICAL_FAILURE_AND_HARDENING_EVIDENCE_RETAINED"
-    }
+    {"ref":"audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md","status":"HISTORICAL_0_6_PRODUCT_ORCHESTRATION_REPAIR__SUPERSEDED_IN_PART_BY_0_7_AND_0_8_MEDIA_BUSINESS_OS"},
+    {"ref":"audits/SYSTEM_SELF_AUDIT_2026-10-11.md","status":"HISTORICAL_HARDENING_EVIDENCE_RETAINED"},
+    {"ref":"audits/SYSTEM_SELF_AUDIT_2026-10-10.md","status":"HISTORICAL_FAILURE_AND_HARDENING_EVIDENCE_RETAINED"}
   ],
-  "open_parent_guidance_refs":["UAOS_PARENT_OBSERVATION_REFRESH_AFTER_VIDEO_0_8_PRODUCTION_PROMOTION"],
+  "open_parent_guidance_refs":["UAOS:EVO-20261016-PROBLEM-COGNITION-ACTION-TRANSACTION"],
   "execution_refs":[
-    "docs/media_business_os.md",
-    "docs/provider_benchmark_protocol.md",
-    "docs/agent_operability_scenarios.md",
-    "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json",
-    "video_growth_agent/media_graph.py",
-    "video_growth_agent/editorial_planning.py",
-    "video_growth_agent/plan_graph_bridge.py",
-    "video_growth_agent/production_os.py",
-    "video_growth_agent/continuity.py",
-    "video_growth_agent/model_registry.py",
-    "video_growth_agent/timeline.py",
-    "video_growth_agent/editorial_interchange.py",
-    "video_growth_agent/experiments.py",
-    "video_growth_agent/business_objects.py",
-    "video_growth_agent/business_metrics.py",
-    "video_growth_agent/operator_view.py",
-    "video_growth_agent/owner_behavior_admission.py",
-    "tests/test_editorial_planning.py",
-    "tests/test_plan_graph_bridge.py",
-    "tests/test_continuity.py",
-    "tests/test_model_registry.py",
-    "tests/test_timeline.py",
-    "tests/test_editorial_interchange.py",
-    "tests/test_experiments.py",
-    "tests/test_business_objects.py",
-    "tests/test_business_metrics.py",
-    "tests/test_operator_view.py",
-    "tests/test_owner_behavior_admission.py",
-    "tests/test_system_audit.py",
-    "tests/test_uaos_current.py"
+    "docs/media_business_os.md","docs/provider_benchmark_protocol.md","docs/agent_operability_scenarios.md","projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json","video_growth_agent/media_graph.py","video_growth_agent/editorial_planning.py","video_growth_agent/plan_graph_bridge.py","video_growth_agent/production_os.py","video_growth_agent/continuity.py","video_growth_agent/model_registry.py","video_growth_agent/timeline.py","video_growth_agent/editorial_interchange.py","video_growth_agent/experiments.py","video_growth_agent/business_objects.py","video_growth_agent/business_metrics.py","video_growth_agent/operator_view.py","video_growth_agent/owner_behavior_admission.py","tests/test_editorial_planning.py","tests/test_plan_graph_bridge.py","tests/test_continuity.py","tests/test_model_registry.py","tests/test_timeline.py","tests/test_editorial_interchange.py","tests/test_experiments.py","tests/test_business_objects.py","tests/test_business_metrics.py","tests/test_operator_view.py","tests/test_owner_behavior_admission.py","tests/test_system_audit.py","tests/test_uaos_current.py"
   ],
-  "historical_evidence_refs":[
-    "audits/VIDEO_0_8_RESUME_CHECKPOINT_2026-10-15.md",
-    "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
-    "audits/SYSTEM_SELF_AUDIT_2026-10-11.md",
-    "audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md",
-    "projects/pilot-002/PROGRAM_STATE.json"
-  ],
-  "assurance":"PRODUCTION_0_8_0_AGENT_OPERABLE_MEDIA_OS_VERIFIED__PARENT_OBSERVATION_REFRESH_PENDING_UNDER_UAOS_AUTHORITY"
+  "historical_evidence_refs":["audits/VIDEO_0_8_RESUME_CHECKPOINT_2026-10-15.md","audits/SYSTEM_SELF_AUDIT_2026-10-10.md","audits/SYSTEM_SELF_AUDIT_2026-10-11.md","audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md","projects/pilot-002/PROGRAM_STATE.json"],
+  "assurance":"COMMON_BEHAVIOR_1_3_ROOT_SCOPE_CANDIDATE__PRODUCTION_0_8_0_AGENT_OPERABLE_MEDIA_OS_VERIFIED__LIVE_MEDIA_BUSINESS_OUTCOME_OPEN"
 }
