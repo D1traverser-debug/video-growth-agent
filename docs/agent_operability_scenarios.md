@@ -6,7 +6,7 @@ Parent method: `UAOS config/ARCHITECTURE_EXPERIENCE_POLICY.json`
 
 ## Purpose
 
-This is an architecture-experience test surface, not a second workflow controller.
+This is an architecture-experience test surface, not a second workflow controller. It is the owner-native `CURRENT_AGENT` dogfood acceptance surface required for material Video architecture and Agent-experience changes.
 
 The Video system is considered operable only when a current Agent can recover the governing goal, discover current authority, choose a valid next action, observe progress, diagnose failure, and resume without relying on hidden chat memory. User examples are evidence/hints unless explicitly locked as requirements.
 
