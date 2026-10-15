@@ -23,7 +23,7 @@ def test_media_business_os_is_primary_architecture_and_legacy_stage_machine_is_a
     text = (ROOT / "docs/media_business_os.md").read_text(encoding="utf-8")
     assert "Program -> Series -> Episode -> Sequence -> Scene -> Shot -> Take" in text
     assert "The legacy stage workflow remains a compatibility adapter" in text
-    assert "Status: `PRODUCTION_0_7_0`" in text
+    assert "Status: `CANDIDATE_0_8_0`" in text
 
 
 def test_current_program_has_explicit_cross_workstream_flywheel():
@@ -55,15 +55,17 @@ def test_candidate_generation_promotion_release_are_three_distinct_api_boundarie
     assert "generation admission != asset promotion != release admission" in text
 
 
-def test_video_common_behavior_1_2_is_owner_native_and_resolved_evolution_is_discoverable():
+def test_video_common_behavior_1_2_is_owner_native_and_evolution_is_discoverable():
     caps = load(".uaos/CAPABILITIES.json")
     evolution = load("audits/EVOLUTION_INDEX.json")
     assert caps["uaos_common_behavior_assurance_min"] == "1.2.0"
     assert caps["common_behavior_realization"] == "OWNER_NATIVE_RECOVERY_RECEIPT__USER_ESCALATION_ADMISSION__PROBLEM_REPAIR_OR_BLOCK_CLOSURE"
     assert evolution["owner"] == "DOMAIN:video"
     assert evolution["common_behavior_assurance_min"] == "1.2.0"
-    assert evolution["current_open_items"] == []
-    assert evolution["current_problem_refs"] == {}
+    assert evolution["current_open_items"] == ["V-20261015-02-AGENT_OPERABLE_MEDIA_OS"]
+    assert evolution["current_problem_refs"] == {
+        "V-20261015-02-AGENT_OPERABLE_MEDIA_OS": "audits/VIDEO_AGENT_OPERABILITY_REDESIGN_2026-10-15.md"
+    }
     resolved = {
         item.get("id"): item for item in evolution["recent_resolved_or_promoted"] if item.get("id")
     }
