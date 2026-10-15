@@ -23,6 +23,7 @@ def test_media_business_os_is_primary_architecture_and_legacy_stage_machine_is_a
     text = (ROOT / "docs/media_business_os.md").read_text(encoding="utf-8")
     assert "Program -> Series -> Episode -> Sequence -> Scene -> Shot -> Take" in text
     assert "The legacy stage workflow remains a compatibility adapter" in text
+    assert "Status: `PRODUCTION_0_7_0`" in text
 
 
 def test_current_program_has_explicit_cross_workstream_flywheel():
@@ -54,14 +55,23 @@ def test_candidate_generation_promotion_release_are_three_distinct_api_boundarie
     assert "generation admission != asset promotion != release admission" in text
 
 
-def test_video_common_behavior_1_2_is_owner_native_and_discoverable():
+def test_video_common_behavior_1_2_is_owner_native_and_resolved_evolution_is_discoverable():
     caps = load(".uaos/CAPABILITIES.json")
     evolution = load("audits/EVOLUTION_INDEX.json")
     assert caps["uaos_common_behavior_assurance_min"] == "1.2.0"
     assert caps["common_behavior_realization"] == "OWNER_NATIVE_RECOVERY_RECEIPT__USER_ESCALATION_ADMISSION__PROBLEM_REPAIR_OR_BLOCK_CLOSURE"
     assert evolution["owner"] == "DOMAIN:video"
     assert evolution["common_behavior_assurance_min"] == "1.2.0"
-    assert "V-20261015-01-AI_NATIVE_MEDIA_BUSINESS_OS_REDESIGN" in evolution["current_open_items"]
+    assert evolution["current_open_items"] == []
+    assert evolution["current_problem_refs"] == {}
+    resolved = {
+        item.get("id"): item for item in evolution["recent_resolved_or_promoted"] if item.get("id")
+    }
+    item = resolved["V-20261015-01-AI_NATIVE_MEDIA_BUSINESS_OS_REDESIGN"]
+    assert item["status"] == "RESOLVED_PRODUCTION_0_7_0"
+    assert item["release"] == "0.7.0"
+    assert item["production_commit"] == "ad51bb76188eb0184cf8434384109c5c1257a60c"
+    assert item["production_ci_run"] == 38690550495
 
 
 def test_h1_business_cursor_is_preserved_during_system_rebuild():
@@ -69,3 +79,4 @@ def test_h1_business_cursor_is_preserved_during_system_rebuild():
     assert state["current_focus"] == "ORIGINAL_DIGITAL_IP/H1_SCULPTURAL_MASSING_V2"
     assert "A2 positive-morph upper-face edit" in state["current_next_action"]
     assert "must not advance this creative action automatically" in state["current_next_action"]
+    assert state["workstreams"]["PRODUCTION_SYSTEM"]["status"] == "ACTIVE_MEDIA_BUSINESS_OS_0_7_PRODUCTION"
