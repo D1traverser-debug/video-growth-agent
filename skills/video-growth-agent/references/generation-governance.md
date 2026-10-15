@@ -1,85 +1,137 @@
 # Generation Governance
 
-Use this policy for any quality-critical image or video generation, including exploratory keyframes that may influence LOOKDEV or VISUAL_PREVIEW.
+Current architecture: `docs/media_business_os.md`  
+Provider benchmark method: `docs/provider_benchmark_protocol.md`
 
-## No side-channel generation
+## Core boundary
 
-Do not call an image/video generator directly from the conversational surface merely to "see what happens" when the output is part of an active durable production project. A quality-critical generator call must be backed by a generation brief and must not bypass the studio's maker/reviewer split.
+Generation is not one gate. Treat these as separate governed events:
 
-Direct generation without this brief is process-invalid even if the pixels look good. It may not be promoted into LOOKDEV, VISUAL_PREVIEW, ASSET_BUILD or ROUGH_CUT.
+1. **candidate generation admission**;
+2. **promotion to an accepted/current/canon project asset**;
+3. **release admission**.
 
-## Mandatory generation brief
+A safe candidate may exist without being approved. An unavailable release-grade reviewer must not automatically make all exploration impossible. Conversely, a file that looks good may never become accepted/canon/final merely because it exists.
 
-Before generation, record:
+The historical strict `generation_guard` remains available for legacy/high-assurance paths that intentionally require pre-generation isolated review. It is no longer the universal prerequisite for every bounded candidate experiment.
 
-- narrative_job: what this shot/frame changes for the viewer;
-- before_state;
-- crossing_state or transformation mechanism;
-- after_state;
-- must_have;
-- must_not_have;
-- benchmark_refs;
-- engine_route and why this engine is justified;
-- quality_floor;
-- stop_conditions: conditions that should cancel generation before spending credits;
-- exact prompt or shot contract to be sent to the engine.
+## No ungoverned side-channel promotion
 
-The prompt is subordinate to the brief. If the prompt contradicts any must_not_have item, weakens the required before/crossing/after transformation, or replaces a narrative action with generic UI/AI iconography, generation is blocked.
+Do not call an image/video/audio generator and then silently mount the output into durable accepted project state.
 
-## Pre-generation challenge
+Any durable candidate generation must bind:
 
-For quality-critical visual work, run a pre-generation challenge before spending credits or presenting the image to the user:
+- exact project/context/shot identity;
+- exact reference asset IDs/digests and intended roles;
+- rights/consent evidence;
+- current provider/capability evidence;
+- mode/parameter/prompt/edit contract digest;
+- truth mode;
+- budget/retry/stop conditions;
+- resulting artifact ref/digest and generation receipt.
 
-1. Visual Designer creates the brief and candidate prompt.
-2. Art Director independently critiques physical image construction: material realism, lighting logic, composition, lens/scale, hierarchy and whether the frame has image weight rather than UI-demo polish.
-3. Creative Director independently critiques narrative/idea construction: whether the prompt creates the intended story beat, contrast and memorable visual event instead of explaining the concept with SaaS/UI/AI shorthand.
-4. Red Team independently states the strongest reason this prompt is likely to generate the wrong movie or produce a superficially attractive false positive.
-5. Only unresolved-free briefs with all three verified executions are allowed to reach the generation engine.
+A direct current-session tool call may be a valid executor when the session capability is real and the candidate admission is recorded. It does not become independent review or final authorization by virtue of being inside ChatGPT.
 
-Art Director and Creative Director may disagree. They are distinct professional authorities; one combined `art_creative` execution cannot satisfy both roles.
+## Candidate generation admission
 
-Each reviewer must inspect the actual prompt, not merely the intended idea.
+Before spending credits or creating durable media, require:
 
-### Evidence boundary
+- clear narrative/explanatory job;
+- must-have / must-not-have constraints;
+- allowed generation/acquisition modes;
+- reference bindings;
+- current provider/tool capability and availability;
+- commercial-use/rights/consent admission where applicable;
+- product-truth compatibility;
+- cash/credit/retry budget;
+- graceful-degradation and stop conditions.
 
-`pre_generation_challenge` inside the brief is status and human-readable rationale only. A literal `PASS` written into that JSON is **not** proof that Art Director, Creative Director or Red Team actually executed.
+Exploration may use lower resolution, still/keyframe prototypes and cheaper sufficient engines. Candidate outputs remain `CANDIDATE` until explicitly promoted.
 
-Authorization evidence must be resolved outside the brief from the owner execution path and then bound back to the exact brief digest. At minimum, each required reviewer proof must bind:
+## Shot/reference contract
 
-- work-order identity;
-- immutable review receipt reference;
-- execution-attestation reference;
-- executor and execution identity;
-- provider run/request identity;
-- context/trace correlation identity;
-- review packet and result digests;
-- exact generation-brief digest;
-- inspectable proof reference.
+For modern multimodal generation, a prompt is subordinate to the shot/reference contract. Capture as applicable:
 
-Sibling challenge executions may not reuse execution/run/context/trace identities. The machine guard rejects an inline self-authored PASS, a missing specialist, or a legacy combined Art/Creative slot when the three distinct evidence bundles are not supplied.
+- narrative job and world/beat state;
+- duration/aspect/output target;
+- image/video/audio reference roles;
+- identity/continuity requirements;
+- first/last-frame or keyframe requirements;
+- camera/action/physics requirements;
+- native audio/dialogue/SFX requirements;
+- quality-vector floors;
+- truth/risk class;
+- budget and retry limit;
+- stop conditions;
+- exact provider request/prompt/edit digest.
 
-The current `generation_guard` validates completeness, prompt contradictions and evidence-bundle shape/digest binding. It does **not** itself prove that a referenced receipt exists or that an executor/provider is trusted. Those are owner-runtime/gateway responsibilities.
+Do not encode stable character/product/business truth only inside free-form prompt text.
 
-Until a single enforced quality-critical generation gateway resolves those receipts from authority and binds the subsequent provider call/artifact back to the authorization, generation remains fail-closed for promotable project media. Do not reinterpret a structurally valid brief as production authorization.
+## Provider evidence semantics
 
-## Provider-evidence semantics
+Provider/model capabilities, price, availability, terms and deprecation state are volatile observations. Official documentation can establish current supported controls/limits/terms; it does not establish our production quality score.
 
-Do not describe locally supplied correlation IDs as provider-issued proof. Provider-issued request/run IDs and model identity, local context/trace IDs, raw request/response digests and durable proof references are different evidence classes. A provider adapter may enter the trusted executor registry only after its real API semantics and modality access are verified and the runtime can distinguish these classes truthfully.
+Production quality routing uses owner benchmark or exact production evidence bound to outputs. Provider-issued request/run IDs, local context/trace IDs, raw request/response digests and proof refs remain separate evidence classes.
 
-## Post-generation rule
+## Promotion gate
 
-Generated output is evidence, not success. Compare actual pixels/playback with the brief and benchmark pack. If the image only communicates the concept because of labels, feature menus, logos, floating windows or an AI mascot, treat that as a likely visual-explanation failure unless those elements are specifically required by the story.
+Generated output is evidence, not success.
 
-A failed output must feed back into the brief or technique library; do not simply rewrite the prompt ad hoc and retry.
+Promotion evaluates the exact take against the shot-specific quality vector and risk:
+
+- identity/subject continuity;
+- world/background consistency;
+- temporal stability/flicker;
+- motion/physics;
+- shot/prompt adherence;
+- camera execution;
+- visual craft;
+- audio sync/craft where relevant;
+- editability/extension quality;
+- truth/product fidelity;
+- rights/provenance;
+- platform/brand/IP constraints.
+
+HIGH/HERO/BRAND_TRUTH assets require proportionate independent evidence when the policy says so. If `ATTESTED_ISOLATED` review is required but no trusted executor is actually available, promotion is blocked; the candidate may remain historical/exploration evidence.
+
+Low-risk candidates may promote under a lighter declared evidence tier when their exact policy permits it.
+
+## Legacy strict pre-generation challenge
+
+Some historical projects or explicit high-assurance work may still invoke `generation_guard.py`.
+
+When that path is selected, Art Director, Creative Director and Red Team review evidence must be resolved outside the brief and bound to its exact digest. Inline `PASS` text is never proof. Required execution/run/context/trace identities must remain distinct as configured.
+
+Do not weaken that legacy path merely because the new architecture also supports a lighter candidate-only exploration path. These are different assurance contracts.
+
+## Product-truth rule
+
+For exact factual product appearance, UI, material, configuration or demonstrated behavior, synthetic media cannot serve as observed evidence. Use verified real/authorized product assets at truth-critical points or frame generated material explicitly as explanatory/hypothetical visualization.
+
+Real-person likeness/voice references require consent/authorization evidence.
+
+## Edit/modify/extend before regenerate
+
+When a take is close and the current tool supports controlled modify/edit/extend/retime/local repair, compare expected acceptance cost with full regeneration. Preserve untargeted performance/camera/content when possible.
+
+Every edit creates a derived asset/version with lineage; it never destructively overwrites the accepted original.
+
+## Post-generation learning
+
+A failed take must feed a typed failure taxonomy and, when material, a learning candidate. Do not keep rewriting prompts blindly while repeating the same mechanism.
+
+Track:
+- provider/model/mode;
+- benchmark/shot archetype;
+- cost/latency;
+- retry/rejection reason;
+- quality-vector failure;
+- whether a different control/edit/degradation route solved it.
+
+A useful provider-specific lesson is volatile and may expire. A durable production rule needs scope/generalization analysis, counterexamples and regression/replay evidence.
 
 ## Dedicated improvement cell
 
-When a recurring failure or capability gap appears:
+Production Methodologist scouts mechanisms and benchmarkable alternatives. Red Team searches for counterexamples/self-deception. Evolution Engineer proposes the smallest durable rule/test/config change and identifies what it supersedes. Owner promotion remains separate.
 
-- Production Methodologist owns scouting and mechanism distillation. It does not approve its own recommendation.
-- Red Team attacks the proposed lesson and searches for counterexamples and self-deception.
-- Evolution Engineer converts only accepted lessons into the smallest durable rule/test/config change and removes superseded mechanisms.
-
-The scheduled LEARN pipeline is itself governed work. The base runtime must require its configured work orders; manually creating `learning_receipt` plus role PASS records cannot substitute for Methodologist/Evolution/Red-Team/Showrunner execution evidence.
-
-This cell exists to prevent the executive producer from simultaneously creating, judging, learning and rewriting the system from one context.
+The improvement cell may recommend a provider benchmark or architectural repair, but it may not convert vendor marketing copy, one good generation or one viral episode directly into production doctrine.
