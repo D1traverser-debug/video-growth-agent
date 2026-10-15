@@ -13,11 +13,29 @@ Current workstreams:
 - `MEDIA_GROWTH` — READY_ACTIVE_BASELINE; account positioning and audience/content hypotheses exist and can progress now;
 - `ORIGINAL_DIGITAL_IP` — ACTIVE; current foreground work is H1 face massing/A2 upper-face tuning;
 - `COMMERCIALIZATION` — READY_FOR_PARALLEL_RESEARCH; advertiser mapping and offer/rights architecture can progress independently;
-- `PRODUCTION_SYSTEM` — READY_WITH_HARD_CAPABILITY_GATES; existing episode runtime remains usable where current-session generation/review capability is actually available.
+- `PRODUCTION_SYSTEM` — MEDIA_BUSINESS_OS_0_8_RELEASE_CANDIDATE__0_7_PRODUCTION_BASELINE; 0.8 core is under controlled promotion while the unchanged 0.7 work-order adapter remains available where current-session generation/review capability is actually executable.
 
 Only declared dependencies block work. Unfinished character design does not block topic/audience research or advertiser research. Character-canon-dependent brand assets do wait for canon.
 
-Pilot 002 remains a separate historical child project. Its rejected/process-invalid artifacts are not accepted inputs here.
+Pilot 002 remains a separate historical child project. Its rejected/process-invalid artifacts are not accepted inputs here and it retains the legacy 0.7 adapter/runtime identity rather than being silently rewritten into the 0.8 core identity.
+
+## Production-system evolution now
+
+The 0.8 release candidate closes the gap between business/editorial intent and the 0.7 shot/asset runtime. Its current executable chain is:
+
+`EpisodeIntent -> ClaimSpec -> BeatSpec -> ShotIntent -> EditorialPlan -> ShotContract -> operation-specific ModelRoutingDecision -> CandidateTake -> ContinuityAssessment -> Promotion -> Timeline -> editor handoff/roundtrip -> PlatformVariant -> Release -> Experiment/Outcome -> LearningCandidate`
+
+Added owner-native surfaces:
+- versioned editorial planning and claim/beat/shot traceability;
+- editorial plan as an upstream MediaGraph asset so revisions stale only affected descendants;
+- cross-shot dimension-level continuity (`PRESERVE` / `EXPECT` / `ALLOW_CHANGE`, hard/soft);
+- operation-profile provider legality plus rubric/calibration-bound, uncertainty-aware Pareto quality routing;
+- pre-registered growth/content/IP experiments with explicit no-clear-winner/inconclusive outcomes;
+- external editor/NLE handoff and return receipts bound to timeline/project/composition identity;
+- a recomputable CURRENT_AGENT operator projection for ready/blocking actions, stale evidence, risks and recovery refs, with no mutation/promotion/controller authority;
+- CURRENT_AGENT dogfood scenarios as an architecture acceptance surface.
+
+Promotion remains incomplete until PR candidate CI, merge, main production CI, production reread and evolution closure are all verified.
 
 ## Character dependency order
 1. HUMAN CORE
@@ -108,11 +126,14 @@ Target read: clean, educated, rational, awake, controlled, commercially attracti
 8. Only after final front passes, run one 30–35° three-quarter consistency validation.
 9. H1 must pass before H2, real skin/hair, brand DNA, wardrobe, motif or Presentation Modes.
 
+System architecture work must not execute or advance any of those creative steps automatically.
+
 ## Parallel-ready work
 Without blocking H1, the Program may also advance:
 - audience/growth baseline and pilot-topic hypotheses;
 - advertiser/category mapping and sponsor-fit criteria;
-- commercial offer/rights research after advertiser-map inputs exist.
+- commercial offer/rights research after advertiser-map inputs exist;
+- provider benchmarking and production-system validation that do not require locked character canon.
 
 ## Persistence rule
-Material Program decisions update their owning workstream state and decision evidence in the same session. Changes to foreground stage/next action update `PROJECT_MANIFEST.json`, `PROGRAM_STATE.json`, `CURRENT_PROGRESS.md` and `RESUME_ENTRY.md` where applicable. Reviewed outputs receive durable review/decision artifacts. Do not claim persistence unless the owning records were actually changed.
+Material Program decisions update their owning workstream state and decision evidence in the same session. Changes to foreground stage/next action update `PROJECT_MANIFEST.json`, `PROGRAM_STATE.json`, `CURRENT_PROGRESS.md` and `RESUME_ENTRY.md` where applicable. Video-system changes also reconcile `audits/EVOLUTION_INDEX.json` and the deeper causal audit. Reviewed outputs receive durable review/decision artifacts. Do not claim persistence unless the owning records were actually changed.
