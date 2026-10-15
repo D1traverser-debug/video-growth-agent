@@ -22,10 +22,14 @@ def test_video_owns_business_identity_and_parent_reference_is_opaque():
 
     assert manifest["domain_authority"]["project_index"] == "projects/PROJECT_INDEX.json"
     assert manifest["domain_authority"]["product_requirements"] == "docs/product_requirements.md"
+    assert manifest["domain_authority"]["architecture"] == "docs/media_business_os.md"
+    assert manifest["domain_authority"]["integrated_business_flywheel"] == "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json"
     assert manifest["runtime"]["program_orchestration"] == "video_growth_agent/program_orchestration.py"
+    assert manifest["runtime"]["media_business_os"] == "video_growth_agent/production_os.py"
 
-    assert caps["profile_version"] == 7
+    assert caps["profile_version"] == 8
     assert caps["uaos_common_capabilities_contract_min"] == "1.6.0"
+    assert caps["uaos_common_behavior_assurance_min"] == "1.2.0"
     assert "domain_internal_work_orchestration" in caps["required_uaos_common_capabilities"]
     assert caps["hosted_cognition_semantics"]["problem_response_floor"] == [
         "MICRO_DIAGNOSIS",
@@ -52,8 +56,11 @@ def test_generic_growth_commercialization_and_ip_intents_converge_on_integrated_
     assert "not a UAOS task identity" in pilot["legacy_alias_semantics"]
 
 
-def test_integrated_program_has_four_independent_business_workstreams_and_preserves_h1():
+def test_integrated_program_couples_four_business_workstreams_and_preserves_h1_cursor():
     program = load("projects/ai-self-media-commercialization/PROGRAM_STATE.json")
+    flywheel = load("projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json")
+    manifest = load("projects/ai-self-media-commercialization/PROJECT_MANIFEST.json")
+
     assert program["program_id"] == "ai-self-media-commercialization"
     assert program["owner"] == "VIDEO_GROWTH_AGENT"
     assert set(program["workstreams"]) == {
@@ -62,13 +69,30 @@ def test_integrated_program_has_four_independent_business_workstreams_and_preser
         "COMMERCIALIZATION",
         "PRODUCTION_SYSTEM",
     }
+    assert program["business_flywheel_ref"].endswith("BUSINESS_FLYWHEEL.json")
+    assert manifest["business_flywheel_ref"] == "BUSINESS_FLYWHEEL.json"
     assert program["current_focus"] == "ORIGINAL_DIGITAL_IP/H1_SCULPTURAL_MASSING_V2"
     assert "A2 positive-morph upper-face edit" in program["current_next_action"]
+    assert "must not advance this creative action automatically" in program["current_next_action"]
     assert program["workstreams"]["MEDIA_GROWTH"]["blocked_by"] == []
     assert program["workstreams"]["COMMERCIALIZATION"]["blocked_by"] == []
 
+    loop_ids = {item["id"] for item in flywheel["loops"]}
+    assert {
+        "AUDIENCE_TO_PORTFOLIO",
+        "PORTFOLIO_TO_IP",
+        "IP_TO_GROWTH",
+        "PORTFOLIO_TO_COMMERCIAL",
+        "COMMERCIAL_TO_PRODUCTION",
+        "IP_TO_PRODUCTION",
+        "PRODUCTION_TO_PORTFOLIO",
+        "PERFORMANCE_TO_IP",
+        "COMMERCIAL_OUTCOME_TO_OFFER",
+        "ALL_OUTCOMES_TO_EVOLUTION",
+    } <= loop_ids
 
-def test_coordination_policy_requires_bounded_artifact_mediated_decision_work():
+
+def test_coordination_policy_separates_business_asset_and_timeline_graphs_and_promotion():
     policy = load("video_growth_agent/data/coordination-policy.json")
     assert policy["peer_chat_allowed"] is False
     assert policy["artifact_handoffs_required"] is True
@@ -78,9 +102,29 @@ def test_coordination_policy_requires_bounded_artifact_mediated_decision_work():
     assert policy["competition_contract"]["same_context_diversity_is_independent_verification"] is False
     assert policy["negotiation_contract"]["unbounded_peer_chat"] is False
     assert policy["negotiation_contract"]["implicit_authority_transfer"] is False
+    assert policy["object_graph_semantics"] == "PROGRAM_BUSINESS_GRAPH__MEDIA_ASSET_CONTEXT_GRAPH__EDITORIAL_TIMELINE_ARE_DISTINCT_BUT_LINKED"
+    candidate = policy["media_candidate_contract"]
+    assert candidate["candidate_generation_is_acceptance"] is False
+    assert candidate["promotion_decision_required_for_accepted_asset"] is True
+    assert candidate["release_decision_separate_from_asset_promotion"] is True
 
 
-def test_pilot002_is_exact_child_historical_project_not_parent_task():
+def test_media_business_docs_reject_vendor_lockin_scalar_quality_and_stage_role_overfit():
+    architecture = (ROOT / "docs" / "media_business_os.md").read_text(encoding="utf-8")
+    requirements = (ROOT / "docs" / "product_requirements.md").read_text(encoding="utf-8")
+    benchmark = (ROOT / "docs" / "provider_benchmark_protocol.md").read_text(encoding="utf-8")
+
+    assert "Program -> Series -> Episode -> Sequence -> Scene -> Shot -> Take" in architecture
+    assert "generation admission != asset promotion != release admission" in architecture
+    assert "no single-vendor production lock-in" in architecture
+    assert "Quality is a vector" in architecture
+    assert "stage workflow/work-order runtime remains supported" in requirements
+    assert "It is no longer the sole conceptual product architecture" in requirements
+    assert "Official documentation can establish" in benchmark
+    assert "does **not** establish our production quality score" in benchmark
+
+
+def test_pilot002_is_exact_historical_project_and_rejection_truth_survives_migration():
     pilot = load("projects/pilot-002/PROGRAM_STATE.json")
     assert pilot["project_id"] == "pilot-002"
     assert pilot["owner"] == "VIDEO_GROWTH_AGENT"
@@ -89,4 +133,6 @@ def test_pilot002_is_exact_child_historical_project_not_parent_task():
     assert "controller_authority" not in pilot
     assert "controller_task_ref" not in pilot
     assert pilot["stage_state"]["previous_release_candidate"] == "REJECTED_BY_USER_FOR_INSUFFICIENT_QUALITY"
-    assert pilot["stage_state"]["quality_critical_generation_gateway"] == "UNAVAILABLE_FAIL_CLOSED"
+    assert pilot["stage_state"]["previous_release_gate_valid"] is False
+    assert "CANDIDATE_GENERATION_ALLOWED_ONLY_AFTER_CURRENT_0_7_ADMISSION" in pilot["stage_state"]["shot_a_status"]
+    assert "PROMOTION_BLOCKED_UNTIL_REQUIRED_REVIEW" in pilot["stage_state"]["shot_d_status"]

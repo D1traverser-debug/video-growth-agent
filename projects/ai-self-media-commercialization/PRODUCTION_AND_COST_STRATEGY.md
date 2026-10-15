@@ -1,210 +1,274 @@
-# Production and Cost Strategy — V1
+# Production and Cost Strategy — V2
+
+Status: `CANDIDATE_MEDIA_BUSINESS_OS_0_7`
+Owner: `DOMAIN:video`
+Architecture: `docs/media_business_os.md`
+Benchmark method: `docs/provider_benchmark_protocol.md`
 
 ## Objective
 
-Maximize AI-assisted visual production and reduce creator labor **without** building a cost structure in which every published second requires a premium video-generation model.
+Maximize **published audience/business value per unit of cash and creator attention** while protecting editorial truth, audiovisual quality, distinctive IP and reusable rights.
 
-The account is not an "AI video account". AI is the production studio for a technology-business media product.
+The objective is not to maximize AI-video percentage, cheapest generated seconds or cinematic spectacle.
 
-## Production target
+The account is an AI-native technology-business media product. AI is the studio/infrastructure; the audience proposition is explanation, story, mechanisms, distinctive IP and trustworthy production.
 
-Preferred mature state:
+## 1. Value-aware production allocation
 
-`research -> script -> shot plan -> visual classification -> image generation -> video routing -> voice/audio -> rough assembly -> QA -> human approval`
+Do not freeze a permanent percentage of premium video / ordinary I2V / still motion / graphics.
 
-The creator should increasingly act as:
-- editor-in-chief;
-- director;
-- approval gate;
-- final quality controller;
+For every shot, choose from the admissible mode set:
 
-rather than manually producing every asset.
+- verified real/editorial/product asset;
+- premium video generation;
+- ordinary video generation;
+- video modify/edit/extend;
+- image generation + I2V;
+- still + camera/parallax/local motion;
+- programmatic motion graphics/diagram/typography;
+- reusable environment/IP asset;
+- archive/licensed asset;
+- hybrid composite.
 
-## AI visual share vs premium-video share
+Allocation is driven by:
 
-These are separate metrics.
+1. narrative/explanatory job;
+2. risk/truth class;
+3. identity/continuity need;
+4. expected audience/IP/commercial leverage;
+5. measured provider acceptance/retry rate for this shot archetype;
+6. editability/reuse;
+7. current cost/latency;
+8. rights/provenance constraints.
 
-A finished episode may be 80–100% AI-originated / AI-composited visually while only a smaller fraction uses expensive full video generation.
+A prior rough range (for example 10–25% premium video) may be used as a planning prior when no project evidence exists, but it is not production doctrine.
 
-Suggested starting allocation for a 6–10 minute episode:
-- premium AI video / hero motion: 10–25%;
-- ordinary I2V / lower-cost motion generation: 15–30%;
-- AI stills + camera motion / parallax / local motion: 25–40%;
-- motion graphics / diagrams / typography / code-driven visuals: 15–30%;
-- verified real/brand/editorial product footage where truth requires it: variable, especially for sponsorship.
+## 2. Shot investment classes
 
-These are budgeting ranges, not hard doctrine.
+### HERO / signature
+Use top admissible production resources when the shot materially drives:
+- opening stop-rate/retention promise;
+- major reveal/payoff;
+- distinctive IP/series memory;
+- impossible/invisible mechanism visualization;
+- sponsor-defining hero moment;
+- signature transition/world-building asset with high reuse value.
 
-## Shot classes
+Hero does not mean "always use the most expensive model". A verified real product macro, programmatic simulation or reusable 3D/graphic asset can be the correct hero route.
 
-### S-class
-Use strongest available video model when the shot is responsible for:
-- opening stop-rate;
-- major reveal;
-- impossible cinematic concept;
-- complex character action;
-- signature transition;
-- sponsor-defining hero moment.
+### CORE narrative
+Use the cheapest route that repeatedly clears the shot-specific quality vector and continuity floor. Favor editable/reusable assets over one-off spectacle when audience value is equivalent.
 
-### A-class
-Use competent I2V / controlled video model when movement materially improves explanation or emotion but does not justify top-tier cost.
+### SUPPORT / bridge
+Prefer still-motion, graphics, archive, reusable environments, crop/reframe, edit/extend or low-cost generation. Support shots should not consume hero retry budgets by default.
 
-### B-class
-Prefer:
-- generated still;
-- 2.5D motion;
-- camera push/pan;
-- depth/parallax;
-- selective local movement;
-- reusable environment or character asset.
+### INFORMATION / truth
+Prefer diagrams, charts, labels, code/system schematics, verified product media and source-bound graphics when they communicate more accurately than synthetic cinema.
 
-### Information-class
-Use:
-- diagrams;
-- animated charts;
-- labels;
-- interface abstraction;
-- system schematics;
-- typography and compositing.
+## 3. Exploration vs production economics
 
-These shots often explain more effectively than another cinematic generation.
+### Exploration
 
-## Model Router principle
+Goal: reduce uncertainty cheaply.
 
-Never bind the system to one vendor/model.
+- low resolution/keyframes/stills/short takes encouraged;
+- cheapest sufficient current engine after hard rights/capability gates;
+- no release-grade reviewer requirement merely to create a candidate;
+- strict retry/credit ceilings;
+- outputs remain candidate-only.
 
-Routing fields should eventually include:
-- shot_id;
-- shot_type;
-- duration;
-- required_resolution;
-- quality_class;
-- character_consistency requirement;
-- physics/action complexity;
-- camera complexity;
-- product-truth requirement;
-- maximum cash/credit budget;
-- retry_limit;
-- preferred model;
-- fallback model;
-- graceful-degradation route.
+### Production
 
-Example fallback:
+Goal: produce promotable takes.
 
-`premium video -> cheaper I2V -> local motion / 2.5D -> still + camera -> information graphic`
+- quality/continuity/truth first after hard constraints;
+- route on owner benchmark quality vectors;
+- calculate cost per **accepted** take, not only provider cost per second;
+- retries create new takes and accumulate cost/waste evidence.
 
-A failed four-second shot must not consume unlimited credits.
+### Release
 
-## Cost accounting
+Goal: minimize expensive downstream failure.
 
-Track at minimum:
+- no unresolved rights/product-truth/provenance/disclosure gap;
+- final technical QA;
+- platform deliverable validation;
+- explicit release owner.
 
-### Compute / cash
-- image-generation count and cost;
-- video-generation seconds and retries;
-- model/provider;
-- upscale/interpolation cost;
-- voice/TTS cost;
-- music/audio cost;
-- LLM/research cost where material;
-- storage/service cost.
+## 4. Model/provider strategy
 
-### Human labor
-- research review;
-- script review;
-- storyboard review;
-- visual selection;
-- character/lookdev approval;
-- edit review;
+Never hard-code a vendor as the permanent default.
+
+Provider/model observations are dated and evidence-bound. Current external model capabilities justify fields in the registry but not permanent quality rankings.
+
+Use `model_registry.py` + the owner benchmark protocol to compare:
+
+- supported generation/edit/reference modes;
+- identity/continuity quality;
+- motion/physics;
+- prompt/shot adherence;
+- camera execution;
+- audio;
+- editability/extension;
+- reference fidelity;
+- duration/resolution;
+- current API/session availability;
+- cost and latency;
+- commercial-use/terms/provenance;
+- deprecation risk.
+
+Provider lifecycle is a first-class risk. A discontinued provider never forces a business-architecture rewrite.
+
+## 5. Reference and asset strategy
+
+The highest leverage cost reduction is often **asset reuse and controlled editing**, not a cheaper fresh generation.
+
+Build reusable:
+
+- character canon/reference views;
+- wardrobe/prop/environment packs;
+- visual motif/style assets;
+- diagrams/system components;
+- intro/outro/transition families;
+- voice/audio identity;
+- sound motifs;
+- verified sponsor/product assets;
+- platform-safe layout/caption systems.
+
+Every reuse keeps exact version/rights lineage.
+
+When a generated take is close, prefer a controlled edit/modify/extend/local repair when the provider/tool supports it and the expected acceptance cost is lower than regeneration.
+
+## 6. Cost accounting
+
+Track by episode, sequence, shot, provider and asset:
+
+### Cash/compute
+- image generations;
+- video generation seconds;
+- input/reference charges;
+- retries/rejected takes;
+- edit/modify/extend operations;
+- upscale/interpolation;
+- voice/audio/music/SFX;
+- research/LLM cost where material;
+- editor/render/storage/service cost.
+
+### Human time
+- research/fact review;
+- script/story review;
+- shot/reference planning;
+- candidate selection;
+- IP/lookdev approval;
+- edit/sound review;
+- commercial/rights review;
 - final QA.
 
 ### Waste
-- rejected images;
-- rejected videos;
-- regenerated shots;
-- abandoned scenes;
-- over-budget attempts.
+- rejected attempts;
+- superseded shots;
+- downstream work invalidated by upstream changes;
+- unused paid capacity;
+- abandoned sponsor deliverables;
+- unreusable one-off assets.
 
-Primary operational metrics:
-- cost per published minute;
+## 7. Core economics metrics
+
+At minimum:
+
+- cost per accepted generated take;
+- rejection/retry rate by provider × shot archetype;
+- cash cost per published minute;
 - creator minutes per published minute;
-- premium-video seconds per published minute;
-- retry rate by model / shot type;
-- reusable-asset rate.
+- premium-generation seconds per published minute;
+- reusable-asset use rate;
+- marginal cost per platform derivative;
+- production latency per accepted minute;
+- sponsor production uplift;
+- episode commercial gross margin where applicable;
+- rights/licensing revenue separately;
+- repeat-buy signal.
 
-## Resolution policy
+Do not collapse these into one permanent score.
 
-Do not make native 4K generation a default requirement.
+## 8. Product-truth and sponsor mode
 
-Preferred early production:
-- generate at the lowest resolution that preserves the required shot quality;
-- use 1080p as a normal master/output target where appropriate;
-- upscale selectively;
-- reserve native high-resolution generation for shots where detail actually survives platform delivery and materially affects quality.
+When exact physical sponsor/product truth matters:
 
-## Product-truth boundary
+- use verified real/authorized product imagery/footage or explicit brand sources for appearance, UI, materials, dimensions/configuration and demonstrated behavior;
+- AI may build the surrounding world, explain invisible mechanisms or create clearly framed hypothetical/future scenes;
+- synthetic material must not impersonate factual product evidence;
+- commercial deliverables bind rights, usage duration, territory, paid-media/whitelisting/cutdown permissions and exclusivity where relevant.
 
-For brand/product content, do not let generative imagery fabricate product facts.
+## 9. Resolution and master strategy
 
-Use authorized real imagery/footage or verified brand assets for:
-- exact vehicle exterior/interior;
-- real device ports/controls;
-- UI and product interfaces;
-- color/material claims;
-- dimensions / configuration;
-- demonstrated product behavior.
+Do not default every source operation to native 4K.
 
-AI is strongly suited to:
-- invisible mechanisms;
-- compute/data flow;
-- explanatory metaphors;
-- future-use imagination clearly framed as such;
-- industrial/process scenes that are impractical to film;
-- transitions and cinematic world-building.
+Choose generation resolution by expected delivered value and provider acceptance economics. Maintain a canonical master timeline/output policy (normally platform-appropriate 1080-class delivery unless a specific release/shot requires more) and upscale selectively.
 
-## Long-form production hypothesis
+High resolution is not a substitute for temporal consistency, identity, good edit or truthful visual explanation.
 
-Primary Bilibili test format:
-- 6–10 minutes;
-- initially ~70–120 purposeful shots rather than blindly targeting 200+;
-- 8–20 hero shots depending on topic and budget;
-- high information density with cinematic peaks;
-- strong visual continuity and recurring character/world assets.
+## 10. Audio economics
 
-The production goal is not to imitate another AIGC creator's shot count. It is to discover the minimum production complexity that reaches the desired public quality bar and remains economically repeatable.
+Audio is not an afterthought. Scene-level generated audio can reduce assembly work, but reusable voice/music/rights-critical components may be independently versioned.
 
-## Human gates
+Track:
+- voice generation/repair cost;
+- audio-scene generation;
+- music/SFX cost and licensing;
+- localization cost;
+- human mix/review time;
+- regeneration due to timing/performance failures.
 
-Long-term preferred creator gates:
-1. topic approval;
-2. script / claim approval;
-3. core look / hero-shot approval;
-4. final-cut approval.
+## 11. Platform derivatives
 
-Everything else is an automation candidate once the task repeats and quality can be measured.
+Budget platform variants as transforms of one master asset/story graph:
 
-## Sponsor-specific mode
+- Bilibili long-form master;
+- Douyin/Channels/XHS re-authored short variants;
+- localized YouTube/other variants when strategically justified.
 
-Normal episodes may be predominantly generated visuals.
+Measure marginal derivative cost and incremental audience/commercial value. Stop producing a derivative if repeated evidence shows poor marginal value.
 
-When a concrete physical sponsor enters:
-- insert verified real product footage/imagery at the truth-critical points;
-- maintain the same channel visual grammar around the product;
-- use AI to explain the technology around the product rather than generating false evidence of the product itself.
+## 12. Portfolio-level investment
 
-## Commercial viability test
+Episode budgets compete across a portfolio. Premium capacity should follow expected information/story leverage, distinctive-IP value, audience potential, sponsor value and reusable asset creation.
 
-Do not evaluate a topic only by views.
+A visually expensive episode can be rational if it creates durable series/IP assets; a cheap viral post can be strategically weak if it attracts the wrong audience and creates no reusable value.
 
-For each published episode, track:
-- production cash cost;
-- human labor;
-- long-tail views;
-- audience acquisition;
-- sponsor category fit;
-- integration opportunities;
-- reuse value;
-- rights value;
-- follow-on topic potential.
+## 13. Learning loop
 
-A repeatable media system must improve **content gross margin and creator-hour efficiency** as it scales.
+After every formal episode or material production batch:
+
+1. ingest platform receipts;
+2. ingest production economics/retry evidence;
+3. ingest IP/recognition qualitative or experiment evidence;
+4. ingest commercial outcomes if present;
+5. compare against the pre-production hypotheses;
+6. create scoped learning candidates;
+7. test/replay before changing durable domain rules.
+
+Provider-specific lessons expire faster than storytelling/business mechanisms.
+
+## 14. Human gates
+
+Long-term preferred creator gates remain few and high leverage:
+
+1. portfolio/topic commitment where strategic;
+2. script/claim truth for material pieces;
+3. core IP/look/hero-shot promotion where distinctive assets are at stake;
+4. sponsor/product-truth/rights approval where applicable;
+5. final release.
+
+Everything else is an automation candidate only after quality and recovery can be measured.
+
+## 15. Stop conditions
+
+A shot or method stops consuming budget when:
+
+- its configured retry/credit/time ceiling is reached;
+- repeated attempts fail the same quality dimension without a changed mechanism;
+- a lower-cost graceful-degradation route achieves the narrative job;
+- upstream story/claim/asset truth changes and invalidates the shot;
+- provider evidence becomes stale/unavailable/deprecated;
+- marginal audience/business value no longer justifies the production complexity.

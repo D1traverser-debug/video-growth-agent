@@ -1,5 +1,5 @@
 {
-  "schema_version":"2.2",
+  "schema_version":"2.3",
   "agent_id":"video",
   "domain_id":"video",
   "controller":"D1traverser-debug/universal-agent-os@main",
@@ -8,13 +8,21 @@
   "binding":{
     "controller_ref":"D1traverser-debug/universal-agent-os@main:CURRENT_SYSTEM.json",
     "common_capabilities_ref":"D1traverser-debug/universal-agent-os@main:config/COMMON_CAPABILITIES.json",
+    "common_behavior_assurance_ref":"D1traverser-debug/universal-agent-os@main:config/COMMON_BEHAVIOR_ASSURANCE.json",
     "deliberation_policy_ref":"D1traverser-debug/universal-agent-os@main:config/DELIBERATION_POLICY.json",
     "adapter_ref":".uaos/ADAPTER.json",
     "capability_ref":".uaos/CAPABILITIES.json"
   },
   "runtime":{
-    "version":"0.6.0",
+    "version":"0.7.0",
     "entrypoint":"video_growth_agent/runtime.py",
+    "media_graph":"video_growth_agent/media_graph.py",
+    "media_business_os":"video_growth_agent/production_os.py",
+    "timeline":"video_growth_agent/timeline.py",
+    "business_objects":"video_growth_agent/business_objects.py",
+    "model_registry":"video_growth_agent/model_registry.py",
+    "business_metrics":"video_growth_agent/business_metrics.py",
+    "owner_behavior_admission":"video_growth_agent/owner_behavior_admission.py",
     "episode_workflow":"video_growth_agent/data/workflow.json",
     "execution_plan":"video_growth_agent/data/execution-plan.json",
     "agent_registry":"video_growth_agent/data/agents.json",
@@ -25,14 +33,22 @@
   "domain_authority":{
     "runtime_root":"video_growth_agent",
     "product_requirements":"docs/product_requirements.md",
-    "architecture":"docs/architecture.md",
+    "architecture":"docs/media_business_os.md",
+    "architecture_compatibility_view":"docs/architecture.md",
+    "provider_benchmark_protocol":"docs/provider_benchmark_protocol.md",
     "project_root":"projects",
     "project_index":"projects/PROJECT_INDEX.json",
     "project_discovery":"projects/PROJECT_INDEX.json -> exact child state refs",
-    "business_identity":"projects/PROJECT_INDEX.json plus exact project/program/workstream/subtask state",
+    "business_identity":"projects/PROJECT_INDEX.json plus exact Program/Series/Episode/Sequence/Scene/Shot/Take/project/workstream/subtask state",
     "media_rule_root":"skills/video-growth-agent/references",
+    "canonical_evolution_entrypoint":"audits/EVOLUTION_INDEX.json",
     "generic_program_state_pattern":"projects/<project>/PROGRAM_STATE.json",
-    "integrated_default_program":"projects/ai-self-media-commercialization/PROGRAM_STATE.json"
+    "integrated_default_program":"projects/ai-self-media-commercialization/PROGRAM_STATE.json",
+    "integrated_business_flywheel":"projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json"
   },
-  "retired_active_surface":{"continuity_directory_allowed":false,"parent_business_task_identity_in_child":false}
+  "retired_active_surface":{
+    "continuity_directory_allowed":false,
+    "parent_business_task_identity_in_child":false,
+    "stage_role_pipeline_as_entire_product_ontology":false
+  }
 }

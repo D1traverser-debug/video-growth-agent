@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0",
+  "program_id": "ai-self-media-commercialization",
+  "owner": "VIDEO_GROWTH_AGENT",
+  "purpose": "Make growth, original IP, commercialization and production one evidence-coupled media business system rather than four adjacent silos.",
+  "loops": [
+    {
+      "id": "AUDIENCE_TO_PORTFOLIO",
+      "from": ["platform_performance", "qualified_audience_feedback", "search_interest", "community_signals"],
+      "to": ["topic_portfolio", "series_allocation", "hook_and_packaging_hypotheses"],
+      "decision_owner": "showrunner",
+      "rule": "Views alone never determine portfolio allocation; retention, follow/save/share, audience quality, strategic fit, repeatability and commercial adjacency are considered separately."
+    },
+    {
+      "id": "PORTFOLIO_TO_IP",
+      "from": ["topic_portfolio", "series_identity", "audience_memory_opportunities"],
+      "to": ["character_usage_plan", "distinctive_asset_plan", "world_visual_audio_grammar"],
+      "decision_owner": "creative_director",
+      "rule": "IP assets serve recognition, storytelling and reusable rights value; the character is not forced into every shot or topic."
+    },
+    {
+      "id": "IP_TO_GROWTH",
+      "from": ["promoted_character_canon", "distinctive_visual_assets", "signature_audio_assets"],
+      "to": ["thumbnail_cover_candidates", "series_recognition", "returning_audience_hypotheses"],
+      "decision_owner": "growth_strategist",
+      "rule": "Measure whether distinctive assets improve recognition/qualified growth; aesthetic preference alone is insufficient."
+    },
+    {
+      "id": "PORTFOLIO_TO_COMMERCIAL",
+      "from": ["topic_portfolio", "audience_profile", "series_plan"],
+      "to": ["advertiser_map", "commercial_fit", "offer_and_rights_candidates"],
+      "decision_owner": "commercial_director",
+      "rule": "Commercial fit is planned early but cannot rewrite factual/editorial conclusions."
+    },
+    {
+      "id": "COMMERCIAL_TO_PRODUCTION",
+      "from": ["commercial_fit", "sponsor_deliverables", "rights_package", "product_truth_requirements"],
+      "to": ["verified_product_asset_needs", "production_complexity", "platform_deliverables", "measurement_plan"],
+      "decision_owner": "executive_producer",
+      "rule": "Brand requirements alter deliverables, rights and evidence needs; product truth remains hard-gated."
+    },
+    {
+      "id": "IP_TO_PRODUCTION",
+      "from": ["canon_versions", "voice_identity", "wardrobe_prop_world_assets"],
+      "to": ["shot_reference_bundles", "continuity_constraints", "generation_routes"],
+      "decision_owner": "director",
+      "rule": "Shots bind exact canon versions; prompt memory never substitutes for asset identity."
+    },
+    {
+      "id": "PRODUCTION_TO_PORTFOLIO",
+      "from": ["cash_cost", "creator_hours", "retry_rate", "accepted_shot_rate", "reusable_asset_rate", "provider_reliability"],
+      "to": ["episode_scope", "visual_class_allocation", "cadence", "premium_capacity_allocation"],
+      "decision_owner": "executive_producer",
+      "rule": "Production economics change format and investment, not editorial truth."
+    },
+    {
+      "id": "PERFORMANCE_TO_IP",
+      "from": ["packaging_experiments", "recognition_feedback", "returning_audience", "comments_and_qualitative_feedback"],
+      "to": ["distinctive_asset_learning_candidates", "character_usage_frequency", "canon_variant_hypotheses"],
+      "decision_owner": "creative_director",
+      "rule": "One successful/failed post creates evidence, not automatic canon mutation."
+    },
+    {
+      "id": "COMMERCIAL_OUTCOME_TO_OFFER",
+      "from": ["deal_revenue", "gross_margin", "brand_outcome", "repeat_buy_signal", "rights_usage", "audience_trust_feedback"],
+      "to": ["offer_architecture", "pricing_evidence", "rights_terms", "advertiser_priority"],
+      "decision_owner": "commercial_director",
+      "rule": "Commercial learning is outcome-accountable; impressions/views alone do not establish sponsor effectiveness."
+    },
+    {
+      "id": "ALL_OUTCOMES_TO_EVOLUTION",
+      "from": ["production_receipts", "platform_receipts", "commercial_receipts", "user_corrections", "failed_paths"],
+      "to": ["learning_candidates", "tests_or_replay", "domain_rule_promotion_or_rejection"],
+      "decision_owner": "VIDEO_GROWTH_AGENT",
+      "rule": "Durable changes require scoped evidence, counterexamples and regression/replay; provider observations remain volatile."
+    }
+  ],
+  "shared_business_objects": [
+    "ContentPortfolio",
+    "Series",
+    "EpisodeIntent",
+    "DistinctiveAsset",
+    "CharacterCanon",
+    "CommercialFit",
+    "RightsPackage",
+    "ShotContract",
+    "ReferenceBundle",
+    "CandidateTake",
+    "MasterTimeline",
+    "PlatformVariant",
+    "PerformanceReceipt",
+    "CommercialOutcomeReceipt",
+    "LearningCandidate"
+  ],
+  "invariants": [
+    "Editorial/product truth and audience trust outrank sponsor convenience.",
+    "No workstream owns a private duplicate of an asset/decision that another workstream consumes; consumers reference the authoritative object/version.",
+    "Cross-workstream influence is explicit evidence/decision flow, never hidden prompt context.",
+    "No single metric, including views, CTR, completion or revenue, is the global objective.",
+    "IP is measured as a reusable audience/business asset, not only as character aesthetics.",
+    "Commercialization begins before production when it affects deliverables/rights/truth assets, but sponsorship is not required for content worthiness.",
+    "Production decisions emit cost/retry/reuse evidence back to portfolio planning.",
+    "Platform derivatives preserve source lineage and are re-authored for platform behavior rather than blindly clipped."
+  ],
+  "updated_at": "2026-10-15T11:40:05+08:00"
+}

@@ -22,6 +22,12 @@ def test_uaos_is_the_only_parent_controller_while_video_owns_business_identity()
     assert manifest["status"] == "UAOS_CONTROL_PLANE_ACTIVE"
     assert manifest["skill"]["entrypoint"] == "UAOS_SKILL.md"
     assert manifest["runtime"]["version"] == runtime_version()
+    assert manifest["runtime"]["media_graph"] == "video_growth_agent/media_graph.py"
+    assert manifest["runtime"]["media_business_os"] == "video_growth_agent/production_os.py"
+    assert manifest["runtime"]["timeline"] == "video_growth_agent/timeline.py"
+    assert manifest["runtime"]["business_objects"] == "video_growth_agent/business_objects.py"
+    assert manifest["domain_authority"]["architecture"] == "docs/media_business_os.md"
+    assert manifest["domain_authority"]["canonical_evolution_entrypoint"] == "audits/EVOLUTION_INDEX.json"
 
     assert adapter["controller_task_identity_authority"] == "UAOS"
     assert adapter["domain_business_identity_authority"] == "VIDEO_GROWTH_AGENT"
@@ -35,12 +41,14 @@ def test_uaos_is_the_only_parent_controller_while_video_owns_business_identity()
     assert not (ROOT / "continuity").exists()
 
 
-def test_current_capability_profile_preserves_execution_contract_without_old_controller():
+def test_current_capability_profile_exposes_media_business_os_and_common_behavior_1_2():
     profile = load_json(ROOT / ".uaos" / "CAPABILITIES.json")
     assert profile["execution_readiness_contract"] == "2.0"
     assert profile["owner"] == "VIDEO_GROWTH_AGENT"
-    assert profile["profile_version"] == 7
+    assert profile["profile_version"] == 8
     assert profile["uaos_common_capabilities_contract_min"] == "1.6.0"
+    assert profile["uaos_common_behavior_assurance_min"] == "1.2.0"
+    assert profile["canonical_evolution_entrypoint"] == "audits/EVOLUTION_INDEX.json"
     assert set(profile["assurance_taxonomy"]) == {
         "DECLARED_ONLY",
         "HARNESS_WIRED",
@@ -50,7 +58,14 @@ def test_current_capability_profile_preserves_execution_contract_without_old_con
     }
     ids = {item["capability_id"] for item in profile["capabilities"]}
     assert {
-        "program_workstream_orchestration",
+        "media_business_program_orchestration",
+        "canonical_media_graph",
+        "shot_asset_production_os",
+        "non_destructive_editorial_timeline",
+        "shared_growth_ip_commercial_objects",
+        "evidence_bound_model_routing",
+        "business_outcome_measurement",
+        "owner_common_behavior_admission",
         "studio_work_order_orchestration",
         "ordinary_specialist_execution",
         "critical_blind_multimodal_review",
@@ -61,15 +76,21 @@ def test_current_capability_profile_preserves_execution_contract_without_old_con
         "learning_and_evolution",
         "domain_product_requirements_traceability",
     } <= ids
-    gateway = next(item for item in profile["capabilities"] if item["capability_id"] == "quality_critical_generation_gateway")
+    gateway = next(
+        item
+        for item in profile["capabilities"]
+        if item["capability_id"] == "quality_critical_generation_gateway"
+    )
     assert gateway["assurance_ceiling"] == "DECLARED_ONLY"
-    assert gateway["executor_type"] == "UNAVAILABLE"
-    assert gateway["safe_degraded_modes"] == []
+    assert gateway["executor_type"] == "CURRENT_SESSION_EXTERNAL_MEDIA_CAPABILITY"
+    assert gateway["safe_degraded_modes"] == [
+        "BLOCK_ONLY_AFFECTED_SHOT_OR_USE_DECLARED_GRACEFUL_DEGRADATION"
+    ]
 
 
-def test_pilot002_program_state_preserves_business_truth_not_parent_control_protocol():
+def test_pilot002_preserves_rejection_truth_but_migrates_candidate_promotion_boundary():
     state = load_json(PROGRAM_STATE)
-    assert state["schema_version"] == "1.1"
+    assert state["schema_version"] == "1.2"
     assert state["project_id"] == "pilot-002"
     assert state["owner"] == "VIDEO_GROWTH_AGENT"
     assert state["business_identity_authority"] == "projects/pilot-002/PROGRAM_STATE.json::project_id"
@@ -80,9 +101,10 @@ def test_pilot002_program_state_preserves_business_truth_not_parent_control_prot
     assert state["resume_mode"] == "EXPLICIT_CHILD_PROJECT_REF"
     assert state["current_stage"] == "VISUAL_PREVIEW_PROCESS_REENTRY"
     assert state["stage_state"]["sample_v2_status"] == "PROCESS_INVALID_AND_VISUAL_FAIL"
-    assert state["stage_state"]["production_trusted_reviewer_executors"] == "EMPTY_FAIL_CLOSED"
+    assert state["stage_state"]["production_trusted_reviewer_executors"] == "EMPTY_ATTESTED_ISOLATED_TIER_UNAVAILABLE"
     assert state["stage_state"]["previous_release_gate_valid"] is False
-    assert state["stage_state"]["quality_critical_generation_gateway"] == "UNAVAILABLE_FAIL_CLOSED"
+    assert "CANDIDATE_GENERATION_ALLOWED_ONLY_AFTER_CURRENT_0_7_ADMISSION" in state["stage_state"]["shot_a_status"]
+    assert "PROMOTION_BLOCKED_UNTIL_REQUIRED_REVIEW" in state["stage_state"]["shot_d_status"]
     assert state["authoritative_artifacts"]["rejected_candidate_v4"]["sha256"] == "eec364e8530067dbc87a08a9ccbf2dd6e6e8a5ab32fb87f648c794a4000628eb"
     assert "controller_authority" not in state
     assert "controller_task_ref" not in state
@@ -100,6 +122,8 @@ def test_generic_uaos_skill_routes_through_child_project_index_without_embedding
     assert "no parent/child id equality requirement" in lower
     assert "not unbounded peer chat" in lower
     assert "do not create a repository-local parent task index" in lower
+    assert "candidate generation, project-asset promotion and release are separate boundaries" in lower
+    assert "audits/evolution_index.json" in lower
     assert "h1_sculptural_massing" not in lower
     assert "a2 positive" not in lower
     assert "sample v2" not in lower

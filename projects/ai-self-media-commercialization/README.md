@@ -1,58 +1,93 @@
 # AI自媒体视频商业化与原创数字IP
 
-Status: ACTIVE_DESIGN_INCUBATION  
+Status: `ACTIVE_MEDIA_BUSINESS_PROGRAM`  
 Project ID: `ai-self-media-commercialization`  
-Scope: project-local only  
-Continuity task: **NO**
+Owner: `VIDEO_GROWTH_AGENT`  
+Parent business identity: **NONE — UAOS router identity is distinct**
 
-## Isolation rule
+## Current role
 
-This folder is a sibling project under `projects/*`. It is **not** a child of `video-growth:main`, `pilot-001`, or `pilot-002`, and it must not advance, relax, rewrite, or inherit their stage/gate state. Existing Pilot 002 VISUAL_PREVIEW blockers remain unrelated.
+This is the default integrated Video-domain business Program for:
 
-The package exists so the Video Growth repository can discover and later explicitly import the account strategy, character identity, look-development authority, production economics and workflow notes when a future project chooses to use them.
+- AI-native technology/business media growth;
+- original digital IP and distinctive brand assets;
+- commercialization, sponsorship, rights and offer architecture;
+- provider-neutral audiovisual production and production-system learning.
 
-## Current product definition
+It is **not** an isolated future-import package and it is not a child of `pilot-001` or `pilot-002`. Historical Pilot projects remain separately resumable child states and their rejected/process-invalid media never become accepted inputs by proximity.
 
-Build an AI-native commercial self-media account whose public identity is a **technology × business/capital × internet-culture** media brand, expressed through cinematic AI visuals rather than an "AI tools" account identity.
+Current product architecture: `../../docs/media_business_os.md`.  
+Current provider benchmark method: `../../docs/provider_benchmark_protocol.md`.  
+Cross-workstream evidence loops: `BUSINESS_FLYWHEEL.json`.
 
-Primary content form under test:
-- Bilibili-oriented 6–10 minute AI-heavy cinematic explainers / mini-documentaries;
-- short-form derivatives for Douyin / Video Accounts / Xiaohongshu;
-- long-term international adaptation potential for YouTube;
-- brand categories prioritized around 3C/digital hardware, AI/software/network services, smart vehicles, smart hardware/appliances, games and e-commerce.
+## Business system
 
-Platform payout is treated as supplemental revenue, not the core business model. Core monetization target is brand integration, native sponsorship, reusable content rights, series sponsorship and later product/e-commerce conversion where fit is natural.
+The four workstreams are coupled but retain explicit authority:
 
-## AI production philosophy
+### MEDIA_GROWTH
+Audience/problem evidence, portfolio, series/format hypotheses, packaging/distribution, platform measurement and qualified growth.
 
-The target is **high AI visual share with low creator labor**, not simply low AI usage. Expensive video-generation seconds are budgeted selectively; static generation, controlled image motion, motion graphics, reusable identity assets and model routing should carry as much of the production load as possible.
+### ORIGINAL_DIGITAL_IP
+Character/world/visual/audio canon, distinctive assets, recognition, identity continuity and reusable rights value.
 
-For real product advertising, the product-truth region must use authorized real imagery / footage / verified brand assets where accuracy matters. AI remains appropriate for explanation, metaphor, invisible mechanisms, world-building and cinematic transitions.
+### COMMERCIALIZATION
+Advertiser/category fit, native integrations, product-truth requirements, offer/pricing/rights packages, measurement and repeat-buy evidence.
 
-## Character program
+### PRODUCTION_SYSTEM
+Shot/reference/take planning, provider routing, generation/acquisition/editing, asset promotion, timeline/audio, QA, release, cost and production learning.
 
-The original male digital IP is currently in concept design. The direction explicitly rejects:
-- "real person with blue hair" / cosplay-like photoreal digital-human outputs;
-- generic Korean-idol or AAA-game handsome-male templates;
-- literal dog ears, dog face, fish tail, furry/kemonomimi treatment;
-- shallow motif pasting and adjective-heavy prompt writing.
+`BUSINESS_FLYWHEEL.json` defines how evidence flows between these views. No workstream owns a private duplicate of authoritative assets or decisions consumed by another.
 
-The accepted design concept is:
+## Public product positioning
 
-> **A high-resolution observer carrying low-resolution anomalies.**
+The public brand remains **technology × business/capital × internet culture** explained with an engineer/system lens and high-impact AI-native audiovisual storytelling. It is not positioned as an AI-tools account, stock-picking account, generic finance account or generic AIGC spectacle channel.
 
-The pixel avatar supplies first-read visual identity. The Shiba-carp meme supplies a deeper hybrid/absurdity grammar, easter-egg system and deadpan performance rule. The creator's real-world identity supplies only a weak physical host anchor: young Chinese adult male, tall and slim, engineering/analytical presence.
+Primary long-form hypothesis remains Bilibili-oriented cinematic explainers/mini-documentaries, with re-authored short variants for Douyin/Video Accounts/Xiaohongshu and later international/localized variants when evidence supports them.
 
-## File map
+## Production philosophy
 
-- `PROJECT_MANIFEST.json` — machine-readable discovery and future-import metadata.
-- `ACCOUNT_POSITIONING.md` — account, audience, content pillars, monetization and channel role.
-- `CHARACTER_DESIGN_BIBLE_V1.md` — current character design authority.
-- `CONCEPT_GENERATION_PROMPT_V1.md` — execution prompt for the first concept render.
-- `PRODUCTION_AND_COST_STRATEGY.md` — AI-heavy production economics and model-routing logic.
-- `WORKFLOW_INTEGRATION.md` — explicit mapping into the existing Video Growth workflow.
-- `DECISION_LOG.md` — accepted/rejected paths and current next action.
+The target is not maximum AI-video percentage. Choose the lowest expected-cost route that reaches the shot-specific narrative, truth, continuity and quality bar.
 
-## Current next action
+Possible routes include verified real media, premium/ordinary generative video, I2V, modify/extend/edit, still-motion, programmatic graphics/diagrams, reusable assets and hybrid composites.
 
-Generate **one** full-body concept from the locked design authority. Evaluate the large forms first: silhouette, face architecture, hair masses, signature accessory, costume architecture and motif fusion. If the concept passes, refine the same identity through controlled edits instead of restarting with new random characters.
+Candidate generation, promotion and release are separate:
+
+- safe candidates may be generated after capability/rights/budget/truth admission;
+- file existence never creates canon/current/final authority;
+- high-risk/HERO/brand-truth promotion requires proportionate quality/continuity/truth/rights and independent evidence;
+- release remains fail-closed.
+
+Exact real-product facts use verified real/authorized evidence at truth-critical points.
+
+## Current Original-IP truth
+
+The foreground creative cursor is **not** concept-search anymore.
+
+Accepted base:
+- original corrected S1+S3 strict-front gray sculpt fixed face shell.
+
+Current evidence:
+- E1/E2/E3: inconclusive;
+- A1: rejected for low/heavy brow-eye pressure, hooded/loose upper-lid character, insufficient horizontal eye organization, soft/tired lower-lid support and street-tough contamination;
+- lower-face geometry remains usable.
+
+Current next creative action:
+- execute **A2 positive-morph upper-face edit** from the accepted original corrected S1+S3 fixed face shell;
+- keep face shell/nose/cheek/jaw/chin/neck/camera/light/gray material fixed;
+- compare A2 directly with the accepted base before cheek-jaw correction or 3/4 validation.
+
+System/architecture maintenance must not advance this creative action automatically.
+
+## Main current files
+
+- `PROJECT_MANIFEST.json` — machine-readable Program discovery/current authority map.
+- `PROGRAM_STATE.json` — current workstream/business state and foreground cursor.
+- `SUBTASK_GRAPH.json` — explicit business-task dependencies/parallelism.
+- `BUSINESS_FLYWHEEL.json` — growth/IP/commercial/production feedback loops.
+- `ACCOUNT_POSITIONING.md` — public brand/audience/content/monetization positioning.
+- `PRODUCTION_AND_COST_STRATEGY.md` — value-aware production economics and routing policy.
+- `CURRENT_PROGRESS.md` — detailed current H1/IP trajectory.
+- `RESUME_ENTRY.md` — exact resume instructions.
+- `DECISION_LOG.md` — accepted/rejected decisions.
+
+Historical/superseded design files remain evidence only when `PROJECT_MANIFEST.json` marks them as such.

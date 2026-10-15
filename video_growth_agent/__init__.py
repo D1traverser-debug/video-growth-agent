@@ -1,3 +1,18 @@
+from .business_metrics import (
+    CommercialOutcome,
+    EpisodeOutcomeReceipt,
+    PlatformPerformanceReceipt,
+    ProductionEconomics,
+)
+from .business_objects import (
+    BusinessHypothesisDecision,
+    BusinessObjectError,
+    CommercialFit,
+    CommercialOfferCandidate,
+    ContentPortfolioItem,
+    DistinctiveAssetObservation,
+    RightsPackage,
+)
 from .engine_routing import (
     CandidateAssessment,
     CostAwareShotRouter,
@@ -7,13 +22,59 @@ from .engine_routing import (
     ShotRequest,
 )
 from .execution_attestation import ExecutionAttestation, ExecutionTrustRegistry, canonical_digest
+from .media_graph import (
+    AssetRef,
+    AssetVersion,
+    ContextRecord,
+    DecisionRecord,
+    EvidenceRecord,
+    MediaGraph,
+    MediaGraphError,
+    MediaGraphStore,
+    TaskRecord,
+)
+from .model_registry import (
+    EvidenceBoundModelRouter,
+    ModelAssessment,
+    ModelObservation,
+    ModelRoutingDecision,
+    ShotRoutingRequest,
+)
 from .models import Approval, ArtifactRecord, AssetRecord, QACheck, QAReport, ProjectState
 from .orchestrator import GateBlocked, StudioOrchestrator
+from .owner_behavior_admission import (
+    BehaviorAdmissionError,
+    VideoRecoveryReceipt,
+    finalize_problem_closure,
+    record_recovery_attempt,
+    require_user_escalation_admission,
+)
+from .production_os import (
+    GenerationAdmission,
+    PlatformVariant,
+    ProductionAdmissionError,
+    PromotionDecision,
+    PromotionEvidence,
+    ReferenceBinding,
+    ReleaseEvidence,
+    ShotContract,
+    TakeRecord,
+    admit_candidate_generation,
+    admit_release,
+    evaluate_take_promotion,
+)
 from .program_orchestration import ProgramGraph, ProgramNode, ProgramOrchestrator, ProgramRunState
 from .roles import RoleRegistry
 from .runtime import StudioRuntime
 from .storage import ProjectStore
 from .techniques import TechniqueLibrary
+from .timeline import (
+    TimelineClip,
+    TimelineError,
+    TimelineMarker,
+    TimelineSpec,
+    assert_platform_variant_lineage,
+)
 from .studio_agents import AgentRegistry, AgentSpec, AgenticStudio, ExecutionPlanner, WorkOrder
 from .reviewer_providers import (
     GeminiReviewerAdapter,
@@ -23,6 +84,17 @@ from .reviewer_providers import (
 )
 
 __all__ = [
+    "CommercialOutcome",
+    "EpisodeOutcomeReceipt",
+    "PlatformPerformanceReceipt",
+    "ProductionEconomics",
+    "BusinessHypothesisDecision",
+    "BusinessObjectError",
+    "CommercialFit",
+    "CommercialOfferCandidate",
+    "ContentPortfolioItem",
+    "DistinctiveAssetObservation",
+    "RightsPackage",
     "CandidateAssessment",
     "CostAwareShotRouter",
     "EngineProfile",
@@ -32,6 +104,20 @@ __all__ = [
     "ExecutionAttestation",
     "ExecutionTrustRegistry",
     "canonical_digest",
+    "AssetRef",
+    "AssetVersion",
+    "ContextRecord",
+    "DecisionRecord",
+    "EvidenceRecord",
+    "MediaGraph",
+    "MediaGraphError",
+    "MediaGraphStore",
+    "TaskRecord",
+    "EvidenceBoundModelRouter",
+    "ModelAssessment",
+    "ModelObservation",
+    "ModelRoutingDecision",
+    "ShotRoutingRequest",
     "Approval",
     "ArtifactRecord",
     "AssetRecord",
@@ -40,6 +126,23 @@ __all__ = [
     "ProjectState",
     "GateBlocked",
     "StudioOrchestrator",
+    "BehaviorAdmissionError",
+    "VideoRecoveryReceipt",
+    "finalize_problem_closure",
+    "record_recovery_attempt",
+    "require_user_escalation_admission",
+    "GenerationAdmission",
+    "PlatformVariant",
+    "ProductionAdmissionError",
+    "PromotionDecision",
+    "PromotionEvidence",
+    "ReferenceBinding",
+    "ReleaseEvidence",
+    "ShotContract",
+    "TakeRecord",
+    "admit_candidate_generation",
+    "admit_release",
+    "evaluate_take_promotion",
     "ProgramGraph",
     "ProgramNode",
     "ProgramOrchestrator",
@@ -48,6 +151,11 @@ __all__ = [
     "StudioRuntime",
     "ProjectStore",
     "TechniqueLibrary",
+    "TimelineClip",
+    "TimelineError",
+    "TimelineMarker",
+    "TimelineSpec",
+    "assert_platform_variant_lineage",
     "AgentRegistry",
     "AgentSpec",
     "AgenticStudio",
