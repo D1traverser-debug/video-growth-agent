@@ -1,27 +1,28 @@
 {
   "schema_version":"1.0",
   "owner":"DOMAIN:video",
-  "revision":"1.4",
-  "updated_at":"2026-10-15T18:48:00+08:00",
+  "revision":"1.5",
+  "updated_at":"2026-10-15T19:15:03+08:00",
   "common_behavior_assurance_min":"1.2.0",
-  "current_open_items":["V-20261015-02-AGENT_OPERABLE_MEDIA_OS"],
-  "current_problem_refs":{
-    "V-20261015-02-AGENT_OPERABLE_MEDIA_OS":"audits/VIDEO_AGENT_OPERABILITY_REDESIGN_2026-10-15.md"
-  },
-  "current_resume_ref":"audits/VIDEO_0_8_RESUME_CHECKPOINT_2026-10-15.md",
-  "current_candidate":{
-    "evolution_id":"V-20261015-02-AGENT_OPERABLE_MEDIA_OS",
-    "pr":15,
-    "branch":"feat/agent-operable-media-os-0-8-20261015",
-    "checkpoint_commit":"bfaa3c6926f8d5064088311bd5029813e4e90c60",
-    "latest_verified_runtime_candidate_head":"b5d7da1c4a7f851319b9a2304470f53a5ab48ca4",
-    "latest_verified_runtime_candidate_ci_run":38721670861,
-    "latest_pre_checkpoint_head_with_failed_reconciliation_ci":"9bc5abad9dd91e2970dc17f19fcc3bef7dcb8bc9",
-    "latest_failed_ci_run":38722504017,
-    "latest_failed_ci_summary":"SYSTEM_AUDIT_PASS__PYTEST_176_PASS_3_FAIL__SEMANTIC_DOC_EVOLUTION_TEST_RECONCILIATION_PENDING",
-    "promotion_state":"DO_NOT_MERGE__CANDIDATE_OPEN"
-  },
+  "current_open_items":[],
+  "current_problem_refs":{},
+  "current_resume_ref":null,
+  "current_candidate":null,
   "recent_resolved_or_promoted":[
+    {
+      "id":"V-20261015-02-AGENT_OPERABLE_MEDIA_OS",
+      "ref":"audits/VIDEO_AGENT_OPERABILITY_REDESIGN_2026-10-15.md",
+      "status":"RESOLVED_PRODUCTION_0_8_0",
+      "release":"0.8.0",
+      "candidate_pr":15,
+      "candidate_head":"50bc4a74d7c641875c9625626d5c4634b97ba1fd",
+      "candidate_ci_run":38725408205,
+      "candidate_ci_number":649,
+      "production_commit":"02d39d8e3609c6d988009f4bc5a7f5d0378128ec",
+      "production_ci_run":38725890405,
+      "production_ci_number":650,
+      "assurance":"PRODUCTION_0_8_0_AGENT_OPERABLE_MEDIA_OS__SYSTEM_AUDIT__180_TEST_SUITE_WITH_END_TO_END_CURRENT_AGENT_TRAJECTORY__INSTALLED_PACKAGE_SMOKE_VERIFIED__LIVE_PUBLISHED_OUTCOMES_OPEN_BY_DESIGN"
+    },
     {
       "id":"V-20261015-01-AI_NATIVE_MEDIA_BUSINESS_OS_REDESIGN",
       "ref":"audits/AI_NATIVE_MEDIA_BUSINESS_OS_REDESIGN_2026-10-15.md",
@@ -36,7 +37,7 @@
     },
     {
       "ref":"audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md",
-      "status":"HISTORICAL_0_6_PRODUCT_ORCHESTRATION_REPAIR__SUPERSEDED_IN_PART_BY_0_7_MEDIA_BUSINESS_OS"
+      "status":"HISTORICAL_0_6_PRODUCT_ORCHESTRATION_REPAIR__SUPERSEDED_IN_PART_BY_0_7_AND_0_8_MEDIA_BUSINESS_OS"
     },
     {
       "ref":"audits/SYSTEM_SELF_AUDIT_2026-10-11.md",
@@ -77,6 +78,7 @@
     "tests/test_business_metrics.py",
     "tests/test_operator_view.py",
     "tests/test_owner_behavior_admission.py",
+    "tests/test_agent_operable_media_os_trajectory.py",
     "tests/test_system_audit.py",
     "tests/test_uaos_current.py"
   ],
@@ -84,7 +86,8 @@
     "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
     "audits/SYSTEM_SELF_AUDIT_2026-10-11.md",
     "audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md",
+    "audits/VIDEO_0_8_RESUME_CHECKPOINT_2026-10-15.md",
     "projects/pilot-002/PROGRAM_STATE.json"
   ],
-  "assurance":"PRODUCTION_0_7_0_BASELINE__0_8_AGENT_OPERABILITY_CANDIDATE_INTERRUPTED_WITH_DURABLE_RESUME_CHECKPOINT"
+  "assurance":"PRODUCTION_0_8_0_AGENT_OPERABLE_MEDIA_OS_VERIFIED__LIVE_PUBLISHED_EPISODE_GROWTH_IP_COMMERCIAL_OUTCOMES_REMAIN_RUNTIME_OBSERVATIONS"
 }
