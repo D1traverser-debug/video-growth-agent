@@ -1,34 +1,33 @@
 # AI-Native Media Business OS
 
-Status: `PRODUCTION_0_7_0`
+Status: `CANDIDATE_0_8_0`
 Owner: `DOMAIN:video`
 Date: `2026-10-15`
 Parent behavior dependency: `UAOS COMMON_BEHAVIOR_ASSURANCE >= 1.2.0`
+Architecture-experience dependency: `UAOS ARCHITECTURE_EXPERIENCE_POLICY >= 1.0.0`
 
 ## 1. Product definition
 
-Video Growth Agent is not a collection of disconnected AI-video, growth, IP-design and sponsorship utilities. It is one AI-native media business operating system whose job is to turn durable audience insight and distinctive intellectual property into repeatable, high-quality media, measurable audience growth and commercially valuable rights/inventory.
+Video Growth Agent is one AI-native media business operating system. It must turn evidence about audience demand, editorial questions and distinctive IP into repeatable media, measurable growth, reusable rights/assets and commercial value without losing truth, provenance, continuity or recoverability.
 
-The system must optimize a portfolio, not a clip:
+The system optimizes a portfolio, not a clip:
 
-`audience/problem evidence -> content portfolio -> IP/brand assets -> episode/series intent -> production -> platform variants -> audience/commercial outcomes -> learning -> revised portfolio/IP/production/commercial rules`
+`audience/problem evidence -> portfolio/series hypothesis -> editorial intent -> claims -> beats -> shots -> assets/takes -> timeline/platform variants -> audience/commercial outcomes -> experiments/learning -> revised portfolio/IP/production/commercial rules`
 
-The four existing business workstreams remain useful ownership views, but they are coupled by explicit evidence edges:
+The four business workstreams remain ownership views, not silos:
+- `MEDIA_GROWTH` — demand, packaging, audience evidence, series allocation;
+- `ORIGINAL_DIGITAL_IP` — distinctive reusable identity/world/audio/visual assets and licensing value;
+- `COMMERCIALIZATION` — sponsor/category fit, offers, rights, product-truth requirements and measurable brand/business outcomes;
+- `PRODUCTION_SYSTEM` — editorial-plan realization into assets, shots, sequences, timelines, sound and delivery under quality/cost/provenance controls.
 
-- `MEDIA_GROWTH` discovers demand, packaging and audience response, then feeds topic allocation, IP salience and production investment.
-- `ORIGINAL_DIGITAL_IP` creates distinctive reusable assets, character/world continuity and licensing value; it is measured by recognition and useful audience/commercial lift, not only visual preference.
-- `COMMERCIALIZATION` maps sponsor/category fit, rights, offer architecture and brand outcomes; it constrains product-truth, rights and deliverables without silently dictating editorial conclusions.
-- `PRODUCTION_SYSTEM` converts narrative intent and promoted assets into shots, sequences, timelines and platform variants under quality/cost/provenance controls.
+Their cross-effects are governed by `BUSINESS_FLYWHEEL.json`; none silently mutates another domain's canon or decision authority.
 
-Distribution, measurement and learning are cross-cutting loops, not a fifth silo.
-
-## 2. Governing product objectives
+## 2. Governing objectives
 
 Optimize the Pareto frontier across:
-
 1. editorial truth and audience trust;
 2. story/clarity/retention;
-3. distinctive IP and brand recognition;
+3. distinctive IP and recognition;
 4. visual/audio craft and continuity;
 5. sponsorability and reusable rights value;
 6. cash cost and creator-hours per published minute;
@@ -37,392 +36,368 @@ Optimize the Pareto frontier across:
 9. provenance, consent, rights and disclosure compliance;
 10. durable learning rate.
 
-No single proxy such as raw views, cinematic quality, cheapest credits or maximum AI-video percentage may dominate the system.
+No single proxy — views, CTR, cinematic quality, cheapest credits, highest model score or maximum AI-video percentage — may dominate the system.
 
-## 3. Core ontology
+## 3. Canonical objects and authority
 
-The executable production model is built from stable objects rather than a fixed vendor or role list.
+### 3.1 Context
 
-### Context
-
-Hierarchical creative/business context:
+Creative/business hierarchy:
 
 `Program -> Series -> Episode -> Sequence -> Scene -> Shot -> Take`
 
-A context may also carry a platform variant (`BILIBILI_MASTER`, `DOUYIN_SHORT`, `XHS_REAUTHOR`, `WECHAT_CHANNELS`, `YOUTUBE_LOCALIZED`) without duplicating the underlying source truth.
+Platform variants remain derived contexts/edits rather than duplicated source truth.
 
-### Asset
+### 3.2 Asset
 
-An immutable or versioned media/business object with stable identity, digest, provenance, rights and acceptance state. Examples:
+Immutable/versioned media or business object with stable identity, digest, provenance, rights and acceptance state. Editorial plans, canon references, source documents, generated takes, real product assets, timelines, audio, diagrams, offers, thumbnails and outcome receipts can all be first-class assets.
 
-- character canon view;
-- wardrobe/prop/environment reference;
-- verified product footage;
-- source document;
-- image keyframe;
-- generated video take;
-- voice model/reference;
-- sound scene;
-- music cue;
-- chart/diagram;
-- timeline;
-- sponsor offer/rights package;
-- thumbnail/title candidate;
-- performance receipt.
+No accepted original is destructively overwritten. A revision creates a new version and lineage.
 
-Originals are never destructively overwritten. A revision creates a new asset/version and records lineage.
+### 3.3 Task
 
-### Task
+Bounded transformation/decision that consumes explicit context/assets/evidence and emits assets/evidence/decisions. Providers/editors are replaceable executors of tasks, not business authority.
 
-A bounded transformation or decision that consumes explicit context/assets/evidence and emits assets/evidence/decisions. Tools/providers are replaceable executors of tasks.
+### 3.4 Evidence
 
-### Evidence
+Evidence is typed and bound to the exact subject/action/artifact/provider/time. Declaration is not execution proof. Provider capability, price, availability, terms and quality evidence may expire.
 
-Evidence is typed and bound to the exact subject/action/artifact/provider/time. Declaration is not execution proof. Volatile provider quality, price, availability and licensing claims need dated evidence and may expire.
+### 3.5 Decision
 
-### Decision
+Promotion, rejection, model route selection, sponsor acceptance and release are explicit decisions with owner, criteria and evidence. Producer completion is not approval.
 
-Promotion, rejection, route selection, commercial acceptance and release are explicit decisions with owner, criteria and evidence. Producer completion is never identical to approval.
+### 3.6 Operator projection
 
-## 4. Three planes
+`OperatorSnapshot` is a derived view for the current Agent: governing outcome, current focus, ready/blocked actions, stale evidence/assets, capability/budget risks and recovery refs.
 
-### 4.1 Business plane
+It is **not** canonical business state and has no promotion/mutation/controller authority. It can always be rebuilt from owner authority.
 
-Owns portfolio, series, audience hypotheses, IP strategy, sponsor inventory, offers, rights and measurement goals.
+## 4. Concern-driven views
 
-### 4.2 Creative/production plane
+The system does not privilege one architecture picture.
 
-Owns story beats, shot intent, reference bundles, takes, edit/timeline, sound, QA and platform derivatives.
+- ownership/dependency questions use authority/context/asset/dependency views;
+- ordering/recovery/handoff questions use event/lifecycle/timeline views;
+- route/product tradeoffs use Pareto/decision/quality-attribute evidence;
+- Agent usability uses CURRENT_AGENT task/recovery walkthroughs.
 
-### 4.3 Assurance/evolution plane
+Canonical dogfood scenarios: `docs/agent_operability_scenarios.md`.
 
-Owns capability evidence, provenance, rights/disclosure, promotion gates, failure/repair receipts, experiments and durable learning.
+## 5. Agent-operable editorial planning
 
-These planes share object identities and evidence but do not duplicate authority.
+The executable editorial path is:
 
-## 5. Production graph: from story intent to release
+`EpisodeIntent -> ClaimSpec -> BeatSpec -> ShotIntent -> ShotContract`
 
-The primary production graph is:
+### EpisodeIntent
+
+Captures:
+- audience contract;
+- editorial question;
+- target platform/duration;
+- source/research evidence;
+- desired outcomes and metric semantics;
+- relevant IP/commercial context and constraints.
+
+### ClaimSpec
+
+Separates fact, analysis, hypothesis, opinion and product truth. Factual/product-truth claims require evidence before they can justify downstream production.
+
+### BeatSpec
+
+States each beat's narrative job, audience function, claims, dependencies, timing and tension/transition job. Beat dependencies must remain acyclic.
+
+### ShotIntent
+
+States what a shot must achieve visually/editorially before choosing a model:
+- visual job;
+- truth/risk mode;
+- source claims;
+- allowed production modes;
+- continuity dimensions;
+- reference intents;
+- must-show/must-avoid;
+- multi-dimensional business/creative value.
+
+### EditorialPlan
+
+Plans are immutable/versioned. Revisions carry a reason and expose impacted claims/beats/shots. Each durable plan version becomes an `EDITORIAL_PLAN` asset in MediaGraph so downstream work can bind exact upstream intent and stale correctly after changes.
+
+## 6. Production graph
+
+Current primary graph:
 
 1. `EpisodeIntent`
-2. `ClaimAndSourceMap`
-3. `BeatMap`
-4. `ShotPlan`
-5. `ReferenceBundle`
-6. `GenerationOrAcquisitionPlan`
-7. `CandidateTakes`
-8. `TakePromotion`
-9. `SequenceAssembly`
-10. `MasterTimeline`
-11. `SoundScene/Mix`
-12. `Technical + Semantic QA`
-13. `PlatformVariantPlan`
-14. `ReleaseCandidate`
-15. `ReleaseReceipt`
-16. `Performance/CommercialReceipt`
-17. `LearningCandidate`
+2. `ClaimSpec / evidence map`
+3. `BeatSpec`
+4. `ShotIntent`
+5. `EditorialPlan asset/version`
+6. `ShotContract + ReferenceBinding`
+7. `ModelRoutingDecision / acquisition decision`
+8. `CandidateTakes`
+9. `ContinuityAssessment + quality/truth/rights evidence`
+10. `TakePromotion`
+11. `SequenceAssembly`
+12. `MasterTimeline`
+13. `SoundScene/Mix`
+14. `Technical + Semantic QA`
+15. `EditorialHandoff / RoundTrip` when external editing is used
+16. `PlatformVariantPlan`
+17. `ReleaseCandidate`
+18. `ReleaseReceipt`
+19. `Experiment/Performance/CommercialReceipt`
+20. `LearningCandidate`
 
-The legacy stage workflow remains a compatibility adapter for historical projects; it is no longer the conceptual center of the product.
+The legacy stage/work-order engine remains a historical/specialized compatibility adapter, not the current product ontology.
 
-## 6. Shot contract
+## 7. Shot contract and value
 
-Every generated/acquired shot carries at minimum:
-
-- stable `shot_id` and owning sequence/context;
-- narrative/explanatory job;
-- expected duration and aspect/master crop policy;
-- visual class and generation/acquisition modes allowed;
-- must-have / must-not-have constraints;
-- truth mode (`SYNTHETIC`, `EDITORIAL_REAL`, `PRODUCT_TRUTH`, `MIXED_DISCLOSED`);
-- identity/continuity requirements;
-- reference asset IDs/digests and intended role of each reference;
-- camera/action/physics/audio/editability requirements;
-- target quality vector rather than one scalar quality score;
-- risk class (`LOW`, `MEDIUM`, `HIGH`, `HERO`, `BRAND_TRUTH`);
-- cash/credit/latency/retry budget;
-- graceful-degradation ladder;
-- stop conditions;
+Every production `ShotContract` carries:
+- stable shot/sequence identity;
+- exact `editorial_plan_ref`, beat and source-claim IDs on the 0.8 path;
+- narrative/visual job;
+- duration and truth/risk class;
+- allowed modes and required capabilities;
+- multi-dimensional quality floors;
+- multi-dimensional value vector;
+- exact reference versions/digests/rights;
+- must-have/must-not-have;
+- continuity ref;
+- budget/retry/degradation/stop conditions;
 - disclosure/provenance requirements.
 
-## 7. Model capability registry
+A high-value shot may justify premium spend; that does not remove hard truth/rights/budget gates.
 
-Providers/models are volatile execution substrates. The registry stores observed, dated evidence rather than permanent folklore.
+## 8. Continuity state
 
-Required capability dimensions include:
+Continuity is dimension-level relationship state, not one similarity score.
 
-- T2V / I2V / V2V/edit / extend;
-- first/last-frame support;
-- image/video/audio reference support and budgets;
-- character/subject consistency controls;
-- style/environment/object reference controls;
-- camera control;
-- native audio/dialogue/SFX;
-- max duration / resolution / frame rate / aspect ratios;
-- masking/green-screen/product-placement/editing support;
-- latency/concurrency/API availability/region constraints;
-- quality vector with evidence date and benchmark/sample refs;
-- price/credit model with evidence date;
-- commercial-use/licensing/provenance semantics;
-- provider availability and deprecation status.
+`ContinuitySnapshot` records relevant state per shot. `ContinuityLink` declares dimension-specific rules:
+- `PRESERVE` — carry prior value;
+- `EXPECT` — require a declared target;
+- `ALLOW_CHANGE` — intentional variation.
 
-Routing is capability-first. A provider name is never a business rule.
+Each rule is `HARD` or `SOFT`.
 
-## 8. Routing and generation lanes
+Examples of dimensions:
+- face/body identity;
+- wardrobe/prop state;
+- world/location/time;
+- camera geography;
+- lighting/material grammar;
+- voice/performance;
+- product truth;
+- narrative state.
 
-### Exploration lane
+Intentional change must not be mislabeled as drift. Hard continuity failures block promotion when relevant.
 
-Goal: learn cheaply and quickly.
+## 9. Provider/model evidence model
 
-- cheapest sufficient engine/mode after hard capability, rights and truth gates;
-- lower resolution and still/keyframe prototypes encouraged;
-- candidate generation may proceed without isolated blind-review infrastructure when it cannot yet exist;
-- outputs remain `CANDIDATE` and cannot silently enter canon/final media.
+Providers/models are volatile execution substrates. Current facts are dated observations.
 
-### Production lane
+### OperationProfile
 
-Goal: produce promotable assets.
+Capability is expressed as legal operation combinations, not only flat booleans. One model may expose multiple profiles for different:
+- T2V/I2V/V2V/edit/extend modes;
+- duration sets/ranges;
+- resolutions/aspect constraints;
+- image/video/audio reference budgets;
+- required source origins or operation conditions;
+- supported controls.
 
-- quality/continuity/truth first, then economics;
-- route score is multi-dimensional and shot-specific;
-- retries are budgeted and every retry is a new take, never an overwrite.
+This prevents false inferences such as “the model supports reference images, 1080p and extension, therefore every combination of them is valid.”
 
-### Hero/brand-truth lane
+### QualityObservation
 
-Goal: protect the highest-value or highest-risk material.
+Each quality dimension binds:
+- value;
+- rubric ID;
+- calibration scope/benchmark pack;
+- uncertainty;
+- evidence class;
+- evidence refs.
 
-- strongest admissible provider/real-asset route;
-- independent review/attestation when the required capability is actually executable;
-- verified real or authorized product media wins over synthetic approximation where factual product appearance/behavior is material.
+A number from a different rubric/calibration scope is not directly comparable merely because both are 0–5.
 
-## 9. Promotion instead of pre-generation paralysis
+Official vendor documentation establishes current capabilities/limits/terms. It does not establish owner production-quality ranking.
 
-The old architecture over-coupled quality-critical generation to isolated pre-generation review. That can make the system unable to create a candidate when trusted reviewers are unavailable.
+## 10. Routing semantics
 
-New rule:
+### Hard gates first
+
+Current availability, deprecation, operation-profile legality, rights/terms, provenance when required, evidence freshness, quality floors and shot budget are hard gates.
+
+### Exploration
+
+Cheapest sufficient route after hard gates. Output remains candidate.
+
+### Production
+
+Quality is not collapsed into one hidden weighted average.
+
+- compare calibrated uncertainty-aware quality lower bounds;
+- form the non-dominated/Pareto front across relevant dimensions;
+- if one candidate dominates, select it;
+- if tradeoffs remain, use explicit shot/portfolio quality priority order;
+- if no priority resolves a material tradeoff, surface the decision rather than fabricate a universal score.
+
+Legacy scalar router remains a compatibility module only and is not exported as the current top-level routing API.
+
+## 11. Candidate -> promotion -> release
 
 `generation admission != asset promotion != release admission`
 
-### Candidate generation admission
+Candidate generation requires current legal/capability/right/budget/truth admission but not release-grade review. Candidate existence is learnable evidence, not acceptance.
 
-Requires:
-- complete shot/reference contract;
-- legal/current provider capability;
-- input rights/consent;
-- budget/retry allowance;
-- truth policy compliance.
+Promotion requires evidence proportional to risk: artifact identity, quality, continuity, rights/truth, technical QA and independent/attested review where declared and executable.
 
-It may create a candidate even if high-assurance reviewers are unavailable.
+Release remains fail-closed on final-media identity/digest, master timeline, QA, rights, claim/product truth, provenance, disclosure/platform validation and release owner.
 
-### Promotion to accepted project asset
+No file becomes accepted by presence alone.
 
-Requires evidence proportional to risk:
-- artifact identity/digest;
-- continuity/identity assessment where relevant;
-- semantic/visual quality assessment;
-- product-truth/rights checks where relevant;
-- independent/attested review for declared high-assurance tiers when executable;
-- explicit decision owner.
+## 12. MediaGraph and change propagation
 
-### Release admission
+MediaGraph remains the single stable lineage/dependency substrate. Do not create a parallel “story graph” solely for 0.8.
 
-Requires final technical QA, rights/provenance, disclosure decision, approved claims/product truth, platform-specific deliverable validation and release owner approval.
+Editorial-plan versions are registered as immutable upstream assets. Shot/tasks/generated assets bind exact plan/reference versions. When an upstream accepted plan/reference becomes stale or is superseded, existing downstream invalidation identifies affected work while preserving unaffected assets and historical versions.
 
-No candidate, rejected take or stale artifact becomes accepted by file presence alone.
+## 13. Timeline and editor interchange
 
-## 10. Asset continuity and IP canon
+The internal master remains a non-destructive `TimelineSpec` referencing promoted asset versions.
 
-Character/IP consistency is an asset graph, not a prompt-memory problem.
+External editors/NLEs are adapters, not authority.
 
-Canon layers:
+`EditorialHandoff` binds:
+- exact timeline ID/version;
+- source asset refs/digests;
+- interchange format;
+- current adapter capability evidence;
+- purpose;
+- external project/composition identity where applicable.
 
-1. identity geometry / face-body structure;
-2. expression range;
-3. hair/wardrobe/prop vocabulary;
-4. color/material/lighting grammar;
-5. voice identity and performance envelope;
-6. signature motion/gesture;
-7. world/environment grammar;
-8. distinctive brand assets and recurring visual/audio motifs;
-9. allowed variants and forbidden drift;
-10. commercial/licensing/likeness constraints.
+`EditorialRoundTripReceipt` binds the returned artifact to the originating handoff/timeline/external project/composition and includes execution/change-summary evidence.
 
-Each shot binds exact canon versions. Updating canon invalidates only downstream assets that consumed the changed version.
+A returned edit becomes a new reviewed timeline/version; it never silently overwrites the master.
 
-IP promotion criteria include recognition, consistency, audience usefulness and commercial reuse — not merely subjective attractiveness.
+## 14. Audio
 
-## 11. Timeline and editing
+Audio is first-class and independently versionable: narrator/character voice canon, dialogue/performance, ambience, SFX, music, silence/dynamics, localization, timing/loudness QA.
 
-The master editorial state is non-destructive and timeline-oriented, conceptually compatible with OpenTimelineIO:
+Native audiovisual generation may improve coherence but does not erase independent rights/voice/music provenance or repairability.
 
-- clips reference external assets rather than embedding truth into the timeline;
-- tracks, transitions, markers, captions, audio and variant metadata remain separately addressable;
-- generated extensions/retiming/replacements are new derived assets with lineage;
-- a platform derivative is a transform of the master editorial/story state, not an unrelated project copy.
+## 15. Platform variants and experiments
 
-Descript/Premiere/DaVinci or future editors are tool adapters. No editor owns canonical business truth.
+Short-form derivatives are re-authored variants, not blind clips.
 
-## 12. Audio system
+Each variant preserves source master lineage and declares hook promise, pacing/duration, packaging candidates, caption/safe-area/CTA and metric semantics.
 
-Audio is a first-class scene asset:
+Growth learning uses `ExperimentPlan` where material:
+- hypothesis written before result interpretation;
+- exact variants and changed/fixed variables;
+- primary metric semantics and guardrails;
+- minimum observation and stop rules;
+- evidence refs.
 
-- narrator/character voice canon;
-- dialogue/performance intent;
-- ambience;
-- SFX;
-- music;
-- silence/dynamic contrast;
-- multilingual localization;
-- timing alignment and loudness/technical QA.
+`WINNER`, `NO_CLEAR_WINNER`, `INCONCLUSIVE` and `STOPPED_GUARDRAIL` are valid conclusions. A multivariable package test may be useful but cannot claim single-variable causality.
 
-Native audiovisual generation may be used when it improves coherence, but important voice/music/rights assets remain independently versioned so the edit can be repaired or localized without regenerating the picture.
+## 16. Business outcomes
 
-## 13. Growth and distribution
+Platform, production and commercial receipts remain separate evidence classes. No vanity aggregate score replaces the outcome vector.
 
-A single master story may produce multiple authored platform variants. Short-form is not automatic clip dumping.
+Examples:
+- impressions/exposure;
+- watch-time/retention/completion with platform-specific semantics;
+- follow/save/share/comment/returning-audience signals;
+- qualified audience indicators;
+- cash/credits/creator-minutes/retries/cost per accepted shot/published minute;
+- sponsor revenue/gross margin/repeat purchase/brand result/rights reuse;
+- IP recognition/distinctive-asset usefulness.
 
-For each variant, preserve:
+Unknown provider metrics remain unknown.
 
-- audience hypothesis;
-- hook promise;
-- title/thumbnail/cover candidate set;
-- opening retention contract;
-- target duration/pacing;
-- safe areas/caption grammar;
-- call-to-action;
-- experiment ID;
-- source master refs;
-- platform metrics receipt.
+## 17. Commercialization and product truth
 
-Measurement distinguishes at least:
+Commercial planning can start before production when rights, sponsor deliverables, exact product assets or measurement alter the episode.
 
-- exposure/impressions;
-- cover/title CTR where available;
-- 2/3-second exits and 5/30-second retention where available;
-- average watch time and completion;
-- follow conversion;
-- saves/shares/comments/coins or platform equivalents;
-- returning audience / series continuation;
-- qualified audience signals;
-- downstream sponsor/commerce outcomes when observable.
-
-Platform metrics are provider-specific observations mapped into a stable internal metric ontology; unavailable fields remain unknown rather than fabricated.
-
-## 14. Commercialization and rights
-
-Commercialization begins during portfolio design, not after a video is finished.
-
-Every episode/series can expose a `CommercialFit` object:
-
-- advertiser categories genuinely adjacent to the topic/audience;
-- integration surfaces that preserve editorial logic;
-- product-truth requirements;
-- prohibited claim/placement forms;
-- required real/authorized assets;
-- rights granted (organic post, paid media, whitelisting, cutdowns, duration, territory, exclusivity, reuse);
-- production complexity uplift;
-- measurement plan;
-- case-study/reuse potential.
-
-Offer architecture and pricing therefore consume real production-cost, audience and rights evidence instead of flat rate-card folklore.
-
-Commercial success is measured across money and brand value, not only views: revenue/gross margin, repeat-buy probability, measurable brand/business outcomes, reusable assets/rights and audience trust impact.
-
-## 15. Product-truth, provenance and disclosure
+Sponsor requirements enter through explicit CommercialFit/RightsPackage/Claim/Shot/Reference contracts. Sponsorship never overrides editorial/factual truth.
 
 For factual products/real people/real events:
+- do not synthesize evidence and present it as observed reality;
+- bind verified source/brand assets to exact claims/shots;
+- likeness/voice use requires rights/consent evidence;
+- maintain provenance/C2PA/Content Credentials where available;
+- release carries an explicit synthetic-content disclosure decision.
 
-- do not synthesize evidence of a feature, interface, appearance or event and present it as observed reality;
-- bind verified source/brand assets to the exact claim/shot;
-- likeness and voice references require authorization/consent evidence;
-- maintain provider/output provenance and, where available, Content Credentials/C2PA metadata;
-- release includes an explicit synthetic-content disclosure decision per platform/current policy;
-- AI disclosure is a compliance attribute, not a quality penalty.
+## 18. Economics
 
-## 16. Economics
-
-Track by episode, sequence, shot, provider and reusable asset:
-
-- cash/credits;
-- compute seconds;
-- retries and rejected takes;
-- human review/creator minutes;
-- latency/wait time;
-- premium-model seconds;
-- reuse count;
+Track actual accepted-production economics, not just nominal model price:
+- generation/input cost;
+- retries/rejections;
+- latency;
+- creator/reviewer minutes;
 - cost per accepted shot;
-- cost and creator-minutes per published minute;
-- marginal cost of platform variants;
-- revenue/gross margin when commercialized.
+- cost per published minute;
+- reuse count/value;
+- marginal platform-variant cost;
+- commercial revenue/gross margin.
 
-Budgeting is portfolio-aware: spend premium capacity where it materially changes audience, IP or commercial value, not uniformly across seconds.
+Budget cuts are handled shot-by-shot from narrative/value/risk/degradation evidence, not a universal fixed premium percentage.
 
-## 17. Quality/evaluation model
+## 19. Learning and evolution
 
-Quality is a vector, not one 1–5 number. At minimum:
-
-- subject/identity consistency;
-- background/world consistency;
-- temporal stability/flicker;
-- motion/physics plausibility;
-- prompt/shot-intent adherence;
-- composition/lighting/material craft;
-- camera execution;
-- audio/dialogue sync and sound-scene quality;
-- editability/continuation quality;
-- narrative clarity;
-- brand/IP distinctiveness;
-- factual/product truth;
-- platform packaging fitness.
-
-Machine metrics, multimodal reviewers and human/business outcomes are different evidence classes. None silently substitutes for another.
-
-## 18. Learning and evolution
-
-Every production or business result can emit a learning candidate, but durable rules require scoped evidence.
+Production/business outcomes may emit learning candidates; durable rules require scoped evidence, counterexamples and replay/regression.
 
 Learning hierarchy:
+`take -> shot pattern -> episode/experiment -> series -> portfolio/domain rule`
 
-`take -> shot pattern -> episode -> series -> portfolio/domain rule`
+Material problems preserve symptom -> diagnosis -> governing assumption challenge -> external method evidence -> alternatives/rejected paths -> repair -> verification -> uncertainty/follow-up.
 
-Promotion requires repeated or high-signal evidence, counterexamples and a regression/replay plan. Provider observations expire; durable business/creative mechanisms may persist when validated.
+Canonical evolution entrypoint: `audits/EVOLUTION_INDEX.json`.
 
-The domain exposes one canonical evolution index with deeper causal audit refs. Material problems preserve symptom -> diagnosis -> challenged assumption -> alternatives/failures -> repair -> verification -> remaining uncertainty.
+## 20. CURRENT_AGENT operability
 
-## 19. Owner-native Common Behavior 1.2 realization
+For material Video architecture/experience work, run the relevant scenarios in `docs/agent_operability_scenarios.md`.
 
-Before asking the user for a recoverable Video dependency, inspect current project authority, promoted assets/decisions, work-order/receipt history, connected/current context and useful external evidence. If a bounded provisional path is safe, continue under explicit uncertainty.
+The current Agent must be able to recover from durable evidence:
+1. governing outcome;
+2. current owner authority;
+3. all ready actions, including legitimate parallel actions;
+4. actual blockers and stale evidence/assets;
+5. expected progress evidence;
+6. recovery path after failure/session interruption;
+7. comparable vs non-comparable quality evidence;
+8. the distinction between user goals/constraints and illustrative examples.
 
-A detected repairable Video system problem must end in:
+`OperatorSnapshot` is the recomputable projection that helps make this legible; it never becomes a second controller.
 
-- `REPAIR_EXECUTED`,
-- `BLOCKED_WITH_REASON`, or
-- `NO_CHANGE_WITH_EVIDENCE`.
+## 21. Owner-native Common Behavior 1.2
 
-Recommendation-only closure is invalid when the owner has authority and capability to perform the repair now.
+Before asking the user for a plausibly recoverable Video dependency, inspect current authority/assets/decisions/receipts/connected context and useful external evidence. Continue provisionally when safe and label uncertainty.
 
-## 20. Architectural non-goals
+A confirmed repairable Video system problem with available authority/capability cannot end as recommendation-only. It must resolve to `REPAIR_EXECUTED`, `BLOCKED_WITH_REASON`, or `NO_CHANGE_WITH_EVIDENCE`.
+
+## 22. Non-goals
 
 - no single-vendor production lock-in;
 - no giant prompt as source of truth;
+- no hidden scalar quality authority;
+- no flat capability claim treated as proof of every operation combination;
 - no destructive overwrite of accepted assets;
-- no requirement that every shot use generative video;
-- no requirement that every candidate pass release-grade review before it can exist;
-- no role/persona proliferation as a substitute for capability;
-- no second cross-chat controller;
-- no duplicated project truth in UAOS;
-- no business success definition based on views alone;
+- no requirement that every shot be generative video;
+- no requirement that every candidate pass release-grade review before existing;
+- no operator projection as a second controller;
+- no automatic mutation of external editor projects during architecture audit;
+- no duplicated Video business truth in UAOS;
 - no commercial optimization that overrides product truth or audience trust.
 
-## 21. External method basis
+## 23. External method basis
 
-The design deliberately borrows stable properties, not vendor-specific recipes, from:
+Stable properties are adapted from, not copied wholesale from:
+- MovieLabs Ontology for Media Creation / software-defined workflows: narrative-to-production relationships, Context/Task/Asset relationships, stable identifiers and change consequence propagation;
+- OpenTimelineIO/editor interchange patterns: non-destructive timeline metadata and external media references;
+- current video-provider documentation: conditional multimodal generation/edit/reference/extension capabilities and rapid model lifecycle;
+- current platform experiment methods such as YouTube title/thumbnail tests: watch-time-aware evaluation and explicit no-clear-winner outcomes;
+- C2PA/Content Credentials: provenance/disclosure metadata;
+- current connected editor capabilities: real external project/composition identities and timeline export/roundtrip surfaces.
 
-- MovieLabs 2030 Vision / Ontology for Media Creation: Task, Asset, Participant, Context, stable identifiers, interoperable non-destructive software-defined workflows;
-- OpenTimelineIO: timeline/track/clip/transition metadata with media referenced externally;
-- current multimodal video systems (Veo 3.1, Seedance 2.5, Kling/WAN/Runway surfaces, Luma Modify): reference-rich generation, keyframes, editing, extension, native audio and replaceable providers;
-- VBench: disentangled temporal/subject/background/flicker and frame-level quality rather than one undifferentiated quality score;
-- Kantar/IAB creator research: long-term creative platforms, distinctive assets and accountable business/brand measurement rather than isolated creator posts and vanity metrics;
-- C2PA/Content Credentials and current platform disclosure policies: provenance/disclosure as release metadata;
-- modern NLE/agent editors: editing tool is an adapter over canonical assets/timeline, not the business authority.
-
-These references inform architecture. Current provider features/prices remain volatile evidence in the capability registry and are not frozen into this document as permanent truths.
+Provider features/prices remain volatile evidence in the registry. Architecture keeps business/editorial semantics stable while execution substrates change.
