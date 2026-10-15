@@ -341,8 +341,11 @@ def _media_business_failures(root: Path, runtime_version: str) -> list[str]:
             failures.append("video_evolution_index_empty")
 
     required_runtime_files = (
-        "video_growth_agent/model_registry.py",
+        "video_growth_agent/media_graph.py",
         "video_growth_agent/production_os.py",
+        "video_growth_agent/timeline.py",
+        "video_growth_agent/business_objects.py",
+        "video_growth_agent/model_registry.py",
         "video_growth_agent/business_metrics.py",
         "video_growth_agent/owner_behavior_admission.py",
     )
@@ -427,7 +430,10 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
         capability_ids = {str(item.get("capability_id")) for item in capability.get("capabilities", [])}
         for required_id in (
             "media_business_program_orchestration",
+            "canonical_media_graph",
             "shot_asset_production_os",
+            "non_destructive_editorial_timeline",
+            "shared_growth_ip_commercial_objects",
             "evidence_bound_model_routing",
             "business_outcome_measurement",
             "owner_common_behavior_admission",
@@ -454,7 +460,10 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
         expected_runtime_refs = {
             "episode_workflow": "video_growth_agent/data/workflow.json",
             "program_orchestration": "video_growth_agent/program_orchestration.py",
+            "media_graph": "video_growth_agent/media_graph.py",
             "media_business_os": "video_growth_agent/production_os.py",
+            "timeline": "video_growth_agent/timeline.py",
+            "business_objects": "video_growth_agent/business_objects.py",
             "model_registry": "video_growth_agent/model_registry.py",
             "business_metrics": "video_growth_agent/business_metrics.py",
             "owner_behavior_admission": "video_growth_agent/owner_behavior_admission.py",
