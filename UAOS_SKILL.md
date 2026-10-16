@@ -146,9 +146,9 @@ Track cost per accepted take, retries/rejections, creator time, reusable-asset r
 
 Paid or unknown-cost execution still requires explicit authorization when current authority/policy requires it.
 
-## Common Behavior 1.3 and evolution
+## Parent cognition binding and domain evolution
 
-Every detected problem inherits the current UAOS problem-response floor: micro diagnosis, macro goal/topology alignment, governing-assumption challenge and relevant external method/architecture research. Problem size changes depth, not activation. User framing, an external Skill/method, and the first repairable symptom are evidence, not root-cause authority.
+Parent cognition stages and evidence/search depth are owned only by current UAOS `config/DELIBERATION_POLICY.json`. This Skill does not define a second parent problem-response floor; `.uaos/CAPABILITIES.json` declares `CURRENT_UAOS_DELIBERATION_POLICY` with no local cognition override. Video owns the owner-native recovery, root-scope, evolution, action-closure and media/business evidence mechanisms below.
 
 Before externalizing a plausibly recoverable Video dependency to the user, inspect current project authority, promoted assets/decisions, work-order/receipt history, relevant context and useful external evidence. If a bounded provisional path is safe, continue with explicit uncertainty.
 
