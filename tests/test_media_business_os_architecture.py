@@ -15,6 +15,12 @@ def load(path: str):
     return json.loads((ROOT / path).read_text(encoding="utf-8"))
 
 
+def version_at_least(actual: str, minimum: str) -> bool:
+    return tuple(int(part) for part in actual.split(".")) >= tuple(
+        int(part) for part in minimum.split(".")
+    )
+
+
 def test_media_business_os_is_primary_architecture_and_legacy_stage_machine_is_adapter():
     manifest = load(".uaos/MANIFEST.json")
     plan = load("video_growth_agent/data/execution-plan.json")
@@ -55,16 +61,23 @@ def test_candidate_generation_promotion_release_are_three_distinct_api_boundarie
     assert "generation admission != asset promotion != release admission" in text
 
 
-def test_video_common_behavior_1_2_is_owner_native_and_evolution_is_discoverable():
+def test_video_common_behavior_1_3_is_owner_native_and_evolution_is_discoverable():
     caps = load(".uaos/CAPABILITIES.json")
     evolution = load("audits/EVOLUTION_INDEX.json")
-    assert caps["uaos_common_behavior_assurance_min"] == "1.2.0"
-    assert caps["common_behavior_realization"] == "OWNER_NATIVE_RECOVERY_RECEIPT__USER_ESCALATION_ADMISSION__PROBLEM_REPAIR_OR_BLOCK_CLOSURE"
+    assert version_at_least(caps["uaos_common_behavior_assurance_min"], "1.3.0")
+    assert "ROOT_SCOPE_ADMISSION" in caps["common_behavior_realization"]
+    assert "TYPED_EVOLUTION_DISPOSITION" in caps["common_behavior_realization"]
     assert evolution["owner"] == "DOMAIN:video"
-    assert evolution["common_behavior_assurance_min"] == "1.2.0"
-    assert evolution["current_open_items"] == []
-    assert evolution["current_problem_refs"] == {}
-    assert evolution["current_candidate"] is None
+    assert version_at_least(evolution["common_behavior_assurance_min"], "1.3.0")
+
+    candidate_id = "V-20261016-03-COMMON-BEHAVIOR-1-3-ROOT-SCOPE-ADOPTION"
+    assert candidate_id in evolution["current_open_items"]
+    assert evolution["current_problem_refs"][candidate_id] == "video_growth_agent/owner_behavior_admission.py"
+    candidate = evolution["current_candidate"]
+    assert candidate["id"] == candidate_id
+    assert candidate["status"].startswith("CANDIDATE_IMPLEMENTED")
+    assert "CURRENT_AGENT_OPERABILITY_DOGFOOD" in candidate["selected_architecture"]
+
     resolved = {
         item.get("id"): item for item in evolution["recent_resolved_or_promoted"] if item.get("id")
     }

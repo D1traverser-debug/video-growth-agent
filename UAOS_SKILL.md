@@ -146,13 +146,18 @@ Track cost per accepted take, retries/rejections, creator time, reusable-asset r
 
 Paid or unknown-cost execution still requires explicit authorization when current authority/policy requires it.
 
-## Common Behavior 1.2 and evolution
+## Common Behavior 1.3 and evolution
 
-Every detected problem inherits the current UAOS problem-response floor: micro diagnosis, macro goal/topology alignment, governing-assumption challenge and relevant external method/architecture research. Problem size changes depth, not activation.
+Every detected problem inherits the current UAOS problem-response floor: micro diagnosis, macro goal/topology alignment, governing-assumption challenge and relevant external method/architecture research. Problem size changes depth, not activation. User framing, an external Skill/method, and the first repairable symptom are evidence, not root-cause authority.
 
 Before externalizing a plausibly recoverable Video dependency to the user, inspect current project authority, promoted assets/decisions, work-order/receipt history, relevant context and useful external evidence. If a bounded provisional path is safe, continue with explicit uncertainty.
 
-A confirmed repairable Video system problem with available authority/capability cannot terminate as a recommendation-only answer. It must reach `REPAIR_EXECUTED`, `BLOCKED_WITH_REASON` or `NO_CHANGE_WITH_EVIDENCE` through the owner-native admission path.
+Before repair or evidence-backed no-change, `video_growth_agent/owner_behavior_admission.py` must emit a root-scope receipt and typed evolution disposition. A one-off local asset/tool problem may stay lightweight. Material, repeated, cross-subsystem, architecture-gap, complexity-growth or scope-expansion problems must compare multiple causal layers, test an architecture/upstream hypothesis, preserve a rejected alternative, bind architecture reassessment evidence, and include CURRENT_AGENT operability/dogfood evidence from the Video system's actual use paths.
+
+A confirmed admitted repairable Video system problem with available authority/capability cannot terminate as a recommendation-only answer. It must attempt and verify the repair, or reach a concrete blocker. Material/evolution-relevant problems require durable causal evidence in `audits/EVOLUTION_INDEX.json` or a linked owner-native record. A genuine required user authorization/preference may be surfaced as a blocker without pretending the root cause is already proven.
+
+The owner transaction is:
+`DETECT -> RECOVER WHEN APPLICABLE -> ROOT_SCOPE_ADMISSION -> TYPED_EVOLUTION_DISPOSITION -> REPAIR / NO_CHANGE / BLOCK -> VERIFY`.
 
 Video-specific media/growth/IP/commercial evolution remains Video-owned. Common/cross-domain changes upcall UAOS. Durable rules require scope/generalization analysis, counterexamples when material, regression/replay evidence and post-promotion observation. One viral post, one pretty image or one provider demo never silently becomes universal production doctrine.
 

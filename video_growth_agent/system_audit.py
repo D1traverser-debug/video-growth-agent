@@ -71,6 +71,13 @@ def _semver_tuple(value: str) -> tuple[int, int, int]:
     return tuple(int(part) for part in match.groups())
 
 
+def _semver_at_least(value: object, minimum: str) -> bool:
+    try:
+        return _semver_tuple(str(value)) >= _semver_tuple(minimum)
+    except ValueError:
+        return False
+
+
 def _project_aliases(root: Path) -> set[str]:
     projects = root / "projects"
     if not projects.is_dir():
@@ -384,8 +391,8 @@ def _media_business_failures(root: Path, runtime_version: str) -> list[str]:
         evolution = _json(evolution_path)
         if evolution.get("owner") != "DOMAIN:video":
             failures.append("video_evolution_owner_drift")
-        if evolution.get("common_behavior_assurance_min") != "1.2.0":
-            failures.append("video_evolution_common_behavior_min_drift")
+        if not _semver_at_least(evolution.get("common_behavior_assurance_min"), "1.3.0"):
+            failures.append("video_evolution_common_behavior_min_below_1_3")
         if not evolution.get("current_open_items") and not evolution.get("recent_resolved_or_promoted"):
             failures.append("video_evolution_index_empty")
         for item_id in evolution.get("current_open_items", []):
@@ -449,6 +456,8 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
         failures.append("uaos_skill_candidate_promotion_release_boundary_missing")
     if "audits/evolution_index.json" not in skill_lower:
         failures.append("uaos_skill_evolution_entrypoint_missing")
+    if "common behavior 1.3" not in skill_lower or "root-scope receipt" not in skill_lower:
+        failures.append("uaos_skill_common_behavior_1_3_root_scope_missing")
 
     capability_path = root / ".uaos/CAPABILITIES.json"
     if capability_path.is_file():
@@ -461,12 +470,12 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             failures.append("uaos_capability_owner_drift")
         if capability.get("execution_readiness_contract") != "2.0":
             failures.append("uaos_execution_readiness_contract_drift")
-        if capability.get("profile_version") not in {8, 9}:
-            failures.append("uaos_capability_profile_drift")
-        if capability.get("uaos_common_capabilities_contract_min") != "1.6.0":
-            failures.append("uaos_common_capability_minimum_drift")
-        if capability.get("uaos_common_behavior_assurance_min") != "1.2.0":
-            failures.append("uaos_common_behavior_minimum_drift")
+        if int(capability.get("profile_version", 0)) < 10:
+            failures.append("uaos_capability_profile_below_10")
+        if not _semver_at_least(capability.get("uaos_common_capabilities_contract_min"), "1.6.0"):
+            failures.append("uaos_common_capability_minimum_below_1_6")
+        if not _semver_at_least(capability.get("uaos_common_behavior_assurance_min"), "1.3.0"):
+            failures.append("uaos_common_behavior_minimum_below_1_3")
         if capability.get("canonical_evolution_entrypoint") != "audits/EVOLUTION_INDEX.json":
             failures.append("uaos_capability_evolution_entrypoint_drift")
         required_common = set(capability.get("required_uaos_common_capabilities", []))
@@ -514,6 +523,8 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             failures.append("uaos_manifest_status_drift")
         if manifest.get("skill", {}).get("entrypoint") != "UAOS_SKILL.md":
             failures.append("uaos_manifest_skill_entrypoint_drift")
+        if not _semver_at_least(manifest.get("binding", {}).get("common_behavior_assurance_min"), "1.3.0"):
+            failures.append("uaos_manifest_common_behavior_minimum_below_1_3")
         runtime = manifest.get("runtime", {})
         if runtime.get("version") != runtime_version:
             failures.append("uaos_manifest_runtime_version_drift")
@@ -534,6 +545,7 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             "business_metrics": "video_growth_agent/business_metrics.py",
             "operator_view": "video_growth_agent/operator_view.py",
             "owner_behavior_admission": "video_growth_agent/owner_behavior_admission.py",
+            "root_scope_admission": "video_growth_agent/owner_behavior_admission.py:require_root_scope_admission",
             "system_audit": "vga system-audit --repo-root .",
         }
         for key, expected in expected_runtime_refs.items():

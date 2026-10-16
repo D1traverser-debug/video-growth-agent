@@ -9,6 +9,13 @@ def load(path: str):
     return json.loads((ROOT / path).read_text(encoding="utf-8"))
 
 
+def semver_at_least(actual: str, minimum: str) -> bool:
+    left = tuple(int(part) for part in actual.split("."))
+    right = tuple(int(part) for part in minimum.split("."))
+    width = max(len(left), len(right))
+    return left + (0,) * (width - len(left)) >= right + (0,) * (width - len(right))
+
+
 def test_video_owns_business_identity_and_parent_reference_is_opaque():
     adapter = load(".uaos/ADAPTER.json")
     manifest = load(".uaos/MANIFEST.json")
@@ -27,9 +34,10 @@ def test_video_owns_business_identity_and_parent_reference_is_opaque():
     assert manifest["runtime"]["program_orchestration"] == "video_growth_agent/program_orchestration.py"
     assert manifest["runtime"]["media_business_os"] == "video_growth_agent/production_os.py"
 
-    assert caps["profile_version"] == 9
-    assert caps["uaos_common_capabilities_contract_min"] == "1.6.0"
-    assert caps["uaos_common_behavior_assurance_min"] == "1.2.0"
+    # Capability/profile bindings are compatibility floors, not immutable release identities.
+    assert caps["profile_version"] >= 10
+    assert semver_at_least(caps["uaos_common_capabilities_contract_min"], "1.6.0")
+    assert semver_at_least(caps["uaos_common_behavior_assurance_min"], "1.3.0")
     assert "domain_internal_work_orchestration" in caps["required_uaos_common_capabilities"]
     assert caps["hosted_cognition_semantics"]["problem_response_floor"] == [
         "MICRO_DIAGNOSIS",
