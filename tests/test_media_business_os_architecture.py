@@ -61,7 +61,7 @@ def test_candidate_generation_promotion_release_are_three_distinct_api_boundarie
     assert "generation admission != asset promotion != release admission" in text
 
 
-def test_video_common_behavior_1_3_is_owner_native_and_evolution_is_discoverable():
+def test_video_common_behavior_1_3_is_owner_native_and_evolution_is_discoverable_across_lifecycle():
     caps = load(".uaos/CAPABILITIES.json")
     evolution = load("audits/EVOLUTION_INDEX.json")
     assert version_at_least(caps["uaos_common_behavior_assurance_min"], "1.3.0")
@@ -70,17 +70,28 @@ def test_video_common_behavior_1_3_is_owner_native_and_evolution_is_discoverable
     assert evolution["owner"] == "DOMAIN:video"
     assert version_at_least(evolution["common_behavior_assurance_min"], "1.3.0")
 
-    candidate_id = "V-20261016-03-COMMON-BEHAVIOR-1-3-ROOT-SCOPE-ADOPTION"
-    assert candidate_id in evolution["current_open_items"]
-    assert evolution["current_problem_refs"][candidate_id] == "video_growth_agent/owner_behavior_admission.py"
-    candidate = evolution["current_candidate"]
-    assert candidate["id"] == candidate_id
-    assert candidate["status"].startswith("CANDIDATE_IMPLEMENTED")
-    assert "CURRENT_AGENT_OPERABILITY_DOGFOOD" in candidate["selected_architecture"]
-
+    adoption_id = "V-20261016-03-COMMON-BEHAVIOR-1-3-ROOT-SCOPE-ADOPTION"
     resolved = {
         item.get("id"): item for item in evolution["recent_resolved_or_promoted"] if item.get("id")
     }
+
+    if adoption_id in evolution["current_open_items"]:
+        assert evolution["current_problem_refs"][adoption_id] == "video_growth_agent/owner_behavior_admission.py"
+        candidate = evolution["current_candidate"]
+        assert candidate["id"] == adoption_id
+        assert candidate["status"].startswith("CANDIDATE_IMPLEMENTED")
+        assert "CURRENT_AGENT_OPERABILITY_DOGFOOD" in candidate["selected_architecture"]
+    else:
+        assert evolution["current_candidate"] is None
+        promoted = resolved[adoption_id]
+        assert promoted["status"].startswith("PROMOTED__PRODUCTION_CI_VERIFIED")
+        assert promoted["candidate_pr"] == 18
+        assert promoted["candidate_final_head"] == "62181bfded6170e002ac1a6a155e1d2f3cf812bd"
+        assert promoted["candidate_ci_run"] == 38831027488
+        assert promoted["production_commit"] == "777f87f0257d7347092e12d0b7f78168eae80897"
+        assert promoted["production_ci_run"] == 38831237031
+        assert promoted["result"] == "PASS"
+
     current = resolved["V-20261015-02-AGENT_OPERABLE_MEDIA_OS"]
     assert current["status"] == "RESOLVED_PRODUCTION_0_8_0"
     assert current["release"] == "0.8.0"
