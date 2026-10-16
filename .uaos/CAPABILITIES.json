@@ -1,6 +1,6 @@
 {
-  "schema_version":"2.6",
-  "profile_version":10,
+  "schema_version":"2.7",
+  "profile_version":11,
   "execution_readiness_contract":"2.0",
   "owner":"VIDEO_GROWTH_AGENT",
   "domain_id":"video",
@@ -16,7 +16,7 @@
   "common_capabilities_inheritance":"UAOS_HOSTED",
   "common_behavior_realization":"OWNER_NATIVE_RECOVERY__ROOT_SCOPE_ADMISSION__TYPED_EVOLUTION_DISPOSITION__DURABLE_CAUSAL_EVIDENCE__PROBLEM_REPAIR_OR_BLOCK_CLOSURE",
   "required_uaos_common_capabilities":["intent_and_requirement_governance","product_requirements_and_architecture_governance","domain_internal_work_orchestration","cross_chat_continuity_and_recovery","capability_handshake_and_graceful_degradation","assurance_evidence_and_completion_governance","hierarchical_authority_governance","mutation_sentinel_and_host_complete_mediation","adaptive_deliberation_and_parent_guidance","governed_self_evolution","inherited_session_progress_reporting","version_and_timestamp_provenance"],
-  "hosted_cognition_semantics":{"problem_response_floor":["MICRO_DIAGNOSIS","MACRO_GOAL_AND_TOPOLOGY_ALIGNMENT","GOVERNING_ASSUMPTION_CHALLENGE","EXTERNAL_METHOD_OR_ARCHITECTURE_RESEARCH"],"rule":"EVERY_DETECTED_PROBLEM_REQUIRES_RESEARCH_AND_REFLECTION__PROBLEM_SIZE_CHANGES_DEPTH_NOT_ACTIVATION__USER_OR_EXTERNAL_FRAMING_IS_EVIDENCE_NOT_ROOT_AUTHORITY","risk_adds":["COUNTEREXAMPLE_SEARCH","INDEPENDENT_VERIFICATION","ROOT_SCOPE_CROSS_LAYER_HYPOTHESES","ARCHITECTURE_UPSTREAM_REASSESSMENT"]},
+  "hosted_cognition_semantics":{"source":"CURRENT_UAOS_DELIBERATION_POLICY","local_overrides":"NONE"},
   "architecture_experience_semantics":"MATERIAL_ARCHITECTURE_AND_AGENT_EXPERIENCE_CHANGES_REQUIRE_CURRENT_AGENT_DOGFOOD__CONCERN_APPROPRIATE_STRUCTURAL_TEMPORAL_CAUSAL_OR_COGNITIVE_VIEWS__FAILURE_RECOVERY_AND_RESUME_PATHS",
   "domain_evolution_role":"DOMAIN_EVIDENCE_EVAL_AND_BUSINESS_OWNER_PROMOTION",
   "domain_evolution_semantics":"VIDEO_OWNS_MEDIA_GROWTH_IP_COMMERCIALIZATION_PRODUCTION_BUSINESS_EVOLUTION__COMMON_OR_CROSS_DOMAIN_CHANGE_UPCALLS_UAOS__ONE_OFF_DOES_NOT_AUTO_PROMOTE__TYPED_EVOLUTION_DISPOSITION_PRECEDES_PROBLEM_ACTION",
@@ -26,7 +26,7 @@
   "agent_operability_scenarios_ref":"docs/agent_operability_scenarios.md",
   "provider_benchmark_ref":"docs/provider_benchmark_protocol.md",
   "canonical_evolution_entrypoint":"audits/EVOLUTION_INDEX.json",
-  "updated_at":"2026-10-16T07:13:00+08:00",
+  "updated_at":"2026-10-16T16:19:38+08:00",
   "assurance_taxonomy":["DECLARED_ONLY","HARNESS_WIRED","SESSION_EXECUTABLE","CHAT_BRIDGED","ATTESTED_ISOLATED"],
   "capabilities":[
     {"capability_id":"media_business_program_orchestration","scope":"MEDIA_GROWTH__ORIGINAL_DIGITAL_IP__COMMERCIALIZATION__PRODUCTION_SYSTEM","assurance_ceiling":"SESSION_EXECUTABLE","invocation_path":"projects/PROJECT_INDEX.json -> PROGRAM_STATE + SUBTASK_GRAPH + BUSINESS_FLYWHEEL + ProgramGraph/ProgramOrchestrator","executor_type":"DOMAIN_MEDIA_BUSINESS_GRAPH_RUNTIME","executor_ref":"video_growth_agent/program_orchestration.py + projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json","required_tools":["python_runtime_or_owner_runtime"],"evidence_contract":["child Program identity","acyclic dependencies","shared authoritative asset/decision refs","cross-workstream evidence flow","decision receipts"],"side_channel_allowed":false,"safe_degraded_modes":[]},
