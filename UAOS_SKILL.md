@@ -148,7 +148,7 @@ Paid or unknown-cost execution still requires explicit authorization when curren
 
 ## Parent cognition binding and domain evolution
 
-Parent cognition stages and evidence/search depth are owned only by current UAOS `config/DELIBERATION_POLICY.json`. This Skill does not define a second parent problem-response floor; `.uaos/CAPABILITIES.json` declares `CURRENT_UAOS_DELIBERATION_POLICY` with no local cognition override. Video owns the owner-native recovery, root-scope, evolution, action-closure and media/business evidence mechanisms below.
+Video implements UAOS Common Behavior 1.3 through the owner-native gates below. Parent cognition stages and evidence/search depth are owned only by current UAOS `config/DELIBERATION_POLICY.json`. This Skill does not define a second parent problem-response floor; `.uaos/CAPABILITIES.json` declares `CURRENT_UAOS_DELIBERATION_POLICY` with no local cognition override. Video owns the owner-native recovery, root-scope, evolution, action-closure and media/business evidence mechanisms below.
 
 Before externalizing a plausibly recoverable Video dependency to the user, inspect current project authority, promoted assets/decisions, work-order/receipt history, relevant context and useful external evidence. If a bounded provisional path is safe, continue with explicit uncertainty.
 
