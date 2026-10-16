@@ -487,14 +487,19 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
         ):
             if required not in required_common:
                 failures.append(f"uaos_required_common_capability_missing:{required}")
-        floor = capability.get("hosted_cognition_semantics", {}).get("problem_response_floor")
-        if floor != [
-            "MICRO_DIAGNOSIS",
-            "MACRO_GOAL_AND_TOPOLOGY_ALIGNMENT",
-            "GOVERNING_ASSUMPTION_CHALLENGE",
-            "EXTERNAL_METHOD_OR_ARCHITECTURE_RESEARCH",
-        ]:
-            failures.append("uaos_problem_response_floor_drift")
+        deliberation_ref = str(capability.get("uaos_deliberation_policy_ref") or "")
+        if not deliberation_ref.endswith("config/DELIBERATION_POLICY.json"):
+            failures.append("uaos_deliberation_policy_ref_drift")
+        cognition = capability.get("hosted_cognition_semantics", {})
+        if cognition != {
+            "source": "CURRENT_UAOS_DELIBERATION_POLICY",
+            "local_overrides": "NONE",
+        }:
+            failures.append("uaos_hosted_cognition_pointer_drift")
+        if isinstance(cognition, dict) and (
+            "problem_response_floor" in cognition or "problem_response_rule" in cognition
+        ):
+            failures.append("uaos_copied_parent_cognition_semantics_present")
         capability_ids = {str(item.get("capability_id")) for item in capability.get("capabilities", [])}
         for required_id in (
             "media_business_program_orchestration",

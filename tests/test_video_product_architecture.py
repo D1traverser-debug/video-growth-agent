@@ -39,12 +39,14 @@ def test_video_owns_business_identity_and_parent_reference_is_opaque():
     assert semver_at_least(caps["uaos_common_capabilities_contract_min"], "1.6.0")
     assert semver_at_least(caps["uaos_common_behavior_assurance_min"], "1.3.0")
     assert "domain_internal_work_orchestration" in caps["required_uaos_common_capabilities"]
-    assert caps["hosted_cognition_semantics"]["problem_response_floor"] == [
-        "MICRO_DIAGNOSIS",
-        "MACRO_GOAL_AND_TOPOLOGY_ALIGNMENT",
-        "GOVERNING_ASSUMPTION_CHALLENGE",
-        "EXTERNAL_METHOD_OR_ARCHITECTURE_RESEARCH",
-    ]
+    assert caps["uaos_deliberation_policy_ref"].endswith("config/DELIBERATION_POLICY.json")
+    cognition = caps["hosted_cognition_semantics"]
+    assert cognition == {
+        "source": "CURRENT_UAOS_DELIBERATION_POLICY",
+        "local_overrides": "NONE",
+    }
+    assert "problem_response_floor" not in cognition
+    assert "problem_response_rule" not in cognition
 
 
 def test_generic_growth_commercialization_and_ip_intents_converge_on_integrated_program():
