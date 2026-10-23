@@ -27,12 +27,21 @@ Study in this order:
 - **Look development:** choose appropriate style *after* narrative (traditional painterly 3A, realistic film, comic, space opera, stop-motion, etc.); anchor palette, materials, skin/fur, light motivation, production design.
 - **Shot planning:** half-open integer edit frames; composition, subject space, action start/trigger/finish, camera framing/focal length/single move/intent, lighting source/angle/reaction, transition bridge, cue events, continuity. Lens numbers must change framing or perspective, not serve as decorative words.
 - **Cross-department review:** director (causality), cinematographer (readable blocking), art director (anchors), animator/VFX (physical dynamics), editor (transition match frames), sound designer (sync stems), producer (cost), QA (actual replay).
-- **Model-specific emitters:** retain a successful user-tested Chinese dense-timestamp prompt as default for H3 while also generating the official first-party three-field variant. **No fabricated winner.**
+- **Model-specific emitters:** retain the Chinese dense-timecoded example as **one promising reference**, alongside a concise causal variant and the provider-structured variant. `auto` emits all three without any global quality ranking. Never infer universal rules from a single good generation.
 - **Independent outcomes:** structural tests -> actual H3/PixVerse renders -> blind review and rewatch -> score/rank -> save artifact refs and recurring failure patterns -> promote technique only after varied prompts and titles pass.
 
-## The two H3 prompt dialects are deliberate controlled variables
+## Prompt styles are candidate techniques, not a fixed standard
 
-**Chinese complete storyboard (default `--h3-style chinese`)**: the user specifically reports very good H3/Hailuo results from a detailed Chinese 10s timecoded romantic scene prompt. This is direct user experience but without supplied rendered file/seed/parameter logs, so it is **USER_REPORTED_POSITIVE, unblinded and not yet reproducible**. Preserve that style and compare instead of replacing it blindly.
+**Default `--h3-style auto`** produces **three equally unranked prompt candidates**, not a winner:
+- `lean`: observable visual causality and main emotional outcome with fewer artificial camera/microdetail constraints; useful to test for simple scenes and clearer physical action.
+- `chinese`: detailed timecoded director shot list; a promising tested anecdote for the red-ribbon scenario, not a universal formula.
+- `official`: the first-party H3 three-field audiovisual description; another hypothesis rather than a proven quality baseline.
+
+The system must choose direction, shot density and style **for the individual task**, with cost, continuity, motion and actual renders as evidence. Structural compilation never ranks aesthetic quality. `--route onepass --plain` prints all three clearly labeled; specifying `--h3-style` gives a single copy-ready variant.
+
+## Two dialects in the original paired H3 pilot experiment
+
+**Chinese complete storyboard (`--h3-style chinese`, opt-in)**: the user reports that one H3/Hailuo generated video looked very good using this approach. This is a **case-specific USER_REPORTED_POSITIVE**, not a preferred template for other stories. No media artifact/seed/parameter logs were supplied; the causal source of the good result is unknown.
 
 **Official `--h3-style official`**: MiniMax H3 `h3-prompt-writing` base T2VA structure:
 ```text
@@ -60,7 +69,7 @@ The former `CONCEPT_GENERATION_PROMPT_V1.md` (source provenance retained in the 
 
 ## Pre-registered H3 prompt experiment (reuse, not another controller)
 
-For a directly copyable H3 Chinese prompt without a JSON envelope, run `vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route onepass --plain`. The output is candidate text only; source fidelity and media quality still require human review.
+For a directly copyable *single Chinese* H3 prompt, run `vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route onepass --h3-style chinese --plain`. The default `--plain` without an explicit style displays all candidate alternatives. The output is candidate text only; source fidelity and media quality still require human review.
 
 Run `vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --study-h3-dialects`. The CLI now returns one `ExperimentPlan` from the **existing** `video_growth_agent.experiments` module, two immutably fingerprinted generated prompts and explicit fixed variables (storyboard, duration, aspect ratio, model, source digest). No render is triggered and no winner exists.
 
@@ -72,7 +81,7 @@ The obsolete interrupted 0.7→0.8 recovery checkpoint was retired after product
 
 ## Mandatory global look-development contract
 
-Do not let a model-specific prompt transform flatten the visual language. A film brief must carry a **visual_language** block specifying `style`, `world`, `palette`, `materials`, `lighting`, and `render_finish` before its shot list; all three prompt emitters (Chinese H3, three-field H3, optional PixVerse) preserve those words. A 3A thick-painting period story and an analogue macro Shiba edit piece are different art directions, not recolors of the same “tech screens” default. Global style remains stable while individual shot composition, lens, subject blocking and lighting may change purposefully.
+Do not let a model-specific prompt transform flatten the visual language. A film brief must carry a **visual_language** block specifying `style`, `world`, `palette`, `materials`, `lighting`, and `render_finish` before its shot list; all four prompt emitters (lean H3, Chinese H3, three-field H3, optional PixVerse) preserve those words. A 3A thick-painting period story and an analogue macro Shiba edit piece are different art directions, not recolors of the same “tech screens” default. Global style remains stable while individual shot composition, lens, subject blocking and lighting may change purposefully.
 
 A descriptive “8K-level detail” aesthetic does not establish actual 8K model output, which is governed by the selected provider's current technical profile.
 
