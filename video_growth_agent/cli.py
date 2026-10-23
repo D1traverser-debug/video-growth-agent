@@ -2,10 +2,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 
 from .prompt_director import PromptPlanError, compile_file
 from .prompt_experiment import h3_dialect_study
+from .source_director import (
+    PromptPlanError as DirectorSourceError, accept_authoring_response,
+    author_with_model, build_compatible_chat_client, build_director_request,
+    prepare_authoring_messages,
+)
 from .media_qa import MediaQAChecker
 from .models import AssetRecord
 from .runtime import StudioRuntime
@@ -89,10 +95,65 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--plain", action="store_true", help="print copy-ready prompt text, not JSON")
     p.add_argument("--review-sheet", action="store_true", help="emit unscored shot-level evaluation targets for actual rendered video")
 
+    p = sub.add_parser("author-director", help="convert complete source script to verified H3 director plan via structured model response")
+    p.add_argument("source", type=Path, help="UTF-8 raw screenplay or original brief")
+    p.add_argument("--seconds", required=True, type=int, help="final film duration, 4–15 seconds for H3")
+    p.add_argument("--fps", type=int, default=30, help="director edit timebase")
+    p.add_argument("--aspect", default="16:9")
+    p.add_argument("--source-ref", default="user-supplied://original")
+    p.add_argument("--source-type", choices=["USER_ORIGINAL", "USER_REFERENCE", "ORIGINAL_SCRIPT", "PRIMARY_DOCUMENT"], default="USER_REFERENCE")
+    p.add_argument("--model-output", type=Path, help="import a JSON draft produced by a separate authoring model")
+    p.add_argument("--execute-model", action="store_true", help="call a configured HTTPS chat-completions text model")
+    p.add_argument("--endpoint", help="explicit HTTPS chat-completions URL (only with --execute-model)")
+    p.add_argument("--model-name", help="text model name (not the H3 video model)")
+    p.add_argument("--api-key-env", default="VIDEO_DIRECTOR_API_KEY")
+    p.add_argument("--approve-upload-cost", action="store_true", help="approve sending original script to this text provider and possible charges")
+    p.add_argument("--out-plan", type=Path, help="save accepted full plan JSON after validation")
+    p.add_argument("--route", choices=["onepass", "shotwise"], default="onepass")
+    p.add_argument("--h3-style", choices=["chinese", "official"], default="chinese")
+
     p = sub.add_parser("system-audit")
     p.add_argument("--repo-root", type=Path)
 
     args = parser.parse_args(argv)
+
+    if args.cmd == "author-director":
+        try:
+            if args.model_output is not None and args.execute_model:
+                parser.error("--model-output and --execute-model are mutually exclusive")
+            raw = args.source.read_text(encoding="utf-8")
+            packet = build_director_request(
+                raw, target_seconds=args.seconds, fps=args.fps,
+                aspect_ratio=args.aspect, source_reference=args.source_ref,
+                source_type=args.source_type,
+            )
+            if args.model_output is not None:
+                response = args.model_output.read_text(encoding="utf-8")
+                result = accept_authoring_response(
+                    packet, response, prompt_route=args.route, h3_style=args.h3_style,
+                )
+            elif args.execute_model:
+                if not args.endpoint or not args.model_name:
+                    parser.error("--execute-model requires --endpoint and --model-name")
+                client = build_compatible_chat_client(
+                    endpoint=args.endpoint, model_name=args.model_name,
+                    api_key=os.environ.get(args.api_key_env, ""),
+                    approved=args.approve_upload_cost,
+                )
+                result = author_with_model(
+                    packet, client, prompt_route=args.route, h3_style=args.h3_style,
+                )
+            else:
+                _json({"status": "AUTHORING_PACKET_READY", "packet": packet,
+                       "model_messages": prepare_authoring_messages(packet),
+                       "note": "Model was NOT called. Send model_messages to an authoring LLM; import bare JSON with --model-output."})
+                return 0
+            if args.out_plan:
+                args.out_plan.write_text(json.dumps(result["plan"], ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+            _json(result)
+            return 0
+        except (DirectorSourceError, OSError, ValueError) as exc:
+            parser.exit(2, f"author-director: {exc}\\n")
 
     if args.cmd == "direct-prompts":
         try:
