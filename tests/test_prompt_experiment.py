@@ -73,7 +73,7 @@ def test_real_cli_emits_experiment_contract_without_generating_video():
 
 def test_plain_output_is_copy_ready_and_refuses_ambiguous_compare_mode():
     sample = str(FIXTURES / "prompt_ribbon_10s.json")
-    base = [sys.executable, "-m", "video_growth_agent.cli", "direct-prompts", sample]
+    base = [sys.executable, "-m", "video_growth_agent.cli", "direct-prompts", sample, "--h3-style", "chinese"]
     good = subprocess.run(base + ["--route", "onepass", "--plain"], capture_output=True, text=True)
     assert good.returncode == 0, good.stderr
     assert good.stdout.startswith("作品：《红绸赴约")
@@ -98,3 +98,19 @@ def test_review_sheet_cli_is_unscored_even_when_source_events_are_tagged():
     mixed = subprocess.run(command + ["--plain"], capture_output=True, text=True)
     assert mixed.returncode != 0
     assert "mutually exclusive" in mixed.stderr
+
+
+
+def test_auto_plain_outputs_distinct_unranked_prompt_candidates():
+    path = str(FIXTURES / "prompt_ribbon_10s.json")
+    result = subprocess.run([
+        sys.executable, "-m", "video_growth_agent.cli", "direct-prompts",
+        path, "--route", "onepass", "--plain",
+    ], capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
+    assert result.stdout.count("=== CANDIDATE: ") == 3
+    assert "=== CANDIDATE: LEAN ===" in result.stdout
+    assert "=== CANDIDATE: CHINESE ===" in result.stdout
+    assert "=== CANDIDATE: OFFICIAL ===" in result.stdout
+    assert "逐时段分镜" in result.stdout
+    assert "integrated_multimodal_description" in result.stdout
