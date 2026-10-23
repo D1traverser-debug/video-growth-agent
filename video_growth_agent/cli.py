@@ -4,6 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
+from .creative_direction import CraftSpecError, compile_from_file
 from .media_qa import MediaQAChecker
 from .models import AssetRecord
 from .runtime import StudioRuntime
@@ -79,10 +80,21 @@ def main(argv: list[str] | None = None) -> int:
     candidate_mode.add_argument("--validated-only", action="store_true", help="production-safe default; retained for compatibility")
     candidate_mode.add_argument("--include-candidates", action="store_true", help="explicit learning/prototype opt-in")
 
+    p = sub.add_parser("storyboard", help="validate a frame-accurate creative brief and compile generation prompts")
+    p.add_argument("spec", type=Path)
+    p.add_argument("--route", choices=["onepass", "shotwise"], default="shotwise")
+
     p = sub.add_parser("system-audit")
     p.add_argument("--repo-root", type=Path)
 
     args = parser.parse_args(argv)
+
+    if args.cmd == "storyboard":
+        try:
+            _json(compile_from_file(args.spec, route=args.route))
+            return 0
+        except (CraftSpecError, OSError, ValueError) as exc:
+            parser.exit(2, f"storyboard error: {exc}\\n")
 
     if args.cmd == "system-audit":
         report = run_system_audit(args.repo_root)
