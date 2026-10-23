@@ -10,7 +10,7 @@ import math
 from pathlib import Path
 from typing import Any
 
-from .h3_prompt import render_h3_cn_storyboard, render_h3_t2va
+from .h3_prompt import render_h3_cn_storyboard, render_h3_lean_story, render_h3_t2va
 
 H3 = {
     "provider": "MiniMax",
@@ -255,10 +255,32 @@ def _render_length(seconds: float, provider: dict) -> int:
     return requested
 
 
-def compile_prompts(plan: dict, route: str = "compare", h3_style: str = "chinese") -> dict:
-    if h3_style not in {"chinese", "official"}:
-        raise PromptPlanError("h3_style must be chinese or official")
+def compile_prompts(plan: dict, route: str = "compare", h3_style: str = "auto") -> dict:
+    if h3_style not in {"auto", "lean", "chinese", "official"}:
+        raise PromptPlanError("h3_style must be auto, lean, chinese or official")
     validated = validate_plan(plan)
+    if h3_style == "auto" and plan["provider"]["name"] == "MiniMax":
+        # No anecdotal sample or theoretical formatting guide is a
+        # sufficiently strong quality label to choose a global winner.
+        # Materialize alternatives and leave production selection open.
+        candidates = {
+            dialect: compile_prompts(plan, route=route, h3_style=dialect)["routes"]
+            for dialect in ("lean", "chinese", "official")
+        }
+        return {
+            "selected_concept": plan["selected"],
+            "h3_prompt_dialect": "auto",
+            "prompt_candidates": candidates,
+            "selection_status": "UNDECIDED_NEEDS_SCENE_SPECIFIC_MEDIA_EVIDENCE",
+            "quality_winner": None,
+            "static_validation": validated,
+            "provider_profile": H3,
+            "review_targets": build_shot_review_targets(plan),
+            "reason": (
+                "One positive H3 user example is evidence for that particular scene, "
+                "not a universal prompt dialect standard. Compare results by workload."
+            ),
+        }
     if route not in ROUTES:
         raise PromptPlanError("route must be onepass, shotwise, or compare")
     brief, shots = plan["brief"], plan["shots"]
@@ -284,7 +306,7 @@ def compile_prompts(plan: dict, route: str = "compare", h3_style: str = "chinese
                 render_seconds = _render_length(duration, plan["provider"])
                 is_h3 = plan["provider"]["name"] == "MiniMax"
                 if is_h3:
-                    renderer = render_h3_cn_storyboard if h3_style == "chinese" else render_h3_t2va
+                    renderer = {"lean": render_h3_lean_story, "chinese": render_h3_cn_storyboard, "official": render_h3_t2va}[h3_style]
                     prompt = renderer(
                         plan=plan, shots=group, render_seconds=render_seconds,
                         usable_seconds=duration,
@@ -373,5 +395,5 @@ def build_shot_review_targets(plan: dict) -> dict:
     }
 
 
-def compile_file(path: str | Path, route: str = "compare", h3_style: str = "chinese") -> dict:
+def compile_file(path: str | Path, route: str = "compare", h3_style: str = "auto") -> dict:
     return compile_prompts(json.loads(Path(path).read_text(encoding="utf-8")), route, h3_style)
