@@ -32,6 +32,8 @@ vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route onepass --plain
 vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --review-sheet
 ```
 
+Director plans must now supply `visual_language` for global art direction, including specific materials, color palette, world continuity, motivated light and render finish. Structured H3 prompts also preserve localized sound cues and explicit speaker/language/utterance markup, with an unscored per-shot review packet for real generated footage.
+
 The selected baseline is **MiniMax H3/Hailuo** because the owner reported strong footage from the Chinese complete 10-second storyboard. One-pass is compared with shotwise (H3's official API 4-second minimum per generated take makes dense shotwise production expensive). PixVerse V6 remains an explicitly chosen comparison baseline; it is not the artistic authority. These prompts are not generated films. Official MiniMax prompt-writing guidance has been read and distilled in `skills/video-growth-agent/references/prompt-direction.md`. A separate `--h3-style official` adapter follows the first-party three-field format for a controlled prompt-style experiment.
 
 The current skill is intentionally prompt-centric and does **not** reorganize or delete validated production/release modules. The older all-scope draft PR is not required for this prompt compiler.
