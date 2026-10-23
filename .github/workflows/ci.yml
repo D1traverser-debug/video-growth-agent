@@ -16,6 +16,30 @@ jobs:
           sudo apt-get install -y ffmpeg
       - name: Install package and tests
         run: pip install -e . pytest==9.1.1
+      - name: Static syntax scan of every tracked Python JSON and TOML file
+        run: |
+          python - <<'PY'
+          import ast
+          import json
+          import pathlib
+          import subprocess
+          import tomllib
+
+          paths = [pathlib.Path(p.decode("utf-8")) for p in subprocess.check_output(["git", "ls-files", "-z"]).split(b"\\0") if p]
+          count = {"py": 0, "json": 0, "toml": 0}
+          for path in paths:
+              raw = path.read_bytes()
+              if path.suffix == ".py":
+                  ast.parse(raw, filename=str(path))
+                  count["py"] += 1
+              elif path.suffix == ".json":
+                  json.loads(raw)
+                  count["json"] += 1
+              elif path.suffix == ".toml":
+                  tomllib.loads(raw.decode("utf-8"))
+                  count["toml"] += 1
+          print(f"tracked={len(paths)} parsed={count}")
+          PY
       - name: Run system hygiene audit
         run: vga system-audit --repo-root .
       - name: Run tests
