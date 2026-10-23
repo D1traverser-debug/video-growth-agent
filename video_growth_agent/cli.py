@@ -17,6 +17,7 @@ from .models import AssetRecord
 from .runtime import StudioRuntime
 from .system_audit import run_system_audit
 from .techniques import TechniqueLibrary
+from .craft_round import CraftReviewError, prepare_craft_round, reconcile_craft_round, next_revision_diff
 
 
 def _json(data) -> None:
@@ -113,10 +114,32 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--route", choices=["onepass", "shotwise"], default="onepass")
     p.add_argument("--h3-style", choices=["auto", "lean", "chinese", "official"], default="auto")
 
+    p = sub.add_parser("craft-round", help="prepare independent craft role packets or reconcile submitted reviews on one shot plan")
+    p.add_argument("plan", type=Path, help="validated director-plan JSON")
+    p.add_argument("--revision", type=int, default=1)
+    p.add_argument("--reviews", type=Path, help="JSON list of submitted seven role reviews")
+    p.add_argument("--previous", type=Path, help="prior version for shot-level delta")
+
     p = sub.add_parser("system-audit")
     p.add_argument("--repo-root", type=Path)
 
     args = parser.parse_args(argv)
+
+    if args.cmd == "craft-round":
+        try:
+            current = json.loads(args.plan.read_text(encoding="utf-8"))
+            packet = prepare_craft_round(current, revision=args.revision)
+            result = {"packet": packet}
+            if args.reviews is not None:
+                reviews = json.loads(args.reviews.read_text(encoding="utf-8"))
+                result["reconciliation"] = reconcile_craft_round(packet, reviews)
+            if args.previous is not None:
+                previous = json.loads(args.previous.read_text(encoding="utf-8"))
+                result["revision_diff"] = next_revision_diff(previous, current)
+            _json(result)
+            return 0
+        except (CraftReviewError, PromptPlanError, OSError, ValueError, KeyError) as exc:
+            parser.exit(2, f"craft-round: {exc}\n")
 
     if args.cmd == "author-director":
         try:
