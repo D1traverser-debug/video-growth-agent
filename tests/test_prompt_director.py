@@ -276,3 +276,22 @@ def test_voice_unsafe_markup_and_unsupported_silent_h3_are_rejected():
     plan["provider"]["native_audio"] = False
     with pytest.raises(PromptPlanError, match="not implemented safely"):
         validate_plan(plan)
+
+
+def test_review_sheet_marks_every_required_scene_as_unreviewed_not_passed():
+    plan = load("prompt_ribbon_10s.json")
+    result = compile_prompts(plan, "onepass")
+    review = result["review_targets"]
+    assert review["assessment"] == "NOT_STARTED"
+    assert review["media_asset_ref"] is None
+    assert review["reviewer_independence"] == "NOT_ESTABLISHED"
+    assert len(review["shots"]) == 6
+    observed_ids = set()
+    for shot in review["shots"]:
+        assert shot["actual_result"] == "UNREVIEWED"
+        assert shot["observed_video_timecodes"] is None
+        assert shot["expected_visible_action"]["physical_trigger"]
+        assert shot["expected_transition"]["bridge"]
+        assert all(e["source_quote"] in plan["source"]["raw"] for e in shot["required_source_events"])
+        observed_ids.update(e["id"] for e in shot["required_source_events"])
+    assert observed_ids == {e["id"] for e in plan["required_events"] if e["origin"] == "SOURCE"}
