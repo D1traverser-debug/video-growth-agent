@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "fps": 30,
+  "visual_bible": {
+    "style": "cinematic practical macro photography with surreal object match cuts and restrained CGI",
+    "world": "tactile walnut editing desk and abstract close-up transformations",
+    "lighting": "warm tungsten key, cold cyan rim, precise real material reflections",
+    "palette": "dark walnut, silver film, saturated amber and cobalt",
+    "character_anchors": [
+      "adult Chinese male with stable facial proportions, off-white jacket",
+      "red Shiba Inu with cream chest and upright ears"
+    ],
+    "prop_anchors": [
+      "circular brass play key",
+      "single silver film reel",
+      "editorial storyboard"
+    ]
+  },
+  "negative_constraints": [
+    "face identity drift",
+    "extra paws or fingers",
+    "illegible fine UI labels",
+    "random unmotivated screen flashes"
+  ],
+  "generator": {
+    "provider": "PixVerse",
+    "model": "V6",
+    "mode": "T2V",
+    "aspect_ratio": "9:16",
+    "resolution": "720p",
+    "audio": "off",
+    "max_prompt_characters": 5000
+  },
+  "title": "Next Frame — five-second Shiba editor IP",
+  "source_plan_ref": "editorial-plan://ip-intro@v1",
+  "duration_frames": 150,
+  "required_story_events": [
+    {
+      "id": "dog_triggers",
+      "description": "The Shiba presses a real button"
+    },
+    {
+      "id": "markets",
+      "description": "Market microstructure becomes visible"
+    },
+    {
+      "id": "token",
+      "description": "A canine-faced token manifests"
+    },
+    {
+      "id": "film",
+      "description": "Trading transforms into editing film"
+    },
+    {
+      "id": "creator",
+      "description": "Calm human creator controls the film"
+    }
+  ],
+  "shots": [
+    {
+      "id": "IP1",
+      "start_frame": 0,
+      "end_frame": 30,
+      "frame": "85mm macro composition of a fluffy Shiba paw and a scratched circular brass play button",
+      "action": "the paw presses the spring-loaded button until its rim glows",
+      "camera": "locked macro push-in with focus on the contact point",
+      "lighting": "tungsten highlight across the brass rim",
+      "transition_out": "match the illuminated brass circle to the circular exchange instrument",
+      "event_ids": [
+        "dog_triggers"
+      ],
+      "sound": [
+        "single mechanical click at contact",
+        "soft opening kick drum"
+      ],
+      "continuity": [
+        "Shiba is red with cream chest; paw structure stays natural"
+      ]
+    },
+    {
+      "id": "IP2",
+      "start_frame": 30,
+      "end_frame": 96,
+      "frame": "close-up of a circular trading instrument whose red real-body candlesticks show wicks and depth ladder; transitions into a stamped silver dog token and film reel",
+      "action": "bar volumes and candlestick wicks move; rotating dial becomes dog-faced token, then a reel of photographic film",
+      "camera": "centered graphic match, rotation aligned along one axis",
+      "lighting": "specular silver reflections with cyan/amber accents",
+      "transition_out": "cut on a round black reel spindle matching the protagonist eye pupil",
+      "event_ids": [
+        "markets",
+        "token",
+        "film"
+      ],
+      "sound": [
+        "market tick transients",
+        "accelerating reel flutter"
+      ],
+      "continuity": [
+        "circle center stays within 10 percent of center frame"
+      ]
+    },
+    {
+      "id": "IP3",
+      "start_frame": 96,
+      "end_frame": 150,
+      "frame": "50mm medium-close portrait with Shiba beside calm young creator at walnut editing desk",
+      "action": "creator lightly catches moving film strip between two fingers; motion aligns; dog ear twitches; subtle eye rise",
+      "camera": "fast but smooth reveal then stable two-subject portrait",
+      "lighting": "soft tungsten face key and cyan practical fill",
+      "transition_out": "hold final clean frame for later IP-title typography",
+      "event_ids": [
+        "creator"
+      ],
+      "sound": [
+        "deep rhythmic impact",
+        "subtle dog ear movement foley"
+      ],
+      "continuity": [
+        "same Shiba from IP1",
+        "single film strip and stable facial identity"
+      ]
+    }
+  ],
+  "ending": "stable hero composition of human and Shiba, with title safe area at top"
+}
