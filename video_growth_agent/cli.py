@@ -90,7 +90,7 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("direct-prompts", help="compile H3-first/PixVerse baseline film prompts with explicit scope and timing")
     p.add_argument("plan", type=Path)
     p.add_argument("--route", choices=["compare", "onepass", "shotwise"], default="compare")
-    p.add_argument("--h3-style", choices=["chinese", "official"], default="chinese")
+    p.add_argument("--h3-style", choices=["auto", "lean", "chinese", "official"], default="auto")
     p.add_argument("--study-h3-dialects", action="store_true", help="design an evidence-bound A/B prompt study; no media generation")
     p.add_argument("--plain", action="store_true", help="print copy-ready prompt text, not JSON")
     p.add_argument("--review-sheet", action="store_true", help="emit unscored shot-level evaluation targets for actual rendered video")
@@ -111,7 +111,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--max-revisions", type=int, default=0, choices=[0,1,2,3], help="additional paid authoring calls after rejected JSON")
     p.add_argument("--out-plan", type=Path, help="save accepted full plan JSON after validation")
     p.add_argument("--route", choices=["onepass", "shotwise"], default="onepass")
-    p.add_argument("--h3-style", choices=["chinese", "official"], default="chinese")
+    p.add_argument("--h3-style", choices=["auto", "lean", "chinese", "official"], default="auto")
 
     p = sub.add_parser("system-audit")
     p.add_argument("--repo-root", type=Path)
@@ -175,10 +175,24 @@ def main(argv: list[str] | None = None) -> int:
                 elif args.plain:
                     if args.route == "compare":
                         parser.error("--plain needs --route onepass or --route shotwise")
-                    compiled = report["routes"][args.route]
-                    if compiled["status"] != "COMPILED":
-                        parser.error(compiled["reason"])
-                    print("\n\n=== NEXT SHOT ===\n\n".join(item["prompt"] for item in compiled["prompts"]))
+                    if "prompt_candidates" in report:
+                        sections = []
+                        for dialect, routes in report["prompt_candidates"].items():
+                            compiled = routes[args.route]
+                            if compiled["status"] == "COMPILED":
+                                section = "\n\n=== CANDIDATE: " + dialect.upper() + " ===\n\n"
+                                section += "\n\n=== NEXT SHOT ===\n\n".join(
+                                    item["prompt"] for item in compiled["prompts"]
+                                )
+                                sections.append(section)
+                        if not sections:
+                            parser.error("no compilable prompt dialects for requested route")
+                        print("".join(sections))
+                    else:
+                        compiled = report["routes"][args.route]
+                        if compiled["status"] != "COMPILED":
+                            parser.error(compiled["reason"])
+                        print("\n\n=== NEXT SHOT ===\n\n".join(item["prompt"] for item in compiled["prompts"]))
                 else:
                     _json(report)
             return 0
