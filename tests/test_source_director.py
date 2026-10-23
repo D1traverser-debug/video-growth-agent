@@ -108,7 +108,7 @@ def test_model_authoring_handoff_works_and_never_claims_rendered_media():
     assert calls[0][0]["role"] == "system"
     assert json.loads(calls[0][1]["content"].split("COMPLETE_SOURCE_AND_OUTPUT_CONTRACT:\n", 1)[1])["source_contract"]["raw"] == source
     assert result["source_audit"]["unanchored_units"] == []
-    assert result["compiled"]["routes"]["onepass"]["status"] == "COMPILED"
+    assert result["compiled"]["prompt_candidates"]["chinese"]["onepass"]["status"] == "COMPILED"
     assert result["compiled"]["visual_winner"] is None
     assert result["compiled"]["review_targets"]["assessment"] == "NOT_STARTED"
 
@@ -169,7 +169,7 @@ def test_command_line_raw_script_packet_and_strict_model_import(tmp_path):
     assert result.returncode == 0, result.stderr
     product = json.loads(result.stdout)
     assert product["source_audit"]["source_unit_anchor_fraction"] == 1
-    assert product["compiled"]["routes"]["onepass"]["status"] == "COMPILED"
+    assert product["compiled"]["prompt_candidates"]["chinese"]["onepass"]["status"] == "COMPILED"
     assert product["compiled"]["visual_winner"] is None
 
     no_auth = subprocess.run(base + ["--execute-model", "--endpoint",
@@ -245,5 +245,5 @@ def test_untimed_original_idea_uses_same_authoring_pipeline_without_false_clock(
     fixture["source"]["completeness"] = "FULL"
     report = accept_authoring_response(packet, json.dumps(fixture, ensure_ascii=False))
     assert report["source_audit"]["unanchored_units"] == []
-    assert report["compiled"]["routes"]["onepass"]["status"] == "COMPILED"
+    assert report["compiled"]["prompt_candidates"]["chinese"]["onepass"]["status"] == "COMPILED"
     assert report["compiled"]["visual_winner"] is None
