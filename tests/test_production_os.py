@@ -113,6 +113,23 @@ def test_hero_take_cannot_promote_without_independent_review():
     assert "INDEPENDENT_REVIEW_REQUIRED" in decision.reasons
 
 
+def test_caller_cannot_waive_independent_review_for_hero_or_brand_truth():
+    evidence = PromotionEvidence(
+        quality_scores={"identity": 4.5, "motion": 4.2},
+        quality_evidence_refs=("quality://1",),
+        continuity_evidence_refs=(),
+        rights_evidence_refs=("rights://1",),
+        truth_evidence_refs=(),
+    )
+    for risk in ("HIGH", "HERO", "BRAND_TRUTH"):
+        decision = evaluate_take_promotion(
+            _shot(risk=risk), _take(), evidence, decision_owner="creative_director",
+            independent_review_required=False,
+        )
+        assert decision.decision == "REJECT"
+        assert "INDEPENDENT_REVIEW_REQUIRED" in decision.reasons
+
+
 def test_low_risk_take_can_promote_without_independent_review_when_quality_passes():
     shot = _shot(risk="LOW")
     evidence = PromotionEvidence(
