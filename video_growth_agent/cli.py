@@ -17,7 +17,7 @@ from .models import AssetRecord
 from .runtime import StudioRuntime
 from .system_audit import run_system_audit
 from .techniques import TechniqueLibrary
-from .craft_round import CraftReviewError, prepare_craft_round, reconcile_craft_round, next_revision_diff, run_craft_role_models
+from .craft_round import CraftReviewError, prepare_craft_round, reconcile_craft_round, next_revision_diff, check_revision_against_handoffs, run_craft_role_models
 
 
 def _json(data) -> None:
@@ -119,6 +119,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--revision", type=int, default=1)
     p.add_argument("--reviews", type=Path, help="JSON list of submitted seven role reviews")
     p.add_argument("--previous", type=Path, help="prior version for shot-level delta")
+    p.add_argument("--previous-reviews", type=Path, help="previous round submitted reviews to check which issues changed")
     p.add_argument("--execute-roles", action="store_true", help="make real potentially charged LLM calls for seven role-plan critiques")
     p.add_argument("--endpoint", help="HTTPS chat-completions URL")
     p.add_argument("--model-name", help="text-model identifier")
@@ -155,9 +156,18 @@ def main(argv: list[str] | None = None) -> int:
             elif args.reviews is not None:
                 reviews = json.loads(args.reviews.read_text(encoding="utf-8"))
                 result["reconciliation"] = reconcile_craft_round(packet, reviews)
+            if args.previous_reviews is not None and args.previous is None:
+                parser.error("--previous-reviews requires --previous old-plan.json")
             if args.previous is not None:
                 previous = json.loads(args.previous.read_text(encoding="utf-8"))
                 result["revision_diff"] = next_revision_diff(previous, current)
+                if args.previous_reviews is not None:
+                    old_packet = prepare_craft_round(previous, revision=max(1, args.revision - 1))
+                    old_reviews = json.loads(args.previous_reviews.read_text(encoding="utf-8"))
+                    old_report = reconcile_craft_round(old_packet, old_reviews)
+                    result["revisions_against_handoffs"] = check_revision_against_handoffs(
+                        previous, current, old_report,
+                    )
             _json(result)
             return 0
         except (CraftReviewError, PromptPlanError, OSError, ValueError, KeyError) as exc:
