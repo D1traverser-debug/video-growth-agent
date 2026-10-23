@@ -45,7 +45,7 @@ Complete 30-second source has 24 time-marked units including original overlappin
 For a short AI film **prompt task**, use the original brief and run `vga direct-prompts` before invoking unrelated release/business process modules:
 
 ```bash
-vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route compare --h3-style chinese
+vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route compare   # defaults to auto: three unranked H3 candidates
 vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route onepass --h3-style official
 vga direct-prompts tests/fixtures/prompt_ip_5s.json --route compare
 vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --study-h3-dialects
@@ -55,7 +55,7 @@ vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --review-sheet
 
 Director plans must now supply `visual_language` for global art direction, including specific materials, color palette, world continuity, motivated light and render finish. Structured H3 prompts also preserve localized sound cues and explicit speaker/language/utterance markup, with an unscored per-shot review packet for real generated footage.
 
-The selected baseline is **MiniMax H3/Hailuo** because the owner reported strong footage from the Chinese complete 10-second storyboard. One-pass is compared with shotwise (H3's official API 4-second minimum per generated take makes dense shotwise production expensive). PixVerse V6 remains an explicitly chosen comparison baseline; it is not the artistic authority. These prompts are not generated films. Official MiniMax prompt-writing guidance has been read and distilled in `skills/video-growth-agent/references/prompt-direction.md`. A separate `--h3-style official` adapter follows the first-party three-field format for a controlled prompt-style experiment.
+**One positive example is not a universal production template.** The owner reported a good H3 result for one dense Chinese 10-second storyboard, but did not establish a permanent style preference or controlled model winner. For H3, `--h3-style auto` (default) emits **three unranked alternatives**: concise causal (`lean`), dense Chinese shot list (`chinese`), and vendor-structured (`official`), without choosing an aesthetic winner. Explicit style flags remain for reproducible comparison. One-pass versus shotwise is assessed separately with generation/trim costs; PixVerse remains opt-in, never a blanket dismissal. Real video review, not syntax, decides which works for a particular scene.
 
 The current skill is intentionally prompt-centric and does **not** reorganize or delete validated production/release modules. The older all-scope draft PR is not required for this prompt compiler.
 
