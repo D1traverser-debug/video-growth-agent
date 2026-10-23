@@ -1,0 +1,1308 @@
+{
+  "schema_version": 1,
+  "repo": "D1traverser-debug/video-growth-agent",
+  "branch_base": "main",
+  "base_git_commit": "4632634e5133961b3280dcfc5bc211712c3a1c83",
+  "base_tree_sha": "4632634e5133961b3280dcfc5bc211712c3a1c83",
+  "tree_truncated": false,
+  "claim": "All 162 files fetched and Git object blob SHA values matched individually, as reported by per-file inspection; this is not independent semantic correctness proof.",
+  "files": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "bytes": 3760,
+      "blob_sha": "5de7077af0c935a3804e9356164f86bd6111f482",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "workflow"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 80,
+      "blob_sha": "a81d0b218dd59ae747a04091d5f3d2da2d861624",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "other"
+    },
+    {
+      "path": ".uaos/ADAPTER.json",
+      "bytes": 2035,
+      "blob_sha": "e5165f261adb4a00a6f44fbf2e0f827656463bc7",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": ".uaos/CAPABILITIES.json",
+      "bytes": 19965,
+      "blob_sha": "3aeebaa6174998ed8e54a5bdd318a0056f68be70",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": ".uaos/MANIFEST.json",
+      "bytes": 4007,
+      "blob_sha": "11e030d5cd21a81701ad09c1b4676f9a39cc18ad",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "README.md",
+      "bytes": 9971,
+      "blob_sha": "752a533a882cea1077bd731e6579c81e250b8198",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "UAOS_SKILL.md",
+      "bytes": 14712,
+      "blob_sha": "2fb7c4ca38ec346793664ce16a1cc1e3dc18128c",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "audits/AI_NATIVE_MEDIA_BUSINESS_OS_REDESIGN_2026-10-15.md",
+      "bytes": 18770,
+      "blob_sha": "e9998e47529b3b84cf6b917a59330fcce8b82c3a",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "audits/EVOLUTION_INDEX.json",
+      "bytes": 5749,
+      "blob_sha": "2e34dd855965f70aa0812163e645ccca5adec755",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
+      "bytes": 9750,
+      "blob_sha": "dab74bfae1897632dd799854a631012853273bb5",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "audits/SYSTEM_SELF_AUDIT_2026-10-11.md",
+      "bytes": 22344,
+      "blob_sha": "12bad762d196a1561496667ddabd638bf8c0a86c",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "audits/VIDEO_0_8_PRODUCTION_CLOSURE_2026-10-15.md",
+      "bytes": 2237,
+      "blob_sha": "d085309a054f319bde4e89b044cd0352e9a53d19",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "audits/VIDEO_0_8_RESUME_CHECKPOINT_2026-10-15.md",
+      "bytes": 10309,
+      "blob_sha": "39c9eaf365cf4b4c16a72ba21f7d20bf7a7072c4",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "audits/VIDEO_AGENT_OPERABILITY_REDESIGN_2026-10-15.md",
+      "bytes": 13175,
+      "blob_sha": "a9af55d717d44d751db9c92ed3eb433687b54d5e",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md",
+      "bytes": 7646,
+      "blob_sha": "319da5690873af497e89dafe856c87a281d554c2",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "docs/agent_operability_scenarios.md",
+      "bytes": 9611,
+      "blob_sha": "78b4855b563182edb18799fa45b07775a5f6693e",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "docs/architecture.md",
+      "bytes": 8808,
+      "blob_sha": "ec7109648361f39fa26d860fde7a30c6edb7947e",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "docs/media_business_os.md",
+      "bytes": 17549,
+      "blob_sha": "a0abf9ed649c7d17df2d4b83cc31bab046f18c0c",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "docs/product_requirements.md",
+      "bytes": 17619,
+      "blob_sha": "3c6ae8757ac475a799626a26670b37e4389bf997",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "docs/provider_benchmark_protocol.md",
+      "bytes": 7268,
+      "blob_sha": "a8204f2ea56e068aebcb623ec3b2a331f3bfadda",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/PROJECT_INDEX.json",
+      "bytes": 2221,
+      "blob_sha": "75c5b4c8d708d1acdf71202e861699c0036e7376",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/ACCOUNT_POSITIONING.md",
+      "bytes": 6924,
+      "blob_sha": "cdfbd511fe7d489dc31dc2d1780a632d3aa20ede",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json",
+      "bytes": 5787,
+      "blob_sha": "5c205821e4b8225c661d8852c0e52cfb7c6fdce6",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/CHARACTER_DESIGN_BIBLE_V1.md",
+      "bytes": 12852,
+      "blob_sha": "97e4b7c53ea30e6ceceb4ee1ebc13496d3465697",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/CONCEPT_GENERATION_PROMPT_V1.md",
+      "bytes": 9788,
+      "blob_sha": "e86426eae32a06d99d5ff2cf58c3dac69abb62d1",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md",
+      "bytes": 6539,
+      "blob_sha": "cad17a0cdd577e3a0c771ed44488f0bf535caca5",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/CURRENT_PROGRESS.md",
+      "bytes": 8117,
+      "blob_sha": "aa154ac6b2ff3e18f1a53a81732eea924d452322",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/DECISION_LOG.md",
+      "bytes": 9130,
+      "blob_sha": "df26aed62ee55e4267f90d31c7fcb1e7eabd5325",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/DESIGN_RESEARCH_METHOD_V2.md",
+      "bytes": 8602,
+      "blob_sha": "4f013f827af7c8bf4c6ff8b279beb22e515cb48a",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/DESIGN_SPACE_EXPLORATION_V2.md",
+      "bytes": 14940,
+      "blob_sha": "f9b308cf11ff16b485e993edec0a4eff82ce8fac",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/GPT_IMAGE_POSITIVE_MORPH_LANGUAGE_RULE_V1.md",
+      "bytes": 2861,
+      "blob_sha": "4e2c33d169eded9de673414576b8e696a6b070b1",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/GPT_IMAGE_PROMPTING_METHOD_V2.md",
+      "bytes": 6207,
+      "blob_sha": "6cd3d64af717b39053f73f4fd8f05ef3fbfe66f3",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H0_REFERENCE_ASSESSMENT_2026-10-14.md",
+      "bytes": 4204,
+      "blob_sha": "7620f63990a49d10d23fdb60593692f36d26ceb9",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H1_A1_REFINED_EAST_ASIAN_MALE_APPEAL_PROMPT_V2.md",
+      "bytes": 3544,
+      "blob_sha": "373b87eb3f379f348d96f153f8125958888612e2",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H1_A1_REVIEW_2026-10-14.md",
+      "bytes": 3911,
+      "blob_sha": "48a16359c86f961dde095c62d0d89c749a4333e0",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H1_BROW_EYE_RECONSIDERATION_2026-10-14.md",
+      "bytes": 4307,
+      "blob_sha": "5143aa00023fdfc08a5629d3f029111045fb35ed",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H1_F1_F5_FRONT_REVIEW_2026-10-14.md",
+      "bytes": 5769,
+      "blob_sha": "bb3eaeb24ca1d51b4a0ec388341cfa29beb9bf1d",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H1_FACE_COMPARISON_PROMPTS_V2.md",
+      "bytes": 8633,
+      "blob_sha": "47779e9f9e2a005f7e2bce79281aeffec290ec21",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H1_FACE_MORPHOLOGY_EXTRACTION_2026-10-14.md",
+      "bytes": 8758,
+      "blob_sha": "fdf4613d848abf9848da6c864246fe9ac48f228c",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H1_GPT_FACE_EXECUTION_PROMPTS_FINAL_V2.md",
+      "bytes": 5635,
+      "blob_sha": "50e6e3114a931b97c9b85df796ba02ea64e81e8e",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H1_HYBRID_A_GPT_PROMPT_V2.md",
+      "bytes": 3008,
+      "blob_sha": "dbaa7dbd40c29e3ac220be45dd8d347d3aabf39e",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H1_HYBRID_A_REVIEW_2026-10-14.md",
+      "bytes": 4609,
+      "blob_sha": "aabff7394eb2a73600e07d068553bea6e042cf3d",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H1_MALE_AESTHETIC_TUNING_RESEARCH_2026-10-14.md",
+      "bytes": 4646,
+      "blob_sha": "cec02b2ec44a140ba94d3bf2201d267e011bde88",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H1_S13_3Q_SCULPT_PROMPT_V2.md",
+      "bytes": 2237,
+      "blob_sha": "6883598966a853cf6d2e5df7a551e4f945007422",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H1_S13_FRONT_MICROCORRECTION_PROMPT_V2.md",
+      "bytes": 1930,
+      "blob_sha": "22a510f476d3fa80620a6e1f1849ddda2c12f34a",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H1_S13_HYBRID_FRONT_REVIEW_2026-10-14.md",
+      "bytes": 2839,
+      "blob_sha": "300547b945a758c2cdeae06386ce96a214e3fe5a",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H1_S13_HYBRID_FRONT_REVIEW_CORRECTED_2026-10-14.md",
+      "bytes": 2566,
+      "blob_sha": "3ff27d96326d39fa108c79513a725d97f9915098",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H1_S13_HYBRID_SCULPT_PROMPT_V2.md",
+      "bytes": 2788,
+      "blob_sha": "94b390f6dff4e2d4f26e26600af6269bfd81eaaf",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H1_S1_S2_S3_SCULPT_REVIEW_2026-10-14.md",
+      "bytes": 4249,
+      "blob_sha": "e9accd75ad067c7ce2c1d34994b3b05ab9925e3c",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/H1_SCULPTURAL_MASSING_PROMPTS_V2.md",
+      "bytes": 3858,
+      "blob_sha": "bbf123c0042f78f438a40d9ecfb46218a9eded2d",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/HUMAN_CORE_CONSTRUCTION_STACK_V2.md",
+      "bytes": 11331,
+      "blob_sha": "4927d4849d6e7c19fc46469fd73c57ca95e4ef9f",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md",
+      "bytes": 4166,
+      "blob_sha": "24c1ef2a807133a72e0069f93cd0cc82307c2b6a",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/PRODUCTION_AND_COST_STRATEGY.md",
+      "bytes": 12407,
+      "blob_sha": "d4423ba3d03990e2ba1958e50a9230cf1bf38636",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/PROGRAM_STATE.json",
+      "bytes": 6135,
+      "blob_sha": "fa5a9ea3eae976b054bc5dbe1fa5a2ad117d79ac",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/PROJECT_MANIFEST.json",
+      "bytes": 7694,
+      "blob_sha": "b7bc9e1a204c7ad755a99ead7712fb02daf3d8c1",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/README.md",
+      "bytes": 4958,
+      "blob_sha": "4dacab4bd518ce8600c46cbdcc7866a4e17e84bc",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/RESUME_ENTRY.md",
+      "bytes": 5285,
+      "blob_sha": "ca41eb1ce77f5286efba2f047bee0c02f895d3ff",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/SUBTASK_GRAPH.json",
+      "bytes": 5876,
+      "blob_sha": "a9833772d02052faf1bec7b77f902a1c9e3c03c8",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "projects/ai-self-media-commercialization/WORKFLOW_INTEGRATION.md",
+      "bytes": 6377,
+      "blob_sha": "f7fcb68186c735db9b84cc3ab2f2c85aa3982c16",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/pilot-001/README.md",
+      "bytes": 955,
+      "blob_sha": "6ee131a818a53bfa283568cb122619f70faa21ca",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/pilot-002/BENCHMARK_REBASE.md",
+      "bytes": 5407,
+      "blob_sha": "334a42443e9f3484937c9292fbe225ece4e04fda",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/pilot-002/CINEMATIC_BENCHMARK_LANE.md",
+      "bytes": 9364,
+      "blob_sha": "de09f6f072f526c226884475b054fb1cc49acc02",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/pilot-002/H3_TRANSITION_V1_AUDIT.md",
+      "bytes": 3563,
+      "blob_sha": "8faad8e29350ab70fca37ed5452244ef245eb9cf",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/pilot-002/PROCESS_FAILURE_AUDIT_2026-10-09.md",
+      "bytes": 4774,
+      "blob_sha": "0dd0cd03684ecdc8154e7db87cfb6a779a2ef747",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/pilot-002/PROGRAM_STATE.json",
+      "bytes": 4648,
+      "blob_sha": "e33345d329b71ad98143b00d5db316bf03a2c16d",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "projects/pilot-002/QUALITY_REBASE.md",
+      "bytes": 4188,
+      "blob_sha": "e01e6c281f2de7ac131ee4109580eac46073a50c",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/pilot-002/SAMPLE_V2.md",
+      "bytes": 4333,
+      "blob_sha": "85a7507836317a3ad0ddb7cdb286dcfb3bec3cc4",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/pilot-002/SAMPLE_V3_GENERATION_BRIEF.json",
+      "bytes": 4948,
+      "blob_sha": "a08cda6b896daad872560fd4b785f7ab83fe3911",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "projects/pilot-002/SAMPLE_V3_SHOT_D_GENERATION_BRIEF.json",
+      "bytes": 4953,
+      "blob_sha": "2036c626ba3179c0e37160a0fc87c3401d8ec581",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "projects/pilot-002/SAMPLE_V3_SHOT_REPAIR_MATRIX.md",
+      "bytes": 9704,
+      "blob_sha": "45e80aabaa85d0b8ac37aff7f736125c25a0019f",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "projects/pilot-002/V4_FAILURE_AUDIT.md",
+      "bytes": 4324,
+      "blob_sha": "b2d8d285389a37f5c52ca48c43d7f12c992637ad",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 634,
+      "blob_sha": "fe840d430f5f18fefb21e322768e574d8d9c919d",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "other"
+    },
+    {
+      "path": "skills/video-growth-agent/SKILL.md",
+      "bytes": 737,
+      "blob_sha": "71c731aa30cabeac83d05a64e94b257a8d977917",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "skills/video-growth-agent/references/agent-studio.md",
+      "bytes": 4435,
+      "blob_sha": "6124bad319bab9fd8d27c93f124e0362407ce0d3",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "skills/video-growth-agent/references/benchmark-policy.md",
+      "bytes": 3064,
+      "blob_sha": "adc1b26719392f04942cdb58c4e94c43b9b94526",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "skills/video-growth-agent/references/commercial.md",
+      "bytes": 929,
+      "blob_sha": "0ef594ddbb05921c6f70d40e2d7a724bec4e76a3",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "skills/video-growth-agent/references/generation-governance.md",
+      "bytes": 6601,
+      "blob_sha": "3e68fea7e04a48f08b2deabfddd5fd7ff428ce37",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "skills/video-growth-agent/references/production-intelligence.md",
+      "bytes": 5195,
+      "blob_sha": "d8f19683899c8854258683a1c09278fc27eb3bae",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "skills/video-growth-agent/references/quality-gates.md",
+      "bytes": 4661,
+      "blob_sha": "bd6c5e83077b5f438f73534af15026439ea30483",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "skills/video-growth-agent/references/reviewer-execution-attestation.md",
+      "bytes": 4432,
+      "blob_sha": "d404eb67aee447f615978a20c4662e8a3213cf91",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "skills/video-growth-agent/references/runtime.md",
+      "bytes": 3266,
+      "blob_sha": "2c70dc00c7947f6928b567db15e69f17f8c8471f",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "skills/video-growth-agent/references/self-learning.md",
+      "bytes": 7744,
+      "blob_sha": "81ec9247e13cc8857f9a8e07d305c93f75cd0c64",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "skills/video-growth-agent/references/team.md",
+      "bytes": 6218,
+      "blob_sha": "178323be087af5baaa67720ac0d7930ba34eac0d",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "skills/video-growth-agent/references/workflow.md",
+      "bytes": 2640,
+      "blob_sha": "e2bee1628464165b35ce05c3d1476c8924f8634d",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "tests/test_agent_operable_media_os_trajectory.py",
+      "bytes": 12221,
+      "blob_sha": "e20a0bc0551765c41e44ab30ad4e1251ce1174e6",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_agentic_studio.py",
+      "bytes": 5734,
+      "blob_sha": "5f0b575f51b054342f4e47483260421b7bdc6c8a",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_business_metrics.py",
+      "bytes": 1693,
+      "blob_sha": "8ac5bfcf1b22d0503515471349f60a910ab6ddd4",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_business_objects.py",
+      "bytes": 3048,
+      "blob_sha": "2b26cb85562b32977fbf5ae38040153841872be7",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_continuity.py",
+      "bytes": 1821,
+      "blob_sha": "7fb24f7e85587c5a161b9cb83e0cf4013692d815",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_editorial_interchange.py",
+      "bytes": 2752,
+      "blob_sha": "b59249eee00c4e1a0919dc3fa7c76edc737a54f0",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_editorial_planning.py",
+      "bytes": 3483,
+      "blob_sha": "ecb4947839a1019b8b1aabcabc4399ce474335cb",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_engine_routing.py",
+      "bytes": 7611,
+      "blob_sha": "7f982c1f99ad6b0792cec04bea84e2a853d1e4bb",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_execution_capability_entrypoint.py",
+      "bytes": 676,
+      "blob_sha": "e9c64c2f421d35ff263dc41a20527df60e8cf045",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_execution_capability_wiring.py",
+      "bytes": 634,
+      "blob_sha": "d8e0d2c55f6a1ddaa12cf02fe76cae4be7d3b130",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_execution_identity_semantics.py",
+      "bytes": 3166,
+      "blob_sha": "72110f729d872e8abdbd49bac631374e3c0cfde1",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_experiments.py",
+      "bytes": 3355,
+      "blob_sha": "0112279e65c5e276023305c419199cd8a21d70c1",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_generation_guard.py",
+      "bytes": 7465,
+      "blob_sha": "67750d63bfbcdbef3f719cc2331f49090c14bfd9",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_learning_contract.py",
+      "bytes": 3633,
+      "blob_sha": "9e03d02d625f04dd2b01baef1259abff789c4481",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_learning_runtime_enforcement.py",
+      "bytes": 1393,
+      "blob_sha": "359faddd6d865884e4a4e7bcacf3f9f82f0be80b",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_learning_source_admission.py",
+      "bytes": 1202,
+      "blob_sha": "083dee5b141537d0e3846be4529b8ceff5b0054b",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_media_business_os_architecture.py",
+      "bytes": 5615,
+      "blob_sha": "5e1ee60b4ced01ec44c964efaf4cf921a1b05944",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_media_graph.py",
+      "bytes": 6194,
+      "blob_sha": "eecf4f0a00d6c5d8cfc562347c9186729f8774bd",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_media_qa.py",
+      "bytes": 1118,
+      "blob_sha": "02664a82cf347e84b6e94798b0361bec22f19b6d",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_model_registry.py",
+      "bytes": 6716,
+      "blob_sha": "3049b3e0b11f22f542364c88d46dfe63d85876fe",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_models.py",
+      "bytes": 1143,
+      "blob_sha": "7841456ca5e25f721ac17d3a5043f39e900acd2f",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_operator_view.py",
+      "bytes": 2116,
+      "blob_sha": "cec13b70852d00997f703ff2cb6998f443207cd1",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_orchestrator.py",
+      "bytes": 3843,
+      "blob_sha": "1c9c3a7b37232a2ff169710a9ede2b4b3094f7f8",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_owner_behavior_admission.py",
+      "bytes": 6961,
+      "blob_sha": "78ce6e938429cb6f43764f5c4aee24c2dfdaf920",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_packaging.py",
+      "bytes": 305,
+      "blob_sha": "8163e81895fece168f23d7d341ae7fc55661a3b4",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_plan_graph_bridge.py",
+      "bytes": 1537,
+      "blob_sha": "2c025e0c93a384555a7b155c97d6012162248866",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_process_enforcement_scope.py",
+      "bytes": 1491,
+      "blob_sha": "e711aadac7d4aeebb6d0a4480503d4a769f30177",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_process_proof_gates.py",
+      "bytes": 14725,
+      "blob_sha": "4256f7b1f03a72579a07c6cb01e22bf93852afec",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_producer_approval_separation.py",
+      "bytes": 1555,
+      "blob_sha": "a7865e81069107c23917aebb9ae70826833a8d94",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_production_os.py",
+      "bytes": 5837,
+      "blob_sha": "2234a75e0ad870fcc6572e9bb2301e57be5023f4",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_program_orchestration.py",
+      "bytes": 5730,
+      "blob_sha": "f088f745c0c4b97a83d40bfccec743399f2d1141",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_reentry_hygiene.py",
+      "bytes": 9944,
+      "blob_sha": "65fc5d5564acacda5c2c973a3b9191f47ca489f7",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_reviewer_providers.py",
+      "bytes": 3914,
+      "blob_sha": "a864e7757d31a4dd0c8f739c80887a3f7cf3d803",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_runtime.py",
+      "bytes": 13183,
+      "blob_sha": "cef796d209af203b8689b405e2fef4b752cba445",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_system_audit.py",
+      "bytes": 2648,
+      "blob_sha": "fdc644f40d1548d74433be52b4b0deaded7b9974",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_techniques.py",
+      "bytes": 341,
+      "blob_sha": "e63a1455b1641b513d7188492eab36296d0b958a",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_timeline.py",
+      "bytes": 2502,
+      "blob_sha": "1df1038299f984f4e25345f4b31a7dc83ef8c054",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_uaos_current.py",
+      "bytes": 8614,
+      "blob_sha": "a45274d8c489817cf8d6c328a352e3b710a5997b",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "tests/test_video_product_architecture.py",
+      "bytes": 7804,
+      "blob_sha": "e5e5829c7df748de28647f3ef8273a65a997f726",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "test"
+    },
+    {
+      "path": "video_growth_agent/__init__.py",
+      "bytes": 5966,
+      "blob_sha": "5eea245dc0a3d2fe4b7ad1d0bda244baea39efe8",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/business_metrics.py",
+      "bytes": 5980,
+      "blob_sha": "29fff79e300b39ba2a3db0a2f1065d2730d69f0c",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/business_objects.py",
+      "bytes": 5990,
+      "blob_sha": "781c11db5fd9a423abe3a4373af7340b44ee1100",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/cli.py",
+      "bytes": 5618,
+      "blob_sha": "a8b5c264cdb88ae31ad3c1b824cddc3e99e968cd",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/continuity.py",
+      "bytes": 5496,
+      "blob_sha": "3769aaa8d14259efa9a58c0a846fab82d892b6b7",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/data/agents.json",
+      "bytes": 8785,
+      "blob_sha": "f20f8d8bd32c6e367ca3c77ac2c89bf5ed2a2ada",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "video_growth_agent/data/coordination-policy.json",
+      "bytes": 3183,
+      "blob_sha": "0a32c20e262a6081664d5a7dcfccebf2ba3af6da",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "video_growth_agent/data/execution-plan.json",
+      "bytes": 10857,
+      "blob_sha": "5513e1fef886f9840eddcb5ffb4c639f2f288ebb",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "video_growth_agent/data/executors.json",
+      "bytes": 641,
+      "blob_sha": "c73786810a57e7399c0116aaab37eecd18b845b4",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "video_growth_agent/data/quality-rubric.json",
+      "bytes": 3950,
+      "blob_sha": "1489ba51f09fd2931d24208cdc4fbebce213e1e9",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "video_growth_agent/data/roles.json",
+      "bytes": 2251,
+      "blob_sha": "f341f9b467089422b29ab7a2c1e10202a7bed9a5",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "video_growth_agent/data/team.md",
+      "bytes": 6218,
+      "blob_sha": "178323be087af5baaa67720ac0d7930ba34eac0d",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "markdown"
+    },
+    {
+      "path": "video_growth_agent/data/techniques.json",
+      "bytes": 7711,
+      "blob_sha": "511297710d64fbe3c8cf454ac867d5f52c522ffe",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "video_growth_agent/data/workflow.json",
+      "bytes": 2825,
+      "blob_sha": "2b8cbfad8a755574a2f5aa64ca50a10c1a690c09",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "json"
+    },
+    {
+      "path": "video_growth_agent/editorial_interchange.py",
+      "bytes": 5850,
+      "blob_sha": "84ae7b0e170fb1509d286786c32347348333b818",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/editorial_planning.py",
+      "bytes": 12889,
+      "blob_sha": "a89f517236ce28ddd3d55ed945036ab99fbecb19",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/engine_routing.py",
+      "bytes": 8537,
+      "blob_sha": "e36e8afe73fe90937e9259339bfa5e793994bd52",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/execution_attestation.py",
+      "bytes": 7518,
+      "blob_sha": "f0daacb5f8de696a2032b7d0cc7ba9cf669380fc",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/experiments.py",
+      "bytes": 6036,
+      "blob_sha": "96e9baf089cff9006b0e2cc9026c99af2cf834f7",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/generation_guard.py",
+      "bytes": 7667,
+      "blob_sha": "d876876bdf4bdcf2452ba2ccf3e96b7f26ce5130",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/media_graph.py",
+      "bytes": 16927,
+      "blob_sha": "81db7e91a266c44ed7b4132e7d9ce6941ad6b84d",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/media_qa.py",
+      "bytes": 7843,
+      "blob_sha": "290e76771d3a1083ccf9fb3091ac30364fafecac",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/model_registry.py",
+      "bytes": 20394,
+      "blob_sha": "0fc3fc5a3cd48d61f9de701b74c7a16e979d509c",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/models.py",
+      "bytes": 5528,
+      "blob_sha": "7b7143b5f4cb4a53e6c69297775a9df752b94e52",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/operator_view.py",
+      "bytes": 4681,
+      "blob_sha": "d0ba50ef654eb443f5c3e3e4b89cb5b188fc0d3d",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/orchestrator.py",
+      "bytes": 3712,
+      "blob_sha": "880b3448d2c34681d7335a00dd8f884fca55e796",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/owner_behavior_admission.py",
+      "bytes": 11541,
+      "blob_sha": "1e46930eeb4aab044970d1fea30279147692b6dc",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/plan_graph_bridge.py",
+      "bytes": 1943,
+      "blob_sha": "84cfdca8cc32ba65946eee1814450c3f40af922a",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/production_os.py",
+      "bytes": 11872,
+      "blob_sha": "09ce25a753b09de22f8b9a90be2f23c9ffc4916c",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/program_orchestration.py",
+      "bytes": 15785,
+      "blob_sha": "c71ac803f2404998aeaae27f110aba64b7dba12c",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/resources.py",
+      "bytes": 328,
+      "blob_sha": "9b58e00436ddb3c80e5965eaba4323302dec11f2",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/reviewer_providers.py",
+      "bytes": 8189,
+      "blob_sha": "14b2a4edf2ed84e96734e3c5ec7256830bbcacbf",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/roles.py",
+      "bytes": 2160,
+      "blob_sha": "b25051af5d1b93a016e06f3d9ba9cf05d4bcf9ae",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/runtime.py",
+      "bytes": 35269,
+      "blob_sha": "69bb3fbec1913637caaf98c5c124f0253d613b36",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/storage.py",
+      "bytes": 3291,
+      "blob_sha": "686594258ec161c520372315ebc325e6580f6a8b",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/studio_agents.py",
+      "bytes": 23856,
+      "blob_sha": "f00f418be14df16d4243492e34c57fa2cc6a5cb7",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/system_audit.py",
+      "bytes": 37185,
+      "blob_sha": "1d3be31a65b98e46b200bdadfa237c836690ab77",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/techniques.py",
+      "bytes": 2283,
+      "blob_sha": "7f6fccfcdb8396a8151519735c219cb61ac9d253",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    },
+    {
+      "path": "video_growth_agent/timeline.py",
+      "bytes": 5313,
+      "blob_sha": "b7e50879f51c4e5db43e38e70d16420b2a12f76a",
+      "integrity_check": "FETCHED_SHA_MATCHED",
+      "semantic_proof": "NOT_INDEPENDENTLY_PROVEN",
+      "class": "python"
+    }
+  ],
+  "next_action": "Run CI and test scenario-specific semantics; require externally observable generated media and independent review before asserting production correctness."
+}
