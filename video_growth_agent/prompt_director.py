@@ -10,6 +10,19 @@ import math
 from pathlib import Path
 from typing import Any
 
+from .h3_prompt import render_h3_t2va
+
+H3 = {
+    "provider": "MiniMax",
+    "model": "MiniMax-H3",
+    "min_duration": 4,
+    "max_duration": 15,
+    "max_prompt_characters": 7000,  # conservative local cap, not asserted as official
+    "native_fps": 24,
+    "source": "https://platform.minimax.io/docs/api-reference/video-generation-v2-create",
+    "prompt_skill": "https://github.com/MiniMax-AI/MiniMax-H3/tree/main/skills/h3-prompt-writing",
+    "verified_at": "2026-10-23",
+}
 PIXVERSE_V6 = {
     "provider": "PixVerse",
     "model": "V6",
@@ -170,10 +183,16 @@ def validate_plan(plan: dict) -> dict:
         raise PromptPlanError("SOURCE events missing from storyboard: " + ", ".join(missing))
 
     provider = _obj(plan["provider"], {"name", "model", "mode", "native_audio"}, "provider")
-    if (provider["name"], provider["model"]) != ("PixVerse", "V6"):
+    identity = (provider["name"], provider["model"])
+    if identity == ("MiniMax", "MiniMax-H3"):
+        # Only text mode is wired until reference assets can be verified and bound.
+        if provider["mode"] != "T2VA":
+            raise PromptPlanError("MiniMax H3 reference/keyframe mode needs verified bound assets; only T2VA implemented")
+    elif identity == ("PixVerse", "V6"):
+        if provider["mode"] != "T2V":
+            raise PromptPlanError("PixVerse V6 reference mode needs bound assets; only T2V implemented")
+    else:
         raise PromptPlanError("no verified adapter for requested provider/model")
-    if provider["mode"] not in {"T2V", "IT2V"}:
-        raise PromptPlanError("unsupported PixVerse mode")
     if type(provider["native_audio"]) is not bool:
         raise PromptPlanError("native_audio must be boolean")
     if brief["aspect_ratio"] not in {"16:9", "4:3", "1:1", "3:4", "9:16"}:
@@ -199,10 +218,14 @@ def _shot_text(s: dict, fps: int) -> str:
     )
 
 
-def _render_length(seconds: float) -> int:
+def _render_length(seconds: float, provider: dict) -> int:
     requested = math.ceil(seconds - 1e-9)
-    if not 1 <= requested <= 15:
-        raise PromptPlanError(f"PixVerse V6 integer render seconds out of range: {requested}")
+    if provider["name"] == "MiniMax" and provider["model"] == "MiniMax-H3":
+        requested = max(4, requested)
+        if requested > 15:
+            raise PromptPlanError(f"MiniMax H3 clip must be an integer 4–15 seconds, got {requested}")
+    elif not 1 <= requested <= 15:
+        raise PromptPlanError(f"PixVerse V6 clip length outside 1–15 seconds: {requested}")
     return requested
 
 
@@ -226,10 +249,19 @@ def compile_prompts(plan: dict, route: str = "compare") -> dict:
             groups = [shots] if option == "onepass" else [[shot] for shot in shots]
             for group in groups:
                 duration = sum(s["end_frame"] - s["start_frame"] for s in group) / fps
-                render_seconds = _render_length(duration)
-                prompt = header + " ".join(_shot_text(s, fps) for s in group) + " " + ending
-                if len(prompt) > PIXVERSE_V6["max_prompt_characters"]:
-                    raise PromptPlanError("prompt exceeds documented PixVerse 5000-character limit")
+                render_seconds = _render_length(duration, plan["provider"])
+                is_h3 = plan["provider"]["name"] == "MiniMax"
+                prompt = (
+                    render_h3_t2va(
+                        plan=plan, shots=group, render_seconds=render_seconds,
+                        usable_seconds=duration,
+                        continuation=(group[-1]["id"] != shots[-1]["id"]),
+                    )
+                    if is_h3 else header + " ".join(_shot_text(s, fps) for s in group) + " " + ending
+                )
+                max_chars = H3["max_prompt_characters"] if is_h3 else PIXVERSE_V6["max_prompt_characters"]
+                if len(prompt) > max_chars:
+                    raise PromptPlanError(f"prompt exceeds conservative {max_chars}-character profile bound")
                 candidate.append({
                     "shots": [s["id"] for s in group], "prompt": prompt,
                     "edit_duration_seconds": duration, "model_render_seconds": render_seconds,
@@ -241,13 +273,22 @@ def compile_prompts(plan: dict, route: str = "compare") -> dict:
                 "generation_seconds": total_generated,
                 "final_edit_seconds": validated["duration_seconds"],
                 "generation_to_edit_ratio": round(total_generated / validated["duration_seconds"], 3),
+                "recommended_use": (
+                    "MULTISHOT_NATIVE_DRAFT" if is_h3 and option == "onepass" else
+                    "EDITORIAL_TRIM_AND_CONTINUITY_QA" if option == "shotwise" else
+                    "VENDOR_BASELINE"
+                ),
+                "frame_rate_warning": (
+                    "MiniMax H3 outputs 24fps; project edit frame rate differs and requires conform."
+                    if is_h3 and fps != 24 else None
+                ),
                 "warning": "Declared shot timing is an edit plan, not a model guarantee.",
             }
         except PromptPlanError as exc:
             output[option] = {"status": "BLOCKED", "reason": str(exc)}
     return {
         "selected_concept": plan["selected"], "static_validation": validated,
-        "provider_profile": PIXVERSE_V6, "routes": output,
+        "provider_profile": H3 if plan["provider"]["name"] == "MiniMax" else PIXVERSE_V6, "routes": output,
         "visual_winner": None,
         "reason": "No actual media, blind viewers or comparable render-cost observations were supplied.",
     }
