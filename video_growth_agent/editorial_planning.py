@@ -34,6 +34,7 @@ class EpisodeIntent:
     ip_role: str = "OPTIONAL"
     commercial_context_refs: tuple[str, ...] = ()
     constraints: tuple[str, ...] = ()
+    editorial_mode: str = "FACTUAL"
 
     def __post_init__(self) -> None:
         for name in ("episode_id", "series_id", "audience_contract", "editorial_question", "primary_platform"):
@@ -41,8 +42,10 @@ class EpisodeIntent:
                 raise EditorialPlanningError(f"episode intent missing {name}")
         if self.target_duration_seconds <= 0:
             raise EditorialPlanningError("target_duration_seconds must be positive")
-        if not self.evidence_refs:
-            raise EditorialPlanningError("episode intent requires evidence_refs")
+        if self.editorial_mode not in {"FACTUAL", "FICTIONAL", "HYBRID"}:
+            raise EditorialPlanningError(f"unsupported editorial mode: {self.editorial_mode}")
+        if not self.evidence_refs and self.editorial_mode != "FICTIONAL":
+            raise EditorialPlanningError("factual/hybrid episode intent requires evidence_refs")
         if not self.desired_outcomes:
             raise EditorialPlanningError("episode intent requires desired_outcomes")
         if not self.success_metric_semantics:
