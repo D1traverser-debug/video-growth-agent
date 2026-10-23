@@ -52,6 +52,8 @@ The former `CONCEPT_GENERATION_PROMPT_V1.md` (source provenance retained in the 
 
 ## Pre-registered H3 prompt experiment (reuse, not another controller)
 
+For a directly copyable H3 Chinese prompt without a JSON envelope, run `vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route onepass --plain`. The output is candidate text only; source fidelity and media quality still require human review.
+
 Run `vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --study-h3-dialects`. The CLI now returns one `ExperimentPlan` from the **existing** `video_growth_agent.experiments` module, two immutably fingerprinted generated prompts and explicit fixed variables (storyboard, duration, aspect ratio, model, source digest). No render is triggered and no winner exists.
 
 The single varied factor is a **bundle called prompt_rendering_policy**. It changes natural language *and* document structure, so any future difference cannot be causally attributed to language or structure alone. First compare paired H3 outputs under identical UI/model parameters, then repeat on the distinct 5s IP fixture. Record actual clips, operator spend, blind story comprehension, identity continuity, physical interaction failures and independently observable frame evidence before promoting any default. To isolate language or structure, authorize an additional factorial experiment.
