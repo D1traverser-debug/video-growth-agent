@@ -11,9 +11,13 @@ Primary: https://github.com/MiniMax-AI/MiniMax-H3/blob/main/skills/h3-prompt-wri
 Catalog: https://github.com/MiniMax-AI/MiniMax-H3/blob/main/skills/README.md
 Examined: T2VA, I2VA, FL2VA, L2VA and Ref2VA; audiovisual field order, local shot timing, reference labels, dialogue and music. **Portable:** provider-specific prompt encoding must preserve story intent, soundtrack and reference assets. **Not portable:** treat this model syntax as universal artistic taste; synthesize fake keyframe bindings. **Test:** timecoded SFX and one literal Mandarin line in the compiled prompt, then inspect rendered sync. **State:** structural tests exist, performance unverified.
 
+<a id="study-02"></a>
+
 ### Study 02: graphic, action and sound-matched edits
 Primary: https://www.adobe.com/creativecloud/video/discover/match-cut.html
 Examined: graphic/action/audio cut relationships, actual post-production alignment and continuity concerns. **Portable:** editor specifies source and destination of match by visible prop geometry, continuing actor motion or precise audible bridge. **Avoid:** artificial transitions that overwhelm acting or spatial legibility. **Test:** one ribbon-to-hand match cut versus straight cut; evaluate viewer comprehension and frame geometry on rendered media. **Candidate:** T-016; not validated in this studio.
+
+<a id="study-03"></a>
 
 ### Study 03: editorial dailies reviews with timecodes
 Primary: https://workflow.frame.io/guide
@@ -23,11 +27,15 @@ Examined: separation of editorial recipients from director/client reviewers and 
 Primary: https://github.com/MiniMax-AI/MiniMax-H3/blob/main/skills/3d-animation-short-generator/SKILL.md
 Examined: project brief, story turn, character/scene references, six-column shot table, per-second directives, shot generation, editorial assembly and audio. **Portable:** lock character identity, environment landmarks and prop states before the expensive shots; use a standardized handoff at cuts. **Not portable:** its fixed Pixar-inspired style, Hub-only cards, predefined H3 default, 30–60s assumptions and whole canvas orchestration. **Test:** two-shot identity/prop continuity with actual generated output. **State:** original upstream Skill inspected, transfer not independently film-validated.
 
+<a id="study-05"></a>
+
 ### Study 05: design-level independent review
 Primary: https://google.github.io/eng-practices/review/
 Details: https://google.github.io/eng-practices/review/reviewer/looking-for.html
 Small changes: https://google.github.io/eng-practices/review/developer/small-cls.html
 Examined: independent author/reviewer perspective, design/functionality/edge-case assessment and small reviewable changes. **Portable by analogy:** assign scoped film writer/director/editor/art/sound objections independently against the same plan SHA; collect findings before showrunner resolution. **Avoid:** interpreting printed roles as independently executed people; forcing all seven reviewers onto a trivial prompt request. **Test:** competing art and editor feedback remains present with precise owners, and wrong-version review is blocked. **Candidate:** T-015; film effectiveness unverified.
+
+<a id="study-06"></a>
 
 ### Study 06: systemic root-cause learning
 Primary: https://sre.google/workbook/postmortem-culture/
