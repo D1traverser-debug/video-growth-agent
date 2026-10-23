@@ -41,6 +41,10 @@ For actual current-Agent operation, the creative/production chain is explicit ra
 
 Stable editorial-plan/asset/evidence identities outrank prompt memory and filenames. The integrated default Program exposes the cross-workstream business flywheel at `projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json`.
 
+## Lightweight video-prompt direction
+
+For a prompt/storyboard-only request, start with the **complete raw brief and original source** rather than every business-program gate. Refer to `skills/video-growth-agent/references/prompt-direction.md`, then test `vga direct-prompts`. It plans story events, two competing treatments, action/lighting/camera/sound per shot, and vendor-specific H3 Chinese/official prompt output with a PixVerse control. For image/reference-heavy modes, do not invent missing asset references; fail closed until reference bindings are available. This path neither overrides MediaGraph nor certifies actual generated visuals.
+
 ## Editorial decision state
 
 Do not jump directly from a topic/request to generation prompts when material editorial reasoning exists.
