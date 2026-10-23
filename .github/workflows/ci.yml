@@ -39,10 +39,14 @@ jobs:
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: '3.12'
-      - name: Install FFmpeg
+      - name: Ensure FFmpeg is available
         run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg
+          if command -v ffmpeg >/dev/null 2>&1 && command -v ffprobe >/dev/null 2>&1; then
+            ffmpeg -version | head -n 1
+          else
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
       - name: Install package and tests
         run: pip install -e . pytest==9.1.1
       - name: Run system hygiene audit
