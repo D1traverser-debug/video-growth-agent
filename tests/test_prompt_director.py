@@ -29,7 +29,7 @@ def test_source_first_scenarios_are_mechanically_accountable(name, frames, event
     assert result["source_event_count"] == events
     assert result["shot_count"] == shots
     assert result["duration_seconds"] == frames / 30
-    output = compile_prompts(spec, "compare")
+    output = compile_prompts(spec, "compare", h3_style="chinese")
     assert output["visual_winner"] is None
     assert "No film semantic/quality verdict" in output["static_validation"]["assurance"]
     assert output["static_validation"]["whole_original_verified"] is False
@@ -104,7 +104,7 @@ def test_creative_alternatives_must_be_distinct_and_record_rejection():
 
 def test_h3_integer_minimum_length_is_separate_from_editorial_frame_duration():
     spec = load("prompt_ribbon_10s.json")
-    report = compile_prompts(spec, "shotwise")["routes"]["shotwise"]
+    report = compile_prompts(spec, "shotwise", h3_style="chinese")["routes"]["shotwise"]
     assert report["prompts"][0]["edit_duration_seconds"] == 48 / 30
     assert report["prompts"][0]["model_render_seconds"] == 4
     assert abs(report["prompts"][0]["trim_seconds"] - 2.4) < 1e-9
@@ -119,7 +119,7 @@ def test_cannot_claim_unverified_provider_or_excessive_onepass_duration():
     spec = load("prompt_ribbon_10s.json")
     spec["brief"]["total_frames"] = 480
     spec["shots"][-1]["end_frame"] = 480
-    report = compile_prompts(spec, "compare")
+    report = compile_prompts(spec, "compare", h3_style="chinese")
     assert report["routes"]["onepass"]["status"] == "BLOCKED"
     assert report["routes"]["shotwise"]["status"] == "COMPILED"
 
@@ -164,7 +164,7 @@ def test_vendor_comparison_keeps_directorial_plan_without_fake_causal_rating():
     h3 = load("prompt_ip_5s.json")
     pixverse = copy.deepcopy(h3)
     pixverse["provider"].update(name="PixVerse", model="V6", mode="T2V", native_audio=False)
-    h3_out = compile_prompts(h3, "compare")
+    h3_out = compile_prompts(h3, "compare", h3_style="chinese")
     pv_out = compile_prompts(pixverse, "compare")
     assert h3_out["static_validation"]["events_present_in_plan"] == pv_out["static_validation"]["events_present_in_plan"]
     assert h3_out["visual_winner"] is None
@@ -183,20 +183,28 @@ def test_unbound_h3_reference_mode_is_blocked_instead_of_hallucinating_assets():
 
 
 
-def test_owner_verified_chinese_storyboard_is_default_without_erasing_official_variant():
+def test_positive_user_example_is_not_forced_as_universal_h3_prompt_template():
     spec = load("prompt_ribbon_10s.json")
-    cn = compile_prompts(spec, route="onepass")
+    auto = compile_prompts(spec, route="onepass")
+    cn = compile_prompts(spec, route="onepass", h3_style="chinese")
     official = compile_prompts(spec, route="onepass", h3_style="official")
-    assert cn["h3_prompt_dialect"] == "chinese"
+    lean = compile_prompts(spec, route="onepass", h3_style="lean")
+    assert auto["h3_prompt_dialect"] == "auto"
+    assert auto["selection_status"] == "UNDECIDED_NEEDS_SCENE_SPECIFIC_MEDIA_EVIDENCE"
+    assert auto["quality_winner"] is None
+    assert set(auto["prompt_candidates"]) == {"lean", "chinese", "official"}
+    assert all(v["onepass"]["status"] == "COMPILED" for v in auto["prompt_candidates"].values())
     cn_text = cn["routes"]["onepass"]["prompts"][0]["prompt"]
     en_text = official["routes"]["onepass"]["prompts"][0]["prompt"]
+    lean_text = lean["routes"]["onepass"]["prompts"][0]["prompt"]
     assert "逐时段分镜" in cn_text
     assert "红绸赴约" in cn_text
     assert "integrated_multimodal_description" in en_text
     assert "overall_soundscape" in en_text
     assert "non_diegetic_music" in en_text
-    assert cn_text != en_text
-    assert cn["static_validation"] == official["static_validation"]
+    assert "镜头行动按因果顺序推进" in lean_text
+    assert len({cn_text, en_text, lean_text}) == 3
+    assert cn["static_validation"] == official["static_validation"] == lean["static_validation"]
     assert cn["visual_winner"] is None and official["visual_winner"] is None
 
 
@@ -280,7 +288,7 @@ def test_voice_unsafe_markup_and_unsupported_silent_h3_are_rejected():
 
 def test_review_sheet_marks_every_required_scene_as_unreviewed_not_passed():
     plan = load("prompt_ribbon_10s.json")
-    result = compile_prompts(plan, "onepass")
+    result = compile_prompts(plan, "onepass", h3_style="chinese")
     review = result["review_targets"]
     assert review["assessment"] == "NOT_STARTED"
     assert review["media_asset_ref"] is None
@@ -322,3 +330,19 @@ def test_missing_visual_language_rejected_instead_of_defaulting_to_cyberpunk():
     plan["visual_language"]["materials"] = " "
     with pytest.raises(PromptPlanError, match="visual_language.materials"):
         validate_plan(plan)
+
+
+
+def test_auto_does_not_rank_prompt_quality_or_force_a_dense_montage_on_simple_scene():
+    plan = load("prompt_ip_5s.json")
+    auto = compile_prompts(plan, route="onepass")
+    assert auto["quality_winner"] is None
+    for style in ("lean", "chinese", "official"):
+        output = auto["prompt_candidates"][style]["onepass"]
+        assert output["status"] == "COMPILED"
+        assert output["generation_seconds"] == 5
+        assert output["prompts"][0]["prompt"]
+    pixverse = copy.deepcopy(plan)
+    pixverse["provider"].update(name="PixVerse", model="V6", mode="T2V", native_audio=False)
+    # An H3 style selection is irrelevant to the alternate provider.
+    assert compile_prompts(pixverse)["routes"]["onepass"]["status"] == "COMPILED"
