@@ -323,7 +323,7 @@ def author_with_model(
                 "content": (
                     "The previous candidate was REJECTED: " + str(exc) + ". "
                     "Return a complete corrected bare JSON object. Keep source.raw, "
-                    "source.reference, 30fps timebase and model provider unchanged; "
+                     "source.reference, agreed edit timebase and model provider unchanged; "
                     "map ALL source-clock units to source-quoted narrative events."
                 ),
             }]
