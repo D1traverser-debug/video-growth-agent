@@ -75,6 +75,9 @@
       ],
       "continuity": [
         "Shiba is red with cream chest; paw structure stays natural"
+      ],
+      "source_beat_ids": [
+        "beat-IP1"
       ]
     },
     {
@@ -97,6 +100,9 @@
       ],
       "continuity": [
         "circle center stays within 10 percent of center frame"
+      ],
+      "source_beat_ids": [
+        "beat-IP2"
       ]
     },
     {
@@ -118,6 +124,9 @@
       "continuity": [
         "same Shiba from IP1",
         "single film strip and stable facial identity"
+      ],
+      "source_beat_ids": [
+        "beat-IP3"
       ]
     }
   ],
