@@ -75,3 +75,60 @@ def test_plan_revision_reports_changed_claim_beat_and_shot_ids():
     assert impact["changed_claim_ids"] == ("C1",)
     assert impact["changed_beat_ids"] == ("B1",)
     assert impact["changed_shot_ids"] == ("S1",)
+
+
+
+def test_pure_fiction_can_start_without_fake_research_citations():
+    pure_fiction = EpisodeIntent(
+        episode_id="F001",
+        series_id="fiction-short",
+        audience_contract="Viewers of poetic animated shorts",
+        editorial_question="Can a silk ribbon connect two people?",
+        primary_platform="short-video",
+        target_duration_seconds=10,
+        evidence_refs=(),
+        desired_outcomes=("complete visual narrative",),
+        success_metric_semantics={"comprehension": "can retell the story"},
+        editorial_mode="FICTIONAL",
+    )
+    assert pure_fiction.editorial_mode == "FICTIONAL"
+    beat = BeatSpec("B1", pure_fiction.episode_id, "ribbon starts the story", "trigger", 10)
+    shot = ShotIntent("S1", "B1", "ribbon flies from female to male hand", 10, "SYNTHETIC", "LOW", (), frozenset({"T2V"}))
+    assert EditorialPlan(pure_fiction, (), (beat,), (shot,), "v1").intent == pure_fiction
+
+
+@pytest.mark.parametrize("editorial_mode", ["FACTUAL", "HYBRID"])
+def test_non_fictional_editorial_modes_reject_missing_evidence(editorial_mode):
+    with pytest.raises(EditorialPlanningError, match="requires evidence_refs"):
+        EpisodeIntent(
+            episode_id="E002", series_id="research-series",
+            audience_contract="fact-seeking viewers",
+            editorial_question="What happened?",
+            primary_platform="BILIBILI",
+            target_duration_seconds=30,
+            evidence_refs=(),
+            desired_outcomes=("accurate public explainer",),
+            success_metric_semantics={"accuracy": "claim verification"},
+            editorial_mode=editorial_mode,
+        )
+
+
+def test_fiction_mode_does_not_exempt_factual_claim_evidence():
+    fiction = EpisodeIntent(
+        episode_id="F002", series_id="creative-documentary",
+        audience_contract="viewers", editorial_question="A fictional scene with a factual fact",
+        primary_platform="short-video", target_duration_seconds=5,
+        evidence_refs=(), desired_outcomes=("engagement",),
+        success_metric_semantics={"retention": "view duration"},
+        editorial_mode="FICTIONAL",
+    )
+    with pytest.raises(EditorialPlanningError, match="FACT claim requires evidence_refs"):
+        ClaimSpec("C1", "Stock exchange rules are real", "FACT", "HIGH")
+    with pytest.raises(EditorialPlanningError, match="unsupported editorial mode"):
+        EpisodeIntent(
+            episode_id=fiction.episode_id, series_id=fiction.series_id,
+            audience_contract=fiction.audience_contract, editorial_question=fiction.editorial_question,
+            primary_platform=fiction.primary_platform, target_duration_seconds=fiction.target_duration_seconds,
+            evidence_refs=(), desired_outcomes=fiction.desired_outcomes,
+            success_metric_semantics=fiction.success_metric_semantics, editorial_mode="MADE_UP_MODE",
+        )
