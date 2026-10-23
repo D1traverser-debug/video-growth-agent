@@ -25,7 +25,7 @@ jobs:
           import subprocess
           import tomllib
 
-          paths = [pathlib.Path(p.decode("utf-8")) for p in subprocess.check_output(["git", "ls-files", "-z"]).split(b"\\0") if p]
+          paths = [pathlib.Path(p.decode("utf-8")) for p in subprocess.check_output(["git", "ls-files", "-z"]).split(b"\0") if p]
           count = {"py": 0, "json": 0, "toml": 0}
           for path in paths:
               raw = path.read_bytes()
