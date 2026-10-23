@@ -86,11 +86,21 @@ def prepare_craft_round(
             "review_input": {
                 "plan_digest": plan_ref,
                 "source_reference": plan["source"]["reference"],
-                "full_film_goal": plan["brief"]["goal"],
+                "source_full_raw": plan["source"]["raw"],
+                "source_completeness_claim": plan["source"]["completeness"],
+                "brief": plan["brief"],
+                "creative_alternatives": plan["alternatives"],
+                "selected_treatment": plan["selected"],
+                "required_events_and_source_quotes": plan["required_events"],
+                "identity_anchors": plan["identity_anchors"],
                 "global_look": plan["visual_language"],
+                "provider_profile": plan["provider"],
                 "shots": [
                     {
-                        "id": shot["id"], "action": shot["action"],
+                        "id": shot["id"], "start_frame": shot["start_frame"],
+                        "end_frame": shot["end_frame"],
+                        "scene": shot["scene"], "composition": shot["composition"],
+                        "action": shot["action"],
                         "camera": shot["camera"], "light": shot["light"],
                         "transition": shot["transition"], "audio": shot["audio"],
                         "events": shot["event_ids"], "continuity": shot["continuity"],
