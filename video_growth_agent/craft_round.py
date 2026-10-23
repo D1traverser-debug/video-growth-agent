@@ -193,8 +193,16 @@ def reconcile_craft_round(packet: dict, reviews: list[dict]) -> dict:
             if finding["shot_id"] == "WHOLE_FILM":
                 if ref != "plan://whole":
                     raise CraftReviewError("whole-film plan finding needs plan://whole evidence reference")
-            elif not ref.startswith(f"plan://shot/{finding['shot_id']}"):
-                raise CraftReviewError("shot finding evidence must resolve to its exact plan://shot/id")
+            elif ref not in {
+                f"plan://shot/{finding['shot_id']}",
+                f"plan://shot/{finding['shot_id']}:action",
+                f"plan://shot/{finding['shot_id']}:camera",
+                f"plan://shot/{finding['shot_id']}:light",
+                f"plan://shot/{finding['shot_id']}:transition",
+                f"plan://shot/{finding['shot_id']}:audio",
+                f"plan://shot/{finding['shot_id']}:continuity",
+            }:
+                raise CraftReviewError("shot finding evidence must resolve to an exact recognized plan field")
             findings.append({
                 **finding, "raised_by": role,
                 "assigned_owner": OWNERS[finding["category"]],
@@ -299,6 +307,45 @@ def run_craft_role_models(
         "reconciliation": reconcile_craft_round(packet, responses),
         "model_calls": len(responses),
         "assurance": "LLM-role simulation, not seven independent film reviewers or actual video quality assurance.",
+    }
+
+
+def check_revision_against_handoffs(
+    previous: dict, revised: dict, previous_round: dict
+) -> dict:
+    """Find whether each raised issue caused any relevant structural change.
+
+    Changed != fixed. Reviewers must inspect the updated plan/render again.
+    """
+    diff = next_revision_diff(previous, revised)
+    if previous_round.get("plan_digest") != diff["from_digest"]:
+        raise CraftReviewError("issue handoffs do not belong to the previous plan digest")
+    previous_shots = {x["id"]: x for x in previous["shots"]}
+    revised_shots = {x["id"]: x for x in revised["shots"]}
+    statuses = []
+    for item in previous_round.get("issues", []):
+        shot_id = item["shot_id"]
+        if shot_id == "WHOLE_FILM":
+            changed = bool(diff["shot_changes"] or diff["changed_visual_language"] or
+                           diff["changed_story_events"])
+        else:
+            changed = previous_shots.get(shot_id) != revised_shots.get(shot_id)
+        statuses.append({
+            "issue_raised_by": item["raised_by"],
+            "assigned_owner": item["assigned_owner"],
+            "original_shot_id": shot_id,
+            "repair_status": "CHANGED_NEEDS_REVIEW" if changed else "UNCHANGED_ISSUE_OPEN",
+            "previous_evidence_ref": item["evidence_ref"],
+        })
+    return {
+        "previous_digest": diff["from_digest"],
+        "revised_digest": diff["to_digest"],
+        "issues": statuses,
+        "untouched_issue_count": sum(x["repair_status"] == "UNCHANGED_ISSUE_OPEN"
+                                     for x in statuses),
+        "real_video_verified": False,
+        "quality_improvement_established": False,
+        "note": "Only structural differences; a changed shot still requires substantive review.",
     }
 
 
