@@ -89,6 +89,27 @@ def test_rejects_prompt_overflow_without_silent_truncation():
         compile_storyboard(plan, route="shotwise")
 
 
+def test_edit_frame_duration_is_not_falsely_passed_as_provider_duration():
+    plan = load("creative_ribbon_10s.json")
+    out = compile_storyboard(plan, route="shotwise")
+    assert out["prompts"][0]["duration_seconds"] == 48 / 30
+    assert out["prompts"][0]["generation_duration_seconds"] == 2
+    assert "TIMING_POST_REQUIRED: generated integer-second clips need frame-accurate trims" in out["review_flags"]
+    assert all(isinstance(p["generation_duration_seconds"], int) for p in out["prompts"])
+
+
+def test_provider_duration_limit_fails_closed():
+    plan = load("creative_ip_5s.json")
+    plan["generator"]["provider"] = "OtherVendor"
+    with pytest.raises(CraftSpecError, match="only dated PixVerse V6"):
+        compile_storyboard(plan)
+    plan["generator"]["provider"] = "PixVerse"
+    plan["duration_frames"] = 510
+    plan["shots"][-1]["end_frame"] = 510
+    with pytest.raises(CraftSpecError, match="outside verified"):
+        compile_storyboard(plan, route="onepass")
+
+
 def test_never_confuses_sound_intent_with_generated_audio():
     plan = load("creative_ribbon_10s.json")
     result = compile_storyboard(plan)
