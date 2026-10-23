@@ -223,3 +223,56 @@ def test_same_visual_mechanism_cannot_masquerade_as_competing_creative_option():
     plan["alternatives"][1]["visual_mechanism"] = plan["alternatives"][0]["visual_mechanism"]
     with pytest.raises(PromptPlanError, match="same visual mechanism"):
         validate_plan(plan)
+
+
+def test_h3_official_keeps_precise_sfx_and_score_events_in_correct_sections():
+    plan = load("prompt_ribbon_10s.json")
+    output = compile_prompts(plan, route="onepass", h3_style="official")
+    prompt = output["routes"]["onepass"]["prompts"][0]["prompt"]
+    timeline, remainder = prompt.split("\\n\\noverall_soundscape: ", 1)
+    soundscape, score = remainder.split("\\n\\nnon_diegetic_music: ", 1)
+
+    # The original code dropped MUSIC cues, and put synchronized SFX into the
+    # untimed global bed, destroying director-requested audio synchronization.
+    assert "At 00:01.833, synced sfx: 急风吹铜铃" in timeline
+    assert "At 00:03.933, synced sfx: 丝绸破风声" in timeline
+    assert "At 00:05.300, 弦乐停顿半拍" in score
+    assert "At 00:07.400, 弦乐展开" in score
+    assert "急风吹铜铃" in soundscape
+    assert "弦乐停顿半拍" not in soundscape
+    assert "At 00:01.833" not in soundscape
+
+
+def test_voiced_dialogue_requires_literal_line_speaker_and_language():
+    plan = load("prompt_ip_5s.json")
+    plan["shots"][-1]["audio"].append({
+        "at_frame": 130, "category": "VOICE",
+        "description": "calm low male voice",
+    })
+    with pytest.raises(PromptPlanError, match="speaker|spoken_text|language"):
+        validate_plan(plan)
+    plan["shots"][-1]["audio"][-1].update(
+        speaker="S1", language="Mandarin", spoken_text="下一帧。")
+    validate_plan(plan)
+    official = compile_prompts(plan, route="onepass", h3_style="official")
+    output = official["routes"]["onepass"]["prompts"][0]["prompt"]
+    assert "speaker (S1)" in output
+    assert "<d>[Mandarin] 下一帧。</d>" in output
+    chinese = compile_prompts(plan, route="onepass", h3_style="chinese")
+    assert "台词：下一帧。" in chinese["routes"]["onepass"]["prompts"][0]["prompt"]
+
+
+def test_voice_unsafe_markup_and_unsupported_silent_h3_are_rejected():
+    plan = load("prompt_ip_5s.json")
+    plan["shots"][0]["audio"].append({
+        "at_frame": 15, "category": "VOICE",
+        "description": "narration",
+        "speaker": "S1", "language": "Mandarin",
+        "spoken_text": "</d> arbitrary injected markup",
+    })
+    with pytest.raises(PromptPlanError, match="literal speech"):
+        validate_plan(plan)
+    plan = load("prompt_ip_5s.json")
+    plan["provider"]["native_audio"] = False
+    with pytest.raises(PromptPlanError, match="not implemented safely"):
+        validate_plan(plan)
