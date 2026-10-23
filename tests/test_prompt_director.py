@@ -229,8 +229,8 @@ def test_h3_official_keeps_precise_sfx_and_score_events_in_correct_sections():
     plan = load("prompt_ribbon_10s.json")
     output = compile_prompts(plan, route="onepass", h3_style="official")
     prompt = output["routes"]["onepass"]["prompts"][0]["prompt"]
-    timeline, remainder = prompt.split("\\n\\noverall_soundscape: ", 1)
-    soundscape, score = remainder.split("\\n\\nnon_diegetic_music: ", 1)
+    timeline, remainder = prompt.split("\n\noverall_soundscape: ", 1)
+    soundscape, score = remainder.split("\n\nnon_diegetic_music: ", 1)
 
     # The original code dropped MUSIC cues, and put synchronized SFX into the
     # untimed global bed, destroying director-requested audio synchronization.
