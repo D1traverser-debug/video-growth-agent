@@ -231,8 +231,8 @@ class MediaGraph:
             raise MediaGraphError("promotion decision result is not promotive")
         if ref.key() not in decision.subject_refs:
             raise MediaGraphError("promotion decision does not bind the asset version")
-        if self.asset_state(ref) in {"REJECTED", "RETIRED"}:
-            raise MediaGraphError("rejected/retired asset cannot be promoted without a new version")
+        if self.asset_state(ref) in {"REJECTED", "RETIRED", "STALE"}:
+            raise MediaGraphError("rejected/retired/stale asset cannot be promoted without a current version")
         prior_version = self.promoted_versions.get(ref.asset_id)
         if prior_version and prior_version != ref.version_id:
             self.asset_state_overrides[AssetRef(ref.asset_id, prior_version)] = "STALE"
