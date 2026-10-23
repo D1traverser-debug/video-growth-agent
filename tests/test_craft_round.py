@@ -61,6 +61,29 @@ def test_existing_roles_prepare_unexecuted_independent_review_packets(name):
     assert prepare_craft_round(load(name))["source_plan_digest"] == packet["source_plan_digest"]
 
 
+def test_all_role_handoffs_contain_the_original_not_only_a_paraphrased_brief():
+    source = load()
+    packet = prepare_craft_round(source)
+    for order in packet["orders"]:
+        inputs = order["review_input"]
+        assert inputs["source_full_raw"] == source["source"]["raw"]
+        assert inputs["source_reference"] == source["source"]["reference"]
+        assert inputs["source_completeness_claim"] == "FULL"
+        assert inputs["required_events_and_source_quotes"] == source["required_events"]
+        assert inputs["creative_alternatives"] == source["alternatives"]
+        assert inputs["identity_anchors"] == source["identity_anchors"]
+        assert [shot["start_frame"] for shot in inputs["shots"]] == [
+            shot["start_frame"] for shot in source["shots"]
+        ]
+        assert [shot["end_frame"] for shot in inputs["shots"]] == [
+            shot["end_frame"] for shot in source["shots"]
+        ]
+        assert [shot["scene"] for shot in inputs["shots"]] == [
+            shot["scene"] for shot in source["shots"]
+        ]
+        assert inputs["other_reviewers_opinions"] is None
+
+
 def test_handoff_routes_contradictory_edit_sound_art_feedback_to_distinct_owners():
     packet = prepare_craft_round(load())
     submitted = reviews_for(packet)
