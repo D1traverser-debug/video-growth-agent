@@ -94,7 +94,7 @@ def main(argv: list[str] | None = None) -> int:
             _json(compile_from_file(args.spec, route=args.route))
             return 0
         except (CraftSpecError, OSError, ValueError) as exc:
-            parser.exit(2, f"storyboard error: {exc}\\n")
+            parser.exit(2, f"storyboard error: {exc}\n")
 
     if args.cmd == "system-audit":
         report = run_system_audit(args.repo_root)
