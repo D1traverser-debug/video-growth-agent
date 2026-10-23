@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "fps": 30,
+  "visual_bible": {
+    "style": "thick-painted Chinese 3A cinematic animation, realistic cloth motion and light scatter",
+    "world": "spring sunset temple, wish-bell tree, stone bridge, pavilion, flowing black curtains",
+    "lighting": "volumetric golden sun rays behind blossoms and silver-edge bounce",
+    "palette": "warm stone, peach blossoms, scarlet ribbon, dark indigo robes",
+    "character_anchors": [
+      "young woman in period Chinese dress with single red hair ribbon",
+      "bronze-skinned male in dark hanfu with sharp eyes"
+    ],
+    "prop_anchors": [
+      "one continuous red silk hair ribbon",
+      "bronze wish bells",
+      "petals",
+      "black gauze curtain"
+    ]
+  },
+  "negative_constraints": [
+    "face identity drift",
+    "extra paws or fingers",
+    "illegible fine UI labels",
+    "random unmotivated screen flashes"
+  ],
+  "generator": {
+    "provider": "PixVerse",
+    "model": "V6",
+    "mode": "T2V",
+    "aspect_ratio": "9:16",
+    "resolution": "720p",
+    "audio": "off",
+    "max_prompt_characters": 5000
+  },
+  "title": "Red ribbon reunion — ten-second compressed romantic animated film",
+  "source_plan_ref": "editorial-plan://red-ribbon@v1",
+  "duration_frames": 300,
+  "required_story_events": [
+    {
+      "id": "wish_tree",
+      "description": "female stands below bell-covered tree"
+    },
+    {
+      "id": "prayer",
+      "description": "hands clasp, silent romantic wish"
+    },
+    {
+      "id": "dust",
+      "description": "gold dust floats at clasped hands"
+    },
+    {
+      "id": "ribbon_loose",
+      "description": "wind lifts red hair ribbon"
+    },
+    {
+      "id": "smile_turn",
+      "description": "female claps, smiles and looks back"
+    },
+    {
+      "id": "ribbon_travel",
+      "description": "ribbon crosses temple bridge and pavilion"
+    },
+    {
+      "id": "catch",
+      "description": "male catches red ribbon between two fingers"
+    },
+    {
+      "id": "clench",
+      "description": "male clenches ribbon in hand"
+    },
+    {
+      "id": "reveal",
+      "description": "male turns, shows face, eyes soften"
+    },
+    {
+      "id": "approach",
+      "description": "male walks toward female"
+    },
+    {
+      "id": "meet",
+      "description": "they meet and exchange gaze"
+    },
+    {
+      "id": "tie",
+      "description": "male reattaches hair ribbon"
+    },
+    {
+      "id": "end",
+      "description": "both stand against old bridge with blossoms and ending caption"
+    }
+  ],
+  "shots": [
+    {
+      "id": "R1",
+      "start_frame": 0,
+      "end_frame": 48,
+      "frame": "35mm shot through bronze bells at sunlight-lit spring wish tree, young woman centered",
+      "action": "she clasps both hands at chest and gazes upward; tiny gold dust rises from fingers",
+      "camera": "subtle dolly-in from bell foreground to close hand/face",
+      "lighting": "warm Tyndall-style foliage beams, drifting petals",
+      "transition_out": "cut on moving red ribbon as wind catches it",
+      "event_ids": [
+        "wish_tree",
+        "prayer",
+        "dust"
+      ],
+      "sound": [
+        "bronze bells",
+        "breath",
+        "subtle string onset"
+      ],
+      "continuity": [
+        "woman has exactly one red ribbon, same earrings and clothes"
+      ]
+    },
+    {
+      "id": "R2",
+      "start_frame": 48,
+      "end_frame": 96,
+      "frame": "85mm profile of woman against arched bridge and pavilion with one red ribbon lifting",
+      "action": "she claps palms lightly, smiles and glances over shoulder; red ribbon peels away in rising wind",
+      "camera": "upward tilt then fast ribbon-follow pan",
+      "lighting": "sunlight shines through thin silk",
+      "transition_out": "full-frame scarlet cloth wipe reveals bridge corridor",
+      "event_ids": [
+        "ribbon_loose",
+        "smile_turn"
+      ],
+      "sound": [
+        "wind rises",
+        "bell accent"
+      ],
+      "continuity": [
+        "ribbon flies to camera right with one continuous trajectory"
+      ]
+    },
+    {
+      "id": "R3",
+      "start_frame": 96,
+      "end_frame": 144,
+      "frame": "tracking medium through bridge and pavilion to black gauze curtain",
+      "action": "single ribbon sails past carved wood posts through blossom petals into a man’s two extended fingers",
+      "camera": "lateral tracking speed matched to silk",
+      "lighting": "golden dust in slit of courtyard sunshine",
+      "transition_out": "cut on ribbon contact to tight palm macro",
+      "event_ids": [
+        "ribbon_travel",
+        "catch"
+      ],
+      "sound": [
+        "swishing silk",
+        "quiet tactile contact"
+      ],
+      "continuity": [
+        "same ribbon, no teleportation"
+      ]
+    },
+    {
+      "id": "R4",
+      "start_frame": 144,
+      "end_frame": 198,
+      "frame": "85mm hand and male three-quarter face reveal by fluttering gauze",
+      "action": "man clenches ribbon, turns and lifts eyes; expression becomes restrained smile",
+      "camera": "pull back from fingers to face with subtle shallow depth",
+      "lighting": "warm face sidelight through dark veil",
+      "transition_out": "match his forward step direction across bridge",
+      "event_ids": [
+        "clench",
+        "reveal"
+      ],
+      "sound": [
+        "single heartbeat-like bass pulse",
+        "brief silence"
+      ],
+      "continuity": [
+        "ribbon end hangs outside right fist, stable male face"
+      ]
+    },
+    {
+      "id": "R5",
+      "start_frame": 198,
+      "end_frame": 255,
+      "frame": "35mm side-tracking shot of man approaching woman, then intimate 50mm shared frame",
+      "action": "he reaches her, they hold an eye-contact beat, he raises ribbon toward her hair",
+      "camera": "tracking camera eases into stable two-shot",
+      "lighting": "gold sunlight on both faces",
+      "transition_out": "match hand movement into close retying gesture",
+      "event_ids": [
+        "approach",
+        "meet"
+      ],
+      "sound": [
+        "strings bloom",
+        "footsteps under music"
+      ],
+      "continuity": [
+        "male still holds same ribbon before tying"
+      ]
+    },
+    {
+      "id": "R6",
+      "start_frame": 255,
+      "end_frame": 300,
+      "frame": "50mm hair retie close-up easing into 24mm wide silhouette of bridge temple pavilion and distant mountains",
+      "action": "he secures same ribbon in her hair, they stand side by side among falling blossoms, dissolve to caption",
+      "camera": "fast gentle crane out into wide reveal",
+      "lighting": "sunset rim light and golden airborne dust",
+      "transition_out": "final dissolve to dark caption frame",
+      "event_ids": [
+        "tie",
+        "end"
+      ],
+      "sound": [
+        "soft closing gong",
+        "bells decay"
+      ],
+      "continuity": [
+        "red ribbon returns to woman's hair",
+        "final title set in post-production for accuracy"
+      ]
+    }
+  ],
+  "ending": "both stand together against ancient bridge and falling blossoms; Chinese text 希望我的缘分早日降临 added in post"
+}
