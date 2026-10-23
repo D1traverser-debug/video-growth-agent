@@ -226,6 +226,11 @@ def accept_authoring_response(
     except json.JSONDecodeError as exc:
         raise PromptPlanError(f"authoring model response is not a bare JSON object: {exc}") from exc
     audit = audit_authored_plan(packet, plan)
+    if audit["unanchored_units"]:
+        raise PromptPlanError(
+            "original source passages lack traceable event anchors: "
+            + ", ".join(audit["unanchored_units"])
+        )
     compiled = compile_prompts(plan, route=prompt_route, h3_style=h3_style)
     routes = compiled["routes"]
     if not any(v["status"] == "COMPILED" for v in routes.values()):
@@ -290,7 +295,36 @@ def author_with_model(
     model: Callable[[list[dict[str, str]]], str],
     *, prompt_route: str = "onepass",
     h3_style: str = "chinese",
+    max_revisions: int = 0,
 ) -> dict[str, Any]:
-    """Real model dependency may be injected; a fake in tests proves interface only."""
-    answer = model(prepare_authoring_messages(packet))
-    return accept_authoring_response(packet, answer, prompt_route=prompt_route, h3_style=h3_style)
+    """Call a real model through an injected client and repair invalid drafts.
+
+    Each retry is a NEW (possibly paid) API call and must be budgeted explicitly.
+    Untrusted invalid output never silently enters production.
+    """
+    if type(max_revisions) is not int or not 0 <= max_revisions <= 3:
+        raise PromptPlanError("max_revisions must be 0..3")
+    messages = prepare_authoring_messages(packet)
+    for attempt in range(max_revisions + 1):
+        response = model(messages)
+        try:
+            accepted = accept_authoring_response(
+                packet, response, prompt_route=prompt_route, h3_style=h3_style,
+            )
+            accepted["authoring_attempts"] = attempt + 1
+            return accepted
+        except PromptPlanError as exc:
+            if attempt == max_revisions:
+                raise
+            # Never copy the invalid response back into a trusted contract.
+            # Supply only the error and immutable source/timing requirements.
+            messages = messages + [{
+                "role": "user",
+                "content": (
+                    "The previous candidate was REJECTED: " + str(exc) + ". "
+                    "Return a complete corrected bare JSON object. Keep source.raw, "
+                    "source.reference, 30fps timebase and model provider unchanged; "
+                    "map ALL source-clock units to source-quoted narrative events."
+                ),
+            }]
+    raise PromptPlanError("unreachable authoring state")
