@@ -1,27 +1,27 @@
 {
-  "schema_version":"1.2",
-  "owner":"DOMAIN:video",
-  "revision":"1.6-production",
-  "updated_at":"2026-10-16T08:45:36+08:00",
-  "common_behavior_assurance_min":"1.3.0",
-  "current_open_items":[],
-  "current_problem_refs":{},
-  "current_resume_ref":null,
-  "current_candidate":null,
-  "recent_resolved_or_promoted":[
+  "schema_version": "1.2",
+  "owner": "DOMAIN:video",
+  "revision": "1.6-production",
+  "updated_at": "2026-10-16T08:45:36+08:00",
+  "common_behavior_assurance_min": "1.3.0",
+  "current_open_items": [],
+  "current_problem_refs": {},
+  "current_resume_ref": null,
+  "current_candidate": null,
+  "recent_resolved_or_promoted": [
     {
-      "id":"V-20261016-03-COMMON-BEHAVIOR-1-3-ROOT-SCOPE-ADOPTION",
-      "status":"PROMOTED__PRODUCTION_CI_VERIFIED__LIVE_MEDIA_BUSINESS_OUTCOMES_OPEN",
-      "failure_class":"FC-COMMON-BEHAVIOR-1-3-OWNER-ADOPTION-OPEN",
-      "symptom":"Video Common Behavior 1.2 owner admission enforced recovery and repair-or-block closure but did not mechanically establish root problem layer or typed evolution disposition before action.",
-      "selected_architecture":"EXTEND_EXISTING_OWNER_BEHAVIOR_ADMISSION__BIND_SYSTEMIC_ROOT_SCOPE_TO_VIDEO_ARCHITECTURE_REASSESSMENT_AND_CURRENT_AGENT_OPERABILITY_DOGFOOD__NO_SECOND_CONTROLLER",
-      "rejected_paths":[
+      "id": "V-20261016-03-COMMON-BEHAVIOR-1-3-ROOT-SCOPE-ADOPTION",
+      "status": "PROMOTED__PRODUCTION_CI_VERIFIED__LIVE_MEDIA_BUSINESS_OUTCOMES_OPEN",
+      "failure_class": "FC-COMMON-BEHAVIOR-1-3-OWNER-ADOPTION-OPEN",
+      "symptom": "Video Common Behavior 1.2 owner admission enforced recovery and repair-or-block closure but did not mechanically establish root problem layer or typed evolution disposition before action.",
+      "selected_architecture": "EXTEND_EXISTING_OWNER_BEHAVIOR_ADMISSION__BIND_SYSTEMIC_ROOT_SCOPE_TO_VIDEO_ARCHITECTURE_REASSESSMENT_AND_CURRENT_AGENT_OPERABILITY_DOGFOOD__NO_SECOND_CONTROLLER",
+      "rejected_paths": [
         "declaration-only 1.3 version bump",
         "copy UAOS kernel into Video",
         "make every local asset/tool defect run heavy architecture ceremony",
         "route all Video problems through parent before owner-local diagnosis"
       ],
-      "evidence_refs":[
+      "evidence_refs": [
         "video_growth_agent/owner_behavior_admission.py",
         "tests/test_owner_behavior_admission.py",
         "tests/test_uaos_current.py",
@@ -30,57 +30,59 @@
         ".uaos/CAPABILITIES.json",
         ".uaos/MANIFEST.json"
       ],
-      "candidate_pr":18,
-      "candidate_final_head":"62181bfded6170e002ac1a6a155e1d2f3cf812bd",
-      "candidate_ci_run":38831027488,
-      "candidate_ci_number":692,
-      "production_commit":"777f87f0257d7347092e12d0b7f78168eae80897",
-      "production_ci_run":38831237031,
-      "production_ci_number":693,
-      "result":"PASS",
-      "assurance":"COMMON_BEHAVIOR_1_3_OWNER_NATIVE_PRODUCTION_CI_VERIFIED__PRODUCTION_0_8_0_MEDIA_OS_AND_H1_BUSINESS_CURSOR_PRESERVED__LIVE_MEDIA_GROWTH_IP_AND_COMMERCIAL_OUTCOMES_OPEN"
+      "candidate_pr": 18,
+      "candidate_final_head": "62181bfded6170e002ac1a6a155e1d2f3cf812bd",
+      "candidate_ci_run": 38831027488,
+      "candidate_ci_number": 692,
+      "production_commit": "777f87f0257d7347092e12d0b7f78168eae80897",
+      "production_ci_run": 38831237031,
+      "production_ci_number": 693,
+      "result": "PASS",
+      "assurance": "COMMON_BEHAVIOR_1_3_OWNER_NATIVE_PRODUCTION_CI_VERIFIED__PRODUCTION_0_8_0_MEDIA_OS_AND_H1_BUSINESS_CURSOR_PRESERVED__LIVE_MEDIA_GROWTH_IP_AND_COMMERCIAL_OUTCOMES_OPEN"
     },
     {
-      "id":"V-20261015-02-AGENT_OPERABLE_MEDIA_OS",
-      "ref":"audits/VIDEO_AGENT_OPERABILITY_REDESIGN_2026-10-15.md",
-      "closure_ref":"audits/VIDEO_0_8_PRODUCTION_CLOSURE_2026-10-15.md",
-      "status":"RESOLVED_PRODUCTION_0_8_0",
-      "release":"0.8.0",
-      "profile_version":9,
-      "candidate_pr":15,
-      "candidate_head":"50bc4a74d7c641875c9625626d5c4634b97ba1fd",
-      "candidate_ci_run":38725408205,
-      "production_commit":"02d39d8e3609c6d988009f4bc5a7f5d0378128ec",
-      "production_ci_run":38725890405,
-      "assurance":"AGENT_OPERABLE_MEDIA_OS_PRODUCTION_VERIFIED__SYSTEM_AUDIT_PYTEST_INSTALLED_CLI_AND_END_TO_END_CURRENT_AGENT_TRAJECTORY_GREEN__LIVE_MEDIA_BUSINESS_OUTCOMES_OPEN"
+      "id": "V-20261015-02-AGENT_OPERABLE_MEDIA_OS",
+      "ref": "audits/VIDEO_AGENT_OPERABILITY_REDESIGN_2026-10-15.md",
+      "closure_ref": "audits/VIDEO_0_8_PRODUCTION_CLOSURE_2026-10-15.md",
+      "status": "RESOLVED_PRODUCTION_0_8_0",
+      "release": "0.8.0",
+      "profile_version": 9,
+      "candidate_pr": 15,
+      "candidate_head": "50bc4a74d7c641875c9625626d5c4634b97ba1fd",
+      "candidate_ci_run": 38725408205,
+      "production_commit": "02d39d8e3609c6d988009f4bc5a7f5d0378128ec",
+      "production_ci_run": 38725890405,
+      "assurance": "AGENT_OPERABLE_MEDIA_OS_PRODUCTION_VERIFIED__SYSTEM_AUDIT_PYTEST_INSTALLED_CLI_AND_END_TO_END_CURRENT_AGENT_TRAJECTORY_GREEN__LIVE_MEDIA_BUSINESS_OUTCOMES_OPEN"
     },
     {
-      "id":"V-20261015-01-AI_NATIVE_MEDIA_BUSINESS_OS_REDESIGN",
-      "ref":"audits/AI_NATIVE_MEDIA_BUSINESS_OS_REDESIGN_2026-10-15.md",
-      "status":"RESOLVED_PRODUCTION_0_7_0__SUPERSEDED_BY_0_8_CORE_WITH_LEGACY_ADAPTER_COMPATIBILITY_RETAINED",
-      "release":"0.7.0",
-      "candidate_pr":12,
-      "candidate_head":"99288175d3b3455058625626d5c4634b97ba1fd",
-      "candidate_ci_run":38690408574,
-      "production_commit":"ad51bb76188eb0184cf8434384109c5c1257a60c",
-      "production_ci_run":38690550495,
-      "assurance":"EXECUTABLE_MEDIA_BUSINESS_OS_AND_TRAJECTORY_VERIFIED__LIVE_EPISODE_GROWTH_IP_COMMERCIAL_OUTCOME_OBSERVATION_OPEN"
+      "id": "V-20261015-01-AI_NATIVE_MEDIA_BUSINESS_OS_REDESIGN",
+      "ref": "audits/AI_NATIVE_MEDIA_BUSINESS_OS_REDESIGN_2026-10-15.md",
+      "status": "RESOLVED_PRODUCTION_0_7_0__SUPERSEDED_BY_0_8_CORE_WITH_LEGACY_ADAPTER_COMPATIBILITY_RETAINED",
+      "release": "0.7.0",
+      "candidate_pr": 12,
+      "candidate_head": "99288175d3b3455058625626d5c4634b97ba1fd",
+      "candidate_ci_run": 38690408574,
+      "production_commit": "ad51bb76188eb0184cf8434384109c5c1257a60c",
+      "production_ci_run": 38690550495,
+      "assurance": "EXECUTABLE_MEDIA_BUSINESS_OS_AND_TRAJECTORY_VERIFIED__LIVE_EPISODE_GROWTH_IP_COMMERCIAL_OUTCOME_OBSERVATION_OPEN"
     },
     {
-      "ref":"audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md",
-      "status":"HISTORICAL_0_6_PRODUCT_ORCHESTRATION_REPAIR__SUPERSEDED_IN_PART_BY_0_7_AND_0_8_MEDIA_BUSINESS_OS"
+      "ref": "audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md",
+      "status": "HISTORICAL_0_6_PRODUCT_ORCHESTRATION_REPAIR__SUPERSEDED_IN_PART_BY_0_7_AND_0_8_MEDIA_BUSINESS_OS"
     },
     {
-      "ref":"audits/SYSTEM_SELF_AUDIT_2026-10-11.md",
-      "status":"HISTORICAL_HARDENING_EVIDENCE_RETAINED"
+      "ref": "audits/SYSTEM_SELF_AUDIT_2026-10-11.md",
+      "status": "HISTORICAL_HARDENING_EVIDENCE_RETAINED"
     },
     {
-      "ref":"audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
-      "status":"HISTORICAL_FAILURE_AND_HARDENING_EVIDENCE_RETAINED"
+      "ref": "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
+      "status": "HISTORICAL_FAILURE_AND_HARDENING_EVIDENCE_RETAINED"
     }
   ],
-  "open_parent_guidance_refs":["UAOS_PARENT_OBSERVATION_REFRESH_AFTER_VIDEO_0_8_PRODUCTION_PROMOTION"],
-  "execution_refs":[
+  "open_parent_guidance_refs": [
+    "UAOS_PARENT_OBSERVATION_REFRESH_AFTER_VIDEO_0_8_PRODUCTION_PROMOTION"
+  ],
+  "execution_refs": [
     "docs/media_business_os.md",
     "docs/provider_benchmark_protocol.md",
     "docs/agent_operability_scenarios.md",
@@ -112,12 +114,20 @@
     "tests/test_system_audit.py",
     "tests/test_uaos_current.py"
   ],
-  "historical_evidence_refs":[
-    "audits/VIDEO_0_8_RESUME_CHECKPOINT_2026-10-15.md",
+  "historical_evidence_refs": [
     "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
     "audits/SYSTEM_SELF_AUDIT_2026-10-11.md",
     "audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md",
     "projects/pilot-002/PROGRAM_STATE.json"
   ],
-  "assurance":"COMMON_BEHAVIOR_1_3_OWNER_NATIVE_PRODUCTION_CI_VERIFIED__PRODUCTION_0_8_0_MEDIA_OS_PRESERVED__LIVE_MEDIA_BUSINESS_OUTCOMES_OPEN"
+  "assurance": "COMMON_BEHAVIOR_1_3_OWNER_NATIVE_PRODUCTION_CI_VERIFIED__PRODUCTION_0_8_0_MEDIA_OS_PRESERVED__LIVE_MEDIA_BUSINESS_OUTCOMES_OPEN",
+  "retired_documents": [
+    {
+      "path": "audits/VIDEO_0_8_RESUME_CHECKPOINT_2026-10-15.md",
+      "blob_sha": "39c9eaf365cf4b4c16a72ba21f7d20bf7a7072c4",
+      "replaced_by": "audits/VIDEO_0_8_PRODUCTION_CLOSURE_2026-10-15.md",
+      "reason": "PAST_INTERRUPTED_CANDIDATE_RESUME_GUIDANCE_CONTRADICTS_MERGED_PRODUCTION_0_8",
+      "remaining_research_ref": "audits/VIDEO_AGENT_OPERABILITY_REDESIGN_2026-10-15.md"
+    }
+  ]
 }
