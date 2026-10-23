@@ -118,7 +118,6 @@
   ],
   "supersession": {
     "CHARACTER_DESIGN_BIBLE_V1.md": "HISTORICAL_INPUT_PENDING_V2_REWRITE",
-    "CONCEPT_GENERATION_PROMPT_V1.md": "DO_NOT_USE_FOR_V2",
     "H1_HYBRID_A_GPT_PROMPT_V2.md": "EXECUTED_REVIEWED_NOT_LOCKED",
     "H1_S13_FRONT_MICROCORRECTION_PROMPT_V2.md": "PAUSED_PENDING_UPPER_FACE_SELECTION",
     "H1_S13_3Q_SCULPT_PROMPT_V2.md": "BLOCKED_PENDING_FINAL_FRONT_SELECTION",
@@ -148,6 +147,18 @@
       "reason": "WRONG_UPLOADED_IMAGE_INVALID_PASS",
       "replaced_by": "H1_S13_HYBRID_FRONT_REVIEW_CORRECTED_2026-10-14.md",
       "git_blob_sha": "300547b945a758c2cdeae06386ce96a214e3fe5a",
+      "active_decision": false
+    },
+    {
+      "path": "CONCEPT_GENERATION_PROMPT_V1.md",
+      "reason": "REJECTED_GENERIC_TECHWEAR_CONCEPT__SUPERSEDED_BY_V2_MACRO_FORM_METHOD",
+      "replaced_by": "DESIGN_RESEARCH_METHOD_V2.md",
+      "lessons_preserved_in": [
+        "CONCEPT_V1_FAILURE_AUDIT_2026-10-14.md",
+        "DESIGN_RESEARCH_METHOD_V2.md",
+        "skills/video-growth-agent/references/prompt-direction.md"
+      ],
+      "git_blob_sha": "e86426eae32a06d99d5ff2cf58c3dac69abb62d1",
       "active_decision": false
     }
   ]
