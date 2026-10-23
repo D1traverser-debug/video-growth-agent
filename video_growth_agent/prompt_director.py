@@ -77,9 +77,11 @@ def validate_plan(plan: dict) -> dict:
                 "required_events", "identity_anchors", "shots", "provider"}, "plan")
     if plan["version"] != 1:
         raise PromptPlanError("unsupported plan version")
-    source = _obj(plan["source"], {"type", "raw", "reference"}, "source")
+    source = _obj(plan["source"], {"type", "raw", "reference", "completeness"}, "source")
     if source["type"] not in {"USER_ORIGINAL", "USER_REFERENCE", "ORIGINAL_SCRIPT", "PRIMARY_DOCUMENT"}:
         raise PromptPlanError("source.type is not admitted")
+    if source["completeness"] not in {"FULL", "EXCERPT"}:
+        raise PromptPlanError("source.completeness must be FULL or EXCERPT")
     raw = _str(source["raw"], "source.raw")
     _str(source["reference"], "source.reference")
     brief = _obj(plan["brief"], {"title", "goal", "emotion", "audience",
@@ -201,7 +203,8 @@ def validate_plan(plan: dict) -> dict:
             "source_event_count": len(mandatory),
             "shot_count": len(shots), "duration_seconds": total / fps,
             "sound_cues": sound_cues,
-            "assurance": "Static storyboard coverage and literal source-span check only; no film semantic/quality verdict."}
+            "complete_source_verified": source["completeness"] == "FULL",
+            "assurance": "Covers only the supplied raw source spans; EXCERPT input cannot prove full original story retention. No film semantic/quality verdict."}
 
 
 def _shot_text(s: dict, fps: int) -> str:
