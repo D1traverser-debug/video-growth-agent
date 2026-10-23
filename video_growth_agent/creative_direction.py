@@ -6,6 +6,7 @@ episode/business authority and not a claim that generated pixels were verified.
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 from typing import Any
 
@@ -133,6 +134,21 @@ def _shot(shot: dict[str, Any], fps: int) -> str:
             f"Continuity: {'; '.join(shot['continuity']) or 'not specified'}.")
 
 
+def _duration_for_provider(seconds: float, generator: dict[str, Any]) -> int:
+    """Convert editorial duration into a legal PixVerse V6 generation duration.
+
+    The current PixVerse web mode accepts integer 1–15s clips. Render long
+    enough and trim on the NLE timeline; do not mislabel 1.6s as an API value.
+    Other providers need their own verified, dated capability adapter.
+    """
+    if generator["provider"].lower() != "pixverse" or generator["model"].lower() != "v6":
+        raise CraftSpecError("duration adapter unavailable: only dated PixVerse V6 profile implemented")
+    seconds_int = math.ceil(seconds - 1e-9)
+    if not 1 <= seconds_int <= 15:
+        raise CraftSpecError(f"PixVerse V6 clip length {seconds_int}s outside verified 1–15s range")
+    return seconds_int
+
+
 def compile_storyboard(spec: dict[str, Any], *, route: str = "shotwise") -> dict[str, Any]:
     """Compile production-facing prompts; fail visibly on unsupported prompt sizes."""
     coverage = validate_spec(spec)
@@ -149,15 +165,18 @@ def compile_storyboard(spec: dict[str, Any], *, route: str = "shotwise") -> dict
         if len(prompt) > limit:
             raise CraftSpecError(f"onepass prompt {len(prompt)} chars exceeds declared {limit}; use shotwise")
         prompts = [{"shot_ids": [s["id"] for s in shots], "prompt": prompt,
-                    "duration_seconds": coverage["duration_seconds"]}]
+                    "duration_seconds": coverage["duration_seconds"],
+                    "generation_duration_seconds": _duration_for_provider(coverage["duration_seconds"], gen)}]
     else:
         prompts = []
         for shot in shots:
             prompt = header + _shot(shot, spec["fps"]) + " " + negative
             if len(prompt) > limit:
                 raise CraftSpecError(f"shot {shot['id']} prompt exceeds declared {limit}")
+            editorial_seconds = (shot["end_frame"] - shot["start_frame"]) / spec["fps"]
             prompts.append({"shot_ids": [shot["id"]], "prompt": prompt,
-                            "duration_seconds": (shot["end_frame"] - shot["start_frame"]) / spec["fps"]})
+                            "duration_seconds": editorial_seconds,
+                            "generation_duration_seconds": _duration_for_provider(editorial_seconds, gen)})
     findings: list[str] = []
     if len(shots) > coverage["duration_seconds"] / 1.5:
         findings.append("HIGH_CUT_DENSITY: use storyboards and timeline editing; one-pass timing is uncertain")
@@ -165,6 +184,8 @@ def compile_storyboard(spec: dict[str, Any], *, route: str = "shotwise") -> dict
         seconds = (shot["end_frame"] - shot["start_frame"]) / spec["fps"]
         if len(shot["event_ids"]) > max(1, seconds / 0.7):
             findings.append(f"EVENT_DENSITY_RISK:{shot['id']}")
+    if any(p["generation_duration_seconds"] != p["duration_seconds"] for p in prompts):
+        findings.append("TIMING_POST_REQUIRED: generated integer-second clips need frame-accurate trims")
     if gen["audio"] == "off" and any(s["sound"] for s in shots):
         findings.append("SOUND_POST_REQUIRED: sonic cues must be produced in post")
     return {"source_plan_ref": spec["source_plan_ref"], "route": route,
