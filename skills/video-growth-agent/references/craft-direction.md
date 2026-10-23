@@ -27,7 +27,7 @@ Produce an explicit one-sentence thesis, emotion/tension transformation, viewing
 | Producer | budget/provider evidence | routing candidates, asset plan, rights and verification plan | spend tied to highest-risk uncertainty |
 | QA/review | actual rendered media | per-shot timecode findings, frame references, evidence | NEVER infer success from prompts alone |
 
-Use `vga storyboard SPEC.json --route onepass|shotwise` for structural frame/event checks and platform prompt compilation. The tool cannot create a movie, infer high artistic quality, prove story semantics, or attest provider execution.
+Use `vga storyboard SPEC.json --route onepass|shotwise|compare` for structural frame/event checks and platform prompt compilation. `verify_editorial_binding(spec, editorial_plan)` is a separate typed audit of the real EditorialPlan version and all required beat IDs; declaring `source_plan_ref` alone is NOT upstream verification. The tool cannot create a movie, infer high artistic quality, prove story semantics, or attest provider execution.
 
 ### Frame accounting
 
