@@ -86,6 +86,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--route", choices=["compare", "onepass", "shotwise"], default="compare")
     p.add_argument("--h3-style", choices=["chinese", "official"], default="chinese")
     p.add_argument("--study-h3-dialects", action="store_true", help="design an evidence-bound A/B prompt study; no media generation")
+    p.add_argument("--plain", action="store_true", help="print copy-ready prompt text, not JSON")
 
     p = sub.add_parser("system-audit")
     p.add_argument("--repo-root", type=Path)
@@ -95,12 +96,23 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "direct-prompts":
         try:
             if args.study_h3_dialects:
+                if args.plain:
+                    parser.error("--plain is not available with --study-h3-dialects")
                 if args.route not in {"compare", "onepass"}:
                     parser.error("--study-h3-dialects only supports onepass; omit --route or use onepass")
                 plan = json.loads(args.plan.read_text(encoding="utf-8"))
                 _json(h3_dialect_study(plan))
             else:
-                _json(compile_file(args.plan, args.route, h3_style=args.h3_style))
+                report = compile_file(args.plan, args.route, h3_style=args.h3_style)
+                if args.plain:
+                    if args.route == "compare":
+                        parser.error("--plain needs --route onepass or --route shotwise")
+                    compiled = report["routes"][args.route]
+                    if compiled["status"] != "COMPILED":
+                        parser.error(compiled["reason"])
+                    print("\\n\\n=== NEXT SHOT ===\\n\\n".join(item["prompt"] for item in compiled["prompts"]))
+                else:
+                    _json(report)
             return 0
         except (PromptPlanError, OSError, ValueError) as exc:
             parser.exit(2, f"direct-prompts: {exc}\n")
