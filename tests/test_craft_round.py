@@ -40,7 +40,7 @@ def complaint(*, category="EDIT", shot="R3", severity="MAJOR"):
         "category": category,
         "severity": severity,
         "observation": "The cut may hide ribbon's physical contact",
-        "evidence_ref": "plan://shot/R3",
+        "evidence_ref": f"plan://shot/{shot}",
         "change_request": "Leave the index/middle finger catch readable in the edit",
     }
 
