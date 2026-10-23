@@ -143,7 +143,7 @@ def test_revision_trace_preserves_source_identity_and_never_claims_improvement()
         next_revision_diff(original, original)
     swapped = copy.deepcopy(changed)
     swapped["source"]["raw"] += " injected fiction"
-    with pytest.raises(PromptPlanError, match="source quote|not found"):
+    with pytest.raises(CraftReviewError, match="source must not change"):
         next_revision_diff(original, swapped)
     changed["source"]["reference"] = "fake://source"
     with pytest.raises(CraftReviewError, match="source must not change"):
