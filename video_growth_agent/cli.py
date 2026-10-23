@@ -4,6 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
+from .prompt_director import PromptPlanError, compile_file
 from .media_qa import MediaQAChecker
 from .models import AssetRecord
 from .runtime import StudioRuntime
@@ -79,10 +80,21 @@ def main(argv: list[str] | None = None) -> int:
     candidate_mode.add_argument("--validated-only", action="store_true", help="production-safe default; retained for compatibility")
     candidate_mode.add_argument("--include-candidates", action="store_true", help="explicit learning/prototype opt-in")
 
+    p = sub.add_parser("direct-prompts", help="validate source-traced film plan and compile PixVerse prompts")
+    p.add_argument("plan", type=Path)
+    p.add_argument("--route", choices=["compare", "onepass", "shotwise"], default="compare")
+
     p = sub.add_parser("system-audit")
     p.add_argument("--repo-root", type=Path)
 
     args = parser.parse_args(argv)
+
+    if args.cmd == "direct-prompts":
+        try:
+            _json(compile_file(args.plan, args.route))
+            return 0
+        except (PromptPlanError, OSError, ValueError) as exc:
+            parser.exit(2, f"direct-prompts: {exc}\n")
 
     if args.cmd == "system-audit":
         report = run_system_audit(args.repo_root)
