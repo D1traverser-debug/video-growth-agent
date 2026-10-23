@@ -60,7 +60,7 @@ def test_directed_take_review_binds_real_file_but_never_certifies_film_quality(t
     assert json.loads(called.stdout)["media_asset_ref"]["sha256"] == sheet["media_asset_ref"]["sha256"]
 
     bare_media = subprocess.run(
-        command[:4] + ["--media", str(take)], capture_output=True, text=True
+        command[:5] + ["--media", str(take)], capture_output=True, text=True
     )
     assert bare_media.returncode == 2
     assert "--media requires --review-sheet" in bare_media.stderr
