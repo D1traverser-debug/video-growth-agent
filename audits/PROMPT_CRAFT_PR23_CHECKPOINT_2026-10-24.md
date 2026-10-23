@@ -75,6 +75,20 @@ vga system-audit --repo-root .
 
 The 30-second original used in the fixture is a repository transcription; the original owner-authored source must be checked against the true first-hand input before labeling *semantic* preservation proof. Its 24 lexical time spans are **not** evidence that the entire original film is perceived in 10 seconds.
 
+## October 24 continuation — operator-path repair and artifact-bound review (candidate only)
+
+Latest **verified code head before recording this checkpoint**: `a7d7d0084973fbbfdb7da01f9f97c07dafe5c7df`.
+Actual GitHub Actions [#39987972345](https://github.com/D1traverser-debug/video-growth-agent/actions/runs/39987972345) completed success at 2026-10-24 00:36:36 +08:00: `prompt-contract 67 passed`; full `test 260 passed`. Both jobs succeeded. This is evidence for the named SHA, **not automatically for later documentation commits**.
+
+- **Operator contract defect repaired**: `vga author-director --out-plan` had serialized a literal backslash-n after the JSON document, so downstream tools could not parse the generated plan. Export now emits a real newline. A subprocess regression runs raw original -> imported authored plan -> exported valid JSON -> `direct-prompts` -> `craft-round`.
+- **Historical test scope corrected**: prior Common Behavior 1.3 closure test wrongly forbade any future `current_candidate`. It now asserts only that the *1.3 adoption* is not reopened; the independent PR #23 Video candidate remains valid.
+- **Existing QA integration, no shadow controller**: `video_growth_agent.media_qa.prepare_directed_media_review` combines the existing `build_shot_review_targets` sheet with the existing `MediaQAChecker` for **actual local file bytes**. `vga direct-prompts PLAN.json --review-sheet --media TAKE.mp4 [--frames-dir DIR]` binds a take SHA-256, byte length, full technical QA report, expected/observed duration mismatch, optional real frame samples, source plan SHA and an unexecuted neutral first-viewing questionnaire. Planned cut timecodes remain hypotheses until checked against playback.
+- **Adversarial reality check**: the test feeds a 2-second **FFmpeg-generated synthetic color/audio clip** to a 5-second fictional plan; mismatch is explicitly detected. This is a *pipeline mechanics* fixture, not a video-model sample, creative success, independent review or a real viewer result.
+- **Unresolved technical-QA defect**: the existing `MediaQAChecker._black_check` and long-silence detection can report `PASS` if an FFmpeg detector command exits nonzero without emitting detection lines. This was identified during source review. The attempted mutation to fix that path did **not** apply (operation blocked), so fail-closed detector semantics remain open; do not treat a clean technical QA report as incontrovertible.
+- **Unresolved quality/evidence**: no paid H3/PixVerse clip, no complete source-to-model real generation, no model settings/seed/cost ledger, no blinded human/artistic assessment, no matched-scene policy experiment, no measured revision improvement, and no production promotion. Asset binding is local byte identity, **not** a `MediaGraph` asset registration or verified provider attribution.
+
+**Recommended next evidence-supported work**: first confirm latest head CI after this metadata write; investigate the FFmpeg failure-status assurance issue in the owning MediaQA path when write authorization permits; next integrate bound take versions with existing MediaGraph and operator review/LEARN evidence without replicating their lifecycle. Await actual authorized video or provided clip for perceptual QA. Continue on PR #23 draft, leave `main` intact.
+
 ## Stop/restart integrity
 
 - In a fresh chat, **never** silently state this work is finished, that CI is latest without checking, that a candidate technique is validated, that reviewers independently executed, or that a movie was produced if none exists.
