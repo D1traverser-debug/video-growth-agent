@@ -204,3 +204,23 @@ def test_importing_an_excerpt_plan_for_full_original_fails_explicitly():
     excerpt = json.loads((FIX / "prompt_ribbon_10s.json").read_text(encoding="utf-8"))
     with pytest.raises(PromptPlanError, match="altered or substituted"):
         accept_authoring_response(packet, json.dumps(excerpt, ensure_ascii=False))
+
+
+def test_complete_original_music_only_contract_blocks_unrequested_foley_or_voice():
+    _, plan, packet = raw_plan_packet()
+    assert audit_authored_plan(packet, plan)["timeline_valid"]
+    adjusted = copy.deepcopy(plan)
+    adjusted["shots"][0]["audio"].append({
+        "at_frame": 0, "category": "SFX", "description": "clapping"
+    })
+    with pytest.raises(PromptPlanError, match="background-music-only"):
+        audit_authored_plan(packet, adjusted)
+    adjusted = copy.deepcopy(plan)
+    adjusted["shots"][0]["audio"].append({
+        "at_frame": 0, "category": "VOICE", "description": "dramatic whisper",
+        "speaker": "S1", "language": "Mandarin", "spoken_text": "缘分"
+    })
+    with pytest.raises(PromptPlanError, match="no dialogue"):
+        audit_authored_plan(packet, adjusted)
+    notes = audit_authored_plan(packet, plan)["risk_notes"]
+    assert any("SOURCE_AUDIO_CONFLICT" in note for note in notes)
