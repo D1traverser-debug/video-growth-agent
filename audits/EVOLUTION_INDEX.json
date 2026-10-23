@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-24T01:10:15.399+08:00",
+  "updated_at": "2026-10-24T01:17:38.413+08:00",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -13,7 +13,7 @@
   "current_resume_ref": "audits/PROMPT_CRAFT_PR23_CHECKPOINT_2026-10-24.md",
   "current_candidate": {
     "workstream": "PRODUCTION_SYSTEM__PROMPT_CRAFT_AND_LEARNING",
-    "status": "DRAFT_PR__GRAPH_BOUND_REAL_TAKE_CANDIDATE__HEAD_CI_UNVERIFIED__LIVE_MEDIA_CRAFT_QA_OPEN",
+    "status": "DRAFT_PR__GRAPH_TAKE_AND_TRANSITIVE_FRESHNESS_CI_VERIFIED__LIVE_MEDIA_QA_OPEN",
     "pr_number": 23,
     "head_ref": "refactor/prompt-director-core-20261023",
     "resume_ref": "audits/PROMPT_CRAFT_PR23_CHECKPOINT_2026-10-24.md",
@@ -34,25 +34,33 @@
       "real_media_take_graph_provenance_and_perceptual_review",
       "graph_take_current_head_end_to_end_ci",
       "provider_issued_render_identity_seed_model_cost_binding",
-      "independent_playback_quality_to_take_review_and_LEARN"
+      "independent_playback_quality_to_take_review_and_LEARN",
+      "real_take_technical_and_semantic_qa_with_sha_and_blindness_evidence",
+      "provider_issued_run_model_seed_cost_receipt",
+      "transitive_stale_upstream_promotion_recurrence_tests"
     ],
     "promotion_authorized": false,
-    "latest_verified_code_head": "3afe983b580039cf93addc64e0ead177a4880ad7",
-    "latest_verified_ci_run": 39988663237,
+    "latest_verified_code_head": "de5e94bb7b1f916ad7e282f12c401a7dde6e33e0",
+    "latest_verified_ci_run": 39993554389,
     "latest_verified_checks": {
-      "prompt_contract_passed": 67,
-      "all_tests_passed": 260,
+      "prompt_contract_passed": 76,
+      "prompt_contract_skipped": 2,
+      "all_tests_passed": 265,
       "ci_jobs": "BOTH_SUCCESS",
+      "system_audit": "PASS",
+      "installed_cli_smoke": "PASS",
       "synthetic_media_fixture_not_quality_evidence": true
     },
-    "verification_scope": "HEAD_METADATA_UPDATE_NOT_YET_CI_VERIFIED__PREVIOUS_3afe983b_CODE_AND_CI_GREEN__NO_LIVE_VIDEO_OR_PROVIDER_QA",
+    "verification_scope": "CURRENT_CODE_SHA_de5e94bb_CI_76_2SKIP_265__METADATA_COMMITS_REQUIRE_FINAL_CI__NO_LIVE_RENDERED_MEDIA_QA",
     "known_unresolved_failure_classes": [
       "FFMPEG_DETECTOR_NONZERO_EXIT_MAY_FALSE_PASS_TECH_QA",
-      "NO_GRAPH_REGISTERED_RENDER_TAKE_WITH_BLINDED_OBSERVED_QUALITY"
+      "NO_GRAPH_REGISTERED_RENDER_TAKE_WITH_BLINDED_OBSERVED_QUALITY",
+      "LOCAL_MEDIA_URI_DURABILITY_UNPROVEN",
+      "AUTHENTIC_PROVIDER_RECEIPT_AND_REVIEWER_ATTESTATION_MISSING"
     ],
     "pending_graph_take_code_head": "1f8fd7ed9293888e073a7e239c175b3329269b18",
     "pending_graph_take_ci_source": "PR23_LATEST_HEAD_CI_REQUIRED__EARLIER_RUNNING_WORKFLOW_MAY_BE_CANCELLED_BY_METADATA_UPDATES",
-    "graph_take_mechanism": "EXISTING_MediaGraphStore__DIRECTOR_PLAN_ASSET_SHA_SOURCE_URI__VIDEO_TAKE_ASSET_DERIVED_FROM_PLAN__MEDIA_INSPECTION_EVIDENCE__NO_PROMOTION"
+    "graph_take_mechanism": "EXISTING_MEDIA_GRAPH_DIRECTOR_PLAN_AND_TAKE_CANDIDATE__SOURCE_PLAN_DIGEST__MEDIA_QA_EVIDENCE__NO_AUTOPROMOTION__TRANSITIVE_UPSTREAM_FRESHNESS_PROMOTION_GUARD"
   },
   "recent_resolved_or_promoted": [
     {
@@ -164,7 +172,9 @@
     "video_growth_agent/cli.py",
     "tests/test_media_qa.py",
     "tests/test_source_director.py",
-    "tests/test_media_business_os_architecture.py"
+    "tests/test_media_business_os_architecture.py",
+    "tests/test_media_graph.py",
+    ".github/workflows/ci.yml"
   ],
   "historical_evidence_refs": [
     "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
@@ -172,7 +182,7 @@
     "audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md",
     "projects/pilot-002/PROGRAM_STATE.json"
   ],
-  "assurance": "PRODUCTION_0_8_MAIN_UNCHANGED__PR23_TAKE_GRAPH_CANDIDATE_LATEST_CODE_UNVERIFIED__LAST_GREEN_CI_67_260__LIVE_MEDIA_QUALITY_AND_PROMOTION_OPEN",
+  "assurance": "PRODUCTION_0_8_MAIN_UNCHANGED__PR23_GRAPH_TAKE_AND_TRANSITIVE_STALE_GUARD_CI_76_2SKIP_265_PASS__LIVE_MEDIA_QUALITY_AND_PROMOTION_OPEN",
   "retired_documents": [
     {
       "path": "audits/VIDEO_0_8_RESUME_CHECKPOINT_2026-10-15.md",
