@@ -107,6 +107,46 @@ def test_new_promoted_version_stales_old_pointer_without_deleting_history():
     assert AssetRef("canon", "v1") in graph.assets
 
 
+def test_replacement_promotion_stales_old_consumers_without_staling_approved_successor():
+    graph = _base_graph()
+    c1 = AssetRef("character", "v1")
+    c2 = AssetRef("character", "v2")
+    old_keyframe = AssetRef("hero-frame", "v1")
+    old_take = AssetRef("hero-take", "v1")
+    new_keyframe = AssetRef("hero-frame", "v2")
+    unrelated = AssetRef("news-research", "v1")
+
+    graph.add_asset(AssetVersion(c1, "program", "CANON", "asset://canon1", "sha256:c1"))
+    graph.add_asset(AssetVersion(c2, "program", "CANON", "asset://canon2", "sha256:c2", derived_from=(c1,)))
+    graph.add_asset(AssetVersion(old_keyframe, "shot-1", "KEYFRAME", "asset://oldframe", "sha256:oldframe", derived_from=(c1,)))
+    graph.add_asset(AssetVersion(old_take, "shot-1", "VIDEO", "asset://oldtake", "sha256:oldtake", derived_from=(old_keyframe,)))
+    graph.add_asset(AssetVersion(new_keyframe, "shot-1", "KEYFRAME", "asset://newframe", "sha256:newframe", derived_from=(c2,)))
+    graph.add_asset(AssetVersion(unrelated, "episode-1", "SOURCE", "asset://research", "sha256:r"))
+
+    def promote(ref, ident):
+        graph.add_evidence(EvidenceRecord(f"ev-{ident}", "ASSET", ref.key(), "REVIEW",
+                                          (f"review://{ident}",), "2026-10-23T10:00:00Z"))
+        graph.add_decision(DecisionRecord(f"dec-{ident}", "PROMOTION", "creative_director",
+                                          (ref.key(),), ("criteria://tested",),
+                                          (f"ev-{ident}",), "PROMOTE", "2026-10-23T10:01:00Z"))
+        graph.promote_asset(ref, decision_id=f"dec-{ident}")
+
+    promote(c1, "c1")
+    promote(old_keyframe, "old-frame")
+    promote(old_take, "old-take")
+    promote(unrelated, "research")
+    promote(c2, "c2")
+
+    assert graph.current_promoted("character").ref == c2
+    assert graph.current_promoted("hero-frame") is None
+    assert graph.current_promoted("hero-take") is None
+    assert graph.asset_state(old_keyframe) == "STALE"
+    assert graph.asset_state(old_take) == "STALE"
+    assert graph.asset_state(c2) == "PROMOTED"
+    assert graph.asset_state(new_keyframe) == "CANDIDATE"
+    assert graph.asset_state(unrelated) == "PROMOTED"
+
+
 def test_upstream_change_computes_and_applies_only_downstream_invalidation():
     graph = _base_graph()
     canon = AssetRef("canon", "v1")
