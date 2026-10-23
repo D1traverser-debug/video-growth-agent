@@ -235,10 +235,11 @@ def evaluate_take_promotion(
     if shot.truth_mode in {"EDITORIAL_REAL", "PRODUCT_TRUTH", "MIXED_DISCLOSED"} and not evidence.truth_evidence_refs:
         reasons.append("TRUTH_EVIDENCE_MISSING")
 
+    # A caller may require extra review for low-risk work, but cannot waive
+    # the independently reviewable high-risk/HERO/brand-truth floor.
     needs_independent = (
         shot.risk in {"HIGH", "HERO", "BRAND_TRUTH"}
-        if independent_review_required is None
-        else independent_review_required
+        or bool(independent_review_required)
     )
     if needs_independent and not evidence.independent_review_refs:
         reasons.append("INDEPENDENT_REVIEW_REQUIRED")
