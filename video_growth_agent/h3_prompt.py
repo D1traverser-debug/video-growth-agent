@@ -31,9 +31,15 @@ def render_h3_t2va(
     concept = next(x for x in plan["alternatives"] if x["id"] == plan["selected"])
     fps = brief["fps"]
     start_frame = shots[0]["start_frame"]
+    visual = plan["visual_language"]
     story = (
         f"integrated_multimodal_description: "
-        f"[Shot 1] {concept['premise']}. "
+        f"[Shot 1] Visual style: {visual['style']}. "
+        f"Setting: {visual['world']}. Palette: {visual['palette']}. "
+        f"Materials: {visual['materials']}. "
+        f"Motivated lighting: {visual['lighting']}. "
+        f"Rendering and finishing: {visual['render_finish']}. "
+        f"{concept['premise']}. "
         f"Visual mechanism: {concept['visual_mechanism']}. "
         f"Identity and physical anchors: {'; '.join(plan['identity_anchors'])}. "
     )
@@ -122,10 +128,14 @@ def render_h3_cn_storyboard(
     concept = next(c for c in plan["alternatives"] if c["id"] == plan["selected"])
     first = shots[0]["start_frame"]
     fps = brief["fps"]
+    visual = plan["visual_language"]
     lines = [
         f"作品：《{brief['title']}》。总生成时长{render_seconds}秒；后期有效时长{usable_seconds:.2f}秒，"
         f"最终画幅{brief['aspect_ratio']}，导演剪辑时间基准{fps}fps。",
         f"故事核心：{brief['goal']}。情绪变化：{brief['emotion']}。",
+        f"全片视觉规格：{visual['style']}；场景世界：{visual['world']}；"
+        f"材质：{visual['materials']}；主色系统：{visual['palette']}；"
+        f"灯光规范：{visual['lighting']}；成片质感：{visual['render_finish']}。",
         f"美术与叙事机制：{concept['premise']}；{concept['visual_mechanism']}。",
         "全片一致性： " + "；".join(plan["identity_anchors"]) + "。",
         "逐时段分镜（时间表示该生成片段内的本地时间，不代表模型一定按帧切镜）：",
