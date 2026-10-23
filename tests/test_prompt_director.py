@@ -295,3 +295,30 @@ def test_review_sheet_marks_every_required_scene_as_unreviewed_not_passed():
         assert all(e["source_quote"] in plan["source"]["raw"] for e in shot["required_source_events"])
         observed_ids.update(e["id"] for e in shot["required_source_events"])
     assert observed_ids == {e["id"] for e in plan["required_events"] if e["origin"] == "SOURCE"}
+
+
+def test_global_art_direction_survives_both_h3_dialects_and_pixverse():
+    ribbon = load("prompt_ribbon_10s.json")
+    for dialect in ("chinese", "official"):
+        result = compile_prompts(ribbon, route="onepass", h3_style=dialect)
+        p = result["routes"]["onepass"]["prompts"][0]["prompt"]
+        for content in ribbon["visual_language"].values():
+            assert content in p
+        assert "古风国漫3A游戏CG厚涂" in p
+        assert "唯一高识别度朱红丝带" in p
+    pixverse = copy.deepcopy(ribbon)
+    pixverse["provider"].update(name="PixVerse", model="V6", mode="T2V", native_audio=False)
+    p = compile_prompts(pixverse, route="onepass")["routes"]["onepass"]["prompts"][0]["prompt"]
+    assert "古风国漫3A游戏CG厚涂" in p
+    assert "樱花浅粉" in p
+
+
+def test_missing_visual_language_rejected_instead_of_defaulting_to_cyberpunk():
+    plan = load("prompt_ip_5s.json")
+    del plan["visual_language"]
+    with pytest.raises(PromptPlanError, match="visual_language"):
+        validate_plan(plan)
+    plan = load("prompt_ribbon_10s.json")
+    plan["visual_language"]["materials"] = " "
+    with pytest.raises(PromptPlanError, match="visual_language.materials"):
+        validate_plan(plan)
