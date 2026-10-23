@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from hashlib import sha256
 import json
-from typing import Any
+from typing import Any, Callable
 
 from .prompt_director import validate_plan
 from .roles import RoleRegistry
@@ -210,6 +210,79 @@ def reconcile_craft_round(packet: dict, reviews: list[dict]) -> dict:
         "artifact_promotion": "NOT_AUTHORIZED",
         "learning_promotion": "NOT_AUTHORIZED",
         "reviewer_independence": "NOT_ESTABLISHED",
+    }
+
+
+def run_craft_role_models(
+    packet: dict,
+    model: Callable[[list[dict[str, str]]], str],
+    *,
+    approved_role_calls: int,
+) -> dict:
+    """Run bounded LLM role *simulations* with isolated input packages.
+
+    No reviewer receives another reviewer's verdict. Same-model role prompts
+    are not independent human reviewers; the report never attests that they
+    saw real rendered pixels. Every call may incur external provider charges.
+    """
+    if type(approved_role_calls) is not int or approved_role_calls < len(packet["orders"]):
+        raise CraftReviewError(
+            "role-model execution needs explicit approved_role_calls budget covering all planned reviewers"
+        )
+    responses = []
+    for order in packet["orders"]:
+        role = order["reviewer_role"]
+        messages = [
+            {
+                "role": "system",
+                "content": (
+                    "You are acting in a distinct professional film craft role. "
+                    + order["role_mandate"]
+                    + " Return one JSON object with exactly reviewer_role, "
+                    "source_plan_digest, verdict, artifact_ref, observed_scope, "
+                    "review_method, findings. Report only issues grounded in the "
+                    "given authored plan; do not invent footage, cite peer opinions, "
+                    "claim a human reviewed video or promote studio knowledge."
+                ),
+            },
+            {
+                "role": "user",
+                "content": json.dumps({
+                    "role": role,
+                    "version": order["source_plan_digest"],
+                    "revision": order["revision"],
+                    "focus": order["discipline_focus"],
+                    "veto_conditions": order["veto_conditions"],
+                    "plan": order["review_input"],
+                    "required_review_fields": order["required_review_fields"],
+                    "required_finding_fields": [
+                        "shot_id", "category", "severity", "observation",
+                        "evidence_ref", "change_request",
+                    ],
+                    "scope": "PLAN_ONLY",
+                }, ensure_ascii=False),
+            },
+        ]
+        response = model(messages)
+        try:
+            report = json.loads(response)
+        except (ValueError, TypeError):
+            raise CraftReviewError(f"{role}: model returned non-JSON critique") from None
+        if not isinstance(report, dict):
+            raise CraftReviewError(f"{role}: critique must be JSON object")
+        # Model labels are not human identity or audit attestation.
+        if report.get("reviewer_role") != role:
+            raise CraftReviewError(f"{role}: model attempted role substitution")
+        if report.get("observed_scope") != "PLAN_ONLY":
+            raise CraftReviewError(f"{role}: cannot assert film review from prompt-only input")
+        if report.get("review_method") != "LLM_PLAN_SIMULATION":
+            raise CraftReviewError(f"{role}: review method must state LLM_PLAN_SIMULATION")
+        responses.append(report)
+    return {
+        "submitted_role_reports": responses,
+        "reconciliation": reconcile_craft_round(packet, responses),
+        "model_calls": len(responses),
+        "assurance": "LLM-role simulation, not seven independent film reviewers or actual video quality assurance.",
     }
 
 
