@@ -2,6 +2,12 @@
 
 Executable AI-native media business domain owner under `D1traverser-debug/universal-agent-os@main`, integrating media growth, original digital IP, commercialization and provider-neutral audiovisual production.
 
+## Active in-flight candidate / cross-chat continuation (not yet in main)
+
+For the current **Video prompt craftsmanship, cross-role collaboration and reusable learning** workstream, read the canonical `audits/EVOLUTION_INDEX.json` field `current_resume_ref` and then `audits/PROMPT_CRAFT_PR23_CHECKPOINT_2026-10-24.md` **on draft [PR #23](https://github.com/D1traverser-debug/video-growth-agent/pull/23)**. This records completed code/evidence, user priorities, outstanding quality gates and exact next actions. `main` is still the stable 0.8 production baseline; this candidate has not been merged or validated by actual model-generated film.
+
+In a new chat, check the current PR, commit and CI **first**. Do not resume from an obsolete conversational recollection or claim a green CI for newer, untested changes. This pointer does not replace UAOS/domain routing or the project-local character-IP resume cursor.
+
 ## Current authority
 
 - `UAOS_SKILL.md` — direct Video-domain operating entry.
