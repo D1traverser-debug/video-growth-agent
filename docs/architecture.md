@@ -44,6 +44,10 @@ Core stable objects:
 
 Current 0.8 editorial/operability objects extend this substrate rather than replace it.
 
+## Craft projection: story to directed audiovisual shots
+
+`video_growth_agent/creative_direction.py` offers strict, frame-indexed craft-storyboard validation and prompt compilation. It does **not** replace EditorialPlan, ShotContract, MediaGraph or TimelineSpec. Its `source_plan_ref` is a declared version identity only; exact upstream referent checking and media acceptance must happen in the existing owner processes. Narrative-event coverage here means tagged events were retained in planned shots, not proven visible in rendered media. High-cut-density and sound-post findings are explicit heuristics. Both one-pass and shotwise outputs are candidates until real provider evidence and independent AV review exist.
+
 ## 4. Executable editorial bridge
 
 `editorial_planning.py` owns:
