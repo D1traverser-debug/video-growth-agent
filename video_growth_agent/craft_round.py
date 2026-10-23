@@ -162,8 +162,8 @@ def reconcile_craft_round(packet: dict, reviews: list[dict]) -> dict:
             raise CraftReviewError("invalid reviewer verdict")
         if review["observed_scope"] not in {"PLAN_ONLY", "RENDERED_MEDIA"}:
             raise CraftReviewError("review scope must be explicit")
-        if not isinstance(review["artifact_ref"], str) or not review["artifact_ref"].strip():
-            raise CraftReviewError("review requires immutable artifact evidence ref")
+        if review["artifact_ref"] != packet["source_plan_digest"]:
+            raise CraftReviewError("PLAN_ONLY review artifact_ref must equal the exact immutable plan SHA")
         if review["observed_scope"] == "RENDERED_MEDIA":
             raise CraftReviewError("media quality must be assessed in the existing video review system, not self-attested in a craft plan packet")
         if not isinstance(review["review_method"], str) or not review["review_method"].strip():
@@ -187,8 +187,14 @@ def reconcile_craft_round(packet: dict, reviews: list[dict]) -> dict:
                 shot_ids = {shot["id"] for shot in packet["orders"][0]["review_input"]["shots"]}
                 if finding["shot_id"] not in shot_ids:
                     raise CraftReviewError("finding references unknown shot")
-            if finding["evidence_ref"] == "UNVERIFIED" or finding["evidence_ref"].startswith("TODO"):
-                raise CraftReviewError("finding evidence must be an actual reference")
+            ref = finding["evidence_ref"]
+            # Plan-only claims cite the exact reviewed plan, never claim observed
+            # pixels, external screenshots, or unresolvable generic prose.
+            if finding["shot_id"] == "WHOLE_FILM":
+                if ref != "plan://whole":
+                    raise CraftReviewError("whole-film plan finding needs plan://whole evidence reference")
+            elif not ref.startswith(f"plan://shot/{finding['shot_id']}"):
+                raise CraftReviewError("shot finding evidence must resolve to its exact plan://shot/id")
             findings.append({
                 **finding, "raised_by": role,
                 "assigned_owner": OWNERS[finding["category"]],
