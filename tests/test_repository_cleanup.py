@@ -45,3 +45,16 @@ def test_rejected_character_prompt_replaced_by_active_design_method():
         assert (PROJECT / filename).exists()
     current_skill = (ROOT / "skills/video-growth-agent/references/prompt-direction.md").read_text(encoding="utf-8")
     assert "primary figure silhouette" in current_skill
+
+
+
+def test_retired_resume_checkpoint_does_not_reenter_current_project_authority():
+    obsolete = "audits/VIDEO_0_8_RESUME_CHECKPOINT_2026-10-15.md"
+    index = json.loads((ROOT / "audits/EVOLUTION_INDEX.json").read_text(encoding="utf-8"))
+    assert not (ROOT / obsolete).exists()
+    assert obsolete not in index["historical_evidence_refs"]
+    retired = {item["path"]: item for item in index["retired_documents"]}
+    assert retired[obsolete]["blob_sha"]
+    successor = ROOT / retired[obsolete]["replaced_by"]
+    assert successor.exists()
+    assert "The old" in successor.read_text(encoding="utf-8")
