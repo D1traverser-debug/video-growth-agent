@@ -3,7 +3,7 @@
   "source": {
     "type": "USER_REFERENCE",
     "raw": "女主站立于挂满许愿铜铃的古树旁望向远处，双手轻轻合十，心中默念希望；金色光尘缓缓飘落；红色丝带被大风刮起；女主拍手许愿，许愿带被风吹走；女主轻笑，回眸；红发带恰好落在食指中指之间自然垂落；男主握紧拳，将红发带握紧掌心；男主转身，露出古铜色皮肤和深邃眉眼；男主走向女主，两人对视，男主伸手为女主整理发带；男主与女主并肩而立；出现字幕希望我的缘分早日降临。",
-    "reference": "conversation://quoted-third-party/2026-10-23/30s-red-ribbon-repost"
+    "reference": "conversation://user-quoted-adapted-excerpt/Chenjiu-de-shi/2026-10-23"
   },
   "brief": {
     "title": "红绸赴约十秒版",
@@ -15,7 +15,7 @@
     "aspect_ratio": "16:9",
     "ending": "两人并肩背影立于古桥樱花雨，字幕后期添加",
     "narrative_strategy": "红色丝带是唯一贯穿道具，分镜压缩并使用动作方向匹配",
-    "sound_strategy": "古琴与弦乐，铃声及丝带风噪分轨在后期精准编辑"
+    "sound_strategy": "A soft guqin phrase supported by sustained strings, increasing briefly as the ribbon reaches the man's hand, then resolving on the final two-shot. No sung vocals."
   },
   "alternatives": [
     {
@@ -342,9 +342,9 @@
     }
   ],
   "provider": {
-    "name": "PixVerse",
-    "model": "V6",
-    "mode": "T2V",
-    "native_audio": false
+    "name": "MiniMax",
+    "model": "MiniMax-H3",
+    "mode": "T2VA",
+    "native_audio": true
   }
 }
