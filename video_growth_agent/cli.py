@@ -12,7 +12,7 @@ from .source_director import (
     author_with_model, build_compatible_chat_client, build_director_request,
     prepare_authoring_messages,
 )
-from .media_qa import MediaQAChecker
+from .media_qa import MediaQAChecker, prepare_directed_media_review
 from .models import AssetRecord
 from .runtime import StudioRuntime
 from .system_audit import run_system_audit
@@ -95,6 +95,9 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--study-h3-dialects", action="store_true", help="design an evidence-bound A/B prompt study; no media generation")
     p.add_argument("--plain", action="store_true", help="print copy-ready prompt text, not JSON")
     p.add_argument("--review-sheet", action="store_true", help="emit unscored shot-level evaluation targets for actual rendered video")
+    p.add_argument("--media", type=Path, help="bind a real local take to --review-sheet, without declaring quality")
+    p.add_argument("--frames-dir", type=Path, help="optional extracted review frame samples for --media")
+    p.add_argument("--frame-count", type=int, default=9, help="number of frame samples when --frames-dir is supplied")
 
     p = sub.add_parser("author-director", help="convert complete source script to verified H3 director plan via structured model response")
     p.add_argument("source", type=Path, help="UTF-8 raw screenplay or original brief")
@@ -222,11 +225,22 @@ def main(argv: list[str] | None = None) -> int:
                 plan = json.loads(args.plan.read_text(encoding="utf-8"))
                 _json(h3_dialect_study(plan))
             else:
+                if args.media is not None and not args.review_sheet:
+                    parser.error("--media requires --review-sheet")
+                if args.frames_dir is not None and args.media is None:
+                    parser.error("--frames-dir requires --media and --review-sheet")
                 report = compile_file(args.plan, args.route, h3_style=args.h3_style)
                 if args.review_sheet:
                     if args.plain:
                         parser.error("--plain and --review-sheet are mutually exclusive")
-                    _json(report["review_targets"])
+                    if args.media is None:
+                        _json(report["review_targets"])
+                    else:
+                        plan = json.loads(args.plan.read_text(encoding="utf-8"))
+                        _json(prepare_directed_media_review(
+                            plan, args.media, frames_dir=args.frames_dir,
+                            frame_count=args.frame_count,
+                        ))
                 elif args.plain:
                     if args.route == "compare":
                         parser.error("--plain needs --route onepass or --route shotwise")
@@ -251,7 +265,7 @@ def main(argv: list[str] | None = None) -> int:
                 else:
                     _json(report)
             return 0
-        except (PromptPlanError, OSError, ValueError) as exc:
+        except (PromptPlanError, OSError, ValueError, RuntimeError) as exc:
             parser.exit(2, f"direct-prompts: {exc}\n")
 
     if args.cmd == "system-audit":
