@@ -67,6 +67,11 @@ def render_h3_t2va(
                 score_changes.append(f"{moment}, {detail}.")
             elif category == "SILENCE":
                 story += f"{moment}, an intentional silence: {detail}. "
+            elif category == "VOICE":
+                story += (
+                    f"{moment}, speaker ({cue['speaker']}) delivers {detail}: "
+                    f"<d>[{cue['language']}] {cue['spoken_text']}</d>. "
+                )
             else:
                 # An action synced to a beat must live on that shot's timeline,
                 # not only in the undated environmental sound bed.
@@ -131,6 +136,8 @@ def render_h3_cn_storyboard(
         a, c, l, t = shot["action"], shot["camera"], shot["light"], shot["transition"]
         cues = "；".join(
             f"{(s['at_frame'] - first) / fps:.2f}秒 {s['description']}"
+            + (f"（{s['speaker']}，{s['language']}，台词：{s['spoken_text']}）"
+               if s['category'] == 'VOICE' else "")
             for s in shot["audio"]
         )
         lines.append(
