@@ -125,9 +125,7 @@ def prepare_craft_round(
     }
 
 
-def reconcile_craft_round(
-    packet: dict, reviews: list[dict], *, reviewer_evidence: bool = False
-) -> dict:
+def reconcile_craft_round(packet: dict, reviews: list[dict]) -> dict:
     """Turn actual submitted role critiques into explicit owner handoffs.
 
     This does not modify plan, claim reviewer independence, verify real media,
@@ -156,8 +154,8 @@ def reconcile_craft_round(
             raise CraftReviewError("review scope must be explicit")
         if not isinstance(review["artifact_ref"], str) or not review["artifact_ref"].strip():
             raise CraftReviewError("review requires immutable artifact evidence ref")
-        if review["observed_scope"] == "RENDERED_MEDIA" and not reviewer_evidence:
-            raise CraftReviewError("actual media review needs independently verified video evidence")
+        if review["observed_scope"] == "RENDERED_MEDIA":
+            raise CraftReviewError("media quality must be assessed in the existing video review system, not self-attested in a craft plan packet")
         if not isinstance(review["review_method"], str) or not review["review_method"].strip():
             raise CraftReviewError("review method is required")
         if not isinstance(review["findings"], list):
