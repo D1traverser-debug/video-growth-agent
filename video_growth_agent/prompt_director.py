@@ -73,7 +73,7 @@ def validate_plan(plan: dict) -> dict:
 
     NOT a semantic theorem and NOT a claim that rendered audio/video has passed QA.
     """
-    _obj(plan, {"version", "source", "brief", "alternatives", "selected",
+    _obj(plan, {"version", "source", "brief", "visual_language", "alternatives", "selected",
                 "required_events", "identity_anchors", "shots", "provider"}, "plan")
     if plan["version"] != 1:
         raise PromptPlanError("unsupported plan version")
@@ -90,6 +90,11 @@ def validate_plan(plan: dict) -> dict:
     for key in ("title", "goal", "emotion", "audience", "aspect_ratio",
                 "ending", "narrative_strategy", "sound_strategy"):
         _str(brief[key], f"brief.{key}")
+    visual = _obj(plan["visual_language"], {
+        "style", "world", "palette", "materials", "lighting", "render_finish"
+    }, "visual_language")
+    for key, value in visual.items():
+        _str(value, f"visual_language.{key}")
     fps, total = brief["fps"], brief["total_frames"]
     if type(fps) is not int or type(total) is not int or not 1 <= fps <= 120 or total <= 0:
         raise PromptPlanError("fps and total_frames must be positive integer frame units")
@@ -259,8 +264,12 @@ def compile_prompts(plan: dict, route: str = "compare", h3_style: str = "chinese
     brief, shots = plan["brief"], plan["shots"]
     fps = brief["fps"]
     concept = next(c for c in plan["alternatives"] if c["id"] == plan["selected"])
+    visual = plan["visual_language"]
     header = (
-        f"{brief['title']}. Core intent: {brief['goal']}. Intended emotional change: {brief['emotion']}. "
+        f"{brief['title']}. Visual style: {visual['style']}. World: {visual['world']}. "
+        f"Materials: {visual['materials']}. Palette: {visual['palette']}. "
+        f"Lighting grammar: {visual['lighting']}. Finish: {visual['render_finish']}. "
+        f"Core intent: {brief['goal']}. Intended emotional change: {brief['emotion']}. "
         f"Chosen visual mechanism: {concept['visual_mechanism']}. Story method: {brief['narrative_strategy']}. "
         f"Stable identity and props: {'; '.join(plan['identity_anchors'])}. "
     )
