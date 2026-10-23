@@ -106,7 +106,7 @@ def test_model_authoring_handoff_works_and_never_claims_rendered_media():
     result = author_with_model(packet, fake_model)
     assert len(calls) == 1
     assert calls[0][0]["role"] == "system"
-    assert json.loads(calls[0][1]["content"].split("COMPLETE_SOURCE_AND_OUTPUT_CONTRACT:\\n", 1)[1])["source_contract"]["raw"] == source
+    assert json.loads(calls[0][1]["content"].split("COMPLETE_SOURCE_AND_OUTPUT_CONTRACT:\n", 1)[1])["source_contract"]["raw"] == source
     assert result["source_audit"]["unanchored_units"] == []
     assert result["compiled"]["routes"]["onepass"]["status"] == "COMPILED"
     assert result["compiled"]["visual_winner"] is None
