@@ -83,3 +83,63 @@ def render_h3_t2va(
         + "\n\nnon_diegetic_music: "
         + (music if music.strip() else "N/A")
     )
+
+
+
+def render_h3_cn_storyboard(
+    *,
+    plan: dict,
+    shots: list[dict],
+    render_seconds: int,
+    usable_seconds: float,
+    continuation: bool,
+) -> str:
+    """Preserve the user's successful Chinese timecoded full-storyboard idiom.
+
+    This deliberately competes with, rather than claiming to be identical to,
+    the vendor-native three-field guide. Its source is owner reported quality.
+    """
+    brief = plan["brief"]
+    concept = next(c for c in plan["alternatives"] if c["id"] == plan["selected"])
+    first = shots[0]["start_frame"]
+    fps = brief["fps"]
+    lines = [
+        f"作品：《{brief['title']}》。总生成时长{render_seconds}秒；后期有效时长{usable_seconds:.2f}秒，"
+        f"最终画幅{brief['aspect_ratio']}，导演剪辑时间基准{fps}fps。",
+        f"故事核心：{brief['goal']}。情绪变化：{brief['emotion']}。",
+        f"美术与叙事机制：{concept['premise']}；{concept['visual_mechanism']}。",
+        "全片一致性： " + "；".join(plan["identity_anchors"]) + "。",
+        "逐时段分镜（时间表示该生成片段内的本地时间，不代表模型一定按帧切镜）：",
+    ]
+    for i, shot in enumerate(shots, 1):
+        start = (shot["start_frame"] - first) / fps
+        stop = (shot["end_frame"] - first) / fps
+        a, c, l, t = shot["action"], shot["camera"], shot["light"], shot["transition"]
+        cues = "；".join(
+            f"{(s['at_frame'] - first) / fps:.2f}秒 {s['description']}"
+            for s in shot["audio"]
+        )
+        lines.append(
+            f"{start:.2f}–{stop:.2f}秒，分镜{i}：{shot['scene']}。"
+            f"画面构图：{shot['composition']}。起始状态：{a['start']}；"
+            f"触发动作：{a['trigger']}；动作结果：{a['finish']}。"
+            f"摄影：{c['lens']}，{c['framing']}，主运镜{c['move']}；"
+            f"运镜目的：{c['motivation']}。"
+            f"光照：{l['source']}，方向{l['direction']}，呈现{l['effect']}。"
+            f"转场：{t['kind']}，通过{t['bridge']}，用以{t['purpose']}。"
+            f"连续性：{shot['continuity']}。"
+            f"声音事件：{cues or '后期制作'}。"
+        )
+    if render_seconds - usable_seconds > 0.001:
+        lines.append(
+            f"动作必须在{usable_seconds:.2f}秒之前完成；后续画面稳定保持至"
+            f"{render_seconds}秒，后期只保留开头{usable_seconds:.2f}秒。"
+        )
+    if not continuation:
+        lines.append(f"结尾画面：{brief['ending']}。")
+    lines.append(
+        f"音乐与声音：{brief['sound_strategy']}。"
+        "禁止人物变脸、手部错乱、道具断裂瞬移或无因果的随机闪白；"
+        "所有镜头服务故事，避免新增没有分镜依据的角色与场景。"
+    )
+    return "\n".join(lines)
