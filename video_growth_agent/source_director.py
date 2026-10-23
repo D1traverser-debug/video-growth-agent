@@ -242,7 +242,7 @@ def audit_authored_plan(packet: dict[str, Any], plan: dict[str, Any]) -> dict[st
 def accept_authoring_response(
     packet: dict[str, Any], model_response: str,
     *, prompt_route: str = "onepass",
-    h3_style: str = "chinese",
+    h3_style: str = "auto",
 ) -> dict[str, Any]:
     """Treat model response as untrusted JSON; validate before prompt export."""
     if not isinstance(model_response, str):
@@ -258,8 +258,14 @@ def accept_authoring_response(
             + ", ".join(audit["unanchored_units"])
         )
     compiled = compile_prompts(plan, route=prompt_route, h3_style=h3_style)
-    routes = compiled["routes"]
-    if not any(v["status"] == "COMPILED" for v in routes.values()):
+    if "prompt_candidates" in compiled:
+        eligible = [
+            record for routes in compiled["prompt_candidates"].values()
+            for record in routes.values()
+        ]
+    else:
+        eligible = list(compiled["routes"].values())
+    if not any(record["status"] == "COMPILED" for record in eligible):
         raise PromptPlanError("model returned a structurally valid but unrenderable prompt plan")
     return {"plan": plan, "source_audit": audit, "compiled": compiled}
 
@@ -320,7 +326,7 @@ def author_with_model(
     packet: dict[str, Any],
     model: Callable[[list[dict[str, str]]], str],
     *, prompt_route: str = "onepass",
-    h3_style: str = "chinese",
+    h3_style: str = "auto",
     max_revisions: int = 0,
 ) -> dict[str, Any]:
     """Call a real model through an injected client and repair invalid drafts.
