@@ -130,8 +130,8 @@ def test_h3_native_sound_sections_do_not_invent_dialogue():
     for item in report["routes"]["shotwise"]["prompts"]:
         prompt = item["prompt"]
         assert prompt.startswith("integrated_multimodal_description: [Shot 1]")
-        assert "\\n\\noverall_soundscape: " in prompt
-        assert "\\n\\nnon_diegetic_music: " in prompt
+        assert "\n\noverall_soundscape: " in prompt
+        assert "\n\nnon_diegetic_music: " in prompt
         assert "<d>" not in prompt
         assert item["model_render_seconds"] >= 4
 
