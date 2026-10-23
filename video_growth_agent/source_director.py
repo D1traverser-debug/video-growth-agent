@@ -233,6 +233,58 @@ def accept_authoring_response(
     return {"plan": plan, "source_audit": audit, "compiled": compiled}
 
 
+def build_compatible_chat_client(
+    *, endpoint: str, model_name: str, api_key: str, approved: bool,
+    timeout_seconds: int = 120,
+) -> Callable[[list[dict[str, str]]], str]:
+    """Opt-in remote text model; compatible chat-completions protocol only.
+
+    The caller must explicitly approve external transmission of source text
+    and any provider cost. Credentials are not persisted or printed.
+    """
+    from urllib.parse import urlparse
+    from urllib.request import Request, urlopen
+
+    parsed = urlparse(endpoint)
+    if parsed.scheme != "https" or not parsed.netloc or parsed.username or parsed.password or parsed.fragment:
+        raise PromptPlanError("remote text model endpoint must be a public HTTPS URL without userinfo/fragment")
+    if not isinstance(model_name, str) or not model_name.strip():
+        raise PromptPlanError("text model name required")
+    if not api_key or not api_key.strip():
+        raise PromptPlanError("text model API credential is missing")
+    if not approved:
+        raise PromptPlanError("remote text-model calls require explicit operator approval of upload/cost")
+    if not isinstance(timeout_seconds, int) or not 1 <= timeout_seconds <= 300:
+        raise PromptPlanError("timeout must be between 1 and 300 seconds")
+
+    def complete(messages: list[dict[str, str]]) -> str:
+        payload = json.dumps({
+            "model": model_name,
+            "messages": messages,
+            "temperature": 0.25,
+            "response_format": {"type": "json_object"},
+        }, ensure_ascii=False).encode("utf-8")
+        request = Request(endpoint, data=payload, headers={
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + api_key,
+        }, method="POST")
+        try:
+            with urlopen(request, timeout=timeout_seconds) as response:
+                result = json.loads(response.read(8 * 1024 * 1024).decode("utf-8"))
+        except Exception as exc:
+            # Sanitized: never serialize urllib exceptions that could contain
+            # user-authored source, full prompt, raw response or API secret.
+            raise PromptPlanError("remote text-model request failed; provider request was not accepted") from None
+        try:
+            content = result["choices"][0]["message"]["content"]
+            if not isinstance(content, str) or not content.strip():
+                raise ValueError("empty response")
+            return content
+        except (KeyError, IndexError, TypeError, ValueError):
+            raise PromptPlanError("text model response missing nonempty choices[0].message.content") from None
+    return complete
+
+
 def author_with_model(
     packet: dict[str, Any],
     model: Callable[[list[dict[str, str]]], str],
