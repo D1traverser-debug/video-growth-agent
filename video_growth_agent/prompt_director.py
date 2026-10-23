@@ -10,7 +10,7 @@ import math
 from pathlib import Path
 from typing import Any
 
-from .h3_prompt import render_h3_t2va
+from .h3_prompt import render_h3_cn_storyboard, render_h3_t2va
 
 H3 = {
     "provider": "MiniMax",
@@ -229,7 +229,9 @@ def _render_length(seconds: float, provider: dict) -> int:
     return requested
 
 
-def compile_prompts(plan: dict, route: str = "compare") -> dict:
+def compile_prompts(plan: dict, route: str = "compare", h3_style: str = "chinese") -> dict:
+    if h3_style not in {"chinese", "official"}:
+        raise PromptPlanError("h3_style must be chinese or official")
     validated = validate_plan(plan)
     if route not in ROUTES:
         raise PromptPlanError("route must be onepass, shotwise, or compare")
@@ -251,14 +253,15 @@ def compile_prompts(plan: dict, route: str = "compare") -> dict:
                 duration = sum(s["end_frame"] - s["start_frame"] for s in group) / fps
                 render_seconds = _render_length(duration, plan["provider"])
                 is_h3 = plan["provider"]["name"] == "MiniMax"
-                prompt = (
-                    render_h3_t2va(
+                if is_h3:
+                    renderer = render_h3_cn_storyboard if h3_style == "chinese" else render_h3_t2va
+                    prompt = renderer(
                         plan=plan, shots=group, render_seconds=render_seconds,
                         usable_seconds=duration,
                         continuation=(group[-1]["id"] != shots[-1]["id"]),
                     )
-                    if is_h3 else header + " ".join(_shot_text(s, fps) for s in group) + " " + ending
-                )
+                else:
+                    prompt = header + " ".join(_shot_text(s, fps) for s in group) + " " + ending
                 max_chars = H3["max_prompt_characters"] if is_h3 else PIXVERSE_V6["max_prompt_characters"]
                 if len(prompt) > max_chars:
                     raise PromptPlanError(f"prompt exceeds conservative {max_chars}-character profile bound")
@@ -287,12 +290,12 @@ def compile_prompts(plan: dict, route: str = "compare") -> dict:
         except PromptPlanError as exc:
             output[option] = {"status": "BLOCKED", "reason": str(exc)}
     return {
-        "selected_concept": plan["selected"], "static_validation": validated,
+        "selected_concept": plan["selected"], "h3_prompt_dialect": h3_style if plan["provider"]["name"] == "MiniMax" else None, "static_validation": validated,
         "provider_profile": H3 if plan["provider"]["name"] == "MiniMax" else PIXVERSE_V6, "routes": output,
         "visual_winner": None,
         "reason": "No actual media, blind viewers or comparable render-cost observations were supplied.",
     }
 
 
-def compile_file(path: str | Path, route: str = "compare") -> dict:
-    return compile_prompts(json.loads(Path(path).read_text(encoding="utf-8")), route)
+def compile_file(path: str | Path, route: str = "compare", h3_style: str = "chinese") -> dict:
+    return compile_prompts(json.loads(Path(path).read_text(encoding="utf-8")), route, h3_style)
