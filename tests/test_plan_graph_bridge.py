@@ -158,3 +158,44 @@ def test_directed_take_cli_registers_in_existing_graph_and_refuses_overwrite(tmp
     assert missing_context.returncode == 2
     assert "existing sequence/shot context" in missing_context.stderr
     assert store.path.read_bytes() == before
+
+def test_director_take_graph_contract_without_external_media_tools(monkeypatch, tmp_path):
+    """Fast graph-only contract; fake inspection is NOT media QA or a viewed clip."""
+    import hashlib
+    import json
+    from pathlib import Path
+    from video_growth_agent.media_graph import AssetRef
+    from video_growth_agent.plan_graph_bridge import register_directed_take_observation
+
+    plan = json.loads((Path(__file__).parent / "fixtures" / "prompt_ip_5s.json").read_text(encoding="utf-8"))
+    plan_file = tmp_path / "plan.json"
+    plan_file.write_text(json.dumps(plan, ensure_ascii=False), encoding="utf-8")
+    digest = hashlib.sha256(
+        json.dumps(plan, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    packet = {
+        "source_plan_sha256": digest,
+        "media_asset_ref": {
+            "uri": "synthetic://no-actual-video-tested", "sha256": "synthetic-unit-test-bytes",
+            "byte_count": 99,
+        },
+        "technical_media_qa": {"hard_pass": False},
+        "timeline_alignment": "DURATION_UNAVAILABLE",
+        "assessment": "NOT_STARTED__REAL_MEDIA_BOUND",
+    }
+    def fake_inspection(actual_plan, media):
+        assert actual_plan == plan and media == "synthetic://no-real-take"
+        return packet
+    monkeypatch.setattr("video_growth_agent.media_qa.prepare_directed_media_review", fake_inspection)
+    graph = _directed_graph()
+    take_ref, observed = register_directed_take_observation(
+        graph, plan=plan, plan_uri=str(plan_file), media="synthetic://no-real-take",
+        context_id="SQ1", director_plan_id="plan:S", plan_version="v1",
+        take_id="take:S", take_version="v1",
+    )
+    assert observed == packet
+    assert graph.assets[take_ref].derived_from == (AssetRef("plan:S", "v1"),)
+    assert graph.assets[take_ref].state == "CANDIDATE"
+    assert graph.assets[take_ref].metadata["technical_hard_pass"] is False
+    assert graph.evidence["media-inspection:" + take_ref.key()].metadata["quality_outcome"] == "NOT_REVIEWED"
+    assert graph.promoted_versions == {} and graph.decisions == {}
