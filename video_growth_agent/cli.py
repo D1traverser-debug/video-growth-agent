@@ -206,11 +206,11 @@ def main(argv: list[str] | None = None) -> int:
                        "note": "Model was NOT called. Send model_messages to an authoring LLM; import bare JSON with --model-output."})
                 return 0
             if args.out_plan:
-                args.out_plan.write_text(json.dumps(result["plan"], ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+                args.out_plan.write_text(json.dumps(result["plan"], ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             _json(result)
             return 0
         except (DirectorSourceError, OSError, ValueError) as exc:
-            parser.exit(2, f"author-director: {exc}\\n")
+            parser.exit(2, f"author-director: {exc}\n")
 
     if args.cmd == "direct-prompts":
         try:
