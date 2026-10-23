@@ -187,3 +187,34 @@ def test_invalidated_take_cannot_be_promoted_even_with_later_positive_decision()
         graph.promote_asset(take, decision_id="accept-stale")
     assert graph.current_promoted("take") is None
     assert graph.asset_state(take) == "STALE"
+
+def test_promotion_rejects_transitive_obsolete_plan_even_without_stale_propagation():
+    """The promote gate must not depend on every caller invalidating descendants first."""
+    graph = _base_graph()
+    old = AssetRef("director-plan", "p1")
+    new = AssetRef("director-plan", "p2")
+    frame = AssetRef("planned-frame", "f1")
+    take = AssetRef("rendered-take", "t1")
+    graph.add_asset(AssetVersion(old, "episode-1", "DIRECTOR_PLAN", "plan://p1", "sha256:p1"))
+    graph.add_asset(AssetVersion(new, "episode-1", "DIRECTOR_PLAN", "plan://p2", "sha256:p2"))
+    graph.add_asset(AssetVersion(frame, "shot-1", "IMAGE", "frame://f1", "sha256:f1", derived_from=(old,)))
+    graph.add_asset(AssetVersion(take, "shot-1", "VIDEO_TAKE", "take://t1", "sha256:t1", derived_from=(frame,)))
+
+    for ref in (old, new, take):
+        evidence_id = "review:" + ref.key()
+        decision_id = "promote:" + ref.key()
+        graph.add_evidence(EvidenceRecord(
+            evidence_id, "ASSET", ref.key(), "REVIEW", ("review://test-" + ref.key(),),
+            "2026-10-24T02:00:00Z",
+        ))
+        graph.add_decision(DecisionRecord(
+            decision_id, "ASSET_PROMOTION", "editor", (ref.key(),),
+            ("criteria://test",), (evidence_id,), "PROMOTE", "2026-10-24T02:01:00Z",
+        ))
+    graph.promote_asset(old, decision_id="promote:" + old.key())
+    graph.promote_asset(new, decision_id="promote:" + new.key())
+    assert graph.asset_state(old) == "STALE"
+    assert graph.asset_state(take) == "CANDIDATE"  # no invalidate_downstream call
+    with pytest.raises(MediaGraphError, match="upstream"):
+        graph.promote_asset(take, decision_id="promote:" + take.key())
+    assert graph.current_promoted("rendered-take") is None
