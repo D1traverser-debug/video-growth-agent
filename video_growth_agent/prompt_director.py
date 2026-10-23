@@ -1,7 +1,7 @@
 """Evidence-aware prompt direction, not a second production controller.
 
-No model is called here. The module validates an authored microfilm plan and
-compiles honest PixVerse V6 prompt candidates for external evaluation.
+No model is called here. The module validates authored short-film plans and
+compiles MiniMax H3-first prompts or an explicitly selected PixVerse baseline.
 """
 from __future__ import annotations
 
@@ -106,9 +106,13 @@ def validate_plan(plan: dict) -> dict:
         if item["id"] in seen:
             raise PromptPlanError("duplicate concept")
         seen.add(item["id"])
+    if len({str(a["visual_mechanism"]).strip().casefold() for a in alternatives}) != len(alternatives):
+        raise PromptPlanError("creative alternatives repeat the same visual mechanism")
     chosen = _str(plan["selected"], "selected")
     if chosen not in seen:
         raise PromptPlanError("selected concept not found")
+    if not any(a["id"] != chosen for a in alternatives):
+        raise PromptPlanError("missing a rejected creative treatment")
 
     event_ids: set[str] = set()
     mandatory: set[str] = set()
@@ -203,7 +207,8 @@ def validate_plan(plan: dict) -> dict:
             "source_event_count": len(mandatory),
             "shot_count": len(shots), "duration_seconds": total / fps,
             "sound_cues": sound_cues,
-            "complete_source_verified": source["completeness"] == "FULL",
+            "source_scope_claim": source["completeness"],
+            "whole_original_verified": False,
             "assurance": "Covers only the supplied raw source spans; EXCERPT input cannot prove full original story retention. No film semantic/quality verdict."}
 
 
