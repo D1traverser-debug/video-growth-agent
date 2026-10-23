@@ -71,3 +71,9 @@ Line inspection of `video_growth_agent/media_graph.py` exposed a concrete causal
 **Repair candidate in PR #22:** replacement promotion automatically stales old-version consumers, removes their promoted pointers, and blocks re-promotion of STALE versions. The traversal does not invalidate the newly approved replacement even when its provenance explicitly derives from the superseded version. A `test_media_graph` counterexample tests both causal descendant invalidation and legitimate new-lineage preservation; stale re-promotion must fail closed.
 
 This is a genuinely identified runtime failure mode, unlike restating a quality gate. It still requires complete CI regression confirmation on the latest PR head and does not demonstrate that all other MediaGraph paths are correct.
+
+## 9. Restored-state integrity counterexamples
+
+Further inspection of `MediaGraph.from_dict` found that raw `promoted_versions` and `asset_state_overrides` were assigned from serialized input without validating referential integrity, asset state, or the decision chain. A forged pointer could become current or raise a late `KeyError`; a corrupted state could reintroduce stale content. Proposed repair validates state enums, existing refs, the single current pointer, the PROMOTED state and an underlying promotive decision, and rejects orphan promotion overrides. The regression test mutates each field independently and checks failure at load time.
+
+Proof scope: bounded integrity of persistence restoration on tested mutation classes, not semantic proof of every deserialization case.
