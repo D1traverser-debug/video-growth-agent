@@ -82,7 +82,7 @@ def main(argv: list[str] | None = None) -> int:
 
     p = sub.add_parser("storyboard", help="validate a frame-accurate creative brief and compile generation prompts")
     p.add_argument("spec", type=Path)
-    p.add_argument("--route", choices=["onepass", "shotwise"], default="shotwise")
+    p.add_argument("--route", choices=["onepass", "shotwise", "compare"], default="shotwise")
 
     p = sub.add_parser("system-audit")
     p.add_argument("--repo-root", type=Path)
