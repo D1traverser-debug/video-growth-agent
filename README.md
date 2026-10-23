@@ -19,6 +19,17 @@ Executable AI-native media business domain owner under `D1traverser-debug/univer
 
 There is no active repository-local parent task index, lease/resume protocol or second cross-chat controller. UAOS router identity remains distinct from all Video business identities.
 
+## Evidence-based creative direction (experimental addition)
+
+The production core now exposes a concrete, non-authoritative **craft storyboard** for creative direction, shot/camera/light/action/transition/sound prompts, exact frame accounting and explicit narrative-event compression coverage. It is an executable projection from an editorial-plan *reference*, not evidence that the referenced plan has been fetched or that generated pixels match the prompt.
+
+```bash
+vga storyboard tests/fixtures/creative_ip_5s.json --route onepass
+vga storyboard tests/fixtures/creative_ribbon_10s.json --route shotwise
+```
+
+The two route outputs are comparable structurally; no visual-model quality winner is claimed until real output, spend and frame-indexed independent review are recorded. Follow `skills/video-growth-agent/references/craft-direction.md`. Test scenarios deliberately separate a 5s Shiba creator-IP sequence from a 10s event-dense romantic montage. Output is prompt assembly, **not generated video**.
+
 ## Runtime 0.8.0 candidate
 
 Video 0.8 makes the media-business system operable from natural-language/editorial intent through production and learning rather than starting mechanically at the Shot layer.
