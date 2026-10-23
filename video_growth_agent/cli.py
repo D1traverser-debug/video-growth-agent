@@ -83,6 +83,7 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("direct-prompts", help="validate source-traced film plan and compile PixVerse prompts")
     p.add_argument("plan", type=Path)
     p.add_argument("--route", choices=["compare", "onepass", "shotwise"], default="compare")
+    p.add_argument("--h3-style", choices=["chinese", "official"], default="chinese")
 
     p = sub.add_parser("system-audit")
     p.add_argument("--repo-root", type=Path)
@@ -91,7 +92,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.cmd == "direct-prompts":
         try:
-            _json(compile_file(args.plan, args.route))
+            _json(compile_file(args.plan, args.route, h3_style=args.h3_style))
             return 0
         except (PromptPlanError, OSError, ValueError) as exc:
             parser.exit(2, f"direct-prompts: {exc}\n")
