@@ -117,6 +117,17 @@ def test_never_confuses_sound_intent_with_generated_audio():
     assert not result["narrative_coverage"].get("generated_visuals_verified", False)
 
 
+def test_approach_comparison_abstains_without_render_evidence():
+    for fixture in ("creative_ip_5s.json", "creative_ribbon_10s.json"):
+        comparison = compile_from_file(FIXTURES / fixture, route="compare")
+        assert comparison["visual_quality_winner"] is None
+        assert comparison["candidates"]["shotwise"]["status"] == "COMPILED"
+        shotwise = comparison["candidates"]["shotwise"]
+        assert shotwise["total_generated_seconds"] >= shotwise["total_edit_seconds"]
+        assert comparison["planned_event_count"] == len(load(fixture)["required_story_events"])
+        assert "onepass" in comparison["candidates"]
+
+
 def test_cli_exposes_real_compilation_and_structural_errors(tmp_path):
     command = [sys.executable, "-m", "video_growth_agent.cli", "storyboard",
                str(FIXTURES / "creative_ip_5s.json"), "--route", "shotwise"]
