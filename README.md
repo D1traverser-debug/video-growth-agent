@@ -40,6 +40,21 @@ vga author-director tests/fixtures/ribbon_original_30s.txt --seconds 10 --execut
 
 Complete 30-second source has 24 time-marked units including original overlapping clock intervals. A separate untimed original idea is handled as sentence-span units. The checksum/source identity and per-unit lexical event maps are verified; whether each event is *understandable to an actual viewer in 10 seconds* remains unverified until generated footage is reviewed. External model calls are opt-in, can incur cost, and permit zero retries by default.
 
+## Cross-discipline craft iteration (uses existing roles and learning library)
+
+There is no new video controller. The seven relevant roles already defined in the Video RoleRegistry (writer, director, storyboard artist, art director, editor, sound director, red team) can receive independent plan-review packets for substantial full-film work. Simple short prompts can skip this full-team overhead.
+
+```bash
+vga craft-round tests/fixtures/prompt_ribbon_fullsource_10s.json
+vga craft-round tests/fixtures/prompt_ribbon_fullsource_10s.json --reviews submitted-reviews.json
+vga craft-round revised-plan.json --previous old-plan.json --revision 2
+vga techniques --tag review --include-candidates
+```
+
+The command **prepares** review requests but does not execute seven LLMs or attest seven humans reviewed a film. Reconciliation takes externally submitted role critiques, rejects wrong plan versions, forwards findings to the existing discipline owners and requires a new plan hash for edits. Actual media QA remains with existing MediaQA/reviewer attestation. Candidate techniques T-015/016/017 are additions to the **existing** TechniqueLibrary and are not production validated.
+
+Research notes at `skills/video-growth-agent/references/craft-source-studies.md` examine nine first-party producer/editor/model/reliability sources with use cases, non-transferable defaults and falsifiable prototypes. See `self-learning.md` for the existing adoption authority. Reading a Skill does not mean its entire workflow should be copied, or that a provider's specific aesthetic becomes this studio's rule.
+
 ## Focused prompt director (isolated candidate)
 
 For a short AI film **prompt task**, use the original brief and run `vga direct-prompts` before invoking unrelated release/business process modules:
