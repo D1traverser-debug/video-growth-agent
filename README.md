@@ -19,6 +19,27 @@ Executable AI-native media business domain owner under `D1traverser-debug/univer
 
 There is no active repository-local parent task index, lease/resume protocol or second cross-chat controller. UAOS router identity remains distinct from all Video business identities.
 
+## Raw screenplay → H3 director flow
+
+The director no longer requires the operator to invent a complete storyboard JSON before using the system.
+
+```bash
+# Generate a source-locked authoring task and all original clock/prose units; no provider call.
+vga author-director tests/fixtures/ribbon_original_30s.txt --seconds 10 --source-ref user-quoted://full-30-second-ribbon-storyboard-2026-10-23
+
+# Validate an actual model-produced director-plan JSON against the *exact* source
+# and compile H3 Chinese prompts; fail on omitted source units, false quotes,
+# contradictory timing, or dialogue/soundtrack policy violations.
+vga author-director tests/fixtures/ribbon_original_30s.txt --seconds 10 --source-ref user-quoted://full-30-second-ribbon-storyboard-2026-10-23 --model-output tests/fixtures/prompt_ribbon_fullsource_10s.json
+
+# Optional LIVE text-authoring-model invocation (NOT the H3 video model).
+# Send the source to the configured provider ONLY with explicit API/spend approval.
+# Set VIDEO_DIRECTOR_API_KEY in environment; do not put secrets in commands.
+vga author-director tests/fixtures/ribbon_original_30s.txt --seconds 10 --execute-model --endpoint https://YOUR-PROVIDER/v1/chat/completions --model-name YOUR-TEXT-MODEL --approve-upload-cost --out-plan director.json
+```
+
+Complete 30-second source has 24 time-marked units including original overlapping clock intervals. A separate untimed original idea is handled as sentence-span units. The checksum/source identity and per-unit lexical event maps are verified; whether each event is *understandable to an actual viewer in 10 seconds* remains unverified until generated footage is reviewed. External model calls are opt-in, can incur cost, and permit zero retries by default.
+
 ## Focused prompt director (isolated candidate)
 
 For a short AI film **prompt task**, use the original brief and run `vga direct-prompts` before invoking unrelated release/business process modules:
