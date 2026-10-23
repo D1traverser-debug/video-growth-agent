@@ -10,7 +10,7 @@ import pytest
 
 from video_growth_agent.craft_round import (
     CraftReviewError, REVIEWERS, next_revision_diff,
-    prepare_craft_round, reconcile_craft_round, run_craft_role_models,
+    prepare_craft_round, reconcile_craft_round, run_craft_role_models, check_revision_against_handoffs,
 )
 from video_growth_agent.prompt_director import PromptPlanError
 from video_growth_agent.techniques import TechniqueLibrary
@@ -252,3 +252,48 @@ def test_cli_forbids_paid_role_calls_without_explicit_budget_and_approval():
     res = subprocess.run(cmd, capture_output=True, text=True)
     assert res.returncode != 0
     assert "max-role-calls 7" in res.stderr
+
+
+
+def test_revision_handoff_rejects_unaddressed_shot_and_requires_re_review():
+    original = load()
+    packet = prepare_craft_round(original)
+    reviews = reviews_for(packet)
+    for reviewer, problem in [("editor", complaint(shot="R3", category="EDIT")),
+                              ("sound_director", complaint(shot="R4", category="SOUND"))]:
+        selected = next(r for r in reviews if r["reviewer_role"] == reviewer)
+        selected["verdict"] = "REVISE_PLAN"
+        selected["findings"] = [problem]
+    round_report = reconcile_craft_round(packet, reviews)
+    revised = copy.deepcopy(original)
+    revised["shots"][2]["transition"]["bridge"] += " physical-action cut preserved"
+    delta = check_revision_against_handoffs(original, revised, round_report)
+    assert delta["untouched_issue_count"] == 1
+    state = {x["original_shot_id"]: x["repair_status"] for x in delta["issues"]}
+    assert state["R3"] == "CHANGED_NEEDS_REVIEW"
+    assert state["R4"] == "UNCHANGED_ISSUE_OPEN"
+    assert delta["quality_improvement_established"] is False
+    bogus = dict(round_report, plan_digest="sha256:other")
+    with pytest.raises(CraftReviewError, match="previous plan digest"):
+        check_revision_against_handoffs(original, revised, bogus)
+
+
+def test_primary_method_sources_referenced_by_candidates_exist_with_anchors():
+    root = Path(__file__).resolve().parents[1]
+    for method in ("T-015", "T-016", "T-017"):
+        for ref in TechniqueLibrary().get(method).evidence_refs:
+            path, _, anchor = ref.partition("#")
+            assert path and anchor
+            notes = (root / path).read_text(encoding="utf-8")
+            assert 'id="' + anchor + '"' in notes
+
+
+def test_finding_reference_must_match_actual_shot_and_known_field():
+    packet = prepare_craft_round(load())
+    reviews = reviews_for(packet)
+    reviews[0]["verdict"] = "REVISE_PLAN"
+    wrong = complaint()
+    wrong["evidence_ref"] = "plan://shot/R3invented"
+    reviews[0]["findings"] = [wrong]
+    with pytest.raises(CraftReviewError, match="exact recognized plan field"):
+        reconcile_craft_round(packet, reviews)
