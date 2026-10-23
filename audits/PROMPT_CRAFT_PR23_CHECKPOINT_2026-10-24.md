@@ -112,6 +112,22 @@ CLI writes using existing `MediaGraphStore`, outputs the prepared review packet 
 
 **Next autonomously executable direction**: first inspect latest CI on current head and correct any failures, then reuse existing reviewer execution attestation and `TakeRecord` to bind authentic playback/verdict evidence; only actual authorized rendered footage may close semantic, visual and audio goals. Avoid inventing another QA lifecycle.
 
+## Verified continuation — graph-backed Take intake and transitive freshness (2026-10-24)
+
+**Current verified code head, prior to checkpoint bookkeeping**: `de5e94bb7b1f916ad7e282f12c401a7dde6e33e0`, PR #23 Draft and unmerged. Actual [Actions run #39993554389](https://github.com/D1traverser-debug/video-growth-agent/actions/runs/39993554389) completed `success` on **that exact SHA** (UTC 2026-10-23 17:16:07): `prompt-contract 76 passed, 2 skipped` (skips are FFmpeg-real-media tests unavailable in the fast job), `test 265 passed`, system audit PASS, and packaged CLI smoke PASS. These are code/contract tests, not observed video quality or model effectiveness.
+
+**Implemented since previous checkpoint**:
+- `register_directed_take_observation` in existing `video_growth_agent/plan_graph_bridge.py` and CLI `vga register-directed-take` store a real locally inspected video candidate in the existing `MediaGraph` with `DIRECTOR_PLAN -> VIDEO_TAKE` versioned lineage, canonical plan SHA, source URI and byte digest, SHA-bound media inspection, and an evidence record containing the **unscored** review sheet. A stable Sequence/Shot context and explicit version identifiers are required. Missing/contradictory source, missing context and duplicate asset version reject. Registration never promotes a Take, attests model generation, or fabricates a viewer.
+- `tests/test_plan_graph_bridge.py` now covers real local FFmpeg test-pattern files and graph persistence, exact SHA, duration discrepancy, deliberate old-plan invalidation, immutable identity, candidate-only state and CLI refusal to overwrite. A separate mock inspection checks graph contracts without falsely claiming physical media/FFmpeg coverage.
+- **New failure-class remediation at the owning abstraction:** `MediaGraph.promote_asset` previously permitted `STALE` assets to be re-promoted, and would allow a still-`CANDIDATE` descendant of a stale plan when explicit invalidation had not propagated. It now blocks stale targets **and transitive stale/rejected/retired ancestors**. Regression tests reproduce both bypasses and verify legitimate fresh candidates retain existing promotion paths.
+- Fast `prompt-contract` CI now includes MediaGraph and plan-bridge tests (FFmpeg-dependent tests skip only in this fast job; full job ran all 265 tests).
+
+**Validated scope**: graph contracts, local generated test-pattern bytes and interface persistence; no vendor video was generated, no real viewers watched, no provider-issued run/seed/cost proofs, no independently verified storyboard semantics, no real revision quality uplift and no commercial observation. Stale eligibility repair is not a substitute for strict positive promotion evidence or existing independent reviewer attestation. PR #23 still must remain Draft until owner-defined review/promotion gates are met.
+
+**Known open limitations**: the previous `MediaQAChecker` FFmpeg detector error-exit false-positive issue remains unmodified after operation-specific write denial; local media and plan paths stored in Graph must remain available or be migrated to durable storage; a `VIDEO_TAKE` asset is not yet a verified `production_os.TakeRecord` backed by a provider receipt; registered review sheets remain `NOT_EXECUTED` and cannot prove human viewing. Existing film review/provider attestation and LEARN owners should be reused for those subsequent capabilities.
+
+**Autonomous next actions**: (1) refresh final CI after bookkeeping commits, (2) use authentic video take plus source/shot review to test actual perceptual semantics, (3) connect verified provider receipt/rights, TakeRecord and independent review to this graph lineage, (4) run controlled per-scene prompt A/B + rejected-take revision/learning without naming a quality winner until observed. No paid calls without approval.
+
 ## Stop/restart integrity
 
 - In a fresh chat, **never** silently state this work is finished, that CI is latest without checking, that a candidate technique is validated, that reviewers independently executed, or that a movie was produced if none exists.
