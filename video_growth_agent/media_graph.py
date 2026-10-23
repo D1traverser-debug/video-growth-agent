@@ -233,6 +233,19 @@ class MediaGraph:
             raise MediaGraphError("promotion decision does not bind the asset version")
         if self.asset_state(ref) in {"REJECTED", "RETIRED", "STALE"}:
             raise MediaGraphError("rejected/retired/stale asset cannot be promoted without a current version")
+        # A superseded plan or canon invalidates release authority of all its
+        # descendants even if explicit stale propagation has not yet run.
+        # This is an admission guard, not a mutation of historical artifacts.
+        ancestors = list(asset.derived_from)
+        visited: set[AssetRef] = set()
+        while ancestors:
+            parent = ancestors.pop()
+            if parent in visited:
+                continue
+            visited.add(parent)
+            if self.asset_state(parent) in {"STALE", "REJECTED", "RETIRED"}:
+                raise MediaGraphError("cannot promote asset derived from stale/rejected/retired upstream: " + parent.key())
+            ancestors.extend(self.assets[parent].derived_from)
         prior_version = self.promoted_versions.get(ref.asset_id)
         if prior_version and prior_version != ref.version_id:
             self.asset_state_overrides[AssetRef(ref.asset_id, prior_version)] = "STALE"
