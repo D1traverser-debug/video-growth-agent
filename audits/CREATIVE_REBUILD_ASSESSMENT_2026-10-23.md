@@ -63,3 +63,11 @@ Prompt generation under A/B is an **executed tooling comparison**, but not a qua
 - Repository existing `production-intelligence.md` already lists DramaClaw, Toonflow, H3, Utopai and BigBanana; they are compared by portable mechanisms, not by copying a vendor's entire stack.
 
 **Assertion discipline:** semantic correctness is scoped to an invariant whose proof is independently inspectable; corpus integrity and test success must not be reported as 162 independent semantic proofs.
+
+## 8. Independent lineage counterexample and repair
+
+Line inspection of `video_growth_agent/media_graph.py` exposed a concrete causal bug: promoting `canon@v2` marked `canon@v1` stale but did not automatically stale a promoted keyframe and video take still derived from `canon@v1`. A separate manual `invalidate_downstream` method existed, but promotion did not invoke its effect. Likewise `promote_asset` allowed re-promoting a previously STALE asset with its old decision because its state guard only forbade REJECTED/RETIRED.
+
+**Repair candidate in PR #22:** replacement promotion automatically stales old-version consumers, removes their promoted pointers, and blocks re-promotion of STALE versions. The traversal does not invalidate the newly approved replacement even when its provenance explicitly derives from the superseded version. A `test_media_graph` counterexample tests both causal descendant invalidation and legitimate new-lineage preservation; stale re-promotion must fail closed.
+
+This is a genuinely identified runtime failure mode, unlike restating a quality gate. It still requires complete CI regression confirmation on the latest PR head and does not demonstrate that all other MediaGraph paths are correct.
