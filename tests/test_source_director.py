@@ -177,3 +177,30 @@ def test_command_line_raw_script_packet_and_strict_model_import(tmp_path):
                              "--model-name", "test"], text=True, capture_output=True)
     assert no_auth.returncode == 2
     assert "API credential is missing" in no_auth.stderr
+
+
+def test_missing_original_unit_blocks_model_acceptance_and_bounded_retry_repairs():
+    _, plan, packet = raw_plan_packet()
+    broken = copy.deepcopy(plan)
+    broken["required_events"] = [e for e in broken["required_events"] if e["id"] != "source-unit-20"]
+    for shot in broken["shots"]:
+        shot["event_ids"] = [x for x in shot["event_ids"] if x != "source-unit-20"]
+    with pytest.raises(PromptPlanError, match="original source passages lack"):
+        accept_authoring_response(packet, json.dumps(broken, ensure_ascii=False))
+    attempts = []
+    def correcting_model(messages):
+        attempts.append(messages)
+        return json.dumps(broken if len(attempts) == 1 else plan, ensure_ascii=False)
+    corrected = author_with_model(packet, correcting_model, max_revisions=1)
+    assert corrected["authoring_attempts"] == 2
+    assert len(attempts) == 2
+    assert "U020" in attempts[1][-1]["content"]
+    with pytest.raises(PromptPlanError, match="original source passages lack"):
+        author_with_model(packet, lambda _: json.dumps(broken, ensure_ascii=False), max_revisions=0)
+
+
+def test_importing_an_excerpt_plan_for_full_original_fails_explicitly():
+    _, _, packet = raw_plan_packet()
+    excerpt = json.loads((FIX / "prompt_ribbon_10s.json").read_text(encoding="utf-8"))
+    with pytest.raises(PromptPlanError, match="altered or substituted"):
+        accept_authoring_response(packet, json.dumps(excerpt, ensure_ascii=False))
