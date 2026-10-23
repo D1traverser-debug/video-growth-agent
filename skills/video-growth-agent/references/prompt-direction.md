@@ -2,6 +2,14 @@
 
 **Purpose:** a small, testable method for designing and comparing short-film prompts. Not another Agent, task hierarchy, approvals system, or parallel Video governor. The user explicitly prioritizes excellent *director-ready prompts* over business process expansion. All paid rendering remains outside this module.
 
+## Raw-idea and full-script authoring entry
+
+`source_director.py` accepts original prose or timecoded storyboards. `vga author-director RAW.txt --seconds 10` creates a source-locked packet with SHA-256 and exact source spans, without calling any provider. Timecoded sources preserve original overlapping/nested clock intervals; untimed ideas use sentence spans. This is **lexical provenance, not independent comprehension of a dramatic beat**.
+
+The optional text-authoring backend uses an explicitly specified HTTPS chat-completions endpoint and key stored in `VIDEO_DIRECTOR_API_KEY`; `--execute-model --approve-upload-cost` is mandatory to transmit the script. This text model is distinct from H3 video generation. The model output is untrusted JSON; import with `--model-output` or run the text model directly, then enforce unchanged source, timebase, provider, all source-unit event anchors, exact frames and source audio policy. A denied draft can be retried at operator-budgeted extra API cost via `--max-revisions 0..3` (default zero). Missing units block promotion, even if existing scene tags look valid.
+
+The complete original 30-second red-ribbon source lives in `tests/fixtures/ribbon_original_30s.txt`; it contains 24 time-coded source units including nested intervals. `tests/fixtures/prompt_ribbon_fullsource_10s.json` is a traceable candidate 10s conversion, not proof that all 30s of pauses are readable in 10s. The original's "无台词仅配背景音乐" wins over extra generated Foley, even though the script also says "拍手带响"; such conflicts remain visible in the source audit.
+
 ## Inputs are not already-processed prompting folklore
 
 Study in this order:
