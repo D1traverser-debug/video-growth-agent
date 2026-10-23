@@ -179,6 +179,14 @@ def audit_authored_plan(packet: dict[str, Any], plan: dict[str, Any]) -> dict[st
     if plan.get("provider") != target["provider"]:
         raise PromptPlanError("authored plan changed video generation provider settings")
     structure = validate_plan(plan)
+    original = source["raw"]
+    soundtrack_categories = [cue["category"] for shot in plan["shots"] for cue in shot["audio"]]
+    if "无台词" in original and "VOICE" in soundtrack_categories:
+        raise PromptPlanError("original specifies no dialogue, but authored shot added VOICE")
+    if "仅配背景音乐" in original and any(
+        category not in {"MUSIC", "SILENCE"} for category in soundtrack_categories
+    ):
+        raise PromptPlanError("original specifies background-music-only; authored Foley/ambience/voice would violate it")
     spans = packet["source_inventory"]["source_timing_units"]
     all_source_quotes = [e["source_quote"] for e in plan["required_events"] if e["origin"] == "SOURCE"]
     # This does not demand every comma-separated phrase is its own independent
@@ -209,7 +217,10 @@ def audit_authored_plan(packet: dict[str, Any], plan: dict[str, Any]) -> dict[st
             ["Long source compressed into " + str(target["duration_seconds"]) +
              "s: each original beat may not remain legible at native viewing speed."]
             if len(coverage) > target["duration_seconds"] else []
-        ) + (["Review missing literal anchors in: " + ", ".join(gaps)] if gaps else []),
+        ) + (["Review missing literal anchors in: " + ", ".join(gaps)] if gaps else []) + (
+            ["SOURCE_AUDIO_CONFLICT: original says music-only yet mentions audible claps; music-only global specification prevails, keep the hand gesture visibly."]
+            if "仅配背景音乐" in original and "拍手带响" in original else []
+        ),
     }
 
 
