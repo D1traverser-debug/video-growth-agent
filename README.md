@@ -28,6 +28,8 @@ vga storyboard tests/fixtures/creative_ip_5s.json --route onepass
 vga storyboard tests/fixtures/creative_ribbon_10s.json --route shotwise
 ```
 
+Use `--route compare` to see one-pass vs shotwise render duration and prompt counts without declaring an artistic winner. A typed `verify_editorial_binding(spec, plan)` check additionally proves exact approved EditorialPlan identity and beat coverage; a bare URI does not prove that binding.
+
 The two route outputs are comparable structurally; no visual-model quality winner is claimed until real output, spend and frame-indexed independent review are recorded. Follow `skills/video-growth-agent/references/craft-direction.md`. Test scenarios deliberately separate a 5s Shiba creator-IP sequence from a 10s event-dense romantic montage. Output is prompt assembly, **not generated video**.
 
 ## Runtime 0.8.0 candidate
