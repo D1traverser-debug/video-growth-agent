@@ -14,6 +14,7 @@ from video_growth_agent.creative_direction import (
     compile_from_file,
     compile_storyboard,
     validate_spec,
+    verify_editorial_binding,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -40,6 +41,47 @@ def test_divergent_film_ideas_preserve_planned_story_contract(name, frames, shot
     assert abs(sum(s["duration_seconds"] for s in result["prompts"]) - frames / 30) < 1e-9
     assert all(item["prompt"].startswith(plan["title"]) for item in result["prompts"])
     assert result["assurance"].startswith("Static structural validation")
+
+
+def test_typed_editorial_plan_identity_and_beat_coverage():
+    from dataclasses import replace
+    from video_growth_agent.editorial_planning import (
+        BeatSpec, EditorialPlan, EpisodeIntent, ShotIntent,
+    )
+
+    spec = load("creative_ip_5s.json")
+    intent = EpisodeIntent(
+        episode_id="ip-intro", series_id="personal-ip",
+        audience_contract="five-second recognizable character bumper",
+        editorial_question="Who controls the edit?",
+        primary_platform="short-video",
+        target_duration_seconds=5,
+        evidence_refs=("user-brief://ip-intro",),
+        desired_outcomes=("recognizable human and Shiba duo",),
+        success_metric_semantics={"recognition": "post-view unaided recall"},
+    )
+    beats = tuple(
+        BeatSpec(f"beat-{shot['id']}", "ip-intro", shot["action"],
+                 "recognition", (shot["end_frame"] - shot["start_frame"]) / 30)
+        for shot in spec["shots"]
+    )
+    source_shots = tuple(
+        ShotIntent(shot["id"], f"beat-{shot['id']}", shot["action"],
+                   (shot["end_frame"] - shot["start_frame"]) / 30,
+                   "SYNTHETIC", "LOW", (), frozenset({"T2V"}))
+        for shot in spec["shots"]
+    )
+    approved = EditorialPlan(intent, (), beats, source_shots, "v1")
+    bound = verify_editorial_binding(spec, approved)
+    assert bound["all_approved_beats_mapped"]
+    assert bound["beat_count"] == 3
+
+    with pytest.raises(CraftSpecError, match="does not match"):
+        verify_editorial_binding(spec, replace(approved, plan_version="v2"))
+    broken = copy.deepcopy(spec)
+    broken["shots"][-1]["source_beat_ids"] = ["beat-IP1"]
+    with pytest.raises(CraftSpecError, match="omitted from craft"):
+        verify_editorial_binding(broken, approved)
 
 
 def test_onepass_supports_simple_five_second_ip_case():
