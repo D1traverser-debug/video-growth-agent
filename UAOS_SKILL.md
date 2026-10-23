@@ -41,6 +41,10 @@ For actual current-Agent operation, the creative/production chain is explicit ra
 
 Stable editorial-plan/asset/evidence identities outrank prompt memory and filenames. The integrated default Program exposes the cross-workstream business flywheel at `projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json`.
 
+## Active in-flight video craft candidate (when the user asks to resume the video system)
+
+The canonical Video evolution entry `audits/EVOLUTION_INDEX.json` now has `current_resume_ref` for the open prompt/director/cross-role-learning PR #23. Read that ref **on the PR branch**, after verifying GitHub's real main/PR state and before continuing candidate engineering. This is a Video-domain workstream checkpoint only, never another parent UAOS task index or a replacement for an integrated Program/child-asset state. The existing stable 0.8 production baseline on `main` remains authoritative until duly promoted. For unrelated Video tasks, follow normal project routing instead of indiscriminately preloading this candidate.
+
 ## Lightweight video-prompt direction
 
 For a prompt/storyboard-only request, start with the **complete raw brief and original source** rather than every business-program gate. Refer to `skills/video-growth-agent/references/prompt-direction.md`, then test `vga direct-prompts`. It plans story events, two competing treatments, action/lighting/camera/sound per shot, and vendor-specific H3 Chinese/official prompt output with a PixVerse control. For image/reference-heavy modes, do not invent missing asset references; fail closed until reference bindings are available. This path neither overrides MediaGraph nor certifies actual generated visuals.
