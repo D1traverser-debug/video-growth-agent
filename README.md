@@ -19,6 +19,20 @@ Executable AI-native media business domain owner under `D1traverser-debug/univer
 
 There is no active repository-local parent task index, lease/resume protocol or second cross-chat controller. UAOS router identity remains distinct from all Video business identities.
 
+## Focused prompt director (isolated candidate)
+
+For a short AI film **prompt task**, use the original brief and run `vga direct-prompts` before invoking unrelated release/business process modules:
+
+```bash
+vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route compare --h3-style chinese
+vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route onepass --h3-style official
+vga direct-prompts tests/fixtures/prompt_ip_5s.json --route compare
+```
+
+The selected baseline is **MiniMax H3/Hailuo** because the owner reported strong footage from the Chinese complete 10-second storyboard. One-pass is compared with shotwise (H3's official API 4-second minimum per generated take makes dense shotwise production expensive). PixVerse V6 remains an explicitly chosen comparison baseline; it is not the artistic authority. These prompts are not generated films. Official MiniMax prompt-writing guidance has been read and distilled in `skills/video-growth-agent/references/prompt-direction.md`. A separate `--h3-style official` adapter follows the first-party three-field format for a controlled prompt-style experiment.
+
+The current skill is intentionally prompt-centric and does **not** reorganize or delete validated production/release modules. The older all-scope draft PR is not required for this prompt compiler.
+
 ## Runtime 0.8.0 candidate
 
 Video 0.8 makes the media-business system operable from natural-language/editorial intent through production and learning rather than starting mechanically at the Shot layer.
