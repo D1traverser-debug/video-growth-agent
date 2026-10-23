@@ -157,3 +157,74 @@ class MediaQAChecker:
             den = _float(b)
             return _float(a) / den if den else 0.0
         return _float(value)
+
+def prepare_directed_media_review(
+    plan: dict,
+    media: str | Path,
+    *,
+    checker: MediaQAChecker | None = None,
+    frames_dir: str | Path | None = None,
+    frame_count: int = 9,
+) -> dict:
+    """Bind an existing shot-review sheet to *bytes* of an actual media take.
+
+    This creates evidence for a future human viewing, not a media-quality
+    approval, provider endorsement, blindness attestation or graph promotion.
+    The planned frame windows cannot be asserted to match generated footage
+    until an editor independently checks/conforms its cuts.
+    """
+    from .prompt_director import build_shot_review_targets
+
+    sheet = build_shot_review_targets(plan)
+    path = Path(media)
+    if not path.is_file() or path.stat().st_size == 0:
+        raise ValueError("directed media review needs a nonempty local video file")
+    if frames_dir is not None and (type(frame_count) is not int or not 1 <= frame_count <= 60):
+        raise ValueError("frame_count must be an integer from 1 through 60")
+    inspector = checker or MediaQAChecker()
+    inspection = inspector.inspect(path)
+    if not any(c.check_id == "video_stream" and c.status == "PASS" for c in inspection.checks):
+        raise ValueError("directed media review needs a decodable video stream")
+    digest = inspection.metadata.get("sha256") or inspector._sha256(path)
+    plan_digest = hashlib.sha256(
+        json.dumps(plan, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    expected = sheet["expected_length_seconds"]
+    measured = inspection.metadata.get("video_duration")
+    tolerance = max(0.15, 2.0 / plan["brief"]["fps"])
+    alignment = (
+        "DURATION_UNAVAILABLE"
+        if measured is None
+        else "DURATION_WITHIN_TOLERANCE__CUTS_UNVERIFIED"
+        if abs(measured - expected) <= tolerance
+        else "DURATION_MISMATCH__EDIT_CONFORM_REQUIRED"
+    )
+    ref = {"uri": str(path), "sha256": digest, "byte_count": path.stat().st_size}
+    sheet["media_asset_ref"] = ref
+    sheet["source_plan_sha256"] = plan_digest
+    sheet["actual_length_seconds"] = measured
+    sheet["timeline_alignment"] = alignment
+    sheet["technical_media_qa"] = inspection.to_dict()
+    sheet["frame_samples"] = (
+        inspector.extract_frames(path, frames_dir, count=frame_count)
+        if frames_dir is not None else []
+    )
+    sheet["first_pass_viewing"] = {
+        "clip": ref,
+        "reviewer_blinding_verified": False,
+        "responses": None,
+        "questions": [
+            "Without seeing the planned storyboard, recount the visible story and causal sequence.",
+            "Identify the emotional change, identifiable characters and stable props that actually appeared.",
+            "Record confusing actions, cuts, visual continuity defects and audio mismatches with observed timestamps.",
+        ],
+        "status": "NOT_EXECUTED",
+    }
+    sheet["assessment"] = "NOT_STARTED__REAL_MEDIA_BOUND"
+    sheet["reviewer_independence"] = "NOT_ESTABLISHED"
+    sheet["note"] = (
+        "Real file bytes and mechanical QA are bound; technical QA pass is not cinematic "
+        "or semantic quality. Planned shot windows and source tags require actual viewing "
+        "and independent editorial alignment. Reviewer blinding is not established."
+    )
+    return sheet
