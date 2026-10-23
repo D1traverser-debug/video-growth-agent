@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 from video_growth_agent.prompt_director import (
-    PIXVERSE_V6, PromptPlanError, compile_file, compile_prompts, validate_plan,
+    H3, PIXVERSE_V6, PromptPlanError, compile_file, compile_prompts, validate_plan,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -37,7 +37,7 @@ def test_source_first_scenarios_are_mechanically_accountable(name, frames, event
                - frames / 30) < 1e-9
     assert all(p["model_render_seconds"] >= p["edit_duration_seconds"]
                for p in output["routes"]["shotwise"]["prompts"])
-    assert all(len(p["prompt"]) <= PIXVERSE_V6["max_prompt_characters"]
+    assert all(len(p["prompt"]) <= H3["max_prompt_characters"]
                for p in output["routes"]["shotwise"]["prompts"])
 
 
@@ -100,12 +100,12 @@ def test_creative_alternatives_must_be_distinct_and_record_rejection():
         validate_plan(spec)
 
 
-def test_pixverse_integer_length_is_separate_from_editorial_frame_duration():
+def test_h3_integer_minimum_length_is_separate_from_editorial_frame_duration():
     spec = load("prompt_ribbon_10s.json")
     report = compile_prompts(spec, "shotwise")["routes"]["shotwise"]
     assert report["prompts"][0]["edit_duration_seconds"] == 48 / 30
-    assert report["prompts"][0]["model_render_seconds"] == 2
-    assert report["prompts"][0]["trim_seconds"] == 0.4
+    assert report["prompts"][0]["model_render_seconds"] == 4
+    assert abs(report["prompts"][0]["trim_seconds"] - 2.4) < 1e-9
     assert report["generation_seconds"] > report["final_edit_seconds"]
 
 
@@ -122,16 +122,59 @@ def test_cannot_claim_unverified_provider_or_excessive_onepass_duration():
     assert report["routes"]["shotwise"]["status"] == "COMPILED"
 
 
-def test_shotwise_compiler_does_not_generate_unrequested_audio():
+def test_h3_native_sound_sections_do_not_invent_dialogue():
     spec = load("prompt_ip_5s.json")
     report = compile_file(FIXTURES / "prompt_ip_5s.json", "shotwise")
-    assert spec["provider"]["native_audio"] is False
+    assert spec["provider"]["native_audio"] is True
     assert report["visual_winner"] is None
-    assert "aesthetic" not in str(report.get("visual_winner", ""))
+    for item in report["routes"]["shotwise"]["prompts"]:
+        prompt = item["prompt"]
+        assert prompt.startswith("integrated_multimodal_description: [Shot 1]")
+        assert "\\n\\noverall_soundscape: " in prompt
+        assert "\\n\\nnon_diegetic_music: " in prompt
+        assert "<d>" not in prompt
+        assert item["model_render_seconds"] >= 4
 
 
 def test_invalid_unknown_fields_fail_instead_of_being_ignored():
     spec = load("prompt_ip_5s.json")
     spec["shots"][0]["vague_magic"] = "add more cinematic feel"
     with pytest.raises(PromptPlanError, match="unknown"):
+        validate_plan(spec)
+
+
+
+def test_h3_uses_local_cut_times_and_requires_edit_conform():
+    output = compile_prompts(load("prompt_ribbon_10s.json"), "compare")
+    one = output["routes"]["onepass"]
+    assert one["status"] == "COMPILED"
+    assert "[Shot 2] At 00:01.600" in one["prompts"][0]["prompt"]
+    assert one["generation_seconds"] == 10
+    assert one["frame_rate_warning"] is not None
+    shotwise = output["routes"]["shotwise"]
+    assert shotwise["generation_seconds"] == 24
+    assert shotwise["generation_to_edit_ratio"] == 2.4
+    assert "[Shot 2] At " not in shotwise["prompts"][1]["prompt"]
+    assert "hold the resulting pose" in shotwise["prompts"][1]["prompt"]
+
+
+def test_vendor_comparison_keeps_directorial_plan_without_fake_causal_rating():
+    h3 = load("prompt_ip_5s.json")
+    pixverse = copy.deepcopy(h3)
+    pixverse["provider"].update(name="PixVerse", model="V6", mode="T2V", native_audio=False)
+    h3_out = compile_prompts(h3, "compare")
+    pv_out = compile_prompts(pixverse, "compare")
+    assert h3_out["static_validation"]["events_present_in_plan"] == pv_out["static_validation"]["events_present_in_plan"]
+    assert h3_out["visual_winner"] is None
+    assert pv_out["visual_winner"] is None
+    assert h3_out["routes"]["onepass"]["generation_seconds"] == 5
+    assert pv_out["routes"]["onepass"]["generation_seconds"] == 5
+    assert h3_out["routes"]["shotwise"]["generation_seconds"] == 12
+    assert pv_out["routes"]["shotwise"]["generation_seconds"] == 5
+
+
+def test_unbound_h3_reference_mode_is_blocked_instead_of_hallucinating_assets():
+    spec = load("prompt_ip_5s.json")
+    spec["provider"]["mode"] = "Ref2VA"
+    with pytest.raises(PromptPlanError, match="bound assets"):
         validate_plan(spec)
