@@ -2,6 +2,12 @@
 
 **Purpose:** a small, testable method for designing and comparing short-film prompts. Not another Agent, task hierarchy, approvals system, or parallel Video governor. The user explicitly prioritizes excellent *director-ready prompts* over business process expansion. All paid rendering remains outside this module.
 
+## Role collaboration and source-learning SOP (no parallel governor)
+
+For genuinely complex productions, `vga craft-round PLAN.json` prepares scoped requests using the existing `RoleRegistry` mandate and veto list. First-pass writer/director/storyboard/art/editor/sound/red-team reviews refer to the **same SHA** and do not see one another's verdicts. No reviewers have executed merely because a packet exists. When actual critiques arrive, `--reviews REPORTS.json` checks role uniqueness, exact source version, actionable shot/whole-film evidence, and routes repair work to the existing discipline owner; the showrunner resolves disputes after independent first-pass reports. `--previous OLD.json --revision 2` gives a precise candidate shot-plan change summary, never a quality PASS. Actual video review remains with MediaQA.
+
+Research should start with the original materials and applicable primary Skill/manual/production breakdowns, but extract **mechanisms and usage limits**, not clone third-party frameworks. Nine source-level studies and cheap tests live in `craft-source-studies.md`; T-015–017 remain **candidate** entries in the existing TechniqueLibrary. Review results, production failures and real representative media evidence must be obtained before the LEARN stage may promote a general technique. For lightweight prompt-only work, do not force a seven-role bureaucracy.
+
 ## Raw-idea and full-script authoring entry
 
 `source_director.py` accepts original prose or timecoded storyboards. `vga author-director RAW.txt --seconds 10` creates a source-locked packet with SHA-256 and exact source spans, without calling any provider. Timecoded sources preserve original overlapping/nested clock intervals; untimed ideas use sentence spans. This is **lexical provenance, not independent comprehension of a dramatic beat**.
