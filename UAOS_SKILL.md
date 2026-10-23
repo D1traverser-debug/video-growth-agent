@@ -41,6 +41,10 @@ For actual current-Agent operation, the creative/production chain is explicit ra
 
 Stable editorial-plan/asset/evidence identities outrank prompt memory and filenames. The integrated default Program exposes the cross-workstream business flywheel at `projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json`.
 
+## Craft direction and audiovisual storytelling
+
+When work involves story, editing, photography, VFX, sound or short-form compression, progressively load `skills/video-growth-agent/references/craft-direction.md`. Compare narrative/montage/staging approaches rather than assigning one aesthetic by identity or industry. A craft storyboard declares a source EditorialPlan version, exact frame ranges, observable blocking/camera/light/transitions, audio cues, continuity and an inventory of required story events. Use `vga storyboard` to check structural consistency and compile candidate provider prompts. Do not treat a declared editorial-plan reference as proof it was resolved, or narrative-event tags as proof that generated frames contain those events. Generation, independent media QA and promotion remain separately evidenced.
+
 ## Editorial decision state
 
 Do not jump directly from a topic/request to generation prompts when material editorial reasoning exists.
