@@ -124,7 +124,7 @@ def test_cannot_claim_unverified_provider_or_excessive_onepass_duration():
 
 def test_h3_native_sound_sections_do_not_invent_dialogue():
     spec = load("prompt_ip_5s.json")
-    report = compile_file(FIXTURES / "prompt_ip_5s.json", "shotwise")
+    report = compile_file(FIXTURES / "prompt_ip_5s.json", "shotwise", h3_style="official")
     assert spec["provider"]["native_audio"] is True
     assert report["visual_winner"] is None
     for item in report["routes"]["shotwise"]["prompts"]:
@@ -145,7 +145,7 @@ def test_invalid_unknown_fields_fail_instead_of_being_ignored():
 
 
 def test_h3_uses_local_cut_times_and_requires_edit_conform():
-    output = compile_prompts(load("prompt_ribbon_10s.json"), "compare")
+    output = compile_prompts(load("prompt_ribbon_10s.json"), "compare", h3_style="official")
     one = output["routes"]["onepass"]
     assert one["status"] == "COMPILED"
     assert "[Shot 2] At 00:01.600" in one["prompts"][0]["prompt"]
@@ -178,3 +178,21 @@ def test_unbound_h3_reference_mode_is_blocked_instead_of_hallucinating_assets():
     spec["provider"]["mode"] = "Ref2VA"
     with pytest.raises(PromptPlanError, match="bound assets"):
         validate_plan(spec)
+
+
+
+def test_owner_verified_chinese_storyboard_is_default_without_erasing_official_variant():
+    spec = load("prompt_ribbon_10s.json")
+    cn = compile_prompts(spec, route="onepass")
+    official = compile_prompts(spec, route="onepass", h3_style="official")
+    assert cn["h3_prompt_dialect"] == "chinese"
+    cn_text = cn["routes"]["onepass"]["prompts"][0]["prompt"]
+    en_text = official["routes"]["onepass"]["prompts"][0]["prompt"]
+    assert "逐时段分镜" in cn_text
+    assert "红绸赴约" in cn_text
+    assert "integrated_multimodal_description" in en_text
+    assert "overall_soundscape" in en_text
+    assert "non_diegetic_music" in en_text
+    assert cn_text != en_text
+    assert cn["static_validation"] == official["static_validation"]
+    assert cn["visual_winner"] is None and official["visual_winner"] is None
