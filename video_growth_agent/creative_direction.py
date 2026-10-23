@@ -81,7 +81,7 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
     cursor = 0
     for shot in shots:
         _fields(shot, {"id", "start_frame", "end_frame", "frame", "action", "camera",
-                        "lighting", "transition_out", "event_ids", "sound", "continuity"})
+                        "lighting", "transition_out", "event_ids", "source_beat_ids", "sound", "continuity"})
         sid = _text(shot["id"], "shot.id")
         if sid in seen:
             raise CraftSpecError(f"duplicate shot: {sid}")
@@ -92,7 +92,7 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
         cursor = b
         for key in ("frame", "action", "camera", "lighting", "transition_out"):
             _text(shot[key], f"{sid}.{key}")
-        for key in ("event_ids", "sound", "continuity"):
+        for key in ("event_ids", "source_beat_ids", "sound", "continuity"):
             _words(shot[key], f"{sid}.{key}")
         for event_id in shot["event_ids"]:
             if event_id not in event_ids:
@@ -116,6 +116,33 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
     return {"all_events_covered_in_plan": True, "event_to_shots": {key: covered[key] for key in sorted(covered)},
             "shot_count": len(shots), "duration_seconds": total / fps,
             "note": "Planned narrative coverage, NOT proof of generated visual content."}
+
+
+def verify_editorial_binding(spec: dict[str, Any], editorial_plan: Any) -> dict[str, Any]:
+    """Prove a craft projection names an actual exact upstream EditorialPlan.
+
+    This does NOT prove an audiovisual rendition is semantically faithful.
+    """
+    from .editorial_planning import EditorialPlan
+
+    validate_spec(spec)
+    if not isinstance(editorial_plan, EditorialPlan):
+        raise CraftSpecError("upstream must be a typed EditorialPlan")
+    if spec["source_plan_ref"] != editorial_plan.plan_ref:
+        raise CraftSpecError("craft source_plan_ref does not match supplied editorial plan version")
+    if abs(spec["duration_frames"] / spec["fps"] - editorial_plan.intent.target_duration_seconds) > 1e-8:
+        raise CraftSpecError("craft duration differs from approved editorial intent duration")
+    declared = set()
+    for shot in spec["shots"]:
+        declared.update(shot["source_beat_ids"])
+    actual = {beat.beat_id for beat in editorial_plan.beats}
+    if unknown := declared - actual:
+        raise CraftSpecError(f"craft references missing editorial beats: {sorted(unknown)}")
+    if uncovered := actual - declared:
+        raise CraftSpecError(f"editorial beats omitted from craft: {sorted(uncovered)}")
+    return {"editorial_plan_ref": editorial_plan.plan_ref,
+            "all_approved_beats_mapped": True, "beat_count": len(actual),
+            "assurance": "Typed upstream identity/beat coverage; final visual semantics remain unverified."}
 
 
 def _global(spec: dict[str, Any]) -> str:
