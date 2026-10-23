@@ -10,7 +10,7 @@ import pytest
 
 from video_growth_agent.craft_round import (
     CraftReviewError, REVIEWERS, next_revision_diff,
-    prepare_craft_round, reconcile_craft_round,
+    prepare_craft_round, reconcile_craft_round, run_craft_role_models,
 )
 from video_growth_agent.prompt_director import PromptPlanError
 from video_growth_agent.techniques import TechniqueLibrary
@@ -170,3 +170,62 @@ def test_learning_candidates_use_existing_library_not_new_registry():
     assert {x.technique_id for x in lib.find(
         {"review", "revision", "editing"}, validated_only=True
     )}.isdisjoint({"T-015", "T-016", "T-017"})
+
+
+
+def test_optional_llm_role_simulations_are_distinct_untrusted_and_explicitly_bounded():
+    packet = prepare_craft_round(load())
+    messages_by_role = []
+    def mock_text_model(messages):
+        task = json.loads(messages[1]["content"])
+        assert task["plan"]["other_reviewers_opinions"] is None
+        messages_by_role.append(task["role"])
+        return json.dumps({
+            "reviewer_role": task["role"],
+            "source_plan_digest": task["version"],
+            "verdict": "ACCEPT_PLAN",
+            "artifact_ref": "test-only://mock/" + task["role"],
+            "observed_scope": "PLAN_ONLY",
+            "review_method": "LLM_PLAN_SIMULATION",
+            "findings": [],
+        })
+    with pytest.raises(CraftReviewError, match="explicit approved_role_calls"):
+        run_craft_role_models(packet, mock_text_model, approved_role_calls=0)
+    assert messages_by_role == []
+    result = run_craft_role_models(packet, mock_text_model, approved_role_calls=7)
+    assert messages_by_role == list(REVIEWERS)
+    assert result["model_calls"] == 7
+    assert result["reconciliation"]["reviewer_independence"] == "NOT_ESTABLISHED"
+    assert result["reconciliation"]["artifact_promotion"] == "NOT_AUTHORIZED"
+    assert "not seven independent" in result["assurance"]
+
+
+def test_role_model_cannot_invent_film_review_or_switch_role():
+    packet = prepare_craft_round(load())
+    def forged_video_report(messages):
+        task = json.loads(messages[1]["content"])
+        return json.dumps({
+            "reviewer_role": task["role"],
+            "source_plan_digest": task["version"],
+            "verdict": "ACCEPT_PLAN",
+            "artifact_ref": "test-only://media-not-seen",
+            "observed_scope": "RENDERED_MEDIA",
+            "review_method": "LLM_PLAN_SIMULATION",
+            "findings": [],
+        })
+    with pytest.raises(CraftReviewError, match="cannot assert film review"):
+        run_craft_role_models(packet, forged_video_report, approved_role_calls=7)
+    def changed_role(messages):
+        return json.dumps({"reviewer_role": "showrunner"})
+    with pytest.raises(CraftReviewError, match="role substitution"):
+        run_craft_role_models(packet, changed_role, approved_role_calls=7)
+
+
+def test_cli_forbids_paid_role_calls_without_explicit_budget_and_approval():
+    cmd = [sys.executable, "-m", "video_growth_agent.cli", "craft-round",
+           str(FIX / "prompt_ip_5s.json"), "--execute-roles",
+           "--endpoint", "https://provider.example/v1/chat/completions",
+           "--model-name", "critique-v1"]
+    res = subprocess.run(cmd, capture_output=True, text=True)
+    assert res.returncode != 0
+    assert "max-role-calls 7" in res.stderr
