@@ -174,3 +174,59 @@ def render_h3_cn_storyboard(
         "所有镜头服务故事，避免新增没有分镜依据的角色与场景。"
     )
     return "\n".join(lines)
+
+
+def render_h3_lean_story(
+    *,
+    plan: dict,
+    shots: list[dict],
+    render_seconds: int,
+    usable_seconds: float,
+    continuation: bool,
+) -> str:
+    """Low-constraint alternative: visual causality first, no forced dense cuts.
+
+    Keeps identities, global look, observable physical actions and requested
+    sound intent, without multiplying focal lengths, camera mechanics or
+    aesthetic buzzwords when those details are not essential.
+    """
+    brief = plan["brief"]
+    look = plan["visual_language"]
+    identity = "；".join(plan["identity_anchors"])
+    frames = []
+    fps = brief["fps"]
+    base = shots[0]["start_frame"]
+    for index, shot in enumerate(shots, 1):
+        start = (shot["start_frame"] - base) / fps
+        end = (shot["end_frame"] - base) / fps
+        action = shot["action"]
+        transition = shot["transition"]
+        cues = [
+            f"{(cue['at_frame'] - base)/fps:.2f}秒：{cue['description']}"
+            + (f"，原样台词「{cue['spoken_text']}」" if cue["category"] == "VOICE" else "")
+            for cue in shot["audio"]
+        ]
+        frames.append(
+            f"{start:.2f}–{end:.2f}秒：{shot['scene']}。"
+            f"{action['start']}；因为{action['trigger']}，随后{action['finish']}。"
+            f"观众必须看清这个动作及其结果。"
+            f"镜头以{shot['camera']['framing']}呈现，{shot['camera']['motivation']}。"
+            f"衔接：{transition['bridge']}。"
+            + (f"声音：{'；'.join(cues)}。" if cues else "")
+        )
+    finish = f"最终停留在{brief['ending']}。" if not continuation else ""
+    post = (
+        f"主体动作须在{usable_seconds:.2f}秒前结束，剩余时间自然保持至{render_seconds}秒，后期裁切。"
+        if render_seconds > usable_seconds + 1e-9 else ""
+    )
+    return (
+        f"一段{render_seconds}秒的短片。目的：{brief['goal']}。"
+        f"情绪变化：{brief['emotion']}。"
+        f"统一世界与画风：{look['style']}；{look['world']}；"
+        f"主要材质与色彩：{look['materials']}；{look['palette']}；"
+        f"整体光照与成片质感：{look['lighting']}；{look['render_finish']}。"
+        f"角色道具保持一致：{identity}。"
+        f"镜头行动按因果顺序推进：{' '.join(frames)}"
+        f"{finish}{post}音乐：{brief['sound_strategy']}。"
+        "不另加与剧情无关的特效或人物。"
+    )
