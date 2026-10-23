@@ -108,6 +108,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--model-name", help="text model name (not the H3 video model)")
     p.add_argument("--api-key-env", default="VIDEO_DIRECTOR_API_KEY")
     p.add_argument("--approve-upload-cost", action="store_true", help="approve sending original script to this text provider and possible charges")
+    p.add_argument("--max-revisions", type=int, default=0, choices=[0,1,2,3], help="additional paid authoring calls after rejected JSON")
     p.add_argument("--out-plan", type=Path, help="save accepted full plan JSON after validation")
     p.add_argument("--route", choices=["onepass", "shotwise"], default="onepass")
     p.add_argument("--h3-style", choices=["chinese", "official"], default="chinese")
@@ -142,6 +143,7 @@ def main(argv: list[str] | None = None) -> int:
                 )
                 result = author_with_model(
                     packet, client, prompt_route=args.route, h3_style=args.h3_style,
+                    max_revisions=args.max_revisions,
                 )
             else:
                 _json({"status": "AUTHORING_PACKET_READY", "packet": packet,
