@@ -16,12 +16,13 @@ jobs:
       - name: Install lightweight contract test tools
         run: pip install -e . pytest==9.1.1
       - name: Prompt director source and rendering contract tests
-        run: pytest -q tests/test_prompt_director.py tests/test_prompt_experiment.py
+        run: pytest -q tests/test_prompt_director.py tests/test_prompt_experiment.py tests/test_source_director.py
       - name: CLI direct-prompts smoke
         run: |
           vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route compare --h3-style chinese > /tmp/h3-cn.json
           vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route onepass --h3-style official > /tmp/h3-official.json
           vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --study-h3-dialects > /tmp/h3-experiment.json
+          vga author-director tests/fixtures/ribbon_original_30s.txt --seconds 10 --source-ref user-quoted://full-30-second-ribbon-storyboard-2026-10-23 > /tmp/raw-authoring.json
           python - <<'PY'
           import json
           chinese = json.load(open('/tmp/h3-cn.json', encoding='utf-8'))
@@ -31,6 +32,9 @@ jobs:
           assert official['routes']['onepass']['status'] == 'COMPILED'
           assert official['routes']['onepass']['prompts'][0]['prompt'].startswith('integrated_multimodal_description:')
           assert chinese['visual_winner'] is None
+          authoring = json.load(open('/tmp/raw-authoring.json', encoding='utf-8'))
+          assert authoring['status'] == 'AUTHORING_PACKET_READY'
+          assert authoring['packet']['source_inventory']['source_timing_unit_count'] == 24
           experiment = json.load(open('/tmp/h3-experiment.json', encoding='utf-8'))
           assert experiment['quality_winner'] is None
           assert experiment['experiment_plan']['attribution_mode'] == 'BUNDLED_PROMPT_POLICY_NOT_LANGUAGE_CAUSAL'
