@@ -68,3 +68,17 @@ def test_real_cli_emits_experiment_contract_without_generating_video():
     assert data["experiment_plan"]["state"] == "PLANNED"
     assert data["candidates"][0]["prompt"].startswith("作品：《")
     assert data["candidates"][1]["prompt"].startswith("integrated_multimodal_description:")
+
+
+
+def test_plain_output_is_copy_ready_and_refuses_ambiguous_compare_mode():
+    sample = str(FIXTURES / "prompt_ribbon_10s.json")
+    base = [sys.executable, "-m", "video_growth_agent.cli", "direct-prompts", sample]
+    good = subprocess.run(base + ["--route", "onepass", "--plain"], capture_output=True, text=True)
+    assert good.returncode == 0, good.stderr
+    assert good.stdout.startswith("作品：《红绸赴约")
+    assert "逐时段分镜" in good.stdout
+    assert not good.stdout.strip().startswith("{")
+    bad = subprocess.run(base + ["--plain"], capture_output=True, text=True)
+    assert bad.returncode != 0
+    assert "--plain needs --route" in bad.stderr
