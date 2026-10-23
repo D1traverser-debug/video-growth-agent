@@ -205,3 +205,42 @@ def test_graph_round_trip_persists_identity_lineage_decisions_and_pointers(tmp_p
 
     payload = json.loads(path.read_text(encoding="utf-8"))
     assert payload["promoted_versions"]["frame"] == "v1"
+
+
+def test_media_graph_restore_rejects_corrupted_or_forged_promotion_truth():
+    graph = _base_graph()
+    ref = AssetRef("frame", "v1")
+    graph.add_asset(AssetVersion(ref, "shot-1", "KEYFRAME", "asset://frame", "sha256:frame"))
+    graph.add_evidence(EvidenceRecord("good-review", "ASSET", ref.key(), "REVIEW",
+                                      ("review://frame",), "2026-10-23T10:00:00Z"))
+    graph.add_decision(DecisionRecord("good-promotion", "PROMOTION", "creative_director",
+                                      (ref.key(),), ("criteria://frame",), ("good-review",),
+                                      "PROMOTE", "2026-10-23T10:01:00Z"))
+    graph.promote_asset(ref, decision_id="good-promotion")
+    good = graph.to_dict()
+    assert MediaGraph.from_dict(good).current_promoted("frame").ref == ref
+
+    changed = json.loads(json.dumps(good))
+    changed["promoted_versions"]["ghost"] = "v1"
+    with pytest.raises(MediaGraphError, match="missing asset"):
+        MediaGraph.from_dict(changed)
+
+    changed = json.loads(json.dumps(good))
+    changed["asset_state_overrides"][ref.key()] = "STALE"
+    with pytest.raises(MediaGraphError, match="state mismatch"):
+        MediaGraph.from_dict(changed)
+
+    changed = json.loads(json.dumps(good))
+    changed["asset_state_overrides"]["forged@v1"] = "PROMOTED"
+    with pytest.raises(MediaGraphError, match="missing asset"):
+        MediaGraph.from_dict(changed)
+
+    changed = json.loads(json.dumps(good))
+    changed["decisions"] = []
+    with pytest.raises(MediaGraphError, match="lacks decision"):
+        MediaGraph.from_dict(changed)
+
+    changed = json.loads(json.dumps(good))
+    changed["promoted_versions"].clear()
+    with pytest.raises(MediaGraphError, match="orphaned PROMOTED"):
+        MediaGraph.from_dict(changed)
