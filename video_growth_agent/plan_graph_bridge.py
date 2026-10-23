@@ -64,6 +64,7 @@ def register_directed_take_observation(
     *,
     plan: dict,
     media: str,
+    plan_uri: str,
     context_id: str,
     director_plan_id: str,
     plan_version: str,
@@ -78,11 +79,15 @@ def register_directed_take_observation(
     A new plan version stales only downstream media attached to the old version.
     """
     from datetime import datetime, timezone
+    from pathlib import Path
     from .media_qa import prepare_directed_media_review
     from .media_graph import EvidenceRecord, MediaGraphError
     from .prompt_director import validate_plan
 
     validate_plan(plan)
+    plan_path = Path(plan_uri)
+    if not plan_path.is_file() or json.loads(plan_path.read_text(encoding="utf-8")) != plan:
+        raise PlanGraphBridgeError("director plan URI must resolve to the exact supplied JSON source")
     if context_id not in graph.contexts:
         raise PlanGraphBridgeError("existing sequence/shot context is required")
     if graph.contexts[context_id].kind not in {"SEQUENCE", "SHOT"}:
@@ -112,10 +117,11 @@ def register_directed_take_observation(
     if existing is None:
         graph.add_asset(AssetVersion(
             ref=plan_ref, context_id=context_id, kind="DIRECTOR_PLAN",
-            uri="source-plan-sha256:" + digest, digest="sha256:" + digest,
+            uri=str(plan_path.resolve()), digest="sha256:" + digest,
             metadata={
                 "source_reference": plan["source"]["reference"],
                 "source_scope_claim": plan["source"]["completeness"],
+                "source_file_sha256": hashlib.sha256(plan_path.read_bytes()).hexdigest(),
                 "narrative_semantics_verified": False,
             },
         ))
