@@ -273,6 +273,7 @@ def compile_prompts(plan: dict, route: str = "compare", h3_style: str = "auto") 
             "prompt_candidates": candidates,
             "selection_status": "UNDECIDED_NEEDS_SCENE_SPECIFIC_MEDIA_EVIDENCE",
             "quality_winner": None,
+            "visual_winner": None,
             "static_validation": validated,
             "provider_profile": H3,
             "review_targets": build_shot_review_targets(plan),
