@@ -174,13 +174,24 @@ def validate_plan(plan: dict) -> dict:
                 raise PromptPlanError(f"{shot_id}: undeclared story event {eid}")
             coverage[eid].append(shot_id)
         for cue in _list(shot["audio"], f"{shot_id}.audio"):
-            _obj(cue, {"at_frame", "category", "description"}, "audio_cue")
+            if not isinstance(cue, dict):
+                raise PromptPlanError(f"{shot_id}: audio cue must be an object")
+            category = cue.get("category")
+            required_cue = {"at_frame", "category", "description"}
+            if category == "VOICE":
+                required_cue |= {"speaker", "language", "spoken_text"}
+            _obj(cue, required_cue, "audio_cue")
             frame = cue["at_frame"]
             if type(frame) is not int or not start <= frame < end:
                 raise PromptPlanError(f"{shot_id}: audio cue falls outside its shot")
-            if cue["category"] not in {"MUSIC", "SFX", "VOICE", "SILENCE", "AMBIENCE"}:
+            if category not in {"MUSIC", "SFX", "VOICE", "SILENCE", "AMBIENCE"}:
                 raise PromptPlanError(f"{shot_id}: unknown sound category")
             _str(cue["description"], "audio_cue.description")
+            if category == "VOICE":
+                for key in ("speaker", "language", "spoken_text"):
+                    _str(cue[key], f"audio_cue.{key}")
+                if "<d>" in cue["spoken_text"] or "</d>" in cue["spoken_text"]:
+                    raise PromptPlanError("VOICE spoken_text is literal speech, not preformatted <d> markup")
             sound_cues += 1
     if current != total:
         raise PromptPlanError("shots do not reach exact final frame")
@@ -194,6 +205,8 @@ def validate_plan(plan: dict) -> dict:
         # Only text mode is wired until reference assets can be verified and bound.
         if provider["mode"] != "T2VA":
             raise PromptPlanError("MiniMax H3 reference/keyframe mode needs verified bound assets; only T2VA implemented")
+        if not provider["native_audio"]:
+            raise PromptPlanError("MiniMax H3 native_audio=false is not implemented safely; keep audio on or use a verified silent profile")
     elif identity == ("PixVerse", "V6"):
         if provider["mode"] != "T2V":
             raise PromptPlanError("PixVerse V6 reference mode needs bound assets; only T2V implemented")
