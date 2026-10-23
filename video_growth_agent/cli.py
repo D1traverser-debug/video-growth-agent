@@ -17,7 +17,7 @@ from .models import AssetRecord
 from .runtime import StudioRuntime
 from .system_audit import run_system_audit
 from .techniques import TechniqueLibrary
-from .craft_round import CraftReviewError, prepare_craft_round, reconcile_craft_round, next_revision_diff
+from .craft_round import CraftReviewError, prepare_craft_round, reconcile_craft_round, next_revision_diff, run_craft_role_models
 
 
 def _json(data) -> None:
@@ -119,6 +119,13 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--revision", type=int, default=1)
     p.add_argument("--reviews", type=Path, help="JSON list of submitted seven role reviews")
     p.add_argument("--previous", type=Path, help="prior version for shot-level delta")
+    p.add_argument("--execute-roles", action="store_true", help="make real potentially charged LLM calls for seven role-plan critiques")
+    p.add_argument("--endpoint", help="HTTPS chat-completions URL")
+    p.add_argument("--model-name", help="text-model identifier")
+    p.add_argument("--api-key-env", default="VIDEO_DIRECTOR_API_KEY")
+    p.add_argument("--approve-upload-cost", action="store_true", help="explicit approval to transmit plan and charge model calls")
+    p.add_argument("--max-role-calls", type=int, default=0, help="explicit maximum number of paid role calls; seven required")
+
 
     p = sub.add_parser("system-audit")
     p.add_argument("--repo-root", type=Path)
@@ -130,7 +137,22 @@ def main(argv: list[str] | None = None) -> int:
             current = json.loads(args.plan.read_text(encoding="utf-8"))
             packet = prepare_craft_round(current, revision=args.revision)
             result = {"packet": packet}
-            if args.reviews is not None:
+            if args.execute_roles and args.reviews:
+                parser.error("--execute-roles and --reviews are mutually exclusive")
+            if args.execute_roles:
+                if not args.endpoint or not args.model_name:
+                    parser.error("--execute-roles requires --endpoint and --model-name")
+                if not args.approve_upload_cost or args.max_role_calls != len(packet["orders"]):
+                    parser.error("--execute-roles needs --approve-upload-cost and --max-role-calls 7")
+                client = build_compatible_chat_client(
+                    endpoint=args.endpoint, model_name=args.model_name,
+                    api_key=os.environ.get(args.api_key_env, ""),
+                    approved=args.approve_upload_cost,
+                )
+                result["role_model_execution"] = run_craft_role_models(
+                    packet, client, approved_role_calls=args.max_role_calls,
+                )
+            elif args.reviews is not None:
                 reviews = json.loads(args.reviews.read_text(encoding="utf-8"))
                 result["reconciliation"] = reconcile_craft_round(packet, reviews)
             if args.previous is not None:
