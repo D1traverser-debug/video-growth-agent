@@ -15,7 +15,7 @@
     "aspect_ratio": "9:16",
     "ending": "人物与柴犬同框，银色胶片稳定，右上保留可后期上字的干净暗部",
     "narrative_strategy": "道具动作为因，几何匹配剪辑为果；三段镜头组",
-    "sound_strategy": "120BPM鼓点、真实机械拟音与犬耳动作声独立音轨后期同步"
+    "sound_strategy": "A 120 BPM syncopated electronic rhythm with tightly gated kick drums, brief bass accents, and a decisive stop on the final portrait. No sung vocals."
   },
   "alternatives": [
     {
@@ -218,9 +218,9 @@
     }
   ],
   "provider": {
-    "name": "PixVerse",
-    "model": "V6",
-    "mode": "T2V",
-    "native_audio": false
+    "name": "MiniMax",
+    "model": "MiniMax-H3",
+    "mode": "T2VA",
+    "native_audio": true
   }
 }
