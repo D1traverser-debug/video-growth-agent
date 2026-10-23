@@ -247,3 +247,37 @@ def test_untimed_original_idea_uses_same_authoring_pipeline_without_false_clock(
     assert report["source_audit"]["unanchored_units"] == []
     assert report["compiled"]["prompt_candidates"]["chinese"]["onepass"]["status"] == "COMPILED"
     assert report["compiled"]["visual_winner"] is None
+def test_exported_authored_plan_round_trips_into_prompt_and_crew_cli(tmp_path):
+    """Exercise the real operator path: raw source -> imported plan -> two consumers.
+
+    JSON validation of stdout alone misses corruption on the --out-plan file.
+    """
+    _, plan, _ = raw_plan_packet()
+    model_output = tmp_path / "model-returned-plan.json"
+    model_output.write_text(json.dumps(plan, ensure_ascii=False), encoding="utf-8")
+    saved = tmp_path / "operator-plan.json"
+    author = subprocess.run([
+        sys.executable, "-m", "video_growth_agent.cli",
+        "author-director", str(ORIGINAL), "--seconds", "10",
+        "--source-ref", "user-quoted://full-30-second-ribbon-storyboard-2026-10-23",
+        "--model-output", str(model_output), "--out-plan", str(saved),
+    ], capture_output=True, text=True)
+    assert author.returncode == 0, author.stderr
+    contents = saved.read_text(encoding="utf-8")
+    assert contents.endswith("\n") and not contents.endswith("\\n")
+    assert json.loads(contents) == plan
+
+    prompts = subprocess.run([
+        sys.executable, "-m", "video_growth_agent.cli",
+        "direct-prompts", str(saved), "--route", "onepass",
+        "--h3-style", "lean",
+    ], capture_output=True, text=True)
+    assert prompts.returncode == 0, prompts.stderr
+    assert json.loads(prompts.stdout)["routes"]["onepass"]["status"] == "COMPILED"
+
+    crew = subprocess.run([
+        sys.executable, "-m", "video_growth_agent.cli",
+        "craft-round", str(saved),
+    ], capture_output=True, text=True)
+    assert crew.returncode == 0, crew.stderr
+    assert json.loads(crew.stdout)["packet"]["execution_status"] == "PREPARED_NOT_REVIEWED"
