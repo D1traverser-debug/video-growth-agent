@@ -62,6 +62,14 @@ The single varied factor is a **bundle called prompt_rendering_policy**. It chan
 
 The obsolete interrupted 0.7→0.8 recovery checkpoint was retired after production 0.8 had already been merged and proven; canonical 0.8 closure retains its blob provenance, while `EVOLUTION_INDEX.json` no longer links a false active-resume instruction. Historical audits with unique fault reproduction remain retained, because removing them would destroy evidence that tests by themselves do not preserve. The rejected V1 aesthetic prompt and wrong-image H1 pass were deleted previously, with causality converted into active design rules and exact Git tombstones.
 
+## H3 audio fidelity and film-review handoff
+
+The H3 official-structure renderer preserves shot-local **timed SFX, ambience, voice events** in `integrated_multimodal_description`; it describes the underlying physical sound palette separately in `overall_soundscape` and sends **timed score-change cues** to `non_diegetic_music`. Earlier code silently discarded the individual MUSIC events and buried SFX timecodes in the global bed. Regression tests prove the metadata survives compilation, not that H3 follows it with sample-accurate synchronization.
+
+VOICE now requires explicitly authored speaker, language and literal `spoken_text` and the structured H3 variant writes `<d>[language] spoken_text</d>`. No unsupported fake dialogue is injected. H3 `native_audio=false` fails closed until a documented silent-generation/film-post profile is wired instead of being silently ignored.
+
+`vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --review-sheet` emits exact shot ranges, required source quotes, observed-action targets, identity/prop carryover, sound cues and transition criteria. **Every shot remains UNREVIEWED** with no media ref; a reviewer must inspect *actual rendered output* and attach timecodes/evidence. This sheet is for analyst scoring after an independent blind viewer first watches the film; handing the shot-by-shot answers to that viewer before screening would invalidate blind comprehension.
+
 ## Falsification & gates
 
 `vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route compare --h3-style chinese`
