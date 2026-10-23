@@ -224,3 +224,26 @@ def test_complete_original_music_only_contract_blocks_unrequested_foley_or_voice
         audit_authored_plan(packet, adjusted)
     notes = audit_authored_plan(packet, plan)["risk_notes"]
     assert any("SOURCE_AUDIO_CONFLICT" in note for note in notes)
+
+
+def test_untimed_original_idea_uses_same_authoring_pipeline_without_false_clock():
+    original_fixture = json.loads((FIX / "prompt_ip_5s.json").read_text(encoding="utf-8"))
+    raw = original_fixture["source"]["raw"]
+    packet = build_director_request(
+        raw, target_seconds=5, aspect_ratio="9:16",
+        source_reference=original_fixture["source"]["reference"],
+        source_type=original_fixture["source"]["type"],
+    )
+    units = packet["source_inventory"]
+    assert units["source_timing_unit_count"] == 0
+    assert units["source_unit_count"] == 4
+    assert not units["nested_or_overlapping_clock_marks"]
+    assert all(unit["kind"] == "UNTIMED_SOURCE_SENTENCE" for unit in units["source_timing_units"])
+    assert all(raw[u["source_span"][0]:u["source_span"][1]] == u["exact_excerpt"]
+               for u in units["source_timing_units"])
+    fixture = copy.deepcopy(original_fixture)
+    fixture["source"]["completeness"] = "FULL"
+    report = accept_authoring_response(packet, json.dumps(fixture, ensure_ascii=False))
+    assert report["source_audit"]["unanchored_units"] == []
+    assert report["compiled"]["routes"]["onepass"]["status"] == "COMPILED"
+    assert report["compiled"]["visual_winner"] is None
