@@ -13,6 +13,8 @@ from .source_director import (
     prepare_authoring_messages,
 )
 from .media_qa import MediaQAChecker, prepare_directed_media_review
+from .media_graph import MediaGraphStore, MediaGraphError
+from .plan_graph_bridge import PlanGraphBridgeError, register_directed_take_observation
 from .models import AssetRecord
 from .runtime import StudioRuntime
 from .system_audit import run_system_audit
@@ -131,10 +133,46 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--max-role-calls", type=int, default=0, help="explicit maximum number of paid role calls; seven required")
 
 
+    p = sub.add_parser("register-directed-take", help="persist inspected local take as unreviewed candidate in existing MediaGraph")
+    p.add_argument("graph", type=Path, help="existing MediaGraph JSON with sequence or shot context")
+    p.add_argument("plan", type=Path, help="immutable director-plan JSON file")
+    p.add_argument("media", type=Path, help="actual existing local video file")
+    p.add_argument("--context-id", required=True)
+    p.add_argument("--director-plan-id", required=True)
+    p.add_argument("--plan-version", required=True)
+    p.add_argument("--take-id", required=True)
+    p.add_argument("--take-version", required=True)
+
     p = sub.add_parser("system-audit")
     p.add_argument("--repo-root", type=Path)
 
     args = parser.parse_args(argv)
+
+    if args.cmd == "register-directed-take":
+        try:
+            if not args.graph.is_file():
+                parser.error("register-directed-take requires an existing graph; no implicit new project")
+            store = MediaGraphStore(args.graph)
+            graph = store.load()
+            plan = json.loads(args.plan.read_text(encoding="utf-8"))
+            ref, packet = register_directed_take_observation(
+                graph, plan=plan, plan_uri=str(args.plan), media=str(args.media),
+                context_id=args.context_id,
+                director_plan_id=args.director_plan_id,
+                plan_version=args.plan_version,
+                take_id=args.take_id, take_version=args.take_version,
+            )
+            store.save(graph)
+            _json({"registered_asset_ref": ref.key(), "state": graph.asset_state(ref),
+                   "evidence_id": "media-inspection:" + ref.key(),
+                   "quality_review": "NOT_STARTED", "provider_attribution": "NOT_VERIFIED",
+                   "promotion_authorized": False, "technical_hard_pass": packet["technical_media_qa"]["hard_pass"],
+                   "duration_alignment": packet["timeline_alignment"],
+                   "media_sha256": packet["media_asset_ref"]["sha256"],
+                   "graph_path": str(args.graph), "review_packet": packet})
+            return 0
+        except (PlanGraphBridgeError, MediaGraphError, PromptPlanError, OSError, ValueError, RuntimeError) as exc:
+            parser.exit(2, f"register-directed-take: {exc}\n")
 
     if args.cmd == "craft-round":
         try:
