@@ -50,6 +50,16 @@ The former `CONCEPT_GENERATION_PROMPT_V1.md` (source provenance retained in the 
 
 **Transferable film-direction rule:** test primary figure silhouette at thumbnail scale, face mass/expressive direction without the signature colors, and costume as a single large shape **before** microtexture or CG surface effects. For each signature motif, demand a visible impact on blocking, silhouette or motion, not a hidden explanatory label. The prompt is rejected if a different generic digital actor could fulfil it unchanged. Convert failure into a concise counterexample in the prompt-comparison notes; do not resurrect the entire rejected character recipe as active source truth.
 
+## Pre-registered H3 prompt experiment (reuse, not another controller)
+
+Run `vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --study-h3-dialects`. The CLI now returns one `ExperimentPlan` from the **existing** `video_growth_agent.experiments` module, two immutably fingerprinted generated prompts and explicit fixed variables (storyboard, duration, aspect ratio, model, source digest). No render is triggered and no winner exists.
+
+The single varied factor is a **bundle called prompt_rendering_policy**. It changes natural language *and* document structure, so any future difference cannot be causally attributed to language or structure alone. First compare paired H3 outputs under identical UI/model parameters, then repeat on the distinct 5s IP fixture. Record actual clips, operator spend, blind story comprehension, identity continuity, physical interaction failures and independently observable frame evidence before promoting any default. To isolate language or structure, authorize an additional factorial experiment.
+
+### Cleaned historical authority
+
+The obsolete interrupted 0.7→0.8 recovery checkpoint was retired after production 0.8 had already been merged and proven; canonical 0.8 closure retains its blob provenance, while `EVOLUTION_INDEX.json` no longer links a false active-resume instruction. Historical audits with unique fault reproduction remain retained, because removing them would destroy evidence that tests by themselves do not preserve. The rejected V1 aesthetic prompt and wrong-image H1 pass were deleted previously, with causality converted into active design rules and exact Git tombstones.
+
 ## Falsification & gates
 
 `vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route compare --h3-style chinese`
