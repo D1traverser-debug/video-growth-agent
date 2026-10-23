@@ -92,9 +92,9 @@ def render_h3_t2va(
         music += " Timed score events: " + " ".join(score_changes)
     return (
         story
-        + "\\n\\noverall_soundscape: "
+        + "\n\noverall_soundscape: "
         + soundscape
-        + "\\n\\nnon_diegetic_music: "
+        + "\n\nnon_diegetic_music: "
         + (music if music.strip() else "N/A")
     )
 
