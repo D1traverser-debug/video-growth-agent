@@ -163,3 +163,27 @@ def test_graph_round_trip_persists_identity_lineage_decisions_and_pointers(tmp_p
 
     payload = json.loads(path.read_text(encoding="utf-8"))
     assert payload["promoted_versions"]["frame"] == "v1"
+
+def test_invalidated_take_cannot_be_promoted_even_with_later_positive_decision():
+    """A previously valid review receipt cannot revive obsolete plan descendants."""
+    graph = _base_graph()
+    plan = AssetRef("director-plan", "p1")
+    take = AssetRef("take", "t1")
+    graph.add_asset(AssetVersion(plan, "episode-1", "EDITORIAL_PLAN", "plan://p1", "sha256:p1"))
+    graph.add_asset(AssetVersion(take, "shot-1", "VIDEO_TAKE", "take://t1", "sha256:t1", derived_from=(plan,)))
+    graph.add_evidence(EvidenceRecord(
+        "review-old-take", "ASSET", take.key(), "REVIEW",
+        ("report://observed-t1",), "2026-10-24T01:00:00Z",
+    ))
+    graph.add_decision(DecisionRecord(
+        "accept-stale", "ASSET_PROMOTION", "editor",
+        (take.key(),), ("criteria://shot-quality",),
+        ("review-old-take",), "PROMOTE", "2026-10-24T01:01:00Z",
+    ))
+    affected = graph.invalidate_downstream(plan)
+    assert take in affected
+    assert graph.asset_state(take) == "STALE"
+    with pytest.raises(MediaGraphError, match="stale"):
+        graph.promote_asset(take, decision_id="accept-stale")
+    assert graph.current_promoted("take") is None
+    assert graph.asset_state(take) == "STALE"
