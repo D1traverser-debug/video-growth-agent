@@ -380,6 +380,26 @@ class MediaGraph:
             AssetRef.from_key(key): str(state)
             for key, state in payload.get("asset_state_overrides", {}).items()
         }
+        for ref, state in graph.asset_state_overrides.items():
+            if ref not in graph.assets:
+                raise MediaGraphError(f"restored state references missing asset: {ref.key()}")
+            if state not in ASSET_STATES:
+                raise MediaGraphError(f"restored state invalid: {ref.key()}={state}")
+        for asset_id, version_id in graph.promoted_versions.items():
+            ref = AssetRef(asset_id, version_id)
+            if ref not in graph.assets:
+                raise MediaGraphError(f"restored promotion points to missing asset: {ref.key()}")
+            if graph.asset_state(ref) != "PROMOTED":
+                raise MediaGraphError(f"restored promotion state mismatch: {ref.key()}")
+            if not any(
+                decision.result.upper() in {"PROMOTE", "ACCEPT", "SELECT"}
+                and ref.key() in decision.subject_refs
+                for decision in graph.decisions.values()
+            ):
+                raise MediaGraphError(f"restored promotion lacks decision: {ref.key()}")
+        for ref, state in graph.asset_state_overrides.items():
+            if state == "PROMOTED" and graph.promoted_versions.get(ref.asset_id) != ref.version_id:
+                raise MediaGraphError(f"orphaned PROMOTED override: {ref.key()}")
         return graph
 
     def _assert_context_acyclic(self) -> None:
