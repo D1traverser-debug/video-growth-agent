@@ -111,6 +111,9 @@
       ],
       "continuity": [
         "woman has exactly one red ribbon, same earrings and clothes"
+      ],
+      "source_beat_ids": [
+        "beat-R1"
       ]
     },
     {
@@ -132,6 +135,9 @@
       ],
       "continuity": [
         "ribbon flies to camera right with one continuous trajectory"
+      ],
+      "source_beat_ids": [
+        "beat-R2"
       ]
     },
     {
@@ -153,6 +159,9 @@
       ],
       "continuity": [
         "same ribbon, no teleportation"
+      ],
+      "source_beat_ids": [
+        "beat-R3"
       ]
     },
     {
@@ -174,6 +183,9 @@
       ],
       "continuity": [
         "ribbon end hangs outside right fist, stable male face"
+      ],
+      "source_beat_ids": [
+        "beat-R4"
       ]
     },
     {
@@ -195,6 +207,9 @@
       ],
       "continuity": [
         "male still holds same ribbon before tying"
+      ],
+      "source_beat_ids": [
+        "beat-R5"
       ]
     },
     {
@@ -217,6 +232,9 @@
       "continuity": [
         "red ribbon returns to woman's hair",
         "final title set in post-production for accuracy"
+      ],
+      "source_beat_ids": [
+        "beat-R6"
       ]
     }
   ],
