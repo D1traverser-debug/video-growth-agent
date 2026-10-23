@@ -82,3 +82,19 @@ def test_plain_output_is_copy_ready_and_refuses_ambiguous_compare_mode():
     bad = subprocess.run(base + ["--plain"], capture_output=True, text=True)
     assert bad.returncode != 0
     assert "--plain needs --route" in bad.stderr
+
+
+def test_review_sheet_cli_is_unscored_even_when_source_events_are_tagged():
+    sample = str(FIXTURES / "prompt_ribbon_10s.json")
+    command = [sys.executable, "-m", "video_growth_agent.cli", "direct-prompts", sample, "--review-sheet"]
+    result = subprocess.run(command, capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
+    sheet = json.loads(result.stdout)
+    assert sheet["media_asset_ref"] is None
+    assert sheet["assessment"] == "NOT_STARTED"
+    assert sheet["reviewer_independence"] == "NOT_ESTABLISHED"
+    assert len(sheet["shots"]) == 6
+    assert all(s["actual_result"] == "UNREVIEWED" for s in sheet["shots"])
+    mixed = subprocess.run(command + ["--plain"], capture_output=True, text=True)
+    assert mixed.returncode != 0
+    assert "mutually exclusive" in mixed.stderr
