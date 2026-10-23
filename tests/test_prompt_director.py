@@ -32,7 +32,8 @@ def test_source_first_scenarios_are_mechanically_accountable(name, frames, event
     output = compile_prompts(spec, "compare")
     assert output["visual_winner"] is None
     assert "No film semantic/quality verdict" in output["static_validation"]["assurance"]
-    assert output["static_validation"]["complete_source_verified"] is False
+    assert output["static_validation"]["whole_original_verified"] is False
+    assert output["static_validation"]["source_scope_claim"] == "EXCERPT"
     assert output["routes"]["shotwise"]["status"] == "COMPILED"
     assert abs(sum(p["edit_duration_seconds"] for p in output["routes"]["shotwise"]["prompts"])
                - frames / 30) < 1e-9
@@ -202,7 +203,23 @@ def test_owner_verified_chinese_storyboard_is_default_without_erasing_official_v
 
 def test_excerpt_source_never_masquerades_as_exhaustive_original():
     plan = load("prompt_ribbon_10s.json")
-    assert validate_plan(plan)["complete_source_verified"] is False
+    assert validate_plan(plan)["whole_original_verified"] is False
     plan["source"]["completeness"] = "UNKNOWN"
     with pytest.raises(PromptPlanError, match="source.completeness"):
+        validate_plan(plan)
+
+
+
+def test_declaring_full_source_does_not_invent_independent_proof():
+    plan = load("prompt_ribbon_10s.json")
+    plan["source"]["completeness"] = "FULL"
+    assessment = validate_plan(plan)
+    assert assessment["source_scope_claim"] == "FULL"
+    assert assessment["whole_original_verified"] is False
+
+
+def test_same_visual_mechanism_cannot_masquerade_as_competing_creative_option():
+    plan = load("prompt_ip_5s.json")
+    plan["alternatives"][1]["visual_mechanism"] = plan["alternatives"][0]["visual_mechanism"]
+    with pytest.raises(PromptPlanError, match="same visual mechanism"):
         validate_plan(plan)
