@@ -50,7 +50,7 @@ def inventory_source(raw: str) -> dict[str, Any]:
         # Real authoring requests are often ideas or prose with no original
         # timecodes. Split lexically, preserve offsets, and NEVER claim these
         # textual slices were independently understood as dramatic events.
-        for part in re.finditer(r"[^。；\\n]+[。；\\n]?", raw):
+        for part in re.finditer(r"[^。；\n]+[。；\n]?", raw):
             if not part.group().strip():
                 continue
             units.append({
@@ -66,8 +66,9 @@ def inventory_source(raw: str) -> dict[str, Any]:
         "total_characters": len(raw),
         "untimed_prefix": raw[:matches[0].start()] if matches else "",
         "source_timing_units": units,
-        "source_timing_unit_count": len(units),
-        "nested_or_overlapping_clock_marks": any(
+        "source_unit_count": len(units),
+        "source_timing_unit_count": len(matches),
+        "nested_or_overlapping_clock_marks": bool(matches) and any(
             units[i]["clock"][0] < units[i - 1]["clock"][1]
             for i in range(1, len(units))
         ),
