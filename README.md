@@ -48,13 +48,14 @@ There is no new video controller. The seven relevant roles already defined in th
 vga craft-round tests/fixtures/prompt_ribbon_fullsource_10s.json
 vga craft-round tests/fixtures/prompt_ribbon_fullsource_10s.json --reviews submitted-reviews.json
 vga craft-round revised-plan.json --previous old-plan.json --revision 2
+vga craft-round revised-plan.json --previous old-plan.json --previous-reviews prior-reviews.json --revision 2
 # Optional seven separate text-model role critiques. The original script is transmitted,
 # so explicit upload/cost approval and the exactly seven-call budget are required:
 # vga craft-round PLAN.json --execute-roles --endpoint https://YOUR-PROVIDER/v1/chat/completions --model-name YOUR-MODEL --approve-upload-cost --max-role-calls 7
 vga techniques --tag review --include-candidates
 ```
 
-By default, the command **prepares** review requests but does not execute models. Each role receives the full original script, event quotes, alternatives and exact shot frames, but no other reviewer's verdict. The opt-in role execution calls a separately configured text LLM once per role; its resulting views are explicitly labeled **LLM simulations**, not seven independent humans or actual video reviews. Reconciliation takes externally submitted role critiques, rejects wrong plan versions, forwards findings to the existing discipline owners and requires a new plan hash for edits. Actual media QA remains with existing MediaQA/reviewer attestation. Candidate techniques T-015/016/017 are additions to the **existing** TechniqueLibrary and are not production validated.
+By default, the command **prepares** review requests but does not execute models. Each role receives the full original script, event quotes, alternatives and exact shot frames, but no other reviewer's verdict. The opt-in role execution calls a separately configured text LLM once per role; its resulting views are explicitly labeled **LLM simulations**, not seven independent humans or actual video reviews. Reconciliation takes externally submitted role critiques, rejects wrong plan versions, forwards findings to the existing discipline owners and requires a new plan hash for edits. `--previous-reviews` reports issues whose corresponding shots were changed versus left untouched; it never asserts those changes are good or the visual result has been seen. Actual media QA remains with existing MediaQA/reviewer attestation. Candidate techniques T-015/016/017 are additions to the **existing** TechniqueLibrary and are not production validated.
 
 Research notes at `skills/video-growth-agent/references/craft-source-studies.md` examine nine first-party producer/editor/model/reliability sources with use cases, non-transferable defaults and falsifiable prototypes. See `self-learning.md` for the existing adoption authority. Reading a Skill does not mean its entire workflow should be copied, or that a provider's specific aesthetic becomes this studio's rule.
 
