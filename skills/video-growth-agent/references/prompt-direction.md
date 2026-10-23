@@ -44,6 +44,12 @@ The user reports PixVerse results as poor, but it is not a controlled head-to-he
 - **Reference/keyframe-based H3** can improve identity/pose constraints *in principle*; deliberately blocked by current code until actual reference files, rights, roles and first/last mapping are validated. Do not fake `<Picture 1>` without material inputs.
 - **Heavy frame-accurate transitions**: rendered clip -> NLE match cut. Adobe [match-cut reference](https://www.adobe.com/creativecloud/video/discover/match-cut.html) separates graphic, action and auditory matching; strict visual geometry requires real edit verification.
 
+## Rejected visual prompt converted into a reusable rule
+
+The former `CONCEPT_GENERATION_PROMPT_V1.md` (source provenance retained in the integrated project's retired-document records) was explicitly **rejected** after its rendered blue-hair/techwear character became a generic game-ad male. The independent project-local failure audit and active `DESIGN_RESEARCH_METHOD_V2.md` explain why: elaborate eyelid asymmetry, decorative stitching, small icons, accessory easter eggs and extra adjectives were specified **before** the actor's silhouette, facial masses, body volume, costume mass, and narrative behavior were established.
+
+**Transferable film-direction rule:** test primary figure silhouette at thumbnail scale, face mass/expressive direction without the signature colors, and costume as a single large shape **before** microtexture or CG surface effects. For each signature motif, demand a visible impact on blocking, silhouette or motion, not a hidden explanatory label. The prompt is rejected if a different generic digital actor could fulfil it unchanged. Convert failure into a concise counterexample in the prompt-comparison notes; do not resurrect the entire rejected character recipe as active source truth.
+
 ## Falsification & gates
 
 `vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route compare --h3-style chinese`
