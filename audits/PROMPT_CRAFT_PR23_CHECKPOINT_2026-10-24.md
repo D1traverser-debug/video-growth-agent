@@ -89,6 +89,29 @@ Actual GitHub Actions [#39987972345](https://github.com/D1traverser-debug/video-
 
 **Recommended next evidence-supported work**: first confirm latest head CI after this metadata write; investigate the FFmpeg failure-status assurance issue in the owning MediaQA path when write authorization permits; next integrate bound take versions with existing MediaGraph and operator review/LEARN evidence without replicating their lifecycle. Await actual authorized video or provided clip for perceptual QA. Continue on PR #23 draft, leave `main` intact.
 
+## Continued engineering — director plan → graph-backed real Take (2026-10-24)
+
+**Implemented candidate head before metadata updates**: `1f8fd7ed9293888e073a7e239c175b3329269b18`. Still PR #23 Draft, `main` untouched; an implemented commit alone is not V&V. [Run #39991531116](https://github.com/D1traverser-debug/video-growth-agent/actions/runs/39991531116) showed prompt-contract success and full-test job in progress at last inspection; refresh exact HEAD workflow before reporting an overall PASS.
+
+**Actual change—not another controller/graph**: Existing `plan_graph_bridge.py` now registers one `DIRECTOR_PLAN` source asset and a derived `VIDEO_TAKE` candidate in the existing `MediaGraph`. It requires the *real local director plan file* to equal the plan content; verifies a canonical plan digest; inspects actual local video bytes using current `MediaQAChecker`; binds SHA-256, QA report, observed duration/mismatch and unexecuted per-shot review targets to an immutable `EvidenceRecord`. Missing project context, contradictory immutable plan version and duplicate Take version fail closed. No provider-run identity, visual quality, blind human review or promotion is asserted. Explicit `graph.invalidate_downstream(old_plan_ref)` makes descendants stale; newer plan versions are not automatically declared artistically better.
+
+**Working operator entry** (requires a previously populated real MediaGraph with the specified Sequence/Shot context and actual local media):
+
+```bash
+vga register-directed-take GRAPH.json PLAN.json TAKE.mp4 \
+  --context-id SQ1 \
+  --director-plan-id directed-plan:SQ1 --plan-version p1 \
+  --take-id rendered-take:SQ1 --take-version t1
+```
+
+CLI writes using existing `MediaGraphStore`, outputs the prepared review packet and explicitly `CANDIDATE / NOT_STARTED / NOT_VERIFIED`; it refuses to silently create a new graph or overwrite a take. Existing lighter `direct-prompts --review-sheet --media` path is unchanged.
+
+**Reproduction**: `tests/test_plan_graph_bridge.py` adds a real FFmpeg synthetic-color/audio fixture (NOT a provider render or test of art) exercising exact file hash, plan/take link, version conflicts, evidence roundtrip, stale invalidation and no auto-promotion; CLI regression checks persistent graph and no overwrite on duplicate. These tests are not film-quality evidence.
+
+**Remaining integration/quality gaps**: user-approved provider generation and genuine media artifact are absent from the repository (verified current git tree has no .mp4/.mov/.webm/.mkv). The bridge does not yet connect to a verified provider-issued run/seed/model/cost receipt, production `TakeRecord`/rights decision, independent motion+sound review attestation, experiment outcome, or LEARN promotion. Review evidence is metadata awaiting real footage and independent screening; a real take should not be admitted to release based on candidate registration. Known FFmpeg detector nonzero-exit false-PASS issue remains unresolved; prior attempted write to the detector path was blocked and was not retried through an alternate action. Future operator work must validate actual source files, QA error paths and context initialization; do not equate a successful test with production media.
+
+**Next autonomously executable direction**: first inspect latest CI on current head and correct any failures, then reuse existing reviewer execution attestation and `TakeRecord` to bind authentic playback/verdict evidence; only actual authorized rendered footage may close semantic, visual and audio goals. Avoid inventing another QA lifecycle.
+
 ## Stop/restart integrity
 
 - In a fresh chat, **never** silently state this work is finished, that CI is latest without checking, that a candidate technique is validated, that reviewers independently executed, or that a movie was produced if none exists.
