@@ -3,7 +3,8 @@
   "source": {
     "type": "USER_ORIGINAL",
     "raw": "我是个A股分析公众号写手，正在调试AI agent总控系统，等总控调试好了，就会同时负责小说、荐股复盘、财经A股投案写作、视频制作。我平常玩A股、Solana memecoin、金铲铲、第五人格监管人格。我想有种ip、粒子特效、游刃有余、剪辑高手、炫酷转场。我还喜欢柴犬。",
-    "reference": "conversation://owner/2026-10-23/personal-ip-brief"
+    "reference": "conversation://owner/2026-10-23/personal-ip-brief",
+    "completeness": "EXCERPT"
   },
   "brief": {
     "title": "下一帧 — 柴犬副导演的五秒开场",
