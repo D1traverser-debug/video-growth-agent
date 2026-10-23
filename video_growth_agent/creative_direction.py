@@ -194,5 +194,37 @@ def compile_storyboard(spec: dict[str, Any], *, route: str = "shotwise") -> dict
             "assurance": "Static structural validation only. No model execution, aesthetic score, or frame-level AV verification."}
 
 
+def compare_routes(spec: dict[str, Any]) -> dict[str, Any]:
+    """Compare executable route *contracts*, not unsupported aesthetic predictions.
+
+    The output explicitly abstains from naming a visual-quality winner without
+    real rendered artifacts and independent review.
+    """
+    coverage = validate_spec(spec)
+    candidates: dict[str, dict[str, Any]] = {}
+    for route in ("onepass", "shotwise"):
+        try:
+            result = compile_storyboard(spec, route=route)
+            prompts = result["prompts"]
+            candidates[route] = {
+                "status": "COMPILED",
+                "prompt_count": len(prompts),
+                "total_generated_seconds": sum(item["generation_duration_seconds"] for item in prompts),
+                "total_edit_seconds": sum(item["duration_seconds"] for item in prompts),
+                "largest_prompt_characters": max(len(item["prompt"]) for item in prompts),
+                "risks": result["review_flags"],
+            }
+        except CraftSpecError as error:
+            candidates[route] = {"status": "INVALID_FOR_CURRENT_PROFILE", "reason": str(error)}
+    return {
+        "source_plan_ref": spec["source_plan_ref"],
+        "planned_event_count": len(coverage["event_to_shots"]),
+        "candidates": candidates,
+        "visual_quality_winner": None,
+        "reason": "Route contracts only. Requires authorized renders, actual cost and independent frame-indexed QA.",
+    }
+
+
 def compile_from_file(path: str | Path, *, route: str = "shotwise") -> dict[str, Any]:
-    return compile_storyboard(json.loads(Path(path).read_text(encoding="utf-8")), route=route)
+    spec = json.loads(Path(path).read_text(encoding="utf-8"))
+    return compare_routes(spec) if route == "compare" else compile_storyboard(spec, route=route)
