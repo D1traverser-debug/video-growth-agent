@@ -1,0 +1,112 @@
+"""Independent structural/contract checks for creative plans; no fake model-quality assertions."""
+from __future__ import annotations
+
+import copy
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+import pytest
+
+from video_growth_agent.creative_direction import (
+    CraftSpecError,
+    compile_from_file,
+    compile_storyboard,
+    validate_spec,
+)
+
+FIXTURES = Path(__file__).parent / "fixtures"
+
+
+def load(name):
+    return json.loads((FIXTURES / name).read_text(encoding="utf-8"))
+
+
+@pytest.mark.parametrize("name,frames,shots,events", [
+    ("creative_ip_5s.json", 150, 3, 5),
+    ("creative_ribbon_10s.json", 300, 6, 13),
+])
+def test_divergent_film_ideas_preserve_planned_story_contract(name, frames, shots, events):
+    plan = load(name)
+    summary = validate_spec(plan)
+    assert plan["duration_frames"] == frames
+    assert summary["duration_seconds"] == frames / 30
+    assert summary["shot_count"] == shots
+    assert len(summary["event_to_shots"]) == events
+    assert all(summary["event_to_shots"].values())
+    result = compile_storyboard(plan, route="shotwise")
+    assert len(result["prompts"]) == shots
+    assert abs(sum(s["duration_seconds"] for s in result["prompts"]) - frames / 30) < 1e-9
+    assert all(item["prompt"].startswith(plan["title"]) for item in result["prompts"])
+    assert result["assurance"].startswith("Static structural validation")
+
+
+def test_onepass_supports_simple_five_second_ip_case():
+    result = compile_from_file(FIXTURES / "creative_ip_5s.json", route="onepass")
+    assert len(result["prompts"]) == 1
+    assert "Shiba" in result["prompts"][0]["prompt"]
+    assert "0.00s" in result["prompts"][0]["prompt"]
+    assert "5.00s" in result["prompts"][0]["prompt"]
+
+
+def test_compression_rejects_omitted_required_story_event():
+    plan = load("creative_ribbon_10s.json")
+    plan["shots"][-1]["event_ids"].remove("tie")
+    with pytest.raises(CraftSpecError, match="story events lost"):
+        validate_spec(plan)
+
+
+@pytest.mark.parametrize("edit", [
+    lambda s: s["shots"][1].update(start_frame=40),
+    lambda s: s["shots"][1].update(start_frame=10),
+    lambda s: s["shots"][-1].update(end_frame=149),
+])
+def test_rejects_timeline_gap_overlap_and_short_end(edit):
+    plan = load("creative_ip_5s.json")
+    edit(plan)
+    with pytest.raises(CraftSpecError, match="gaps|timeline must end"):
+        validate_spec(plan)
+
+
+def test_rejects_unexpected_semantic_fields_and_unknown_events():
+    plan = load("creative_ip_5s.json")
+    plan["shots"][0]["temporal_miracle"] = True
+    with pytest.raises(CraftSpecError, match="unexpected fields"):
+        validate_spec(plan)
+    plan = load("creative_ip_5s.json")
+    plan["shots"][0]["event_ids"].append("invented")
+    with pytest.raises(CraftSpecError, match="unknown narrative event"):
+        validate_spec(plan)
+
+
+def test_rejects_prompt_overflow_without_silent_truncation():
+    plan = load("creative_ip_5s.json")
+    plan["generator"]["max_prompt_characters"] = 50
+    with pytest.raises(CraftSpecError, match="exceeds"):
+        compile_storyboard(plan, route="onepass")
+    with pytest.raises(CraftSpecError, match="exceeds"):
+        compile_storyboard(plan, route="shotwise")
+
+
+def test_never_confuses_sound_intent_with_generated_audio():
+    plan = load("creative_ribbon_10s.json")
+    result = compile_storyboard(plan)
+    assert "SOUND_POST_REQUIRED: sonic cues must be produced in post" in result["review_flags"]
+    assert not result["narrative_coverage"].get("generated_visuals_verified", False)
+
+
+def test_cli_exposes_real_compilation_and_structural_errors(tmp_path):
+    command = [sys.executable, "-m", "video_growth_agent.cli", "storyboard",
+               str(FIXTURES / "creative_ip_5s.json"), "--route", "shotwise"]
+    result = subprocess.run(command, capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
+    assert json.loads(result.stdout)["narrative_coverage"]["shot_count"] == 3
+
+    invalid = load("creative_ip_5s.json")
+    invalid["shots"][0]["end_frame"] = 31
+    path = tmp_path / "bad.json"
+    path.write_text(json.dumps(invalid), encoding="utf-8")
+    bad = subprocess.run(command[:4] + [str(path)], capture_output=True, text=True)
+    assert bad.returncode == 2
+    assert "storyboard error" in bad.stderr
