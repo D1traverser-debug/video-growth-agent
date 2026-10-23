@@ -110,7 +110,7 @@ def main(argv: list[str] | None = None) -> int:
                     compiled = report["routes"][args.route]
                     if compiled["status"] != "COMPILED":
                         parser.error(compiled["reason"])
-                    print("\\n\\n=== NEXT SHOT ===\\n\\n".join(item["prompt"] for item in compiled["prompts"]))
+                    print("\n\n=== NEXT SHOT ===\n\n".join(item["prompt"] for item in compiled["prompts"]))
                 else:
                     _json(report)
             return 0
