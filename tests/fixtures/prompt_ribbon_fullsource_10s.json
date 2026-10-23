@@ -16,7 +16,7 @@
     "aspect_ratio": "16:9",
     "ending": "两人并肩背影立于古桥樱花雨，字幕后期添加",
     "narrative_strategy": "红色丝带是唯一贯穿道具，分镜压缩并使用动作方向匹配",
-    "sound_strategy": "A soft guqin phrase supported by sustained strings, increasing briefly as the ribbon reaches the man's hand, then resolving on the final two-shot. No sung vocals."
+    "sound_strategy": "古琴铺底、弦乐在红绸接触男主手时短暂停顿并在相遇时展开；无台词，仅背景音乐，不单独生成铃声、风声、拍手拟音，画面中的拍手仍清晰可见。"
   },
   "alternatives": [
     {
@@ -274,13 +274,7 @@
         "bridge": "风吹动女主发带",
         "purpose": "许愿引来风"
       },
-      "audio": [
-        {
-          "at_frame": 0,
-          "category": "AMBIENCE",
-          "description": "铜铃轻响"
-        }
-      ],
+      "audio": [],
       "event_ids": [
         "wish",
         "dust",
@@ -318,13 +312,7 @@
         "bridge": "红丝带掠过镜头右侧",
         "purpose": "让人物镜头切至飞行镜头"
       },
-      "audio": [
-        {
-          "at_frame": 55,
-          "category": "SFX",
-          "description": "急风吹铜铃"
-        }
-      ],
+      "audio": [],
       "event_ids": [
         "wind",
         "clap",
@@ -364,13 +352,7 @@
         "bridge": "丝带触及两指瞬间匹配男主手特写",
         "purpose": "证明布料不是瞬移"
       },
-      "audio": [
-        {
-          "at_frame": 118,
-          "category": "SFX",
-          "description": "丝绸破风声"
-        }
-      ],
+      "audio": [],
       "event_ids": [
         "catch",
         "source-unit-11",
@@ -494,13 +476,7 @@
         "bridge": "顶部留干净天空负空间",
         "purpose": "用同一红绸完成故事闭环"
       },
-      "audio": [
-        {
-          "at_frame": 280,
-          "category": "SFX",
-          "description": "铜铃余音"
-        }
-      ],
+      "audio": [],
       "event_ids": [
         "retie",
         "end",
