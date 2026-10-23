@@ -31,7 +31,8 @@ def test_source_first_scenarios_are_mechanically_accountable(name, frames, event
     assert result["duration_seconds"] == frames / 30
     output = compile_prompts(spec, "compare")
     assert output["visual_winner"] is None
-    assert output["static_validation"]["assurance"].startswith("Static storyboard")
+    assert "No film semantic/quality verdict" in output["static_validation"]["assurance"]
+    assert output["static_validation"]["complete_source_verified"] is False
     assert output["routes"]["shotwise"]["status"] == "COMPILED"
     assert abs(sum(p["edit_duration_seconds"] for p in output["routes"]["shotwise"]["prompts"])
                - frames / 30) < 1e-9
@@ -196,3 +197,12 @@ def test_owner_verified_chinese_storyboard_is_default_without_erasing_official_v
     assert cn_text != en_text
     assert cn["static_validation"] == official["static_validation"]
     assert cn["visual_winner"] is None and official["visual_winner"] is None
+
+
+
+def test_excerpt_source_never_masquerades_as_exhaustive_original():
+    plan = load("prompt_ribbon_10s.json")
+    assert validate_plan(plan)["complete_source_verified"] is False
+    plan["source"]["completeness"] = "UNKNOWN"
+    with pytest.raises(PromptPlanError, match="source.completeness"):
+        validate_plan(plan)
