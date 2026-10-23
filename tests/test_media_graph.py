@@ -145,6 +145,8 @@ def test_replacement_promotion_stales_old_consumers_without_staling_approved_suc
     assert graph.asset_state(c2) == "PROMOTED"
     assert graph.asset_state(new_keyframe) == "CANDIDATE"
     assert graph.asset_state(unrelated) == "PROMOTED"
+    with pytest.raises(MediaGraphError, match="stale"):
+        graph.promote_asset(old_take, decision_id="dec-old-take")
 
 
 def test_upstream_change_computes_and_applies_only_downstream_invalidation():
