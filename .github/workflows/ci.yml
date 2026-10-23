@@ -3,6 +3,31 @@ on:
   push:
   pull_request:
 jobs:
+  prompt-contract:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - name: Install lightweight contract test tools
+        run: pip install -e . pytest==9.1.1
+      - name: Prompt director source and rendering contract tests
+        run: pytest -q tests/test_prompt_director.py
+      - name: CLI direct-prompts smoke
+        run: |
+          vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route compare --h3-style chinese > /tmp/h3-cn.json
+          vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route onepass --h3-style official > /tmp/h3-official.json
+          python - <<'PY'
+          import json
+          chinese = json.load(open('/tmp/h3-cn.json', encoding='utf-8'))
+          official = json.load(open('/tmp/h3-official.json', encoding='utf-8'))
+          assert chinese['routes']['onepass']['status'] == 'COMPILED'
+          assert '逐时段分镜' in chinese['routes']['onepass']['prompts'][0]['prompt']
+          assert official['routes']['onepass']['status'] == 'COMPILED'
+          assert official['routes']['onepass']['prompts'][0]['prompt'].startswith('integrated_multimodal_description:')
+          assert chinese['visual_winner'] is None
+          PY
   test:
     runs-on: ubuntu-24.04
     steps:
