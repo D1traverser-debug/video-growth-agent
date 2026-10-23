@@ -40,15 +40,31 @@ def inventory_source(raw: str) -> dict[str, Any]:
         content = raw[match.end():stop]
         units.append({
             "unit_id": f"U{i + 1:03}",
+            "kind": "SOURCE_TIMECODE",
             "clock": [start, end],
             "source_span": [match.start(), stop],
             "exact_excerpt": raw[match.start():stop],
             "content": content,
         })
+    if not matches:
+        # Real authoring requests are often ideas or prose with no original
+        # timecodes. Split lexically, preserve offsets, and NEVER claim these
+        # textual slices were independently understood as dramatic events.
+        for part in re.finditer(r"[^。；\\n]+[。；\\n]?", raw):
+            if not part.group().strip():
+                continue
+            units.append({
+                "unit_id": f"U{len(units) + 1:03}",
+                "kind": "UNTIMED_SOURCE_SENTENCE",
+                "clock": None,
+                "source_span": [part.start(), part.end()],
+                "exact_excerpt": raw[part.start():part.end()],
+                "content": part.group(),
+            })
     return {
         "source_digest": _source_digest(raw),
         "total_characters": len(raw),
-        "untimed_prefix": raw[:matches[0].start()] if matches else raw,
+        "untimed_prefix": raw[:matches[0].start()] if matches else "",
         "source_timing_units": units,
         "source_timing_unit_count": len(units),
         "nested_or_overlapping_clock_marks": any(
@@ -80,8 +96,6 @@ def build_director_request(
     if provider != "MiniMax-H3":
         raise PromptPlanError("raw director authoring currently targets MiniMax-H3")
     inventory = inventory_source(raw)
-    if inventory["source_timing_unit_count"] == 0:
-        raise PromptPlanError("no source time markers found: use the plain brief authoring route")
     task = {
         "source_contract": {
             "type": source_type,
@@ -102,7 +116,7 @@ def build_director_request(
             "Act as director, writer, editor, cinematographer, sound designer and independent critic; output ONLY a JSON object matching the exact prompt_director plan contract, no Markdown fences.",
             "Preserve source.raw verbatim and source.reference exactly: do not rewrite, compress, trim or invent source quotes.",
             "Distinguish original SOURCE events (literal source_quote, origin SOURCE) from CREATIVE_INFERENCE (source_quote empty). Create explicit event IDs and map each to actual shot IDs.",
-            "Inventory every distinct physical/emotional event in the original. Audit every clock-marked source unit against event IDs; if a unit cannot be expressed in the target running time, do not falsely promise all content survived.",
+            "Inventory every distinct physical/emotional event in the original. Audit every source unit (timecoded or plain prose) against event IDs; if a unit cannot be expressed in the target running time, do not falsely promise all content survived.",
             "Compare at least two genuinely different directorial treatments, articulate cause, affect, visual mechanism and concrete failure mode; then select one and state why.",
             "Specify one coherent full-film visual_language (style/world/palette/materials/lighting/render_finish) derived from the original, not generic cyberpunk imagery.",
             "Frame the edited film with half-open integer [start_frame,end_frame), no overlaps, full 0..total_frames coverage; original 30s timing is reference content, not a physically executable 10s duration.",
@@ -335,7 +349,7 @@ def author_with_model(
                     "The previous candidate was REJECTED: " + str(exc) + ". "
                     "Return a complete corrected bare JSON object. Keep source.raw, "
                      "source.reference, agreed edit timebase and model provider unchanged; "
-                    "map ALL source-clock units to source-quoted narrative events."
+                    "map ALL original source units to source-quoted narrative events."
                 ),
             }]
     raise PromptPlanError("unreachable authoring state")
