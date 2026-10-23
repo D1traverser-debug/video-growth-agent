@@ -37,7 +37,8 @@ def render_h3_t2va(
         f"Visual mechanism: {concept['visual_mechanism']}. "
         f"Identity and physical anchors: {'; '.join(plan['identity_anchors'])}. "
     )
-    sound_bed: list[str] = []
+    sound_inventory: list[str] = []
+    score_changes: list[str] = []
     for index, shot in enumerate(shots):
         cam, action, light, trans = (
             shot["camera"], shot["action"], shot["light"], shot["transition"]
@@ -57,12 +58,21 @@ def render_h3_t2va(
             f"its purpose is {trans['purpose']}. "
             f"Keep continuity: {shot['continuity']}. "
         )
-        for sound in shot["audio"]:
-            local = (sound["at_frame"] - start_frame) / fps
-            cue = f"At {_at(local)}, {sound['description']}."
-            if sound["category"] == "MUSIC":
-                continue
-            sound_bed.append(cue)
+        for cue in shot["audio"]:
+            local = (cue["at_frame"] - start_frame) / fps
+            moment = f"At {_at(local)}"
+            category, detail = cue["category"], cue["description"]
+            if category == "MUSIC":
+                # Score is only audible to the audience, not a physical sound.
+                score_changes.append(f"{moment}, {detail}.")
+            elif category == "SILENCE":
+                story += f"{moment}, an intentional silence: {detail}. "
+            else:
+                # An action synced to a beat must live on that shot's timeline,
+                # not only in the undated environmental sound bed.
+                story += f"{moment}, synced {category.lower()}: {detail}. "
+                if category in {"AMBIENCE", "SFX"} and detail not in sound_inventory:
+                    sound_inventory.append(detail)
     if render_seconds - usable_seconds > 0.001:
         story += (
             f"Complete the intended action by {usable_seconds:.2f} seconds; "
@@ -73,14 +83,18 @@ def render_h3_t2va(
     if not continuation:
         story += f"Conclude on {brief['ending']}. "
     story += f"The creative objective is {brief['goal']}. "
-    if not sound_bed:
-        sound_bed = ["Quiet environment and realistic physical sounds accompany the movement."]
+    soundscape = (
+        "Environmental and physical sound palette: " + "; ".join(sound_inventory) + "."
+        if sound_inventory else "Quiet environment with minimal physical movement noise."
+    )
     music = brief["sound_strategy"]
+    if score_changes:
+        music += " Timed score events: " + " ".join(score_changes)
     return (
         story
-        + "\n\noverall_soundscape: "
-        + " ".join(sound_bed)
-        + "\n\nnon_diegetic_music: "
+        + "\\n\\noverall_soundscape: "
+        + soundscape
+        + "\\n\\nnon_diegetic_music: "
         + (music if music.strip() else "N/A")
     )
 
