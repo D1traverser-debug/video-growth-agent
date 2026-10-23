@@ -89,9 +89,9 @@ def test_pure_fiction_can_start_without_fake_research_citations():
         evidence_refs=(),
         desired_outcomes=("complete visual narrative",),
         success_metric_semantics={"comprehension": "can retell the story"},
-        editorial_mode="FICTIONAL",
+        constraints=("EDITORIAL_MODE:FICTIONAL",),
     )
-    assert pure_fiction.editorial_mode == "FICTIONAL"
+    assert pure_fiction.constraints == ("EDITORIAL_MODE:FICTIONAL",)
     beat = BeatSpec("B1", pure_fiction.episode_id, "ribbon starts the story", "trigger", 10)
     shot = ShotIntent("S1", "B1", "ribbon flies from female to male hand", 10, "SYNTHETIC", "LOW", (), frozenset({"T2V"}))
     assert EditorialPlan(pure_fiction, (), (beat,), (shot,), "v1").intent == pure_fiction
@@ -109,7 +109,7 @@ def test_non_fictional_editorial_modes_reject_missing_evidence(editorial_mode):
             evidence_refs=(),
             desired_outcomes=("accurate public explainer",),
             success_metric_semantics={"accuracy": "claim verification"},
-            editorial_mode=editorial_mode,
+            constraints=(f"EDITORIAL_MODE:{editorial_mode}",),
         )
 
 
@@ -120,15 +120,15 @@ def test_fiction_mode_does_not_exempt_factual_claim_evidence():
         primary_platform="short-video", target_duration_seconds=5,
         evidence_refs=(), desired_outcomes=("engagement",),
         success_metric_semantics={"retention": "view duration"},
-        editorial_mode="FICTIONAL",
+        constraints=("EDITORIAL_MODE:FICTIONAL",),
     )
     with pytest.raises(EditorialPlanningError, match="FACT claim requires evidence_refs"):
         ClaimSpec("C1", "Stock exchange rules are real", "FACT", "HIGH")
-    with pytest.raises(EditorialPlanningError, match="unsupported editorial mode"):
+    with pytest.raises(EditorialPlanningError, match="invalid or repeated EDITORIAL_MODE constraint"):
         EpisodeIntent(
             episode_id=fiction.episode_id, series_id=fiction.series_id,
             audience_contract=fiction.audience_contract, editorial_question=fiction.editorial_question,
             primary_platform=fiction.primary_platform, target_duration_seconds=fiction.target_duration_seconds,
             evidence_refs=(), desired_outcomes=fiction.desired_outcomes,
-            success_metric_semantics=fiction.success_metric_semantics, editorial_mode="MADE_UP_MODE",
+            success_metric_semantics=fiction.success_metric_semantics, constraints=("EDITORIAL_MODE:MADE_UP_MODE",),
         )
