@@ -220,6 +220,40 @@ class MediaGraph:
             raise MediaGraphError("decision evidence missing: " + ",".join(missing))
         self.decisions[record.decision_id] = record
 
+    def _invalidate_consumers_of_superseded_version(
+        self, superseded: AssetRef, replacement: AssetRef
+    ) -> tuple[AssetRef, ...]:
+        """Invalidate consumers still using the old version, not a new approved branch.
+
+        A replacement asset may itself derive from the superseded source; that
+        lineage link describes revision history, not an active consumer of old
+        production truth. Traversal stops at the approved replacement.
+        """
+        affected: set[AssetRef] = set()
+        seen = {superseded}
+        pending = [superseded]
+        while pending:
+            parent = pending.pop()
+            children = {
+                ref for ref, asset in self.assets.items()
+                if parent in asset.derived_from
+            }
+            for task in self.tasks.values():
+                if parent in task.input_assets:
+                    children.update(task.output_assets)
+            for child in children:
+                if child == replacement or child in seen:
+                    continue
+                seen.add(child)
+                affected.add(child)
+                pending.append(child)
+        for ref in affected:
+            if self.asset_state(ref) not in {"REJECTED", "RETIRED"}:
+                self.asset_state_overrides[ref] = "STALE"
+                if self.promoted_versions.get(ref.asset_id) == ref.version_id:
+                    del self.promoted_versions[ref.asset_id]
+        return tuple(sorted(affected))
+
     def promote_asset(self, ref: AssetRef, *, decision_id: str) -> None:
         asset = self.assets.get(ref)
         if asset is None:
@@ -235,7 +269,9 @@ class MediaGraph:
             raise MediaGraphError("rejected/retired asset cannot be promoted without a new version")
         prior_version = self.promoted_versions.get(ref.asset_id)
         if prior_version and prior_version != ref.version_id:
-            self.asset_state_overrides[AssetRef(ref.asset_id, prior_version)] = "STALE"
+            previous_ref = AssetRef(ref.asset_id, prior_version)
+            self.asset_state_overrides[previous_ref] = "STALE"
+            self._invalidate_consumers_of_superseded_version(previous_ref, ref)
         self.promoted_versions[ref.asset_id] = ref.version_id
         self.asset_state_overrides[ref] = "PROMOTED"
 
