@@ -313,8 +313,54 @@ def compile_prompts(plan: dict, route: str = "compare", h3_style: str = "chinese
     return {
         "selected_concept": plan["selected"], "h3_prompt_dialect": h3_style if plan["provider"]["name"] == "MiniMax" else None, "static_validation": validated,
         "provider_profile": H3 if plan["provider"]["name"] == "MiniMax" else PIXVERSE_V6, "routes": output,
+        "review_targets": build_shot_review_targets(plan),
         "visual_winner": None,
         "reason": "No actual media, blind viewers or comparable render-cost observations were supplied.",
+    }
+
+
+def build_shot_review_targets(plan: dict) -> dict:
+    """Build an unscored, artifact-bound review worksheet from directed shots.
+
+    Source-event membership is a declared expectation, not a rendered-media
+    observation. The sheet is for a reviewer of real footage to fill in.
+    """
+    verification = validate_plan(plan)
+    sources = {e["id"]: e for e in plan["required_events"]}
+    fps = plan["brief"]["fps"]
+    targets = []
+    for shot in plan["shots"]:
+        targets.append({
+            "shot_id": shot["id"],
+            "edit_frames": [shot["start_frame"], shot["end_frame"]],
+            "edit_window_seconds": [shot["start_frame"] / fps, shot["end_frame"] / fps],
+            "expected_visible_action": {
+                "initial": shot["action"]["start"],
+                "physical_trigger": shot["action"]["trigger"],
+                "result": shot["action"]["finish"],
+            },
+            "expected_camera": shot["camera"],
+            "expected_transition": shot["transition"],
+            "expected_identity_and_props": list(plan["identity_anchors"]),
+            "required_source_events": [
+                {"id": event_id, "meaning": sources[event_id]["meaning"],
+                 "source_quote": sources[event_id]["source_quote"]}
+                for event_id in shot["event_ids"] if sources[event_id]["origin"] == "SOURCE"
+            ],
+            "planned_sound_events": list(shot["audio"]),
+            "observed_video_timecodes": None,
+            "actual_result": "UNREVIEWED",
+            "failure_evidence": [],
+        })
+    return {
+        "source_reference": plan["source"]["reference"],
+        "source_scope_claim": verification["source_scope_claim"],
+        "expected_length_seconds": verification["duration_seconds"],
+        "media_asset_ref": None,
+        "reviewer_independence": "NOT_ESTABLISHED",
+        "shots": targets,
+        "assessment": "NOT_STARTED",
+        "note": "An original-script event being tagged in a shot is NOT proof it appeared onscreen.",
     }
 
 
