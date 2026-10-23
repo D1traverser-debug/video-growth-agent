@@ -1,13 +1,38 @@
 {
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
-  "revision": "1.6-production",
-  "updated_at": "2026-10-16T08:45:36+08:00",
+  "revision": "1.7-prompt-craft-candidate",
+  "updated_at": "2026-10-24T00:14:00+08:00",
   "common_behavior_assurance_min": "1.3.0",
-  "current_open_items": [],
-  "current_problem_refs": {},
-  "current_resume_ref": null,
-  "current_candidate": null,
+  "current_open_items": [
+    "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
+  ],
+  "current_problem_refs": {
+    "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23": "audits/PROMPT_CRAFT_PR23_CHECKPOINT_2026-10-24.md"
+  },
+  "current_resume_ref": "audits/PROMPT_CRAFT_PR23_CHECKPOINT_2026-10-24.md",
+  "current_candidate": {
+    "workstream": "PRODUCTION_SYSTEM__PROMPT_CRAFT_AND_LEARNING",
+    "status": "DRAFT_PR__STATIC_CI_VERIFIED__ACTUAL_MEDIA_CRAFT_NOT_YET_VALIDATED",
+    "pr_number": 23,
+    "head_ref": "refactor/prompt-director-core-20261023",
+    "resume_ref": "audits/PROMPT_CRAFT_PR23_CHECKPOINT_2026-10-24.md",
+    "verified_prior_ci_run": 39974838896,
+    "verified_prior_head": "ebcaed9ecae6302d878e3a6ad62116aa311ac7da",
+    "verified_prior_checks": {
+      "prompt_contract_passed": 66,
+      "all_tests_passed": 255,
+      "installed_cli_smoke": "PASS"
+    },
+    "required_next_evidence": [
+      "source_and_role_handoff_end_to_end_model",
+      "representative_real_media_playback",
+      "blind_and_artifact_bound_quality_assessment",
+      "per_scene_prompt_policy_comparison",
+      "revision_failure_learning_loop"
+    ],
+    "promotion_authorized": false
+  },
   "recent_resolved_or_promoted": [
     {
       "id": "V-20261016-03-COMMON-BEHAVIOR-1-3-ROOT-SCOPE-ADOPTION",
@@ -112,7 +137,8 @@
     "tests/test_operator_view.py",
     "tests/test_owner_behavior_admission.py",
     "tests/test_system_audit.py",
-    "tests/test_uaos_current.py"
+    "tests/test_uaos_current.py",
+    "audits/PROMPT_CRAFT_PR23_CHECKPOINT_2026-10-24.md"
   ],
   "historical_evidence_refs": [
     "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
@@ -120,7 +146,7 @@
     "audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md",
     "projects/pilot-002/PROGRAM_STATE.json"
   ],
-  "assurance": "COMMON_BEHAVIOR_1_3_OWNER_NATIVE_PRODUCTION_CI_VERIFIED__PRODUCTION_0_8_0_MEDIA_OS_PRESERVED__LIVE_MEDIA_BUSINESS_OUTCOMES_OPEN",
+  "assurance": "PRODUCTION_0_8_MAIN_UNCHANGED__DRAFT_PR23_STATIC_CI_PASS_ON_PRIOR_HEAD__LIVE_MEDIA_CRAFT_QA_AND_PROMOTION_OPEN",
   "retired_documents": [
     {
       "path": "audits/VIDEO_0_8_RESUME_CHECKPOINT_2026-10-15.md",
