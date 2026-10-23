@@ -16,7 +16,7 @@ jobs:
       - name: Install lightweight contract test tools
         run: pip install -e . pytest==9.1.1
       - name: Prompt director source and rendering contract tests
-        run: pytest -q tests/test_prompt_director.py tests/test_prompt_experiment.py tests/test_source_director.py tests/test_craft_round.py
+        run: pytest -q tests/test_prompt_director.py tests/test_prompt_experiment.py tests/test_source_director.py tests/test_craft_round.py tests/test_media_graph.py tests/test_plan_graph_bridge.py
       - name: CLI direct-prompts smoke
         run: |
           vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route compare --h3-style chinese > /tmp/h3-cn.json
