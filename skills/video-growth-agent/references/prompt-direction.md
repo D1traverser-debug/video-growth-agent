@@ -62,6 +62,12 @@ The single varied factor is a **bundle called prompt_rendering_policy**. It chan
 
 The obsolete interrupted 0.7→0.8 recovery checkpoint was retired after production 0.8 had already been merged and proven; canonical 0.8 closure retains its blob provenance, while `EVOLUTION_INDEX.json` no longer links a false active-resume instruction. Historical audits with unique fault reproduction remain retained, because removing them would destroy evidence that tests by themselves do not preserve. The rejected V1 aesthetic prompt and wrong-image H1 pass were deleted previously, with causality converted into active design rules and exact Git tombstones.
 
+## Mandatory global look-development contract
+
+Do not let a model-specific prompt transform flatten the visual language. A film brief must carry a **visual_language** block specifying `style`, `world`, `palette`, `materials`, `lighting`, and `render_finish` before its shot list; all three prompt emitters (Chinese H3, three-field H3, optional PixVerse) preserve those words. A 3A thick-painting period story and an analogue macro Shiba edit piece are different art directions, not recolors of the same “tech screens” default. Global style remains stable while individual shot composition, lens, subject blocking and lighting may change purposefully.
+
+A descriptive “8K-level detail” aesthetic does not establish actual 8K model output, which is governed by the selected provider's current technical profile.
+
 ## H3 audio fidelity and film-review handoff
 
 The H3 official-structure renderer preserves shot-local **timed SFX, ambience, voice events** in `integrated_multimodal_description`; it describes the underlying physical sound palette separately in `overall_soundscape` and sends **timed score-change cues** to `non_diegetic_music`. Earlier code silently discarded the individual MUSIC events and buried SFX timecodes in the global bed. Regression tests prove the metadata survives compilation, not that H3 follows it with sample-accurate synchronization.
