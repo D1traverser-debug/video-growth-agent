@@ -49,6 +49,10 @@ This loop is **problem-specific**, not mandatory broad web browsing for every mi
 
 For an original narrative rather than a transcription, formulate competing *story premises* when real alternatives would improve the brief. Before drafting prompts, give each viable premise an observable opening event, a character with a concrete want and a costly/meaningful choice, a rule/constraint, escalating and causally linked attempts, a genuine reveal/reversal, a consequence and a final image that changes the meaning of the opening. A sacrifice/death/resurrection shortcut with no earned character desire or meaningful consequence should not pass by default. Separate **theme** (what the story expresses) from **plot** (what visibly happens). Preserve required platform, aspect, duration, cost and rights/truth rules; don't invent user preferences such as a mandatory moral, robot protagonist or 3D style.
 
+
+
+**Reusable original-story research index:** `skills/video-growth-agent/references/storycraft-research-2026-10-25/INDEX.json` (10 separately examined craft/research sources, source-depth caveats and failure-mode routing). On novel or rejected films, fetch the relevant individual cards rather than merely quoting general writing rules; for each use identify the specific source example, changed dramatic action, cheap disconfirming counterexample, and whether any separate review actually occurred. Do not force a comedic ending on an intentionally serious film or imply that ten readings ensure quality. A story candidate failing its core visual discovery, Agent-substitution or causal-reversal test stays at SCRIPT/SCRIPT_AUDIT. This reference augments existing roles; it does not create a second pipeline.
+
 ### SCRIPT_AUDIT: human-understandable narrative gate
 
 Test comprehension and dramatic necessity *before* converting script to model jargon:
