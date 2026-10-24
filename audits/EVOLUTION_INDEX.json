@@ -155,8 +155,8 @@
       "primary_world": "未完成之国 (provisional, not locked canon)",
       "world_authority": "audits/AGENT_WAR_WORLD_FOUNDATION_REBUILD_2026-10-24.md",
       "narrative_authority": "audits/AGENT_WAR_SECOND_PASS_STORYROOM_2026-10-24.md",
-      "first_film_candidate": "断面 (V5, prior title 底层协议)",
-      "status": "SIX_PASS_WORLD_STORY_REWRITE__260S_PAPER_REEL_ONLY__NOT_FILM_OR_AUDIENCE_VERIFIED",
+      "first_film_candidate": "断面 (V5.1, provisional 260s paper reel)",
+      "status": "V5_1_SCREENPLAY_CAUSALITY_CORRECTED__PAPER_REEL_ONLY__NO_INDEPENDENT_STORY_ACCEPTANCE",
       "duration_hypothesis": "04:20/260s temporary rough-edit plan, explicitly not 26x10-second model jobs",
       "superseded_pilots": [
         "第17号漏洞: WORLD_REJECTED",
@@ -177,12 +177,12 @@
       ],
       "external_evidence_status": "NONE__TEXT_STAGE_AUTHOR_ONLY__NO_INDEPENDENT_HUMAN_OR_RENDER",
       "creative_ref": "audits/AGENT_WAR_SECOND_PASS_STORYROOM_2026-10-24.md#14-sixth-pass-replacement-the-engineers-are-both-responsible",
-      "current_screenplay_revision": "V5: A6 diverts public coolant to military north; K9 knowingly attacks mixed public line for promised south quota; coolant failure hurts both; each reverses own harmful action first; K9 selectively collapses empty modular military road while A6 shields independent civilian aqueduct; unrecovered civilian loss persists; K9 repairs own leak after military authorization revoked",
+      "current_screenplay_revision": "V5: A6 diverts public coolant to military north; K9 knowingly attacks mixed public line for promised south quota; coolant failure hurts both; each reverses own harmful action first; K9 selectively collapses empty modular military road while A6 shields independent civilian aqueduct; unrecovered civilian loss persists; K9 repairs own leak after military authorization revoked; V5.1 timing fix: marginal south ward remains functional before A6 diverts coolant, then slows from northern siphon; later pipe rupture produces unrecovered loss; south military quota award depends on FUTURE capture of north plant, not impossible direct transfer",
       "revision_owner": "existing writer, story_editor and director; single model simulation, not independent reviewers",
       "last_editorial_finding": "V4 split-map emergency-lock riddle rejected as emotionally thin; V5 mutual culpability and action-first trust under test",
-      "evidence_gap": "NO_SCREENABLE_ANIMATIC__NO_REAL_COLD_VIEWER__NO_PROVIDER_CLIP__NO_USER_STORY_APPROVAL"
+      "evidence_gap": "NO_ACTUAL_TIMED_ANIMATIC__NO_BLIND_AUDIENCE_SCREEN__NO_REAL_H3_FOOTAGE__NO_USER_STORY_APPROVAL"
     },
-    "creative_scope_note": "CONTINUATION_AFTER_USER_CONNECTION_INTERRUPTION__V5_260_SECOND_STORYREEL_BLUEPRINT__NO_FINAL_USER_CREATIVE_PASS"
+    "creative_scope_note": "V5_1_FIXES_CAUSAL_TIME_ORDER_OF_NORTH_SIPHON_AND_SOUTH_RESIDENT_SLOWDOWN__RELEASE_UNAUTHORIZED"
   },
   "recent_resolved_or_promoted": [
     {
