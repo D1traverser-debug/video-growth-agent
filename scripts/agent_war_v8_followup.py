@@ -95,6 +95,68 @@ def build(stage: str, prior_run: str, previous: Path | None) -> tuple[str, list[
             + ORIGINAL_BRIEF + "\n\n【待审完整V8剧本】\n" + text
         )
         return prompt, ["original_user_brief", "v8_clean_scenes_from_verified_same_run"]
+    if stage == "character_rewrite":
+        source_run = "40071008053"
+        source = ROOT / "audits" / "agent_war_ai_review_runs" / source_run
+        old = validated(source / "revision-v8-candidate.json", "rewrite_v8", source_run)
+        opposition = validated(source / "review-v8_story_editor.json", "review_v8", source_run)
+        if old["provenance"]["copilot_session_id"] == opposition["provenance"]["copilot_session_id"]:
+            raise RuntimeError("V8 author and critic were not truly separated")
+        prompt = (
+            "【任务：Agent × 战争电影故事的根部重评，写出可演的真实完整新版】\\n"
+            "不要优先修复 V8 防空炮的80秒倒计时。你是新接手的编剧，不以保留旧世界观为成功。"
+            "从原始两个关键词 Agent、战争出发，先判断观众为什么会在乎角色："
+            "哪一个特定人物失去了什么、希望得到什么、做过什么难以原谅的选择、"
+            "战争怎样逼迫对立行动，是否不用 Agent 也能讲同一剧情。"
+            "请先提供两个互不依赖的故事发动机：一个可以保留 B-12 争取独立归责的方向，"
+            "一个完全放弃防空站、分身法律登记、铁路与双层桥，换用不同的 Agent 独特困境。"
+            "对两个方案各给出一个让整案应被废弃的反例；允许两个都不合格而重想第三案。"
+            "从剧情可演性、日常具体行为、真正敌方立场和可逆与不可逆代价出发选最强者，"
+            "不要因为V8已投入劳动就保留。"
+            "改写之前回答四项：顶尖动画故事创作者会做的未被要求的工作、"
+            "从哪一份未被二次概括的最原始材料重新开始、具体场景反事实/分镜提案/定时样片方法、"
+            "不靠作者自评的现实观众或专业反证如何推翻自己。"
+            "你的确切输入只有原始委托、完整V8剧情与一次真实隔离模型的审稿原文；"
+            "不要假称看过真实影片、访谈或接触人类观众。"
+            "【最终剧本要求】单独写标题《自拟片名》及第一场到至少第七场的完整剧本。"
+            "每场要有明确动作、人的犹豫、对手合理而具体的行动、道具前后呼应。"
+            "主角可以不牺牲，但必须付出非口号、非任意新增程序开关的代价。"
+            "重大转折前写清为什么较简单的合理选择不奏效，靠人物行动显示而非硬写术语；"
+            "戏剧高潮不依赖事后编造机械规则。结尾既有画面反转又不把所有伦理责任赦免。"
+            "完整故事要能够做无设定旁白的动画故事板；创作不限60s，不写H3片段提示词。"
+            "剧本之后只用一句注明：未经实际观众试映；不要写自评分、不可验证的通过声明。\\n"
+            + ORIGINAL_BRIEF + "\\n\\n【允许淘汰的V8原剧本】\\n"
+            + scenes_only(old["model_output"])
+            + "\\n\\n【上一轮独立模型审查的未加工原文】\\n"
+            + opposition["model_output"]
+        )
+        return prompt, ["original_user_brief", "actual_v8_run_40071008053",
+                        "actual_v8_critic_run_40071008053"]
+    if stage == "character_review":
+        if previous is None:
+            raise RuntimeError("blind character review requires same-run writer output")
+        candidate = validated(previous, "character_rewrite", prior_run)
+        pure_script = scenes_only(candidate["model_output"], min_length=2900)
+        prompt = (
+            "【你是未见到作者研究、其他审稿意见或历史版本的独立故事编辑】\\n"
+            "唯一用户委托是Agent × 战争原创动画，片长服从故事。"
+            "你的任务是毁掉不成立的因果链，而不是鼓励作者。"
+            "先用自己的话复述主角真实欲望、他/她的最大过错、敌人合法目标、"
+            "普通人的能动性、高潮做的不可撤销的事、结尾留下的代价。"
+            "分别用若干场次引用原稿动作找出五种可能不成立的地方："
+            "一、是否只把硬件解谜换成道德宣言；二、便宜且明摆着的替代办法为何不用；"
+            "三、重要因果是否由观众看不到的新权限/武器/物理规则撑起来；"
+            "四、所谓Agent特征删去后能否不费力替换成人；"
+            "五、敌方与非主角是否只是推动主角成长的道具。"
+            "至少一个结论必须讨论‘整案应否放弃’，允许REJECT_PREMISE。"
+            "不要对缺失的视频观众给分或捏造人类反馈。"
+            "结论只从 REJECT_PREMISE、STRUCTURAL_REWRITE、ELIGIBLE_FOR_STORYBOARD 中选一个。"
+            "即使可做分镜，也不能声称已完成真人测试/成片验收。"
+            "写出两个能直接导致具体场景改变的反对意见，以及触发重做的可观察条件。\\n"
+            + ORIGINAL_BRIEF + "\\n\\n【只包含可审的最终连续剧本，非作者构思/自评】\\n"
+            + pure_script
+        )
+        return prompt, ["original_user_brief", "clean_fresh_character_screenplay"]
     raise ValueError(f"unsupported stage: {stage}")
 
 
@@ -105,11 +167,11 @@ def run(stage: str, output: Path, previous: Path | None) -> dict:
         raise RuntimeError("a real GitHub Actions model job is required")
     prompt, source_names = build(stage, run_id, previous)
     answer, meta, events = live_copilot(prompt)
-    if stage == "rewrite_v8":
+    if stage in ("rewrite_v8", "character_rewrite"):
         scenes_only(answer, min_length=3000)
     proof = {
         "stage": stage, "provider": "github-copilot-cli",
-        "review_class": ("author_revision_from_v7_external_critique" if stage == "rewrite_v8"
+        "review_class": ("author_revision_from_independent_model_critique" if stage in ("rewrite_v8", "character_rewrite")
                          else "separately_inferred_model_not_human"),
         "provider_model": meta["provider_model"],
         "provider_response_id": meta["provider_response_id"],
@@ -136,7 +198,7 @@ def run(stage: str, output: Path, previous: Path | None) -> dict:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--stage", required=True, choices=["rewrite_v8", "review_v8"])
+    parser.add_argument("--stage", required=True, choices=["rewrite_v8", "review_v8", "character_rewrite", "character_review"])
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--previous", type=Path)
     a = parser.parse_args()
