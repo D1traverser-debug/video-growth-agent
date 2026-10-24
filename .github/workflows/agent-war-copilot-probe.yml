@@ -1,0 +1,43 @@
+name: Agent War - Copilot entitlement probe
+
+on:
+  push:
+    branches:
+      - refactor/prompt-director-core-20261023
+    paths:
+      - .github/workflows/agent-war-copilot-probe.yml
+  workflow_dispatch:
+
+jobs:
+  copilot-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    permissions:
+      contents: read
+      copilot-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install currently supported Copilot CLI
+        run: npm install -g @github/copilot
+      - name: Call actual model without allowing repo tools
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          COPILOT_HOME: ${{ runner.temp }}/copilot-agent-war-probe
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "${RUNNER_TEMP}"
+          copilot --version
+          copilot -p "Return only this exact Chinese string as your reply: AGENT_WAR_MODEL_READY" \
+            --no-ask-user --no-custom-instructions --silent > "${RUNNER_TEMP}/copilot-probe-answer.txt"
+          python - <<'PY'
+          from pathlib import Path
+          import os
+          reply = Path(os.environ["RUNNER_TEMP"], "copilot-probe-answer.txt").read_text(encoding="utf-8").strip()
+          print("copilot_inference_valid=", reply == "AGENT_WAR_MODEL_READY")
+          if reply != "AGENT_WAR_MODEL_READY":
+              raise SystemExit("Copilot CLI returned an unexpected or empty inference result")
+          PY
