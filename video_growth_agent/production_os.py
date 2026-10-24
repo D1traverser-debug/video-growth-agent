@@ -228,6 +228,11 @@ def evaluate_take_promotion(
 
     if not evidence.quality_evidence_refs:
         reasons.append("QUALITY_EVIDENCE_MISSING")
+    # A quality score and a review URL cannot substitute for an actual
+    # technical-media inspection of the exact Take. The caller must further
+    # verify its artifact digest and machine-check outcomes.
+    if not evidence.technical_qa_refs:
+        reasons.append("TECHNICAL_QA_EVIDENCE_MISSING")
     if shot.references and not evidence.continuity_evidence_refs:
         reasons.append("CONTINUITY_EVIDENCE_MISSING")
     if not evidence.rights_evidence_refs:
