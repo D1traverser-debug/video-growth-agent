@@ -56,7 +56,7 @@ def verify_scene_sequence(screenplay: str) -> None:
     causality or emotional quality. The separate critic has that responsibility.
     """
     headings = re.findall(
-        r"(?m)^#{1,3}\\s*(?:(?:第[一二三四五六七八九十0-9]+|场[一二三四五六七八九十0-9]+)场?|Scene\\s*\\d+)",
+        r"(?m)^#{1,3}\s*(?:(?:第[一二三四五六七八九十0-9]+|场[一二三四五六七八九十0-9]+)场?|Scene\s*\d+)",
         screenplay,
         flags=re.IGNORECASE,
     )
