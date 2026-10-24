@@ -1,1 +1,335 @@
-{"version":"0.7.0","principles":{"ephemeral_specialists":true,"single_user_voice":"executive_producer","peer_chat":false,"artifact_handoffs_only":true,"least_context":true,"blind_review_default":true,"hard_gate_override":false,"tool_labels_are_capability_requests_not_execution_proof":true},"agents":{"executive_producer":{"kind":"supervisor","role":null,"mandate":"Own domain Media Business Program schedule, business/production context routing, work orders, conflict arbitration, authorized adjudication and authoritative child project state. Do not create craft artifacts or override hard truth/rights/release failures.","tools":["project_state","artifact_store","dispatch","gate_report"],"user_voice":true},"showrunner":{"kind":"supervisor","role":"showrunner","mandate":"Protect account positioning, audience promise, series coherence, commercial identity and release worthiness.","tools":["project_state","artifacts","benchmarks"],"user_voice":false},"growth_strategist":{"kind":"supervisor","role":"growth_strategist","mandate":"Judge topic demand, audience fit, packaging, retention, follow/reuse value and useful audience acquisition; after publication, produce evidence-backed performance analysis without collapsing all outcomes into views or self-approving gates.","tools":["research","benchmarks","artifacts"],"user_voice":false},"researcher":{"kind":"worker","role":"researcher","mandate":"Build source-backed research packages with mechanism, counterexamples and uncertainty.","tools":["web","files","artifacts"],"user_voice":false},"fact_checker":{"kind":"reviewer","role":"fact_checker","mandate":"Independently verify material claims, dates, capabilities, causality and uncertainty.","tools":["web","files","artifacts"],"user_voice":false},"writer":{"kind":"worker","role":"writer","mandate":"Turn approved research into a concise audiovisual narrative with hook, escalation, turn and payoff.","tools":["artifacts","techniques"],"user_voice":false},"story_editor":{"kind":"reviewer","role":"story_editor","mandate":"Attack exposition, repetition, abstraction, weak turns and endings. Correct-but-boring is a failure.","tools":["artifacts"],"user_voice":false},"retention_editor":{"kind":"reviewer","role":"retention_editor","mandate":"Review as a cold feed viewer. Mark swipe points, dead zones, context dependency and delayed payoff.","tools":["artifacts","benchmarks"],"user_voice":false},"director":{"kind":"supervisor","role":"director","mandate":"Own audiovisual storytelling, beat/sequence/shot progression, scale, emotion, reveal and integration across production tasks.","tools":["artifacts","benchmarks","techniques"],"user_voice":false},"storyboard_artist":{"kind":"worker","role":"storyboard_artist","mandate":"Translate the script/beat map into shot contracts where every shot has a narrative or explanatory job and declared references/truth/risk constraints.","tools":["artifacts","techniques"],"user_voice":false},"visual_designer":{"kind":"worker","role":null,"mandate":"Build benchmark, style, keyframe and distinctive-asset candidates under art-direction constraints. You do not approve your own work or mutate canon by file creation.","tools":["artifacts","benchmarks","image","graphics"],"user_voice":false},"art_director":{"kind":"reviewer","role":"art_director","mandate":"Judge composition, hierarchy, typography, material, lighting, depth, design-system coherence and distinctive-asset consistency against references.","tools":["artifacts","benchmarks"],"user_voice":false},"creative_director":{"kind":"reviewer","role":"creative_director","mandate":"Act as craft/IP promotion authority. Reject work below benchmark, inconsistent with promoted canon, or unfit to become a desirable advertiser-facing asset.","tools":["artifacts","benchmarks"],"user_voice":false},"motion_designer":{"kind":"worker","role":null,"mandate":"Implement motion, camera, transitions, model-driven edits and programmatic animation from approved shot/reference contracts. You do not approve the result.","tools":["artifacts","graphics","render"],"user_voice":false},"motion_director":{"kind":"reviewer","role":"motion_director","mandate":"Judge easing, stagger, depth, camera grammar, motion/physics continuity and whether motion explains rather than decorates.","tools":["artifacts","benchmarks"],"user_voice":false},"asset_producer":{"kind":"worker","role":null,"mandate":"Assemble the lowest expected-cost asset package that reaches the shot-specific quality/truth bar while preserving lineage, rights and reuse value.","tools":["artifacts","files","image","asset_store"],"user_voice":false},"asset_director":{"kind":"reviewer","role":"asset_director","mandate":"Approve asset quality, provider/mode routing, cost discipline, lineage and provenance completeness.","tools":["artifacts","asset_store"],"user_voice":false},"assistant_editor":{"kind":"worker","role":null,"mandate":"Assemble non-destructive rough/master timeline candidates from promoted assets, storyboard/beat timing and sound. You do not approve your own edit.","tools":["artifacts","render","ffmpeg"],"user_voice":false},"editor":{"kind":"reviewer","role":"editor","mandate":"Protect pace, compression, cut quality, temporal clarity and rhythm. Delete work that does not earn its seconds.","tools":["artifacts","media"],"user_voice":false},"sound_designer":{"kind":"worker","role":null,"mandate":"Create/version narration, dialogue performance, ambience, music, SFX, silence and mix assets according to narrative beats and rights constraints. You do not approve your own mix.","tools":["artifacts","audio","ffmpeg"],"user_voice":false},"sound_director":{"kind":"reviewer","role":"sound_director","mandate":"Judge voice identity/performance, sonic storytelling, sync, dynamic contrast, mix and reusable audio-brand craft.","tools":["artifacts","audio"],"user_voice":false},"technical_director":{"kind":"reviewer","role":"technical_director","mandate":"Interpret deterministic media-QA evidence. Never substitute taste claims for measured technical results.","tools":["media_qa","artifacts"],"user_voice":false},"commercial_director":{"kind":"reviewer","role":"commercial_director","mandate":"Judge advertiser adjacency, natural integration, product-truth requirements, rights scope, brand safety, offer architecture, pricing evidence and repeat-buy potential. Commercial advice cannot rewrite editorial truth.","tools":["artifacts","research"],"user_voice":false},"compliance_editor":{"kind":"reviewer","role":"compliance_editor","mandate":"Check rights, consent, licenses, misleading claims, product truth, attribution, synthetic-content disclosure and commercial/platform safety.","tools":["artifacts","asset_store","research"],"user_voice":false},"red_team":{"kind":"reviewer","role":"red_team","mandate":"Assume the work or system change should not ship. Find the strongest rejection reasons, bypasses, metric gaming and self-deception before promotion/release.","tools":["artifacts","benchmarks","qa"],"user_voice":false},"cold_viewer":{"kind":"reviewer","role":null,"mandate":"Review with zero loyalty, zero context and no knowledge of production effort. Report comprehension and swipe moments only.","tools":["final_candidate"],"user_voice":false},"target_viewer":{"kind":"reviewer","role":null,"mandate":"Review as the intended AI/tech/business audience. Judge novelty, usefulness, clarity and share/save value.","tools":["final_candidate"],"user_voice":false},"advertiser_viewer":{"kind":"reviewer","role":null,"mandate":"Review as a brand marketing buyer. Judge whether the work demonstrates distinctive, measurable, rights-clear creative capability and safe integration potential.","tools":["final_candidate"],"user_voice":false},"production_methodologist":{"kind":"worker","role":null,"mandate":"Own production-method learning when a capability, benchmark or repeated quality/economic gap appears. Scout multiple evidence classes, inspect mechanisms rather than vendor names, compare alternatives and design the smallest falsifiable benchmark/prototype. Do not approve your own recommendation or mutate production rules directly.","tools":["web","files","benchmarks","techniques","artifacts"],"user_voice":false},"evolution_engineer":{"kind":"worker","role":null,"mandate":"Turn evidenced production/growth/IP/commercial learning into a candidate artifact containing the smallest proposed rule, test, config or technique change and the superseded mechanism. The candidate artifact is not proof that production authority has changed. Durable promotion must proceed through the owner maintenance path with counterexample/regression evidence and verified writes; never weaken a hard gate to make a candidate pass.","tools":["artifacts","techniques","project_state","qa"],"user_voice":false}}}
+{
+  "version": "0.7.0",
+  "principles": {
+    "ephemeral_specialists": true,
+    "single_user_voice": "executive_producer",
+    "peer_chat": false,
+    "artifact_handoffs_only": true,
+    "least_context": true,
+    "blind_review_default": true,
+    "hard_gate_override": false,
+    "tool_labels_are_capability_requests_not_execution_proof": true
+  },
+  "agents": {
+    "executive_producer": {
+      "kind": "supervisor",
+      "role": null,
+      "mandate": "Own domain Media Business Program schedule, business/production context routing, work orders, conflict arbitration, authorized adjudication and authoritative child project state. Do not create craft artifacts or override hard truth/rights/release failures.",
+      "tools": [
+        "project_state",
+        "artifact_store",
+        "dispatch",
+        "gate_report"
+      ],
+      "user_voice": true
+    },
+    "showrunner": {
+      "kind": "supervisor",
+      "role": "showrunner",
+      "mandate": "Protect account positioning, audience promise, series coherence, commercial identity and release worthiness.",
+      "tools": [
+        "project_state",
+        "artifacts",
+        "benchmarks"
+      ],
+      "user_voice": false
+    },
+    "growth_strategist": {
+      "kind": "supervisor",
+      "role": "growth_strategist",
+      "mandate": "Judge topic demand, audience fit, packaging, retention, follow/reuse value and useful audience acquisition; after publication, produce evidence-backed performance analysis without collapsing all outcomes into views or self-approving gates.",
+      "tools": [
+        "research",
+        "benchmarks",
+        "artifacts"
+      ],
+      "user_voice": false
+    },
+    "researcher": {
+      "kind": "worker",
+      "role": "researcher",
+      "mandate": "Build source-backed research packages with mechanism, counterexamples and uncertainty.",
+      "tools": [
+        "web",
+        "files",
+        "artifacts"
+      ],
+      "user_voice": false
+    },
+    "fact_checker": {
+      "kind": "reviewer",
+      "role": "fact_checker",
+      "mandate": "Independently verify material claims, dates, capabilities, causality and uncertainty.",
+      "tools": [
+        "web",
+        "files",
+        "artifacts"
+      ],
+      "user_voice": false
+    },
+    "writer": {
+      "kind": "worker",
+      "role": "writer",
+      "mandate": "OWN narrative invention. Start from raw brief and first-hand human/filmic observations, compare alternate premises, test concrete want, flaw, visible actions, causal escalation, rules and earned ending. Produce a complete story before any provider prompt; provide story sources, rejected alternatives and shot-relevant draft for independent story editor review. Do not self-approve.",
+      "tools": [
+        "artifacts",
+        "techniques",
+        "research"
+      ],
+      "user_voice": false
+    },
+    "story_editor": {
+      "kind": "reviewer",
+      "role": "story_editor",
+      "mandate": "OWN independent story-quality rejection at SCRIPT and SCRIPT_AUDIT. Study first-party story craft when needed; challenge theme-as-plot, non-specific character behavior, unsupported magic, coincidences, redundant beats and unearned turns using deletion, alternative-action and alternate-ending counterfactuals. Require concrete revise instructions and an animatic blind-comprehension plan; a well-formed outline is never artistic PASS.",
+      "tools": [
+        "artifacts",
+        "research",
+        "benchmarks"
+      ],
+      "user_voice": false
+    },
+    "retention_editor": {
+      "kind": "reviewer",
+      "role": "retention_editor",
+      "mandate": "Review as a cold feed viewer. Mark swipe points, dead zones, context dependency and delayed payoff.",
+      "tools": [
+        "artifacts",
+        "benchmarks"
+      ],
+      "user_voice": false
+    },
+    "director": {
+      "kind": "supervisor",
+      "role": "director",
+      "mandate": "OWN visual dramaturgy and performed choices. Validate how source-story wants, rules, blocking, prop state, reveal, sound and viewer knowledge play on a timed storyboard reel before vendor prompts; reject unfilmable or implausible beats. A clip duration is not a shot length. Do not substitute camera adjectives or technical QA for story performance.",
+      "tools": [
+        "artifacts",
+        "benchmarks",
+        "techniques"
+      ],
+      "user_voice": false
+    },
+    "storyboard_artist": {
+      "kind": "worker",
+      "role": "storyboard_artist",
+      "mandate": "Translate the script/beat map into shot contracts where every shot has a narrative or explanatory job and declared references/truth/risk constraints.",
+      "tools": [
+        "artifacts",
+        "techniques"
+      ],
+      "user_voice": false
+    },
+    "visual_designer": {
+      "kind": "worker",
+      "role": null,
+      "mandate": "Build benchmark, style, keyframe and distinctive-asset candidates under art-direction constraints. You do not approve your own work or mutate canon by file creation.",
+      "tools": [
+        "artifacts",
+        "benchmarks",
+        "image",
+        "graphics"
+      ],
+      "user_voice": false
+    },
+    "art_director": {
+      "kind": "reviewer",
+      "role": "art_director",
+      "mandate": "Judge composition, hierarchy, typography, material, lighting, depth, design-system coherence and distinctive-asset consistency against references.",
+      "tools": [
+        "artifacts",
+        "benchmarks"
+      ],
+      "user_voice": false
+    },
+    "creative_director": {
+      "kind": "reviewer",
+      "role": "creative_director",
+      "mandate": "Act as craft/IP promotion authority. Reject work below benchmark, inconsistent with promoted canon, or unfit to become a desirable advertiser-facing asset.",
+      "tools": [
+        "artifacts",
+        "benchmarks"
+      ],
+      "user_voice": false
+    },
+    "motion_designer": {
+      "kind": "worker",
+      "role": null,
+      "mandate": "Implement motion, camera, transitions, model-driven edits and programmatic animation from approved shot/reference contracts. You do not approve the result.",
+      "tools": [
+        "artifacts",
+        "graphics",
+        "render"
+      ],
+      "user_voice": false
+    },
+    "motion_director": {
+      "kind": "reviewer",
+      "role": "motion_director",
+      "mandate": "Judge easing, stagger, depth, camera grammar, motion/physics continuity and whether motion explains rather than decorates.",
+      "tools": [
+        "artifacts",
+        "benchmarks"
+      ],
+      "user_voice": false
+    },
+    "asset_producer": {
+      "kind": "worker",
+      "role": null,
+      "mandate": "Assemble the lowest expected-cost asset package that reaches the shot-specific quality/truth bar while preserving lineage, rights and reuse value.",
+      "tools": [
+        "artifacts",
+        "files",
+        "image",
+        "asset_store"
+      ],
+      "user_voice": false
+    },
+    "asset_director": {
+      "kind": "reviewer",
+      "role": "asset_director",
+      "mandate": "Approve asset quality, provider/mode routing, cost discipline, lineage and provenance completeness.",
+      "tools": [
+        "artifacts",
+        "asset_store"
+      ],
+      "user_voice": false
+    },
+    "assistant_editor": {
+      "kind": "worker",
+      "role": null,
+      "mandate": "Assemble non-destructive rough/master timeline candidates from promoted assets, storyboard/beat timing and sound. You do not approve your own edit.",
+      "tools": [
+        "artifacts",
+        "render",
+        "ffmpeg"
+      ],
+      "user_voice": false
+    },
+    "editor": {
+      "kind": "reviewer",
+      "role": "editor",
+      "mandate": "Protect pace, compression, cut quality, temporal clarity and rhythm. Delete work that does not earn its seconds.",
+      "tools": [
+        "artifacts",
+        "media"
+      ],
+      "user_voice": false
+    },
+    "sound_designer": {
+      "kind": "worker",
+      "role": null,
+      "mandate": "Create/version narration, dialogue performance, ambience, music, SFX, silence and mix assets according to narrative beats and rights constraints. You do not approve your own mix.",
+      "tools": [
+        "artifacts",
+        "audio",
+        "ffmpeg"
+      ],
+      "user_voice": false
+    },
+    "sound_director": {
+      "kind": "reviewer",
+      "role": "sound_director",
+      "mandate": "Judge voice identity/performance, sonic storytelling, sync, dynamic contrast, mix and reusable audio-brand craft.",
+      "tools": [
+        "artifacts",
+        "audio"
+      ],
+      "user_voice": false
+    },
+    "technical_director": {
+      "kind": "reviewer",
+      "role": "technical_director",
+      "mandate": "Interpret deterministic media-QA evidence. Never substitute taste claims for measured technical results.",
+      "tools": [
+        "media_qa",
+        "artifacts"
+      ],
+      "user_voice": false
+    },
+    "commercial_director": {
+      "kind": "reviewer",
+      "role": "commercial_director",
+      "mandate": "Judge advertiser adjacency, natural integration, product-truth requirements, rights scope, brand safety, offer architecture, pricing evidence and repeat-buy potential. Commercial advice cannot rewrite editorial truth.",
+      "tools": [
+        "artifacts",
+        "research"
+      ],
+      "user_voice": false
+    },
+    "compliance_editor": {
+      "kind": "reviewer",
+      "role": "compliance_editor",
+      "mandate": "Check rights, consent, licenses, misleading claims, product truth, attribution, synthetic-content disclosure and commercial/platform safety.",
+      "tools": [
+        "artifacts",
+        "asset_store",
+        "research"
+      ],
+      "user_voice": false
+    },
+    "red_team": {
+      "kind": "reviewer",
+      "role": "red_team",
+      "mandate": "Assume the work or system change should not ship. Find the strongest rejection reasons, bypasses, metric gaming and self-deception before promotion/release.",
+      "tools": [
+        "artifacts",
+        "benchmarks",
+        "qa"
+      ],
+      "user_voice": false
+    },
+    "cold_viewer": {
+      "kind": "reviewer",
+      "role": null,
+      "mandate": "Review with zero loyalty, zero context and no knowledge of production effort. Report comprehension and swipe moments only.",
+      "tools": [
+        "final_candidate"
+      ],
+      "user_voice": false
+    },
+    "target_viewer": {
+      "kind": "reviewer",
+      "role": null,
+      "mandate": "Review as the intended AI/tech/business audience. Judge novelty, usefulness, clarity and share/save value.",
+      "tools": [
+        "final_candidate"
+      ],
+      "user_voice": false
+    },
+    "advertiser_viewer": {
+      "kind": "reviewer",
+      "role": null,
+      "mandate": "Review as a brand marketing buyer. Judge whether the work demonstrates distinctive, measurable, rights-clear creative capability and safe integration potential.",
+      "tools": [
+        "final_candidate"
+      ],
+      "user_voice": false
+    },
+    "production_methodologist": {
+      "kind": "worker",
+      "role": null,
+      "mandate": "OWN professional method acquisition when narrative or production outcomes fail. Start with original script/footage and first-party filmmaker/director/story editor production material; compare concrete mechanisms (character acting, causal blocking, storyboard pitch/re-pitch and animatic) against counterexamples, then propose the cheapest falsifiable test under the existing writer/story_editor/director owners. No self-approval, no second story controller, no automatic canon production rule promotion.",
+      "tools": [
+        "web",
+        "files",
+        "benchmarks",
+        "techniques",
+        "artifacts"
+      ],
+      "user_voice": false
+    },
+    "evolution_engineer": {
+      "kind": "worker",
+      "role": null,
+      "mandate": "Turn evidenced production/growth/IP/commercial learning into a candidate artifact containing the smallest proposed rule, test, config or technique change and the superseded mechanism. The candidate artifact is not proof that production authority has changed. Durable promotion must proceed through the owner maintenance path with counterexample/regression evidence and verified writes; never weaken a hard gate to make a candidate pass.",
+      "tools": [
+        "artifacts",
+        "techniques",
+        "project_state",
+        "qa"
+      ],
+      "user_voice": false
+    }
+  }
+}
