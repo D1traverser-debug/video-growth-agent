@@ -57,3 +57,33 @@ def test_short_story_still_uses_existing_pipeline_without_six_chunk_stage():
                    for stage in stages)
     reviewers = {t.get("agent") for t in stages["SCRIPT_AUDIT"]["tasks"]}
     assert {"retention_editor", "director", "fact_checker"} <= reviewers
+
+
+def test_story_reviews_fail_closed_without_registered_independent_executor():
+    """A blind role in a plan is not proof a different review execution occurred."""
+    from video_growth_agent.execution_attestation import ExecutionTrustRegistry
+    registry = ExecutionTrustRegistry()
+    assert not registry.config["trusted_executors"]
+    for stage in ("SCRIPT", "SCRIPT_AUDIT", "STORYBOARD"):
+        assert registry.requires_attestation(stage, blind=True, task_type="review")
+    assert not registry.requires_attestation("SCRIPT", blind=True, task_type="produce")
+
+
+def test_existing_writer_editor_director_prompts_prescribe_four_questions_and_actual_evidence():
+    roles = RoleRegistry()
+    writer = roles.get("writer").prompt
+    story_editor = roles.get("story_editor").prompt
+    director = roles.get("director").prompt
+    assert "pre-rewrite four-answer study" in writer
+    assert "least-processed materials" in writer
+    assert "truly different competing treatment" in writer
+    assert "INDEPENDENT_REVIEW" in story_editor
+    assert "EXTERNAL_REVIEW_MISSING" in story_editor
+    assert "VIEWABLE timed story reel" in director
+    assert "STORY_REEL_MISSING" in director
+
+
+def test_reviewer_prompt_no_longer_misrepresents_self_role_as_real_independence():
+    roles = RoleRegistry()
+    assert "SINGLE_AUTHOR_SELF_CRITIQUE" in roles.sections["Blind review protocol"]
+    assert "context separation" in roles.sections["Blind review protocol"]
