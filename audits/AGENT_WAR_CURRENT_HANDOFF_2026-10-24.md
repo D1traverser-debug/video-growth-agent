@@ -1,5 +1,8 @@
 # Agent × 战争电影项目 — 当前总纲、事实状态与新对话无缝继承
 
+> **2026-10-24 新用户时长约束与权威创作入口**：本片暂定严格不超过2分钟；重点必须是 **Agent 自主计划、发现错误、重新行动**，允许声音蒙太奇、平行剪辑、表演及图形手段混合，但不能把所有复杂信息塞成对白。已自主检索逐项比较 Pixar/Disney/Show Me Shorts/Raindance/Adobe/Anthropic 原始资料，研究档案 `audits/AGENT_WAR_2MIN_CRAFT_RESEARCH_AND_FORMAT_DECISION_2026-10-24.md`。**当前影片候选以114秒 V2 `projects/ai-self-media-commercialization/creative_candidates/agent_war/BU_YONG_TA_DE_SHENGYIN_114S_V2_2026-10-24.md` 为准**。早先11–14分钟 V1 保留历史但不再为当前播放长度。V2 有9个有时码的故事段，尚无真实可播放 reel / 独立审稿 / 真实无背景观众，因此不准自认剧本与电影通过。
+
+
 > **当前最新创作与协作结果（2026-10-24）**：GitHub Actions #40081322942 真实完成两名 Copilot 编剧、两份隔离 AI 审稿和总评并存档，但《通行票》与《一条线》仍是相似铁路题材，均未通过故事审查。ChatGPT 已直接写出新的八场剧本《别用她的声音》（`projects/ai-self-media-commercialization/creative_candidates/agent_war/BU_YONG_TA_DE_SHENGYIN_SCREENPLAY_V1_2026-10-24.md`），属于尚未独立验收的作者候选。已修改下一轮协作方法分化与审稿原始凭证输入（`e3a151e`），不能把代码或自审当电影质量通过。继续先读上述新剧本、实际双路 AI 原始稿和反证，不再复活铁路候选。
 
 
