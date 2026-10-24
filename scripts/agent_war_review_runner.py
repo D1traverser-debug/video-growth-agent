@@ -130,7 +130,21 @@ def infer(messages: list[dict], token: str, model: str, max_tokens: int) -> tupl
     })
     try:
         with urllib.request.urlopen(request, timeout=150) as response:
-            raw = json.loads(response.read().decode("utf-8"))
+            raw_bytes = response.read()
+            if not raw_bytes.strip():
+                raise RuntimeError(
+                    f"GitHub Models HTTP {response.status} returned empty response body "
+                    f"(content-type={response.headers.get('Content-Type', 'missing')}); "
+                    "no external review was performed"
+                )
+            try:
+                raw = json.loads(raw_bytes.decode("utf-8"))
+            except (ValueError, UnicodeDecodeError):
+                raise RuntimeError(
+                    f"GitHub Models HTTP {response.status} returned non-JSON response "
+                    f"(content-type={response.headers.get('Content-Type', 'missing')}, "
+                    f"bytes={len(raw_bytes)}); no external review was performed"
+                ) from None
     except urllib.error.HTTPError as exc:
         error_body = exc.read(900).decode("utf-8", errors="replace")
         # No secret value or complete submitted script is ever logged.
