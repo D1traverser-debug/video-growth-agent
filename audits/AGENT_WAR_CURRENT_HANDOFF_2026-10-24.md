@@ -1,5 +1,8 @@
 # Agent × 战争电影项目 — 当前总纲、事实状态与新对话无缝继承
 
+> **2026-10-24 最新权威创作入口 — V3 Agent 双方交锋（优先于下文 V2 快照）**：用户明确指出 V2《别用她的声音》读起来是“Agent乱执行、最后靠人操控”，因此 V2 与其22镜头生产表暂停，不再作为现役待执行方案。新导演初稿 **《两次胜利》110 秒**：`projects/ai-self-media-commercialization/creative_candidates/agent_war/LIANG_CI_SHENG_LI_110S_V3_2026-10-24.md`；真实源代码提交 `4eef54a650ddb709b2a5d58d3dd43bf470cbc6cd`。两方军事 Agent「归」「锋」各自被授权多个目标、自主试错反制；「归」为救回三名伤员主动放弃街口，并向「锋」提出八秒停火交易；「锋」实际侦察后为降低本方损失接受、占领街口；**双方各自实现目标，但命令冲突的代价由 Agent 作出了人类没有逐项指示的选择**。研究与作者反证 `audits/AGENT_WAR_V3_110S_STORY_EVALUATION_2026-10-24.md`。**仅为作者候选，非故事定版：没有V3独立审稿、真正动态分镜或冷观众证据；不制作视频，不拆为5/10秒生产镜头，不触动H1和main。**
+
+
 > **2026-10-24 新用户时长约束与权威创作入口**：本片暂定严格不超过2分钟；重点必须是 **Agent 自主计划、发现错误、重新行动**，允许声音蒙太奇、平行剪辑、表演及图形手段混合，但不能把所有复杂信息塞成对白。已自主检索逐项比较 Pixar/Disney/Show Me Shorts/Raindance/Adobe/Anthropic 原始资料，研究档案 `audits/AGENT_WAR_2MIN_CRAFT_RESEARCH_AND_FORMAT_DECISION_2026-10-24.md`。**当前影片候选以114秒 V2 `projects/ai-self-media-commercialization/creative_candidates/agent_war/BU_YONG_TA_DE_SHENGYIN_114S_V2_2026-10-24.md` 为准**。早先11–14分钟 V1 保留历史但不再为当前播放长度。V2 有9个有时码的故事段，尚无真实可播放 reel / 独立审稿 / 真实无背景观众，因此不准自认剧本与电影通过。
 
 

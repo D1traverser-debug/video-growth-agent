@@ -1,5 +1,13 @@
 # Video prompt & professional craft candidate — durable continuation
 
+## 2026-10-24 — User-demanded story reset: current V3 《两次胜利》 (110s)
+- User said prior V2 suggests “Agent makes errors and still needs humans to operate”, rejected that thematic center. Author directly re-conceived from original Agent×War without Copilot spending or video production.
+- Creative draft: `projects/ai-self-media-commercialization/creative_candidates/agent_war/LIANG_CI_SHENG_LI_110S_V3_2026-10-24.md`; bound content commit `4eef54a650ddb709b2a5d58d3dd43bf470cbc6cd`. New premise is an actual two-Agent adversarial replanning loop, each with conflicting military objectives; a verified and costly agent-to-agent exchange changes the outcome (defender wounded leave, attacker gains intersection). Expresses ambiguous delegated **goal tradeoffs**, neither runaway mistakes nor magical AI pacifism.
+- One core conflict, **110s** in eleven 10s narrative blocks (not eleven video jobs); future production uses **5s/10s image-to-video units** only after screenplay and director gates. Read actual film script, not older 114s V2 and not earlier 22-shot prompt pack.
+- Research + alternatives + author's *adverse* kill cases: `audits/AGENT_WAR_V3_110S_STORY_EVALUATION_2026-10-24.md`; in particular the opponent's incentive to not capture wounded, two-agent independent autonomy visible in action, and 8-second exchange geography. Pixar/Show Me Shorts/Disney/Anthropic primary sources support methods but are NOT story validation. **No V3 independent review / no actual V3 timed reel / no unprimed viewers / no paid generation / no artistic approval.**
+
+
+
 
 ## 2026-10-24 — Owner revision: <=2 minute Agent-led short; multi-form researched, not shortened exposition
 - User updated creative ceiling to **strictly below 2 minutes** (temporarily) and emphasized **Agent as protagonist**, allowing mixed expressive media rather than forcing all world information into dialogue. Owner must independently study and compare professional methods, not blindly obey every proposed idea.
