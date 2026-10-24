@@ -93,3 +93,22 @@ def test_text_plain_null_inference_fails_closed(monkeypatch):
     monkeypatch.setattr(runner.urllib.request, "urlopen", lambda *a, **kw: NullResponse())
     with pytest.raises(RuntimeError, match="no external review was performed"):
         runner.infer([{"role": "user", "content": "draft"}], "dummy", "openai/gpt-4.1", 128)
+
+
+def test_actual_short_copilot_critic_receipt_can_drive_new_story():
+    """Actual 1,637-char contrary review must not be rejected by a 2,000-char screenplay guard."""
+    from scripts import agent_war_v8_followup as current
+    root = current.ROOT / "audits" / "agent_war_ai_review_runs" / "40073765790"
+    author = current.validated(
+        root / "story-core-candidate.json", "character_rewrite", "40073765790"
+    )
+    critic = current.validated(
+        root / "review-story_core_editor.json", "character_review", "40073765790"
+    )
+    assert len(author["model_output"]) > 2000
+    assert 600 <= len(critic["model_output"]) < 2000
+    assert author["provenance"]["copilot_session_id"] != critic["provenance"]["copilot_session_id"]
+    prompt, sources = current.build("character_rewrite", "new-run", None)
+    assert "《两次点名》" in prompt
+    assert critic["model_output"] in prompt
+    assert "actual_character_story_critic_run_40073765790" in sources
