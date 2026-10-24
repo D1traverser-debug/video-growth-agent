@@ -108,7 +108,22 @@ def test_actual_short_copilot_critic_receipt_can_drive_new_story():
     assert len(author["model_output"]) > 2000
     assert 600 <= len(critic["model_output"]) < 2000
     assert author["provenance"]["copilot_session_id"] != critic["provenance"]["copilot_session_id"]
+    assert len(critic["model_output"]) >= 600
+
+
+def test_latest_independent_agent_war_critic_drives_next_prompt():
+    """A new writer receives the latest signed rejection, never a stale V6/V8 summary."""
+    from scripts import agent_war_v8_followup as current
+    root = current.ROOT / "audits" / "agent_war_ai_review_runs" / "40076350289"
+    prior = current.validated(
+        root / "story-core-candidate.json", "character_rewrite", "40076350289"
+    )
+    critic = current.validated(
+        root / "review-story_core_editor.json", "character_review", "40076350289"
+    )
+    assert prior["provenance"]["copilot_session_id"] != critic["provenance"]["copilot_session_id"]
     prompt, sources = current.build("character_rewrite", "new-run", None)
-    assert "《两次点名》" in prompt
+    assert "《余线》" in prompt
     assert critic["model_output"] in prompt
-    assert "actual_character_story_critic_run_40073765790" in sources
+    assert "actual_character_story_critic_run_40076350289" in sources
+    assert "人类" in prompt and "Agent" in prompt
