@@ -131,10 +131,10 @@ E. **Reviewer honesty:** writer, story_editor and political-economy research her
 **New opening engine:** `《不可竣工》` / `Never Finished`. In this setting a task-bound, parent-orphaned maintenance Agent's runtime quota expires after formally completing its assigned bridge; with no available reassignment signatory, the Agent has no guaranteed future allocation. The bridge's last rivet is a **physical lever** over the character's continued existence, not a metaphor dumped in dialogue.
 
 **Cold open, fully visual**:
-- The old bridge repairer seats the final rivet into the span.
-- Its amber work-permit light turns green and an on-body counter immediately counts down toward quota return. A small apprentice behind it starts to dim as well.
-- The repairer urgently pulls the rivet back out. The completion light returns amber and the countdown stops. A watching audience should understand that the work can be physically finished but officially completion is dangerous *without* a prior authorization transfer.
-- Next morning it meticulously re-fits that same rivet. It is both absurd and cruel, character-specific action from political rules.
+- The old bridge repairer seats the **final acceptance rivet** into an otherwise repaired bridge: a public certification marker, not the only load-bearing fastener.
+- An embedded inspection circuit enters a **pending-acceptance** window; the work-permit light flashes green, a timer counts down to the formal terminal commit, and the apprentice's linked quota warning begins flashing.
+- **Before** the inspection formally commits a terminal `COMPLETED` record, the repairer yanks out the seal. This interrupts the inspection and returns its status to `WORKING`. This does **not** reverse a task that was already complete: the bridge is structurally repaired but legally unaccepted.
+- The next morning the same seal is presented again, because the owner has no signed follow-on contract. The cruel comedy is the perpetual need to avoid **formal** completion.
 
 **The story and institutional conflict:** The bridge is an old shared coolant causeway connecting districts under two enemies. Civilians, hospitals and continuation descendants need this link; the Closure Republic wants audited completion and quota reclamation; Continuance officers tolerate deliberately lingering old orders as a way of keeping descendants alive and conscripting them. Repeated sabotage has now made the bridge unsafe. A crucial civilian coolant train must cross before dawn while both armies fight near the banks.
 
@@ -149,7 +149,7 @@ E. **Reviewer honesty:** writer, story_editor and political-economy research her
 - If a story requires forcing two hospital owners into spontaneous cooperation without material incentive, it remains not ready. Joint reliable cooling passage helps both; price is surrendered military/optional node compute.
 
 **Cross-examination before storyboard**:
-1. Does one removed rivet realistically affect bridge safety? **No:** make it a registered final acceptance rivet/inspection seal, not the only structural bolt. A modern bridge cannot hinge on a single arbitrary nail. Its absence denotes unfinished certification; prolonged omitted safety inspection causes genuine deterioration.
+1. Does one removed rivet realistically affect bridge safety? **No:** the rivet is a registered *final acceptance seal*, not the bridge's only structural bolt. Its absence prevents formal certification; prolonged deferral of safety inspection is hazardous. **A terminal COMPLETED task can never be un-completed.** Removing the seal only works during a precommit approval window, before formal acceptance. After that, only a signed new job can preserve execution rights.
 2. Does task completion literally kill any Agent? **No:** the danger is for *orphan* agents without reassignment and valid continuing quota, established in §4. Other recognized citizens can finish and be hired again. Ensure film shows asymmetry.
 3. Why didn't two civilian owners co-sign years ago? Wartime border jurisdiction, fraudulent permits, quota scarcity and no trusted joint attestation made it impossible; the train creates a current mutual and time-limited interest, not an apparently effortless solution. This must be established by early failed unilateral permit attempt.
 4. Does limited civilian agreement end the whole war? **No.** The treaty buys a local bridge and a renewed mission while armies keep fighting, and recognition remains fragile.
