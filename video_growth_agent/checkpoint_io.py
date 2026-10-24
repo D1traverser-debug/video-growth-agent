@@ -19,6 +19,13 @@ class CheckpointConflict(ValueError):
     """A different writer changed the snapshot after this reader loaded it."""
 
 
+class CheckpointDurabilityUncertain(RuntimeError):
+    """Rename happened, but physical durability could not be confirmed.
+
+    Do not retry a write blindly; reload the current owner state first.
+    """
+
+
 def _digest(data: bytes | None) -> str | None:
     return hashlib.sha256(data).hexdigest() if data is not None else None
 
@@ -103,11 +110,17 @@ def write_snapshot(
             # POSIX directory fsync gives stronger rename durability where
             # supported. Do not hide failures before the physical commit.
             if os.name == "posix":
-                dir_fd = os.open(str(path.parent), os.O_RDONLY)
                 try:
-                    os.fsync(dir_fd)
-                finally:
-                    os.close(dir_fd)
+                    dir_fd = os.open(str(path.parent), os.O_RDONLY)
+                    try:
+                        os.fsync(dir_fd)
+                    finally:
+                        os.close(dir_fd)
+                except OSError as exc:
+                    raise CheckpointDurabilityUncertain(
+                        "snapshot rename committed but directory durability is uncertain; "
+                        "reload current owner state before any further write"
+                    ) from exc
         finally:
             if tmp_name is not None:
                 Path(tmp_name).unlink(missing_ok=True)
