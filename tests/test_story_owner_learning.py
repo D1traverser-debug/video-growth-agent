@@ -87,3 +87,31 @@ def test_reviewer_prompt_no_longer_misrepresents_self_role_as_real_independence(
     roles = RoleRegistry()
     assert "SINGLE_AUTHOR_SELF_CRITIQUE" in roles.sections["Blind review protocol"]
     assert "context separation" in roles.sections["Blind review protocol"]
+
+
+def test_fake_script_editor_pass_cannot_advance_without_real_execution_attestation(tmp_path):
+    """A completed work order/role signature is not evidence of an independent model run."""
+    from video_growth_agent import ArtifactRecord, ProjectStore, StudioRuntime
+    from video_growth_agent.studio_agents import AgenticStudio
+    runtime = StudioRuntime(store=ProjectStore(tmp_path / "projects"))
+    runtime.create_project("narrative")
+    state = runtime.state("narrative")
+    state.stage = "SCRIPT"
+    for name in ("research_package", "positioning"):
+        state.artifacts[name] = ArtifactRecord(
+            name=name, uri=f"file://{name}", stage="SCRIPT", digest=f"digest-{name}"
+        )
+    runtime.store.save(state)
+    studio = AgenticStudio(runtime=runtime)
+    studio.dispatch_stage("narrative")
+    studio.complete_work(
+        "narrative", "script_build",
+        outputs={"script": {"uri": "file://draft", "digest": "draft-v6"}}
+    )
+    studio.dispatch_stage("narrative")
+    studio.submit_review(
+        "narrative", "story_edit", "PASS",
+        notes="single-author pretend story-editor PASS", target_digest="draft-v6",
+    )
+    failures = runtime.process_guard_report(runtime.state("narrative"))["failures"]
+    assert "process_execution_attestation_missing_or_ambiguous:story_edit" in failures
