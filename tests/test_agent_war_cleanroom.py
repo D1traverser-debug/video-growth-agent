@@ -30,13 +30,16 @@ def test_blind_writers_read_only_brief_and_no_retired_scripts():
     for stage in ("writer_a", "writer_b"):
         prompt, refs = c.build(stage, "100")
         assert refs[0] == "original_user_brief"
-        assert len(refs) == 2 and "#Writer@sha256:" in refs[1]
+        assert len(refs) == 3 and "#Writer@sha256:" in refs[1]
+        assert refs[-1] in ("craft_lane:RELATIONSHIP_FIRST", "craft_lane:WAR_INSTITUTIONS_FIRST")
         assert "pre-rewrite four-answer study" in prompt
         assert "preflight" in prompt or "first-person defense" in prompt
         for leaked in ("《余线》", "《断面》", "《白灯不等人》", "织机", "道岔", "洛恩"):
             assert leaked not in prompt
         assert "「Agent」" in prompt and "「战争」" in prompt
-    assert c.build("writer_a", "100") == c.build("writer_b", "100")
+    assert c.build("writer_a", "100") != c.build("writer_b", "100")
+    assert "人物关系驱动" in c.build("writer_a", "100")[0]
+    assert "战争制度和对抗驱动" in c.build("writer_b", "100")[0]
 
 
 def test_review_is_bound_to_script_not_author_notes(tmp_path):
@@ -73,7 +76,9 @@ def test_adjudication_cannot_reuse_sessions_or_mismatch_review_source(tmp_path):
     receipt(tmp_path / "review_b.json", "review_b", input_hash=hb)
     prompt, refs = c.build("adjudicate", "100", evidence_dir=tmp_path)
     assert "候选A完整剧本" in prompt and "候选B独立AI复审" in prompt
-    assert len(refs) == 3 and "#Director@sha256:" in refs[-1]
+    assert len(refs) == 4 and "#Director@sha256:" in refs[-1]
+    assert "隔离AI执行凭证" in prompt
+    assert "copilot_session_id" in prompt and "output_sha256" in prompt
     receipt(tmp_path / "review_b.json", "review_b", input_hash=ha + "invalid")
     with pytest.raises(RuntimeError, match="not bound"):
         c.build("adjudicate", "100", evidence_dir=tmp_path)

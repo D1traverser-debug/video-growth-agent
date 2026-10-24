@@ -43,6 +43,21 @@ REVIEWER = (
     "最终只输出 REJECT_PREMISE、STRUCTURAL_REWRITE 或 ELIGIBLE_FOR_STORYBOARD 之一，"
     "并附具体场次事实；最后一种也不等于真人、故事板或电影质量通过。"
 )
+WRITER_A_TREATMENT = (
+    "【创作角度 A：人物关系驱动】从一个有具体亲密关系、不能同时得到的愿望、"
+    "以及战争中必须自己承担后果的自主选择起笔。Agent 的长期委托、"
+    "对具体人的信任或背叛必须造成剧情变化；不要以设备故障直接制造两难。"
+    "所有角色必须能以可见行动反对主角。可以改变设定和文体，"
+    "这个角度是创作探索，不是指定已有故事。"
+)
+WRITER_B_TREATMENT = (
+    "【创作角度 B：战争制度和对抗驱动】从战争中的两方真实集体目标、"
+    "资源分配、相互误判、战术反制以及多名自主 Agent 的委托冲突起笔。"
+    "找出没有 AI 自主代理关系便不会成立的战术或政治结果。"
+    "允许艰难但不必必然牺牲，不以单一机械装置强迫选择。"
+    "可以改变设定和文体，这个角度是创作探索，不是指定已有故事。"
+)
+
 ADJUDICATOR = (
     "【岗位：Story Editor 总编审／两案对比】下面是同一原始委托下，两次彼此隔离的"
     "真实 AI 编剧输出和各自隔离 AI 审稿原文。对照两条故事发动机、角色能动性、"
@@ -115,8 +130,10 @@ def build(stage: str, run_id: str, previous: Path | None = None,
           evidence_dir: Path | None = None) -> tuple[str, list[str]]:
     if stage in ("writer_a", "writer_b"):
         method, refs = role_context("Writer")
+        treatment = WRITER_A_TREATMENT if stage == "writer_a" else WRITER_B_TREATMENT
+        lane = "RELATIONSHIP_FIRST" if stage == "writer_a" else "WAR_INSTITUTIONS_FIRST"
         return (BRIEF + "\n\n【当前项目已核验的岗位方法，不是旧故事素材】\n" +
-                method + "\n\n" + WRITER), ["original_user_brief", *refs]
+                method + "\n\n" + WRITER + "\n\n" + treatment), ["original_user_brief", *refs, "craft_lane:" + lane]
     if stage in ("review_a", "review_b"):
         if previous is None:
             raise RuntimeError("blind review requires exact writer artifact")
@@ -138,13 +155,26 @@ def build(stage: str, run_id: str, previous: Path | None = None,
             script = scenes_only(w["model_output"], min_length=1500)
             if r["provenance"].get("input_script_sha256") != sha(script):
                 raise RuntimeError(f"review_{label} not bound to writer_{label} script")
+        # This provenance is checked against actual structured receipts above;
+        # make it observable to the judge without leaking the two writers'
+        # preselection notes into their individual blind reviews.
+        attest = [{"stage": obj["provenance"]["stage"],
+                   "run": obj["provenance"]["github_run_id"],
+                   "job": obj["provenance"]["github_job"],
+                   "copilot_session_id": obj["provenance"]["copilot_session_id"],
+                   "model": obj["provenance"].get("provider_model", "unspecified"),
+                   "output_sha256": obj["provenance"]["output_sha256"]}
+                  for obj in (w_a, w_b, r_a, r_b)]
+        attest_text = json.dumps(attest, ensure_ascii=False, indent=2)
         packet = ""
         for label, w, r in (("A", w_a, r_a), ("B", w_b, r_b)):
             packet += (f"\n\n【候选{label}完整剧本】\n" + scenes_only(w["model_output"], min_length=1500)
                        + f"\n\n【候选{label}独立AI复审】\n" + r["model_output"])
         method, refs = role_context("Story Editor", "Director")
         return (BRIEF + "\n\n【现有专业岗位方法】\n" + method +
-                "\n\n" + ADJUDICATOR + packet), [sha(packet), *refs]
+                "\n\n【隔离AI执行凭证：已由本地原始记录和哈希检验；"
+                "不是人类独立审稿或艺术验收】\n" + attest_text +
+                "\n\n" + ADJUDICATOR + packet), [sha(packet), sha(attest_text), *refs]
     raise ValueError(f"unknown stage {stage}")
 
 
