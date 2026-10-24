@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-24T11:58:00+08:00",
+  "updated_at": "2026-10-24T15:52:00+09:00",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -76,7 +76,10 @@
       "real_war_medical_shared_supply_physical_layout_test",
       "independent_V6_script_editor_real_run_proof_ref",
       "distinct_original_brief_only_Agent_War_candidate_and_blind_comparison",
-      "viewable_animatic_rough_timing_and_real_unprimed_viewers"
+      "viewable_animatic_rough_timing_and_real_unprimed_viewers",
+      "resolve_80_second_AA_restart_vs_immediate_shot_and_physical_aircraft_tracking",
+      "compare_V8_rewrite_vs_new_character_first_agent_war_premise",
+      "full_storyboard_reel_and_cold_viewer_data_not_yet_available"
     ],
     "promotion_authorized": false,
     "latest_verified_code_head": "2cbdafeb8ebad8a3d9d1bcd096eec9a7ed2922d1",
@@ -162,8 +165,8 @@
       "primary_world": "未完成之国 (provisional, not locked canon)",
       "world_authority": "audits/AGENT_WAR_WORLD_FOUNDATION_REBUILD_2026-10-24.md",
       "narrative_authority": "audits/AGENT_WAR_SECOND_PASS_STORYROOM_2026-10-24.md",
-      "first_film_candidate": "断面 V6 — actual eight-scene screenplay, provisional 6m30s",
-      "status": "ROLE_EMBODIED_MULTI_POV_SCRIPT_DRAFT_DELIVERED__EXTERNAL_STORY_SCREENING_OPEN",
+      "first_film_candidate": "不在册 V8 (unapproved candidate, replacing prior V6 bridge and V7 train story)",
+      "status": "ISOLATED_AI_REVIEWED_V8__STRUCTURAL_REWRITE_REQUIRED__NO_ANIMATIC_NO_HUMAN_SCREENING",
       "duration_hypothesis": "04:20/260s temporary rough-edit plan, explicitly not 26x10-second model jobs",
       "superseded_pilots": [
         "第17号漏洞: WORLD_REJECTED",
@@ -200,11 +203,14 @@
         "bridge load physics",
         "sound/post-rollback memory loss staging",
         "actual audience reception"
-      ]
+      ],
+      "latest_candidate_ref": "audits/agent_war_ai_review_runs/40071008053/V8_CANDIDATE_UNAPPROVED.md",
+      "latest_independent_ai_critique_ref": "audits/agent_war_ai_review_runs/40071008053/V8_INDEPENDENT_AI_CRITIQUE.md",
+      "external_review_state": "3 real Actions workflow batches and multiple isolated Copilot sessions; all text-stage; critic V8 says REWRITE"
     },
-    "creative_scope_note": "USER_REQUIRES_AGENT_TO_EXECUTE_ON_GITHUB_NOT_HANDOFF_PROMPTS__ACTION_ATTEMPTED_AND_FAIL_CLOSED__V6_DRAFT",
+    "creative_scope_note": "ACTUAL_GITHUB_COPILOT_AGENTS_EXECUTED_V7_V8_CRITICALLY__V8_REWRITE_REQUIRED_NOT_FILM_READY__NO_MERGE_H1_CHANGE",
     "story_review_assurance": {
-      "status": "GITHUB_ACTIONS_REAL_STORY_ROOM_LAUNCHED__EXTERNAL_PROVIDER_RETURNED_NON_JSON__FALLBACK_SECRET_ABSENT__NO_REVIEWS_OR_REWRITE",
+      "status": "GITHUB_COPILOT_INFERENCE_OPERATIONAL__3_VERIFIED_WORKFLOWS_AND_V8_INDEPENDENT_REWRITE_REQUIRED",
       "story_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/DUANMIAN_SCREENPLAY_V6_2026-10-24.md",
       "review_packet_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/V6_INDEPENDENT_STORY_REVIEW_PACK_2026-10-24.md",
       "trusted_executors_registered": 0,
@@ -234,7 +240,33 @@
       "actual_external_reviews_saved": 0,
       "actual_revision_generated": false,
       "independent_review_and_cold_audience_verdict": "NONE_NOT_ATTESTED",
-      "next_action": "Restore a functioning authorized Github Models inference response or install a provider API key, then rerun existing Actions. Never ask user to manually send previously created prompts."
+      "next_action": "Restore a functioning authorized Github Models inference response or install a provider API key, then rerun existing Actions. Never ask user to manually send previously created prompts.",
+      "model_provider": "github-copilot-cli",
+      "model_executions_verified": true,
+      "last_successful_workflows": [
+        40069669424,
+        40070247446,
+        40071008053
+      ],
+      "latest_review_run": 40071008053,
+      "latest_script": "audits/agent_war_ai_review_runs/40071008053/V8_CANDIDATE_UNAPPROVED.md",
+      "latest_opposing_review": "audits/agent_war_ai_review_runs/40071008053/V8_INDEPENDENT_AI_CRITIQUE.md",
+      "current_primary_concept": "不在册 (B-12 forked wartime air defense Agent) V8 only as UNAPPROVED candidate",
+      "current_primary_verdict": "REWRITE",
+      "issues": [
+        "80-second boot timing violated by immediate fire",
+        "weapon/decoy/aircraft strike geography not established",
+        "backup station loss effects invented",
+        "lower-cost tactical actions and legal identity cost still underdeveloped"
+      ],
+      "last_human_viewers": 0,
+      "real_animatic_count": 0,
+      "human_expert_approval": false,
+      "user_approval": false,
+      "actual_model_reviews_saved": true,
+      "followup_runner": "scripts/agent_war_v8_followup.py",
+      "followup_workflow": ".github/workflows/agent-war-v8-followup.yml",
+      "stale_blocker_retired": "Earlier Github Models failure is repaired through actual Copilot CLI inference; do NOT say the system still cannot run AI."
     }
   },
   "recent_resolved_or_promoted": [
@@ -369,7 +401,11 @@
     "video_growth_agent/data/executors.json",
     ".github/workflows/agent-war-story-room.yml",
     "scripts/agent_war_review_runner.py",
-    "tests/test_agent_war_review_runner.py"
+    "tests/test_agent_war_review_runner.py",
+    "audits/agent_war_ai_review_runs/40071008053/V8_CANDIDATE_UNAPPROVED.md",
+    "audits/agent_war_ai_review_runs/40071008053/V8_INDEPENDENT_AI_CRITIQUE.md",
+    "scripts/agent_war_v8_followup.py",
+    ".github/workflows/agent-war-v8-followup.yml"
   ],
   "historical_evidence_refs": [
     "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
