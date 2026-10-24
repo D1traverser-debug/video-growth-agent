@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import re
 from typing import Iterable, Mapping
 
 from .production_os import ReferenceBinding, ShotContract
@@ -259,6 +260,46 @@ class EditorialPlan:
         raise EditorialPlanningError(f"shot not found in editorial plan: {shot_id}")
 
 
+
+@dataclass(frozen=True)
+class ScriptAuditReceipt:
+    """Evidence metadata for one separately executed original-story review.
+
+    A caller must independently verify execution/source authenticity. This
+    receipt is not a machine assertion of artistic quality or real spectators.
+    """
+    episode_id: str
+    script_ref: str
+    script_sha256: str
+    plan_version: str
+    verdict: str
+    writer_session_id: str
+    reviewer_session_id: str
+    reviewer_execution_ref: str
+    review_result_ref: str
+    review_mode: str
+
+    def verify_for(self, plan: EditorialPlan) -> None:
+        if self.verdict != "STORYBOARD_CANDIDATE":
+            raise EditorialPlanningError("story has not passed SCRIPT_AUDIT")
+        if self.review_mode not in {"ATTESTED_ISOLATED_AI", "EXTERNAL_HUMAN"}:
+            raise EditorialPlanningError("original story requires a separately executed script review")
+        if (self.episode_id != plan.intent.episode_id or
+                self.plan_version != plan.plan_version):
+            raise EditorialPlanningError("story review episode/plan version mismatch")
+        if not re.fullmatch(r"[0-9a-f]{64}", self.script_sha256):
+            raise EditorialPlanningError("story review requires sha256 of the exact script")
+        pins = set(plan.intent.evidence_refs)
+        if ("script-ref:" + self.script_ref not in pins or
+                "script-sha256:" + self.script_sha256 not in pins):
+            raise EditorialPlanningError("story review does not bind the current script")
+        if (not all(str(x).strip() for x in (
+                self.script_ref, self.writer_session_id, self.reviewer_session_id,
+                self.reviewer_execution_ref, self.review_result_ref)) or
+                self.writer_session_id == self.reviewer_session_id):
+            raise EditorialPlanningError("missing independent script reviewer execution evidence")
+
+
 def materialize_shot_contract(
     plan: EditorialPlan,
     *,
@@ -272,8 +313,13 @@ def materialize_shot_contract(
     stop_conditions: tuple[str, ...] = (),
     budget_usd: float | None = None,
     disclosure_required: bool = False,
+    script_audit: ScriptAuditReceipt | None = None,
 ) -> ShotContract:
     """Cross the explicit boundary from editorial intent into production execution."""
+    if plan.intent.ip_role == "ORIGINAL_NARRATIVE":
+        if script_audit is None:
+            raise EditorialPlanningError("original narrative requires SCRIPT_AUDIT before production shot contract")
+        script_audit.verify_for(plan)
     shot = plan.shot(shot_id)
     if shot.truth_mode == "PRODUCT_TRUTH" and not references:
         raise EditorialPlanningError("PRODUCT_TRUTH shot cannot materialize without verified references")
