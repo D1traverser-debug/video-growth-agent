@@ -1,5 +1,8 @@
 # Agent × 战争电影项目 — 当前总纲、事实状态与新对话无缝继承
 
+> **当前最新创作与协作结果（2026-10-24）**：GitHub Actions #40081322942 真实完成两名 Copilot 编剧、两份隔离 AI 审稿和总评并存档，但《通行票》与《一条线》仍是相似铁路题材，均未通过故事审查。ChatGPT 已直接写出新的八场剧本《别用她的声音》（`projects/ai-self-media-commercialization/creative_candidates/agent_war/BU_YONG_TA_DE_SHENGYIN_SCREENPLAY_V1_2026-10-24.md`），属于尚未独立验收的作者候选。已修改下一轮协作方法分化与审稿原始凭证输入（`e3a151e`），不能把代码或自审当电影质量通过。继续先读上述新剧本、实际双路 AI 原始稿和反证，不再复活铁路候选。
+
+
 > **工程续接补充（2026-10-24）**：本次已在 Draft PR #23 提交 `a7bfb8e1fd5d51e9422b68a78b5668a29f551020`，新增原始 brief 双路编剧／隔离审稿／比较的可选工作流；CI #40080535290 已 294 passed，未执行新的 Copilot 生成，旧剧本最后判定仍为 `REJECT_PREMISE`。详见 `audits/PROMPT_CRAFT_PR23_CHECKPOINT_2026-10-24.md` 最新顶部记录。新模型任务仅在核实额度费用并获授权后明确触发，不能把静态代码 PASS 当作故事质量 PASS。
 
 > **此页是当前事实入口，不是新创作方案。** 本文只记录已证实的用户委托、真实执行、创作淘汰结果和继续工作条件。旧故事、提示词、过期运行记录都不能覆盖本文与 `audits/EVOLUTION_INDEX.json` 中的最新事实。未来继续前，请核实 GitHub PR 分支 HEAD 与最近一次 Actions，绝不能凭聊天里的最后一句推测“已经完成”。
