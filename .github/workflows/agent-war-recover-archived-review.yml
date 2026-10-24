@@ -1,0 +1,98 @@
+name: Agent War - Recover Verified Story Review
+
+on:
+  push:
+    branches:
+      - refactor/prompt-director-core-20261023
+    paths:
+      - .github/workflows/agent-war-recover-archived-review.yml
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: agent-war-review-archive-recovery
+  cancel-in-progress: false
+
+jobs:
+  recover:
+    name: Restore real finished reviewer artifacts without model rerun
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: agent-war-core-draft
+          run-id: 40075431401
+          github-token: ${{ github.token }}
+          path: evidence
+      - uses: actions/download-artifact@v4
+        with:
+          name: agent-war-core-critique
+          run-id: 40075431401
+          github-token: ${{ github.token }}
+          path: evidence
+      - name: Verify original model receipts and store unchanged evidence
+        env:
+          TARGET: audits/agent_war_ai_review_runs/40075431401
+          REPO_REF: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$TARGET"
+          cp evidence/story-core-candidate.json "$TARGET/"
+          cp evidence/story-core-candidate.jsonl "$TARGET/"
+          cp evidence/review-story_core_editor.json "$TARGET/"
+          cp evidence/review-story_core_editor.jsonl "$TARGET/"
+          python3 - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          base = Path(os.environ["TARGET"])
+          w = json.loads((base / "story-core-candidate.json").read_text(encoding="utf-8"))
+          e = json.loads((base / "review-story_core_editor.json").read_text(encoding="utf-8"))
+          for obj in (w, e):
+              p = obj["provenance"]
+              assert p["github_run_id"] == "40075431401"
+              assert p["provider"] == "github-copilot-cli"
+              assert p["copilot_session_id"] and p["provider_response_id"] and p["github_job"]
+              assert hashlib.sha256(obj["model_output"].encode("utf-8")).hexdigest() == p["output_sha256"]
+          assert w["provenance"]["github_job"] != e["provenance"]["github_job"]
+          assert w["provenance"]["copilot_session_id"] != e["provenance"]["copilot_session_id"]
+          (base / "STORY_CORE_CANDIDATE_UNAPPROVED.md").write_text(
+              "# Agent × 战争｜《西泄口》候选剧本（未通过审稿）\n\n"
+              + w["model_output"] + "\n", encoding="utf-8"
+          )
+          (base / "STORY_CORE_INDEPENDENT_AI_CRITIQUE.md").write_text(
+              "# 《西泄口》隔离 AI 审稿｜REJECT_PREMISE\n\n"
+              + e["model_output"] + "\n", encoding="utf-8"
+          )
+          (base / "README.md").write_text(
+              "# Finished external model evidence restored, not regenerated\n\n"
+              "Original writer and reviewer GitHub Actions run: 40075431401.\n"
+              "Archival push was rejected by a non-fast-forward branch update; "
+              "this recovery copies the ORIGINAL unchanged GitHub Actions artifacts.\n\n"
+              f"Writer session: {w['provenance']['copilot_session_id']}\n"
+              f"Reviewer session: {e['provenance']['copilot_session_id']}\n\n"
+              "Reviewer verdict: REJECT_PREMISE; do not treat successful software archive as story approval.\n"
+              "No real audience screening or timed animatic.\n", encoding="utf-8"
+          )
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$TARGET"
+          git commit -m "agent-story: recover original 西泄口 AI veto evidence without inference rerun [skip ci]"
+          # Only fast-forward-safe retries. Never force-push over concurrent author work.
+          for attempt in 1 2 3 4; do
+            git fetch origin "refs/heads/$REPO_REF"
+            git rebase FETCH_HEAD
+            if git push origin "HEAD:refs/heads/$REPO_REF"; then
+              exit 0
+            fi
+            echo "Remote branch advanced during archive recovery; retry $attempt"
+          done
+          echo "Could not safely fast-forward archive after 4 attempts" >&2
+          exit 1
