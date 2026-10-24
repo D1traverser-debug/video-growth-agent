@@ -114,7 +114,7 @@ def build(stage: str, prior_run: str, previous: Path | None) -> tuple[str, list[
         )
         return prompt, ["original_user_brief", "v8_clean_scenes_from_verified_same_run"]
     if stage == "character_rewrite":
-        source_run = "40073765790"
+        source_run = "40075431401"
         source = ROOT / "audits" / "agent_war_ai_review_runs" / source_run
         old = validated(source / "story-core-candidate.json", "character_rewrite", source_run)
         opposition = validated(source / "review-story_core_editor.json", "character_review", source_run)
@@ -123,15 +123,19 @@ def build(stage: str, prior_run: str, previous: Path | None) -> tuple[str, list[
         prompt = (
             "【任务：Agent × 战争原创短篇电影；对旧案拥有直接废弃权，写真实完整电影剧情】\n"
             "原始要求仅 Agent 与战争，故事优先，不固定60秒、不按生成视频单次时长切剧情。"
-            "你将看到已被另一个模型审稿否决的《两次点名》与该审稿原文。"
-            "评审说它本质仍是两个人拿不同名单、被切断通信；教师苏禾做了决定，"
-            "Agent 诺只是辅助；孩子传话、信使、铃声等便宜办法没试；"
-            "离线副实例明明能感知眼前人却被强行写成认错目标，主机断线后又知道位置。"
+            "你将看到已被另一个模型审稿判定 REJECT_PREMISE 的《西泄口》与该审稿原文。"
+            "上一版虽有狭窄闸轮与战场伤员，核心却是只有小型维修机械身体能钻缝，"
+            "其战争抉择换成人在远程操控机械臂也几乎完全成立；"
+            "水压只能转一次、无法撤离、敌军抢险动机等关键规则主要靠台词宣布。"
+            "真实第二模型审稿判定 REJECT_PREMISE，不能将原稿换成更小机器人重交。"
             "这些不是表面文字问题。你有权完全弃案，甚至不必保留学校、复制、名单。"
             "【开写之前必须做的事实工作】先从原始题材提炼一个"
             "人类无法原样替代、且可用两个可拍的物理动作展示的 Agent 专属战争机制；"
             "对这个机制给出操作和身份/时间/信息边界及必然代价，不能突然添加总控密钥。"
-            "分别以敌对指挥官、被救平民、受委派 Agent 的立场说出各自真实利益，"
+            "分别以敌对指挥官、被救平民、受委派 Agent 的立场说出各自真实利益，
+            "这次必须讲的是委派自治 Agent 在战争中作了人类无法实时替代的判断，"
+            "不能用『人类尺寸进不去』『电波被干扰但仍可远程遥控』作为唯一专属性；"
+            "同一模型复制、任务承诺、执行后反馈等机制，只有影响不可撤销的核心动作才应出现。""
             "再做反事实：把 Agent 换成两名人类同事；发短信/找信使；撤退/等待；"
             "预备份、复制更多实例、取消任务是否轻易就能解决？如果是，必须换机制。"
             "必须在场景里让真正合理的替代行动被尝试或因已经建立的约束不可行，"
@@ -150,8 +154,8 @@ def build(stage: str, prior_run: str, previous: Path | None) -> tuple[str, list[
             + "\n\n【另一 Copilot 会话对该稿的完整独立审稿反证】\n"
             + opposition["model_output"]
         )
-        return prompt, ["original_user_brief", "actual_character_story_run_40073765790",
-                        "actual_character_story_critic_run_40073765790"]
+        return prompt, ["original_user_brief", "actual_character_story_run_40075431401",
+                        "actual_character_story_critic_run_40075431401"]
     if stage == "character_review":
         if previous is None:
             raise RuntimeError("blind character review requires same-run writer output")
