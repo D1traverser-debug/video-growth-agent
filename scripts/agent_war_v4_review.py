@@ -9,6 +9,7 @@ import argparse
 import hashlib
 import json
 import os
+import subprocess
 from pathlib import Path
 
 from scripts.agent_war_cleanroom import team_method
@@ -37,7 +38,19 @@ def source(request_path: Path = ROOT / REQUEST) -> tuple[str, str]:
             or req.get("purpose") != "blind_single_story_editor_v4"):
         raise RuntimeError("missing exact authorized single-session V4 review request")
     text = (ROOT / STORY).read_text(encoding="utf-8")
-    if sha(text) != req.get("full_script_sha256"):
+    requested_sha256 = req.get("full_script_sha256")
+    requested_git_blob = req.get("script_git_blob_sha")
+    if requested_sha256 is not None:
+        matches_source = sha(text) == requested_sha256
+    elif requested_git_blob is not None:
+        git_blob = subprocess.check_output(
+            ["git", "hash-object", str(ROOT / STORY)],
+            cwd=ROOT, text=True,
+        ).strip()
+        matches_source = git_blob == requested_git_blob
+    else:
+        matches_source = False
+    if not matches_source:
         raise RuntimeError("source changed since authorized review request")
     a, b = text.find(START), text.find(END)
     if a < 0 or b <= a or b - a < 1800:
