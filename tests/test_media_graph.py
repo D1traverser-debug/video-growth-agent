@@ -214,7 +214,44 @@ def test_promotion_rejects_transitive_obsolete_plan_even_without_stale_propagati
     graph.promote_asset(old, decision_id="promote:" + old.key())
     graph.promote_asset(new, decision_id="promote:" + new.key())
     assert graph.asset_state(old) == "STALE"
-    assert graph.asset_state(take) == "CANDIDATE"  # no invalidate_downstream call
-    with pytest.raises(MediaGraphError, match="upstream"):
+    assert graph.asset_state(take) == "STALE"  # effective state needs no invalidation call
+    with pytest.raises(MediaGraphError, match="stale"):
         graph.promote_asset(take, decision_id="promote:" + take.key())
     assert graph.current_promoted("rendered-take") is None
+
+
+
+def test_promoted_take_becomes_unavailable_after_plan_supersession_without_propagation():
+    """Release-facing current and timeline queries cannot see a stale selected Take."""
+    from video_growth_agent.timeline import TimelineClip, TimelineSpec, TimelineError
+
+    graph = _base_graph()
+    plan_old = AssetRef("plan", "v1")
+    plan_new = AssetRef("plan", "v2")
+    take = AssetRef("take", "v1")
+    graph.add_asset(AssetVersion(plan_old, "episode-1", "DIRECTOR_PLAN", "plan://old", "sha256:old"))
+    graph.add_asset(AssetVersion(plan_new, "episode-1", "DIRECTOR_PLAN", "plan://new", "sha256:new"))
+    graph.add_asset(AssetVersion(take, "shot-1", "VIDEO_TAKE", "asset://take", "sha256:take", derived_from=(plan_old,)))
+
+    for ref in (plan_old, plan_new, take):
+        eid = "e:" + ref.key()
+        did = "d:" + ref.key()
+        graph.add_evidence(EvidenceRecord(eid, "ASSET", ref.key(), "REVIEW", ("proof://" + ref.key(),), "2026-10-24T00:00:00Z"))
+        graph.add_decision(DecisionRecord(
+            did, "PROMOTION", "editor", (ref.key(),), ("criteria://review",),
+            (eid,), "PROMOTE", "2026-10-24T00:01:00Z",
+        ))
+    graph.promote_asset(plan_old, decision_id="d:" + plan_old.key())
+    graph.promote_asset(take, decision_id="d:" + take.key())
+    timeline = TimelineSpec("master", "v1", "episode-1", (TimelineClip("clip", take, "V", 0, 0, 5),))
+    timeline.validate_against_graph(graph)
+    assert graph.current_promoted("take").ref == take
+
+    # Deliberately omit invalidate_downstream(plan_old). Readers must remain safe.
+    graph.promote_asset(plan_new, decision_id="d:" + plan_new.key())
+    assert graph.asset_state(take) == "STALE"
+    assert graph.current_promoted("take") is None
+    with pytest.raises(TimelineError, match="not promoted"):
+        timeline.validate_against_graph(graph)
+    # History is retained for diagnosis and rollback planning.
+    assert take in graph.assets
