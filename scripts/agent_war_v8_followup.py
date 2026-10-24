@@ -49,6 +49,24 @@ def scenes_only(output: str, min_length: int = 2000) -> str:
     return text
 
 
+def verify_scene_sequence(screenplay: str) -> None:
+    """Judge submitted scene structure, not arbitrary writing length.
+
+    This is a mechanical completeness guard only; it does NOT certify narrative
+    causality or emotional quality. The separate critic has that responsibility.
+    """
+    headings = re.findall(
+        r"(?m)^#{1,3}\\s*(?:(?:第[一二三四五六七八九十0-9]+|场[一二三四五六七八九十0-9]+)场?|Scene\\s*\\d+)",
+        screenplay,
+        flags=re.IGNORECASE,
+    )
+    if len(headings) < 4:
+        raise RuntimeError(
+            f"creative draft has only {len(headings)} independently headed scenes; "
+            "cannot pass a complete-film editorial packet"
+        )
+
+
 def build(stage: str, prior_run: str, previous: Path | None) -> tuple[str, list[str]]:
     if stage == "rewrite_v8":
         old = validated(SOURCE / "revision-v7-candidate.json", "rewrite", SOURCE_RUN)
@@ -146,7 +164,8 @@ def build(stage: str, prior_run: str, previous: Path | None) -> tuple[str, list[
         if previous is None:
             raise RuntimeError("blind character review requires same-run writer output")
         candidate = validated(previous, "character_rewrite", prior_run)
-        pure_script = scenes_only(candidate["model_output"], min_length=2900)
+        pure_script = scenes_only(candidate["model_output"], min_length=1500)
+        verify_scene_sequence(pure_script)
         prompt = (
             "【你是未见到作者研究、其他审稿意见或历史版本的独立故事编辑】\\n"
             "唯一用户委托是Agent × 战争原创动画，片长服从故事。"
@@ -177,8 +196,10 @@ def run(stage: str, output: Path, previous: Path | None) -> dict:
         raise RuntimeError("a real GitHub Actions model job is required")
     prompt, source_names = build(stage, run_id, previous)
     answer, meta, events = live_copilot(prompt)
-    if stage in ("rewrite_v8", "character_rewrite"):
+    if stage == "rewrite_v8":
         scenes_only(answer, min_length=3000)
+    if stage == "character_rewrite":
+        verify_scene_sequence(scenes_only(answer, min_length=1500))
     proof = {
         "stage": stage, "provider": "github-copilot-cli",
         "review_class": ("author_revision_from_independent_model_critique" if stage in ("rewrite_v8", "character_rewrite")
