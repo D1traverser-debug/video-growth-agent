@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-24T09:35:30.401+08:00",
+  "updated_at": "2026-10-24T09:44:00+08:00",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -42,7 +42,10 @@
       "real_multigenre_9x16_and_factual_truth_sensitive_end_to_end_production",
       "frame_timecoded_independent_screen_and_targeted_rejection_revision_replay",
       "platform_release_metrics_and_business_outcomes_with_cost_per_accepted_shot",
-      "failure_injection_multi_session_snapshot_recovery_and_local_media_migration"
+      "failure_injection_multi_session_snapshot_recovery_and_local_media_migration",
+      "story-first_60_second_watchable_pitch_and_script_audit",
+      "provider_UI_actual_selected_mode_image_reference_first_last_availability_receipts",
+      "timed_storyreel_and_real_blind_narrative_comprehension"
     ],
     "promotion_authorized": false,
     "latest_verified_code_head": "2f47754ea0475fc54012bb99efb74b12fb05c4b4",
@@ -82,8 +85,23 @@
       "NO_VERIFIED_PROVIDER_GENERATION_TASK_SEED_MODEL_COST_ASSET_RIGHTS_BINDING",
       "FFMPEG_DETECTOR_NONZERO_EXIT_FALSE_PASS_RISK_OPEN",
       "LOCAL_MEDIA_ASSET_PORTABILITY_EVENT_LOG_AND_WINDOWS_FILESYSTEM_ASSURANCE_OPEN",
-      "AUTHOR_DIRECTOR_JSON_VERSUS_EDITORIAL_PLAN_OPERATOR_PIPELINE_NOT_FULLY_JOINED"
-    ]
+      "AUTHOR_DIRECTOR_JSON_VERSUS_EDITORIAL_PLAN_OPERATOR_PIPELINE_NOT_FULLY_JOINED",
+      "NARRATIVE_PITCH_STORY_GATE_AND_ANIMATIC_ACTUAL_GOAL_FIT_MISSING",
+      "SCREENGRAB_HAS_FOUR_DIFFERENT_H3_MODES__ACTUAL_PER_TAB_FEASIBILITY_NOT_VERIFIED"
+    ],
+    "story_first_correction": {
+      "status": "WORKFLOW_POLICY_REPAIRED__NARRATIVE_ACCEPTANCE_AND_REAL_OUTPUT_UNVERIFIED",
+      "method_ref": "skills/video-growth-agent/references/workflow.md",
+      "screenshot": "2026-10-24_H3_720P_10S_16_9_TEXT_TAB_WITH_THREE_OTHER_MODALITY_TABS",
+      "evidence_refs": [
+        "audits/PROMPT_CRAFT_PR23_CHECKPOINT_2026-10-24.md",
+        "https://www.khanacademy.org/computing/pixar/storytelling",
+        "https://platform.minimax.io/docs/guides/video-generation",
+        "https://github.com/MiniMax-AI/MiniMax-H3/blob/main/skills/h3-prompt-writing/SKILL.md"
+      ],
+      "gap": "CRITICAL_USER_STORY_WEAKNESS__NO_SCRIPT_AUDIT_BEFORE_PROMPTS__NO_SHOT_SPECIFIC_MODALITY_ROUTE",
+      "acceptance": "STORY_BEATS_AND_STORY_REEL_BEFORE_PROMPTS__PER_SHOT_UI_ROUTE__PHYSICAL_AUDIO_VIDEO_REVIEW__REVISED_STORY_EVIDENCE"
+    }
   },
   "recent_resolved_or_promoted": [
     {
@@ -203,7 +221,8 @@
     "tests/test_checkpoint_io.py",
     "video_growth_agent/storage.py",
     "video_growth_agent/system_audit.py",
-    "tests/test_production_os.py"
+    "tests/test_production_os.py",
+    "skills/video-growth-agent/references/workflow.md"
   ],
   "historical_evidence_refs": [
     "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
