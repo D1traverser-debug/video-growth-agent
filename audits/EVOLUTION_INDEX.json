@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-24T10:29:00+08:00",
+  "updated_at": "2026-10-24T11:32:00+08:00",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -73,7 +73,10 @@
       "outsider_reading_K9_A6_M0_N2_each_with_defensible_desire_and_rejected_alternative",
       "director_storyreel_and_real_viewer_seeing_M0_agency_memory_loss",
       "script_screened_twice_causal_turn_and_non_forgiveness",
-      "real_war_medical_shared_supply_physical_layout_test"
+      "real_war_medical_shared_supply_physical_layout_test",
+      "independent_V6_script_editor_real_run_proof_ref",
+      "distinct_original_brief_only_Agent_War_candidate_and_blind_comparison",
+      "viewable_animatic_rough_timing_and_real_unprimed_viewers"
     ],
     "promotion_authorized": false,
     "latest_verified_code_head": "2cbdafeb8ebad8a3d9d1bcd096eec9a7ed2922d1",
@@ -199,7 +202,26 @@
         "actual audience reception"
       ]
     },
-    "creative_scope_note": "USER_PRIORITIZES_BEST_AGENT_WAR_STORY_OVER_GENERATION_CREDITS_AND_CLIP_LENGTH__V6_NO_CANON_APPROVAL"
+    "creative_scope_note": "USER_DEEPER_NOT_BIGGER__FOUR_SOURCE_QUESTIONS_IN_ACTUAL_ROLES__EXECUTION_ATTESTATION_ENFORCED_IN_STORY_STAGES__NO_FAKE_INDEPENDENT_PASS__V6_REMAINS_AUTHOR_DRAFT",
+    "story_review_assurance": {
+      "status": "PRE_REWRITE_FOUR_QUESTION_BRIEF_AND_REAL_EXECUTOR_TRUST_GATES_INSTALLED__NO_EXTERNAL_EDITOR_OR_STORYREEL_RUN",
+      "story_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/DUANMIAN_SCREENPLAY_V6_2026-10-24.md",
+      "review_packet_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/V6_INDEPENDENT_STORY_REVIEW_PACK_2026-10-24.md",
+      "trusted_executors_registered": 0,
+      "newly_attestation_required_stages": [
+        "SCRIPT",
+        "SCRIPT_AUDIT",
+        "STORYBOARD"
+      ],
+      "execution_ref": "video_growth_agent/data/executors.json",
+      "role_prompt_ref": "video_growth_agent/data/team.md",
+      "proof_test_ref": "tests/test_story_owner_learning.py",
+      "separate_provider_review_count": 0,
+      "third_party_cold_viewer_count": 0,
+      "actual_animatic_count": 0,
+      "creative_external_verdict": "NOT_YET_OBSERVED",
+      "gap": "STUDIO_SCRIPT_CAN_BE_WRITTEN_BUT_CANNOT_PASS_REQUIRED_TRUSTED_INDEPENDENT_REVIEW_WITHOUT_ACTUAL_PROVIDER_OR_HUMAN_RECEIPTS"
+    }
   },
   "recent_resolved_or_promoted": [
     {
@@ -328,7 +350,9 @@
     "audits/AGENT_WAR_ORIGINAL_STORY_DEVELOPMENT_2026-10-24.md",
     "audits/AGENT_WAR_WORLD_FOUNDATION_REBUILD_2026-10-24.md",
     "audits/AGENT_WAR_SECOND_PASS_STORYROOM_2026-10-24.md",
-    "projects/ai-self-media-commercialization/creative_candidates/agent_war/DUANMIAN_SCREENPLAY_V6_2026-10-24.md"
+    "projects/ai-self-media-commercialization/creative_candidates/agent_war/DUANMIAN_SCREENPLAY_V6_2026-10-24.md",
+    "projects/ai-self-media-commercialization/creative_candidates/agent_war/V6_INDEPENDENT_STORY_REVIEW_PACK_2026-10-24.md",
+    "video_growth_agent/data/executors.json"
   ],
   "historical_evidence_refs": [
     "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
