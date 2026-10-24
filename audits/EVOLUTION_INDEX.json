@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-24T10:03:53Z",
+  "updated_at": "2026-10-24T10:05:23Z",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -216,12 +216,12 @@
       "current_author_proposal": {
         "title": "别用她的声音",
         "source": "ChatGPT original script proposal, not another Copilot job",
-        "source_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/BU_YONG_TA_DE_SHENGYIN_SCREENPLAY_V1_2026-10-24.md",
-        "source_commit": "8db331c83353a96fe46dbfeafe44440101ca058c",
+        "source_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/BU_YONG_TA_DE_SHENGYIN_114S_V2_2026-10-24.md",
+        "source_commit": "a99771f09112def48b9e40a2e454b6eb2f438b9f",
         "status": "AUTHOR_DIRECTOR_TIMED_TREATMENT__UNAPPROVED",
-        "scenes": 8,
-        "estimated_film_minutes": "11-14 hypothesis",
-        "last_artistic_quality_judgment": "NONE__SELF_CRITIQUE_ONLY",
+        "scenes": 9,
+        "estimated_film_minutes": "01:54 storyboard target, NOT measured reel",
+        "last_artistic_quality_judgment": "SELF_REVIEW_ONLY__INDEPENDENT_REVIEW_MISSING",
         "narrative_mechanism": "Mass-personalized household Agent trust exploited as war strategy; distributed peer-Agent correction and human consequences, not mechanical infrastructure choice",
         "version": "V2_114S",
         "runtime_seconds": 114,
@@ -243,7 +243,8 @@
           "Enemy military incentives and exposure after dispersal are not legible",
           "Audience remembers grief voice but cannot identify Agent's independent mistake-and-correction chain"
         ],
-        "next": "Build viewable 114-second low-fi storyreel with temporary soundtrack, independent cold-watch/scene causality test; revise script before any video-provider credit."
+        "next": "Build viewable 114-second low-fi storyreel with temporary soundtrack, independent cold-watch/scene causality test; revise script before any video-provider credit.",
+        "previous_longform_draft_archive": "projects/ai-self-media-commercialization/creative_candidates/agent_war/BU_YONG_TA_DE_SHENGYIN_SCREENPLAY_V1_2026-10-24.md"
       },
       "last_known_external_review": "40081322942: Both cleanroom railroad stories STRUCTURAL_REWRITE, comparator STORY_REVISION_REQUIRED",
       "two_minute_author_direction": {
