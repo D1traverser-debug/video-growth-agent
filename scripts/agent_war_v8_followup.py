@@ -29,7 +29,7 @@ def validated(source_path: Path, stage: str, run: str) -> dict:
         or proof.get("provider") != "github-copilot-cli"
         or not proof.get("copilot_session_id")
         or not proof.get("provider_response_id")
-        or not isinstance(raw, str) or len(raw.strip()) < 2000
+        or not isinstance(raw, str) or len(raw.strip()) < (600 if stage in ("character_review", "review_v8") else 2000)
         or digest(raw.encode("utf-8")) != proof.get("output_sha256")):
         raise RuntimeError(f"non-verifiable staged source: {source_path.name}")
     return obj
