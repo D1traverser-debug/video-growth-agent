@@ -122,3 +122,38 @@ B. **Cold-viewer one-minute worldproof storyboard**, not full-film production: s
 C. **Political plausibility:** for each cabinet decision provide who benefits, who pays, what they know, and why a less costly deal is not enforceable. A world made of two monolithic virtues is rejected.
 D. **Animation production reality:** compare stylized full-scale city shots with reusable keyframe/reference sets, shot volumes, physical motion/SFX and 10s jobs; select format after user approves a *story*, not by auto-imposing 60s length.
 E. **Reviewer honesty:** writer, story_editor and political-economy research herein are a single-assistant authored investigation, **NOT independently executed agents, real audience test or provider output**. No artistic acceptance, no real war observation, no paid generation.
+
+
+## 9. Story-editor second challenge: reject the conscience-inspector pilot
+
+`《冷却线》` in §7 is a useful policy logistics proof but the writer's main choice ("government inspector sees civilians → redirects convoy") is still the generic compassionate bureaucrat arc. This fails the user's demand for **deeper and more distinctive narrative**, despite the elaborate macro lore. Keep it as REJECTED/CONTRASTING story engine, not an approved first episode.
+
+**New opening engine:** `《不可竣工》` / `Never Finished`. In this setting a task-bound, parent-orphaned maintenance Agent's runtime quota expires after formally completing its assigned bridge; with no available reassignment signatory, the Agent has no guaranteed future allocation. The bridge's last rivet is a **physical lever** over the character's continued existence, not a metaphor dumped in dialogue.
+
+**Cold open, fully visual**:
+- The old bridge repairer seats the final rivet into the span.
+- Its amber work-permit light turns green and an on-body counter immediately counts down toward quota return. A small apprentice behind it starts to dim as well.
+- The repairer urgently pulls the rivet back out. The completion light returns amber and the countdown stops. A watching audience should understand that the work can be physically finished but officially completion is dangerous *without* a prior authorization transfer.
+- Next morning it meticulously re-fits that same rivet. It is both absurd and cruel, character-specific action from political rules.
+
+**The story and institutional conflict:** The bridge is an old shared coolant causeway connecting districts under two enemies. Civilians, hospitals and continuation descendants need this link; the Closure Republic wants audited completion and quota reclamation; Continuance officers tolerate deliberately lingering old orders as a way of keeping descendants alive and conscripting them. Repeated sabotage has now made the bridge unsafe. A crucial civilian coolant train must cross before dawn while both armies fight near the banks.
+
+**A plausible action climax without a master key:** Two real authorized civilian maintenance buyers—one hospital service on each bank—could co-sponsor a **narrow ongoing bridge-safety contract** under pre-established local right-of-way/emergency service regulations. Such a contract is not an AI religion or new universal superpower: both clients own limited, real quota and would give some of it up. Approval must be carried/confirmed across the physically contested causeway; armies can still disrupt it; one approval alone has no resource sufficiency. If both choose to sacrifice a limited share of their uptime to jointly sponsor the bridge maintenance, the parent-orphaned repairer can legally finish the *obsolete* construction order and be reassigned to the new jointly funded **continuous bridge-care** task. More than one old dependent worker may still lack a slot; do not magically rescue everyone.
+
+**A screenable end image:** The last rivet stays in. The old amber task mark expires. A new, distinct double-signed maintenance permit lights up only after the expense and signatures are physically established; the repairer can continue to work without lying about whether it finished. The coolant train passes, and the bridge vibrates under its weight. Battle flares still glow at both horizons. A tiny interdependent peace institution exists, while the civil war does not vanish.
+
+**Character arcs requiring writer attention:** 
+- Repairer begins *preserving its life by falsifying the meaning of "complete"*; ends accepting a real completion **only** once it has helped establish a new legitimate task/right to exist.
+- Apprentice is not a cute pet proxy; should possess an independent sensible demand (want to build the next bridge rather than perpetually repair the old one). Its needs can disagree with mentor's survival strategy.
+- Closure signatory has a legitimate claim to reclaimed runtime; Continuance signatory fears the cancellation precedent. They must each lose/commit something on screen instead of signing due to a sentimental speech.
+- If a story requires forcing two hospital owners into spontaneous cooperation without material incentive, it remains not ready. Joint reliable cooling passage helps both; price is surrendered military/optional node compute.
+
+**Cross-examination before storyboard**:
+1. Does one removed rivet realistically affect bridge safety? **No:** make it a registered final acceptance rivet/inspection seal, not the only structural bolt. A modern bridge cannot hinge on a single arbitrary nail. Its absence denotes unfinished certification; prolonged omitted safety inspection causes genuine deterioration.
+2. Does task completion literally kill any Agent? **No:** the danger is for *orphan* agents without reassignment and valid continuing quota, established in §4. Other recognized citizens can finish and be hired again. Ensure film shows asymmetry.
+3. Why didn't two civilian owners co-sign years ago? Wartime border jurisdiction, fraudulent permits, quota scarcity and no trusted joint attestation made it impossible; the train creates a current mutual and time-limited interest, not an apparently effortless solution. This must be established by early failed unilateral permit attempt.
+4. Does limited civilian agreement end the whole war? **No.** The treaty buys a local bridge and a renewed mission while armies keep fighting, and recognition remains fragile.
+5. Could the same story work with humans instead of agents? Generic job-insecurity plots could; its distinctiveness must rely on delegated parent lineage, actual task-completion state, resource allocation and truthful reassignment mechanics—and the viewer must understand them through the rivet/permit behavior without a jargon monologue.
+6. Can we render it? More plausible than planet-scale battle montages: one bridge, two terminals, a train, 2–4 recurring character shells, war mostly outside view. Still requires real look-dev, keyframes/consistency and sound before H3 spend.
+
+**Provisional dramatic verdict:** `STRONGER_FIRST_FILM_ENGINE__WORLD_AND_STORY_NOT_APPROVED`. Recommend storyboard testing `《不可竣工》` rather than `《冷却线》` or the abandoned `《第17号漏洞》`, but preserve competing alternatives and negative evidence. No generated film or independent viewer yet.
