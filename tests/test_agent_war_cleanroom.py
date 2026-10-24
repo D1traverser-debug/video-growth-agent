@@ -98,7 +98,7 @@ def test_role_skill_provenance_detects_method_updates(monkeypatch, tmp_path):
     original, ref = c.team_method("Writer")
     assert ref.endswith(c.sha(original))
     fake_team = tmp_path / "team.md"
-    fake_team.write_text("## Writer\\nupdated role text\\n" * 40, encoding="utf-8")
+    fake_team.write_text("## Writer\nupdated role text\n" * 40, encoding="utf-8")
     monkeypatch.setattr(c, "TEAM_METHOD_SOURCE", fake_team)
     changed, changed_ref = c.team_method("Writer")
     assert changed_ref != ref
@@ -107,7 +107,7 @@ def test_role_skill_provenance_detects_method_updates(monkeypatch, tmp_path):
 
 def test_missing_current_owner_method_fails_closed(monkeypatch, tmp_path):
     fake_team = tmp_path / "team.md"
-    fake_team.write_text("## Art Director\\nSome other discipline" * 30, encoding="utf-8")
+    fake_team.write_text("## Art Director\nSome other discipline" * 30, encoding="utf-8")
     monkeypatch.setattr(c, "TEAM_METHOD_SOURCE", fake_team)
     with pytest.raises(RuntimeError, match="missing owner role method"):
         c.build("writer_a", "100")
