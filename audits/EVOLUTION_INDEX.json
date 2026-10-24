@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-24T12:53:40Z",
+  "updated_at": "2026-10-24T12:54:31Z",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -87,18 +87,18 @@
       "cross_premise_comparison_and_genuine_storyreel_cold_viewer_acceptance"
     ],
     "promotion_authorized": false,
-    "latest_verified_code_head": "a6303be3032a337cf2282f0f486181b32b111357",
-    "latest_verified_ci_run": 40093448531,
+    "latest_verified_code_head": "f995456b7dd8a187d0b825f196517576a2697d8f",
+    "latest_verified_ci_run": 40095880370,
     "latest_verified_checks": {
       "prompt_contract_passed": 77,
       "prompt_contract_skipped": 2,
-      "all_tests_passed": 296,
+      "all_tests_passed": 314,
       "system_audit": "PASS",
       "installed_cli_smoke": "PASS",
       "whole_user_goal_achieved": false,
-      "independent_story_or_media_qa": "UNVERIFIED"
+      "independent_story_or_media_qa": "V4_MODEL_STORY_REJECTED__V5_NOT_REVIEWED"
     },
-    "verification_scope": "V5_SCRIPT_AFTER_V4_REAL_SEPARATE_AI_STRUCTURAL_REWRITE__ORIGINAL_NARRATIVE_SHOT_GATE_TESTED__V5_ART_REVIEW_MISSING",
+    "verification_scope": "V5_SOURCE_AND_EDITORIAL_RECEIPT_COMMITTED__CI_40095880370_SUCCESS_314_PASSED_77_CONTRACT_PASS_2_SKIP__NO_V5_EXTERNAL_ART_REVIEW",
     "known_unresolved_failure_classes": [
       "FFMPEG_DETECTOR_NONZERO_EXIT_MAY_FALSE_PASS_TECH_QA",
       "NO_GRAPH_REGISTERED_RENDER_TAKE_WITH_BLINDED_OBSERVED_QUALITY",
