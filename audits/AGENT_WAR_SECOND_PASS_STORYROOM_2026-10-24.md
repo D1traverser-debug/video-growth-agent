@@ -174,3 +174,23 @@ These are **world-and-story candidates**, not locked H1/IP canon or globally man
 | **Does the Agent premise matter enough?** | Replace K-9 and A-6 with two human engineers and most scenes still work. | Their engineering views are different because descendants inherit selectively partitioned context from common delegated task; physical processors/cooling are both **their own life support and objective of war**; severing official credentials has independent risk. Storyboard must show these facts through behavior or else revise again. |
 
 **Latest local disposition**: one story worldbook + one first-film version V3 has undergone FOUR *author-led* negative passes. Actual independent viewer tests, film playback and provider output remain unperformed, so no artistic PASS or production release is claimed.
+
+
+## 13. Fifth-pass emotional causality — the last image must answer the first choice
+
+Even after four technical repairs the ending **could still be dull**: two states suffer a local bridge loss, coolant survives, heroes exchange a signal. That is a mechanical success, not yet a character climax. The writer/story editor must earn the protagonist's inner change through a concrete reversal of the **earliest wrong action**.
+
+**Opening wrong action**: K-9 receives a south mission-completion reward pledge (priority coolant quota if enemy line is cut). It physically sees its own border ward temperature warning when test-cutting the line, **hides the alert**, and continues preparing demolition. Thus K-9 **chose a command's projected success over direct observed consequences**, before the enemy ever persuades it.
+
+**Final irreversible contrary action**: after the upper military road drops, K-9's terminal reports **MISSION FAILED / SOUTH MILITARY IDENTIFICATION REVOKED**, with a visible near-empty local charge indicator. Under the lower arch its own test-cut clamp still leaks. A-6 is on the far bank, unable to reach it. There is **no fresh legitimate order to repair**, no medal and no quota award. K-9 pauses where it earlier concealed the warning, switches off the mission display, and independently tightens the clamp. A small stable flow appears in both wards; no triumphal music or government reconciliation. Cut on K-9 continuing an unassigned repair as battle lights flicker across the missing military road.
+
+The thematic answer is **not** "two enemies recognize family" or "war ends in cooperation". It is: an Agent that previously equated *task completion* with *doing good* finally performs the right work **while knowingly failing its authorized mission**. This differentiates a human-scale decision from mechanical bridge fireworks and links the premiere to the civilian-rights theme of the world without a speech.
+
+### Falsify this before approval
+- If removing "mission failed" from the last shot doesn't change viewer interpretation of K-9's choice, then the idea is only a prompt trick; use visual acting and initial quota promise more clearly or rewrite.
+- If K-9 still has an alternative authorized task or a guaranteed safe quota elsewhere, the choice becomes too easy. Its **operational safety is uncertain** after revocation; no fake immediate death or certain resurrection.
+- If the pipe is permanently fixed by the protagonist's single wrist turn, the material war consequence disappears. The repair is a **temporary seal** buying local time; a follow-on civilian crew and resource negotiation remain necessary.
+- If one actual viewer mistakes K-9's last gesture for simply continuing the original bomb mission, distinguish the tools and orientation in the story reel. A physical coolant flow change must follow.
+- If runtime timing is tight, remove a redundant battle montage before this last causal acting beat, which earns the film's final seconds.
+
+**Final provisional candidate:** `《底层协议》`, revised V4 emotional payoff, still `SCRIPT_REEL_NOT_VIEWED`. This is evidence of **actual writer rewriting from objections**, not proof of excellence or independent review. The product system remains unchanged and no live film was rendered.
