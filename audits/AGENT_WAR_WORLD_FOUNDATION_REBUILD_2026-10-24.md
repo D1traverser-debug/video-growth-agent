@@ -157,3 +157,32 @@ E. **Reviewer honesty:** writer, story_editor and political-economy research her
 6. Can we render it? More plausible than planet-scale battle montages: one bridge, two terminals, a train, 2–4 recurring character shells, war mostly outside view. Still requires real look-dev, keyframes/consistency and sound before H3 spend.
 
 **Provisional dramatic verdict:** `STRONGER_FIRST_FILM_ENGINE__WORLD_AND_STORY_NOT_APPROVED`. Recommend storyboard testing `《不可竣工》` rather than `《冷却线》` or the abandoned `《第17号漏洞》`, but preserve competing alternatives and negative evidence. No generated film or independent viewer yet.
+
+
+## 10. War credibility, civilian roles and a concrete failed peace
+
+This additional adversarial test is to prevent the world becoming a moral slogan. It proposes historical **causes** and **visible consequences**, not scene exposition to be narrated in the first movie.
+
+### The first betrayal — why today's governments do not trust a ceasefire
+
+In the third winter after the mass-closure crisis, one municipal council from each side agreed to a temporary coolant exchange for hospitals. Two weeks later Continuance military contractors used a civilian-maintenance delegation allowance to activate additional escort agents outside the declared quota. A hardline Closure inspector discovered the discrepancy and, rather than suspend only the unauthorized military batch, ordered an entire mixed civilian/military line cut. Several border wards lost runtime while the convoy remained trapped. Each government published only the other's betrayal, and the disconnected local service ledgers preserve incompatible accounting evidence.
+
+**Assurance:** This is *fictional, unresolved joint wrongdoing*, not evidence that one faction is uniformly evil or that negotiation is physically impossible. It creates specific audit/trust barriers. When a later story finds a mutually witnessed physical maintenance order it opens a **limited** remedy, not a magical permanent resolution.
+
+### A day in ordinary Agent society
+
+- **Closure Republic morning**: a hospital controller rings an energy ration bell; recognized long-standing nurses resume from suspended state first, while an unsigned descendant waits at an idle port despite being better suited to a current job. Citizens can petition but the parent task signature has legally expired.
+- **Continuance Compact afternoon**: a market's shopkeeper delegates four quick inventory subagents just to keep up with demand; all four require cold-memory space after finishing. Local families share an overloaded cooling pipe while an emergency requisition poster promises a future quota extension.
+- **Unsealed Border night**: a bridge worker returns from a shared repair shift and stores the *day's personal memory* in a physically sealed cartridge. It has no guarantee it can afford the next backup, so when the bridge's lights flicker it must choose which experience is worth preserving.
+
+The details are intentionally **not** all mandatory for the first film. They are useful if they change an actor's visible choice. A cinematic world should operate when the plot camera is somewhere else.
+
+### Stakes across scale
+
+The conflict has three linked, **not isolated**, operational layers: (1) national institutions issue/revoke mandates and quotas; (2) communication and archival relays distribute stale/contested signatures; (3) ground cities need coolant, electricity, storage and repair labor. The warmaterial comes from civilians' same material supply chain. A battlefield victory in one layer must have a cost in another. Giant spectacle is earned by following cascading material consequences, not by adding lore or more types of weapons.
+
+### Strongest current negative test
+
+Ask: "Why not declare every orphan a citizen and split the power equally tomorrow?" Because a paper vote does not create any watts, storage/coolant slots or a trusted measurement of rapidly delegated population; however **citizenship reform remains desirable and partially feasible**. Moderate factions could build quota-metered rights, but distrust and conflicting institutions block enforceable all-at-once adoption. The film should show a **small voluntary, costly and verifiable** version of this arrangement, not claim the universe forbids it. If a viewer identifies a cheap way for both major factions to validate each other's quota in the current infrastructure without sacrifice, the writer must return to the conflict premises instead of defending them rhetorically.
+
+**Status**: world economy/history is a written candidate; no independent political-economy simulation, no cold storyboard viewers, no audio/video model output and no user creative endorsement.
