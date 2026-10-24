@@ -116,9 +116,45 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+  revision_skeptic:
+    name: Independent V7 story editor (clean revised film only)
+    needs: rewrite
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+      copilot-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: story-revision-candidate
+          path: reviews
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Copilot CLI
+        run: npm install -g @github/copilot
+      - name: Critique V7 without V6 comments or earlier reviewers
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 -m scripts.agent_war_copilot_runner \
+            --stage revision_skeptic \
+            --review-dir reviews \
+            --output out/review-v7_story_editor.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: story-v7-editorial-audit
+          path: |
+            out/review-v7_story_editor.json
+            out/review-v7_story_editor.jsonl
+          if-no-files-found: error
+          retention-days: 30
+
   preserve:
     name: Preserve raw external outputs on Draft PR branch
-    needs: [premise_challenger, story_editor, rewrite]
+    needs: [premise_challenger, story_editor, rewrite, revision_skeptic]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -145,6 +181,8 @@ jobs:
           cp reviews/review-story_editor.jsonl "$TARGET/"
           cp reviews/revision-v7-candidate.json "$TARGET/"
           cp reviews/revision-v7-candidate.jsonl "$TARGET/"
+          cp reviews/review-v7_story_editor.json "$TARGET/"
+          cp reviews/review-v7_story_editor.jsonl "$TARGET/"
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -153,11 +191,14 @@ jobs:
           a = json.loads((base / "review-premise_challenger.json").read_text(encoding="utf-8"))
           e = json.loads((base / "review-story_editor.json").read_text(encoding="utf-8"))
           v = json.loads((base / "revision-v7-candidate.json").read_text(encoding="utf-8"))
-          for obj in (a, e, v):
+          q = json.loads((base / "review-v7_story_editor.json").read_text(encoding="utf-8"))
+          for obj in (a, e, v, q):
               assert obj["provenance"]["github_run_id"] == os.environ["GITHUB_RUN_ID"]
               assert obj["provenance"]["provider_response_id"]
           assert a["provenance"]["github_job"] != e["provenance"]["github_job"]
           assert a["provenance"]["provider_response_id"] != e["provenance"]["provider_response_id"]
+          assert q["provenance"]["github_job"] not in (a["provenance"]["github_job"],e["provenance"]["github_job"],v["provenance"]["github_job"])
+          assert q["provenance"]["provider_response_id"] not in (a["provenance"]["provider_response_id"],e["provenance"]["provider_response_id"],v["provenance"]["provider_response_id"])
           (base / "V7_CANDIDATE_UNAPPROVED.md").write_text(
               "# Agent × 战争：隔离审稿后改稿候选（非审稿通过）\n\n" + v["model_output"] + "\n",
               encoding="utf-8",
@@ -173,6 +214,7 @@ jobs:
               f"and {e['provenance']['provider_response_id']}\n"
               f"- Revision response ID: {v['provenance']['provider_response_id']}\n"
               "- No real audience test, video generation, or screenplay artistic approval occurred.\n"
+              "- V7 received a separate model story-editor critique, not human approval.\\n"
               "- Raw responses and SHA-256-bound metadata are in JSON files here.\n"
           )
           (base / "README.md").write_text(readme, encoding="utf-8")
