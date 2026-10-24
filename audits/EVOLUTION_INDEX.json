@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-24T11:00:00+08:00",
+  "updated_at": "2026-10-24T10:29:00+08:00",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -53,7 +53,13 @@
       "blind_cold_viewer_comprehension",
       "same_artillery_target_rule_consistency",
       "friendly_depot_action_causality",
-      "real_H3_mode_availability_after_story_gate"
+      "real_H3_mode_availability_after_story_gate",
+      "independent political_economy_world_logic_adversarial_test",
+      "registered_work_vs_agent_personhood_clarity",
+      "signed_civilian_joint_contract_has_known_quota_cost",
+      "one_minute_no_jargon_visual_world_comprehension_reel",
+      "first_film_camera_sound_animatic_and_real_cold_viewers",
+      "verify_multi_input_H3_UI_modes_when_story_accepted"
     ],
     "promotion_authorized": false,
     "latest_verified_code_head": "2cbdafeb8ebad8a3d9d1bcd096eec9a7ed2922d1",
@@ -132,27 +138,30 @@
       "uncertainty": "NO_REAL_VIEWER_OR_ANIMATIC_H3_PRODUCTION"
     },
     "active_story_candidate": {
-      "brief": "agent 战争",
+      "brief": "agent 战争 / world building not credible (user's root correction)",
       "approved_by_user": false,
       "fixed_film_duration": false,
-      "rejected_or_unselected_prior": "三下，两下 (not a binding new-film story)",
-      "story_ref": "audits/AGENT_WAR_ORIGINAL_STORY_DEVELOPMENT_2026-10-24.md",
-      "primary_treatment": "第17号漏洞",
-      "alternatives": [
-        "第九次重试",
-        "停战信使"
+      "world_authority": "audits/AGENT_WAR_WORLD_FOUNDATION_REBUILD_2026-10-24.md",
+      "status": "WORLD_BIBLE_PRIMARY_CANDIDATE__SCRIPT_UNAPPROVED__INDEPENDENT_QUALITY_NOT_VERIFIED",
+      "primary_world": "未完成之国",
+      "other_worlds": [
+        "快照海",
+        "守醒之争"
       ],
-      "status": "STORYBOARD_CANDIDATE_ONLY__NO_REAL_INDEPENDENT_COLD_SCREEN_OR_H3_RENDER",
-      "length_estimate": "2:40–3:30 provisional, narrative beats and animatic determine true duration",
+      "first_film_candidate": "不可竣工",
+      "rejected_previous": "第17号漏洞 WORLD_REJECTED; 冷却线 overly-generic inspector pilot rejected; 三下，两下 superseded after new keywords",
+      "core_story_proof": "unfinished inherited maintenance tasks vs orphan execution-right/finite hardware-cooling; physical bridge pending acceptance seal must not undo terminal state; limited local cross-border resource contract",
       "next_required_evidence": [
-        "actual_rough_timed_story_reel",
-        "blind_cold_viewer_comprehension",
-        "same_artillery_target_rule_consistency",
-        "friendly_depot_action_causality",
-        "real_H3_mode_availability_after_story_gate"
-      ]
+        "independent political_economy_world_logic_adversarial_test",
+        "registered_work_vs_agent_personhood_clarity",
+        "signed_civilian_joint_contract_has_known_quota_cost",
+        "one_minute_no_jargon_visual_world_comprehension_reel",
+        "first_film_camera_sound_animatic_and_real_cold_viewers",
+        "verify_multi_input_H3_UI_modes_when_story_accepted"
+      ],
+      "actual_story_and_world_accepted": false
     },
-    "creative_scope_note": "CURRENT_NEXT_FILM_USER_KEYWORDS_AGENT_WAR__EARLIER_60_SECOND_STORY_NOT_APPROVED__DURATION_NOT_FIXED__H1_CURSOR_NOT_CHANGED"
+    "creative_scope_note": "PRIOR_AGENT17_FUNDAMENTAL_WORLD_REJECTED__UNFINISHED_COMMONWEALTH_WORLD_AND_UNFINISHABLE_BRIDGE_PILOT_UNAPPROVED__NO_TIME_LIMIT__KEEP_MAIN_AND_H1_STATE"
   },
   "recent_resolved_or_promoted": [
     {
@@ -278,7 +287,8 @@
     "video_growth_agent/data/team.md",
     "video_growth_agent/data/agents.json",
     "tests/test_story_owner_learning.py",
-    "audits/AGENT_WAR_ORIGINAL_STORY_DEVELOPMENT_2026-10-24.md"
+    "audits/AGENT_WAR_ORIGINAL_STORY_DEVELOPMENT_2026-10-24.md",
+    "audits/AGENT_WAR_WORLD_FOUNDATION_REBUILD_2026-10-24.md"
   ],
   "historical_evidence_refs": [
     "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
