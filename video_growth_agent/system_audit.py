@@ -771,4 +771,16 @@ def run_system_audit(repo_root: Path | None = None) -> dict[str, Any]:
         "repository": repository,
         "failures": failures,
         "pass": not failures,
+        "assurance_scope": {
+            "pass_means": "STATIC_CODE_CONFIGURATION_AND_TESTABLE_RUNTIME_INVARIANTS",
+            "does_not_certify": [
+                "AUTHENTIC_MODEL_GENERATION",
+                "FILM_SEMANTIC_OR_ARTISTIC_QUALITY",
+                "INDEPENDENT_AUDIO_VIDEO_REVIEW",
+                "REAL_PLATFORM_GROWTH_OR_COMMERCIAL_RESULTS",
+                "UNSEEN_REMOTE_OR_CONCURRENT_RUNTIME_ENVIRONMENTS",
+            ],
+            "goal_fit_evidence_ref": "audits/VIDEO_END_TO_END_GOAL_FIT_AUDIT_2026-10-24.md",
+            "goal_achievement_verdict": "NOT_ASSESSED_BY_STATIC_AUDIT",
+        },
     }
