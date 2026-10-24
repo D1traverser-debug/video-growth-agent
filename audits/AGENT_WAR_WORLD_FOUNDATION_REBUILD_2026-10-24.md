@@ -1,5 +1,7 @@
 # Agent × War — world-foundation re-commission (2026-10-24)
 
+> **Creative status amendment, 2026-10-24:** world `未完成之国` remains a **candidate**, not approved canon. The first-film `《不可竣工》` and inspector `《冷却线》` in this file have now been **demoted to alternate/side stories**, not active premiere. Writer/story-editor cross-examination found war had insufficient causal weight and permit co-sign looked like a new omnipotent button. Current first-film V4 screenable **script candidate** is `《底层协议》` in [AGENT_WAR_SECOND_PASS_STORYROOM_2026-10-24.md](AGENT_WAR_SECOND_PASS_STORYROOM_2026-10-24.md), with two opposing descendant engineering agents, finite coolant, missing task context, physically decouplable war-road / civilian-life coolant spine, mutual defections and a mission-failure/unassigned-repair payoff. Still no independent storyreel, viewer or generated film evidence. This pointer preserves history; it does not create a new story approval owner.
+
 **Owner:** existing Video `writer` (premise/world), `story_editor` (causal rejection), `director / storyboard_artist` (screen legibility), `production_methodologist` (first-hand original study), not a new governor or agent role.
 **User correction:** "你自己继续把，我是觉得世界观什么的大架构不行" — reject old geopolitical/war ontology, not merely adjust 17号漏洞 scenes. Original keywords `agent 战争`; film duration unbounded; selected UI previously H3 720p/10s/16:9 T2V, other mode details not established. No actor/story approval or independent audience review implied.
 
