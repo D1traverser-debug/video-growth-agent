@@ -38,6 +38,15 @@ jobs:
           import os, json
           rows = [json.loads(x) for x in Path(os.environ["RUNNER_TEMP"], "copilot-probe-events.jsonl").read_text(encoding="utf-8").splitlines() if x.strip()]
           print("copilot_event_types=", [x.get("type") for x in rows])
+          for event in rows:
+              if event.get("type") in ("result", "model.call_final_result", "assistant.message", "model.call_finished"):
+                  data = event.get("data")
+                  print("event_shape=", event.get("type"), sorted(event.keys()), sorted(data.keys()) if isinstance(data, dict) else type(data).__name__)
+                  if event.get("type") == "result":
+                      print("result_meta=", {k: v for k,v in event.items() if k not in ("data", "content", "text")})
+                      if isinstance(data, dict):
+                          print("result_identity=", {k: v for k,v in data.items() if k in ("sessionId", "session_id", "sessionID", "id", "model", "modelName", "duration_ms", "exitCode")})
+
           for item in rows:
               if item.get("type") in ("session.start", "session_start", "session.complete", "session_complete"):
                   data = item.get("data") or {}
