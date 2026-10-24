@@ -1,5 +1,8 @@
 # Video prompt & professional craft candidate — durable continuation
 
+> **2026-10-24 立即生效 — Agent × 战争 V4**：用户要求不要停留在“规则不能保证执行”的声明，执行成果已经落地：`video_growth_agent/editorial_planning.py` 的现有正式生产镜头合同入口对 **`EpisodeIntent.ip_role="ORIGINAL_NARRATIVE"`** 增设原始剧本 SHA256 + 精确计划版本 + 分离审核执行凭证的 fail-closed 检查；14个新增回归测试验证无审核、旧版、自审、篡改证据不能通过，标为该 IP 模式才适用。新原创剧本**《第七次没开火》110 秒** `projects/ai-self-media-commercialization/creative_candidates/agent_war/DI_QI_CI_MEI_KAI_HUO_110S_V4_2026-10-24.md`，基于“两敌对 Agent 不经人类谈判，通过实际互损独立学会条件性停止开火，女孩利用短暂静默主动救回弟弟”，与旧V3谈判换伤员完全不同。研究及自审 `audits/AGENT_WAR_V4_110S_CREATIVE_DECISION_AND_SCRIPT_AUDIT_2026-10-24.md`；源稿未独立通过，禁止进一步生产分镜或视频。下一动作：**隔离故事编辑审查这份完整 V4，针对简单反制、无通讯协作、真实人物代价给出严格 verdict；如果失败则按反证修订并再次验收。** 这条快照覆盖下面历史 V3/V2 的继续路径。
+
+
 ## 2026-10-24 — User-demanded story reset: current V3 《两次胜利》 (110s)
 - User said prior V2 suggests “Agent makes errors and still needs humans to operate”, rejected that thematic center. Author directly re-conceived from original Agent×War without Copilot spending or video production.
 - Creative draft: `projects/ai-self-media-commercialization/creative_candidates/agent_war/LIANG_CI_SHENG_LI_110S_V3_2026-10-24.md`; bound content commit `4eef54a650ddb709b2a5d58d3dd43bf470cbc6cd`. New premise is an actual two-Agent adversarial replanning loop, each with conflicting military objectives; a verified and costly agent-to-agent exchange changes the outcome (defender wounded leave, attacker gains intersection). Expresses ambiguous delegated **goal tradeoffs**, neither runaway mistakes nor magical AI pacifism.

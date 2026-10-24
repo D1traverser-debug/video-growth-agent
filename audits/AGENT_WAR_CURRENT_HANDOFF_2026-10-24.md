@@ -1,5 +1,8 @@
 # Agent × 战争电影项目 — 当前总纲、事实状态与新对话无缝继承
 
+> **2026-10-24 立即生效 — Agent × 战争 V4**：用户要求不要停留在“规则不能保证执行”的声明，执行成果已经落地：`video_growth_agent/editorial_planning.py` 的现有正式生产镜头合同入口对 **`EpisodeIntent.ip_role="ORIGINAL_NARRATIVE"`** 增设原始剧本 SHA256 + 精确计划版本 + 分离审核执行凭证的 fail-closed 检查；14个新增回归测试验证无审核、旧版、自审、篡改证据不能通过，标为该 IP 模式才适用。新原创剧本**《第七次没开火》110 秒** `projects/ai-self-media-commercialization/creative_candidates/agent_war/DI_QI_CI_MEI_KAI_HUO_110S_V4_2026-10-24.md`，基于“两敌对 Agent 不经人类谈判，通过实际互损独立学会条件性停止开火，女孩利用短暂静默主动救回弟弟”，与旧V3谈判换伤员完全不同。研究及自审 `audits/AGENT_WAR_V4_110S_CREATIVE_DECISION_AND_SCRIPT_AUDIT_2026-10-24.md`；源稿未独立通过，禁止进一步生产分镜或视频。下一动作：**隔离故事编辑审查这份完整 V4，针对简单反制、无通讯协作、真实人物代价给出严格 verdict；如果失败则按反证修订并再次验收。** 这条快照覆盖下面历史 V3/V2 的继续路径。
+
+
 > **最新执行纠偏（优先级高于以下所有历史快照）**：用户质疑此前“有工作流却不主动返回搜寻学习并运用”。实际核验：`video_growth_agent/data/workflow.json` 0.7兼容适配定义 SCRIPT→SCRIPT_AUDIT→STORYBOARD；现行 Video 0.8 另有 `UAOS_SKILL.md` 的 EpisodeIntent→BeatSpec→EditorialPlan 业务责任链；`video_growth_agent/data/team.md` 已有 Writer/Story Editor 原始资料、反证要求。真正失效是 Agent **没有执行**，不是缺失一个新控制器。现已在同一套 `skills/video-growth-agent/references/workflow.md` 和 `team.md` 写入“遇故事反证自动查原始材料、审查适用、实质修改/否决并保留证据；先审稿再生产”的纠偏。**《两次胜利》V3 110秒已在来源驱动复核后转为 `STORY_REVISION_REQUIRED`，而不是成功导演定稿**：换成人类无线电军官仍可谈判；进攻 Agent 在得到路口后为何不俘获伤员未排除；八秒多副担架的空间动作未证明；伤员没有独立戏剧行动。证据与直接研究来源 `audits/AGENT_WAR_V3_110S_STORY_EVALUATION_2026-10-24.md`。**下一实际动作是回到原始 Agent×战争 brief 寻找真正不同的故事发动机并独立审查；暂停分镜表、5/10s镜头提示词、角色锁定、付费生成。** 源稿留存，不谎称真实观众或独立审稿已进行。
 
 
