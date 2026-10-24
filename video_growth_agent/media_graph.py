@@ -265,16 +265,35 @@ class MediaGraph:
             del self.promoted_versions[ref.asset_id]
 
     def asset_state(self, ref: AssetRef) -> str:
+        """Effective state includes upstream invalidation without requiring a
+        separate propagation call. Historical records remain unchanged.
+        """
         asset = self.assets.get(ref)
         if asset is None:
             raise MediaGraphError(f"asset missing: {ref.key()}")
-        return self.asset_state_overrides.get(ref, asset.state)
+        state = self.asset_state_overrides.get(ref, asset.state)
+        if state in {"STALE", "REJECTED", "RETIRED"}:
+            return state
+        visited: set[AssetRef] = set()
+        pending = list(asset.derived_from)
+        while pending:
+            parent = pending.pop()
+            if parent in visited:
+                continue
+            visited.add(parent)
+            parent_asset = self.assets[parent]
+            parent_state = self.asset_state_overrides.get(parent, parent_asset.state)
+            if parent_state in {"STALE", "REJECTED", "RETIRED"}:
+                return "STALE"
+            pending.extend(parent_asset.derived_from)
+        return state
 
     def current_promoted(self, asset_id: str) -> AssetVersion | None:
         version_id = self.promoted_versions.get(asset_id)
         if version_id is None:
             return None
-        return self.assets[AssetRef(asset_id, version_id)]
+        ref = AssetRef(asset_id, version_id)
+        return self.assets[ref] if self.asset_state(ref) == "PROMOTED" else None
 
     def downstream_asset_closure(self, changed_ref: AssetRef) -> tuple[AssetRef, ...]:
         if changed_ref not in self.assets:
