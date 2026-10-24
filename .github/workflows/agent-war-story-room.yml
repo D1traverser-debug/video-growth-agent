@@ -7,6 +7,7 @@ on:
     paths:
       - .github/workflows/agent-war-story-room.yml
       - scripts/agent_war_review_runner.py
+      - scripts/agent_war_copilot_runner.py
       - projects/ai-self-media-commercialization/creative_candidates/agent_war/DUANMIAN_SCREENPLAY_V6_2026-10-24.md
   workflow_dispatch:
 
@@ -21,22 +22,28 @@ jobs:
     timeout-minutes: 12
     permissions:
       contents: read
-      models: read
+      copilot-requests: write
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Copilot CLI
+        run: npm install -g @github/copilot
       - name: Run isolated alternative-writer model
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+
         run: |
-          python3 scripts/agent_war_review_runner.py \
+          python3 -m scripts.agent_war_copilot_runner \
             --stage premise_challenger \
-            --model openai/gpt-4.1 \
             --output out/review-premise_challenger.json
       - uses: actions/upload-artifact@v4
         with:
           name: story-review-premise
-          path: out/review-premise_challenger.json
+          path: |
+            out/review-premise_challenger.json
+            out/review-premise_challenger.jsonl
           if-no-files-found: error
           retention-days: 30
 
@@ -46,22 +53,28 @@ jobs:
     timeout-minutes: 12
     permissions:
       contents: read
-      models: read
+      copilot-requests: write
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Copilot CLI
+        run: npm install -g @github/copilot
       - name: Run isolated V6 story-editor model
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+
         run: |
-          python3 scripts/agent_war_review_runner.py \
+          python3 -m scripts.agent_war_copilot_runner \
             --stage story_editor \
-            --model openai/gpt-4.1 \
             --output out/review-story_editor.json
       - uses: actions/upload-artifact@v4
         with:
           name: story-review-editor
-          path: out/review-story_editor.json
+          path: |
+            out/review-story_editor.json
+            out/review-story_editor.jsonl
           if-no-files-found: error
           retention-days: 30
 
@@ -72,7 +85,7 @@ jobs:
     timeout-minutes: 15
     permissions:
       contents: read
-      models: read
+      copilot-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
@@ -80,20 +93,26 @@ jobs:
           pattern: story-review-*
           path: reviews
           merge-multiple: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Copilot CLI
+        run: npm install -g @github/copilot
       - name: Require two real same-run reviews and draft V7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+
         run: |
-          python3 scripts/agent_war_review_runner.py \
+          python3 -m scripts.agent_war_copilot_runner \
             --stage rewrite \
-            --model openai/gpt-4.1 \
             --review-dir reviews \
             --output out/revision-v7-candidate.json
       - uses: actions/upload-artifact@v4
         with:
           name: story-revision-candidate
-          path: out/revision-v7-candidate.json
+          path: |
+            out/revision-v7-candidate.json
+            out/revision-v7-candidate.jsonl
           if-no-files-found: error
           retention-days: 30
 
@@ -121,8 +140,11 @@ jobs:
           set -euo pipefail
           mkdir -p "$TARGET"
           cp reviews/review-premise_challenger.json "$TARGET/"
+          cp reviews/review-premise_challenger.jsonl "$TARGET/"
           cp reviews/review-story_editor.json "$TARGET/"
+          cp reviews/review-story_editor.jsonl "$TARGET/"
           cp reviews/revision-v7-candidate.json "$TARGET/"
+          cp reviews/revision-v7-candidate.jsonl "$TARGET/"
           python3 - <<'PY'
           import json
           from pathlib import Path
