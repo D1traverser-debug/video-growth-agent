@@ -13,7 +13,7 @@ on:
 
 concurrency:
   group: agent-war-story-room-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   premise_challenger:
