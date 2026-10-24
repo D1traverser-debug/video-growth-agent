@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-24T11:32:00+08:00",
+  "updated_at": "2026-10-24T11:58:00+08:00",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -202,9 +202,9 @@
         "actual audience reception"
       ]
     },
-    "creative_scope_note": "USER_DEEPER_NOT_BIGGER__FOUR_SOURCE_QUESTIONS_IN_ACTUAL_ROLES__EXECUTION_ATTESTATION_ENFORCED_IN_STORY_STAGES__NO_FAKE_INDEPENDENT_PASS__V6_REMAINS_AUTHOR_DRAFT",
+    "creative_scope_note": "USER_REQUIRES_AGENT_TO_EXECUTE_ON_GITHUB_NOT_HANDOFF_PROMPTS__ACTION_ATTEMPTED_AND_FAIL_CLOSED__V6_DRAFT",
     "story_review_assurance": {
-      "status": "PRE_REWRITE_FOUR_QUESTION_BRIEF_AND_REAL_EXECUTOR_TRUST_GATES_INSTALLED__NO_EXTERNAL_EDITOR_OR_STORYREEL_RUN",
+      "status": "GITHUB_ACTIONS_REAL_STORY_ROOM_LAUNCHED__EXTERNAL_PROVIDER_RETURNED_NON_JSON__FALLBACK_SECRET_ABSENT__NO_REVIEWS_OR_REWRITE",
       "story_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/DUANMIAN_SCREENPLAY_V6_2026-10-24.md",
       "review_packet_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/V6_INDEPENDENT_STORY_REVIEW_PACK_2026-10-24.md",
       "trusted_executors_registered": 0,
@@ -220,7 +220,21 @@
       "third_party_cold_viewer_count": 0,
       "actual_animatic_count": 0,
       "creative_external_verdict": "NOT_YET_OBSERVED",
-      "gap": "STUDIO_SCRIPT_CAN_BE_WRITTEN_BUT_CANNOT_PASS_REQUIRED_TRUSTED_INDEPENDENT_REVIEW_WITHOUT_ACTUAL_PROVIDER_OR_HUMAN_RECEIPTS"
+      "gap": "STUDIO_SCRIPT_CAN_BE_WRITTEN_BUT_CANNOT_PASS_REQUIRED_TRUSTED_INDEPENDENT_REVIEW_WITHOUT_ACTUAL_PROVIDER_OR_HUMAN_RECEIPTS",
+      "workflow_ref": ".github/workflows/agent-war-story-room.yml",
+      "executor_script_ref": "scripts/agent_war_review_runner.py",
+      "test_ref": "tests/test_agent_war_review_runner.py",
+      "executed_workflow_runs": [
+        40059878959,
+        40059941262,
+        40060047583
+      ],
+      "verified_runtime_failure": "GitHub Models POST inference HTTP 200 text/plain 4-byte non-JSON; models read granted; OPENROUTER_API_KEY secret not set; both isolated model jobs failed; rewrite/preserve skipped",
+      "connected_to_real_provider": false,
+      "actual_external_reviews_saved": 0,
+      "actual_revision_generated": false,
+      "independent_review_and_cold_audience_verdict": "NONE_NOT_ATTESTED",
+      "next_action": "Restore a functioning authorized Github Models inference response or install a provider API key, then rerun existing Actions. Never ask user to manually send previously created prompts."
     }
   },
   "recent_resolved_or_promoted": [
@@ -352,7 +366,10 @@
     "audits/AGENT_WAR_SECOND_PASS_STORYROOM_2026-10-24.md",
     "projects/ai-self-media-commercialization/creative_candidates/agent_war/DUANMIAN_SCREENPLAY_V6_2026-10-24.md",
     "projects/ai-self-media-commercialization/creative_candidates/agent_war/V6_INDEPENDENT_STORY_REVIEW_PACK_2026-10-24.md",
-    "video_growth_agent/data/executors.json"
+    "video_growth_agent/data/executors.json",
+    ".github/workflows/agent-war-story-room.yml",
+    "scripts/agent_war_review_runner.py",
+    "tests/test_agent_war_review_runner.py"
   ],
   "historical_evidence_refs": [
     "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
