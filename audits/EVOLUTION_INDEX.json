@@ -59,7 +59,12 @@
       "signed_civilian_joint_contract_has_known_quota_cost",
       "one_minute_no_jargon_visual_world_comprehension_reel",
       "first_film_camera_sound_animatic_and_real_cold_viewers",
-      "verify_multi_input_H3_UI_modes_when_story_accepted"
+      "verify_multi_input_H3_UI_modes_when_story_accepted",
+      "physical_rough_reel_under_16_9_constraint",
+      "cold_viewer_inference_of_dual_infrastructure_and_own_harm",
+      "alternate_edit_without_branching_ancestry_reveal",
+      "K9_REVOKED_MISSION_FAILED_to_unassigned_repair_emotional_payoff",
+      "approved_H3_movie_mode_and_reference_identity_comparison"
     ],
     "promotion_authorized": false,
     "latest_verified_code_head": "2cbdafeb8ebad8a3d9d1bcd096eec9a7ed2922d1",
@@ -104,7 +109,7 @@
       "SCREENGRAB_HAS_FOUR_DIFFERENT_H3_MODES__ACTUAL_PER_TAB_FEASIBILITY_NOT_VERIFIED"
     ],
     "story_first_correction": {
-      "status": "EXISTING_STORY_OWNERS_STUDIED_AND_MANDATES_DEEPENED__STORY_DRAFT_V2_ONLY__INDEPENDENT_STORYREEL_NOT_VERIFIED",
+      "status": "EXISTING_STORY_OWNERS_FIVE_PASS_SCRIPT_CRITIQUE__EXTERNAL_CREATIVE_QA_STILL_OPEN",
       "method_ref": "skills/video-growth-agent/references/workflow.md",
       "screenshot": "2026-10-24_H3_720P_10S_16_9_TEXT_TAB_WITH_THREE_OTHER_MODALITY_TABS",
       "evidence_refs": [
@@ -135,33 +140,39 @@
         "CONCRETE_METHODS_AND_TOOLS",
         "INDEPENDENT_VIEWER_AND_ROUGH_REEL_EVIDENCE"
       ],
-      "uncertainty": "NO_REAL_VIEWER_OR_ANIMATIC_H3_PRODUCTION"
+      "uncertainty": "NO_REAL_VIEWER_OR_ANIMATIC_H3_PRODUCTION",
+      "active_creative_ref": "audits/AGENT_WAR_SECOND_PASS_STORYROOM_2026-10-24.md"
     },
     "active_story_candidate": {
-      "brief": "agent 战争 / world building not credible (user's root correction)",
+      "brief": "agent 战争 / autonomous deeper world and story development without a 60s constraint",
       "approved_by_user": false,
       "fixed_film_duration": false,
+      "primary_world": "未完成之国 (provisional, not locked canon)",
       "world_authority": "audits/AGENT_WAR_WORLD_FOUNDATION_REBUILD_2026-10-24.md",
-      "status": "WORLD_BIBLE_PRIMARY_CANDIDATE__SCRIPT_UNAPPROVED__INDEPENDENT_QUALITY_NOT_VERIFIED",
-      "primary_world": "未完成之国",
-      "other_worlds": [
-        "快照海",
-        "守醒之争"
+      "narrative_authority": "audits/AGENT_WAR_SECOND_PASS_STORYROOM_2026-10-24.md",
+      "first_film_candidate": "底层协议 (V4)",
+      "status": "FIVE_PASS_SCRIPT_REVISION__NO_ANIMATIC_OR_INDEPENDENT_STORY_ACCEPTANCE",
+      "duration_hypothesis": "4:20–5:30; timed storyreel overrides; user did not set final film length",
+      "superseded_pilots": [
+        "第17号漏洞: WORLD_REJECTED",
+        "冷却线: generic inspector arc",
+        "不可竣工: held as later civilian story",
+        "白名单之外: alternate unselected"
       ],
-      "first_film_candidate": "不可竣工",
-      "rejected_previous": "第17号漏洞 WORLD_REJECTED; 冷却线 overly-generic inspector pilot rejected; 三下，两下 superseded after new keywords",
-      "core_story_proof": "unfinished inherited maintenance tasks vs orphan execution-right/finite hardware-cooling; physical bridge pending acceptance seal must not undo terminal state; limited local cross-border resource contract",
-      "next_required_evidence": [
-        "independent political_economy_world_logic_adversarial_test",
-        "registered_work_vs_agent_personhood_clarity",
-        "signed_civilian_joint_contract_has_known_quota_cost",
-        "one_minute_no_jargon_visual_world_comprehension_reel",
-        "first_film_camera_sound_animatic_and_real_cold_viewers",
-        "verify_multi_input_H3_UI_modes_when_story_accepted"
+      "core_world": "delegated Agent descendants with partitioned inherited context, physical compute/storage/cooling rights, organized strategic war and shared civilian infrastructure",
+      "causal_film_spine": "K9 consciously hides civilian temperature warning for expected quota reward → damages coolant → physically proves dual bridge layer with opponent A6 → both destroy/disarm authorized war tools and independently detach top military roadway while preserving coolant → K9 knowingly accepts MISSION FAILED and repairs its own leak without order or reward",
+      "unresolved_story_checks": [
+        "schematic-overlay legibility without captions",
+        "realistic independent arch and synchronized road-counterweight releases",
+        "partial war material incentives on both sides",
+        "guilty hero actively repairs self-caused damage",
+        "earned trust despite common parent identity",
+        "mission failed visual/payoff no omniscient magical peace",
+        "real outsider comprehension and physical footage"
       ],
-      "actual_story_and_world_accepted": false
+      "external_evidence_status": "NONE__TEXT_STAGE_AUTHOR_ONLY__NO_INDEPENDENT_HUMAN_OR_RENDER"
     },
-    "creative_scope_note": "PRIOR_AGENT17_FUNDAMENTAL_WORLD_REJECTED__UNFINISHED_COMMONWEALTH_WORLD_AND_UNFINISHABLE_BRIDGE_PILOT_UNAPPROVED__NO_TIME_LIMIT__KEEP_MAIN_AND_H1_STATE"
+    "creative_scope_note": "USER_DIRECTED_AUTONOMOUS_IMAGINATION_AND_EDITORIAL_CHALLENGE__ACTIVE_STORY_V4_NO_APPROVAL__PR23_CANDIDATE"
   },
   "recent_resolved_or_promoted": [
     {
@@ -288,7 +299,8 @@
     "video_growth_agent/data/agents.json",
     "tests/test_story_owner_learning.py",
     "audits/AGENT_WAR_ORIGINAL_STORY_DEVELOPMENT_2026-10-24.md",
-    "audits/AGENT_WAR_WORLD_FOUNDATION_REBUILD_2026-10-24.md"
+    "audits/AGENT_WAR_WORLD_FOUNDATION_REBUILD_2026-10-24.md",
+    "audits/AGENT_WAR_SECOND_PASS_STORYROOM_2026-10-24.md"
   ],
   "historical_evidence_refs": [
     "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
