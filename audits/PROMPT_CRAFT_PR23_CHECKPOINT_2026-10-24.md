@@ -1,5 +1,14 @@
 # Video prompt & professional craft candidate — durable continuation
 
+## 2026-10-24 Verified continuation — unanchored original Agent×War creative experiment
+
+- Draft PR #23 new code head: `a7bfb8e1fd5d51e9422b68a78b5668a29f551020`; full CI [#40080535290](https://github.com/D1traverser-debug/video-growth-agent/actions/runs/40080535290) completed successfully: **294 passed**; prompt-contract **77 passed, 2 skipped**. Existing README and source owner remain reachable. This is software V&V, not film or independent viewer approval.
+- Implemented without overwriting prior stories: `scripts/agent_war_cleanroom.py`, `tests/test_agent_war_cleanroom.py`, `.github/workflows/agent-war-cleanroom.yml`. Two separate authors get *only* the original `Agent × 战争` brief, not prior rejected plots; a separate editor per script sees *only* full scenes (no author notes/other reviewer feedback); four provenance-bound receipts inform an eventual distinct comparator. Current code checks same-run model response/session/job identity, source-script hashes and tampering; **no real new model run has happened**.
+- Existing `agent-war-story-room.yml` and `agent-war-v8-followup.yml` remain untouched and compatible. New workflow is **not triggered by code commits**: it runs only on `workflow_dispatch` or an explicit commit changing `audits/agent_war_cleanroom_runs/REQUEST.json`; do not create that trigger before authentic model quota/cost authorization. The GitHub connector in this ChatGPT session has no direct workflow dispatch action.
+- Scientific limit: lack of old-story text in a prompt establishes **source isolation**, not necessarily genuine plot originality or causal improvement. A/B results and separate reviewer evidence must test whether anchoring was actually the cause; repeated generic plots must re-open the premise mechanism, not elicit mechanical prompt patches. No old story is now approved: latest `《白灯不等人》` remains `REJECT_PREMISE`.
+- Pending: one authorized real model trial; isolated competing screenplay reviews; human/unprimed cold read, playable rough reel, physical film and eventual release/growth receipts. PR stays Draft, current `main` Video 0.8 baseline and H1 canon unchanged. **Do not claim complete system or accepted narrative.**
+
+
 ## CURRENT VERIFIED HANDOFF — Agent × War 40077050738
 
 **Start here after every interrupted/new conversation**: [`audits/AGENT_WAR_CURRENT_HANDOFF_2026-10-24.md`](./AGENT_WAR_CURRENT_HANDOFF_2026-10-24.md) + `audits/EVOLUTION_INDEX.json`. This top section **supersedes stale claims below** about latest V6/V7/V8/两次点名/西泄口/余线; older parts are audit history only. Re-check exact PR HEAD and newest Actions before doing new work.

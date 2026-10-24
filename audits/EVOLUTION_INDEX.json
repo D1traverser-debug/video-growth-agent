@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-24T17:35:00+09:00",
+  "updated_at": "2026-10-24T09:05:34Z",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -82,21 +82,23 @@
       "full_storyboard_reel_and_cold_viewer_data_not_yet_available",
       "latest_Copilot_reviewer_falsifiers_mapped_into_real_agent_war_story_decisions",
       "separate_consequential_agent_initiative_from_ordinary_robot_or_six_predictive_tools",
-      "independent_playable_rough_reel_and_zero_primer_human_viewer_observations"
+      "independent_playable_rough_reel_and_zero_primer_human_viewer_observations",
+      "real_two_independent_original_brief_story_model_runs_and_blind_reviews",
+      "cross_premise_comparison_and_genuine_storyreel_cold_viewer_acceptance"
     ],
     "promotion_authorized": false,
-    "latest_verified_code_head": "2cbdafeb8ebad8a3d9d1bcd096eec9a7ed2922d1",
-    "latest_verified_ci_run": 40053177625,
+    "latest_verified_code_head": "a7bfb8e1fd5d51e9422b68a78b5668a29f551020",
+    "latest_verified_ci_run": 40080535290,
     "latest_verified_checks": {
       "prompt_contract_passed": 77,
       "prompt_contract_skipped": 2,
-      "all_tests_passed": 278,
-      "system_audit": "PASS_STATIC_SCOPE_ONLY",
+      "all_tests_passed": 294,
+      "system_audit": "PASS",
       "installed_cli_smoke": "PASS",
       "whole_user_goal_achieved": false,
       "independent_story_or_media_qa": "UNVERIFIED"
     },
-    "verification_scope": "PR23_CODE_HEAD_2cbda_FEEDBACK_ROLE_TESTS_77_2SKIP_278_GREEN__INDEX_AND_CHECKPOINT_COMMIT_PENDING_CI",
+    "verification_scope": "PR23_CODE_HEAD_a7bfb8e_GITHUB_CI_40080535290_SUCCESS_294_PASS__CLEANROOM_MODEL_NOT_RUN__META_COMMIT_PENDING_CI",
     "known_unresolved_failure_classes": [
       "FFMPEG_DETECTOR_NONZERO_EXIT_MAY_FALSE_PASS_TECH_QA",
       "NO_GRAPH_REGISTERED_RENDER_TAKE_WITH_BLINDED_OBSERVED_QUALITY",
@@ -306,7 +308,22 @@
       "opposing_war_actor_and_civilian_physical_counteractions",
       "separately_executed_AI_story_critic_raw_model_run_ref_plus_story_decision",
       "genuinely_playable_storyreel_and_unprimed_human_viewer_raw_retellings_not_yet_collected"
-    ]
+    ],
+    "cleanroom_story_trial": {
+      "status": "IMPLEMENTED_AND_STATIC_CI_GREEN__REAL_COPILOT_CREATIVE_TRIAL_NOT_RUN",
+      "code_head": "a7bfb8e1fd5d51e9422b68a78b5668a29f551020",
+      "ci_run": 40080535290,
+      "ci_full_tests": "294 passed",
+      "ci_prompt_contract": "77 passed, 2 skipped",
+      "runner": "scripts/agent_war_cleanroom.py",
+      "regression": "tests/test_agent_war_cleanroom.py",
+      "action": ".github/workflows/agent-war-cleanroom.yml",
+      "invocation": "Manual workflow_dispatch or deliberate commit to audits/agent_war_cleanroom_runs/REQUEST.json on Draft PR branch; no automatic model spend on code changes",
+      "source_isolation": "Two independent original brief only authors; isolated per-script reviewers; hash/session bound comparison",
+      "story_acceptance": "NOT_VERIFIED__LAST_STORY_REJECT_PREMISE",
+      "real_copilot_execution": "NOT_EXECUTED",
+      "next_validation": "With explicit model quota/cost authorization, run real two-writer/two-reviewer/comparison trial, archive model receipts, challenge outcomes, then make an independently screened rough storyreel before any artistic acceptance"
+    }
   },
   "recent_resolved_or_promoted": [
     {
