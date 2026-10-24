@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-24T09:05:34Z",
+  "updated_at": "2026-10-24T09:39:19Z",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -98,7 +98,7 @@
       "whole_user_goal_achieved": false,
       "independent_story_or_media_qa": "UNVERIFIED"
     },
-    "verification_scope": "PR23_CODE_HEAD_a7bfb8e_GITHUB_CI_40080535290_SUCCESS_294_PASS__CLEANROOM_MODEL_NOT_RUN__META_COMMIT_PENDING_CI",
+    "verification_scope": "REAL_COPILOT_RUN_40081322942_ARCHIVED_5_SESSIONS_BOTH_AI_STORIES_STRUCTURAL_REWRITE__CHATGPT_AUTHOR_VOICE_WAR_CANDIDATE_COMMIT_8db331c8_UNREVIEWED",
     "known_unresolved_failure_classes": [
       "FFMPEG_DETECTOR_NONZERO_EXIT_MAY_FALSE_PASS_TECH_QA",
       "NO_GRAPH_REGISTERED_RENDER_TAKE_WITH_BLINDED_OBSERVED_QUALITY",
@@ -171,7 +171,7 @@
       "world_authority": "NO_APPROVED_CANON__PROVISIONAL_CREATIVE_CANDIDATES_ONLY",
       "narrative_authority": "audits/agent_war_ai_review_runs/40077050738/STORY_CORE_CANDIDATE_UNAPPROVED.md",
       "first_film_candidate": "白灯不等人 — most recent ACTUAL Copilot writer output; independently REJECT_PREMISE",
-      "status": "TWO_REAL_GITHUB_COPILOT_MODEL_JOBS_AND_ARCHIVE_SUCCESS__LATEST_FILM_PREMISE_REJECTED__NOT_APPROVED",
+      "status": "CHATGPT_AUTHOR_NEW_ORIGINAL_STORY_DRAFT__INDEPENDENT_STORY_QUALITY_UNVERIFIED",
       "duration_hypothesis": "not fixed; evaluate after a story worthy of live boards",
       "superseded_pilots": [
         "第17号漏洞 (user rejected world)",
@@ -212,7 +212,19 @@
       ],
       "latest_candidate_ref": "audits/agent_war_ai_review_runs/40077050738/STORY_CORE_CANDIDATE_UNAPPROVED.md",
       "latest_independent_ai_critique_ref": "audits/agent_war_ai_review_runs/40077050738/STORY_CORE_INDEPENDENT_AI_CRITIQUE.md",
-      "external_review_state": "GitHub Actions 40077050738: writer PASS as model task; independent context story editor PASS as model task but screenplay verdict REJECT_PREMISE. 289 CI tests only software."
+      "external_review_state": "GitHub Actions 40077050738: writer PASS as model task; independent context story editor PASS as model task but screenplay verdict REJECT_PREMISE. 289 CI tests only software.",
+      "current_author_proposal": {
+        "title": "别用她的声音",
+        "source": "ChatGPT original script proposal, not another Copilot job",
+        "source_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/BU_YONG_TA_DE_SHENGYIN_SCREENPLAY_V1_2026-10-24.md",
+        "source_commit": "8db331c83353a96fe46dbfeafe44440101ca058c",
+        "status": "AUTHOR_DRAFT__UNAPPROVED__INDEPENDENT_STORY_AUDIT_OPEN",
+        "scenes": 8,
+        "estimated_film_minutes": "11-14 hypothesis",
+        "last_artistic_quality_judgment": "NONE__SELF_CRITIQUE_ONLY",
+        "narrative_mechanism": "Mass-personalized household Agent trust exploited as war strategy; distributed peer-Agent correction and human consequences, not mechanical infrastructure choice"
+      },
+      "last_known_external_review": "40081322942: Both cleanroom railroad stories STRUCTURAL_REWRITE, comparator STORY_REVISION_REQUIRED"
     },
     "creative_scope_note": "USER_REQUESTS_NO_DRIFT_NEW_CHAT_RESTORE__PROJECT_CHARTER_AND_LAST_ACTIONS_CROSS_LINKED__LATEST_MODEL_CREATIVE_REJECT_PREMISE__NO_MERGE_OR_PRODUCTION_APPROVAL",
     "story_review_assurance": {
@@ -310,7 +322,7 @@
       "genuinely_playable_storyreel_and_unprimed_human_viewer_raw_retellings_not_yet_collected"
     ],
     "cleanroom_story_trial": {
-      "status": "IMPLEMENTED_AND_STATIC_CI_GREEN__REAL_COPILOT_CREATIVE_TRIAL_NOT_RUN",
+      "status": "ACTUAL_5_COPILOT_SESSIONS_ARCHIVED__TWO_SAME_FAMILY_RAILWAY_STORIES_REJECTED__ORIGINAL_AUTHOR_SCREENPLAY_CANDIDATE",
       "code_head": "a7bfb8e1fd5d51e9422b68a78b5668a29f551020",
       "ci_run": 40080535290,
       "ci_full_tests": "294 passed",
@@ -322,7 +334,22 @@
       "source_isolation": "Two independent original brief only authors; isolated per-script reviewers; hash/session bound comparison",
       "story_acceptance": "NOT_VERIFIED__LAST_STORY_REJECT_PREMISE",
       "real_copilot_execution": "NOT_EXECUTED",
-      "next_validation": "With explicit model quota/cost authorization, run real two-writer/two-reviewer/comparison trial, archive model receipts, challenge outcomes, then make an independently screened rough storyreel before any artistic acceptance"
+      "next_validation": "With explicit model quota/cost authorization, run real two-writer/two-reviewer/comparison trial, archive model receipts, challenge outcomes, then make an independently screened rough storyreel before any artistic acceptance",
+      "actual_model_run_id": 40081322942,
+      "actual_model_archive_commit": "b9146a25bcfb71babd3ab9accc65cfa7554257f0",
+      "actual_model_archive_ref": "audits/agent_war_cleanroom_runs/40081322942",
+      "copilot_sessions_verified": 5,
+      "execution_evidence": "2 isolated writers; 2 separately inferred reviews; 1 comparator; provenance job/session/model outputs and hashes in archive",
+      "candidate_A": "通行票 - single-track bridge ammunition and water pump - STRUCTURAL_REWRITE",
+      "candidate_B": "一条线 - single-track bridge ammunition and water pump - STRUCTURAL_REWRITE",
+      "editor_comparison": "BOTH_STORY_REVISION_REQUIRED__NEITHER_STORYBOARD_CANDIDATE",
+      "convergence_observation": "Different Copilot jobs with same Writer instructions/model converged on railway/military logistics despite raw-brief-only input. Attribution to model priors versus shared prompt/method is unproven.",
+      "actual_human_viewers": 0,
+      "real_storyboard": 0,
+      "story_status": "NEW_CHATGPT_AUTHORED_ORIGINAL_SCREENPLAY_UNAPPROVED",
+      "story_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/BU_YONG_TA_DE_SHENGYIN_SCREENPLAY_V1_2026-10-24.md",
+      "story_commit": "8db331c83353a96fe46dbfeafe44440101ca058c",
+      "next": "Read author's eight-scene voice-warfare script, perform actually independent narrative critique if feasible, test causal and military counterexamples before animatic; no model self-approval or film promotion"
     }
   },
   "recent_resolved_or_promoted": [
