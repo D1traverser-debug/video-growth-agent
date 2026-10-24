@@ -1,5 +1,8 @@
 # K01–K10交叉运用：对《没有停火命令》V5的严肃重新裁决
 
+**跨十源的作者判定：`ARTISTIC_PREMISE_NOT_READY__V5_USER_REJECTED`。这是一项具体创意否决，不代表正式独立审稿已完成，也不允许进入镜头制作。**
+
+
 **对象**：`projects/ai-self-media-commercialization/creative_candidates/agent_war/MEI_YOU_TING_HUO_MING_LING_114S_V5_2026-10-24.md`。
 **原有真实隔离审稿**：只针对V4，`audits/agent_war_single_reviews/40095074216/v4_story_editor.json`，verdict `STRUCTURAL_REWRITE`。**这份K01–K10是作者研究性自审，不是V5的隔离审稿**。
 
