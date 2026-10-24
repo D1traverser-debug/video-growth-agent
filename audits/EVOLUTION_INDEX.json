@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-24T09:44:00+08:00",
+  "updated_at": "2026-10-24T10:23:00+08:00",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -45,21 +45,24 @@
       "failure_injection_multi_session_snapshot_recovery_and_local_media_migration",
       "story-first_60_second_watchable_pitch_and_script_audit",
       "provider_UI_actual_selected_mode_image_reference_first_last_availability_receipts",
-      "timed_storyreel_and_real_blind_narrative_comprehension"
+      "timed_storyreel_and_real_blind_narrative_comprehension",
+      "independent_cold_read_animatic_with_timecoded_observed_comprehension",
+      "real_pitched_counterexample_story_revision_not_self_awarded",
+      "physical_h3_modality_and_sfx_consistency_test_after_story_acceptance"
     ],
     "promotion_authorized": false,
-    "latest_verified_code_head": "2f47754ea0475fc54012bb99efb74b12fb05c4b4",
-    "latest_verified_ci_run": 40050305195,
+    "latest_verified_code_head": "2cbdafeb8ebad8a3d9d1bcd096eec9a7ed2922d1",
+    "latest_verified_ci_run": 40053177625,
     "latest_verified_checks": {
       "prompt_contract_passed": 77,
       "prompt_contract_skipped": 2,
-      "all_tests_passed": 274,
+      "all_tests_passed": 278,
       "system_audit": "PASS_STATIC_SCOPE_ONLY",
       "installed_cli_smoke": "PASS",
       "whole_user_goal_achieved": false,
-      "real_video_perceptual_qa": "UNVERIFIED"
+      "independent_story_or_media_qa": "UNVERIFIED"
     },
-    "verification_scope": "PR23_CODE_HEAD_2f47754_CI_77_PASS_2_SKIP_274_PASS__SUBSEQUENT_AUDIT_INDEX_EDITS_AWAIT_CURRENT_HEAD_CI",
+    "verification_scope": "PR23_CODE_HEAD_2cbda_FEEDBACK_ROLE_TESTS_77_2SKIP_278_GREEN__INDEX_AND_CHECKPOINT_COMMIT_PENDING_CI",
     "known_unresolved_failure_classes": [
       "FFMPEG_DETECTOR_NONZERO_EXIT_MAY_FALSE_PASS_TECH_QA",
       "NO_GRAPH_REGISTERED_RENDER_TAKE_WITH_BLINDED_OBSERVED_QUALITY",
@@ -77,7 +80,7 @@
     "pending_graph_take_ci_source": "PR23_LATEST_HEAD_CI_REQUIRED__EARLIER_RUNNING_WORKFLOW_MAY_BE_CANCELLED_BY_METADATA_UPDATES",
     "graph_take_mechanism": "EXISTING_MEDIA_GRAPH_DIRECTOR_PLAN_AND_TAKE_CANDIDATE__SOURCE_PLAN_DIGEST__MEDIA_QA_EVIDENCE__NO_AUTOPROMOTION__TRANSITIVE_UPSTREAM_FRESHNESS_PROMOTION_GUARD",
     "goal_fit_audit_ref": "audits/VIDEO_END_TO_END_GOAL_FIT_AUDIT_2026-10-24.md",
-    "goal_fit_assurance": "VR_01_TO_VR_18_MAPPED__REAL_PROVIDER_RENDER_AND_MEDIA_REVIEW_CHAIN_NOT_DEMONSTRATED__STATIC_CI_NOT_PRODUCT_ACCEPTANCE",
+    "goal_fit_assurance": "VR01_TO_VR18_SYSTEM_WIDE_OPEN__STORY_OWNER_RESEARCH_AND_V2_CANDIDATE_NOT_INDEPENDENTLY_ACCEPTED",
     "systemwide_known_gaps": [
       "NO_END_TO_END_PROVIDER_EXECUTION_RENDER_RETRIEVAL_SHOT_REVIEW_LEARN_CHAIN",
       "NO_HUMAN_OR_TRUSTED_INDEPENDENT_PERCEPTUAL_AUDIO_VIDEO_ASSURANCE",
@@ -90,7 +93,7 @@
       "SCREENGRAB_HAS_FOUR_DIFFERENT_H3_MODES__ACTUAL_PER_TAB_FEASIBILITY_NOT_VERIFIED"
     ],
     "story_first_correction": {
-      "status": "WORKFLOW_POLICY_REPAIRED__NARRATIVE_ACCEPTANCE_AND_REAL_OUTPUT_UNVERIFIED",
+      "status": "EXISTING_STORY_OWNERS_STUDIED_AND_MANDATES_DEEPENED__STORY_DRAFT_V2_ONLY__INDEPENDENT_STORYREEL_NOT_VERIFIED",
       "method_ref": "skills/video-growth-agent/references/workflow.md",
       "screenshot": "2026-10-24_H3_720P_10S_16_9_TEXT_TAB_WITH_THREE_OTHER_MODALITY_TABS",
       "evidence_refs": [
@@ -100,7 +103,28 @@
         "https://github.com/MiniMax-AI/MiniMax-H3/blob/main/skills/h3-prompt-writing/SKILL.md"
       ],
       "gap": "CRITICAL_USER_STORY_WEAKNESS__NO_SCRIPT_AUDIT_BEFORE_PROMPTS__NO_SHOT_SPECIFIC_MODALITY_ROUTE",
-      "acceptance": "STORY_BEATS_AND_STORY_REEL_BEFORE_PROMPTS__PER_SHOT_UI_ROUTE__PHYSICAL_AUDIO_VIDEO_REVIEW__REVISED_STORY_EVIDENCE"
+      "acceptance": "STORY_BEATS_AND_STORY_REEL_BEFORE_PROMPTS__PER_SHOT_UI_ROUTE__PHYSICAL_AUDIO_VIDEO_REVIEW__REVISED_STORY_EVIDENCE",
+      "responsible_roles": [
+        "writer",
+        "story_editor",
+        "director",
+        "storyboard_artist",
+        "editor",
+        "production_methodologist"
+      ],
+      "artifact_ref": "audits/STORY_CRAFT_TRIAL_THREE_TAPS_2026-10-24.md",
+      "role_source_refs": [
+        "video_growth_agent/data/agents.json",
+        "video_growth_agent/data/team.md"
+      ],
+      "test_ref": "tests/test_story_owner_learning.py",
+      "pre_revision_questions": [
+        "TOP_PRACTITIONER_ACTIONS_NOT_USER_DEMANDED",
+        "FIRST_HAND_SOURCE_FILM_ORIGINAL_BRIEF",
+        "CONCRETE_METHODS_AND_TOOLS",
+        "INDEPENDENT_VIEWER_AND_ROUGH_REEL_EVIDENCE"
+      ],
+      "uncertainty": "NO_REAL_VIEWER_OR_ANIMATIC_H3_PRODUCTION"
     }
   },
   "recent_resolved_or_promoted": [
@@ -222,7 +246,11 @@
     "video_growth_agent/storage.py",
     "video_growth_agent/system_audit.py",
     "tests/test_production_os.py",
-    "skills/video-growth-agent/references/workflow.md"
+    "skills/video-growth-agent/references/workflow.md",
+    "audits/STORY_CRAFT_TRIAL_THREE_TAPS_2026-10-24.md",
+    "video_growth_agent/data/team.md",
+    "video_growth_agent/data/agents.json",
+    "tests/test_story_owner_learning.py"
   ],
   "historical_evidence_refs": [
     "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
