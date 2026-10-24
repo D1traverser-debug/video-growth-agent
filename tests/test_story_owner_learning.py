@@ -24,16 +24,16 @@ def test_existing_story_owners_receive_primary_source_and_counterfactual_method(
     editor = registry.get("story_editor")
     director = registry.get("director")
     assert writer.kind == "worker" and editor.kind == "reviewer"
-    assert "original" in writer.mandate.lower()
+    assert "raw brief" in writer.mandate.lower()
     assert "alternate" in writer.mandate.lower()
     assert "causal" in writer.mandate.lower()
     assert "first-party" in editor.mandate.lower()
     assert "counterfactual" in editor.mandate.lower()
     assert "animatic" in editor.prompt.lower()
     assert "storyreel" in director.prompt.lower()
-    assert "story editor" in director.prompt.lower()
+    assert "storyteller/editor" in director.prompt.lower()
     assert registry.get("production_methodologist").kind == "worker"
-    assert "primary" in registry.get("production_methodologist").mandate.lower()
+    assert "original script" in registry.get("production_methodologist").mandate.lower()
 
 
 def test_role_prompt_contains_scene_specific_rejection_not_a_model_self_score():
