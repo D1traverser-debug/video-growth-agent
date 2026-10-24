@@ -1,5 +1,8 @@
 # Agent × 战争电影项目 — 当前总纲、事实状态与新对话无缝继承
 
+> **最新执行纠偏（优先级高于以下所有历史快照）**：用户质疑此前“有工作流却不主动返回搜寻学习并运用”。实际核验：`video_growth_agent/data/workflow.json` 0.7兼容适配定义 SCRIPT→SCRIPT_AUDIT→STORYBOARD；现行 Video 0.8 另有 `UAOS_SKILL.md` 的 EpisodeIntent→BeatSpec→EditorialPlan 业务责任链；`video_growth_agent/data/team.md` 已有 Writer/Story Editor 原始资料、反证要求。真正失效是 Agent **没有执行**，不是缺失一个新控制器。现已在同一套 `skills/video-growth-agent/references/workflow.md` 和 `team.md` 写入“遇故事反证自动查原始材料、审查适用、实质修改/否决并保留证据；先审稿再生产”的纠偏。**《两次胜利》V3 110秒已在来源驱动复核后转为 `STORY_REVISION_REQUIRED`，而不是成功导演定稿**：换成人类无线电军官仍可谈判；进攻 Agent 在得到路口后为何不俘获伤员未排除；八秒多副担架的空间动作未证明；伤员没有独立戏剧行动。证据与直接研究来源 `audits/AGENT_WAR_V3_110S_STORY_EVALUATION_2026-10-24.md`。**下一实际动作是回到原始 Agent×战争 brief 寻找真正不同的故事发动机并独立审查；暂停分镜表、5/10s镜头提示词、角色锁定、付费生成。** 源稿留存，不谎称真实观众或独立审稿已进行。
+
+
 > **2026-10-24 最新权威创作入口 — V3 Agent 双方交锋（优先于下文 V2 快照）**：用户明确指出 V2《别用她的声音》读起来是“Agent乱执行、最后靠人操控”，因此 V2 与其22镜头生产表暂停，不再作为现役待执行方案。新导演初稿 **《两次胜利》110 秒**：`projects/ai-self-media-commercialization/creative_candidates/agent_war/LIANG_CI_SHENG_LI_110S_V3_2026-10-24.md`；真实源代码提交 `4eef54a650ddb709b2a5d58d3dd43bf470cbc6cd`。两方军事 Agent「归」「锋」各自被授权多个目标、自主试错反制；「归」为救回三名伤员主动放弃街口，并向「锋」提出八秒停火交易；「锋」实际侦察后为降低本方损失接受、占领街口；**双方各自实现目标，但命令冲突的代价由 Agent 作出了人类没有逐项指示的选择**。研究与作者反证 `audits/AGENT_WAR_V3_110S_STORY_EVALUATION_2026-10-24.md`。**仅为作者候选，非故事定版：没有V3独立审稿、真正动态分镜或冷观众证据；不制作视频，不拆为5/10秒生产镜头，不触动H1和main。**
 
 
