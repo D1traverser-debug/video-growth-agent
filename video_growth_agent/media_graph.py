@@ -6,6 +6,8 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
+from .checkpoint_io import read_snapshot, write_snapshot
+
 
 class MediaGraphError(ValueError):
     pass
@@ -423,18 +425,26 @@ class MediaGraph:
 
 
 class MediaGraphStore:
-    """Atomic JSON persistence for the canonical media graph metadata."""
+    """Version-checked local JSON checkpoint; never overwrite a newer writer."""
 
     def __init__(self, path: Path):
         self.path = Path(path)
 
     def load(self) -> MediaGraph:
-        if not self.path.is_file():
-            return MediaGraph()
-        return MediaGraph.from_dict(json.loads(self.path.read_text(encoding="utf-8")))
+        payload, revision = read_snapshot(self.path)
+        graph = MediaGraph.from_dict(payload) if payload is not None else MediaGraph()
+        graph._checkpoint_revision = revision
+        graph._checkpoint_path = str(self.path.resolve())
+        return graph
 
     def save(self, graph: MediaGraph) -> None:
-        self.path.parent.mkdir(parents=True, exist_ok=True)
-        tmp = self.path.with_suffix(self.path.suffix + ".tmp")
-        tmp.write_text(json.dumps(graph.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
-        os.replace(tmp, self.path)
+        path = str(self.path.resolve())
+        prior_path = getattr(graph, "_checkpoint_path", path)
+        if prior_path != path:
+            raise MediaGraphError("graph loaded from another snapshot; reload the destination first")
+        revision = write_snapshot(
+            self.path, graph.to_dict(),
+            expected_revision=getattr(graph, "_checkpoint_revision", None),
+        )
+        graph._checkpoint_revision = revision
+        graph._checkpoint_path = path
