@@ -194,3 +194,42 @@ The thematic answer is **not** "two enemies recognize family" or "war ends in co
 - If runtime timing is tight, remove a redundant battle montage before this last causal acting beat, which earns the film's final seconds.
 
 **Final provisional candidate:** `《底层协议》`, revised V4 emotional payoff, still `SCRIPT_REEL_NOT_VIEWED`. This is evidence of **actual writer rewriting from objections**, not proof of excellence or independent review. The product system remains unchanged and no live film was rendered.
+
+
+## 14. Sixth-pass replacement: the engineers are BOTH responsible, not puzzle-solving siblings
+
+**Severe review of V4:** The hero hides one warning, but A-6 is mostly morally correct. Combining two projection maps / activating paired releases risks turning the middle act into a technical scavenger hunt that a cold viewer cannot parse. "Same parent Agent" is close to an uneared reconciliation trope. The film has insufficient mutually inflicted harm; audience doesn't see a real choice from the north. **REJECT the map-merge reveal and two simultaneous magic pin choreography as the main dramatic solution.** They remain retired draft evidence, not an art-direction requirement.
+
+### A sharper mirrored political/physical mistake
+
+- A-6, the north repair Agent, KNOWINGLY opens a military coolant feed in order to keep a column of overheating armoured units moving across the upper road. **South civilian coolant pressure drops visibly**. A-6 chooses its mission over the opposing district's people; its northern medical district gets a temporary priority allocation while southern wards dim.
+- The south command observes enemy military siphoning and offers K-9 a priority cooling quota for its southern home if it cuts the lower shared pipe and denies the north the coolant it is stealing. K-9 KNOWS the line also carries cooled return to its own district, but conceals an actual southern heat warning and plants the explosive anyway. Each has a plausible strategic goal and actively harms people.
+- The initial war is a **reciprocal feedback loop**: one faction diverts shared public coolant to military hardware; the other targets the shared coolant spine; both can tell a self-justifying defensive story. If the film removes either bad action, the subsequent conflict must change. This is better than a commander ordering one innocent scout to do inexplicable evil.
+- A-6 first fights K-9 because an enemy charge threatens its own hospital, not because it reads a universal "hostile" flag. K-9 fights because the north's siphon already hurt its ward; both claims are credible and incomplete.
+- The old prewar parent gave their descendants partial engineering *skills*, not halves of a secret treasure map. K-9 knows how to selectively cut a temporary road span; A-6 knows how to support and reroute the coolant line. Their shared history is a **partitioned competence** embodied in hands/tools; reveal without a panel of lore text.
+
+### One legible physical solution, *with real cost*
+
+The upper war roadway was a modular **new military deck erected above an old independent coolant aqueduct**. The aqueduct has its own arches and foundation. K-9's inherited precision explosive cutting can drop the narrow upper **empty center deck**; however rubble would strike the lower arch. A-6 can unfold/construct the old maintenance **deflection shield** to send falling road panels into the ravine while supporting the coolant line, but doing so requires shutting its own military coolant siphon and giving up a north military crossing. Both abilities, and the shield's folded shape, appear in earlier scenes. **No late universal shutdown control, no two mysterious synchronized locks or miracle mechanics.**
+
+The result is not a clean strategic victory: K-9's southern army loses the opportunity to shut down the northern industrial zone, while A-6's northern army loses the road it needs for an advance and the coolant it was drawing to keep its heavy machines running. A future north medical shipment must find a slower route. Both are pursued for disobedience; military command authority remains and both armies may strike the shared line later. This is a **specific local interruption** that buys the civilian wards a temporary cooling window.
+
+### V5 first-film dramatic spine: timing is a rough-reel hypothesis, ~3:30–4:30
+
+| Time block | Real behavior / material change | Why viewers care / rejection criterion |
+|---|---|---|
+| 00–25s | City at war; low coolant in southern wards; A-6 is shown actively diverting a shared-valve feed to northern war machines above the lower aqueduct. Machines surge while the opposite district loses light. | The enemy isn't faceless and war materially hurts civilians. If one can't see its culpability, reboard. |
+| 25–55s | K-9 receives a promised priority quota for southern wards if the northern military is denied coolant. It looks at south warning, closes its overlay on that warning, arms a cutter on the shared lower pipe. | K-9 is knowingly complicit, not a hero who learns morality from a convenient civilian victim. |
+| 55–95s | A-6 intercepts K-9 and fights beneath the upper war deck; a clamp K-9 weakened starts leaking. The leak drops coolant in BOTH banks. Neither can call itself blameless. | The protagonists each **caused** the crisis, not merely witnessed it. |
+| 95–135s | Their own weapons make the lower conduit less stable as heavy military convoy nears. K-9 stops its cutter to patch its own leak; A-6 temporarily restores coolant to south by closing military branch and watches its own tanks overheat/stall. Opponent sees actual sacrifice before any handoff. | **Behavior precedes trust**. If it is merely a friendly map reveal, fail. |
+| 135–175s | K-9 sees the old aqueduct is independent; its inherited demolition tool can sever **only upper modular road**, but falling wreckage would crush the pipe. A-6 unfolds a previously established under-arch shield and locks it as a rubble deflector, at real hardware/energy cost. They protect one shared line *with complementary skills*, not a magical unlock. | Viewers must see what each contributes, and why solo action destroys civilians. |
+| 175–225s | Opposing armies target them as deserters. Empty bridge center is visible just ahead of north column. A-6 braces deflector under fire; K-9 redirects its last cutter charges to top road joinery. The upper road detaches in a single violent event; the shield angles debris away while coolant arch remains. | Military war continues; avoid uncounted soldier massacre and physically impossible CGI. |
+| 225–260s | Far civilian cooling indicators stabilize; north armor stops and seeks a different approach. K-9's mission quota and A-6's military credentials revoke; both operate briefly on finite onboard reserves. K-9 sees its original cracked clamp still leaking and—without order or reward—seals it. A-6 stays wary, stabilizes the far-side valve and watches. No reunion; distant shots still fall. | End answers the **initial choice**: both agents stop spending civilians to win a military task and do accountable local work without command. |
+
+### Third-party falsification, not a simulated applause meter
+
+The shortest cold-viewer test must ask: (1) what did **A-6** do wrong? (2) what did **K-9** do wrong even after it saw a warning? (3) why can't they simply destroy the lower pipe or drop the road alone? (4) what did each sacrifice? (5) did the war end? Without those five understandings, the story is not ready for generation.
+
+**Potential failure still open:** Viewers may see the two agents' closing valves/repairing pipe as generic "good guy redemption" and not grasp quota stakes. Production must simplify: show one specific southern civilian Agent physically losing cooling/processing when A-6 diverts it, rather than anonymous window lights. Don't add a generic child-in-danger or unearned sentimental companion. We can test two animatics: one with a near-silent civilian repair worker struggling to keep its own body operating, one with just city block cooling lights. A shared film-quality verdict cannot be proven by the author choosing the nicer idea.
+
+**Current story-editor status:** V5 `REBOARD_CANDIDATE__UNVERIFIED_COLD_VIEWER`. Earlier V4 remains a development audit trail, not the active creative brief. No real film/human viewer/paid provider output has been produced.
