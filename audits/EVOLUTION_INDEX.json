@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-24T15:39:00+08:00",
+  "updated_at": "2026-10-24T17:20:00+09:00",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -79,7 +79,10 @@
       "viewable_animatic_rough_timing_and_real_unprimed_viewers",
       "resolve_80_second_AA_restart_vs_immediate_shot_and_physical_aircraft_tracking",
       "compare_V8_rewrite_vs_new_character_first_agent_war_premise",
-      "full_storyboard_reel_and_cold_viewer_data_not_yet_available"
+      "full_storyboard_reel_and_cold_viewer_data_not_yet_available",
+      "latest_Copilot_reviewer_falsifiers_mapped_into_real_agent_war_story_decisions",
+      "separate_consequential_agent_initiative_from_ordinary_robot_or_six_predictive_tools",
+      "independent_playable_rough_reel_and_zero_primer_human_viewer_observations"
     ],
     "promotion_authorized": false,
     "latest_verified_code_head": "2cbdafeb8ebad8a3d9d1bcd096eec9a7ed2922d1",
@@ -163,10 +166,10 @@
       "approved_by_user": false,
       "fixed_film_duration": false,
       "primary_world": "Agent × War original pilot world NOT APPROVED; current school evacuation context, not old Morrow bridge lore",
-      "world_authority": "NO_APPROVED_WORLD_CANON; retired bridge development remains an archive",
-      "narrative_authority": "audits/agent_war_ai_review_runs/40073765790/STORY_CORE_CANDIDATE_UNAPPROVED.md",
-      "first_film_candidate": "两次点名 — eight-scene unapproved writer candidate, current external AI critic REQUIRES STRUCTURAL_REWRITE",
-      "status": "TWO_SEPARATE_REAL_COPILOT_SESSIONS__STORY_STRUCTURAL_REWRITE_REQUIRED__NO_FILM_OR_HUMAN_SCREENING",
+      "world_authority": "NONE APPROVED: neither two-roll-call school nor floodgate nor rail-analysis concept is locked",
+      "narrative_authority": "audits/agent_war_ai_review_runs/40076350289/STORY_CORE_CANDIDATE_UNAPPROVED.md",
+      "first_film_candidate": "余线 (UNAPPROVED, external AI STRUCTURAL_REWRITE required)",
+      "status": "REAL_COPILOT_WRITER_AND_SEPARATE_MODEL_CRITIC_EXECUTED__STRUCTURAL_REWRITE__NO_REAL_STORYREEL",
       "duration_hypothesis": "not locked; no timed film reel, no 60s constraint",
       "superseded_pilots": [
         "第17号漏洞: WORLD_REJECTED",
@@ -174,24 +177,22 @@
         "不可竣工: held as later civilian story",
         "白名单之外: alternate unselected"
       ],
-      "core_world": "one prewar continuous Agent execution can fork into local/offline task instances with diverging observation/context, in a contested school evacuation; no canon acceptance",
-      "causal_film_spine": "Agent 诺 forks an offline room-checking sub-instance to verify evacuated pupils; wartime link severance causes diverging evidence and outdated roll call; teacher 苏禾 returns into contested school to check missing child; independent review finds this not yet causally necessary nor uniquely Agent-driven",
+      "core_world": "Unapproved rail-yard Agent with six parallel predictive drone-track inferences, finite sensors/resources, a physically controlled railway turnout",
+      "causal_film_spine": "Agent 苇 predicts enemy drones' tracking then dispatches relay carriage to dangerous branch so clinic evacuation train passes; independent AI skeptic rejects predictive decision causal bridge, switch/winch access setup and easier communications/cut-transmitter solutions",
       "unresolved_story_checks": [
-        "two ordinary human workers with divergent registers appear nearly equivalent to Agent forks",
-        "teacher's dangerous return not earned vs messenger/child/bell/direct main agent alternatives",
-        "new sensor evidence handling by offline fork inconsistent with provided rules",
-        "main Agent observes locations despite link loss without visible data source",
-        "enemy roof seizure vs teachers' cost and actual character agency unearned",
-        "real timed storyreel absent; real uninformed viewers zero"
+        "why direct transmitter shutdown and rail switch clearing are genuinely impossible if still relevant",
+        "whether independent Agent choice—not just six prediction indicators—changes war outcome",
+        "opponent, civilians and relay operator must make costly independent choices",
+        "real cold-viewer storyreel absent; no picture/audio/screens"
       ],
       "external_evidence_status": "NONE__TEXT_STAGE_AUTHOR_ONLY__NO_INDEPENDENT_HUMAN_OR_RENDER",
       "creative_ref": "audits/AGENT_WAR_SECOND_PASS_STORYROOM_2026-10-24.md#14-sixth-pass-replacement-the-engineers-are-both-responsible",
       "current_screenplay_revision": "LATEST: 两次点名 — script produced in real GitHub Copilot workflow 40073765790, independent second-session reviewer REQUIRES STRUCTURAL_REWRITE; preceding V8 不在册 and V7 临时编号 and V6 断面 all historical",
       "revision_owner": "writer (K9/A6/M0/N2/command viewpoints), story_editor (victim agency, unequal culpability), director (action staging), editor (causal crosscut), sound/art practice; all current author-level simulations, not separately executed reviewers",
-      "last_editorial_finding": "Agent-specific causality remains substitutable by two human coworkers, multiple cheaper messenger methods not attempted, teacher rather than Agent carries irreversible choice",
+      "last_editorial_finding": "Six predictive simulations are external cognition tools, not an Agent-specific consequential autonomy; story cheats choice mapping, permission to move rolling stock, simple transmitter shutoff alternative",
       "evidence_gap": "NO_TIMED_VISUAL_REEL__NO_HUMAN_COLD_VIEWER__NO_PROVIDER_VIDEO_OUTPUT__NO_ARTISTIC_ACCEPTANCE",
       "screenplay_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/DUANMIAN_SCREENPLAY_V6_2026-10-24.md",
-      "prior_stories": "archived: 未完成之国 / 断面 V6; 临时编号 V7; 不在册 V8; 白线落下 rejected; latest two-times rollcall unapproved",
+      "prior_stories": "archived: 断面 V6, 临时编号 V7, 不在册 V8, 白线落下 REJECT_PREMISE, 两次点名 STRUCTURAL_REWRITE, 西泄口 REJECT_PREMISE (now recovered), 余线 STRUCTURAL_REWRITE",
       "draft_runtime": "approximately 6m30s (not fixed; user removes 60s budget-length assumption)",
       "core_story": "K9 steals M0's bridge safety part and chooses sabotage after seeing harm; A6 knowingly diverts shared civilian coolant to protect sentient north soldiers; M0 independently saves two wards by damaging its own recent memory archive; N2 voluntarily pauses armoured advance; both engineers lose command authority protecting lower civilian aqueduct as upper military roadway breaks; K9 repairs its own leak without orders, M0 from an old snapshot does not instantly forgive or recognize K9",
       "verified_story_boundaries": "COMPLETE_AUTHORIAL_TEXT__NOT_FILM_SCREENED__NO_INDEPENDENT_HUMAN_REVIEW__NO_H3_GENERATION",
@@ -203,13 +204,13 @@
         "sound/post-rollback memory loss staging",
         "actual audience reception"
       ],
-      "latest_candidate_ref": "audits/agent_war_ai_review_runs/40073765790/STORY_CORE_CANDIDATE_UNAPPROVED.md",
-      "latest_independent_ai_critique_ref": "audits/agent_war_ai_review_runs/40073765790/STORY_CORE_INDEPENDENT_AI_CRITIQUE.md",
-      "external_review_state": "GitHub Actions 40073765790 writer, separate Copilot critic and archival SUCCESS; critic STRUCTURAL_REWRITE; not an independent human expert or viewer"
+      "latest_candidate_ref": "audits/agent_war_ai_review_runs/40076350289/STORY_CORE_CANDIDATE_UNAPPROVED.md",
+      "latest_independent_ai_critique_ref": "audits/agent_war_ai_review_runs/40076350289/STORY_CORE_INDEPENDENT_AI_CRITIQUE.md",
+      "external_review_state": "Real GitHub Copilot jobs and independent contextual session verified in Actions 40076350289, verdict STRUCTURAL_REWRITE; human viewers zero"
     },
-    "creative_scope_note": "NO_NEW_SYSTEM__REAL_GITHUB_COPILOT_WRITER_AND_INDEPENDENT_AI_EDITOR_RAN__TWO_TIMES_ROLLCALL_STRUCTURAL_REWRITE_REQUIRED__NO_HUMAN_OR_FILM_APPROVAL",
+    "creative_scope_note": "USER_WANTS_AUTONOMOUS_DEEP_CRAFT__REAL_AGENTS_AND_ARCHIVAL_RESOLVED__AI_CRITIC_REJECTS_CURRENT_MODEL_FRIENDLY_TECH_PUZZLE__NO_CANON_APPROVAL",
     "story_review_assurance": {
-      "status": "GITHUB_COPILOT_ACTUAL_SEPARATE_MODEL_EXECUTIONS_COMPLETE__CURRENT_STORY_REJECTED_FOR_STRUCTURAL_REWRITE",
+      "status": "TWO_LATEST_REAL_AI_REVIEWS_REJECT_OR_STRUCTURAL_REWRITE__COPILOT_INFERENCE_WORKS__NO_FILM_QA",
       "story_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/DUANMIAN_SCREENPLAY_V6_2026-10-24.md",
       "review_packet_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/V6_INDEPENDENT_STORY_REVIEW_PACK_2026-10-24.md",
       "trusted_executors_registered": 0,
@@ -246,11 +247,14 @@
         40069669424,
         40070247446,
         40071008053,
-        40073765790
+        40073765790,
+        40075431401,
+        40076202379,
+        40076350289
       ],
-      "latest_review_run": 40073765790,
-      "latest_script": "audits/agent_war_ai_review_runs/40073765790/STORY_CORE_CANDIDATE_UNAPPROVED.md",
-      "latest_opposing_review": "audits/agent_war_ai_review_runs/40073765790/STORY_CORE_INDEPENDENT_AI_CRITIQUE.md",
+      "latest_review_run": 40076350289,
+      "latest_script": "audits/agent_war_ai_review_runs/40076350289/STORY_CORE_CANDIDATE_UNAPPROVED.md",
+      "latest_opposing_review": "audits/agent_war_ai_review_runs/40076350289/STORY_CORE_INDEPENDENT_AI_CRITIQUE.md",
       "current_primary_concept": "两次点名 — provisional war school / agent context-fork story",
       "current_primary_verdict": "STRUCTURAL_REWRITE",
       "issues": [
@@ -268,7 +272,13 @@
       "actual_model_reviews_saved": true,
       "followup_runner": "scripts/agent_war_v8_followup.py",
       "followup_workflow": ".github/workflows/agent-war-v8-followup.yml",
-      "stale_blocker_retired": "Earlier Github Models failure is repaired through actual Copilot CLI inference; do NOT say the system still cannot run AI."
+      "stale_blocker_retired": "Earlier Github Models failure is repaired through actual Copilot CLI inference; do NOT say the system still cannot run AI.",
+      "latest_recovery_run": 40076202379,
+      "last_independent_ai_verdict": "STRUCTURAL_REWRITE",
+      "previous_rejected_candidate": "西泄口 — recovered from successful model jobs + failed original archive; reviewer REJECT_PREMISE",
+      "script_version_locked": false,
+      "source_runner": "scripts/agent_war_v8_followup.py",
+      "evidence_integrity": "GitHub bot saved real model session IDs, SHA256 and original JSONL; no third party human tests"
     }
   },
   "recent_resolved_or_promoted": [
@@ -409,7 +419,11 @@
     "scripts/agent_war_v8_followup.py",
     ".github/workflows/agent-war-v8-followup.yml",
     "audits/agent_war_ai_review_runs/40073765790/STORY_CORE_CANDIDATE_UNAPPROVED.md",
-    "audits/agent_war_ai_review_runs/40073765790/STORY_CORE_INDEPENDENT_AI_CRITIQUE.md"
+    "audits/agent_war_ai_review_runs/40073765790/STORY_CORE_INDEPENDENT_AI_CRITIQUE.md",
+    "audits/agent_war_ai_review_runs/40076350289/STORY_CORE_CANDIDATE_UNAPPROVED.md",
+    "audits/agent_war_ai_review_runs/40076350289/STORY_CORE_INDEPENDENT_AI_CRITIQUE.md",
+    "audits/agent_war_ai_review_runs/40075431401/STORY_CORE_INDEPENDENT_AI_CRITIQUE.md",
+    ".github/workflows/agent-war-recover-archived-review.yml"
   ],
   "historical_evidence_refs": [
     "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
