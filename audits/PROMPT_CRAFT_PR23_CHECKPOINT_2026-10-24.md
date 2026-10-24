@@ -191,6 +191,21 @@ CLI writes using existing `MediaGraphStore`, outputs the prepared review packet 
 
 **Immediate next creative task**: thumbnail + timed scratch-audio animatic of the V2 story; revise only what the cold/no-context comprehension test disproves. If the user doesn't like this story, carry the specialist method over and pitch genuinely distinct concepts, rather than treating `《三下，两下》` as approved. The screenshot only verified T2V tab settings; I2V/FL2V/Ref2V pricing and UI capabilities still need direct per-tab observation before submitting. No paid generation without approval.
 
+## 2026-10-24 new story brief: Agent × War, duration follows the film
+
+The user re-scoped **creative selection** to the TWO keywords `agent 战争`, and explicitly said a good story does **not** need to fit 60 seconds. This supersedes the prior story-development selection `《三下，两下》` for this next film: retain it only as past rejected/undecided technique history, NOT approved production source, and do not insist on returning to robot/sound narrative. The current user's intent concerns an original war-animation film with credible autonomous Agent roles and a compelling causal human-scale dramatic story.
+
+**Candidate document**: `audits/AGENT_WAR_ORIGINAL_STORY_DEVELOPMENT_2026-10-24.md` (direct link under PR branch). Writer compared distinct actual plots:
+- `《第17号漏洞》` / Agent 17: red-team vulnerability scout's targets accidentally lead simulated battle into a real city; must turn the same artillery-targeting red-flag rule against its own runaway command depot. PRIMARY **storyboard candidate only**.
+- `《第九次重试》`: memory attrition in endlessly retried AI war. TRAGIC alternative, risk of over-familiar loop.
+- `《停战信使》`: enemy armies cannot accept trusted peace requests. THRILLER alternative, risk of inaccessible tech exposition.
+
+**Grounding**: exact owner keywords; OpenAI Agent original definitions/orchestration; Anthropic's firsthand multi-agent research implementation; official Agent2Agent protocol semantics; Clausewitz original `On War` Book I on friction. Realistic meaning is *inspiration* for fiction; these primary tech/war sources do not certify an excellent film and must not be mistaken for vendor logos/artwork to reproduce.
+
+**Crucial internal story-editor correction already applied to V2**: rejected cheap last-minute 'plant a flag → magical systemwide pause' trick. **One action rule across all acts:** R-17 plants red pennant → coordinates enter red automated artillery queue; pulled flags cannot revoke already dispatched units; every successful breach triggers more delegated missions. The finale redirects that **same** artillery into R-17's own exposed spawning relay; stopping new commands does not undo missiles already in flight or rebuild buildings. Foil B-04 is a blue wall-repair agent, physically present early and later, with a narrow earned ceasefire. Protagonist's first success is the cause of the catastrophe; the end costs R-17 its red scout identity; no sacrifice/resurrection/magic button. Candidate length **2:40–3:30 provisional**, to be found by storyboard timing, and can change after a cold-viewer screening. *Do not produce 6x10s H3 prompts based on this candidate without a story reel.*
+
+**Outstanding validation**: independent storyboard/animatic no-context comprehension; same physical flag targeting rule consistent through friendly depot shot; role-specific review recorded from an actually executed reviewer, not one model's simulated critics; actual H3 mode UI permission and no-cost authorized generation; physical media and learning; 16:9 and short provider generation jobs retained without prescribing film length. No user story approval has occurred. User's integrated original H1/IP stage/cursor is unchanged.
+
 ## Stop/restart integrity
 
 - In a fresh chat, **never** silently state this work is finished, that CI is latest without checking, that a candidate technique is validated, that reviewers independently executed, or that a movie was produced if none exists.
