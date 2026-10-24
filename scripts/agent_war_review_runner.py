@@ -162,6 +162,8 @@ def run_stage(stage: str, token: str, output: Path, model: str, review_dir: Path
         e = read_actual_review(review_dir / "review-story_editor.json", "story_editor", run_id)
         if a["provenance"]["github_job"] == e["provenance"]["github_job"]:
             raise ValueError("independent reviews cannot share an execution job")
+        if a["provenance"]["provider_response_id"] == e["provenance"]["provider_response_id"]:
+            raise ValueError("independent reviewers cannot reuse the same model response")
     msgs, sources = build_messages(stage, script_text=script_text, challenger=a, editor=e)
     req_digest = digest(json.dumps(msgs, sort_keys=True, ensure_ascii=False).encode("utf-8"))
     response, text = infer(msgs, token, model, 6600 if stage == "rewrite" else 4200)
