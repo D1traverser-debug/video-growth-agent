@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0",
+  "kind": "NON_AUTHORITATIVE_STORYCRAFT_STUDY_RETRIEVAL_INDEX",
+  "created_for": "2026-10-25 original Agent×War short-film research",
+  "authority": "Video Growth Agent existing Writer/Story Editor process, not second technique registry",
+  "entry_count": 10,
+  "source_reading_limits": "K02 publicly visible curriculum structure, not every complete video; K06 reproduced attributed original on Fandom, not author's hosted page; K10 paper abstract/public sections and no experimental replication; all techniques are research hypotheses until observed story application and independent audience validation.",
+  "usage_rule": "Locate the active narrative failure, retrieve 1–3 matched cards; read exact article and card; apply concrete onscreen changes, give cheap counterexamples and compare a materially different premise; do not claim story accepted.",
+  "entries": [
+    {
+      "id": "K01",
+      "document_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/01-mazin-dramatic-argument.md",
+      "source_url": "https://johnaugust.com/2019/scriptnotes-ep-403-how-to-write-a-movie-transcript",
+      "transferable_mechanism": "Dramatic argument embodied through costly onscreen reversal",
+      "diagnose_when": "theme_is_only_a_slogan",
+      "required_work_product": "visual_argument__cost_after_goal",
+      "applied_case_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/V5-CASE-REASSESSMENT.md",
+      "status": "RESEARCHED_AND_APPLIED_AS_AUTHOR_DIAGNOSIS__NOT_FILM_VALIDATED"
+    },
+    {
+      "id": "K02",
+      "document_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/02-pixar-storytelling.md",
+      "source_url": "https://www.khanacademy.org/computing/pixar/storytelling",
+      "transferable_mechanism": "What-if interacts with specific character want and embodied obstacle",
+      "diagnose_when": "generic_world_or_characters",
+      "required_work_product": "distinct_character__physical_world_clash",
+      "applied_case_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/V5-CASE-REASSESSMENT.md",
+      "status": "RESEARCHED_AND_APPLIED_AS_AUTHOR_DIAGNOSIS__NOT_FILM_VALIDATED"
+    },
+    {
+      "id": "K03",
+      "document_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/03-yorke-story-dialectic.md",
+      "source_url": "https://www.johnyorkestory.com/five-act-structure/",
+      "transferable_mechanism": "Causal change rather than arbitrary time-division",
+      "diagnose_when": "scenes_do_not_change_next_options",
+      "required_work_product": "earlier_choice_removes_later_shortcut",
+      "applied_case_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/V5-CASE-REASSESSMENT.md",
+      "status": "RESEARCHED_AND_APPLIED_AS_AUTHOR_DIAGNOSIS__NOT_FILM_VALIDATED"
+    },
+    {
+      "id": "K04",
+      "document_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/04-show-me-shorts-economy.md",
+      "source_url": "https://www.showmeshorts.co.nz/education/filmmaker-resources/ten-tips-for-short-film-makers",
+      "transferable_mechanism": "Single short-film moment and recommend-worthy idea",
+      "diagnose_when": "exposition_overwhelms_unique_incident",
+      "required_work_product": "one_visual_reinterpretation",
+      "applied_case_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/V5-CASE-REASSESSMENT.md",
+      "status": "RESEARCHED_AND_APPLIED_AS_AUTHOR_DIAGNOSIS__NOT_FILM_VALIDATED"
+    },
+    {
+      "id": "K05",
+      "document_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/05-bordwell-visual-comedy.md",
+      "source_url": "https://www.davidbordwell.net/blog/2007/04/30/funny-framings/",
+      "transferable_mechanism": "Gag created by staging and framing-dependent viewer inference",
+      "diagnose_when": "no_wry_reinterpretation",
+      "required_work_product": "fair_visual_misread_then_reveal",
+      "applied_case_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/V5-CASE-REASSESSMENT.md",
+      "status": "RESEARCHED_AND_APPLIED_AS_AUTHOR_DIAGNOSIS__NOT_FILM_VALIDATED"
+    },
+    {
+      "id": "K06",
+      "document_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/06-harmon-story-circle.md",
+      "source_url": "https://channel101.fandom.com/wiki/Story_Structure_101:_Super_Basic_Shit",
+      "transferable_mechanism": "Goal achieved at cost; return changed",
+      "diagnose_when": "ending_resets_all_relationships",
+      "required_work_product": "obtained_vs_lost_and_new_action",
+      "applied_case_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/V5-CASE-REASSESSMENT.md",
+      "status": "RESEARCHED_AND_APPLIED_AS_AUTHOR_DIAGNOSIS__NOT_FILM_VALIDATED"
+    },
+    {
+      "id": "K07",
+      "document_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/07-bordwell-hitchcock-suspense.md",
+      "source_url": "https://www.davidbordwell.net/blog/2013/11/29/hitchcock-lessing-and-the-bomb-under-the-table/",
+      "transferable_mechanism": "Viewer/character/opponent information allocation",
+      "diagnose_when": "no_suspense_except_noise_or_vfx",
+      "required_work_product": "who_knows_what_when_table",
+      "applied_case_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/V5-CASE-REASSESSMENT.md",
+      "status": "RESEARCHED_AND_APPLIED_AS_AUTHOR_DIAGNOSIS__NOT_FILM_VALIDATED"
+    },
+    {
+      "id": "K08",
+      "document_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/08-stanford-humor-philosophy.md",
+      "source_url": "https://plato.stanford.edu/entries/humor/",
+      "transferable_mechanism": "Incongruity requires enjoyment; serious suffering can suppress humor",
+      "diagnose_when": "war_tragedy_without_playful_critical_distance",
+      "required_work_product": "satire_target_identified_not_victim",
+      "applied_case_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/V5-CASE-REASSESSMENT.md",
+      "status": "RESEARCHED_AND_APPLIED_AS_AUTHOR_DIAGNOSIS__NOT_FILM_VALIDATED"
+    },
+    {
+      "id": "K09",
+      "document_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/09-anthropic-effective-agents.md",
+      "source_url": "https://www.anthropic.com/research/building-effective-agents",
+      "transferable_mechanism": "Dynamic agent self-chosen action loop vs fixed workflow",
+      "diagnose_when": "agent_is_decorative_autopilot",
+      "required_work_product": "task__novel_subgoal__observation__replan",
+      "applied_case_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/V5-CASE-REASSESSMENT.md",
+      "status": "RESEARCHED_AND_APPLIED_AS_AUTHOR_DIAGNOSIS__NOT_FILM_VALIDATED"
+    },
+    {
+      "id": "K10",
+      "document_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/10-generative-agents-emergence.md",
+      "source_url": "https://arxiv.org/abs/2304.03442",
+      "transferable_mechanism": "Locally plausible plans/relations create group emergent actions",
+      "diagnose_when": "multi_agent_is_only_a_broadcast_network",
+      "required_work_product": "propagated_choice_changes_third_party_act",
+      "applied_case_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/V5-CASE-REASSESSMENT.md",
+      "status": "RESEARCHED_AND_APPLIED_AS_AUTHOR_DIAGNOSIS__NOT_FILM_VALIDATED"
+    }
+  ]
+}
