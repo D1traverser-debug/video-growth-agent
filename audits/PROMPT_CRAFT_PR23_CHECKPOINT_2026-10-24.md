@@ -128,6 +128,31 @@ CLI writes using existing `MediaGraphStore`, outputs the prepared review packet 
 
 **Autonomous next actions**: (1) refresh final CI after bookkeeping commits, (2) use authentic video take plus source/shot review to test actual perceptual semantics, (3) connect verified provider receipt/rights, TakeRecord and independent review to this graph lineage, (4) run controlled per-scene prompt A/B + rejected-take revision/learning without naming a quality winner until observed. No paid calls without approval.
 
+## Whole-system goal-fit correction — 2026-10-24
+
+**Governing user correction**: the task is to determine, engineer and verify whether the **whole Video system** achieves the user's actual AI-video, professional-craft, iterative improvement, reusable IP and business outcome—not to pursue a sequence of convenient isolated PR bug fixes or maximize test counts. No guarantee of universal zero defects can be honestly made. Reject an architecture-only, QA-count-only or report-only closure. Preserve working Video 0.8 owners, identify incomplete physical provider/external/editor/publishing operations, repair admitted system defects, and independently verify real outcomes.
+
+**Primary cross-system source**: [Video end-to-end goal-fit audit](VIDEO_END_TO_END_GOAL_FIT_AUDIT_2026-10-24.md) covers all `docs/product_requirements.md` VR-01..VR-18, with actual owner modules, operator entrypoints, evidence classes, high-risk gaps, scenarios and release-level proof ladder. Its status remains OPEN; it is *not* a new authority or parallel controller. Distinguish procedural/structural controls from real independent film playback.
+
+**Root findings**:
+1. No evidenced physical end-to-end real provider render → verified downloaded media → actual motion/sound/story inspection → rejected shot repair → repeated comparative result → LEARN/platform/business feedback. Current authoring/prompts, plan critiques and Take import are useful but not equivalent to rendering.
+2. `ProductionAdmission.evaluate_take_promotion` could accept low-risk Takes without any technical QA receipt; `MediaGraph` could return a previously promoted Take after its source plan was superseded if no explicit invalidation was called.
+3. Two local owner state stores used fixed temp paths with no stale-writer protection, making concurrent edits/lost updates possible despite rename atomicity.
+4. Green `vga system-audit` was at risk of being overstated as proof of user-goal completion; it is a static/config/runtime-invariant check only.
+5. Existing unresolved: FFmpeg detector command nonzero-exit may falsely look clean (prior mutation blocked); provider authenticity/cost/asset SHA/budget and owner-trusted independent playback are not integrated; media storage portability and user business outcomes lack real receipts.
+
+**Directly implemented on PR #23** (no parallel architecture):
+- `media_graph.py`: effective transitive stale state in read paths, `current_promoted` and timeline consumers; preservation of history.
+- `production_os.py`: technical-QA evidence ref required for promotion (string refs still need verified artifact binding).
+- `checkpoint_io.py` shared by `MediaGraphStore` and legacy `ProjectStore`: per-file writer locks on supported local OS, unique temp, optimistic revision match, atomic replacement and explicit post-rename durability uncertainty. Tests exercise stale writers, concurrent commits and failed writes. No claim of multi-host distributed transactions.
+- `system_audit.py`: `assurance_scope` explains precisely why passing static QA is not media/story/commercial quality; existing `pass` retained for compatibility.
+- New/updated tests: `test_checkpoint_io.py`, `test_media_graph.py`, `test_production_os.py`, `test_agent_operable_media_os_trajectory.py`, `test_system_audit.py`.
+- Relevant official first-party API verification: MiniMax `/v2/video_generation` plus `/v2/query/video_generation/{task_id}` and supported model/duration/resolution/modality combinations. **No real API call, cost, H3 clip or artistic comparison** was made.
+
+**Prior tested code receipt, BEFORE this checkpoint metadata edit**: [GitHub Actions #40050305195](https://github.com/D1traverser-debug/video-growth-agent/actions/runs/40050305195), exact SHA `2f47754ea0475fc54012bb99efb74b12fb05c4b4`: full **274 passed** with installed CLI smoke and system audit; fast contract **77 passed, 2 skipped**. Recheck final PR HEAD CI after checkpoint/index updates; never promote these prior counts as latest if HEAD differs.
+
+**Required next substantive action**: implement and exercise the **existing owner's** lawful provider generation path with recorded intent/approval, version-bound reference inputs, current capability/budget checks, task submit/query/asset retrieval, receipt/cost/error recovery and physical media digest. Reuse Video ShotContract, ModelRouter and MediaGraph, not another video controller. Then real blind perceptual screen/shot-specific repair/LEARN and platform outcomes. No paid provider calls without explicit user approval. Independently address remaining FFmpeg technical detector risk and platform-specific storage recovery. PR #23 remains Draft/unmerged pending observed goal-level acceptance.
+
 ## Stop/restart integrity
 
 - In a fresh chat, **never** silently state this work is finished, that CI is latest without checking, that a candidate technique is validated, that reviewers independently executed, or that a movie was produced if none exists.
