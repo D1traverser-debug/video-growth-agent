@@ -117,46 +117,59 @@ def build_messages(stage: str, *, script_text: str = "", challenger: dict | None
             {"role": "user", "content": user}], sources
 
 
-def infer(messages: list[dict], token: str, model: str, max_tokens: int) -> tuple[dict, str]:
-    body = json.dumps({
-        "model": model, "messages": messages, "temperature": 0.35,
-        "max_tokens": max_tokens,
-    }, ensure_ascii=False).encode("utf-8")
-    request = urllib.request.Request(URL, data=body, method="POST", headers={
-        "Authorization": "Bearer " + token,
-        "Accept": "application/vnd.github+json",
+def _call_model(url: str, auth_token: str, payload: dict, label: str) -> dict:
+    data = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+    request = urllib.request.Request(url, data=data, method="POST", headers={
+        "Authorization": "Bearer " + auth_token,
+        "Accept": "application/json",
         "Content-Type": "application/json",
-        "X-GitHub-Api-Version": "2022-11-28",
     })
     try:
         with urllib.request.urlopen(request, timeout=150) as response:
             raw_bytes = response.read()
-            if not raw_bytes.strip():
-                raise RuntimeError(
-                    f"GitHub Models HTTP {response.status} returned empty response body "
-                    f"(content-type={response.headers.get('Content-Type', 'missing')}); "
-                    "no external review was performed"
-                )
             try:
-                raw = json.loads(raw_bytes.decode("utf-8"))
+                value = json.loads(raw_bytes.decode("utf-8"))
             except (ValueError, UnicodeDecodeError):
                 raise RuntimeError(
-                    f"GitHub Models HTTP {response.status} returned non-JSON response "
+                    f"{label} HTTP {response.status} returned non-JSON or empty response "
                     f"(content-type={response.headers.get('Content-Type', 'missing')}, "
                     f"bytes={len(raw_bytes)}); no external review was performed"
                 ) from None
     except urllib.error.HTTPError as exc:
-        error_body = exc.read(900).decode("utf-8", errors="replace")
-        # No secret value or complete submitted script is ever logged.
-        raise RuntimeError(f"GitHub Models inference HTTP {exc.code}: {error_body[:400]}") from None
+        error_text = exc.read(400).decode("utf-8", errors="replace")
+        # Never log a submitted prompt or any authorization header.
+        raise RuntimeError(f"{label} HTTP {exc.code}: {error_text}") from None
+    if not isinstance(value, dict):
+        raise RuntimeError(f"{label} returned non-object JSON; no external review was performed")
+    return value
+
+
+def infer(messages: list[dict], token: str, model: str, max_tokens: int) -> tuple[dict, str, str]:
+    payload = {"model": model, "messages": messages,
+               "temperature": 0.35, "max_tokens": max_tokens}
+    provider = "github-models"
+    try:
+        raw = _call_model(URL, token, payload, "GitHub Models")
+    except RuntimeError as original:
+        # Only use a user-configured existing provider secret, never pretend GitHub
+        # Models ran when it returned an unusable response.
+        fallback = os.getenv("OPENROUTER_API_KEY", "")
+        if not fallback:
+            raise RuntimeError(
+                str(original) + "; OPENROUTER_API_KEY fallback is not configured"
+            ) from None
+        payload["model"] = os.getenv("OPENROUTER_STORY_MODEL", "openai/gpt-4.1")
+        raw = _call_model("https://openrouter.ai/api/v1/chat/completions",
+                          fallback, payload, "OpenRouter")
+        provider = "openrouter"
     choices = raw.get("choices")
     response_id = str(raw.get("id") or "").strip()
     if not response_id or not isinstance(choices, list) or not choices:
-        raise RuntimeError("GitHub Models did not return a provider-issued response id / choices")
+        raise RuntimeError(f"{provider} did not return provider-issued response id and choices")
     text = (choices[0].get("message") or {}).get("content") or ""
     if not isinstance(text, str) or len(text.strip()) < 250:
-        raise RuntimeError("GitHub Models produced empty or non-substantive review")
-    return raw, text
+        raise RuntimeError(f"{provider} produced empty or non-substantive review")
+    return raw, text, provider
 
 
 def run_stage(stage: str, token: str, output: Path, model: str, review_dir: Path | None) -> dict:
@@ -180,11 +193,11 @@ def run_stage(stage: str, token: str, output: Path, model: str, review_dir: Path
             raise ValueError("independent reviewers cannot reuse the same model response")
     msgs, sources = build_messages(stage, script_text=script_text, challenger=a, editor=e)
     req_digest = digest(json.dumps(msgs, sort_keys=True, ensure_ascii=False).encode("utf-8"))
-    response, text = infer(msgs, token, model, 6600 if stage == "rewrite" else 4200)
+    response, text, provider = infer(msgs, token, model, 6600 if stage == "rewrite" else 4200)
     proof = {
         "stage": stage, "review_class": ("author_revision_from_separate_model_reviews"
                                       if stage == "rewrite" else "separately_inferred_model_not_human"),
-        "provider": "github-models", "provider_model": str(response.get("model") or model),
+        "provider": provider, "provider_model": str(response.get("model") or model),
         "provider_response_id": response["id"],
         "github_run_id": run_id, "github_job": job,
         "github_run_attempt": os.getenv("GITHUB_RUN_ATTEMPT", ""),
