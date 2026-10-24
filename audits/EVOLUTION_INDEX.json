@@ -69,7 +69,11 @@
       "physical_shield_seeding_and_modular_deck_road_vs_aqueduct_action_choreography",
       "screened_final_unrewarded_manual_repair_is_causally_legible",
       "silent_visual_opening_95s_character_empathy",
-      "confirm_animatic_edit_duration_before_real_H3_modality_and_cost_admission"
+      "confirm_animatic_edit_duration_before_real_H3_modality_and_cost_admission",
+      "outsider_reading_K9_A6_M0_N2_each_with_defensible_desire_and_rejected_alternative",
+      "director_storyreel_and_real_viewer_seeing_M0_agency_memory_loss",
+      "script_screened_twice_causal_turn_and_non_forgiveness",
+      "real_war_medical_shared_supply_physical_layout_test"
     ],
     "promotion_authorized": false,
     "latest_verified_code_head": "2cbdafeb8ebad8a3d9d1bcd096eec9a7ed2922d1",
@@ -114,7 +118,7 @@
       "SCREENGRAB_HAS_FOUR_DIFFERENT_H3_MODES__ACTUAL_PER_TAB_FEASIBILITY_NOT_VERIFIED"
     ],
     "story_first_correction": {
-      "status": "EXISTING_WRITER_STORY_EDITOR_REBUILT_V5__NOT_INDEPENDENTLY_QUALIFIED",
+      "status": "EXISTING_WRITER_STORY_EDITOR_DIRECTOR_EDITOR_POV_PROMPTS_UPDATED__V6_REAL_SCREENPLAY__INDEPENDENT_QA_UNVERIFIED",
       "method_ref": "skills/video-growth-agent/references/workflow.md",
       "screenshot": "2026-10-24_H3_720P_10S_16_9_TEXT_TAB_WITH_THREE_OTHER_MODALITY_TABS",
       "evidence_refs": [
@@ -146,7 +150,7 @@
         "INDEPENDENT_VIEWER_AND_ROUGH_REEL_EVIDENCE"
       ],
       "uncertainty": "NO_REAL_VIEWER_OR_ANIMATIC_H3_PRODUCTION",
-      "active_creative_ref": "audits/AGENT_WAR_SECOND_PASS_STORYROOM_2026-10-24.md"
+      "active_creative_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/DUANMIAN_SCREENPLAY_V6_2026-10-24.md"
     },
     "active_story_candidate": {
       "brief": "agent 战争 / autonomous deeper world and story development without a 60s constraint",
@@ -155,8 +159,8 @@
       "primary_world": "未完成之国 (provisional, not locked canon)",
       "world_authority": "audits/AGENT_WAR_WORLD_FOUNDATION_REBUILD_2026-10-24.md",
       "narrative_authority": "audits/AGENT_WAR_SECOND_PASS_STORYROOM_2026-10-24.md",
-      "first_film_candidate": "断面 (V5.1, provisional 260s paper reel)",
-      "status": "V5_1_SCREENPLAY_CAUSALITY_CORRECTED__PAPER_REEL_ONLY__NO_INDEPENDENT_STORY_ACCEPTANCE",
+      "first_film_candidate": "断面 V6 — actual eight-scene screenplay, provisional 6m30s",
+      "status": "ROLE_EMBODIED_MULTI_POV_SCRIPT_DRAFT_DELIVERED__EXTERNAL_STORY_SCREENING_OPEN",
       "duration_hypothesis": "04:20/260s temporary rough-edit plan, explicitly not 26x10-second model jobs",
       "superseded_pilots": [
         "第17号漏洞: WORLD_REJECTED",
@@ -178,11 +182,24 @@
       "external_evidence_status": "NONE__TEXT_STAGE_AUTHOR_ONLY__NO_INDEPENDENT_HUMAN_OR_RENDER",
       "creative_ref": "audits/AGENT_WAR_SECOND_PASS_STORYROOM_2026-10-24.md#14-sixth-pass-replacement-the-engineers-are-both-responsible",
       "current_screenplay_revision": "V5: A6 diverts public coolant to military north; K9 knowingly attacks mixed public line for promised south quota; coolant failure hurts both; each reverses own harmful action first; K9 selectively collapses empty modular military road while A6 shields independent civilian aqueduct; unrecovered civilian loss persists; K9 repairs own leak after military authorization revoked; V5.1 timing fix: marginal south ward remains functional before A6 diverts coolant, then slows from northern siphon; later pipe rupture produces unrecovered loss; south military quota award depends on FUTURE capture of north plant, not impossible direct transfer",
-      "revision_owner": "existing writer, story_editor and director; single model simulation, not independent reviewers",
+      "revision_owner": "writer (K9/A6/M0/N2/command viewpoints), story_editor (victim agency, unequal culpability), director (action staging), editor (causal crosscut), sound/art practice; all current author-level simulations, not separately executed reviewers",
       "last_editorial_finding": "V4 split-map emergency-lock riddle rejected as emotionally thin; V5 mutual culpability and action-first trust under test",
-      "evidence_gap": "NO_ACTUAL_TIMED_ANIMATIC__NO_BLIND_AUDIENCE_SCREEN__NO_REAL_H3_FOOTAGE__NO_USER_STORY_APPROVAL"
+      "evidence_gap": "NO_ACTUAL_TIMED_ANIMATIC__NO_BLIND_AUDIENCE_SCREEN__NO_REAL_H3_FOOTAGE__NO_USER_STORY_APPROVAL",
+      "screenplay_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/DUANMIAN_SCREENPLAY_V6_2026-10-24.md",
+      "prior_stories": "V5.1 superseded; V6 newly authored eight-scene screenplay rather than an abstract timeline",
+      "draft_runtime": "approximately 6m30s (not fixed; user removes 60s budget-length assumption)",
+      "core_story": "K9 steals M0's bridge safety part and chooses sabotage after seeing harm; A6 knowingly diverts shared civilian coolant to protect sentient north soldiers; M0 independently saves two wards by damaging its own recent memory archive; N2 voluntarily pauses armoured advance; both engineers lose command authority protecting lower civilian aqueduct as upper military roadway breaks; K9 repairs its own leak without orders, M0 from an old snapshot does not instantly forgive or recognize K9",
+      "verified_story_boundaries": "COMPLETE_AUTHORIAL_TEXT__NOT_FILM_SCREENED__NO_INDEPENDENT_HUMAN_REVIEW__NO_H3_GENERATION",
+      "remaining_quality_risks": [
+        "whether M0/K9 relationship truly emotionally earns 6:30 screen time",
+        "distinct civilian agency readable without narration",
+        "north soldier choice and autonomy readable",
+        "bridge load physics",
+        "sound/post-rollback memory loss staging",
+        "actual audience reception"
+      ]
     },
-    "creative_scope_note": "V5_1_FIXES_CAUSAL_TIME_ORDER_OF_NORTH_SIPHON_AND_SOUTH_RESIDENT_SLOWDOWN__RELEASE_UNAUTHORIZED"
+    "creative_scope_note": "USER_PRIORITIZES_BEST_AGENT_WAR_STORY_OVER_GENERATION_CREDITS_AND_CLIP_LENGTH__V6_NO_CANON_APPROVAL"
   },
   "recent_resolved_or_promoted": [
     {
@@ -310,7 +327,8 @@
     "tests/test_story_owner_learning.py",
     "audits/AGENT_WAR_ORIGINAL_STORY_DEVELOPMENT_2026-10-24.md",
     "audits/AGENT_WAR_WORLD_FOUNDATION_REBUILD_2026-10-24.md",
-    "audits/AGENT_WAR_SECOND_PASS_STORYROOM_2026-10-24.md"
+    "audits/AGENT_WAR_SECOND_PASS_STORYROOM_2026-10-24.md",
+    "projects/ai-self-media-commercialization/creative_candidates/agent_war/DUANMIAN_SCREENPLAY_V6_2026-10-24.md"
   ],
   "historical_evidence_refs": [
     "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
