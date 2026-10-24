@@ -72,3 +72,16 @@
 ## 5. 方法的外推边界
 
 这只是在一个具体原创题材里应用“个人观察/行为细节、因果型抉择、同一动作前后意义变化、可听见的情节、粗剪冷看”的方法。并未证明它优于荒诞、黑色幽默、悬疑、科普等其他类型，也没有证明“老人与小孩”是普遍的好故事素材。未来应在不同题材/人物复杂度上对照实际观众反馈，而不是把本案例提升为通用视频模板。
+
+
+## 6. After concrete objections — writer revision V2 (same story; no scope expansion)
+
+The story-editor objections above are treated as defects, not as an invitation to add plot branches. The writer resolves three physical/continuity issues *within* the same 60 seconds:
+
+- **Where does the robot obtain evidence of the child's distress?** Establish early that the apartment door has one low frosted-glass panel visible from the communal stairwell; in the existing 30–38s beat, the robot follows the silently vibrating copper pipe toward the door, **sees the child's silhouette tapping three times and waiting with bowed shoulders** through the panel, and stops cleaning its jars. No magical omniscient knowledge or added character is needed.
+- **What does returning one jar accomplish?** The earlier clock demonstrates that the sound can be stolen while the original mechanism still moves. In the 38–46s beat, a return ribbon visibly runs **from jar into the same connected copper pipe**. In 46–54s, the child deliberately knocks three *new* times and hears two fresh knocks from the elder, rather than relying on a magically replayed old recording. The exact causal rule remains consistent.
+- **Is the final exchange legible in six seconds?** Eliminate the extra three-way rhythm: at 54–60s, the robot reaches to straighten one tilted jar, chooses instead to tap **one** tentative note on the pipe; *the child* responds with **one** note. The robot looks at the jar, lets it remain tilted, and listens. One entirely new, earned relationship is established with only two hits; no unmotivated crowd chorus.
+
+**Redrafted final scene for storyreel:** Rain on window; one small metallic knock from the robot near the stairwell's pipe. One answering knock from inside the room. Silent close-up of the robot's suspended hand beside the deliberately tilted jar. Cut to black while the warm rain ambiance continues. The last sound is not a score swell or a lecture.
+
+**Latest author/editor simulation verdict**: `STORYBOARD_CANDIDATE__NOT_INDEPENDENTLY_REVIEWED`. The original story editor had not observed real video; this V2 merely answers its strongest logical objections. Next proof is a six-question *cold* timed rough-cut screening with actual non-author review evidence. **No film, 10s H3 prompts, screenshots or approved canon have been generated.** No changes to the integrated H1 project creative cursor.
