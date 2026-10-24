@@ -57,6 +57,36 @@ def sha(s: str) -> str:
     return hashlib.sha256(s.encode("utf-8")).hexdigest()
 
 
+TEAM_METHOD_SOURCE = Path(__file__).resolve().parents[1] / "video_growth_agent/data/team.md"
+
+
+def team_method(role: str) -> tuple[str, str]:
+    """Read current Video owner role craft instructions, not previous film plots.
+
+    Copilot is invoked with --no-custom-instructions and no repository tool
+    access: only exact material explicitly embedded in the prompt is usable.
+    """
+    raw = TEAM_METHOD_SOURCE.read_text(encoding="utf-8")
+    marker = "## " + role + "\n"
+    start = raw.find(marker)
+    if start < 0:
+        raise RuntimeError(f"missing owner role method: {role}")
+    end = raw.find("\n## ", start + len(marker))
+    body = raw[start:(len(raw) if end < 0 else end)].strip()
+    if len(body) < 300:
+        raise RuntimeError(f"owner role method unexpectedly incomplete: {role}")
+    return body, "video_growth_agent/data/team.md#" + role.replace(" ", "_") + "@sha256:" + sha(body)
+
+
+def role_context(*roles: str) -> tuple[str, list[str]]:
+    blocks, sources = [], []
+    for role in roles:
+        method, provenance = team_method(role)
+        blocks.append(method)
+        sources.append(provenance)
+    return "\n\n".join(blocks), sources
+
+
 def verified(path: Path, stage: str, run_id: str) -> dict:
     obj = json.loads(path.read_text(encoding="utf-8"))
     proof, body = obj.get("provenance") or {}, obj.get("model_output")
@@ -84,14 +114,18 @@ def distinct(*receipts: dict) -> None:
 def build(stage: str, run_id: str, previous: Path | None = None,
           evidence_dir: Path | None = None) -> tuple[str, list[str]]:
     if stage in ("writer_a", "writer_b"):
-        return BRIEF + "\n\n" + WRITER, ["original_user_brief"]
+        method, refs = role_context("Writer")
+        return (BRIEF + "\n\n【当前项目已核验的岗位方法，不是旧故事素材】\n" +
+                method + "\n\n" + WRITER), ["original_user_brief", *refs]
     if stage in ("review_a", "review_b"):
         if previous is None:
             raise RuntimeError("blind review requires exact writer artifact")
         author = verified(previous, "writer_" + stage[-1], run_id)
         # Author's notes, treatment comparison and self-appraisal are omitted.
         script = scenes_only(author["model_output"], min_length=1500)
-        return BRIEF + "\n\n" + REVIEWER + "\n\n【完整剧本，供独立冷读】\n" + script, [sha(script)]
+        method, refs = role_context("Story Editor")
+        return (BRIEF + "\n\n【当前项目已核验的岗位方法，不是作者观点】\n" +
+                method + "\n\n" + REVIEWER + "\n\n【完整剧本，供独立冷读】\n" + script), [sha(script), *refs]
     if stage == "adjudicate":
         if evidence_dir is None:
             raise RuntimeError("comparison requires four verified receipts")
@@ -108,7 +142,9 @@ def build(stage: str, run_id: str, previous: Path | None = None,
         for label, w, r in (("A", w_a, r_a), ("B", w_b, r_b)):
             packet += (f"\n\n【候选{label}完整剧本】\n" + scenes_only(w["model_output"], min_length=1500)
                        + f"\n\n【候选{label}独立AI复审】\n" + r["model_output"])
-        return BRIEF + "\n\n" + ADJUDICATOR + packet, [sha(packet)]
+        method, refs = role_context("Story Editor", "Director")
+        return (BRIEF + "\n\n【现有专业岗位方法】\n" + method +
+                "\n\n" + ADJUDICATOR + packet), [sha(packet), *refs]
     raise ValueError(f"unknown stage {stage}")
 
 
