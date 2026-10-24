@@ -6,6 +6,8 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
+from .checkpoint_io import read_snapshot, write_snapshot
+
 
 class MediaGraphError(ValueError):
     pass
@@ -231,8 +233,21 @@ class MediaGraph:
             raise MediaGraphError("promotion decision result is not promotive")
         if ref.key() not in decision.subject_refs:
             raise MediaGraphError("promotion decision does not bind the asset version")
-        if self.asset_state(ref) in {"REJECTED", "RETIRED"}:
-            raise MediaGraphError("rejected/retired asset cannot be promoted without a new version")
+        if self.asset_state(ref) in {"REJECTED", "RETIRED", "STALE"}:
+            raise MediaGraphError("rejected/retired/stale asset cannot be promoted without a current version")
+        # A superseded plan or canon invalidates release authority of all its
+        # descendants even if explicit stale propagation has not yet run.
+        # This is an admission guard, not a mutation of historical artifacts.
+        ancestors = list(asset.derived_from)
+        visited: set[AssetRef] = set()
+        while ancestors:
+            parent = ancestors.pop()
+            if parent in visited:
+                continue
+            visited.add(parent)
+            if self.asset_state(parent) in {"STALE", "REJECTED", "RETIRED"}:
+                raise MediaGraphError("cannot promote asset derived from stale/rejected/retired upstream: " + parent.key())
+            ancestors.extend(self.assets[parent].derived_from)
         prior_version = self.promoted_versions.get(ref.asset_id)
         if prior_version and prior_version != ref.version_id:
             self.asset_state_overrides[AssetRef(ref.asset_id, prior_version)] = "STALE"
@@ -252,16 +267,35 @@ class MediaGraph:
             del self.promoted_versions[ref.asset_id]
 
     def asset_state(self, ref: AssetRef) -> str:
+        """Effective state includes upstream invalidation without requiring a
+        separate propagation call. Historical records remain unchanged.
+        """
         asset = self.assets.get(ref)
         if asset is None:
             raise MediaGraphError(f"asset missing: {ref.key()}")
-        return self.asset_state_overrides.get(ref, asset.state)
+        state = self.asset_state_overrides.get(ref, asset.state)
+        if state in {"STALE", "REJECTED", "RETIRED"}:
+            return state
+        visited: set[AssetRef] = set()
+        pending = list(asset.derived_from)
+        while pending:
+            parent = pending.pop()
+            if parent in visited:
+                continue
+            visited.add(parent)
+            parent_asset = self.assets[parent]
+            parent_state = self.asset_state_overrides.get(parent, parent_asset.state)
+            if parent_state in {"STALE", "REJECTED", "RETIRED"}:
+                return "STALE"
+            pending.extend(parent_asset.derived_from)
+        return state
 
     def current_promoted(self, asset_id: str) -> AssetVersion | None:
         version_id = self.promoted_versions.get(asset_id)
         if version_id is None:
             return None
-        return self.assets[AssetRef(asset_id, version_id)]
+        ref = AssetRef(asset_id, version_id)
+        return self.assets[ref] if self.asset_state(ref) == "PROMOTED" else None
 
     def downstream_asset_closure(self, changed_ref: AssetRef) -> tuple[AssetRef, ...]:
         if changed_ref not in self.assets:
@@ -391,18 +425,26 @@ class MediaGraph:
 
 
 class MediaGraphStore:
-    """Atomic JSON persistence for the canonical media graph metadata."""
+    """Version-checked local JSON checkpoint; never overwrite a newer writer."""
 
     def __init__(self, path: Path):
         self.path = Path(path)
 
     def load(self) -> MediaGraph:
-        if not self.path.is_file():
-            return MediaGraph()
-        return MediaGraph.from_dict(json.loads(self.path.read_text(encoding="utf-8")))
+        payload, revision = read_snapshot(self.path)
+        graph = MediaGraph.from_dict(payload) if payload is not None else MediaGraph()
+        graph._checkpoint_revision = revision
+        graph._checkpoint_path = str(self.path.resolve())
+        return graph
 
     def save(self, graph: MediaGraph) -> None:
-        self.path.parent.mkdir(parents=True, exist_ok=True)
-        tmp = self.path.with_suffix(self.path.suffix + ".tmp")
-        tmp.write_text(json.dumps(graph.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
-        os.replace(tmp, self.path)
+        path = str(self.path.resolve())
+        prior_path = getattr(graph, "_checkpoint_path", path)
+        if prior_path != path:
+            raise MediaGraphError("graph loaded from another snapshot; reload the destination first")
+        revision = write_snapshot(
+            self.path, graph.to_dict(),
+            expected_revision=getattr(graph, "_checkpoint_revision", None),
+        )
+        graph._checkpoint_revision = revision
+        graph._checkpoint_path = path

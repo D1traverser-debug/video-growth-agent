@@ -1,0 +1,33 @@
+{
+  "provenance": {
+    "stage": "review_a",
+    "provider": "github-copilot-cli",
+    "provider_model": "gpt-6-luna",
+    "provider_response_id": "a1401db8-471c-49ea-a192-78dc3ed2f1d1",
+    "copilot_session_id": "43ec7276-b624-4954-b1a0-f6b65bbbe4b9",
+    "github_run_id": "40081322942",
+    "github_job": "review_a",
+    "source_commit_sha": "96f821e1d9cb4b776f34ea5a9eba2d344252f4a4",
+    "source_refs": [
+      "fb201ca3f327e3721c00736c732ed391da7f9092cc63ea9d8c4b7412879f5cb3",
+      "video_growth_agent/data/team.md#Story_Editor@sha256:a75de1d596cc72be0b3fea0dd4c881eb1f403cc722d129968c1ebe8c3af6242e"
+    ],
+    "prompt_sha256": "172a75bb07c6396c76f2301cdcd7e4e883ba79755d07970e9527e25654a245e4",
+    "input_script_sha256": "fb201ca3f327e3721c00736c732ed391da7f9092cc63ea9d8c4b7412879f5cb3",
+    "output_sha256": "7518f3756b12353c6cd9778f7dcea6478531798cd56cbca0e2e8dfd289f3031a",
+    "copilot_jsonl_sha256": "310fb824925b180bd31702e75c0d5603128e1ac7b4d35296258fe90dd65d4195",
+    "external_human_viewer_count": 0,
+    "artistic_acceptance": false
+  },
+  "model_output": "**STRUCTURAL_REWRITE** — 独立冷读来自一次隔离上下文的委托模型审阅；不是真人审稿，具体执行者身份无法核实。\n\n第一、二场的时间表削弱了核心困境：03:12 时弹药列车预计 04:33 到，林说轴承需在 04:30 前装泵；剧本没有解释为何不让平车先过桥。第四场直到 04:24 才切换道岔，也未交代平车此前为何不能通行。即使确有冲突，达也能操作信号、取消炮击并记录决定；剧本未说明为何必须由 Agent 签来作选择。\n\n第五、六场又未兑现足够代价：诺下令不射击、撤离射击点，却没有可见损失；泵只流出浑水，未展示居民实际获得可用供水。签张贴通行票，但停用威胁、达的责任及配水不公都没有后续结果。首先应重构时间与替代方案，确立真实且不可轻易回避的冲突，再明确各方承担的代价与结局后果。",
+  "usage": {
+    "premiumRequests": 1,
+    "totalApiDurationMs": 105163,
+    "sessionDurationMs": 108980,
+    "codeChanges": {
+      "linesAdded": 0,
+      "linesRemoved": 0,
+      "filesModified": []
+    }
+  }
+}

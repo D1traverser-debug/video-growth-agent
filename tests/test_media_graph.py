@@ -163,3 +163,95 @@ def test_graph_round_trip_persists_identity_lineage_decisions_and_pointers(tmp_p
 
     payload = json.loads(path.read_text(encoding="utf-8"))
     assert payload["promoted_versions"]["frame"] == "v1"
+
+def test_invalidated_take_cannot_be_promoted_even_with_later_positive_decision():
+    """A previously valid review receipt cannot revive obsolete plan descendants."""
+    graph = _base_graph()
+    plan = AssetRef("director-plan", "p1")
+    take = AssetRef("take", "t1")
+    graph.add_asset(AssetVersion(plan, "episode-1", "EDITORIAL_PLAN", "plan://p1", "sha256:p1"))
+    graph.add_asset(AssetVersion(take, "shot-1", "VIDEO_TAKE", "take://t1", "sha256:t1", derived_from=(plan,)))
+    graph.add_evidence(EvidenceRecord(
+        "review-old-take", "ASSET", take.key(), "REVIEW",
+        ("report://observed-t1",), "2026-10-24T01:00:00Z",
+    ))
+    graph.add_decision(DecisionRecord(
+        "accept-stale", "ASSET_PROMOTION", "editor",
+        (take.key(),), ("criteria://shot-quality",),
+        ("review-old-take",), "PROMOTE", "2026-10-24T01:01:00Z",
+    ))
+    affected = graph.invalidate_downstream(plan)
+    assert take in affected
+    assert graph.asset_state(take) == "STALE"
+    with pytest.raises(MediaGraphError, match="stale"):
+        graph.promote_asset(take, decision_id="accept-stale")
+    assert graph.current_promoted("take") is None
+    assert graph.asset_state(take) == "STALE"
+
+def test_promotion_rejects_transitive_obsolete_plan_even_without_stale_propagation():
+    """The promote gate must not depend on every caller invalidating descendants first."""
+    graph = _base_graph()
+    old = AssetRef("director-plan", "p1")
+    new = AssetRef("director-plan", "p2")
+    frame = AssetRef("planned-frame", "f1")
+    take = AssetRef("rendered-take", "t1")
+    graph.add_asset(AssetVersion(old, "episode-1", "DIRECTOR_PLAN", "plan://p1", "sha256:p1"))
+    graph.add_asset(AssetVersion(new, "episode-1", "DIRECTOR_PLAN", "plan://p2", "sha256:p2"))
+    graph.add_asset(AssetVersion(frame, "shot-1", "IMAGE", "frame://f1", "sha256:f1", derived_from=(old,)))
+    graph.add_asset(AssetVersion(take, "shot-1", "VIDEO_TAKE", "take://t1", "sha256:t1", derived_from=(frame,)))
+
+    for ref in (old, new, take):
+        evidence_id = "review:" + ref.key()
+        decision_id = "promote:" + ref.key()
+        graph.add_evidence(EvidenceRecord(
+            evidence_id, "ASSET", ref.key(), "REVIEW", ("review://test-" + ref.key(),),
+            "2026-10-24T02:00:00Z",
+        ))
+        graph.add_decision(DecisionRecord(
+            decision_id, "ASSET_PROMOTION", "editor", (ref.key(),),
+            ("criteria://test",), (evidence_id,), "PROMOTE", "2026-10-24T02:01:00Z",
+        ))
+    graph.promote_asset(old, decision_id="promote:" + old.key())
+    graph.promote_asset(new, decision_id="promote:" + new.key())
+    assert graph.asset_state(old) == "STALE"
+    assert graph.asset_state(take) == "STALE"  # effective state needs no invalidation call
+    with pytest.raises(MediaGraphError, match="stale"):
+        graph.promote_asset(take, decision_id="promote:" + take.key())
+    assert graph.current_promoted("rendered-take") is None
+
+
+
+def test_promoted_take_becomes_unavailable_after_plan_supersession_without_propagation():
+    """Release-facing current and timeline queries cannot see a stale selected Take."""
+    from video_growth_agent.timeline import TimelineClip, TimelineSpec, TimelineError
+
+    graph = _base_graph()
+    plan_old = AssetRef("plan", "v1")
+    plan_new = AssetRef("plan", "v2")
+    take = AssetRef("take", "v1")
+    graph.add_asset(AssetVersion(plan_old, "episode-1", "DIRECTOR_PLAN", "plan://old", "sha256:old"))
+    graph.add_asset(AssetVersion(plan_new, "episode-1", "DIRECTOR_PLAN", "plan://new", "sha256:new"))
+    graph.add_asset(AssetVersion(take, "shot-1", "VIDEO_TAKE", "asset://take", "sha256:take", derived_from=(plan_old,)))
+
+    for ref in (plan_old, plan_new, take):
+        eid = "e:" + ref.key()
+        did = "d:" + ref.key()
+        graph.add_evidence(EvidenceRecord(eid, "ASSET", ref.key(), "REVIEW", ("proof://" + ref.key(),), "2026-10-24T00:00:00Z"))
+        graph.add_decision(DecisionRecord(
+            did, "PROMOTION", "editor", (ref.key(),), ("criteria://review",),
+            (eid,), "PROMOTE", "2026-10-24T00:01:00Z",
+        ))
+    graph.promote_asset(plan_old, decision_id="d:" + plan_old.key())
+    graph.promote_asset(take, decision_id="d:" + take.key())
+    timeline = TimelineSpec("master", "v1", "episode-1", (TimelineClip("clip", take, "V", 0, 0, 5),))
+    timeline.validate_against_graph(graph)
+    assert graph.current_promoted("take").ref == take
+
+    # Deliberately omit invalidate_downstream(plan_old). Readers must remain safe.
+    graph.promote_asset(plan_new, decision_id="d:" + plan_new.key())
+    assert graph.asset_state(take) == "STALE"
+    assert graph.current_promoted("take") is None
+    with pytest.raises(TimelineError, match="not promoted"):
+        timeline.validate_against_graph(graph)
+    # History is retained for diagnosis and rollback planning.
+    assert take in graph.assets

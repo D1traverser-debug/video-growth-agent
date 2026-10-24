@@ -1,0 +1,198 @@
+name: Agent War - Cleanroom Two Story Trial
+
+# Model calls do not run on ordinary code pushes.
+# Trigger only after a deliberate request-file update or manual dispatch.
+on:
+  push:
+    branches:
+      - refactor/prompt-director-core-20261023
+    paths:
+      - audits/agent_war_cleanroom_runs/REQUEST.json
+  workflow_dispatch:
+
+concurrency:
+  group: agent-war-cleanroom-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  writer_a:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      copilot-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install -g @github/copilot
+      - name: Independent original writer A (brief only)
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 -m scripts.agent_war_cleanroom --stage writer_a --out out/writer_a.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: film-writer-a
+          path: out/writer_a.*
+          if-no-files-found: error
+          retention-days: 30
+
+  writer_b:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      copilot-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install -g @github/copilot
+      - name: Independent original writer B (brief only, separate session)
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 -m scripts.agent_war_cleanroom --stage writer_b --out out/writer_b.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: film-writer-b
+          path: out/writer_b.*
+          if-no-files-found: error
+          retention-days: 30
+
+  review_a:
+    needs: writer_a
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      copilot-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: film-writer-a
+          path: evidence
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install -g @github/copilot
+      - name: Blind story editor A
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 -m scripts.agent_war_cleanroom --stage review_a --previous evidence/writer_a.json --out out/review_a.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: film-review-a
+          path: out/review_a.*
+          if-no-files-found: error
+          retention-days: 30
+
+  review_b:
+    needs: writer_b
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      copilot-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: film-writer-b
+          path: evidence
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install -g @github/copilot
+      - name: Blind story editor B
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 -m scripts.agent_war_cleanroom --stage review_b --previous evidence/writer_b.json --out out/review_b.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: film-review-b
+          path: out/review_b.*
+          if-no-files-found: error
+          retention-days: 30
+
+  adjudicate:
+    needs: [review_a, review_b]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      copilot-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: film-*
+          path: evidence
+          merge-multiple: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install -g @github/copilot
+      - name: Compare both independently reviewed scripts
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 -m scripts.agent_war_cleanroom --stage adjudicate --evidence-dir evidence --out out/adjudicate.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: film-adjudicate
+          path: out/adjudicate.*
+          if-no-files-found: error
+          retention-days: 30
+
+  preserve:
+    needs: adjudicate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: film-*
+          path: evidence
+          merge-multiple: true
+      - name: Verify provenance, distinct roles and no auto-promotion
+        env:
+          TARGET: audits/agent_war_cleanroom_runs/${{ github.run_id }}
+          REPO_REF: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$TARGET"
+          cp evidence/*.json evidence/*.jsonl "$TARGET/"
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          from scripts.agent_war_cleanroom import verified, distinct, build
+          root = Path(os.environ['TARGET'])
+          run = os.environ['GITHUB_RUN_ID']
+          receipts = [verified(root / f'{stage}.json', stage, run)
+                      for stage in ('writer_a', 'writer_b', 'review_a', 'review_b', 'adjudicate')]
+          distinct(*receipts)
+          build('adjudicate', run, evidence_dir=root)
+          assert all(r['provenance']['artistic_acceptance'] is False for r in receipts)
+          assert all(r['provenance']['external_human_viewer_count'] == 0 for r in receipts)
+          (root / 'README.md').write_text(
+              '# Unapproved original Agent War trial\n\n'
+              'Five distinct Copilot AI sessions: two independent writers, '
+              'two script-blind story editors, one comparative adjudicator. '
+              'No human viewers, animatic, approved screenplay or film.\n',
+              encoding='utf-8')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$TARGET"
+          git commit -m 'agent-story: archive cleanroom evidence [skip ci]'
+          for attempt in 1 2 3 4; do
+            git fetch origin "refs/heads/$REPO_REF"
+            git rebase FETCH_HEAD
+            if git push origin "HEAD:refs/heads/$REPO_REF"; then exit 0; fi
+          done
+          exit 1

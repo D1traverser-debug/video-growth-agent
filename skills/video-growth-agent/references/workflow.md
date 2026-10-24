@@ -24,6 +24,61 @@ Machine-readable stage order and gate contracts live in `video_growth_agent/data
 - LEARN: decide what becomes reusable knowledge, what remains local and what should be rejected.
 - COMPLETE: durable project package exists.
 
+## Story-first commissioning and generation-mode selection (2026-10-24 owner correction)
+
+**User outcome overrides the generator's clip length.** A 60-second film is a 60-second story, not six unrelated 10-second descriptions. The current short-film route MUST execute existing SCRIPT → SCRIPT_AUDIT → STORYBOARD / story-reel review before LOOKDEV or prompts. This is an application of existing stage authority, not a new controller, required review role, magic numeric artistic score or a vendor-specific global standard.
+
+
+### When story quality fails: autonomous return-to-source (not a new production gate)
+
+This is an execution obligation of the **existing** Writer / Story Editor / Director and SCRIPT → SCRIPT_AUDIT boundary; it is not a second controller, a new role, a numeric quality score, or an automatic PASS. Trigger it when the user questions what the film means, a reviewer rejects the story, repeated drafts converge on the same premise, an Agent can be replaced by ordinary human operators without changing the plot, or a source/counterexample exposes a cheaper resolution.
+
+**Do not ask the commissioner to supply the missing professional research or choose among a pile of weak drafts.** The current owner should perform relevant retrieval and critical synthesis autonomously, scoped to the observed defect:
+1. Return to the **literal original user brief and full present story**, distinguishing locked user constraints from prior AI-added assumptions; review exact scene action rather than retellings.
+2. Identify the specific creative defect and the professional discipline that owns it (e.g. Story Editor for causal premise; Writer for character desire; Director for readable staging). Search and read the **applicable primary** filmmaker/storyboard/creator teaching or original film observations and, for fictional Agent behavior, current technical sources. A source title or method quotation alone is **not** evidence the script improved.
+3. For each studied method record **source actually inspected → transferable mechanism → why appropriate or inappropriate here → concrete changed scene/action or rejected alternative → cheapest falsifier**. Reject a method when it would force long-film structure, duplicate generic formulas, promote video-prompt grammar over the story, or impose unrequested morals.
+4. Compare at least one truly different premise from the **same original brief** without feeding its writer the failing incumbent's plot. If a premise is correctly themed but boring, physically impossible, or solved by a simpler action, **replace or revise it before shot planning**; do not rescue it with camera adjectives, a fake AI authority, or additional roles.
+5. Apply the current Story Editor's explicit counterfactuals: substitute two communicating humans with comparable permissions, remove one contested Agent, ask why the opponent would not choose a cheaper victory, test objective conflicts and irreversibility, and ask whether the first-time audience has a concrete reason to care. Identify exact screenplay beats supporting or failing each answer.
+6. Save the specific source→decision→retest evidence to the **existing film's review/audit artifact** and update the current candidate's status. If significant questions remain, return `STORY_REVISION_REQUIRED` and leave shot prompts, model calls, visual assets and film-quality claims **unapproved**. Technical CI can confirm file/integration validity, never artistic approval.
+7. Only after SCRIPT and SCRIPT_AUDIT are genuinely resolved, use rough thumbnail pitch/storyreel and real no-context observations to test whether the story is **perceptible**. A prepared review prompt is not a completed reviewer; a model role is not a human audience.
+
+This loop is **problem-specific**, not mandatory broad web browsing for every minor shot change. It is the responsibility of the operating Agent, not a demand for the user to invent a complete task instruction. Existing `video_growth_agent/data/workflow.json` is the compatibility-stage authority; for current 0.8 product operation, retain the single `EpisodeIntent → BeatSpec → ShotIntent → EditorialPlan` and MediaGraph lineage defined by `UAOS_SKILL.md`. Do not create a parallel hierarchy or replace the original film's project identity.
+
+### SCRIPT: content before expensive generation
+
+For an original narrative rather than a transcription, formulate competing *story premises* when real alternatives would improve the brief. Before drafting prompts, give each viable premise an observable opening event, a character with a concrete want and a costly/meaningful choice, a rule/constraint, escalating and causally linked attempts, a genuine reveal/reversal, a consequence and a final image that changes the meaning of the opening. A sacrifice/death/resurrection shortcut with no earned character desire or meaningful consequence should not pass by default. Separate **theme** (what the story expresses) from **plot** (what visibly happens). Preserve required platform, aspect, duration, cost and rights/truth rules; don't invent user preferences such as a mandatory moral, robot protagonist or 3D style.
+
+### SCRIPT_AUDIT: human-understandable narrative gate
+
+Test comprehension and dramatic necessity *before* converting script to model jargon:
+- Explain the full film in a 1–2 sentence logline and a causal paragraph; viewers should be able to infer want, obstacle, changed belief/choice and payoff from visible/audible beats.
+- Identify weak stakes, predictable or consequence-free twists, unexplained mechanics, coincidence and redundant beats; **rewrite** rather than padding with camera adjectives.
+- Stress-test with still-storyboard/animatic: remove unnecessary captions/dialogue and confirm causal comprehension with cold viewers when available. Simulated AI role feedback is a candidate critique, not proof of independent human reception.
+- The reviewer reports `STORY_REVISION_REQUIRED` or `STORY_READY_FOR_STORYBOARD` with specific reasons, not an invented numeric PASS score. Neither a quoted-source coverage check nor a prompt compiler is an artistic acceptance gate.
+
+Pixar's primary teaching materials cover wants/needs, obstacles, character arc, stakes, story spine, visual language, film grammar, and iterative storyboard-pitch-feedback/storyreels: https://www.khanacademy.org/computing/pixar/storytelling and https://www.khanacademy.org/partners/pixar.
+
+### STORYBOARD: author the 60-second timeline before chunking it
+
+Allocate beats by what viewers need to understand and feel; do not preallocate six 10-second 'chapters' merely because a provider can output 10-second clips. Specify for each beat: dramatic question, new information, motivation/choice, shot scale, spatial relationship, character/prop state, sound, intended edit point, and explicit continuity reference. Build a silent still storyboard or rough timed animatic first. A cinematic 60-second film may need 10–20 short editing shots even if the render service uses 6–10 generator jobs. Generate handles/alternates when feasible; six accepted 10-second clips is a minimum, not a guarantee of usable 60-second runtime.
+
+### Shot-by-shot mode selection using available UI and current model evidence
+
+For the *specific* user screenshot from 2026-10-24 the selected tab is `文生视频`, the visible four tabs are `文生视频 / 图生视频 / 首尾帧 / 参考图生视频`, and selected constraints are **H3 / 720p / 10 seconds / 16:9 / generate audio on**. Locked 1080p/15s/30s/60s controls and displayed 'free' flag are local UI observations, NOT an official API price, model-wide technical constraint, or verified capability in the other tabs. Each switched tab must be checked for model/settings/availability before advising a real generation.
+
+Mode advice, not a rigid universal rule:
+- Text-to-video (T2VA): initial independent atmosphere, no exact known character/frame dependency, quick concept exploration. Weak choice for recurrent-character continuity.
+- First-frame I2VA (`图生视频`): an approved exact 16:9 character/scene composition is the start; image anchors identity and layout, text directs motion. Obtain that keyframe by **text-to-image → image review/adjustment → image-to-video** when no approved art exists. Text-to-image is an upstream workflow step, not a fifth video tab.
+- First-to-last FL2VA (`首尾帧`): beginning AND ending compositions are known and reachable by a plausible continuous action or controlled environmental transformation. Describe the physical intermediate motion; avoid implausible morphing or requiring arbitrary hard scene changes between distant pictures.
+- Reference mode Ref2VA (`参考图生视频` UI): use approved identity/style/prop/environment reference images when precise starting frame is unnecessary; H3 API can additionally accept video/audio references where **that actual UI** exposes them. Do not promise that reference images can be simultaneously attached to first/last frames; some hosts make these alternate input modes.
+- Clip-to-clip continuation: use a validated preceding endpoint as the next start **only for a continuous action**. For a deliberate cinematic cut, author a separate new shot keyframe using the same approved style/character bible instead of mechanically reusing the last frame. Cross-shot matching requires review of silhouette, wardrobe, color, geometry, scene layout and prop states regardless of mode.
+
+MiniMax primary sources: https://platform.minimax.io/docs/guides/video-generation ; https://www.minimax.io/news/minimax-h3-open-source ; https://github.com/MiniMax-AI/MiniMax-H3/blob/main/skills/h3-prompt-writing/SKILL.md . H3 modes are genuinely distinct; first/last references encode timestamp anchoring, not universal appearance protection. See `prompt-direction.md` and `craft-source-studies.md` for the existing prompt/craft owners. Vendor-native syntax belongs *after* the selected story/mode is approved.
+
+### VIDEO QA: story as seen by audience, not as intended in text
+
+Review the **actual playable result** and compare against story-reel rather than congratulating a beautiful still: can a cold viewer infer motivation, turning point and payoff without reading the source? Record timecoded evidence for drift, physical-action coherence, false continuity, pacing, sound and bad reveal; map each to the owned shot, generation reference and candidate repair. Technical FFmpeg PASS, role-completion receipt, or a model producing 10 seconds does not certify a good story. Evaluate revised actual videos and preserve failed takes; record only scoped learning from matched outcomes.
+
 ## Three-part gate
 Each stage has required artifacts, required professional sign-offs and optional deterministic machine guards. Missing any required class blocks progression. Work-order/process proof is enforced separately by the base Runtime for every stage that declares execution-plan tasks.
 

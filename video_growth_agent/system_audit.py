@@ -299,7 +299,7 @@ def package_audit() -> dict[str, Any]:
     role_cfg = _json(data_path("roles.json"))
     if role_cfg.get("prompt_source_local") != "team.md":
         failures.append("roles_prompt_source_local_not_explicit")
-    if role_cfg.get("canonical_prompt_source") != "skills/video-growth-agent/references/team.md":
+    if role_cfg.get("canonical_prompt_source") != "video_growth_agent/data/team.md":
         failures.append("roles_canonical_prompt_source_not_explicit")
 
     failures.extend(
@@ -587,12 +587,15 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
         if adapter.get("legacy_controller_compatibility") != "NONE":
             failures.append("uaos_adapter_legacy_compatibility_enabled")
 
-    skill_team = root / "skills/video-growth-agent/references/team.md"
+    # The packaged runtime role prompt is the single source of truth.
+    # A duplicate Skill mirror was retired after byte-identical content audit.
     packaged_team = root / "video_growth_agent/data/team.md"
-    if not skill_team.is_file() or not packaged_team.is_file():
-        failures.append("team_prompt_mirror_missing")
-    elif skill_team.read_bytes() != packaged_team.read_bytes():
-        failures.append("team_prompt_mirror_drift")
+    if not packaged_team.is_file():
+        failures.append("packaged_role_prompt_missing")
+    elif not packaged_team.read_text(encoding="utf-8").strip():
+        failures.append("packaged_role_prompt_empty")
+    if (root / "skills/video-growth-agent/references/team.md").exists():
+        failures.append("obsolete_role_prompt_mirror_reintroduced")
 
     global_docs = sorted((root / "skills/video-growth-agent").rglob("*.md"))
     global_docs.extend(root / rel for rel in CURRENT_GLOBAL_FILES if rel.endswith(".md"))
@@ -768,4 +771,16 @@ def run_system_audit(repo_root: Path | None = None) -> dict[str, Any]:
         "repository": repository,
         "failures": failures,
         "pass": not failures,
+        "assurance_scope": {
+            "pass_means": "STATIC_CODE_CONFIGURATION_AND_TESTABLE_RUNTIME_INVARIANTS",
+            "does_not_certify": [
+                "AUTHENTIC_MODEL_GENERATION",
+                "FILM_SEMANTIC_OR_ARTISTIC_QUALITY",
+                "INDEPENDENT_AUDIO_VIDEO_REVIEW",
+                "REAL_PLATFORM_GROWTH_OR_COMMERCIAL_RESULTS",
+                "UNSEEN_REMOTE_OR_CONCURRENT_RUNTIME_ENVIRONMENTS",
+            ],
+            "goal_fit_evidence_ref": "audits/VIDEO_END_TO_END_GOAL_FIT_AUDIT_2026-10-24.md",
+            "goal_achievement_verdict": "NOT_ASSESSED_BY_STATIC_AUDIT",
+        },
     }

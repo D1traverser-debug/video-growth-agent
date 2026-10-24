@@ -2,6 +2,12 @@
 
 Executable AI-native media business domain owner under `D1traverser-debug/universal-agent-os@main`, integrating media growth, original digital IP, commercialization and provider-neutral audiovisual production.
 
+## Active in-flight candidate / cross-chat continuation (not yet in main)
+
+For the current **Video prompt craftsmanship, cross-role collaboration and reusable learning** workstream, read the canonical `audits/EVOLUTION_INDEX.json` field `current_resume_ref` and then `audits/PROMPT_CRAFT_PR23_CHECKPOINT_2026-10-24.md` **on draft [PR #23](https://github.com/D1traverser-debug/video-growth-agent/pull/23)**. This records completed code/evidence, user priorities, outstanding quality gates and exact next actions. `main` is still the stable 0.8 production baseline; this candidate has not been merged or validated by actual model-generated film.
+
+In a new chat, check the current PR, commit and CI **first**. Do not resume from an obsolete conversational recollection or claim a green CI for newer, untested changes. This pointer does not replace UAOS/domain routing or the project-local character-IP resume cursor.
+
 ## Current authority
 
 - `UAOS_SKILL.md` — direct Video-domain operating entry.
@@ -18,6 +24,65 @@ Executable AI-native media business domain owner under `D1traverser-debug/univer
 - binary/media stores — evidence only when bound by stable refs/digests; never business authority by presence alone.
 
 There is no active repository-local parent task index, lease/resume protocol or second cross-chat controller. UAOS router identity remains distinct from all Video business identities.
+
+## Raw screenplay → H3 director flow
+
+The director no longer requires the operator to invent a complete storyboard JSON before using the system.
+
+```bash
+# Generate a source-locked authoring task and all original clock/prose units; no provider call.
+vga author-director tests/fixtures/ribbon_original_30s.txt --seconds 10 --source-ref user-quoted://full-30-second-ribbon-storyboard-2026-10-23
+
+# Validate an actual model-produced director-plan JSON against the *exact* source
+# and compile H3 Chinese prompts; fail on omitted source units, false quotes,
+# contradictory timing, or dialogue/soundtrack policy violations.
+vga author-director tests/fixtures/ribbon_original_30s.txt --seconds 10 --source-ref user-quoted://full-30-second-ribbon-storyboard-2026-10-23 --model-output tests/fixtures/prompt_ribbon_fullsource_10s.json
+
+# Optional LIVE text-authoring-model invocation (NOT the H3 video model).
+# Send the source to the configured provider ONLY with explicit API/spend approval.
+# Set VIDEO_DIRECTOR_API_KEY in environment; do not put secrets in commands.
+vga author-director tests/fixtures/ribbon_original_30s.txt --seconds 10 --execute-model --endpoint https://YOUR-PROVIDER/v1/chat/completions --model-name YOUR-TEXT-MODEL --approve-upload-cost --out-plan director.json
+```
+
+Complete 30-second source has 24 time-marked units including original overlapping clock intervals. A separate untimed original idea is handled as sentence-span units. The checksum/source identity and per-unit lexical event maps are verified; whether each event is *understandable to an actual viewer in 10 seconds* remains unverified until generated footage is reviewed. External model calls are opt-in, can incur cost, and permit zero retries by default.
+
+## Cross-discipline craft iteration (uses existing roles and learning library)
+
+There is no new video controller. The seven relevant roles already defined in the Video RoleRegistry (writer, director, storyboard artist, art director, editor, sound director, red team) can receive independent plan-review packets for substantial full-film work. Simple short prompts can skip this full-team overhead.
+
+```bash
+vga craft-round tests/fixtures/prompt_ribbon_fullsource_10s.json
+vga craft-round tests/fixtures/prompt_ribbon_fullsource_10s.json --reviews submitted-reviews.json
+vga craft-round revised-plan.json --previous old-plan.json --revision 2
+vga craft-round revised-plan.json --previous old-plan.json --previous-reviews prior-reviews.json --revision 2
+# Optional seven separate text-model role critiques. The original script is transmitted,
+# so explicit upload/cost approval and the exactly seven-call budget are required:
+# vga craft-round PLAN.json --execute-roles --endpoint https://YOUR-PROVIDER/v1/chat/completions --model-name YOUR-MODEL --approve-upload-cost --max-role-calls 7
+vga techniques --tag review --include-candidates
+```
+
+By default, the command **prepares** review requests but does not execute models. Each role receives the full original script, event quotes, alternatives and exact shot frames, but no other reviewer's verdict. The opt-in role execution calls a separately configured text LLM once per role; its resulting views are explicitly labeled **LLM simulations**, not seven independent humans or actual video reviews. Reconciliation takes externally submitted role critiques, rejects wrong plan versions, forwards findings to the existing discipline owners and requires a new plan hash for edits. `--previous-reviews` reports issues whose corresponding shots were changed versus left untouched; it never asserts those changes are good or the visual result has been seen. Actual media QA remains with existing MediaQA/reviewer attestation. Candidate techniques T-015/016/017 are additions to the **existing** TechniqueLibrary and are not production validated.
+
+Research notes at `skills/video-growth-agent/references/craft-source-studies.md` examine nine first-party producer/editor/model/reliability sources with use cases, non-transferable defaults and falsifiable prototypes. See `self-learning.md` for the existing adoption authority. Reading a Skill does not mean its entire workflow should be copied, or that a provider's specific aesthetic becomes this studio's rule.
+
+## Focused prompt director (isolated candidate)
+
+For a short AI film **prompt task**, use the original brief and run `vga direct-prompts` before invoking unrelated release/business process modules:
+
+```bash
+vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route compare   # defaults to auto: three unranked H3 candidates
+vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route onepass --h3-style official
+vga direct-prompts tests/fixtures/prompt_ip_5s.json --route compare
+vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --study-h3-dialects
+vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --route onepass --plain
+vga direct-prompts tests/fixtures/prompt_ribbon_10s.json --review-sheet
+```
+
+Director plans must now supply `visual_language` for global art direction, including specific materials, color palette, world continuity, motivated light and render finish. Structured H3 prompts also preserve localized sound cues and explicit speaker/language/utterance markup, with an unscored per-shot review packet for real generated footage.
+
+**One positive example is not a universal production template.** The owner reported a good H3 result for one dense Chinese 10-second storyboard, but did not establish a permanent style preference or controlled model winner. For H3, `--h3-style auto` (default) emits **three unranked alternatives**: concise causal (`lean`), dense Chinese shot list (`chinese`), and vendor-structured (`official`), without choosing an aesthetic winner. Explicit style flags remain for reproducible comparison. One-pass versus shotwise is assessed separately with generation/trim costs; PixVerse remains opt-in, never a blanket dismissal. Real video review, not syntax, decides which works for a particular scene.
+
+The current skill is intentionally prompt-centric and does **not** reorganize or delete validated production/release modules. The older all-scope draft PR is not required for this prompt compiler.
 
 ## Runtime 0.8.0 candidate
 

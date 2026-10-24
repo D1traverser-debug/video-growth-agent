@@ -1,0 +1,503 @@
+{
+  "version": 1,
+  "source": {
+    "type": "USER_REFERENCE",
+    "raw": "8k超高清电影级画质，古风国漫3A游戏CG厚涂风格，50mm中焦定焦镜头/2.8浅景深，可选85mm长焦用于特写与虚化，35mm广角环境渲染，24mm超广角用于场景交代，30fps帧率标准，16:9宽屏比例，总时长30秒，禁止超模、画面畸变、多余肢体、穿帮，无台词仅配背景音乐；逐秒分镜提示词：0-5秒，分镜一女主折返场景，0-2秒呼吸感中景拉远，近景剪影以墙上背影，女主站立于挂满许愿铜铃的古树旁望向远处，双手轻轻合十，心中默念希望，背景寺庙轮廓，丁达尔光穿透树叶；2-3秒固定机位，近景拍女主背影与双手，女主双手合十抬起做出许愿手势，心中默念女主的缘分，眼神祈祷虔诚；3-5秒固定机位，近景拍女主双手合十，女主胸前有金色光尘缓缓飘落，心中默念早日降临，镜头缓缓推进，保证手部细节无遮挡，5-6秒切换，近景至脸部，镜头微微仰视，女主抬头看向天空，红色丝带被大风刮起，飘舞向画面右侧，背景露出巨大古桥和亭台，发带飘向画面右侧，6-7秒特写镜头，红色丝带被大风刮起，发带在左上方飘扬，底部光晕弥散，背景为金色光尘，丁达尔光柔、透过丝带；7-8秒拍手带响，女主拍手许愿，许愿带被风吹走；8-9秒拍手带响，女主轻笑，红色飘带向远方逐渐飘远，镜头缓慢拉远，展现女主站在樱花树下许愿的全景，樱花瓣纷纷飘落，背景是古色古香的建筑；9-10秒特写镜头，女主回眸，眼神温柔，10-11秒女主转身，红发带与画面中心，画面延伸入纵深黑色纱帘的男主手中，准备来赴约，11-13秒男主发带被风吹动，11-12秒黑色纱帘的男主的手伸开，红发带恰好落在食指中指之间自然垂落；12-13秒男主握紧拳，将红发带握紧掌心，一腕自垂落，指尖节纤长，13-17秒镜头拉远，男主背影，14-15秒男主转身，露出古铜色皮肤和深邃眉眼，15-16秒男主抬眸，眼神复杂又克制，16-17秒男主握紧红发带，17-19秒特写，男主侧脸，背景是古桥和亭台，19-20秒男主轻笑，20-22秒男主转身，站在远处，22-24秒男主走向女主，24-26秒男主与女主对视，26-28秒男主伸手为女主整理发带，28-30秒结尾，男主与女主并肩而立，背景是古桥和亭台，樱花瓣飘落，镜头缓缓拉远，展现两人背影，远处是古色古香的建筑和山水，画面渐暗，出现字幕\"希望我的缘分早日降临\"。\n",
+    "reference": "user-quoted://full-30-second-ribbon-storyboard-2026-10-23",
+    "completeness": "FULL"
+  },
+  "brief": {
+    "title": "红绸赴约十秒版",
+    "goal": "保留许愿—丝带传递—相遇—系带的完整因果，不伪称保留原30秒停顿",
+    "emotion": "从虔诚愿望到神奇相遇再到温柔确定",
+    "audience": "古风动漫短片观看者",
+    "fps": 30,
+    "total_frames": 300,
+    "aspect_ratio": "16:9",
+    "ending": "两人并肩背影立于古桥樱花雨，字幕后期添加",
+    "narrative_strategy": "红色丝带是唯一贯穿道具，分镜压缩并使用动作方向匹配",
+    "sound_strategy": "古琴铺底、弦乐在红绸接触男主手时短暂停顿并在相遇时展开；无台词，仅背景音乐，不单独生成铃声、风声、拍手拟音，画面中的拍手仍清晰可见。"
+  },
+  "alternatives": [
+    {
+      "id": "ribbon-montage",
+      "premise": "红丝带跨越两人空间并把5组主事件因果连接起来",
+      "visual_mechanism": "将红丝带的运动方向作为剪辑轴，以手接带/握紧/回系的接触状态串镜",
+      "failure_mode": "短时内多次物理接触可能发生穿模与丝带跳变",
+      "why_select_or_reject": "SELECT: 保留事件顺序和真实触发关系，允许分段生成并独立修复"
+    },
+    {
+      "id": "ten-second-single-take",
+      "premise": "不切镜头让一条带子穿桥找到对方并最终系带",
+      "visual_mechanism": "长镜头连续跟踪一条飞行中的丝带",
+      "failure_mode": "10秒内跨越许愿、飞行、握带、对视、系带时空尺度不可信",
+      "why_select_or_reject": "REJECT: 真实动作跨度与短片压缩存在根本冲突"
+    }
+  ],
+  "selected": "ribbon-montage",
+  "required_events": [
+    {
+      "id": "wish",
+      "meaning": "许愿",
+      "origin": "SOURCE",
+      "source_quote": "双手轻轻合十"
+    },
+    {
+      "id": "dust",
+      "meaning": "金色光尘",
+      "origin": "SOURCE",
+      "source_quote": "金色光尘缓缓飘落"
+    },
+    {
+      "id": "wind",
+      "meaning": "发带被吹走",
+      "origin": "SOURCE",
+      "source_quote": "红色丝带被大风刮起"
+    },
+    {
+      "id": "clap",
+      "meaning": "拍手轻笑回眸",
+      "origin": "SOURCE",
+      "source_quote": "女主拍手许愿"
+    },
+    {
+      "id": "catch",
+      "meaning": "男主接带",
+      "origin": "SOURCE",
+      "source_quote": "恰好落在食指中指之间"
+    },
+    {
+      "id": "grip",
+      "meaning": "男主握紧",
+      "origin": "SOURCE",
+      "source_quote": "男主握紧拳"
+    },
+    {
+      "id": "reveal",
+      "meaning": "男主转身露眉眼",
+      "origin": "SOURCE",
+      "source_quote": "古铜色皮肤和深邃眉眼"
+    },
+    {
+      "id": "meet",
+      "meaning": "走向并对视",
+      "origin": "SOURCE",
+      "source_quote": "男主与女主对视"
+    },
+    {
+      "id": "retie",
+      "meaning": "重新整理发带",
+      "origin": "SOURCE",
+      "source_quote": "为女主整理发带"
+    },
+    {
+      "id": "end",
+      "meaning": "两人并肩与字幕",
+      "origin": "SOURCE",
+      "source_quote": "男主与女主并肩而立"
+    },
+    {
+      "id": "source-unit-01",
+      "meaning": "完整原剧本 0-5秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "分镜一女主折返场景"
+    },
+    {
+      "id": "source-unit-02",
+      "meaning": "完整原剧本 0-2秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "呼吸感中景拉远，近景剪影以墙上背影，女主站立于挂满许愿铜铃的古树旁望向远处，双手轻轻合十，心中默念希望，背景寺庙轮廓，丁达尔光穿透树叶"
+    },
+    {
+      "id": "source-unit-03",
+      "meaning": "完整原剧本 2-3秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "固定机位，近景拍女主背影与双手，女主双手合十抬起做出许愿手势，心中默念女主的缘分，眼神祈祷虔诚"
+    },
+    {
+      "id": "source-unit-04",
+      "meaning": "完整原剧本 3-5秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "固定机位，近景拍女主双手合十，女主胸前有金色光尘缓缓飘落，心中默念早日降临，镜头缓缓推进，保证手部细节无遮挡"
+    },
+    {
+      "id": "source-unit-05",
+      "meaning": "完整原剧本 5-6秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "切换，近景至脸部，镜头微微仰视，女主抬头看向天空，红色丝带被大风刮起，飘舞向画面右侧，背景露出巨大古桥和亭台，发带飘向画面右侧"
+    },
+    {
+      "id": "source-unit-06",
+      "meaning": "完整原剧本 6-7秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "特写镜头，红色丝带被大风刮起，发带在左上方飘扬，底部光晕弥散，背景为金色光尘，丁达尔光柔、透过丝带"
+    },
+    {
+      "id": "source-unit-07",
+      "meaning": "完整原剧本 7-8秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "拍手带响，女主拍手许愿，许愿带被风吹走"
+    },
+    {
+      "id": "source-unit-08",
+      "meaning": "完整原剧本 8-9秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "拍手带响，女主轻笑，红色飘带向远方逐渐飘远，镜头缓慢拉远，展现女主站在樱花树下许愿的全景，樱花瓣纷纷飘落，背景是古色古香的建筑"
+    },
+    {
+      "id": "source-unit-09",
+      "meaning": "完整原剧本 9-10秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "特写镜头，女主回眸，眼神温柔"
+    },
+    {
+      "id": "source-unit-10",
+      "meaning": "完整原剧本 10-11秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "女主转身，红发带与画面中心，画面延伸入纵深黑色纱帘的男主手中，准备来赴约"
+    },
+    {
+      "id": "source-unit-11",
+      "meaning": "完整原剧本 11-13秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "男主发带被风吹动"
+    },
+    {
+      "id": "source-unit-12",
+      "meaning": "完整原剧本 11-12秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "黑色纱帘的男主的手伸开，红发带恰好落在食指中指之间自然垂落"
+    },
+    {
+      "id": "source-unit-13",
+      "meaning": "完整原剧本 12-13秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "男主握紧拳，将红发带握紧掌心，一腕自垂落，指尖节纤长"
+    },
+    {
+      "id": "source-unit-14",
+      "meaning": "完整原剧本 13-17秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "镜头拉远，男主背影"
+    },
+    {
+      "id": "source-unit-15",
+      "meaning": "完整原剧本 14-15秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "男主转身，露出古铜色皮肤和深邃眉眼"
+    },
+    {
+      "id": "source-unit-16",
+      "meaning": "完整原剧本 15-16秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "男主抬眸，眼神复杂又克制"
+    },
+    {
+      "id": "source-unit-17",
+      "meaning": "完整原剧本 16-17秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "男主握紧红发带"
+    },
+    {
+      "id": "source-unit-18",
+      "meaning": "完整原剧本 17-19秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "特写，男主侧脸，背景是古桥和亭台"
+    },
+    {
+      "id": "source-unit-19",
+      "meaning": "完整原剧本 19-20秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "男主轻笑"
+    },
+    {
+      "id": "source-unit-20",
+      "meaning": "完整原剧本 20-22秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "男主转身，站在远处"
+    },
+    {
+      "id": "source-unit-21",
+      "meaning": "完整原剧本 22-24秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "男主走向女主"
+    },
+    {
+      "id": "source-unit-22",
+      "meaning": "完整原剧本 24-26秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "男主与女主对视"
+    },
+    {
+      "id": "source-unit-23",
+      "meaning": "完整原剧本 26-28秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "男主伸手为女主整理发带"
+    },
+    {
+      "id": "source-unit-24",
+      "meaning": "完整原剧本 28-30秒 的镜头/动作/氛围元素",
+      "origin": "SOURCE",
+      "source_quote": "结尾，男主与女主并肩而立，背景是古桥和亭台，樱花瓣飘落，镜头缓缓拉远，展现两人背影，远处是古色古香的建筑和山水，画面渐暗，出现字幕\"希望我的缘分早日降临\""
+    }
+  ],
+  "identity_anchors": [
+    "女主头上只有一条红绸发带，离开和返回的都是同一条",
+    "男主古铜肤色深色汉服，脸部一致",
+    "挂满铜铃的古树、石桥、亭台与樱花黄昏环境一致"
+  ],
+  "shots": [
+    {
+      "id": "R1",
+      "start_frame": 0,
+      "end_frame": 48,
+      "scene": "寺庙铜铃古树下",
+      "composition": "35mm中景，铜铃在前景，女主居中",
+      "action": {
+        "start": "女主仰望远处",
+        "trigger": "双掌合十默念缘分",
+        "finish": "指尖微动，金光尘在胸前上升"
+      },
+      "camera": {
+        "framing": "中景转近景",
+        "lens": "35mm环境",
+        "move": "PUSH_IN",
+        "motivation": "建立许愿原因"
+      },
+      "light": {
+        "source": "春日黄昏太阳",
+        "direction": "树林后方透射",
+        "effect": "丁达尔束照见飘落樱花与金尘"
+      },
+      "transition": {
+        "kind": "动作继续",
+        "bridge": "风吹动女主发带",
+        "purpose": "许愿引来风"
+      },
+      "audio": [],
+      "event_ids": [
+        "wish",
+        "dust",
+        "source-unit-01",
+        "source-unit-02",
+        "source-unit-03",
+        "source-unit-04"
+      ],
+      "continuity": "一条完整红发带在女主头上，人物表情虔诚"
+    },
+    {
+      "id": "R2",
+      "start_frame": 48,
+      "end_frame": 96,
+      "scene": "古树向石桥方向",
+      "composition": "85mm女主脸部和头发特写",
+      "action": {
+        "start": "女主睁眼抬头",
+        "trigger": "风吹起红发带，她拍手微笑回眸",
+        "finish": "丝带从发间脱离朝画面右侧飘走"
+      },
+      "camera": {
+        "framing": "人物近景",
+        "lens": "85mm人像",
+        "move": "TILT_UP",
+        "motivation": "顺女主视线看见飘起的发带"
+      },
+      "light": {
+        "source": "金色夕阳",
+        "direction": "头发右侧逆光",
+        "effect": "透明丝带边缘泛暖光"
+      },
+      "transition": {
+        "kind": "丝带遮挡转场",
+        "bridge": "红丝带掠过镜头右侧",
+        "purpose": "让人物镜头切至飞行镜头"
+      },
+      "audio": [],
+      "event_ids": [
+        "wind",
+        "clap",
+        "source-unit-05",
+        "source-unit-06",
+        "source-unit-07",
+        "source-unit-08",
+        "source-unit-09",
+        "source-unit-10"
+      ],
+      "continuity": "红发带是唯一发带，离开之前在头上"
+    },
+    {
+      "id": "R3",
+      "start_frame": 96,
+      "end_frame": 144,
+      "scene": "樱花石桥通往黑色纱帘亭台",
+      "composition": "35mm侧向跟拍，红丝带始终在前景",
+      "action": {
+        "start": "丝带刚越过桥栏",
+        "trigger": "一阵侧风将丝带推向黑纱后伸出的两指",
+        "finish": "红丝带准确搭在男主食指与中指之间"
+      },
+      "camera": {
+        "framing": "横向动态中景",
+        "lens": "35mm",
+        "move": "FOLLOW",
+        "motivation": "追踪同一件道具跨越空间"
+      },
+      "light": {
+        "source": "午后金光",
+        "direction": "从黑纱细缝斜射",
+        "effect": "丝绸半透明可见纹理"
+      },
+      "transition": {
+        "kind": "接触点切镜",
+        "bridge": "丝带触及两指瞬间匹配男主手特写",
+        "purpose": "证明布料不是瞬移"
+      },
+      "audio": [],
+      "event_ids": [
+        "catch",
+        "source-unit-11",
+        "source-unit-12"
+      ],
+      "continuity": "丝带飞行方向保持向右，未切成多条"
+    },
+    {
+      "id": "R4",
+      "start_frame": 144,
+      "end_frame": 198,
+      "scene": "黑纱帘后古亭",
+      "composition": "85mm手与脸侧近景",
+      "action": {
+        "start": "丝带轻落指间",
+        "trigger": "男主手指收拢握紧红绸",
+        "finish": "男主转身抬眸，深邃眉眼显露，轻微克制笑"
+      },
+      "camera": {
+        "framing": "由手到脸近景",
+        "lens": "85mm",
+        "move": "PULL_OUT",
+        "motivation": "揭示男主身份与眼神"
+      },
+      "light": {
+        "source": "寺庙日落侧光",
+        "direction": "纱帘右后方投射",
+        "effect": "古铜肤色真实有阴影"
+      },
+      "transition": {
+        "kind": "动作方向接续",
+        "bridge": "男主脚步朝画面左前方",
+        "purpose": "连接赴约场景"
+      },
+      "audio": [
+        {
+          "at_frame": 159,
+          "category": "MUSIC",
+          "description": "弦乐停顿半拍"
+        }
+      ],
+      "event_ids": [
+        "grip",
+        "reveal",
+        "source-unit-13",
+        "source-unit-14",
+        "source-unit-15",
+        "source-unit-16",
+        "source-unit-17",
+        "source-unit-18",
+        "source-unit-19",
+        "source-unit-20"
+      ],
+      "continuity": "丝带一端始终露在男主拳外"
+    },
+    {
+      "id": "R5",
+      "start_frame": 198,
+      "end_frame": 255,
+      "scene": "石桥两端过渡到女主身边",
+      "composition": "35mm运动中景转50mm双人构图",
+      "action": {
+        "start": "男主持带离开亭台",
+        "trigger": "男主迈步走向女主，她转身看他",
+        "finish": "两人停下面对面，交换视线，男主抬手准备系带"
+      },
+      "camera": {
+        "framing": "双人中近景",
+        "lens": "50mm",
+        "move": "TRACK_LEFT",
+        "motivation": "跟随男主行进并确立两人空间位置"
+      },
+      "light": {
+        "source": "柔和夕阳",
+        "direction": "两人背部高光，面部正向反射",
+        "effect": "温柔不失面部清晰"
+      },
+      "transition": {
+        "kind": "接触动作切镜",
+        "bridge": "抬手动作接到发带重新系好",
+        "purpose": "压缩行走但不省略对视"
+      },
+      "audio": [
+        {
+          "at_frame": 222,
+          "category": "MUSIC",
+          "description": "弦乐展开"
+        }
+      ],
+      "event_ids": [
+        "meet",
+        "source-unit-21",
+        "source-unit-22"
+      ],
+      "continuity": "人物衣着一致，男主手中的红丝带仍在"
+    },
+    {
+      "id": "R6",
+      "start_frame": 255,
+      "end_frame": 300,
+      "scene": "古树古桥与亭台山水全景",
+      "composition": "50mm双人手部转24mm广角背影",
+      "action": {
+        "start": "男主手接近她发间",
+        "trigger": "男主用同一条红丝带整理她的发带",
+        "finish": "二人并肩而立，镜头退至樱花树与桥，标题后期再上"
+      },
+      "camera": {
+        "framing": "中景至全景",
+        "lens": "24mm广角",
+        "move": "PULL_OUT",
+        "motivation": "展示相遇后的完整世界"
+      },
+      "light": {
+        "source": "黄昏残照",
+        "direction": "桥与远山形成柔和逆光",
+        "effect": "人物成为柔和背影轮廓"
+      },
+      "transition": {
+        "kind": "收尾画面预留字幕",
+        "bridge": "顶部留干净天空负空间",
+        "purpose": "用同一红绸完成故事闭环"
+      },
+      "audio": [],
+      "event_ids": [
+        "retie",
+        "end",
+        "source-unit-23",
+        "source-unit-24"
+      ],
+      "continuity": "同一条红丝带重新回到女主发间，最终字幕在后期合成"
+    }
+  ],
+  "provider": {
+    "name": "MiniMax",
+    "model": "MiniMax-H3",
+    "mode": "T2VA",
+    "native_audio": true
+  },
+  "visual_language": {
+    "style": "古风国漫3A游戏CG厚涂美术，精细东方写实动画，8K级视觉细节感而非声称原生8K输出",
+    "world": "春日黄昏古寺、许愿铜铃古树、樱花树、巨大石拱桥、亭台、黑纱帘与远山保持统一空间",
+    "palette": "暖金夕阳、古石灰褐、樱花浅粉、唯一高识别度朱红丝带、男主深靛色汉服",
+    "materials": "丝绸按风向拉伸与飘动，铜铃与木质廊柱真实材质，角色CG肌肤柔和、衣裙厚涂布面与金色浮尘",
+    "lighting": "树叶漏光形成丁达尔体积光束，人物面部受夕阳与环境反射，丝带逆光边缘半透明，桥与山层次分明",
+    "render_finish": "电影级构图、50mm人物叙事与85mm手部表情特写、24mm全景，30fps编辑时间基准、柔和运动模糊、樱花粒子及结尾留字幕空间"
+  }
+}

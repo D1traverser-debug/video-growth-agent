@@ -2,6 +2,9 @@
   "version": "0.2.0",
   "policy": {
     "attestation_required_stages": [
+      "SCRIPT",
+      "SCRIPT_AUDIT",
+      "STORYBOARD",
       "LOOKDEV",
       "VISUAL_PREVIEW",
       "ROUGH_CUT",

@@ -44,6 +44,10 @@ Core stable objects:
 
 Current 0.8 editorial/operability objects extend this substrate rather than replace it.
 
+### Prompt-only director projection
+
+`video_growth_agent/prompt_director.py` checks an original-source-linked creative shot plan and compiles text-only MiniMax H3 and optional PixVerse V6 prompts. It is a **stateless projection**, not another project plan, task queue, rights authority, MediaGraph, or timeline engine. `h3_prompt.py` implements a Chinese full-storyboard dialect (owner reports positive H3 results) and a separate official three-field dialect for comparison. It does not call providers, claim quality from prompt text, or implement reference/keyframe flows without assets. See `skills/video-growth-agent/references/prompt-direction.md`.
+
 ## 4. Executable editorial bridge
 
 `editorial_planning.py` owns:

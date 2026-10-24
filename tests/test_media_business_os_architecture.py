@@ -82,7 +82,10 @@ def test_video_common_behavior_1_3_is_owner_native_and_evolution_is_discoverable
         assert candidate["status"].startswith("CANDIDATE_IMPLEMENTED")
         assert "CURRENT_AGENT_OPERABILITY_DOGFOOD" in candidate["selected_architecture"]
     else:
-        assert evolution["current_candidate"] is None
+        # The 1.3 adoption was promoted; a later independent Video candidate
+        # (for example PR #23) must not be mistaken for a reopened 1.3 adoption.
+        candidate = evolution["current_candidate"]
+        assert candidate is None or candidate.get("id") != adoption_id
         promoted = resolved[adoption_id]
         assert promoted["status"].startswith("PROMOTED__PRODUCTION_CI_VERIFIED")
         assert promoted["candidate_pr"] == 18
