@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-24T17:20:47Z",
+  "updated_at": "2026-10-24T17:23:15Z",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -87,18 +87,18 @@
       "cross_premise_comparison_and_genuine_storyreel_cold_viewer_acceptance"
     ],
     "promotion_authorized": false,
-    "latest_verified_code_head": "f995456b7dd8a187d0b825f196517576a2697d8f",
-    "latest_verified_ci_run": 40095880370,
+    "latest_verified_code_head": "35c0b29873009f3b93a1d57706788f7768aa3b4f",
+    "latest_verified_ci_run": 40115886640,
     "latest_verified_checks": {
       "prompt_contract_passed": 77,
       "prompt_contract_skipped": 2,
-      "all_tests_passed": 314,
+      "all_tests_passed": 316,
       "system_audit": "PASS",
       "installed_cli_smoke": "PASS",
       "whole_user_goal_achieved": false,
-      "independent_story_or_media_qa": "V4_MODEL_STORY_REJECTED__V5_NOT_REVIEWED"
+      "independent_story_or_media_qa": "V5_REJECTED_BY_USER__TEN_SOURCE_AUTHOR_DIAGNOSIS_ONLY"
     },
-    "verification_scope": "TEN_SOURCE_STORYCRAFT_KB_2026-10-25_VERIFICATION__V5_REJECTED__ENGINEERING_CI_PENDING_LATEST",
+    "verification_scope": "TEN_INDEPENDENT_STORYCRAFT_STUDY_CARDS_AND_SOURCE_VERIFICATION__GITHUB_CI_40115886640_SUCCESS_316_TESTS_77_CONTRACT_2_SKIP__NO_SCREENPLAY_ART_APPROVAL",
     "known_unresolved_failure_classes": [
       "FFMPEG_DETECTOR_NONZERO_EXIT_MAY_FALSE_PASS_TECH_QA",
       "NO_GRAPH_REGISTERED_RENDER_TAKE_WITH_BLINDED_OBSERVED_QUALITY",
