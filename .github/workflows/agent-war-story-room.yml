@@ -27,6 +27,7 @@ jobs:
       - name: Run isolated alternative-writer model
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
           python3 scripts/agent_war_review_runner.py \
             --stage premise_challenger \
@@ -51,6 +52,7 @@ jobs:
       - name: Run isolated V6 story-editor model
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
           python3 scripts/agent_war_review_runner.py \
             --stage story_editor \
@@ -81,6 +83,7 @@ jobs:
       - name: Require two real same-run reviews and draft V7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
           python3 scripts/agent_war_review_runner.py \
             --stage rewrite \
