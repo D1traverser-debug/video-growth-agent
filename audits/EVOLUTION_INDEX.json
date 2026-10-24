@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-24T09:39:19Z",
+  "updated_at": "2026-10-24T09:44:11Z",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -87,18 +87,18 @@
       "cross_premise_comparison_and_genuine_storyreel_cold_viewer_acceptance"
     ],
     "promotion_authorized": false,
-    "latest_verified_code_head": "a7bfb8e1fd5d51e9422b68a78b5668a29f551020",
-    "latest_verified_ci_run": 40080535290,
+    "latest_verified_code_head": "ed384c47cd4b9fe372421cb678b0ce983e5bb683",
+    "latest_verified_ci_run": 40083132442,
     "latest_verified_checks": {
       "prompt_contract_passed": 77,
       "prompt_contract_skipped": 2,
-      "all_tests_passed": 294,
+      "all_tests_passed": 296,
       "system_audit": "PASS",
       "installed_cli_smoke": "PASS",
       "whole_user_goal_achieved": false,
       "independent_story_or_media_qa": "UNVERIFIED"
     },
-    "verification_scope": "REAL_COPILOT_RUN_40081322942_ARCHIVED_5_SESSIONS_BOTH_AI_STORIES_STRUCTURAL_REWRITE__CHATGPT_AUTHOR_VOICE_WAR_CANDIDATE_COMMIT_8db331c8_UNREVIEWED",
+    "verification_scope": "PR23_HEAD_ed384c47_CI_40083132442_SUCCESS_296_PASS__ACTUAL_PREVIOUS_COPILOT_RUN_40081322942_REJECTED__NEW_VOICE_WAR_AUTHOR_DRAFT_OPEN",
     "known_unresolved_failure_classes": [
       "FFMPEG_DETECTOR_NONZERO_EXIT_MAY_FALSE_PASS_TECH_QA",
       "NO_GRAPH_REGISTERED_RENDER_TAKE_WITH_BLINDED_OBSERVED_QUALITY",
@@ -349,7 +349,10 @@
       "story_status": "NEW_CHATGPT_AUTHORED_ORIGINAL_SCREENPLAY_UNAPPROVED",
       "story_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/BU_YONG_TA_DE_SHENGYIN_SCREENPLAY_V1_2026-10-24.md",
       "story_commit": "8db331c83353a96fe46dbfeafe44440101ca058c",
-      "next": "Read author's eight-scene voice-warfare script, perform actually independent narrative critique if feasible, test causal and military counterexamples before animatic; no model self-approval or film promotion"
+      "next": "Read author's eight-scene voice-warfare script, perform actually independent narrative critique if feasible, test causal and military counterexamples before animatic; no model self-approval or film promotion",
+      "collaboration_method_code_ref": "e3a151e400fda71ffd53794ae021c74e43fb2407",
+      "collaboration_method_verified_ci_run": 40083132442,
+      "collaboration_method_verification": "296 full tests passed; 77 prompt-contract passed, 2 skipped; implementation verifies method-lane separation and exposure of provenance packet. No subsequent model test proves creativity improved."
     }
   },
   "recent_resolved_or_promoted": [
