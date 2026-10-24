@@ -88,3 +88,29 @@ def test_stale_writer_without_prior_read_cannot_overwrite_existing_checkpoint(tm
     with pytest.raises(CheckpointConflict):
         write_snapshot(path, {"second": 2}, expected_revision=None)
     assert json.loads(path.read_text(encoding="utf-8")) == {"first": 1}
+
+
+def test_post_rename_fsync_failure_is_reported_as_uncertain_not_safe_to_retry(tmp_path, monkeypatch):
+    import os
+    from video_growth_agent import checkpoint_io
+    from video_growth_agent.checkpoint_io import CheckpointDurabilityUncertain
+    if os.name != "posix":
+        pytest.skip("POSIX directory-fsync semantics")
+    path = tmp_path / "state.json"
+    base = write_snapshot(path, {"stage": "OLD"}, expected_revision=None)
+    true_fsync = checkpoint_io.os.fsync
+    count = 0
+
+    def fail_only_directory_sync(fd):
+        nonlocal count
+        count += 1
+        if count == 2:
+            raise OSError("simulated post-rename persistence uncertainty")
+        return true_fsync(fd)
+
+    monkeypatch.setattr(checkpoint_io.os, "fsync", fail_only_directory_sync)
+    with pytest.raises(CheckpointDurabilityUncertain, match="reload current owner state"):
+        write_snapshot(path, {"stage": "NEW"}, expected_revision=base)
+    assert read_snapshot(path)[0] == {"stage": "NEW"}
+    with pytest.raises(CheckpointConflict):
+        write_snapshot(path, {"stage": "UNSAFE_RETRY"}, expected_revision=base)
