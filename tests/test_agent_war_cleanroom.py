@@ -98,7 +98,7 @@ def test_role_skill_provenance_detects_method_updates(monkeypatch, tmp_path):
     original, ref = c.team_method("Writer")
     assert ref.endswith(c.sha(original))
     fake_team = tmp_path / "team.md"
-    fake_team.write_text("## Writer\nupdated role text\n" * 40, encoding="utf-8")
+    fake_team.write_text("## Writer\n" + ("updated role text and method detail. " * 40), encoding="utf-8")
     monkeypatch.setattr(c, "TEAM_METHOD_SOURCE", fake_team)
     changed, changed_ref = c.team_method("Writer")
     assert changed_ref != ref
