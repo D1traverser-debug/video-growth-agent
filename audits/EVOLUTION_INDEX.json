@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-24T12:54:31Z",
+  "updated_at": "2026-10-25",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -98,7 +98,7 @@
       "whole_user_goal_achieved": false,
       "independent_story_or_media_qa": "V4_MODEL_STORY_REJECTED__V5_NOT_REVIEWED"
     },
-    "verification_scope": "V5_SOURCE_AND_EDITORIAL_RECEIPT_COMMITTED__CI_40095880370_SUCCESS_314_PASSED_77_CONTRACT_PASS_2_SKIP__NO_V5_EXTERNAL_ART_REVIEW",
+    "verification_scope": "TEN_INDIVIDUAL_STORYCRAFT_STUDIES_SOURCE_REVIEWED_AND_LINKED__V5_REJECTED_AT_AUTHOR_STORY_CORE__INDEPENDENT_V5_REVIEW_NOT_EXECUTED",
     "known_unresolved_failure_classes": [
       "FFMPEG_DETECTOR_NONZERO_EXIT_MAY_FALSE_PASS_TECH_QA",
       "NO_GRAPH_REGISTERED_RENDER_TAKE_WITH_BLINDED_OBSERVED_QUALITY",
@@ -171,7 +171,7 @@
       "world_authority": "NO_APPROVED_CANON__PROVISIONAL_CREATIVE_CANDIDATES_ONLY",
       "narrative_authority": "audits/agent_war_ai_review_runs/40077050738/STORY_CORE_CANDIDATE_UNAPPROVED.md",
       "first_film_candidate": "白灯不等人 — most recent ACTUAL Copilot writer output; independently REJECT_PREMISE",
-      "status": "V5_REWRITE__SOURCE_REVIEW_PENDING",
+      "status": "V5_ARCHIVED_AS_UNAPPROVED_FAILED_STORY_CORE__RESEARCH_FIRST",
       "duration_hypothesis": "not fixed; evaluate after a story worthy of live boards",
       "superseded_pilots": [
         "第17号漏洞 (user rejected world)",
@@ -203,7 +203,7 @@
       "prior_stories": "断面 V6, 临时编号 V7, 不在册 V8, 白线落下 (REJECT), 两次点名 (STRUCTURAL_REWRITE), 西泄口 (REJECT), 余线 (STRUCTURAL_REWRITE), 白灯不等人 (REJECT, latest)",
       "draft_runtime": "NO_APPROVED_FILM_DURATION",
       "core_story": "Rejected candidate: Agent 织机 diverts an attacking military rail carriage into a dead-end siding, injures civilian 伊娃, then commissioner shuts off Agent and raises bridge. Independent AI reviewer says human signaller/operator can do same and simpler actions are unexplored.",
-      "verified_story_boundaries": "V4_ISOLATED_REVIEW_VERIFIED_NOT_PASSED__V5_NEW_SOURCE_NOT_RE_REVIEWED__NO_PRODUCTION_UNBLOCK",
+      "verified_story_boundaries": "TEN_SOURCE_METHOD_STUDIES_CREATED__AUTHOR_CROSS_APPLIED_AND_REJECTED_V5_CORE__NO_V5_ISOLATED_STORY_REVIEW__NO_SHOT_PRODUCTION",
       "remaining_quality_risks": [
         "repeated premise failures indicate core story methodology must change, not just technological constraints",
         "Agent-specific autonomous responsibility not yet dramatized; audience empathy untested",
@@ -221,7 +221,7 @@
         "runtime_seconds": 114,
         "max_runtime_seconds_exclusive": 120,
         "ip_role": "ORIGINAL_NARRATIVE",
-        "status": "AUTHOR_REWRITE_AFTER_V4_ISOLATED_STRUCTURAL_REWRITE__V5_AUDIT_MISSING",
+        "status": "STORY_CORE_RETHINK_REQUIRED_AFTER_TEN_SOURCE_AUTHOR_STUDY__NOT_INDEPENDENT_V5_REVIEW",
         "artistic_approval": false,
         "independent_editor_review": "V4_EDIT_ONLY_NOT_V5",
         "v4_real_model_review_ref": "audits/agent_war_single_reviews/40095074216/v4_story_editor.json",
@@ -239,8 +239,19 @@
           5,
           10
         ],
-        "stage": "SCRIPT_AUDIT__REVISED_SOURCE_NEEDS_FRESH_REVIEW",
-        "film_theme": "Enemy Agents protecting their own occupants can learn non-verbal contingent passage, without any ceasefire order; temporary cooperation does not end war."
+        "stage": "SCRIPT_RESEARCH__STORY_PREMISE_REPLACEMENT__NO_SHOTS",
+        "film_theme": "Enemy Agents protecting their own occupants can learn non-verbal contingent passage, without any ceasefire order; temporary cooperation does not end war.",
+        "research_index": "skills/video-growth-agent/references/storycraft-research-2026-10-25/INDEX.json",
+        "cause_report": "skills/video-growth-agent/references/storycraft-research-2026-10-25/V5-CASE-REASSESSMENT.md",
+        "review_distinction": "SOURCE_BASED_AUTHOR_SELF_DIAGNOSIS__NOT_EXTERNAL_ARTISTIC_REVIEW",
+        "next_artistic_work": "Explore independently different Agent×War premise engines against visual discovery, humor relevance, audience information gap and non-replaceable agent cause; review strongest with real isolated critic only after scene-level story exists",
+        "reason_for_rejecting_current_film": [
+          "Generic danger->agent replans->rescue->war continues",
+          "Little re-interpretation for viewer or earned humor",
+          "No genuinely tested contrary dramatic proposition",
+          "A simple automated mutual-yielding scheme can replace two autonomous agents",
+          "Current premise not enriched by ten source methods"
+        ]
       },
       "last_known_external_review": "40081322942: Both cleanroom railroad stories STRUCTURAL_REWRITE, comparator STORY_REVISION_REQUIRED",
       "two_minute_author_direction": {

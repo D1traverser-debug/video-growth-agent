@@ -1,5 +1,8 @@
 # Video prompt & professional craft candidate — durable continuation
 
+> **2026-10-25 新的最高优先级研究状态（覆盖以下所有旧剧本优先级）**：用户明确否决V5及前面5版剧本的老套、逻辑牵强、缺乏深思与会心一笑，要求**先逐篇独立深学10篇、逐篇蒸馏建知识库并真实运用，不要立即产片/提示词**。已检索核对一手来源与来源局限，逐篇建10个可独立读取的K01–K10案例卡并补二轮研究、整理权威可检索 `skills/video-growth-agent/references/storycraft-research-2026-10-25/INDEX.json`、跨学科 `skills/video-growth-agent/references/storycraft-research-2026-10-25/README.md` 和旧V5十源会诊 `skills/video-growth-agent/references/storycraft-research-2026-10-25/V5-CASE-REASSESSMENT.md`。已接入原 `video_growth_agent/data/team.md` 的Writer与Story Editor及 `skills/video-growth-agent/references/workflow.md` 的SCRIPT_AUDIT责任，没有增加第二套工作流。**V5是保留存档的被质疑候选（STORY_CORE_RETHINK_REQUIRED），不是待分镜和角色锁定的导演定稿。** 研究的硬结论：此前剧本单一链条“危险→机器优化→救人→战争继续”，缺人物立场冲突、观众信息差与视觉转义、没有真正自创的Agent中间目标和有价代价。下一步先应用K01/K05/K07/K08/K09/K10组合探索真正不同的Agent×战争核心故事，不可直接再次套用无人机/医护/停火构型；仍需有实际外部独立故事审稿。K02 Pixar课程仅能核实纲要，没有完整逐节观看；K06 Harmon来源为转载；没有真实观众，研究≠艺术验收。
+
+
 > **2026-10-24 连接恢复后的真实结果**：一轮真实隔离 Copilot V4 剧本编辑已执行并归档至 `audits/agent_war_single_reviews/40095074216/v4_story_editor.json`，GitHub Actions #40095074216，独立 session/响应/脚本哈希齐备，结果 **STRUCTURAL_REWRITE**，premiumRequests=1，无真人观众或视频生成。按真实审稿原文已完成新 **V5《没有停火命令》114秒** `projects/ai-self-media-commercialization/creative_candidates/agent_war/MEI_YOU_TING_HUO_MING_LING_114S_V5_2026-10-24.md`：删除无法数清的“第七枪”、无连续性的红手套，补上双方交火实际伤及己方人员、两 Agent 自主察觉后以物理动作渐次互惠、女孩先后两次进街的证据差异、弟弟主动解困、红车让路后蓝车先行再轮红车。逐项整改与剩余反证 `audits/AGENT_WAR_V5_114S_EDITORIAL_REVISION_RECEIPT_2026-10-24.md`。**当前权威影视游标是 V5 修订候选，不是 V4 或任何旧故事；V5 尚未重新独立审稿，生产镜头合同保持阻断。** 全仓 CI 不等于影片艺术通过，禁止临时补出真人反馈。5s/10s仍仅是后续生成时长，不决定故事节奏。
 
 
