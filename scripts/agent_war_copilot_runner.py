@@ -118,17 +118,22 @@ def run_stage(stage: str, output: Path, review_dir: Path | None) -> dict:
                 or not info.get("copilot_session_id")):
             raise RuntimeError("V7 script source is not a verified same-run Copilot rewrite")
         # DO NOT pass the author's initial verdict or old story-editor critique.
-        marker = "# 《断面》候选剧本"
-        if marker not in draft_body:
-            raise RuntimeError("V7 cannot isolate complete candidate screenplay from author notes")
-        only_scenes = draft_body.split(marker, 1)[1].strip()
+        import re
+        # Do not force the rewrite to keep the old title / premise.
+        markers = list(re.finditer(
+            r"(?m)^#{1,3}\s*(?:《[^\n]+》.*(?:剧本|故事)|(?:第一场|场一|场景一|Scene\s*1))",
+            draft_body,
+        ))
+        if not markers:
+            raise RuntimeError("V7 cannot isolate screenplay scenes from author notes")
+        only_scenes = draft_body[markers[0].start():].strip()
         if len(only_scenes) < 2000:
             raise RuntimeError("V7 candidate story is too short for serious review")
         system = (
             "你是没有参加先前任何改稿的故事编辑。只看到本次完整故事与原始创作任务。"
             "必须独立重述事件因果；对每一处重大角色决定问有什么更便宜、更自然的替代办法。"
-            "尤其核查：既然存在封堵军用分流支路的部件，主角为什么还要攻击共用主管？"
-            "军方命令与主角私利能否解释这个选择？冷却液、阀门、储备罐、个人快照"
+            "重点检查：角色是否早已拥有一种更便宜、伤害更小、同样能达成目标的手段？"
+            "若有，指出为何当前行为缺少动机而不能靠事后解释补丁。世界中的物理机制"
             "是否在所有场次遵守相同物理规则？配角有没有真实拒绝主角的行动？"
             "请给出至少五条场次级别反例、最严重的不成立点、明确的"
             "REWRITE / REJECT_PREMISE 决定，以及如何通过删换场景让它成立。"
