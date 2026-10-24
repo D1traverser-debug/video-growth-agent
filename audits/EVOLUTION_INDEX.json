@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-24T01:17:38.413+08:00",
+  "updated_at": "2026-10-24T09:35:30.401+08:00",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -13,7 +13,7 @@
   "current_resume_ref": "audits/PROMPT_CRAFT_PR23_CHECKPOINT_2026-10-24.md",
   "current_candidate": {
     "workstream": "PRODUCTION_SYSTEM__PROMPT_CRAFT_AND_LEARNING",
-    "status": "DRAFT_PR__GRAPH_TAKE_AND_TRANSITIVE_FRESHNESS_CI_VERIFIED__LIVE_MEDIA_QA_OPEN",
+    "status": "DRAFT_PR__WHOLE_SYSTEM_GOAL_FIT_AUDITED__SAFETY_AND_LOCAL_CAS_VERIFIED__LIVE_FILM_BUSINESS_GOAL_OPEN",
     "pr_number": 23,
     "head_ref": "refactor/prompt-director-core-20261023",
     "resume_ref": "audits/PROMPT_CRAFT_PR23_CHECKPOINT_2026-10-24.md",
@@ -37,30 +37,53 @@
       "independent_playback_quality_to_take_review_and_LEARN",
       "real_take_technical_and_semantic_qa_with_sha_and_blindness_evidence",
       "provider_issued_run_model_seed_cost_receipt",
-      "transitive_stale_upstream_promotion_recurrence_tests"
+      "transitive_stale_upstream_promotion_recurrence_tests",
+      "approved_provider_create_query_fetch_receipt_persisted_before_or_reconciled_after_uncertain_submit",
+      "real_multigenre_9x16_and_factual_truth_sensitive_end_to_end_production",
+      "frame_timecoded_independent_screen_and_targeted_rejection_revision_replay",
+      "platform_release_metrics_and_business_outcomes_with_cost_per_accepted_shot",
+      "failure_injection_multi_session_snapshot_recovery_and_local_media_migration"
     ],
     "promotion_authorized": false,
-    "latest_verified_code_head": "de5e94bb7b1f916ad7e282f12c401a7dde6e33e0",
-    "latest_verified_ci_run": 39993554389,
+    "latest_verified_code_head": "2f47754ea0475fc54012bb99efb74b12fb05c4b4",
+    "latest_verified_ci_run": 40050305195,
     "latest_verified_checks": {
-      "prompt_contract_passed": 76,
+      "prompt_contract_passed": 77,
       "prompt_contract_skipped": 2,
-      "all_tests_passed": 265,
-      "ci_jobs": "BOTH_SUCCESS",
-      "system_audit": "PASS",
+      "all_tests_passed": 274,
+      "system_audit": "PASS_STATIC_SCOPE_ONLY",
       "installed_cli_smoke": "PASS",
-      "synthetic_media_fixture_not_quality_evidence": true
+      "whole_user_goal_achieved": false,
+      "real_video_perceptual_qa": "UNVERIFIED"
     },
-    "verification_scope": "CURRENT_CODE_SHA_de5e94bb_CI_76_2SKIP_265__METADATA_COMMITS_REQUIRE_FINAL_CI__NO_LIVE_RENDERED_MEDIA_QA",
+    "verification_scope": "PR23_CODE_HEAD_2f47754_CI_77_PASS_2_SKIP_274_PASS__SUBSEQUENT_AUDIT_INDEX_EDITS_AWAIT_CURRENT_HEAD_CI",
     "known_unresolved_failure_classes": [
       "FFMPEG_DETECTOR_NONZERO_EXIT_MAY_FALSE_PASS_TECH_QA",
       "NO_GRAPH_REGISTERED_RENDER_TAKE_WITH_BLINDED_OBSERVED_QUALITY",
       "LOCAL_MEDIA_URI_DURABILITY_UNPROVEN",
-      "AUTHENTIC_PROVIDER_RECEIPT_AND_REVIEWER_ATTESTATION_MISSING"
+      "AUTHENTIC_PROVIDER_RECEIPT_AND_REVIEWER_ATTESTATION_MISSING",
+      "NO_END_TO_END_PROVIDER_EXECUTION_RENDER_RETRIEVAL_SHOT_REVIEW_LEARN_CHAIN",
+      "NO_HUMAN_OR_TRUSTED_INDEPENDENT_PERCEPTUAL_AUDIO_VIDEO_ASSURANCE",
+      "NO_LIVE_PLATFORM_GROWTH_OR_COMMERCIAL_RECEIPTS",
+      "NO_VERIFIED_PROVIDER_GENERATION_TASK_SEED_MODEL_COST_ASSET_RIGHTS_BINDING",
+      "FFMPEG_DETECTOR_NONZERO_EXIT_FALSE_PASS_RISK_OPEN",
+      "LOCAL_MEDIA_ASSET_PORTABILITY_EVENT_LOG_AND_WINDOWS_FILESYSTEM_ASSURANCE_OPEN",
+      "AUTHOR_DIRECTOR_JSON_VERSUS_EDITORIAL_PLAN_OPERATOR_PIPELINE_NOT_FULLY_JOINED"
     ],
     "pending_graph_take_code_head": "1f8fd7ed9293888e073a7e239c175b3329269b18",
     "pending_graph_take_ci_source": "PR23_LATEST_HEAD_CI_REQUIRED__EARLIER_RUNNING_WORKFLOW_MAY_BE_CANCELLED_BY_METADATA_UPDATES",
-    "graph_take_mechanism": "EXISTING_MEDIA_GRAPH_DIRECTOR_PLAN_AND_TAKE_CANDIDATE__SOURCE_PLAN_DIGEST__MEDIA_QA_EVIDENCE__NO_AUTOPROMOTION__TRANSITIVE_UPSTREAM_FRESHNESS_PROMOTION_GUARD"
+    "graph_take_mechanism": "EXISTING_MEDIA_GRAPH_DIRECTOR_PLAN_AND_TAKE_CANDIDATE__SOURCE_PLAN_DIGEST__MEDIA_QA_EVIDENCE__NO_AUTOPROMOTION__TRANSITIVE_UPSTREAM_FRESHNESS_PROMOTION_GUARD",
+    "goal_fit_audit_ref": "audits/VIDEO_END_TO_END_GOAL_FIT_AUDIT_2026-10-24.md",
+    "goal_fit_assurance": "VR_01_TO_VR_18_MAPPED__REAL_PROVIDER_RENDER_AND_MEDIA_REVIEW_CHAIN_NOT_DEMONSTRATED__STATIC_CI_NOT_PRODUCT_ACCEPTANCE",
+    "systemwide_known_gaps": [
+      "NO_END_TO_END_PROVIDER_EXECUTION_RENDER_RETRIEVAL_SHOT_REVIEW_LEARN_CHAIN",
+      "NO_HUMAN_OR_TRUSTED_INDEPENDENT_PERCEPTUAL_AUDIO_VIDEO_ASSURANCE",
+      "NO_LIVE_PLATFORM_GROWTH_OR_COMMERCIAL_RECEIPTS",
+      "NO_VERIFIED_PROVIDER_GENERATION_TASK_SEED_MODEL_COST_ASSET_RIGHTS_BINDING",
+      "FFMPEG_DETECTOR_NONZERO_EXIT_FALSE_PASS_RISK_OPEN",
+      "LOCAL_MEDIA_ASSET_PORTABILITY_EVENT_LOG_AND_WINDOWS_FILESYSTEM_ASSURANCE_OPEN",
+      "AUTHOR_DIRECTOR_JSON_VERSUS_EDITORIAL_PLAN_OPERATOR_PIPELINE_NOT_FULLY_JOINED"
+    ]
   },
   "recent_resolved_or_promoted": [
     {
@@ -174,7 +197,13 @@
     "tests/test_source_director.py",
     "tests/test_media_business_os_architecture.py",
     "tests/test_media_graph.py",
-    ".github/workflows/ci.yml"
+    ".github/workflows/ci.yml",
+    "audits/VIDEO_END_TO_END_GOAL_FIT_AUDIT_2026-10-24.md",
+    "video_growth_agent/checkpoint_io.py",
+    "tests/test_checkpoint_io.py",
+    "video_growth_agent/storage.py",
+    "video_growth_agent/system_audit.py",
+    "tests/test_production_os.py"
   ],
   "historical_evidence_refs": [
     "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
@@ -182,7 +211,7 @@
     "audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md",
     "projects/pilot-002/PROGRAM_STATE.json"
   ],
-  "assurance": "PRODUCTION_0_8_MAIN_UNCHANGED__PR23_GRAPH_TAKE_AND_TRANSITIVE_STALE_GUARD_CI_76_2SKIP_265_PASS__LIVE_MEDIA_QUALITY_AND_PROMOTION_OPEN",
+  "assurance": "PRODUCTION_0_8_MAIN_BASELINE__PR23_SYSTEMIC_VR01_VR18_GOAL_FIT_OPEN__PRIOR_CODE_77_2SKIP_274_CI_GREEN__LIVE_MEDIA_QUALITY_BUSINESS_OUTCOME_UNVERIFIED",
   "retired_documents": [
     {
       "path": "audits/VIDEO_0_8_RESUME_CHECKPOINT_2026-10-15.md",
