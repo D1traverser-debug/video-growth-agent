@@ -1,5 +1,22 @@
 # Video prompt & professional craft candidate — durable continuation
 
+## CURRENT VERIFIED HANDOFF — Agent × War 40077050738
+
+**Start here after every interrupted/new conversation**: [`audits/AGENT_WAR_CURRENT_HANDOFF_2026-10-24.md`](./AGENT_WAR_CURRENT_HANDOFF_2026-10-24.md) + `audits/EVOLUTION_INDEX.json`. This top section **supersedes stale claims below** about latest V6/V7/V8/两次点名/西泄口/余线; older parts are audit history only. Re-check exact PR HEAD and newest Actions before doing new work.
+
+**Current task**: user says `Agent` + `战争`, world/story must be original, dramatic and coherent, not 60s-locked or tuned for cheap generation. Existing Github agents are supposed to work autonomously in their professional roles with concrete disagreement and independent evidence, not send user yet another prompt to paste. Main scope is **AI 视频自媒体商业化 / Video Growth Agent**; H1 identity/IP other program assets stay unchanged. No world, plot, footage, runtime or H1 promotion approved.
+
+**Latest ACTUAL run**: [GitHub Actions #40077050738](https://github.com/D1traverser-debug/video-growth-agent/actions/runs/40077050738), three jobs **ALL SUCCESS**: writer in Copilot CLI job `rewrite_v8`, separately inferred critic in `review_v8`, archive bot commit. Both different GitHub jobs/Copilot sessions with provider response IDs, text/output hashes and original JSONL saved under `audits/agent_war_ai_review_runs/40077050738/`. **Latest story: `《白灯不等人》`, independent AI verdict `REJECT_PREMISE`**: rail interlocking Agent `织机` diverts hostile rail vehicle to dead siding, injuring independent civilian `伊娃`; two human railway workers with equivalent tools can perform identical story; cheap stop/isolate choices remain, and Agent has no unique personal objective or responsibility. **DO NOT advance to storyboard or present this as approved**. Original screenplay and critic:
+- `audits/agent_war_ai_review_runs/40077050738/STORY_CORE_CANDIDATE_UNAPPROVED.md`
+- `audits/agent_war_ai_review_runs/40077050738/STORY_CORE_INDEPENDENT_AI_CRITIQUE.md`
+
+**Other latest outcomes**: `《西泄口》` independent AI `REJECT_PREMISE` in `40075431401` (source successfully restored via safe recovery `40076202379`); `《余线》` independently `STRUCTURAL_REWRITE` in `40076350289`; neither is approved. Earlier `断面`, `临时编号`, `不在册`, `白线落下`, `两次点名` remain historical failed/unapproved iterations. Reusing an apparatus that creates a forced moral choice has repeatedly failed. The next writer must challenge that **entire story engine**, not adjust dialogue/permissions. Independently verify opponent and civilian agency, cheaper tactics and original Agent autonomous delegation accountability, then actual director storyreel and unprimed audience when a worthy candidate exists.
+
+**Software proof only**: CI [#40077054091](https://github.com/D1traverser-debug/video-growth-agent/actions/runs/40077054091) `test: 289 passed`, `prompt-contract: SUCCESS`. Copilot model evidence ≠ distinct human experts/actual audience. **Human cold viewers: 0; playable animatic: 0; video movie: 0; external human screenplay approval: none; artistic acceptance: none.** Draft PR #23 unmerged, main unchanged. All current story branches are comparison candidates; never silently lock an unapproved world.
+
+**No-drift next step**: Read most recent raw story/review; have current writer propose *substantively different narrative engines* rooted in original keywords, a specific Agent autonomous decision that actually changes conflict between self-interested war parties, and a short falsification scene; have a genuinely separate model execution interrogate the cheaper-human / remote-machine option before expanding to another 7–8-scene script. Don't confuse same-model different sessions with independent humans or a model's PASS with artistic proof. Keep checkpoint and index linked to latest actual evidence; don't ask the user to repeat information already in the repo.
+
+
 Updated: 2026-10-24
 Status: `ACTIVE_CANDIDATE__NOT_PRODUCTION__LIVE_MEDIA_QA_OPEN`
 Owner: `DOMAIN:video` (existing Video Evolution Index; **not** a second UAOS/controller/task index)
