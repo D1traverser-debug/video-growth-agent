@@ -114,52 +114,44 @@ def build(stage: str, prior_run: str, previous: Path | None) -> tuple[str, list[
         )
         return prompt, ["original_user_brief", "v8_clean_scenes_from_verified_same_run"]
     if stage == "character_rewrite":
-        source_run = "40071008053"
+        source_run = "40073765790"
         source = ROOT / "audits" / "agent_war_ai_review_runs" / source_run
-        old = validated(source / "revision-v8-candidate.json", "rewrite_v8", source_run)
-        opposition = validated(source / "review-v8_story_editor.json", "review_v8", source_run)
+        old = validated(source / "story-core-candidate.json", "character_rewrite", source_run)
+        opposition = validated(source / "review-story_core_editor.json", "character_review", source_run)
         if old["provenance"]["copilot_session_id"] == opposition["provenance"]["copilot_session_id"]:
-            raise RuntimeError("V8 author and critic were not truly separated")
+            raise RuntimeError("earlier creative author and independent critic share a model session")
         prompt = (
-            "【任务：Agent × 战争电影故事的根部重评，写出可演的真实完整新版】\\n"
-            "不要优先修复 V8 防空炮的80秒倒计时。你是新接手的编剧，不以保留旧世界观为成功。"
-            "从原始两个关键词 Agent、战争出发，先判断观众为什么会在乎角色："
-            "哪一个特定人物失去了什么、希望得到什么、做过什么难以原谅的选择、"
-            "战争怎样逼迫对立行动，是否不用 Agent 也能讲同一剧情。"
-            "请先提供两个互不依赖的故事发动机：一个可以保留 B-12 争取独立归责的方向，"
-            "一个完全放弃防空站、分身法律登记、铁路与双层桥，换用不同的 Agent 独特困境。"
-            "对两个方案各给出一个让整案应被废弃的反例；允许两个都不合格而重想第三案。"
-            "从剧情可演性、日常具体行为、真正敌方立场和可逆与不可逆代价出发选最强者，"
-            "不要因为V8已投入劳动就保留。"
-            "改写之前回答四项：顶尖动画故事创作者会做的未被要求的工作、"
-            "从哪一份未被二次概括的最原始材料重新开始、具体场景反事实/分镜提案/定时样片方法、"
-            "不靠作者自评的现实观众或专业反证如何推翻自己。"
-            "你的确切输入只有原始委托、完整V8剧情与一次真实隔离模型的审稿原文；"
-            "不要假称看过真实影片、访谈或接触人类观众。"
-            "【真实上一轮独立模型反证，必须处理】最近一个新故事《白线落下》被独立故事编辑判定"
-            "REJECT_PREMISE：如果主角换成真人间谍，绝大部分行为与代价不变；决定炮击的"
-            "白布黑线信号在高潮才被赋予权限；民众只是道德背景；更简单的提前报告、"
-            "移动交换、延期与敌军停火替代行动没有真正进入剧情。不得给这套故事换名再次交卷。"
-            "要从Agent实际工作机制产生冲突：例如任务委派后离线子Agent独立完成过时命令、"
-            "复制后的上下文不一致造成不同但各自合法的行动、记忆检查点无法合并的真实个人后果，"
-            "或有限资源导致目标函数不同；这些只是候选而非应当全部堆砌的清单。"
-            "只选一个决定战争走向的机制，展示每一步物理动作和谁在什么时间知道哪些事实；"
-            "若把Agent换成人类后核心剧情照旧成立，必须放弃这个构想重新选择。"
-            "不能借新程序按键一键停战，更不能让敌方变笨或配角失去独立行动。"
-            "【最终剧本要求】单独写标题《自拟片名》及第一场到至少第七场的完整剧本。"
-            "每场要有明确动作、人的犹豫、对手合理而具体的行动、道具前后呼应。"
-            "主角可以不牺牲，但必须付出非口号、非任意新增程序开关的代价。"
-            "重大转折前写清为什么较简单的合理选择不奏效，靠人物行动显示而非硬写术语；"
-            "戏剧高潮不依赖事后编造机械规则。结尾既有画面反转又不把所有伦理责任赦免。"
-            "完整故事要能够做无设定旁白的动画故事板；创作不限60s，不写H3片段提示词。"
-            "剧本之后只用一句注明：未经实际观众试映；不要写自评分、不可验证的通过声明。\\n"
-            + ORIGINAL_BRIEF + "\\n\\n【允许淘汰的V8原剧本】\\n"
+            "【任务：Agent × 战争原创短篇电影；对旧案拥有直接废弃权，写真实完整电影剧情】\n"
+            "原始要求仅 Agent 与战争，故事优先，不固定60秒、不按生成视频单次时长切剧情。"
+            "你将看到已被另一个模型审稿否决的《两次点名》与该审稿原文。"
+            "评审说它本质仍是两个人拿不同名单、被切断通信；教师苏禾做了决定，"
+            "Agent 诺只是辅助；孩子传话、信使、铃声等便宜办法没试；"
+            "离线副实例明明能感知眼前人却被强行写成认错目标，主机断线后又知道位置。"
+            "这些不是表面文字问题。你有权完全弃案，甚至不必保留学校、复制、名单。"
+            "【开写之前必须做的事实工作】先从原始题材提炼一个"
+            "人类无法原样替代、且可用两个可拍的物理动作展示的 Agent 专属战争机制；"
+            "对这个机制给出操作和身份/时间/信息边界及必然代价，不能突然添加总控密钥。"
+            "分别以敌对指挥官、被救平民、受委派 Agent 的立场说出各自真实利益，"
+            "再做反事实：把 Agent 换成两名人类同事；发短信/找信使；撤退/等待；"
+            "预备份、复制更多实例、取消任务是否轻易就能解决？如果是，必须换机制。"
+            "必须在场景里让真正合理的替代行动被尝试或因已经建立的约束不可行，"
+            "不能用作者口号‘不可能’顶替演出的事实。"
+            "列出两个不同故事发动机，明确废弃其中一个的最强证据。"
+            "【主剧本】之后另起独立小标题《自拟片名》，写至少七场"
+            "有具体人物表演、对手行动、物理地图、冲突升级、前置道具和结尾余波的连续故事。"
+            "必须让 Agent 而非人类监督者做一个会给具体他人带来不可逆损害的自主选择，"
+            "让对手不是为了推动主角成长而存在；不求所有人认错，不制造先验友好敌人。"
+            "尽量以可视镜头和行动而不是投影UI术语交代机制，故事核心即使无旁白仍能成立。"
+            "不能用读者看不见的幕后信息或最后一分钟新协议救场。"
+            "时长由表演决定；不要虚构真人试映。"
+            "最后只写‘未经真实观众或动态故事板验证’，不写自我评分或外部验收合格。\n"
+            + ORIGINAL_BRIEF + "\n\n【已否决的上一完整剧本：可全部放弃】\n"
             + scenes_only(old["model_output"])
-            + "\\n\\n【上一轮独立模型审查的未加工原文】\\n"
+            + "\n\n【另一 Copilot 会话对该稿的完整独立审稿反证】\n"
             + opposition["model_output"]
         )
-        return prompt, ["original_user_brief", "actual_v8_run_40071008053",
-                        "actual_v8_critic_run_40071008053"]
+        return prompt, ["original_user_brief", "actual_character_story_run_40073765790",
+                        "actual_character_story_critic_run_40073765790"]
     if stage == "character_review":
         if previous is None:
             raise RuntimeError("blind character review requires same-run writer output")
@@ -177,6 +169,10 @@ def build(stage: str, prior_run: str, previous: Path | None) -> tuple[str, list[
             "三、重要因果是否由观众看不到的新权限/武器/物理规则撑起来；"
             "四、所谓Agent特征删去后能否不费力替换成人；"
             "五、敌方与非主角是否只是推动主角成长的道具。"
+            "同时作严格替换试验：把主人公换成两名人类工作人员并给他们相同通信设备，"
+            "若战场行动依旧相同，则直接判为结构性失败；把人类替代方案逐场指出。"
+            "重大剧情转折必须引用已经出现的可观察动作或前置物理规则作为证据，"
+            "不接受最后一刻的授权键与‘程序就是这样规定的’。"
             "至少一个结论必须讨论‘整案应否放弃’，允许REJECT_PREMISE。"
             "不要对缺失的视频观众给分或捏造人类反馈。"
             "结论只从 REJECT_PREMISE、STRUCTURAL_REWRITE、ELIGIBLE_FOR_STORYBOARD 中选一个。"
