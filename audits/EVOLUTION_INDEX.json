@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-25",
+  "updated_at": "2026-10-24T17:20:47Z",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -98,7 +98,7 @@
       "whole_user_goal_achieved": false,
       "independent_story_or_media_qa": "V4_MODEL_STORY_REJECTED__V5_NOT_REVIEWED"
     },
-    "verification_scope": "TEN_INDIVIDUAL_STORYCRAFT_STUDIES_SOURCE_REVIEWED_AND_LINKED__V5_REJECTED_AT_AUTHOR_STORY_CORE__INDEPENDENT_V5_REVIEW_NOT_EXECUTED",
+    "verification_scope": "TEN_SOURCE_STORYCRAFT_KB_2026-10-25_VERIFICATION__V5_REJECTED__ENGINEERING_CI_PENDING_LATEST",
     "known_unresolved_failure_classes": [
       "FFMPEG_DETECTOR_NONZERO_EXIT_MAY_FALSE_PASS_TECH_QA",
       "NO_GRAPH_REGISTERED_RENDER_TAKE_WITH_BLINDED_OBSERVED_QUALITY",
@@ -171,7 +171,7 @@
       "world_authority": "NO_APPROVED_CANON__PROVISIONAL_CREATIVE_CANDIDATES_ONLY",
       "narrative_authority": "audits/agent_war_ai_review_runs/40077050738/STORY_CORE_CANDIDATE_UNAPPROVED.md",
       "first_film_candidate": "白灯不等人 — most recent ACTUAL Copilot writer output; independently REJECT_PREMISE",
-      "status": "V5_ARCHIVED_AS_UNAPPROVED_FAILED_STORY_CORE__RESEARCH_FIRST",
+      "status": "STORY_RESEARCH_PHASE__NO_ARTISTICALLY_ACCEPTED_SCREENPLAY",
       "duration_hypothesis": "not fixed; evaluate after a story worthy of live boards",
       "superseded_pilots": [
         "第17号漏洞 (user rejected world)",
@@ -195,7 +195,7 @@
       ],
       "external_evidence_status": "TWO_DIFFERENT_REAL_COPILOT_MODEL_EXECUTIONS__NO_HUMAN_CREATIVE_REVIEW_NO_VIEWERS_NO_ANIMATIC",
       "creative_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/MEI_YOU_TING_HUO_MING_LING_114S_V5_2026-10-24.md",
-      "current_screenplay_revision": "V5《没有停火命令》 114 seconds rewritten after separate V4 Copilot STRUCTURAL_REWRITE",
+      "current_screenplay_revision": "V5 historical rejected by user; ten-card research + verification current",
       "revision_owner": "Existing writer + story_editor owners in GitHub Copilot CLI distinct jobs. This is separately inferred AI, not independently hired human professionals.",
       "last_editorial_finding": "REJECT_PREMISE: Agent can be replaced by 2 humans with same equipment; obvious safe stop/close routes not excluded; civilians' loss and protagonist's agency unearned.",
       "evidence_gap": "FILM_STORY_REJECTED__NO_REAL_HUMAN_OR_AUDIOVISUAL_EVIDENCE",
@@ -203,7 +203,7 @@
       "prior_stories": "断面 V6, 临时编号 V7, 不在册 V8, 白线落下 (REJECT), 两次点名 (STRUCTURAL_REWRITE), 西泄口 (REJECT), 余线 (STRUCTURAL_REWRITE), 白灯不等人 (REJECT, latest)",
       "draft_runtime": "NO_APPROVED_FILM_DURATION",
       "core_story": "Rejected candidate: Agent 织机 diverts an attacking military rail carriage into a dead-end siding, injures civilian 伊娃, then commissioner shuts off Agent and raises bridge. Independent AI reviewer says human signaller/operator can do same and simpler actions are unexplored.",
-      "verified_story_boundaries": "TEN_SOURCE_METHOD_STUDIES_CREATED__AUTHOR_CROSS_APPLIED_AND_REJECTED_V5_CORE__NO_V5_ISOLATED_STORY_REVIEW__NO_SHOT_PRODUCTION",
+      "verified_story_boundaries": "TEN_SOURCES_RESEARCHED_AND_INDIVIDUAL_NOTES_STORED__V5_USER_REJECTED__NO_NEW_SCRIPT_ACCEPTED__NO_SHOT_OR_VIDEO_UNLOCK",
       "remaining_quality_risks": [
         "repeated premise failures indicate core story methodology must change, not just technological constraints",
         "Agent-specific autonomous responsibility not yet dramatized; audience empathy untested",
@@ -221,7 +221,7 @@
         "runtime_seconds": 114,
         "max_runtime_seconds_exclusive": 120,
         "ip_role": "ORIGINAL_NARRATIVE",
-        "status": "STORY_CORE_RETHINK_REQUIRED_AFTER_TEN_SOURCE_AUTHOR_STUDY__NOT_INDEPENDENT_V5_REVIEW",
+        "status": "USER_REJECTED_AS_CLICHE__STORYCRAFT_RESEARCH_IN_PROGRESS__NOT_PRODUCTION",
         "artistic_approval": false,
         "independent_editor_review": "V4_EDIT_ONLY_NOT_V5",
         "v4_real_model_review_ref": "audits/agent_war_single_reviews/40095074216/v4_story_editor.json",
@@ -239,7 +239,7 @@
           5,
           10
         ],
-        "stage": "SCRIPT_RESEARCH__STORY_PREMISE_REPLACEMENT__NO_SHOTS",
+        "stage": "RESEARCH__PREMISE_REPLACEMENT__SCRIPT_NOT_APPROVED",
         "film_theme": "Enemy Agents protecting their own occupants can learn non-verbal contingent passage, without any ceasefire order; temporary cooperation does not end war.",
         "research_index": "skills/video-growth-agent/references/storycraft-research-2026-10-25/INDEX.json",
         "cause_report": "skills/video-growth-agent/references/storycraft-research-2026-10-25/V5-CASE-REASSESSMENT.md",
@@ -251,7 +251,16 @@
           "No genuinely tested contrary dramatic proposition",
           "A simple automated mutual-yielding scheme can replace two autonomous agents",
           "Current premise not enriched by ten source methods"
-        ]
+        ],
+        "user_feedback": "V5 clichéd and forced, lacks causal logic/deep reflection/wry surprise. User explicitly requested ten separate deep studies and a reusable knowledge base before new story.",
+        "research_refs": {
+          "index": "skills/video-growth-agent/references/storycraft-research-2026-10-25/STUDY_INDEX.json",
+          "overview": "skills/video-growth-agent/references/storycraft-research-2026-10-25/README.md",
+          "source_validation": "skills/video-growth-agent/references/storycraft-research-2026-10-25/SOURCE_VERIFICATION_2026-10-25.md",
+          "applied_failure_review": "skills/video-growth-agent/references/storycraft-research-2026-10-25/V5-CASE-REASSESSMENT.md"
+        },
+        "current_decision": "REPLACE_V5_PREMISE_FROM_RESEARCH__DO_NOT_RESUME_V5_SHOTLIST",
+        "next_action": "Use the ten studies selectively to originate materially different Agent×war premises with character-centered action and fair visual reversal; actively test human-replacement and cheap-opponent counterfactuals before complete script."
       },
       "last_known_external_review": "40081322942: Both cleanroom railroad stories STRUCTURAL_REWRITE, comparator STORY_REVISION_REQUIRED",
       "two_minute_author_direction": {
