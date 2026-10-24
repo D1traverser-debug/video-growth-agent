@@ -88,7 +88,7 @@ def run_stage(stage: str, output: Path, review_dir: Path | None) -> dict:
     if not os.getenv("GITHUB_TOKEN") or not run_id or not job:
         raise RuntimeError("GITHUB_TOKEN, real Actions run ID and unique job are required")
     script_text = ""
-    if stage != "premise_challenger":
+    if stage in ("story_editor", "rewrite"):
         script_text = SCRIPT_PATH.read_text(encoding="utf-8")
     challenger = editor = None
     if stage == "rewrite":
@@ -105,8 +105,43 @@ def run_stage(stage: str, output: Path, review_dir: Path | None) -> dict:
             raise RuntimeError("Separate reviewers cannot use the same provider response ID")
         if a.get("copilot_session_id") == e.get("copilot_session_id"):
             raise RuntimeError("Separate reviewers cannot share one Copilot session")
-    messages, source_names = build_messages(
-        stage, script_text=script_text, challenger=challenger, editor=editor)
+    if stage == "revision_skeptic":
+        if review_dir is None:
+            raise RuntimeError("V7 independent script audit requires actual V7 artifact")
+        draft_path = review_dir / "revision-v7-candidate.json"
+        draft = json.loads(draft_path.read_text(encoding="utf-8"))
+        info = draft.get("provenance") or {}
+        draft_body = str(draft.get("model_output") or "")
+        if (info.get("stage") != "rewrite" or info.get("github_run_id") != run_id
+                or info.get("review_class") != "author_revision_from_separate_model_reviews"
+                or info.get("output_sha256") != digest(draft_body.encode("utf-8"))
+                or not info.get("copilot_session_id")):
+            raise RuntimeError("V7 script source is not a verified same-run Copilot rewrite")
+        # DO NOT pass the author's initial verdict or old story-editor critique.
+        marker = "# 《断面》候选剧本"
+        if marker not in draft_body:
+            raise RuntimeError("V7 cannot isolate complete candidate screenplay from author notes")
+        only_scenes = draft_body.split(marker, 1)[1].strip()
+        if len(only_scenes) < 2000:
+            raise RuntimeError("V7 candidate story is too short for serious review")
+        system = (
+            "你是没有参加先前任何改稿的故事编辑。只看到本次完整故事与原始创作任务。"
+            "必须独立重述事件因果；对每一处重大角色决定问有什么更便宜、更自然的替代办法。"
+            "尤其核查：既然存在封堵军用分流支路的部件，主角为什么还要攻击共用主管？"
+            "军方命令与主角私利能否解释这个选择？冷却液、阀门、储备罐、个人快照"
+            "是否在所有场次遵守相同物理规则？配角有没有真实拒绝主角的行动？"
+            "请给出至少五条场次级别反例、最严重的不成立点、明确的"
+            "REWRITE / REJECT_PREMISE 决定，以及如何通过删换场景让它成立。"
+            "不要顾虑生成额度，不要主动认可原稿，不得伪造真人观众评价。"
+        )
+        messages = [
+            {"role": "system", "content": system},
+            {"role": "user", "content": ORIGINAL_BRIEF + "\n\n【仅供审查的V7完整故事】\n" + only_scenes},
+        ]
+        source_names = ["original_user_brief", "v7_story_only_from_verified_rewrite"]
+    else:
+        messages, source_names = build_messages(
+            stage, script_text=script_text, challenger=challenger, editor=editor)
     # Copilot CLI has one prompt argument. Preserve the equivalent system/user
     # separation within clearly labeled blocks; no prior sessions are resumed.
     prompt = (
@@ -148,7 +183,7 @@ def run_stage(stage: str, output: Path, review_dir: Path | None) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--stage", choices=["premise_challenger", "story_editor", "rewrite"], required=True)
+    parser.add_argument("--stage", choices=["premise_challenger", "story_editor", "rewrite", "revision_skeptic"], required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--review-dir", type=Path)
     a = parser.parse_args()
