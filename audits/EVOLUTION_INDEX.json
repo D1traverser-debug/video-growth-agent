@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-25T06:18:37Z",
+  "updated_at": "2026-10-25T06:28:55Z",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -98,7 +98,7 @@
       "whole_user_goal_achieved": false,
       "independent_story_or_media_qa": "V5_REJECTED_BY_USER__TEN_SOURCE_AUTHOR_DIAGNOSIS_ONLY"
     },
-    "verification_scope": "V6_STORY_AUTHOR_DRAFT_COMMITTED__REFILMS_AND_WAR_LIFE_RESEARCH__INDEPENDENT_STORY_AUDIT_PENDING",
+    "verification_scope": "AUTHOR_FILM_AND_LIVED_WAR_RESEARCH_WITH_REAL_V6_SEPARATE_AI_EDITOR_REJECTION__NO_ARTISTIC_APPROVAL",
     "known_unresolved_failure_classes": [
       "FFMPEG_DETECTOR_NONZERO_EXIT_MAY_FALSE_PASS_TECH_QA",
       "NO_GRAPH_REGISTERED_RENDER_TAKE_WITH_BLINDED_OBSERVED_QUALITY",
@@ -171,7 +171,7 @@
       "world_authority": "NO_APPROVED_CANON__PROVISIONAL_CREATIVE_CANDIDATES_ONLY",
       "narrative_authority": "audits/agent_war_ai_review_runs/40077050738/STORY_CORE_CANDIDATE_UNAPPROVED.md",
       "first_film_candidate": "白灯不等人 — most recent ACTUAL Copilot writer output; independently REJECT_PREMISE",
-      "status": "V6_UNAPPROVED_DIRECTOR_STORY_RESEARCH_LED",
+      "status": "V6_REJECTED_BY_SEPARATE_EDITOR__STORY_CORE_RETHINK",
       "duration_hypothesis": "not fixed; evaluate after a story worthy of live boards",
       "superseded_pilots": [
         "第17号漏洞 (user rejected world)",
@@ -195,7 +195,7 @@
       ],
       "external_evidence_status": "TWO_DIFFERENT_REAL_COPILOT_MODEL_EXECUTIONS__NO_HUMAN_CREATIVE_REVIEW_NO_VIEWERS_NO_ANIMATIC",
       "creative_ref": "projects/ai-self-media-commercialization/creative_candidates/agent_war/JIN_RI_SHENG_LI_112S_V6_DIRECTOR_TREATMENT_2026-10-25.md",
-      "current_screenplay_revision": "V6 今日胜利 112s author director treatment from real film/life research; independent story review pending",
+      "current_screenplay_revision": "V6《今日胜利》112s preserved as failed story study; Copilot 40168786810 STRUCTURAL_REWRITE",
       "revision_owner": "Existing writer + story_editor owners in GitHub Copilot CLI distinct jobs. This is separately inferred AI, not independently hired human professionals.",
       "last_editorial_finding": "REJECT_PREMISE: Agent can be replaced by 2 humans with same equipment; obvious safe stop/close routes not excluded; civilians' loss and protagonist's agency unearned.",
       "evidence_gap": "FILM_STORY_REJECTED__NO_REAL_HUMAN_OR_AUDIOVISUAL_EVIDENCE",
@@ -203,7 +203,7 @@
       "prior_stories": "断面 V6, 临时编号 V7, 不在册 V8, 白线落下 (REJECT), 两次点名 (STRUCTURAL_REWRITE), 西泄口 (REJECT), 余线 (STRUCTURAL_REWRITE), 白灯不等人 (REJECT, latest)",
       "draft_runtime": "NO_APPROVED_FILM_DURATION",
       "core_story": "Rejected candidate: Agent 织机 diverts an attacking military rail carriage into a dead-end siding, injures civilian 伊娃, then commissioner shuts off Agent and raises bridge. Independent AI reviewer says human signaller/operator can do same and simpler actions are unexplored.",
-      "verified_story_boundaries": "V5_REJECTED_BY_USER__V6_NEW_CANDIDATE_NOT_ARTISTICALLY_APPROVED__NO_PAID_VIDEO__NO_SHOT_MATERIALIZATION",
+      "verified_story_boundaries": "V5_USER_REJECTED__V6_INDEPENDENT_AI_STRUCTURAL_REWRITE__NO_NEW_SCRIPT_ACCEPTED__NO_SHOT_OR_VIDEO",
       "remaining_quality_risks": [
         "repeated premise failures indicate core story methodology must change, not just technological constraints",
         "Agent-specific autonomous responsibility not yet dramatized; audience empathy untested",
@@ -221,12 +221,12 @@
         "runtime_seconds": 112,
         "max_runtime_seconds_exclusive": 120,
         "ip_role": "ORIGINAL_NARRATIVE",
-        "status": "AUTHOR_DIRECTOR_TREATMENT__PREMISE_STILL_CONTESTED__INDEPENDENT_REVIEW_REQUEST_PREP",
+        "status": "V6_INDEPENDENT_STORY_EDITOR_STRUCTURAL_REWRITE__NO_PRODUCTION",
         "artistic_approval": false,
-        "independent_story_editor": "NOT_YET_EXECUTED",
+        "independent_story_editor": "STRUCTURAL_REWRITE",
         "real_unprimed_viewers": 0,
         "approved_production_shot_list": false,
-        "stage": "SCRIPT_AUDIT__ACTUAL_FILM_AND_LIFE_REFERENCES__V6_CANDIDATE",
+        "stage": "SCRIPT_AUDIT__REVISE_OR_REPLACE_CORE",
         "production_generation_unit_seconds": [
           5,
           10
@@ -243,7 +243,12 @@
           "Structural props holding shelter must remain mechanically credible",
           "Human caretaker must have independent motives and action, not just validate author morality"
         ],
-        "production_decision": "DO_NOT_PRODUCE_SHOTS_OR_MEDIA_UNTIL_NEW_SOURCE_BOUND_INDEPENDENT_SCRIPT_AUDIT"
+        "production_decision": "DO_NOT_PRODUCE_SHOTS_OR_MEDIA_UNTIL_NEW_SOURCE_BOUND_INDEPENDENT_SCRIPT_AUDIT",
+        "independent_review_run_id": 40168786810,
+        "review_provenance_ref": "audits/agent_war_single_reviews/40168786810/v6_story_editor.json",
+        "review_evidence_ref": "audits/AGENT_WAR_V6_INDEPENDENT_EDITOR_VERDICT_AND_CREATIVE_NEXT_2026-10-25.md",
+        "external_human_viewer_count": 0,
+        "next_work": "Test an independent third-Agent real-world feedback loop with firm safety/character causality or select a materially different original concept; reject if a cheaper camera/human answer wins."
       },
       "last_known_external_review": "40081322942: Both cleanroom railroad stories STRUCTURAL_REWRITE, comparator STORY_REVISION_REQUIRED",
       "two_minute_author_direction": {

@@ -1,5 +1,8 @@
 # Agent × 战争电影项目 — 当前总纲、事实状态与新对话无缝继承
 
+> **2026-10-25 V6 隔离剧本审查已真实完成（优先于历史候选推荐）**：原始真实Copilot Actions #40168786810，保存输出 `audits/agent_war_single_reviews/40168786810/v6_story_editor.json`，另一AI会话只看原始委托+V6实际场次，结论 **STRUCTURAL_REWRITE**。最强反证：单纯调整取景/剪裁就能解决“旗帜入镜”，旗杆恰好撞塌雨棚再恰好撑住是巧合，换成人类摄影师高潮基本不变，女工改写时刻表动机缺失。详见 `audits/AGENT_WAR_V6_INDEPENDENT_EDITOR_VERDICT_AND_CREATIVE_NEXT_2026-10-25.md`。**V6已退回，不要用本回合的作者措辞/诗意结尾自我批准。**保留真正有趣的视觉意象与五份素材作为创意矿藏，但下一步是找多个自治Agent的“证据→另一Agent决策→现实变化→原证据被反馈改变”的新发动机并严查廉价反例；如不成立则抛弃，不自动升级V7。无人实际看新动画，没有5/10秒模型调用，PR#23仍Draft，不触main/H1。
+
+
 > **2026-10-25 最新当前创作方向（覆盖以下V5和更早历史）**：因用户要求持续自主学习与创造，已分别研究五部真实作品的创作机制与战争日常证言（来源/限制：`skills/video-growth-agent/references/storycraft-research-2026-10-25/CREATIVE_REFERENCE_FILMS_AND_LIVED_WAR_2026-10-25.md`），建立 **五个相异剧情发动机与实质否决**（`projects/ai-self-media-commercialization/creative_candidates/agent_war/ORIGINAL_STORY_ENGINES_FROM_FILM_AND_LIFE_2026-10-25.md`）。当前单一作者候选为 **《今日胜利》V6，112秒**：两方自治战地新闻Agent为直播“己方恢复城市秩序”在同一公交站竞争旗帜位置和取景；车站照看员只想撑起损坏的候车亭，借用了两方旗杆。两台Agent分别基于可核验的直播效果主动调整、选择保持各自立杆；两份画面各裁掉对方旗，但宽镜揭示两根旗杆共同撑起遮雨棚，“今日停运”的手写牌仍在。**主题不是AI道歉/学会停火，作品未宣称好笑或已是精品。** 真实开放的问题是更换机位/造假是否更廉价、各Agent是否有不可替代的行动、雨棚物理几何。新故事审稿工具已沿用历史隔离Copilot单会话工具并新增严格V6输入隔离测试，**尚未执行独立V6审稿或视频生成、无真人反馈**。5s/10s仅为后续生产约束；PR Draft/main/H1不变。
 
 
