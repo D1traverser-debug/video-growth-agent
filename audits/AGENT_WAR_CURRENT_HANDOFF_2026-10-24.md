@@ -1,5 +1,8 @@
 # Agent × 战争电影项目 — 当前总纲、事实状态与新对话无缝继承
 
+> **2026-10-25 当前创作学习工作方式已固定（比下方多次所谓“方向转变”优先）**：过去确有十份以上研究卡、剧情习作和独立剧本批评，却一直把每次纠错当新学习方向，缺少可持续训练闭环。现有 `video_growth_agent/data/workflow.json` 是**影片生产工作流**，不是学习能力训练。已新增**唯一引用的编剧学徒训练方法** `skills/video-growth-agent/references/storycraft-research-2026-10-25/LEARNING_AND_CREATIVE_PRACTICE_PROTOCOL.md`，在现有 `video_growth_agent/data/team.md` 的Writer和 `skills/video-growth-agent/references/workflow.md` 中接入；不另起规则和阶段。稳定七步：诊断具体缺陷→按缺口选专业原作/课程/生活事实→分析作品行为与边界→无照搬的新场景训练→廉价反例→真实独立反馈与重写→保留可复用证据。已读部分公开来源及已有公告栏21秒场景是基线，**尚无完成整轮独立反馈的训练证据**；接下来的合法动作就是用John August/Sundance/Pixar的具体练习完成一轮，而非又写V7或开启5/10s视频生产。V6保持独立STRUCTURAL_REWRITE，未锁新剧本。
+
+
 > **2026-10-25 最新用户指令与实际执行：先真正学会“如何写故事/如何创作”，但不要局限于用户建议、自己的第一想法或格式化模板。** 已读并比较 Arndt、Stanton、Mazin、John August、奉俊昊、宫崎骏、Kaufman、Leigh、Disney 等方法与多种冲突入口，档案 `skills/video-growth-agent/references/storycraft-research-2026-10-25/WRITER_APPRENTICESHIP_DEEP_DIVE_2026-10-25.md`；不只做文献总结，还对同一战时公告栏场景做**人物优先/行动优先/图像优先的三种场景习作**、淘汰“直接开口就能解决”的情节、实质重写物件动作，见 `skills/video-growth-agent/references/storycraft-research-2026-10-25/WORKED_SCENE_APPRENTICESHIP_2026-10-25.md`。重要发现：**剧本格式/三幕结构不是先验唯一顺序**；创作研究、角色习惯、物理场景、视觉想象和更大胆的改稿需要互相激发。V6《今日胜利》被独立审稿 STRUCTURAL_REWRITE，仍不准生产，没有V7导演稿也无已获证实的优秀剧本。本轮为创作基本功训练而非新片定稿，不动H1/main/生产规格。
 
 
