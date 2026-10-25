@@ -1,18 +1,18 @@
-name: Agent War V4 - One Blind Story Editor
+name: Agent War - One Blind Story Editor (V6)
 on:
   push:
     branches:
       - refactor/prompt-director-core-20261023
     paths:
-      - audits/agent_war_single_reviews/REQUEST.json
+      - audits/agent_war_single_reviews/REQUEST_V6.json
   workflow_dispatch:
 
 concurrency:
-  group: agent-war-v4-blind-${{ github.ref }}
+  group: agent-war-v6-blind-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  v4_story_editor:
+  v6_story_editor:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:
@@ -28,7 +28,7 @@ jobs:
       - name: Blind review from script scenes and original brief only
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python3 -m scripts.agent_war_v4_review --out out/v4_story_editor.json
+        run: python3 -m scripts.agent_war_v4_review --request audits/agent_war_single_reviews/REQUEST_V6.json --out out/v6_story_editor.json
       - name: Verify receipt and archive raw session, no film promotion
         env:
           TARGET: audits/agent_war_single_reviews/${{ github.run_id }}
@@ -36,17 +36,17 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p "$TARGET"
-          cp out/v4_story_editor.json out/v4_story_editor.jsonl "$TARGET/"
+          cp out/v6_story_editor.json out/v6_story_editor.jsonl "$TARGET/"
           python3 - <<'PY'
           import os
           from pathlib import Path
-          from scripts.agent_war_v4_review import verify
-          path = Path(os.environ["TARGET"]) / "v4_story_editor.json"
-          obj = verify(path)
+          from scripts.agent_war_v4_review import verify, V6_REQUEST, ROOT
+          path = Path(os.environ["TARGET"]) / "v6_story_editor.json"
+          obj = verify(path, ROOT / V6_REQUEST)
           assert obj["provenance"]["artistic_acceptance"] is False
           assert obj["provenance"]["external_human_viewer_count"] == 0
           (path.parent / "README.md").write_text(
-              "# V4 separately executed AI Story Editor\n\n"
+              "# V6 separately executed AI Story Editor\n\n"
               "One real Copilot inference, script-only independent of author framing. "
               "Not human feedback, not story approval, no automatic production.\n",
               encoding="utf-8",
@@ -55,7 +55,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add "$TARGET"
-          git commit -m 'agent-story: archive separately executed v4 story editor [skip ci]'
+          git commit -m 'agent-story: archive separately executed v6 story editor [skip ci]'
           for attempt in 1 2 3 4; do
             git fetch origin "refs/heads/$REPO_REF"
             git rebase FETCH_HEAD
