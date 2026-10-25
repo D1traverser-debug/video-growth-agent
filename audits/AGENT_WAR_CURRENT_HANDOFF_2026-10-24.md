@@ -1,5 +1,8 @@
 # Agent × 战争电影项目 — 当前总纲、事实状态与新对话无缝继承
 
+> **2026-10-25 最新用户指令与实际执行：先真正学会“如何写故事/如何创作”，但不要局限于用户建议、自己的第一想法或格式化模板。** 已读并比较 Arndt、Stanton、Mazin、John August、奉俊昊、宫崎骏、Kaufman、Leigh、Disney 等方法与多种冲突入口，档案 `skills/video-growth-agent/references/storycraft-research-2026-10-25/WRITER_APPRENTICESHIP_DEEP_DIVE_2026-10-25.md`；不只做文献总结，还对同一战时公告栏场景做**人物优先/行动优先/图像优先的三种场景习作**、淘汰“直接开口就能解决”的情节、实质重写物件动作，见 `skills/video-growth-agent/references/storycraft-research-2026-10-25/WORKED_SCENE_APPRENTICESHIP_2026-10-25.md`。重要发现：**剧本格式/三幕结构不是先验唯一顺序**；创作研究、角色习惯、物理场景、视觉想象和更大胆的改稿需要互相激发。V6《今日胜利》被独立审稿 STRUCTURAL_REWRITE，仍不准生产，没有V7导演稿也无已获证实的优秀剧本。本轮为创作基本功训练而非新片定稿，不动H1/main/生产规格。
+
+
 > **2026-10-25 V6 隔离剧本审查已真实完成（优先于历史候选推荐）**：原始真实Copilot Actions #40168786810，保存输出 `audits/agent_war_single_reviews/40168786810/v6_story_editor.json`，另一AI会话只看原始委托+V6实际场次，结论 **STRUCTURAL_REWRITE**。最强反证：单纯调整取景/剪裁就能解决“旗帜入镜”，旗杆恰好撞塌雨棚再恰好撑住是巧合，换成人类摄影师高潮基本不变，女工改写时刻表动机缺失。详见 `audits/AGENT_WAR_V6_INDEPENDENT_EDITOR_VERDICT_AND_CREATIVE_NEXT_2026-10-25.md`。**V6已退回，不要用本回合的作者措辞/诗意结尾自我批准。**保留真正有趣的视觉意象与五份素材作为创意矿藏，但下一步是找多个自治Agent的“证据→另一Agent决策→现实变化→原证据被反馈改变”的新发动机并严查廉价反例；如不成立则抛弃，不自动升级V7。无人实际看新动画，没有5/10秒模型调用，PR#23仍Draft，不触main/H1。
 
 
