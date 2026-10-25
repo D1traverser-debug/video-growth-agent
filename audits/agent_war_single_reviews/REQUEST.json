@@ -1,15 +1,17 @@
 {
-  "purpose": "blind_writer_scene_lesson01",
+  "purpose": "blind_writer_scene_lesson01_revision",
   "max_model_calls": 1,
-  "story_path": "skills/video-growth-agent/references/storycraft-research-2026-10-25/LESSON01_SCENE_DRAFT_2026-10-25.md",
-  "script_git_blob_sha": "83b5ade4f0d1370f1017fce50e8089b199406e23",
-  "source_repo_head_before_request": "c362e0a7f10dbef90bffe7191447dc808583668b",
-  "stage": "TRAINING_ONLY_SOURCE_BOUND_BLIND_SCENE_CRITIQUE",
+  "story_path": "skills/video-growth-agent/references/storycraft-research-2026-10-25/LESSON01_SCENE_REVISION_D2_2026-10-25.md",
+  "script_git_blob_sha": "264cd1abb6c2834fd0b33ae52b6bb839b57f6a00",
+  "source_repo_head_before_request": "11c4dbea21a40ba03ceabfbeb8cb99d338ffc2e0",
+  "stage": "INDEPENDENT_FIRST_LOOK_RE_REVIEW_SCENE_D2__NO_PREVIOUS_CRITIQUE_IN_PROMPT",
+  "artistic_acceptance": false,
+  "human_viewers": 0,
   "limits": [
-    "One Github Copilot text premium request maximum",
-    "Do not render video or images",
-    "Do not feed author explanation or source history to reviewer",
-    "Do not claim any human audience review or story approval",
-    "Do not alter main branch or original production objects"
+    "One Copilot premium text call",
+    "No video or art",
+    "No prior author self-critique or D1 feedback to reviewer",
+    "No user-visible claim of human audience response",
+    "No PR merge"
   ]
 }
