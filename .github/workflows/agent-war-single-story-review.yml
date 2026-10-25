@@ -4,7 +4,7 @@ on:
     branches:
       - refactor/prompt-director-core-20261023
     paths:
-      - audits/agent_war_single_reviews/REQUEST_V6.json
+      - audits/agent_war_single_reviews/REQUEST.json
   workflow_dispatch:
 
 concurrency:
@@ -28,7 +28,7 @@ jobs:
       - name: Blind review from script scenes and original brief only
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python3 -m scripts.agent_war_v4_review --request audits/agent_war_single_reviews/REQUEST_V6.json --out out/v6_story_editor.json
+        run: python3 -m scripts.agent_war_v4_review --request audits/agent_war_single_reviews/REQUEST.json --out out/v6_story_editor.json
       - name: Verify receipt and archive raw session, no film promotion
         env:
           TARGET: audits/agent_war_single_reviews/${{ github.run_id }}
@@ -40,9 +40,9 @@ jobs:
           python3 - <<'PY'
           import os
           from pathlib import Path
-          from scripts.agent_war_v4_review import verify, V6_REQUEST, ROOT
+          from scripts.agent_war_v4_review import verify, REQUEST, ROOT
           path = Path(os.environ["TARGET"]) / "v6_story_editor.json"
-          obj = verify(path, ROOT / V6_REQUEST)
+          obj = verify(path, ROOT / REQUEST)
           assert obj["provenance"]["artistic_acceptance"] is False
           assert obj["provenance"]["external_human_viewer_count"] == 0
           (path.parent / "README.md").write_text(
