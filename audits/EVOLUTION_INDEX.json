@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-25T07:48:13Z",
+  "updated_at": "2026-10-25T07:49:27Z",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -87,8 +87,8 @@
       "cross_premise_comparison_and_genuine_storyreel_cold_viewer_acceptance"
     ],
     "promotion_authorized": false,
-    "latest_verified_code_head": "c611a30406e737c5e3d920be91ddc3615e31bfe0",
-    "latest_verified_ci_run": 40170422129,
+    "latest_verified_code_head": "1da60a7a5b559218e13e7bdb6d9fd56fefcd2d9a",
+    "latest_verified_ci_run": 40174235909,
     "latest_verified_checks": {
       "prompt_contract_passed": 77,
       "prompt_contract_skipped": 2,
@@ -96,9 +96,9 @@
       "system_audit": "PASS",
       "installed_cli_smoke": "PASS",
       "whole_user_goal_achieved": false,
-      "independent_story_or_media_qa": "V6_STRUCTURAL_REWRITE__STORY_APPRENTICESHIP_IS_PRACTICE_NOT_ART_ACCEPTANCE"
+      "independent_story_or_media_qa": "V6_STRUCTURAL_REWRITE; TRAINING_PROTOCOL_INTEGRATION_TESTED; STORY_QUALITY_NOT_TESTED"
     },
-    "verification_scope": "FIXED_LEARNING_CYCLE_WRITER_AND_WORKFLOW_INTEGRATED__FILM_NOT_APPROVED__CI_PENDING",
+    "verification_scope": "CANONICAL_STORYCRAFT_LEARNING_PROTOCOL_WRITER_WORKFLOW_REFERENCED__CI_40174235909_319_PASS_77_PASS_2_SKIP__CREATIVE_TRAINING_FULL_LOOP_NOT_DONE",
     "known_unresolved_failure_classes": [
       "FFMPEG_DETECTOR_NONZERO_EXIT_MAY_FALSE_PASS_TECH_QA",
       "NO_GRAPH_REGISTERED_RENDER_TAKE_WITH_BLINDED_OBSERVED_QUALITY",
