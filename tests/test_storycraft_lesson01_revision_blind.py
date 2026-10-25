@@ -25,7 +25,7 @@ def test_d2_source_only_not_author_self_critique(tmp_path):
     scene,h=reviewer.source(p)
     prompt,facts=reviewer.build(p)
     assert "四号车" in scene and "登记员" in scene and "女人" in scene
-    assert "SCENE_STRUCTURAL_REWRITE" not in prompt
+    assert "SCENE_STRUCTURAL_REWRITE" not in scene  # verdict vocabulary is allowed in task, never in author text
     assert "作者" not in scene
     assert "对照" not in scene and "最应该击败" not in scene
     assert "只对下方一份单独提供" in prompt
