@@ -1,17 +1,15 @@
 {
-  "purpose": "blind_single_story_editor_v6",
+  "purpose": "blind_writer_scene_lesson01",
   "max_model_calls": 1,
-  "story_path": "projects/ai-self-media-commercialization/creative_candidates/agent_war/JIN_RI_SHENG_LI_112S_V6_DIRECTOR_TREATMENT_2026-10-25.md",
-  "script_git_blob_sha": "66f1328d2c3d40d00a6a34ab341e9300a4f84405",
-  "source_repo_head_before_request": "d53e5abe591c069c41d71f1285dd59d65e649afd",
-  "scope": "A single separately executed Copilot original-story editorial pass against V6 SCENES ONLY, original brief, never author comparisons/review, no video or imagery",
-  "artistic_acceptance": false,
-  "human_viewers": 0,
+  "story_path": "skills/video-growth-agent/references/storycraft-research-2026-10-25/LESSON01_SCENE_DRAFT_2026-10-25.md",
+  "script_git_blob_sha": "83b5ade4f0d1370f1017fce50e8089b199406e23",
+  "source_repo_head_before_request": "c362e0a7f10dbef90bffe7191447dc808583668b",
+  "stage": "TRAINING_ONLY_SOURCE_BOUND_BLIND_SCENE_CRITIQUE",
   "limits": [
-    "ONE text model premium request",
-    "no paid video",
-    "no AI review masquerading as human viewer",
-    "no production art approval",
-    "no main merge"
+    "One Github Copilot text premium request maximum",
+    "Do not render video or images",
+    "Do not feed author explanation or source history to reviewer",
+    "Do not claim any human audience review or story approval",
+    "Do not alter main branch or original production objects"
   ]
 }
