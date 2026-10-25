@@ -1,5 +1,8 @@
 # Video prompt & professional craft candidate — durable continuation
 
+> **2026-10-25 最新操作（覆盖此前“D2审稿待回”）：本聊天已直接执行，不再要求用户转交Codex提示词。** 在 GitHub PR#23 当前工作分支核验：D2第二次盲审请求源于提交 `064779a1d62e3c61b356af8a97b79efdae033640`，该提交只返回 CI 工作流成功，未发现对应独立 Story Editor 运行或可核对审稿结果；**不得把D2标记为复审通过**。根据实际D1独立编辑的结构否决和D2仍存在的原件保管、女方被动等待与假无线电悬念，作者已在本轮**实质新写 D3** `skills/video-growth-agent/references/storycraft-research-2026-10-25/LESSON01_SCENE_REWRITE_D3_2026-10-25.md`：女方持同名家属联+学生证确认被找的人，看到“分配四号车≠已上车”，实际提出双线核查（工作人员询问四号车下一站，女方亲自回本站检票区寻找），双方行动真实改变；保留低成本替代解法和自我反例。不把D3说成艺术认可或影片版本。技能训练方法维持 `LEARNING_AND_CREATIVE_PRACTICE_PROTOCOL.md`，作品生产阶段没有改变；V6《今日胜利》仍独立 `STRUCTURAL_REWRITE` 且停产。**下一次对话读取 EVOLUTION_INDEX → 此优先项 → D3，先核对有没有真实D2晚到审稿，再开展新场景迁移训练或独立评审；不再从V1重写，也不再发提示词让用户操作。**
+
+
 > **2026-10-25 当前最优先的“继续+跨对话继承”状态（覆盖下方历史泛化结论）**：创作学习遵循**现有固定七步** `skills/video-growth-agent/references/storycraft-research-2026-10-25/LEARNING_AND_CREATIVE_PRACTICE_PROTOCOL.md`，不是每轮修改学习方向。首轮已实际完成 John August 原始场景写作/重写文章 + Sundance场景课程纲要 + Pixar活动 + ICRC真实寻亲知识的针对性研究；写《到过》D1，**另一真实Copilot会话独立审稿** `audits/agent_war_single_reviews/40175894907/story_editor.json`，结论 SCENE_STRUCTURAL_REWRITE（未核查司机、假章需要无来由、领票未连接身份、结尾无真正行动）。作者据此**实质重写** `skills/video-growth-agent/references/storycraft-research-2026-10-25/LESSON01_SCENE_REVISION_D2_2026-10-25.md`，删假章，直接询问车辆调度、明确票号预配与登车未确认，并把核对与回访变成行动。执行及源材料范围记录 `audits/STORYCRAFT_LESSON01_EXECUTION_AND_TRANSFER_2026-10-25.md`。D2已发出第二次单独纯场景隔离复审请求（`audits/agent_war_single_reviews/REQUEST.json`，源blob锁定、最多一次Copilot文本调用）；**在找到这次真实结果前不得声称D2审稿通过**。已有第一次独立模型批评、改稿与保存证据，但**没有真人冷观/影片成片**。本训练不是Agent×战争新作品，V6《今日胜利》仍STRUCTURAL_REWRITE，不制作视频、无新角色资产、PR#23 Draft未合并。下一对话优先先看**PR真实head**是否已新增D2独立审稿归档，再读D2批评并据此决定进一步改稿或迁移到下一个基本功练习，禁止重启泛泛的“十篇学习”或无证据地吹优秀。
 
 
