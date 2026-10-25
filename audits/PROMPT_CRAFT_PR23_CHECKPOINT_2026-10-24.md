@@ -1,5 +1,8 @@
 # Video prompt & professional craft candidate — durable continuation
 
+> **2026-10-25 当前最优先的“继续+跨对话继承”状态（覆盖下方历史泛化结论）**：创作学习遵循**现有固定七步** `skills/video-growth-agent/references/storycraft-research-2026-10-25/LEARNING_AND_CREATIVE_PRACTICE_PROTOCOL.md`，不是每轮修改学习方向。首轮已实际完成 John August 原始场景写作/重写文章 + Sundance场景课程纲要 + Pixar活动 + ICRC真实寻亲知识的针对性研究；写《到过》D1，**另一真实Copilot会话独立审稿** `audits/agent_war_single_reviews/40175894907/story_editor.json`，结论 SCENE_STRUCTURAL_REWRITE（未核查司机、假章需要无来由、领票未连接身份、结尾无真正行动）。作者据此**实质重写** `skills/video-growth-agent/references/storycraft-research-2026-10-25/LESSON01_SCENE_REVISION_D2_2026-10-25.md`，删假章，直接询问车辆调度、明确票号预配与登车未确认，并把核对与回访变成行动。执行及源材料范围记录 `audits/STORYCRAFT_LESSON01_EXECUTION_AND_TRANSFER_2026-10-25.md`。D2已发出第二次单独纯场景隔离复审请求（`audits/agent_war_single_reviews/REQUEST.json`，源blob锁定、最多一次Copilot文本调用）；**在找到这次真实结果前不得声称D2审稿通过**。已有第一次独立模型批评、改稿与保存证据，但**没有真人冷观/影片成片**。本训练不是Agent×战争新作品，V6《今日胜利》仍STRUCTURAL_REWRITE，不制作视频、无新角色资产、PR#23 Draft未合并。下一对话优先先看**PR真实head**是否已新增D2独立审稿归档，再读D2批评并据此决定进一步改稿或迁移到下一个基本功练习，禁止重启泛泛的“十篇学习”或无证据地吹优秀。
+
+
 > **2026-10-25 最新当前创作方向（覆盖以下V5和更早历史）**：因用户要求持续自主学习与创造，已分别研究五部真实作品的创作机制与战争日常证言（来源/限制：`skills/video-growth-agent/references/storycraft-research-2026-10-25/CREATIVE_REFERENCE_FILMS_AND_LIVED_WAR_2026-10-25.md`），建立 **五个相异剧情发动机与实质否决**（`projects/ai-self-media-commercialization/creative_candidates/agent_war/ORIGINAL_STORY_ENGINES_FROM_FILM_AND_LIFE_2026-10-25.md`）。当前单一作者候选为 **《今日胜利》V6，112秒**：两方自治战地新闻Agent为直播“己方恢复城市秩序”在同一公交站竞争旗帜位置和取景；车站照看员只想撑起损坏的候车亭，借用了两方旗杆。两台Agent分别基于可核验的直播效果主动调整、选择保持各自立杆；两份画面各裁掉对方旗，但宽镜揭示两根旗杆共同撑起遮雨棚，“今日停运”的手写牌仍在。**主题不是AI道歉/学会停火，作品未宣称好笑或已是精品。** 真实开放的问题是更换机位/造假是否更廉价、各Agent是否有不可替代的行动、雨棚物理几何。新故事审稿工具已沿用历史隔离Copilot单会话工具并新增严格V6输入隔离测试，**尚未执行独立V6审稿或视频生成、无真人反馈**。5s/10s仅为后续生产约束；PR Draft/main/H1不变。
 
 

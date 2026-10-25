@@ -2,7 +2,7 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-25T07:49:27Z",
+  "updated_at": "2026-10-25T08:26:54Z",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
     "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
@@ -98,7 +98,7 @@
       "whole_user_goal_achieved": false,
       "independent_story_or_media_qa": "V6_STRUCTURAL_REWRITE; TRAINING_PROTOCOL_INTEGRATION_TESTED; STORY_QUALITY_NOT_TESTED"
     },
-    "verification_scope": "CANONICAL_STORYCRAFT_LEARNING_PROTOCOL_WRITER_WORKFLOW_REFERENCED__CI_40174235909_319_PASS_77_PASS_2_SKIP__CREATIVE_TRAINING_FULL_LOOP_NOT_DONE",
+    "verification_scope": "SOURCE_STUDY_SCENE_D1_REAL_COPILOT_CRITIQUE_AND_D2_ACTION_REWRITE__D2_ISOLATED_RE_REVIEW_REQUESTED__FILM_NOT_APPROVED",
     "known_unresolved_failure_classes": [
       "FFMPEG_DETECTOR_NONZERO_EXIT_MAY_FALSE_PASS_TECH_QA",
       "NO_GRAPH_REGISTERED_RENDER_TAKE_WITH_BLINDED_OBSERVED_QUALITY",
@@ -171,7 +171,7 @@
       "world_authority": "NO_APPROVED_CANON__PROVISIONAL_CREATIVE_CANDIDATES_ONLY",
       "narrative_authority": "audits/agent_war_ai_review_runs/40077050738/STORY_CORE_CANDIDATE_UNAPPROVED.md",
       "first_film_candidate": "白灯不等人 — most recent ACTUAL Copilot writer output; independently REJECT_PREMISE",
-      "status": "STABLE_CREATIVE_LEARNING_PROCEDURE__V6_REJECTED__PRACTICE_IN_PROGRESS",
+      "status": "WRITER_LESSON01_D1_REAL_AI_REVIEW_FAIL_D2_REWRITE_RE_REVIEW_REQUESTED__NO_FILM",
       "duration_hypothesis": "not fixed; evaluate after a story worthy of live boards",
       "superseded_pilots": [
         "第17号漏洞 (user rejected world)",
@@ -203,7 +203,7 @@
       "prior_stories": "断面 V6, 临时编号 V7, 不在册 V8, 白线落下 (REJECT), 两次点名 (STRUCTURAL_REWRITE), 西泄口 (REJECT), 余线 (STRUCTURAL_REWRITE), 白灯不等人 (REJECT, latest)",
       "draft_runtime": "NO_APPROVED_FILM_DURATION",
       "core_story": "Rejected candidate: Agent 织机 diverts an attacking military rail carriage into a dead-end siding, injures civilian 伊娃, then commissioner shuts off Agent and raises bridge. Independent AI reviewer says human signaller/operator can do same and simpler actions are unexplored.",
-      "verified_story_boundaries": "PROTOCOL_LINKED_EXISTING_WRITER_AND_WORKFLOW__NO_CLAIM_ARTISTIC_MASTERY__NO_NEW_SCRIPT_ACCEPTED__V6_STRUCTURAL_REWRITE",
+      "verified_story_boundaries": "LESSON01_REAL_D1_REVIEW_40175894907__D2_REVISED__SOURCE_LOCKED_BLIND_RE_REVIEW_REQUESTED__NO_HUMAN__V6_REJECTED_NO_FILM",
       "remaining_quality_risks": [
         "repeated premise failures indicate core story methodology must change, not just technological constraints",
         "Agent-specific autonomous responsibility not yet dramatized; audience empathy untested",
@@ -248,12 +248,16 @@
         "review_provenance_ref": "audits/agent_war_single_reviews/40168786810/v6_story_editor.json",
         "review_evidence_ref": "audits/AGENT_WAR_V6_INDEPENDENT_EDITOR_VERDICT_AND_CREATIVE_NEXT_2026-10-25.md",
         "external_human_viewer_count": 0,
-        "next_work": "Run one end-to-end John August scene practice on baseline, with direct primary exemplar, cheaper-solution counterexample, revised physically filmable scene, separate critique, retain what changed; only then expand original Agent-war film.",
+        "next_work": "Fetch exact V2 independent model review archive if action finished; make scene-level source-causal revisions, record genuine lesson outcome, and only then choose next writing capability exercise; no V7 film.",
         "apprenticeship_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/WRITER_APPRENTICESHIP_DEEP_DIVE_2026-10-25.md",
         "exercises_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/WORKED_SCENE_APPRENTICESHIP_2026-10-25.md",
         "learning_protocol_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/LEARNING_AND_CREATIVE_PRACTICE_PROTOCOL.md",
         "apprenticeship_baseline_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/WORKED_SCENE_APPRENTICESHIP_2026-10-25.md",
-        "training_status": "PROTOCOL_DOCUMENTED_AND_REFERENCED__BASELINE_EXISTS__NO_FULL_SOURCE_TO_COLD_READER_ITERATION_COMPLETED"
+        "training_status": "D1_ACTUAL_ISOLATED_MODEL_CRITIQUE_COMPLETED__D2_SUBSTANTIVELY_REWRITTEN__D2_RE_REVIEW_REQUESTED_RESULT_PENDING",
+        "training_receipt_ref": "audits/STORYCRAFT_LESSON01_EXECUTION_AND_TRANSFER_2026-10-25.md",
+        "training_d1_review_ref": "audits/agent_war_single_reviews/40175894907/story_editor.json",
+        "training_d2_ref": "skills/video-growth-agent/references/storycraft-research-2026-10-25/LESSON01_SCENE_REVISION_D2_2026-10-25.md",
+        "training_d2_review_request_ref": "audits/agent_war_single_reviews/REQUEST.json"
       },
       "last_known_external_review": "40081322942: Both cleanroom railroad stories STRUCTURAL_REWRITE, comparator STORY_REVISION_REQUIRED",
       "two_minute_author_direction": {

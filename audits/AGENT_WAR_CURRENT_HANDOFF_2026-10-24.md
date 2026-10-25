@@ -1,5 +1,8 @@
 # Agent × 战争电影项目 — 当前总纲、事实状态与新对话无缝继承
 
+> **2026-10-25 当前最优先的“继续+跨对话继承”状态（覆盖下方历史泛化结论）**：创作学习遵循**现有固定七步** `skills/video-growth-agent/references/storycraft-research-2026-10-25/LEARNING_AND_CREATIVE_PRACTICE_PROTOCOL.md`，不是每轮修改学习方向。首轮已实际完成 John August 原始场景写作/重写文章 + Sundance场景课程纲要 + Pixar活动 + ICRC真实寻亲知识的针对性研究；写《到过》D1，**另一真实Copilot会话独立审稿** `audits/agent_war_single_reviews/40175894907/story_editor.json`，结论 SCENE_STRUCTURAL_REWRITE（未核查司机、假章需要无来由、领票未连接身份、结尾无真正行动）。作者据此**实质重写** `skills/video-growth-agent/references/storycraft-research-2026-10-25/LESSON01_SCENE_REVISION_D2_2026-10-25.md`，删假章，直接询问车辆调度、明确票号预配与登车未确认，并把核对与回访变成行动。执行及源材料范围记录 `audits/STORYCRAFT_LESSON01_EXECUTION_AND_TRANSFER_2026-10-25.md`。D2已发出第二次单独纯场景隔离复审请求（`audits/agent_war_single_reviews/REQUEST.json`，源blob锁定、最多一次Copilot文本调用）；**在找到这次真实结果前不得声称D2审稿通过**。已有第一次独立模型批评、改稿与保存证据，但**没有真人冷观/影片成片**。本训练不是Agent×战争新作品，V6《今日胜利》仍STRUCTURAL_REWRITE，不制作视频、无新角色资产、PR#23 Draft未合并。下一对话优先先看**PR真实head**是否已新增D2独立审稿归档，再读D2批评并据此决定进一步改稿或迁移到下一个基本功练习，禁止重启泛泛的“十篇学习”或无证据地吹优秀。
+
+
 > **2026-10-25 当前创作学习工作方式已固定（比下方多次所谓“方向转变”优先）**：过去确有十份以上研究卡、剧情习作和独立剧本批评，却一直把每次纠错当新学习方向，缺少可持续训练闭环。现有 `video_growth_agent/data/workflow.json` 是**影片生产工作流**，不是学习能力训练。已新增**唯一引用的编剧学徒训练方法** `skills/video-growth-agent/references/storycraft-research-2026-10-25/LEARNING_AND_CREATIVE_PRACTICE_PROTOCOL.md`，在现有 `video_growth_agent/data/team.md` 的Writer和 `skills/video-growth-agent/references/workflow.md` 中接入；不另起规则和阶段。稳定七步：诊断具体缺陷→按缺口选专业原作/课程/生活事实→分析作品行为与边界→无照搬的新场景训练→廉价反例→真实独立反馈与重写→保留可复用证据。已读部分公开来源及已有公告栏21秒场景是基线，**尚无完成整轮独立反馈的训练证据**；接下来的合法动作就是用John August/Sundance/Pixar的具体练习完成一轮，而非又写V7或开启5/10s视频生产。V6保持独立STRUCTURAL_REWRITE，未锁新剧本。
 
 
