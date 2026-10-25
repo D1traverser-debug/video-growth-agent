@@ -1,5 +1,8 @@
 # Video prompt & professional craft candidate — durable continuation
 
+> **2026-10-25 新进展，优先于下方历史进度**：用户说“继续”后，我已自行动手完成新题材编剧训练 L02《月亮不升》：研究NFB官方《The Sweater》/作者采访的“物件与社会身份”、Ontario/OSHA舞台安全维护事实，写剧场D1→D2→D3，实际试图用“固定月亮+改灯光”击败自己构思，随后才由演员追逐活动与道具员主动试推改变舞监的动作。最新D3 `skills/video-growth-agent/references/storycraft-research-2026-10-25/LESSON02_THEATER_SCENE_D3_2026-10-25.md`，本轮证据与边界 `audits/STORYCRAFT_LESSON02_TRANSFER_RECEIPT_2026-10-25.md`。作者对D3已提出反例，它还不是获准生产的故事；隔离外部Copilot审稿REQUEST已提交，但实际审核运行**尚未观察到**，不能说独立审稿通过。由既有固定训练七步继续下一步，别给用户提示词/表格，别重复发明学习系统。原片V6《今日胜利》依然 `STRUCTURAL_REWRITE`；下一实质目标是把行动因果能力迁移回Agent×战争独特故事核心，不把普通摄影师或固定程序换皮。PR#23继续Draft，main/H1未变。
+
+
 > **2026-10-25 最新操作（覆盖此前“D2审稿待回”）：本聊天已直接执行，不再要求用户转交Codex提示词。** 在 GitHub PR#23 当前工作分支核验：D2第二次盲审请求源于提交 `064779a1d62e3c61b356af8a97b79efdae033640`，该提交只返回 CI 工作流成功，未发现对应独立 Story Editor 运行或可核对审稿结果；**不得把D2标记为复审通过**。根据实际D1独立编辑的结构否决和D2仍存在的原件保管、女方被动等待与假无线电悬念，作者已在本轮**实质新写 D3** `skills/video-growth-agent/references/storycraft-research-2026-10-25/LESSON01_SCENE_REWRITE_D3_2026-10-25.md`：女方持同名家属联+学生证确认被找的人，看到“分配四号车≠已上车”，实际提出双线核查（工作人员询问四号车下一站，女方亲自回本站检票区寻找），双方行动真实改变；保留低成本替代解法和自我反例。不把D3说成艺术认可或影片版本。技能训练方法维持 `LEARNING_AND_CREATIVE_PRACTICE_PROTOCOL.md`，作品生产阶段没有改变；V6《今日胜利》仍独立 `STRUCTURAL_REWRITE` 且停产。**下一次对话读取 EVOLUTION_INDEX → 此优先项 → D3，先核对有没有真实D2晚到审稿，再开展新场景迁移训练或独立评审；不再从V1重写，也不再发提示词让用户操作。**
 
 
