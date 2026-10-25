@@ -22,6 +22,7 @@ START = "## 人物与物理空间（一个地点）"
 END = "## 原始要求及不同候选的取舍"
 V6_STORY = Path("projects/ai-self-media-commercialization/creative_candidates/agent_war/JIN_RI_SHENG_LI_112S_V6_DIRECTOR_TREATMENT_2026-10-25.md")
 V6_REQUEST = Path("audits/agent_war_single_reviews/REQUEST_V6.json")
+LESSON01 = Path("skills/video-growth-agent/references/storycraft-research-2026-10-25/LESSON01_SCENE_DRAFT_2026-10-25.md")
 
 
 def review_spec(req: dict) -> tuple[Path, str, str, str]:
@@ -29,6 +30,8 @@ def review_spec(req: dict) -> tuple[Path, str, str, str]:
         return STORY, START, END, "v4_story_editor"
     if req.get("purpose") == "blind_single_story_editor_v6" and req.get("story_path") == str(V6_STORY):
         return V6_STORY, "## 三位主角各自知道什么", "## 本稿真正要让观众完成的推断", "v6_story_editor"
+    if req.get("purpose") == "blind_writer_scene_lesson01" and req.get("story_path") == str(LESSON01):
+        return LESSON01, "## [BLIND_SCENE_START]", "## [BLIND_SCENE_END]", "writer_scene_lesson01"
     raise RuntimeError("missing exact authorized story/script version")
 BRIEF = (
     "用户原始影视题材「Agent」×「战争」。必须以Agent为核心，"
@@ -63,7 +66,8 @@ def source(request_path: Path = ROOT / REQUEST) -> tuple[str, str]:
     if not matches_source:
         raise RuntimeError("source changed since authorized review request")
     a, b = text.find(start_tag), text.find(end_tag)
-    if a < 0 or b <= a or b - a < 1800:
+    minimum = 350 if _stage == "writer_scene_lesson01" else 1800
+    if a < 0 or b <= a or b - a < minimum:
         raise RuntimeError("cannot isolate complete scenes from author framing")
     story = text[a:b].strip()
     for forbidden in ("## 原始要求及不同候选", "## 在审稿前最危险", "## 作者自己必须提出的最严重反例", "## 本稿真正要让观众完成的推断"):
@@ -77,6 +81,25 @@ def build(request_path: Path = ROOT / REQUEST) -> tuple[str, dict]:
     req = json.loads(request_path.read_text(encoding="utf-8"))
     story_path, _start, _end, stage = review_spec(req)
     method, method_ref = team_method("Story Editor")
+    if stage == "writer_scene_lesson01":
+        prompt = (
+            "【当前独立角色：短场编剧训练审核者】\n" + method +
+            "\n\n【任务】独立冷读以下一场45–50秒的虚构战时日常小场戏。"
+            "目的不是审查Agent技术、政治观念或宣称有真人观看，而是检验学徒是否学会场景动作因果。"
+            "不要读取或假定任何作者自评、研究笔记、过去剧本或更改建议；此处只给待检的场次。"
+            "先按实际场面重述：谁在追求什么、发生哪一个行动选择、结尾情况如何真的变化。"
+            "找至少四个实质性反证，特别是可直接问司机/登车记录、女人为什么请求盖章、"
+            "凭证究竟能证明谁在何时做过什么、她的书写及结尾是否改变搜索行动、"
+            "45秒可否演完。严厉区分缺乏证据和刻意留白；不要用临时不合理规定救戏，"
+            "也不要逼它必须幽默、悲壮、Agent主体或完整短片。"
+            "输出最强结构性漏洞、可实行的场次修订建议；结论限定"
+            "SCENE_REJECT_OR_RETHINK / SCENE_STRUCTURAL_REWRITE / SCENE_PRACTICE_VIABLE。"
+            "最后一种也不表示故事好、真人观众满意或整部影片可制作。"
+            "\n\n【唯一场景文本，不含作者意见】\n" + story
+        )
+        return prompt, {"input_story_only_sha256": script_hash,
+                        "full_script_sha256": sha((ROOT / story_path).read_text(encoding="utf-8")),
+                        "role_ref": method_ref}
     prompt = (
         "【本次隔离执行的岗位规范；真实角色技能原文】\n" + method +
         "\n\n【原始创作委托】\n" + BRIEF +
