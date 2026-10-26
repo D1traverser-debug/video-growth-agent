@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0",
+  "project": "Agent × 战争",
+  "review_date": "2026-10-25",
+  "purpose": "Selectively retrieve actual creative-method knowledge at SCRIPT and SCRIPT_AUDIT; not an artistic quality classifier",
+  "cards": [
+    {
+      "id": "K01",
+      "path": "skills/video-growth-agent/references/storycraft-research-2026-10-25/01-mazin-dramatic-argument.md",
+      "mechanism": "CENTRAL_DRAMATIC_ARGUMENT",
+      "symptom": "原稿有主题但无真正相反的价值",
+      "source_depth": "官方原作者播客逐字稿",
+      "review_status": "WRITTEN_AND_APPLIED_TO_FAILED_V5"
+    },
+    {
+      "id": "K02",
+      "path": "skills/video-growth-agent/references/storycraft-research-2026-10-25/02-pixar-storytelling.md",
+      "mechanism": "CHARACTER_WANT_AND_VISUAL_GRAMMAR",
+      "symptom": "人物无独特选择或只能靠对白解释",
+      "source_depth": "公开课程框架可确认，视频分节未逐条观看",
+      "review_status": "CURRICULUM_SCOPE_LIMITED"
+    },
+    {
+      "id": "K03",
+      "path": "skills/video-growth-agent/references/storycraft-research-2026-10-25/03-yorke-story-dialectic.md",
+      "mechanism": "CAUSAL_NEW_STATE",
+      "symptom": "反转不改变以后能做什么",
+      "source_depth": "作者原站文章",
+      "review_status": "READ_AND_APPLIED"
+    },
+    {
+      "id": "K04",
+      "path": "skills/video-growth-agent/references/storycraft-research-2026-10-25/04-show-me-shorts-economy.md",
+      "mechanism": "SHORT_FORM_IDEA_ECONOMY",
+      "symptom": "120秒塞满背景和行话",
+      "source_depth": "电影节官方完整短文",
+      "review_status": "READ_AND_APPLIED"
+    },
+    {
+      "id": "K05",
+      "path": "skills/video-growth-agent/references/storycraft-research-2026-10-25/05-bordwell-visual-comedy.md",
+      "mechanism": "VISUAL_REINTERPRETATION",
+      "symptom": "故事不会令人会心一笑",
+      "source_depth": "作者原创电影镜头分析文章",
+      "review_status": "READ_AND_APPLIED"
+    },
+    {
+      "id": "K06",
+      "path": "skills/video-growth-agent/references/storycraft-research-2026-10-25/06-harmon-story-circle.md",
+      "mechanism": "WANT_PRICE_CHANGED_RETURN",
+      "symptom": "角色得到想要之物但没有代价",
+      "source_depth": "作者文章转载镜像（非原站）",
+      "review_status": "MIRROR_SOURCE_WITH_LIMITS"
+    },
+    {
+      "id": "K07",
+      "path": "skills/video-growth-agent/references/storycraft-research-2026-10-25/07-bordwell-hitchcock-suspense.md",
+      "mechanism": "AUDIENCE_KNOWLEDGE_ALLOCATION",
+      "symptom": "事件都已预见且无悬念",
+      "source_depth": "学者原创电影分析文章",
+      "review_status": "READ_AND_APPLIED"
+    },
+    {
+      "id": "K08",
+      "path": "skills/video-growth-agent/references/storycraft-research-2026-10-25/08-stanford-humor-philosophy.md",
+      "mechanism": "INCONGRUITY_WITH_PLAY_CONTEXT",
+      "symptom": "战争中突然插荒诞不产生幽默",
+      "source_depth": "斯坦福哲学百科完整公开条目，重点核读§4、§6",
+      "review_status": "READ_AND_APPLIED"
+    },
+    {
+      "id": "K09",
+      "path": "skills/video-growth-agent/references/storycraft-research-2026-10-25/09-anthropic-effective-agents.md",
+      "mechanism": "AGENT_COUNTERFACTUAL",
+      "symptom": "普通人类或预写脚本能直接替代Agent",
+      "source_depth": "Anthropic官方工程文章",
+      "review_status": "READ_AND_APPLIED"
+    },
+    {
+      "id": "K10",
+      "path": "skills/video-growth-agent/references/storycraft-research-2026-10-25/10-generative-agents-emergence.md",
+      "mechanism": "AGENT_SOCIAL_PROPAGATION",
+      "symptom": "两个控制器通信却没有真正多Agent涌现",
+      "source_depth": "UIST研究论文作者稿，重点核读摘要与结构、实例",
+      "review_status": "RESEARCH_REVIEWED_NOT_REPLICATED"
+    }
+  ],
+  "collections": {
+    "plot_argument": [
+      "K01",
+      "K03",
+      "K06"
+    ],
+    "visual_humor": [
+      "K05",
+      "K08",
+      "K04"
+    ],
+    "information_suspense": [
+      "K07",
+      "K02"
+    ],
+    "agent_necessity": [
+      "K09",
+      "K10"
+    ],
+    "short_film_execution": [
+      "K04",
+      "K02",
+      "K05"
+    ]
+  },
+  "current_case": "skills/video-growth-agent/references/storycraft-research-2026-10-25/V5-CASE-REASSESSMENT.md",
+  "cross_comparison": "skills/video-growth-agent/references/storycraft-research-2026-10-25/README.md",
+  "acceptance_policy": "No study count, source list, AI self-evaluation or CI automatically passes script; use source-specific action and story-level independent review.",
+  "factual_limits": [
+    "K02 course video chapters not all watched",
+    "K06 mirrored author essay, not original hosting",
+    "No real unprimed viewer experiments",
+    "No film is ready for production"
+  ]
+}

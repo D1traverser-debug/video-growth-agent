@@ -2,13 +2,24 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 
-from .media_qa import MediaQAChecker
+from .prompt_director import PromptPlanError, compile_file
+from .prompt_experiment import h3_dialect_study
+from .source_director import (
+    PromptPlanError as DirectorSourceError, accept_authoring_response,
+    author_with_model, build_compatible_chat_client, build_director_request,
+    prepare_authoring_messages,
+)
+from .media_qa import MediaQAChecker, prepare_directed_media_review
+from .media_graph import MediaGraphStore, MediaGraphError
+from .plan_graph_bridge import PlanGraphBridgeError, register_directed_take_observation
 from .models import AssetRecord
 from .runtime import StudioRuntime
 from .system_audit import run_system_audit
 from .techniques import TechniqueLibrary
+from .craft_round import CraftReviewError, prepare_craft_round, reconcile_craft_round, next_revision_diff, check_revision_against_handoffs, run_craft_role_models
 
 
 def _json(data) -> None:
@@ -79,10 +90,221 @@ def main(argv: list[str] | None = None) -> int:
     candidate_mode.add_argument("--validated-only", action="store_true", help="production-safe default; retained for compatibility")
     candidate_mode.add_argument("--include-candidates", action="store_true", help="explicit learning/prototype opt-in")
 
+    p = sub.add_parser("direct-prompts", help="compile H3-first/PixVerse baseline film prompts with explicit scope and timing")
+    p.add_argument("plan", type=Path)
+    p.add_argument("--route", choices=["compare", "onepass", "shotwise"], default="compare")
+    p.add_argument("--h3-style", choices=["auto", "lean", "chinese", "official"], default="auto")
+    p.add_argument("--study-h3-dialects", action="store_true", help="design an evidence-bound A/B prompt study; no media generation")
+    p.add_argument("--plain", action="store_true", help="print copy-ready prompt text, not JSON")
+    p.add_argument("--review-sheet", action="store_true", help="emit unscored shot-level evaluation targets for actual rendered video")
+    p.add_argument("--media", type=Path, help="bind a real local take to --review-sheet, without declaring quality")
+    p.add_argument("--frames-dir", type=Path, help="optional extracted review frame samples for --media")
+    p.add_argument("--frame-count", type=int, default=9, help="number of frame samples when --frames-dir is supplied")
+
+    p = sub.add_parser("author-director", help="convert complete source script to verified H3 director plan via structured model response")
+    p.add_argument("source", type=Path, help="UTF-8 raw screenplay or original brief")
+    p.add_argument("--seconds", required=True, type=int, help="final film duration, 4–15 seconds for H3")
+    p.add_argument("--fps", type=int, default=30, help="director edit timebase")
+    p.add_argument("--aspect", default="16:9")
+    p.add_argument("--source-ref", default="user-supplied://original")
+    p.add_argument("--source-type", choices=["USER_ORIGINAL", "USER_REFERENCE", "ORIGINAL_SCRIPT", "PRIMARY_DOCUMENT"], default="USER_REFERENCE")
+    p.add_argument("--model-output", type=Path, help="import a JSON draft produced by a separate authoring model")
+    p.add_argument("--execute-model", action="store_true", help="call a configured HTTPS chat-completions text model")
+    p.add_argument("--endpoint", help="explicit HTTPS chat-completions URL (only with --execute-model)")
+    p.add_argument("--model-name", help="text model name (not the H3 video model)")
+    p.add_argument("--api-key-env", default="VIDEO_DIRECTOR_API_KEY")
+    p.add_argument("--approve-upload-cost", action="store_true", help="approve sending original script to this text provider and possible charges")
+    p.add_argument("--max-revisions", type=int, default=0, choices=[0,1,2,3], help="additional paid authoring calls after rejected JSON")
+    p.add_argument("--out-plan", type=Path, help="save accepted full plan JSON after validation")
+    p.add_argument("--route", choices=["onepass", "shotwise"], default="onepass")
+    p.add_argument("--h3-style", choices=["auto", "lean", "chinese", "official"], default="auto")
+
+    p = sub.add_parser("craft-round", help="prepare independent craft role packets or reconcile submitted reviews on one shot plan")
+    p.add_argument("plan", type=Path, help="validated director-plan JSON")
+    p.add_argument("--revision", type=int, default=1)
+    p.add_argument("--reviews", type=Path, help="JSON list of submitted seven role reviews")
+    p.add_argument("--previous", type=Path, help="prior version for shot-level delta")
+    p.add_argument("--previous-reviews", type=Path, help="previous round submitted reviews to check which issues changed")
+    p.add_argument("--execute-roles", action="store_true", help="make real potentially charged LLM calls for seven role-plan critiques")
+    p.add_argument("--endpoint", help="HTTPS chat-completions URL")
+    p.add_argument("--model-name", help="text-model identifier")
+    p.add_argument("--api-key-env", default="VIDEO_DIRECTOR_API_KEY")
+    p.add_argument("--approve-upload-cost", action="store_true", help="explicit approval to transmit plan and charge model calls")
+    p.add_argument("--max-role-calls", type=int, default=0, help="explicit maximum number of paid role calls; seven required")
+
+
+    p = sub.add_parser("register-directed-take", help="persist inspected local take as unreviewed candidate in existing MediaGraph")
+    p.add_argument("graph", type=Path, help="existing MediaGraph JSON with sequence or shot context")
+    p.add_argument("plan", type=Path, help="immutable director-plan JSON file")
+    p.add_argument("media", type=Path, help="actual existing local video file")
+    p.add_argument("--context-id", required=True)
+    p.add_argument("--director-plan-id", required=True)
+    p.add_argument("--plan-version", required=True)
+    p.add_argument("--take-id", required=True)
+    p.add_argument("--take-version", required=True)
+
     p = sub.add_parser("system-audit")
     p.add_argument("--repo-root", type=Path)
 
     args = parser.parse_args(argv)
+
+    if args.cmd == "register-directed-take":
+        try:
+            if not args.graph.is_file():
+                parser.error("register-directed-take requires an existing graph; no implicit new project")
+            store = MediaGraphStore(args.graph)
+            graph = store.load()
+            plan = json.loads(args.plan.read_text(encoding="utf-8"))
+            ref, packet = register_directed_take_observation(
+                graph, plan=plan, plan_uri=str(args.plan), media=str(args.media),
+                context_id=args.context_id,
+                director_plan_id=args.director_plan_id,
+                plan_version=args.plan_version,
+                take_id=args.take_id, take_version=args.take_version,
+            )
+            store.save(graph)
+            _json({"registered_asset_ref": ref.key(), "state": graph.asset_state(ref),
+                   "evidence_id": "media-inspection:" + ref.key(),
+                   "quality_review": "NOT_STARTED", "provider_attribution": "NOT_VERIFIED",
+                   "promotion_authorized": False, "technical_hard_pass": packet["technical_media_qa"]["hard_pass"],
+                   "duration_alignment": packet["timeline_alignment"],
+                   "media_sha256": packet["media_asset_ref"]["sha256"],
+                   "graph_path": str(args.graph), "review_packet": packet})
+            return 0
+        except (PlanGraphBridgeError, MediaGraphError, PromptPlanError, OSError, ValueError, RuntimeError) as exc:
+            parser.exit(2, f"register-directed-take: {exc}\n")
+
+    if args.cmd == "craft-round":
+        try:
+            current = json.loads(args.plan.read_text(encoding="utf-8"))
+            packet = prepare_craft_round(current, revision=args.revision)
+            result = {"packet": packet}
+            if args.execute_roles and args.reviews:
+                parser.error("--execute-roles and --reviews are mutually exclusive")
+            if args.execute_roles:
+                if not args.endpoint or not args.model_name:
+                    parser.error("--execute-roles requires --endpoint and --model-name")
+                if not args.approve_upload_cost or args.max_role_calls != len(packet["orders"]):
+                    parser.error("--execute-roles needs --approve-upload-cost and --max-role-calls 7")
+                client = build_compatible_chat_client(
+                    endpoint=args.endpoint, model_name=args.model_name,
+                    api_key=os.environ.get(args.api_key_env, ""),
+                    approved=args.approve_upload_cost,
+                )
+                result["role_model_execution"] = run_craft_role_models(
+                    packet, client, approved_role_calls=args.max_role_calls,
+                )
+            elif args.reviews is not None:
+                reviews = json.loads(args.reviews.read_text(encoding="utf-8"))
+                result["reconciliation"] = reconcile_craft_round(packet, reviews)
+            if args.previous_reviews is not None and args.previous is None:
+                parser.error("--previous-reviews requires --previous old-plan.json")
+            if args.previous is not None:
+                previous = json.loads(args.previous.read_text(encoding="utf-8"))
+                result["revision_diff"] = next_revision_diff(previous, current)
+                if args.previous_reviews is not None:
+                    old_packet = prepare_craft_round(previous, revision=max(1, args.revision - 1))
+                    old_reviews = json.loads(args.previous_reviews.read_text(encoding="utf-8"))
+                    old_report = reconcile_craft_round(old_packet, old_reviews)
+                    result["revisions_against_handoffs"] = check_revision_against_handoffs(
+                        previous, current, old_report,
+                    )
+            _json(result)
+            return 0
+        except (CraftReviewError, PromptPlanError, OSError, ValueError, KeyError) as exc:
+            parser.exit(2, f"craft-round: {exc}\n")
+
+    if args.cmd == "author-director":
+        try:
+            if args.model_output is not None and args.execute_model:
+                parser.error("--model-output and --execute-model are mutually exclusive")
+            raw = args.source.read_text(encoding="utf-8")
+            packet = build_director_request(
+                raw, target_seconds=args.seconds, fps=args.fps,
+                aspect_ratio=args.aspect, source_reference=args.source_ref,
+                source_type=args.source_type,
+            )
+            if args.model_output is not None:
+                response = args.model_output.read_text(encoding="utf-8")
+                result = accept_authoring_response(
+                    packet, response, prompt_route=args.route, h3_style=args.h3_style,
+                )
+            elif args.execute_model:
+                if not args.endpoint or not args.model_name:
+                    parser.error("--execute-model requires --endpoint and --model-name")
+                client = build_compatible_chat_client(
+                    endpoint=args.endpoint, model_name=args.model_name,
+                    api_key=os.environ.get(args.api_key_env, ""),
+                    approved=args.approve_upload_cost,
+                )
+                result = author_with_model(
+                    packet, client, prompt_route=args.route, h3_style=args.h3_style,
+                    max_revisions=args.max_revisions,
+                )
+            else:
+                _json({"status": "AUTHORING_PACKET_READY", "packet": packet,
+                       "model_messages": prepare_authoring_messages(packet),
+                       "note": "Model was NOT called. Send model_messages to an authoring LLM; import bare JSON with --model-output."})
+                return 0
+            if args.out_plan:
+                args.out_plan.write_text(json.dumps(result["plan"], ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            _json(result)
+            return 0
+        except (DirectorSourceError, OSError, ValueError) as exc:
+            parser.exit(2, f"author-director: {exc}\n")
+
+    if args.cmd == "direct-prompts":
+        try:
+            if args.study_h3_dialects:
+                if args.plain or args.review_sheet:
+                    parser.error("--plain/--review-sheet are not available with --study-h3-dialects")
+                if args.route not in {"compare", "onepass"}:
+                    parser.error("--study-h3-dialects only supports onepass; omit --route or use onepass")
+                plan = json.loads(args.plan.read_text(encoding="utf-8"))
+                _json(h3_dialect_study(plan))
+            else:
+                if args.media is not None and not args.review_sheet:
+                    parser.error("--media requires --review-sheet")
+                if args.frames_dir is not None and args.media is None:
+                    parser.error("--frames-dir requires --media and --review-sheet")
+                report = compile_file(args.plan, args.route, h3_style=args.h3_style)
+                if args.review_sheet:
+                    if args.plain:
+                        parser.error("--plain and --review-sheet are mutually exclusive")
+                    if args.media is None:
+                        _json(report["review_targets"])
+                    else:
+                        plan = json.loads(args.plan.read_text(encoding="utf-8"))
+                        _json(prepare_directed_media_review(
+                            plan, args.media, frames_dir=args.frames_dir,
+                            frame_count=args.frame_count,
+                        ))
+                elif args.plain:
+                    if args.route == "compare":
+                        parser.error("--plain needs --route onepass or --route shotwise")
+                    if "prompt_candidates" in report:
+                        sections = []
+                        for dialect, routes in report["prompt_candidates"].items():
+                            compiled = routes[args.route]
+                            if compiled["status"] == "COMPILED":
+                                section = "\n\n=== CANDIDATE: " + dialect.upper() + " ===\n\n"
+                                section += "\n\n=== NEXT SHOT ===\n\n".join(
+                                    item["prompt"] for item in compiled["prompts"]
+                                )
+                                sections.append(section)
+                        if not sections:
+                            parser.error("no compilable prompt dialects for requested route")
+                        print("".join(sections))
+                    else:
+                        compiled = report["routes"][args.route]
+                        if compiled["status"] != "COMPILED":
+                            parser.error(compiled["reason"])
+                        print("\n\n=== NEXT SHOT ===\n\n".join(item["prompt"] for item in compiled["prompts"]))
+                else:
+                    _json(report)
+            return 0
+        except (PromptPlanError, OSError, ValueError, RuntimeError) as exc:
+            parser.exit(2, f"direct-prompts: {exc}\n")
 
     if args.cmd == "system-audit":
         report = run_system_audit(args.repo_root)

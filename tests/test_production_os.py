@@ -121,6 +121,7 @@ def test_low_risk_take_can_promote_without_independent_review_when_quality_passe
         continuity_evidence_refs=(),
         rights_evidence_refs=("rights://1",),
         truth_evidence_refs=(),
+        technical_qa_refs=("qa://tested-S001-T01",),
     )
     decision = evaluate_take_promotion(shot, _take(), evidence, decision_owner="director")
     assert decision.decision == "PROMOTE"
@@ -170,3 +171,17 @@ def test_platform_variant_requires_authored_packaging_candidates():
         metric_map={"short_early_exit": "provider_defined_early_exit"},
     )
     assert variant.platform == "DOUYIN"
+
+
+
+def test_low_risk_take_cannot_promote_when_media_qa_is_absent():
+    evidence = PromotionEvidence(
+        quality_scores={"identity": 5.0, "motion": 5.0},
+        quality_evidence_refs=("quality://sample",),
+        continuity_evidence_refs=(),
+        rights_evidence_refs=("rights://sample",),
+        truth_evidence_refs=(),
+    )
+    outcome = evaluate_take_promotion(_shot(risk="LOW"), _take(), evidence, decision_owner="director")
+    assert outcome.decision == "REJECT"
+    assert "TECHNICAL_QA_EVIDENCE_MISSING" in outcome.reasons

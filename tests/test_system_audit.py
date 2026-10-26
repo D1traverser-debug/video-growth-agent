@@ -64,3 +64,14 @@ def test_combined_system_audit_passes_repository_and_package():
     report = run_system_audit(ROOT)
     assert report["pass"] is True, report
     assert report["failures"] == []
+
+
+def test_green_system_audit_does_not_attest_an_actual_film_or_user_business_goal():
+    from video_growth_agent.system_audit import run_system_audit
+    report = run_system_audit()
+    scope = report["assurance_scope"]
+    assert scope["goal_achievement_verdict"] == "NOT_ASSESSED_BY_STATIC_AUDIT"
+    assert "AUTHENTIC_MODEL_GENERATION" in scope["does_not_certify"]
+    assert "FILM_SEMANTIC_OR_ARTISTIC_QUALITY" in scope["does_not_certify"]
+    assert "REAL_PLATFORM_GROWTH_OR_COMMERCIAL_RESULTS" in scope["does_not_certify"]
+    assert scope["goal_fit_evidence_ref"].endswith("VIDEO_END_TO_END_GOAL_FIT_AUDIT_2026-10-24.md")

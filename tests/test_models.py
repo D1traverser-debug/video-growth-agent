@@ -20,6 +20,8 @@ def test_packaged_runtime_resources_are_single_repository_authority():
     for name in ("roles.json", "workflow.json", "techniques.json", "quality-rubric.json"):
         payload = json.loads(data_path(name).read_text(encoding="utf-8"))
         assert isinstance(payload, dict) and payload
-    assert data_path("team.md").read_text(encoding="utf-8") == (
-        root / "skills/video-growth-agent/references/team.md"
-    ).read_text(encoding="utf-8")
+    assert data_path("team.md").read_text(encoding="utf-8").strip()
+    assert not (root / "skills/video-growth-agent/references/team.md").exists()
+    assert json.loads(data_path("roles.json").read_text(encoding="utf-8"))["canonical_prompt_source"] == (
+        "video_growth_agent/data/team.md"
+    )

@@ -1,1 +1,155 @@
-{"version":"0.3.1","prompt_source_local":"team.md","canonical_prompt_source":"skills/video-growth-agent/references/team.md","roles":{"showrunner":{"prompt_section":"Showrunner","veto":["off-positioning","not-worth-publishing","cost-without-quality-gain"]},"growth_strategist":{"prompt_section":"Growth Strategist","veto":["weak-topic","unclear-audience","no-retention-hypothesis"]},"researcher":{"prompt_section":"Researcher","veto":["insufficient-evidence"]},"fact_checker":{"prompt_section":"Fact Checker","veto":["fact-error","unsupported-causality","overclaim"]},"writer":{"prompt_section":"Writer","veto":["no-story","exposition-dump"]},"story_editor":{"prompt_section":"Story Editor","veto":["correct-but-boring","weak-turn","bad-ending"]},"retention_editor":{"prompt_section":"Retention Editor","veto":["weak-first-2s","dead-zone","context-dependency"]},"director":{"prompt_section":"Director","veto":["not-a-work","flat-emotion","poor-integration"]},"art_director":{"prompt_section":"Art Director","veto":["looks-like-ppt","template-feel","cheap-ai-look","no-hero-frame"]},"storyboard_artist":{"prompt_section":"Storyboard Artist","veto":["shot-has-no-job","visual-does-not-explain"]},"motion_director":{"prompt_section":"Motion Director","veto":["linear-motion","decorative-motion","poor-easing"]},"asset_director":{"prompt_section":"Asset Director","veto":["low-quality-asset","unnecessary-paid-generation","rights-unknown"]},"editor":{"prompt_section":"Editor","veto":["pace-drag","redundancy","bad-cut"]},"sound_director":{"prompt_section":"Sound Director","veto":["weak-voice","flat-sound-story","clipping"]},"technical_director":{"prompt_section":"Technical Director","veto":["stream-mismatch","broken-render","unsafe-caption-zone"]},"commercial_director":{"prompt_section":"Commercial Director","veto":["unclear-advertiser-pool","forced-sponsor-fit","brand-unsafe"]},"compliance_editor":{"prompt_section":"Compliance Editor","veto":["copyright-risk","misleading-claim","license-unknown"]},"red_team":{"prompt_section":"Red Team","veto":["three-strong-reasons-not-to-publish"]},"creative_director":{"prompt_section":"Creative Director","veto":["below-reference-craft","demo-not-work","deferred-quality-pass","not-advertiser-showcase"]}}}
+{
+  "version": "0.3.1",
+  "prompt_source_local": "team.md",
+  "canonical_prompt_source": "video_growth_agent/data/team.md",
+  "roles": {
+    "showrunner": {
+      "prompt_section": "Showrunner",
+      "veto": [
+        "off-positioning",
+        "not-worth-publishing",
+        "cost-without-quality-gain"
+      ]
+    },
+    "growth_strategist": {
+      "prompt_section": "Growth Strategist",
+      "veto": [
+        "weak-topic",
+        "unclear-audience",
+        "no-retention-hypothesis"
+      ]
+    },
+    "researcher": {
+      "prompt_section": "Researcher",
+      "veto": [
+        "insufficient-evidence"
+      ]
+    },
+    "fact_checker": {
+      "prompt_section": "Fact Checker",
+      "veto": [
+        "fact-error",
+        "unsupported-causality",
+        "overclaim"
+      ]
+    },
+    "writer": {
+      "prompt_section": "Writer",
+      "veto": [
+        "no-story",
+        "exposition-dump"
+      ]
+    },
+    "story_editor": {
+      "prompt_section": "Story Editor",
+      "veto": [
+        "correct-but-boring",
+        "weak-turn",
+        "bad-ending"
+      ]
+    },
+    "retention_editor": {
+      "prompt_section": "Retention Editor",
+      "veto": [
+        "weak-first-2s",
+        "dead-zone",
+        "context-dependency"
+      ]
+    },
+    "director": {
+      "prompt_section": "Director",
+      "veto": [
+        "not-a-work",
+        "flat-emotion",
+        "poor-integration"
+      ]
+    },
+    "art_director": {
+      "prompt_section": "Art Director",
+      "veto": [
+        "looks-like-ppt",
+        "template-feel",
+        "cheap-ai-look",
+        "no-hero-frame"
+      ]
+    },
+    "storyboard_artist": {
+      "prompt_section": "Storyboard Artist",
+      "veto": [
+        "shot-has-no-job",
+        "visual-does-not-explain"
+      ]
+    },
+    "motion_director": {
+      "prompt_section": "Motion Director",
+      "veto": [
+        "linear-motion",
+        "decorative-motion",
+        "poor-easing"
+      ]
+    },
+    "asset_director": {
+      "prompt_section": "Asset Director",
+      "veto": [
+        "low-quality-asset",
+        "unnecessary-paid-generation",
+        "rights-unknown"
+      ]
+    },
+    "editor": {
+      "prompt_section": "Editor",
+      "veto": [
+        "pace-drag",
+        "redundancy",
+        "bad-cut"
+      ]
+    },
+    "sound_director": {
+      "prompt_section": "Sound Director",
+      "veto": [
+        "weak-voice",
+        "flat-sound-story",
+        "clipping"
+      ]
+    },
+    "technical_director": {
+      "prompt_section": "Technical Director",
+      "veto": [
+        "stream-mismatch",
+        "broken-render",
+        "unsafe-caption-zone"
+      ]
+    },
+    "commercial_director": {
+      "prompt_section": "Commercial Director",
+      "veto": [
+        "unclear-advertiser-pool",
+        "forced-sponsor-fit",
+        "brand-unsafe"
+      ]
+    },
+    "compliance_editor": {
+      "prompt_section": "Compliance Editor",
+      "veto": [
+        "copyright-risk",
+        "misleading-claim",
+        "license-unknown"
+      ]
+    },
+    "red_team": {
+      "prompt_section": "Red Team",
+      "veto": [
+        "three-strong-reasons-not-to-publish"
+      ]
+    },
+    "creative_director": {
+      "prompt_section": "Creative Director",
+      "veto": [
+        "below-reference-craft",
+        "demo-not-work",
+        "deferred-quality-pass",
+        "not-advertiser-showcase"
+      ]
+    }
+  }
+}

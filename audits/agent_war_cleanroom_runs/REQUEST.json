@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "experiment": "agent-war-original-brief-cleanroom",
+  "created_for": "User-authorized continue of Agent × War film work on 2026-10-24",
+  "authorization_summary": "User accepted use of GitHub Copilot to run separated writers/reviewers after verifying learned Video owner methods can be supplied to them.",
+  "scope": "Five Copilot text-model sessions only: writer_a, writer_b, review_a, review_b, adjudicate.",
+  "max_model_calls": 5,
+  "guardrails": [
+    "Do not use video provider credits.",
+    "Do not promote a story or merge PR automatically.",
+    "Preserve current H1 and main branch.",
+    "Save unapproved outputs, distinct-session IDs and original evidence.",
+    "Human artistic approval remains absent."
+  ],
+  "workflow": ".github/workflows/agent-war-cleanroom.yml",
+  "branch": "refactor/prompt-director-core-20261023",
+  "baseline_code_commit": "84a79f6b37dcabc919417e5f42e06386fec52ad3",
+  "activation_type": "one deliberate request-file creation; ordinary code commits do not invoke models"
+}

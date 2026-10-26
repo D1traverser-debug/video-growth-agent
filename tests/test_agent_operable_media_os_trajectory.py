@@ -235,6 +235,7 @@ def test_current_agent_can_move_from_editorial_intent_to_roundtrip_and_learning_
             continuity_evidence_refs=("continuity-review://S1-S2",),
             rights_evidence_refs=("rights://episode",),
             truth_evidence_refs=(),
+            technical_qa_refs=("qa://mechanical-check-S2-T1",),
         ),
         decision_owner="director",
     )

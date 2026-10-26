@@ -1,0 +1,17 @@
+{
+  "purpose": "blind_writer_scene_lesson02_theater",
+  "max_model_calls": 1,
+  "story_path": "skills/video-growth-agent/references/storycraft-research-2026-10-25/LESSON02_THEATER_SCENE_D3_2026-10-25.md",
+  "script_git_blob_sha": "2bd3091d58314bf69b4ec2f18175a45493d6dc31",
+  "source_repo_head_before_request": "a3676ff77629988d991ee6ef46496f51fb76d2cf",
+  "scope": "Independently assess actual 68-78s D3 cross-domain stage-training scene only; no author framing or prior versions",
+  "artistic_acceptance": false,
+  "human_viewers": 0,
+  "production_authorized": false,
+  "limits": [
+    "At most one Copilot text inference",
+    "No images or videos",
+    "Do not merge PR or change main",
+    "Do not claim human viewers or cinematic approval"
+  ]
+}

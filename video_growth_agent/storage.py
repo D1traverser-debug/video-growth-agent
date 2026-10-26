@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from .models import ProjectState, utcnow_iso
+from .checkpoint_io import read_snapshot, write_snapshot
 
 _PROJECT_RE = re.compile(r"^[a-zA-Z0-9][a-zA-Z0-9._-]{0,95}$")
 
@@ -45,12 +46,24 @@ class ProjectStore:
 
     def load(self, project_id: str) -> ProjectState:
         path = self.project_dir(project_id) / "state.json"
-        if not path.exists():
+        payload, revision = read_snapshot(path)
+        if payload is None:
             raise FileNotFoundError(f"Project state not found: {project_id}")
-        return ProjectState.from_dict(json.loads(path.read_text(encoding="utf-8")))
+        state = ProjectState.from_dict(payload)
+        state._checkpoint_revision = revision
+        state._checkpoint_path = str(path.resolve())
+        return state
 
     def save(self, state: ProjectState) -> None:
-        self._atomic_json(self.project_dir(state.project_id) / "state.json", state.to_dict())
+        path = self.project_dir(state.project_id) / "state.json"
+        if getattr(state, "_checkpoint_path", str(path.resolve())) != str(path.resolve()):
+            raise ValueError("project state belongs to another checkpoint; reload destination")
+        revision = write_snapshot(
+            path, state.to_dict(),
+            expected_revision=getattr(state, "_checkpoint_revision", None),
+        )
+        state._checkpoint_revision = revision
+        state._checkpoint_path = str(path.resolve())
 
     def append_receipt(self, project_id: str, event: str, payload: dict[str, Any]) -> str:
         receipt_id = f"{utcnow_iso().replace(':', '').replace('-', '')}-{uuid.uuid4().hex[:10]}"
@@ -66,7 +79,5 @@ class ProjectStore:
 
     @staticmethod
     def _atomic_json(path: Path, payload: dict[str, Any]) -> None:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        tmp = path.with_suffix(path.suffix + ".tmp")
-        tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-        os.replace(tmp, path)
+        # Used for newly-created project manifests. Refuse accidental overwrite.
+        write_snapshot(path, payload, expected_revision=None)

@@ -6,8 +6,8 @@ Input: corrected front-view monochrome matte-gray `H1-S13-HYBRID` sculpt supplie
 
 ## Correction notice
 
-The earlier provisional-pass review in `H1_S13_HYBRID_FRONT_REVIEW_2026-10-14.md` was based on the wrong uploaded image and is superseded by this document.
-Do not use the earlier pass as authority.
+An earlier **provisional front pass** was based on a wrongly uploaded image and is invalid. It is not evidence that the actual H1 face passed 3/4 validation. The mistaken review was retired from the active tree during repository deduplication; its historical Git blob is `300547b945a758c2cdeae06386ce96a214e3fe5a`, and the original filename was `projects/ai-self-media-commercialization/H1_S13_HYBRID_FRONT_REVIEW_2026-10-14.md`. This corrected review is the only front-review decision for that event.
+Do not use that earlier pass as authority. Do not confuse structural resemblance in an incorrect input image with evaluation of the intended input.
 
 ## Independent review of the corrected image
 

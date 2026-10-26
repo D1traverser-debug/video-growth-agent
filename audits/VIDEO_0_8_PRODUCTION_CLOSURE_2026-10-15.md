@@ -30,3 +30,7 @@ Current H1 creative state is intentionally unchanged. `ORIGINAL_DIGITAL_IP / H1_
 This closure verifies repository/runtime promotion and reproducible CI evidence. It does not claim that every external generation/provider/editor capability is executable in every chat session. Those actions still require the current-session capability handshake defined by the Video domain.
 
 The UAOS parent observation may still require a separate parent-authority refresh. A stale parent summary does not revert the child repository's verified production state, but cross-domain metadata should be reconciled under `UAOS` authority rather than mutated from `DOMAIN:video`.
+
+## Retired interrupted-candidate checkpoint (2026-10-23 cleanup)
+
+The old `audits/VIDEO_0_8_RESUME_CHECKPOINT_2026-10-15.md` said `INTERRUPTED_CANDIDATE__RESUME_REQUIRED` and instructed operators to resume PR #15 from production 0.7. These directions ceased to be valid after main merged 0.8 with independent CI. Its historical Git blob is `39c9eaf365cf4b4c16a72ba21f7d20bf7a7072c4`. Unique architectural candidate/dogfood notes remain in `audits/VIDEO_AGENT_OPERABILITY_REDESIGN_2026-10-15.md`, while this closure is the canonical 0.8 production outcome. Do not reactivate an old paused branch or replay it as current task authority.

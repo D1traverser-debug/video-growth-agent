@@ -1,0 +1,235 @@
+{
+  "version": 1,
+  "source": {
+    "type": "USER_ORIGINAL",
+    "raw": "我是个A股分析公众号写手，正在调试AI agent总控系统，等总控调试好了，就会同时负责小说、荐股复盘、财经A股投案写作、视频制作。我平常玩A股、Solana memecoin、金铲铲、第五人格监管人格。我想有种ip、粒子特效、游刃有余、剪辑高手、炫酷转场。我还喜欢柴犬。",
+    "reference": "conversation://owner/2026-10-23/personal-ip-brief",
+    "completeness": "EXCERPT"
+  },
+  "brief": {
+    "title": "下一帧 — 柴犬副导演的五秒开场",
+    "goal": "不罗列职业而通过剪辑动作表现有章法地掌握多个世界",
+    "emotion": "从柴犬恶作剧式启动到人物冷静掌控",
+    "audience": "竖屏个人IP首次观看者",
+    "fps": 30,
+    "total_frames": 150,
+    "aspect_ratio": "9:16",
+    "ending": "人物与柴犬同框，银色胶片稳定，右上保留可后期上字的干净暗部",
+    "narrative_strategy": "道具动作为因，几何匹配剪辑为果；三段镜头组",
+    "sound_strategy": "A 120 BPM syncopated electronic rhythm with tightly gated kick drums, brief bass accents, and a decisive stop on the final portrait. No sung vocals."
+  },
+  "alternatives": [
+    {
+      "id": "physical-matchcut",
+      "premise": "柴犬按剪辑机按钮让市场、游戏、创作像胶片被剪到一起",
+      "visual_mechanism": "同一圆形轮廓：黄铜按键→交易仪表→胶片盘→主角瞳孔；动作及声音匹配",
+      "failure_mode": "复杂道具变形若一镜到底会失去具体物理结构",
+      "why_select_or_reject": "SELECT: 柴犬是行动主体，人物表演有情绪反差，几何剪辑可后期实作"
+    },
+    {
+      "id": "cyber-monitor-wall",
+      "premise": "人物站在满屏全息投影前遥控市场和创作",
+      "visual_mechanism": "全息大屏与发光粒子轨道切换场景",
+      "failure_mode": "无明确动作因果；难分辨各种屏幕；IP识别度低",
+      "why_select_or_reject": "REJECT: 只是题材标签与行业UI堆砌，过度复用"
+    }
+  ],
+  "selected": "physical-matchcut",
+  "required_events": [
+    {
+      "id": "shiba",
+      "meaning": "柴犬不是背景而是具行动能力的助手",
+      "origin": "SOURCE",
+      "source_quote": "柴犬"
+    },
+    {
+      "id": "ashare",
+      "meaning": "A股研究兴趣有可读但非虚假数据的形态",
+      "origin": "SOURCE",
+      "source_quote": "A股"
+    },
+    {
+      "id": "solana",
+      "meaning": "加密代币兴趣以具体交易物件而非紫光表现",
+      "origin": "SOURCE",
+      "source_quote": "Solana memecoin"
+    },
+    {
+      "id": "video",
+      "meaning": "视频剪辑是画面转场的视觉核心",
+      "origin": "SOURCE",
+      "source_quote": "视频制作"
+    },
+    {
+      "id": "cool",
+      "meaning": "轻松高控制感的IP表达",
+      "origin": "SOURCE",
+      "source_quote": "游刃有余"
+    },
+    {
+      "id": "circle",
+      "meaning": "物件几何变形作为选定创意",
+      "origin": "CREATIVE_INFERENCE",
+      "source_quote": ""
+    }
+  ],
+  "identity_anchors": [
+    "赤棕色立耳柴犬，奶油色胸毛，单一相同个体",
+    "原创成年中国男性，灰白外套和深色内搭，面部一致",
+    "磨损黄铜圆形按键与银色电影胶片盘的圆形匹配"
+  ],
+  "shots": [
+    {
+      "id": "S1",
+      "start_frame": 0,
+      "end_frame": 30,
+      "scene": "黑胡桃木剪辑台，前景毛茸茸的柴犬爪子",
+      "composition": "90mm微距，按钮与狗爪占主体，干净背景",
+      "action": {
+        "start": "按钮未亮，犬爪悬停3毫米",
+        "trigger": "柴犬一爪按下有行程的黄铜按钮",
+        "finish": "弹簧缩入，按钮边缘形成薄琥珀光环"
+      },
+      "camera": {
+        "framing": "极近特写",
+        "lens": "90mm微距",
+        "move": "PUSH_IN",
+        "motivation": "观众看清爪掌与按键接触"
+      },
+      "light": {
+        "source": "桌面暖色钨丝实景灯",
+        "direction": "右后方斜射",
+        "effect": "照出毛发细丝和磨损金属边缘"
+      },
+      "transition": {
+        "kind": "形状匹配",
+        "bridge": "按钮发光环保持画面中心，切为交易圆盘",
+        "purpose": "将柴犬动作解释成剪辑启动"
+      },
+      "audio": [
+        {
+          "at_frame": 15,
+          "category": "SFX",
+          "description": "金属按键咔哒"
+        },
+        {
+          "at_frame": 24,
+          "category": "MUSIC",
+          "description": "第一个低频鼓点"
+        }
+      ],
+      "event_ids": [
+        "shiba",
+        "circle"
+      ],
+      "continuity": "爪子结构自然；按钮不会变成狗脚的一部分"
+    },
+    {
+      "id": "S2",
+      "start_frame": 30,
+      "end_frame": 90,
+      "scene": "暗色玻璃圆盘：真实结构的红色实体K线、细上下影线、右侧量柱；圆盘外缘变银色柴犬徽章代币再变胶片卷轴",
+      "composition": "圆盘中心始终保持画面中央，不出现随机文本数字",
+      "action": {
+        "start": "仪表盘随按键光环出现",
+        "trigger": "价格柱按顺序起伏，银色柴犬浮雕代币随圆盘旋转",
+        "finish": "代币边缘成为穿孔胶片，卷轴中央黑孔对准镜头"
+      },
+      "camera": {
+        "framing": "正对道具近景",
+        "lens": "50mm标准镜头，虚拟无透视跳变",
+        "move": "LOCKED",
+        "motivation": "让圆形变化比镜头运动更清晰"
+      },
+      "light": {
+        "source": "银色金属反射环境光",
+        "direction": "左青右暖对称边缘光",
+        "effect": "保持金属、玻璃、布面不同材质可辨"
+      },
+      "transition": {
+        "kind": "形状匹配",
+        "bridge": "银色卷轴黑色中心孔与人物瞳孔同轴",
+        "purpose": "通过形状连接市场与创造者"
+      },
+      "audio": [
+        {
+          "at_frame": 36,
+          "category": "SFX",
+          "description": "稀疏交易滴答"
+        },
+        {
+          "at_frame": 58,
+          "category": "SFX",
+          "description": "旋转胶片机械摩擦"
+        }
+      ],
+      "event_ids": [
+        "ashare",
+        "solana",
+        "video",
+        "circle"
+      ],
+      "continuity": "所有数据作为虚构的抽象示意，不显示伪造真实价格；柴犬代币浮雕与主角狗外观呼应"
+    },
+    {
+      "id": "S3",
+      "start_frame": 90,
+      "end_frame": 150,
+      "scene": "瞳孔渐显主角坐在真实木质剪辑台前，柴犬坐在一侧",
+      "composition": "50mm中近景，主人与柴犬双主体，右上留空",
+      "action": {
+        "start": "镜头中心是眼睛特写，胶片还在手边运动",
+        "trigger": "镜头顺势拉出，人物两指轻触胶片边缘",
+        "finish": "胶片停止乱转整齐落回台面；人物轻抬眼，柴犬耳朵微抖"
+      },
+      "camera": {
+        "framing": "中近景",
+        "lens": "50mm标准镜头",
+        "move": "PULL_OUT",
+        "motivation": "揭示是谁控制剪辑"
+      },
+      "light": {
+        "source": "钨丝台灯与显示器微光",
+        "direction": "脸右侧暖主光，左后冷弱轮廓光",
+        "effect": "眼神明亮而表情不夸张"
+      },
+      "transition": {
+        "kind": "定格供后期上字",
+        "bridge": "人物右上留负空间",
+        "purpose": "五秒收束个人IP双主体"
+      },
+      "audio": [
+        {
+          "at_frame": 99,
+          "category": "MUSIC",
+          "description": "低频重击后鼓点留白"
+        },
+        {
+          "at_frame": 138,
+          "category": "SFX",
+          "description": "犬耳轻摆声"
+        }
+      ],
+      "event_ids": [
+        "cool",
+        "shiba",
+        "video"
+      ],
+      "continuity": "人物长相与服装固定；柴犬与S1同一个体；最后标题由后期添加"
+    }
+  ],
+  "provider": {
+    "name": "MiniMax",
+    "model": "MiniMax-H3",
+    "mode": "T2VA",
+    "native_audio": true
+  },
+  "visual_language": {
+    "style": "触感真实的电影级实拍广告与受控超现实CG物件变形，不是全息屏科技宣传片",
+    "world": "深胡桃木机械剪辑台、真实柴犬、暗背景创作工作室；交易仪表、金属代币和胶片依次变形",
+    "palette": "黑胡桃木深棕、黄铜琥珀、银灰胶片、克制青蓝轮廓光，避免大面积霓虹",
+    "materials": "真实柴犬短毛、磨损黄铜机械按键、烟色玻璃、拉丝铝合金、半透明穿孔醋酸胶片",
+    "lighting": "右后暖钨丝主光照出金属微划痕，左侧弱冷色反射，最终人物双侧有体积和清晰眼神光",
+    "render_finish": "商业广告级微距细节、自然景深、轻微胶片颗粒、圆形匹配剪辑、最终同框稳定留标题负空间"
+  }
+}

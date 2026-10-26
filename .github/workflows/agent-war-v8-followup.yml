@@ -1,0 +1,155 @@
+name: Agent War - Character Core Trial
+
+on:
+  push:
+    branches:
+      - refactor/prompt-director-core-20261023
+    paths:
+      - .github/workflows/agent-war-v8-followup.yml
+      - scripts/agent_war_v8_followup.py
+  workflow_dispatch:
+
+concurrency:
+  group: agent-war-v8-followup-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rewrite_v8:
+    name: Write one film from V8 defects and raw Agent War premise
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      copilot-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install verified Copilot CLI
+        run: npm install -g @github/copilot
+      - name: Execute role-owned character-first story writer
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 -m scripts.agent_war_v8_followup \
+            --stage character_rewrite \
+            --output out/story-core-candidate.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: agent-war-core-draft
+          path: |
+            out/story-core-candidate.json
+            out/story-core-candidate.jsonl
+          if-no-files-found: error
+          retention-days: 30
+
+  review_v8:
+    name: Independent character-first story editor
+    needs: rewrite_v8
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    permissions:
+      contents: read
+      copilot-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: agent-war-core-draft
+          path: evidence
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install verified Copilot CLI
+        run: npm install -g @github/copilot
+      - name: Blind review only final scenes and raw brief
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 -m scripts.agent_war_v8_followup \
+            --stage character_review \
+            --previous evidence/story-core-candidate.json \
+            --output out/review-story_core_editor.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: agent-war-core-critique
+          path: |
+            out/review-story_core_editor.json
+            out/review-story_core_editor.jsonl
+          if-no-files-found: error
+          retention-days: 30
+
+  preserve:
+    name: Archive revised film and independent adverse review
+    needs: [rewrite_v8, review_v8]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: agent-war-core-*
+          path: evidence
+          merge-multiple: true
+      - name: Verify distinct Copilot sessions and archive competing evidence
+        env:
+          TARGET: audits/agent_war_ai_review_runs/${{ github.run_id }}
+          REPO_REF: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$TARGET"
+          cp evidence/story-core-candidate.json "$TARGET/"
+          cp evidence/story-core-candidate.jsonl "$TARGET/"
+          cp evidence/review-story_core_editor.json "$TARGET/"
+          cp evidence/review-story_core_editor.jsonl "$TARGET/"
+          python3 - <<'PY'
+          import json, os, hashlib
+          from pathlib import Path
+          base = Path(os.environ["TARGET"])
+          w = json.loads((base / "story-core-candidate.json").read_text(encoding="utf-8"))
+          e = json.loads((base / "review-story_core_editor.json").read_text(encoding="utf-8"))
+          for doc in (w,e):
+              proof = doc["provenance"]
+              assert proof["github_run_id"] == os.environ["GITHUB_RUN_ID"]
+              assert proof["provider"] == "github-copilot-cli"
+              assert proof["provider_response_id"] and proof["copilot_session_id"]
+              assert hashlib.sha256(doc["model_output"].encode("utf-8")).hexdigest() == proof["output_sha256"]
+          assert w["provenance"]["github_job"] != e["provenance"]["github_job"]
+          assert w["provenance"]["copilot_session_id"] != e["provenance"]["copilot_session_id"]
+          (base/"STORY_CORE_CANDIDATE_UNAPPROVED.md").write_text(
+              "# Agent 战争人物驱动新剧本候选：未由真人或观众确认\n\n" + w["model_output"] + "\n",
+              encoding="utf-8",
+          )
+          (base/"STORY_CORE_INDEPENDENT_AI_CRITIQUE.md").write_text(
+              "# 独立 Copilot 会话对人物驱动新剧本的审稿意见（不是观众验收）\n\n" + e["model_output"] + "\n",
+              encoding="utf-8",
+          )
+          (base/"README.md").write_text(
+              "# Evidence-linked Agent War character-core story trial\n\n"
+              "Source: exact signed source refs in the writer receipt for this run. "
+              "The writer and story-core critic used separate real GitHub Copilot model sessions.\n\n"
+              f"Writer session: {w['provenance']['copilot_session_id']}\n"
+              f"Reviewer session: {e['provenance']['copilot_session_id']}\n"
+              "Creative review may require further rewrites; no storyreel or real viewers.\n",
+              encoding="utf-8",
+          )
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$TARGET"
+          git commit -m "agent-story: archive character-core candidate and adverse reviewer [skip ci]"
+          # Concurrent checkpoint edits must not discard signed story outputs.
+          # Rebase onto current remote HEAD; never force push.
+          for attempt in 1 2 3 4; do
+            git fetch origin "refs/heads/$REPO_REF"
+            git rebase FETCH_HEAD
+            if git push origin "HEAD:refs/heads/$REPO_REF"; then
+              exit 0
+            fi
+            echo "PR branch advanced during archive push, retry $attempt"
+          done
+          echo "Unable to safely archive after 4 rebase attempts" >&2
+          exit 1
