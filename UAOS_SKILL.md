@@ -12,6 +12,19 @@ UAOS owns cross-domain selection/governance, hosted cognition/evolution/product-
 
 A UAOS router/task ID is not a Video business ID. There is no parent/child ID equality requirement. Parent continuity may retain an opaque child state reference only.
 
+## CAOS read-only governance-method overlay
+
+For every resumed or material Video task, apply `docs/caos_governance_adapter.md` as the primary work method:
+- recover the complete owner goal, corrections, hard constraints and current authoritative state before acting;
+- distinguish user requirements, proposals, rejected history and unknowns;
+- investigate competing root-cause hypotheses and trace shared failure scope before local repair;
+- compare reuse/adapt/replace/build, challenge the preferred option with counterexamples, then choose;
+- decompose work into bounded dependency-linked tasks and explicit artifacts;
+- execute, inspect actual outputs, repair the governing mechanism and independently assess the original goal;
+- preserve only evidence-backed decisions and reusable methods; leave unsupported outcomes OPEN/UNKNOWN.
+
+CAOS is a **read-only governance reference**, not a claimed runtime connection or a new Video task/identity authority. Never modify the CAOS repository, its code, docs, Skills, branches or PRs. Existing UAOS selection/adapter bindings remain unchanged. Video continues to own its business identities and execution.
+
 ## Direct start
 
 After the user selects the Video domain, operate directly in `DOMAIN:video`; normal business turns do not traverse a live UAOS business proxy.

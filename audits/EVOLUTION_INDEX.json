@@ -1,19 +1,21 @@
 {
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
-  "revision": "1.7-prompt-craft-candidate",
-  "updated_at": "2026-10-26T02:57:29Z",
+  "revision": "1.8-caos-governance-g2",
+  "updated_at": "2026-11-12T22:24:00+08:00",
   "common_behavior_assurance_min": "1.3.0",
   "current_open_items": [
-    "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23"
+    "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23",
+    "V-20261112-01-CAOS-GOVERNED-VIDEO-OS-AND-G2-ADMISSION"
   ],
   "current_problem_refs": {
-    "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23": "audits/PROMPT_CRAFT_PR23_CHECKPOINT_2026-10-24.md"
+    "V-20261024-01-PROMPT-CRAFT-ITERATION-PR23": "audits/PROMPT_CRAFT_PR23_CHECKPOINT_2026-10-24.md",
+    "V-20261112-01-CAOS-GOVERNED-VIDEO-OS-AND-G2-ADMISSION": "audits/VIDEO_CAOS_GOVERNED_RESTRUCTURE_2026-11-12.md"
   },
-  "current_resume_ref": "audits/PROMPT_CRAFT_PR23_CHECKPOINT_2026-10-24.md",
+  "current_resume_ref": "audits/VIDEO_CAOS_GOVERNED_RESTRUCTURE_2026-11-12.md",
   "current_candidate": {
     "workstream": "PRODUCTION_SYSTEM__PROMPT_CRAFT_AND_LEARNING",
-    "status": "DRAFT_PR__WHOLE_SYSTEM_GOAL_FIT_AUDITED__SAFETY_AND_LOCAL_CAS_VERIFIED__LIVE_FILM_BUSINESS_GOAL_OPEN",
+    "status": "DRAFT_PR__CAOS_READ_ONLY_GOVERNANCE_ADOPTED__G2_TASK_INTEGRATED__EXACT_HEAD_CI_PENDING__LIVE_MEDIA_BUSINESS_GOALS_OPEN",
     "pr_number": 23,
     "head_ref": "refactor/prompt-director-core-20261023",
     "resume_ref": "audits/PROMPT_CRAFT_PR23_CHECKPOINT_2026-10-24.md",
@@ -84,7 +86,16 @@
       "separate_consequential_agent_initiative_from_ordinary_robot_or_six_predictive_tools",
       "independent_playable_rough_reel_and_zero_primer_human_viewer_observations",
       "real_two_independent_original_brief_story_model_runs_and_blind_reviews",
-      "cross_premise_comparison_and_genuine_storyreel_cold_viewer_acceptance"
+      "cross_premise_comparison_and_genuine_storyreel_cold_viewer_acceptance",
+      "exact_current_PR23_head_CI_and_repository_system_audit",
+      "red_first_tests_for_SUPERSEDED_BLOCKED_execution_allowed_false_and_historical_only",
+      "unique_upstream_producer_and_dependency_ancestor_input_lineage_tests",
+      "REJECT_ALL_decision_blocks_downstream_canon_promotion",
+      "current_G2_authority_manifest_program_state_and_graph_consistency",
+      "three_distinct_G2_character_structure_routes_and_counterexamples",
+      "contracted_black_white_three_column_G2_low_fidelity_study",
+      "actual_image_visual_review_and_user_aesthetic_adjudication",
+      "G2_selected_identity_contract_and_explicit_user_canon_decision"
     ],
     "promotion_authorized": false,
     "latest_verified_code_head": "58278987fe82757427522ef8ecaab6c1d6b7f49b",
@@ -96,7 +107,10 @@
       "system_audit": "PASS",
       "installed_cli_smoke": "PASS",
       "whole_user_goal_achieved": false,
-      "independent_story_or_media_qa": "L03_MULTIPLE_AUTHOR_STORY_SCENE_PROTOTYPES_ONLY__NO_INDEPENDENT_EDITOR_OR_HUMAN_VIEWERS__NO_ARTISTIC_ACCEPTANCE"
+      "independent_story_or_media_qa": "L03_MULTIPLE_AUTHOR_STORY_SCENE_PROTOTYPES_ONLY__NO_INDEPENDENT_EDITOR_OR_HUMAN_VIEWERS__NO_ARTISTIC_ACCEPTANCE",
+      "applies_to_head": "58278987fe82757427522ef8ecaab6c1d6b7f49b",
+      "current_pr_head_before_restructure": "eda4de6b9ab1a92013f45c41a74659450f5f866b",
+      "current_pr_head_matching_ci": "NOT_OBSERVED"
     },
     "verification_scope": "L03_REAL_SOURCES_FOUR_ENGINES_TWO_ORIGINAL_SCENE_PROTOTYPES_CANONICAL_HANDOFF__CI_40261660337_326_TESTS_77_CONTRACT_2_SKIP__NO_FILM_APPROVAL",
     "known_unresolved_failure_classes": [
@@ -434,7 +448,12 @@
       "collaboration_method_verification": "296 full tests passed; 77 prompt-contract passed, 2 skipped; implementation verifies method-lane separation and exposure of provenance packet. No subsequent model test proves creativity improved.",
       "latest_original_direction_override": "114s Agent-priority multi-modal story, not 11–14 minute script",
       "model_execution_after_this_new_creative_ref": "NOT_EXECUTED"
-    }
+    },
+    "current_business_focus": "ORIGINAL_DIGITAL_IP/G2_REBUILD_AFTER_R31_20261112",
+    "governance_adapter_ref": "docs/caos_governance_adapter.md",
+    "current_pr_head_before_restructure": "eda4de6b9ab1a92013f45c41a74659450f5f866b",
+    "current_pr_head_after_lifecycle_commit": "7f6c7c3f4971be8417edfc38ea0a1ef572106e2a",
+    "current_head_matching_ci": "PENDING_AFTER_CURRENT_COMMIT"
   },
   "recent_resolved_or_promoted": [
     {
@@ -583,7 +602,16 @@
     "audits/agent_war_ai_review_runs/40077050738/STORY_CORE_CANDIDATE_UNAPPROVED.md",
     "audits/agent_war_ai_review_runs/40077050738/STORY_CORE_INDEPENDENT_AI_CRITIQUE.md",
     "audits/agent_war_ai_review_runs/40077050738/story-core-candidate.json",
-    "audits/agent_war_ai_review_runs/40077050738/review-story_core_editor.json"
+    "audits/agent_war_ai_review_runs/40077050738/review-story_core_editor.json",
+    "docs/caos_governance_adapter.md",
+    "integrations/caos/adapter.json",
+    "video_growth_agent/program_orchestration.py",
+    "projects/ai-self-media-commercialization/ORIGINAL_DIGITAL_IP/CURRENT_STATE.json",
+    "projects/ai-self-media-commercialization/ORIGINAL_DIGITAL_IP/TASK_ASSIGNMENT_CURRENT.md",
+    "projects/ai-self-media-commercialization/ORIGINAL_DIGITAL_IP/R31_G2_ROOT_CAUSE_AND_RESEARCH.md",
+    "tests/test_program_orchestration.py",
+    "tests/test_video_product_architecture.py",
+    "audits/VIDEO_CAOS_GOVERNED_RESTRUCTURE_2026-11-12.md"
   ],
   "historical_evidence_refs": [
     "audits/SYSTEM_SELF_AUDIT_2026-10-10.md",
@@ -591,7 +619,7 @@
     "audits/VIDEO_DOMAIN_PRODUCT_ORCHESTRATION_AUDIT_2026-10-15.md",
     "projects/pilot-002/PROGRAM_STATE.json"
   ],
-  "assurance": "PRODUCTION_0_8_MAIN_BASELINE__PR23_SYSTEMIC_VR01_VR18_GOAL_FIT_OPEN__PRIOR_CODE_77_2SKIP_274_CI_GREEN__LIVE_MEDIA_QUALITY_BUSINESS_OUTCOME_UNVERIFIED",
+  "assurance": "VIDEO_0_8_MAIN_BASELINE__PR23_DRAFT_CANDIDATE__CAOS_READ_ONLY_METHOD_ADOPTION__CURRENT_G2_TASK_RESTORED__EXACT_HEAD_CI_PENDING__REAL_VISUAL_MEDIA_AND_BUSINESS_OUTCOMES_OPEN",
   "retired_documents": [
     {
       "path": "audits/VIDEO_0_8_RESUME_CHECKPOINT_2026-10-15.md",

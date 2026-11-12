@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "integration_id": "caos-readonly-governance-method",
+  "status": "READ_ONLY_METHOD_ADOPTION",
+  "source": {
+    "repository": "D1traverser-debug/cognition-agent-os",
+    "authority_ref": "main",
+    "observed_main_sha": "9686cedeb3fd8171ecf70eab33aaea641217b04a",
+    "draft_candidate_pr": 63,
+    "draft_candidate_head": "d76b412b5131af6cd34783d4fd6097ca4d7ab128",
+    "draft_candidate_base": "cc22304c6ebae884aae95efbc19874e6b018498a",
+    "draft_candidate_status": "OPEN_DRAFT_NOT_PRODUCTION_AUTHORITY",
+    "access_mode": "READ_ONLY"
+  },
+  "target": {
+    "repository": "D1traverser-debug/video-growth-agent",
+    "domain_owner": "VIDEO_GROWTH_AGENT",
+    "program_state": "projects/ai-self-media-commercialization/PROGRAM_STATE.json",
+    "task_graph": "projects/ai-self-media-commercialization/SUBTASK_GRAPH.json",
+    "execution_authority": "VIDEO_GROWTH_AGENT"
+  },
+  "boundaries": {
+    "caos_repository_mutation_allowed": false,
+    "caos_code_mutation_allowed": false,
+    "caos_documentation_mutation_allowed": false,
+    "caos_skill_mutation_allowed": false,
+    "caos_branch_pr_commit_allowed": false,
+    "copy_caos_runtime_into_video": false,
+    "claim_live_caos_runtime_connection": false,
+    "replace_existing_uaos_binding": false,
+    "video_business_identity_remains_domain_owned": true
+  },
+  "method": {
+    "goal_recovery": "Restore complete owner outcome, corrections, hard constraints, current authority and rejected history.",
+    "decision_loop": "Investigate competing causes; trace shared root; compare reuse/adapt/replace/build; challenge the preferred option with counterexamples; choose with evidence.",
+    "execution_loop": "Bounded task -> explicit inputs/outputs -> execute -> inspect actual output -> repair mechanism -> re-run affected and neighboring cases.",
+    "acceptance": "Separate code/structural tests from actual visual, media, user and business outcomes; use independent evidence; preserve UNKNOWN/OPEN when proof is missing.",
+    "learning": "Record symptom, root cause, counterexample, chosen mechanism, rejected alternatives, evidence and applicability limits."
+  }
+}

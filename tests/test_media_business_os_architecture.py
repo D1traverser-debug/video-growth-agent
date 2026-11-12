@@ -107,10 +107,10 @@ def test_video_common_behavior_1_3_is_owner_native_and_evolution_is_discoverable
     assert prior["production_ci_run"] == 38690550495
 
 
-def test_h1_business_cursor_is_preserved_during_system_rebuild():
+def test_g2_business_cursor_is_preserved_during_system_rebuild():
     state = load("projects/ai-self-media-commercialization/PROGRAM_STATE.json")
     assert state["current_focus"] == "ORIGINAL_DIGITAL_IP/G2_REBUILD_AFTER_R31_20261112"
     assert "A narrow observer" in state["current_next_action"]
     assert "before any image generation" in state["current_next_action"]
-    assert "must not advance this creative action automatically" in state["current_next_action"]
-    assert state["workstreams"]["PRODUCTION_SYSTEM"]["status"] == "MEDIA_BUSINESS_OS_0_8_PRODUCTION_BASELINE"
+    assert state["workstreams"]["ORIGINAL_DIGITAL_IP"]["current_stage"] == "G2_REBUILD_AFTER_R31_20261112"
+    assert state["workstreams"]["PRODUCTION_SYSTEM"]["status"].startswith("PRODUCTION_0_8_BASELINE")

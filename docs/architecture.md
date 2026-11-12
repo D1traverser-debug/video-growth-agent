@@ -202,3 +202,16 @@ Forbidden:
 - duplicated Video business state in UAOS;
 - sponsorship overriding truth;
 - architecture maintenance auto-advancing H1/A2 creative work.
+
+
+## 18. CAOS read-only governance-method overlay
+
+`docs/caos_governance_adapter.md` binds the Video domain's task method to the current CAOS cognition-governance principles: full-goal recovery, root-cause challenge, method comparison, bounded execution, evidence-bound acceptance and learning.
+
+This is a method-level overlay, not a live runtime bridge or a second business controller. The existing `.uaos/*` selector binding is unchanged. Video remains the owner of its Program/task graph and all media/business effects. The CAOS repository is strictly read-only and is not modified by Video work.
+
+## 19. Program task lifecycle and dependency evidence
+
+`program_orchestration.py` enforces the business task graph's declared lifecycle policy. A node marked `SUPERSEDED`, `historical_only`, `BLOCKED` or `execution_allowed=false` cannot become READY through dependency reconciliation. A failed/blocked/superseded dependency blocks only its descendants; unrelated workstreams remain runnable.
+
+Every declared input artifact must have exactly one producer in the dependency-ancestor chain. Owner decisions are explicit evidence: a downstream canon node may require a SELECT/MERGE receipt and must remain blocked after REJECT_ALL. Program-task state is distinct from MediaGraph asset lineage and the editorial timeline; it does not become a second controller.
