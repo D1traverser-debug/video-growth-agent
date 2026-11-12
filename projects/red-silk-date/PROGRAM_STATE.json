@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "project_id": "red-silk-date",
+  "parent_program_id": "ai-self-media-commercialization",
+  "display_name": "红绸赴约",
+  "status": "ACTIVE_BLOCKED",
+  "latest_known_engineering_baseline": "v11",
+  "latest_baseline_date": "2026-11-05",
+  "target": {
+    "duration_seconds": 10,
+    "aspect_ratio": "16:9",
+    "fps": 30,
+    "frames": 300,
+    "production_shots": 7,
+    "story_beats": 10,
+    "initial_delivery": "1920x1080",
+    "visual_target": "8K-class aesthetic; native 8K not proven"
+  },
+  "immutable_story_rules": [
+    "One continuous red ribbon PROP_RIBBON_RED_001 across the entire film.",
+    "Ribbon state chain: attached to female hair -> release -> flight -> male index/middle finger catch -> grip/carry -> retie to female hair -> settle.",
+    "Consistent male/female identity, wardrobe, hair, scene, camera space and ribbon topology across shots.",
+    "No slideshow, static-image push/pull, PPT-like cuts or AI video replacing critical physical contact."
+  ],
+  "production_decisions": {
+    "main_dcc": "Blender 5.2.3 LTS",
+    "ribbon_solver_adapter": "Independent Solver Adapter",
+    "preferred_development_route": "XPBD v15",
+    "professional_upgrade": "Houdini Vellum; only after gate failure, eligibility/cost review and explicit user approval",
+    "secondary_fallback": "UE 5.8 Chaos; same-shot A/B required",
+    "ai_video_role": "Reference and non-critical support only; not authority for key character/ribbon physical state",
+    "compute": "Cloud Runtime/Worker; user-local machine is not a compute node",
+    "paid_compute": "Requires quote, expected usage/total and explicit approval before launch",
+    "third_party_upload": "Requires explicit approval"
+  },
+  "gates": {
+    "G0": "REQUIREMENT_BASELINE_ESTABLISHED",
+    "G1": "VISUAL_DEVELOPMENT_NOT_LOCKED",
+    "G2": "FORMAL_ASSET_CANDIDATES_BLOCKED",
+    "G3": "FORMAL_BODY_AND_MALE_RIGHT_HAND_RIG_BLOCKED",
+    "G4": "XPBD_V15_DESIGN_SPEC_EXISTS_IMPLEMENTATION_NOT_DONE",
+    "G5": "S04_VERTICAL_SLICE_BLOCKED",
+    "G6": "S02_RELEASE_AND_S06_RETIE_SLICES_BLOCKED",
+    "G7": "SEVEN_SHOT_PRODUCTION_BLOCKED",
+    "G8": "LOOKDEV_AND_RENDER_BLOCKED",
+    "G9": "COMPOSITE_AND_SOUND_BLOCKED",
+    "G10": "FINAL_QA_AND_DELIVERY_BLOCKED"
+  },
+  "evidence": {
+    "v13": "10-second numerical/kinematic technical preview only; simplified 3D mesh, not real finger contact or final cloth.",
+    "v14": "15/15 QA does not establish dynamic catch; endpoints were kinematically clamped and QA checked preset path consistency. Keep as kinematic shape reference only.",
+    "v15": "Specification only; not implemented. Requires independent hand collision geometry, solver contact event, post-contact grasp constraint, explicit retie/release ordering and counterfactual tests.",
+    "cloud_runtime": "Colab Blender 5.2.3 smoke notebook exists but has not been run in a real Colab Runtime.",
+    "final_video": "NOT_GENERATED_OR_NOT_APPROVED"
+  },
+  "source_archive": {
+    "filename": "red_silk_date_v2_handoff_v11_20261105.zip",
+    "size_bytes": 86272805,
+    "indexed": true,
+    "raw_bytes_accessible_in_migration": false,
+    "internal_files_claimed_inspected": false,
+    "internal_file_count_reported": 252
+  },
+  "next_action": "Recover/verify authorized raw access to the v11 source archive without asking the user to re-upload. Then inspect formal character candidates and establish the male right-hand rig; implement event-driven XPBD v15 and pass the S04 vertical slice before expanding to seven shots.",
+  "user_constraints": [
+    "Do not require user-local heavy computation.",
+    "Prefer sandbox/cloud Runtime/Worker where supported.",
+    "No paid GPU or third-party upload without explicit prior approval.",
+    "Do not claim any technical preview or static QA as final film completion."
+  ],
+  "source_authorities": [
+    "PROJECT_BIBLE_SOURCE_OF_TRUTH_20261106.md",
+    "PRODUCTION_STATUS_V11.md",
+    "PRODUCTION_METHOD_V11.md",
+    "ASSET_REGISTER.md",
+    "Private ChatGPT Library /红绸赴约/LIBRARY_INDEX_2026-11-06.md"
+  ]
+}

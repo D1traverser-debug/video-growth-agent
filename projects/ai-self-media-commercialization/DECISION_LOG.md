@@ -192,3 +192,15 @@ Generate and compare three neutral sculptural head studies:
 - S3 Anti-Generic Cheek/Jaw Rhythm.
 
 Use the certificate portrait only as structural calibration. Do not return to photoreal skin/hair until one sculpt geometry or deliberate hybrid is accepted. Do not advance to H2 until H1 passes.
+
+
+## 2026-11-12 — Personal-IP assets and memory connected to Video Growth Agent
+- Keep ai-self-media-commercialization as the default integrated Program for personal-IP growth, original IP, commercialization and production.
+- Register Red Silk Date as a separate exact child production project.
+- Restore channel scope: English X, Chinese WeChat public account and future video.
+- Keep financial article truth and writing execution in D1traverser-debug/financial-writing-agent; Video Growth Agent consumes explicit delivery receipts and owns distribution packaging only.
+- Preserve original private binaries in ChatGPT Library; use a private asset register and sanitized repository pointers rather than copying personal photo/video binaries into the public repository.
+- Supersede October H1/A2 avatar cursor with the 2026-11-12 R31 G2 reset. No approved identity anchor/avatar.
+- Register Red Silk v11 as latest known engineering baseline; v14 remains kinematic evidence, XPBD v15 remains a design spec, not an implemented solver.
+
+Private asset register: https://docs.google.com/document/d/1SdgRHGAqRfvvzNJvwjKwnn1i2fhGSifr3Fqf6ZKnDSw/edit

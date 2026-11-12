@@ -120,3 +120,22 @@ pytest -q
 The system audit covers parent/common binding, Video business ownership, all canonical 0.8 runtime surfaces, agent-operability scenario presence, Media Business OS authorities, project/flywheel integrity, provider-neutral capability semantics, Program graph validity, absence of a parallel controller, artifact reachability, legacy-adapter bundle consistency, evolution discoverability and runtime-version consistency. It fails closed when a declared canonical runtime surface disappears or drifts.
 
 CI success is validation evidence, not branch-protection enforcement unless GitHub separately reports branch protection/rulesets as enabled.
+
+
+## Personal-IP integration (2026-11-12)
+
+The default integrated Program now carries the user's multi-channel personal-IP context:
+- English X: Solana meme culture, global trends and internet culture; primary-account CA posts require explicit approval.
+- Chinese WeChat: A-share finance and technology; financial article truth/writing remains external to financial-writing-agent.
+- Original digital IP: latest avatar state is G2_REBUILD_AFTER_R31, with no approved avatar.
+- Future video: Red Silk Date is registered as an exact child project at projects/red-silk-date.
+
+Entry points:
+- projects/ai-self-media-commercialization/RESUME_ENTRY.md
+- projects/ai-self-media-commercialization/CHANNEL_PORTFOLIO.md
+- projects/ai-self-media-commercialization/EXTERNAL_SYSTEMS.md
+- projects/ai-self-media-commercialization/ORIGINAL_DIGITAL_IP/README.md
+- projects/red-silk-date/README.md
+- docs/migrations/PERSONAL_IP_ASSET_MIGRATION_2026-11-12.md
+
+Private source assets are indexed in the linked private asset register. Original private binaries are not copied into this public repository.

@@ -1,0 +1,44 @@
+{
+  "project": "personal-ip-original-digital-character",
+  "checkpoint": "G2_REBUILD_AFTER_R31_20261112",
+  "updated_at": "2026-11-12T20:52:00+08:00",
+  "latest_authority": [
+    "TASK_ASSIGNMENT_CURRENT.md",
+    "R31_G2_ROOT_CAUSE_AND_RESEARCH.md",
+    "R28_INDEPENDENT_ART_REVIEW.md"
+  ],
+  "g0": "PASS",
+  "g1": "TARGETED_RESEARCH_COMPLETE_FOR_LATEST_EXPERIMENT",
+  "g2": "NOT_APPROVED",
+  "g3": "BLOCKED",
+  "g4": "BLOCKED",
+  "g5": "BLOCKED",
+  "g6": "BLOCKED",
+  "approved_identity_anchor": null,
+  "approved_avatar": null,
+  "historical_tracks": {
+    "H1_SCULPTURAL_MASSING_V2": "SUPERSEDED_HISTORICAL_ONLY",
+    "H1_A2_UPPER_FACE": "DO_NOT_EXECUTE",
+    "Split-Current Observer": "REVOKED",
+    "Turnback Observer": "REVOKED"
+  },
+  "previous_candidate_evidence": {
+    "R28_R27_A": "REJECTED",
+    "R28_R27_B": "REJECTED",
+    "R28_R27_C": "SHAPE_MECHANISM_ONLY_NOT_IDENTITY_CANON",
+    "R30_G2_A": "REJECT_IDENTITY_GENERIC",
+    "R30_G2_B": "REJECT_CONTRACT_DRIFT",
+    "R30_G2_C": "REJECT_ART_APPEAL_SILHOUETTE_PROOF_ONLY",
+    "R31_FIRST_USER_UPLOADED_CANDIDATE": "REJECTED_EVIDENCE_ONLY",
+    "R31_SECOND_INTERNAL_GENERATED_IMAGE": "REJECTED_EVIDENCE_ONLY"
+  },
+  "next_action": "Construct three genuinely different G2 character-structure routes; define head/face/neck-shoulder shape, shape grammar and emotional mechanism; compare pure silhouette and negative space; independently counter-review. Do not compile a production prompt or generate a new image before a drawable visual contract is approved.",
+  "generation_policy": {
+    "production_prompt_allowed": false,
+    "new_image_generation_allowed_before_visual_contract": false,
+    "rejected_images_may_be_references": false,
+    "full_square_canvas_required": true,
+    "circular_source_crop_allowed": false
+  },
+  "owner": "VIDEO_GROWTH_AGENT creative-director role; current main assistant accountable for execution; user retains final aesthetic approval."
+}

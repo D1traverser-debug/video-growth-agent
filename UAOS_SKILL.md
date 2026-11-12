@@ -173,3 +173,15 @@ Completion requires current child business-state evidence plus applicable artifa
 - what is candidate/rejected/stale;
 - what remains blocked;
 - which live audience/IP/commercial outcomes remain unobserved.
+
+
+## Personal-IP and child-project routing
+
+For generic personal-IP work, read:
+- projects/ai-self-media-commercialization/CHANNEL_PORTFOLIO.md
+- projects/ai-self-media-commercialization/EXTERNAL_SYSTEMS.md
+- projects/ai-self-media-commercialization/ORIGINAL_DIGITAL_IP/CURRENT_STATE.json for avatar/character work
+
+For exact “红绸赴约” / “red-silk-date” intent, resolve the child project through projects/PROJECT_INDEX.json and read projects/red-silk-date/README.md first. Do not fall back to the older v06 local runner when v11 is the current project baseline.
+
+Financial article writing remains owned by D1traverser-debug/financial-writing-agent. This Video domain may consume explicit article delivery receipts for distribution; it must not copy article state or modify that repository.

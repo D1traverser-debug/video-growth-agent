@@ -143,3 +143,24 @@ Without blocking H1, the Program may also advance:
 
 ## Persistence rule
 Material Program decisions update their owning workstream state and decision evidence in the same session. Changes to foreground stage/next action update `PROJECT_MANIFEST.json`, `PROGRAM_STATE.json`, `CURRENT_PROGRESS.md` and `RESUME_ENTRY.md` where applicable. Video-system changes also reconcile `audits/EVOLUTION_INDEX.json` and the deeper causal audit. Reviewed outputs receive durable review/decision artifacts. Do not claim persistence unless the owning records were actually changed.
+
+
+---
+
+## 2026-11-12 personal-IP integration checkpoint
+
+The integrated Program now covers:
+- MEDIA_GROWTH: English X, Chinese WeChat public-account distribution and future video.
+- ORIGINAL_DIGITAL_IP: latest authority is R31; G2 NOT APPROVED; no identity anchor/avatar; G3-G6 blocked.
+- PRODUCTION_SYSTEM: Video Growth Agent 0.8.0 remains the verified production core; Red Silk Date is a separate child project with v11 as the latest known engineering baseline.
+- COMMERCIALIZATION: sponsor/rights hypotheses remain separate from editorial truth.
+
+X status: new near-zero-follower account observed; English content interests include Solana memes, global trends and internet culture. Do not post contract addresses on the primary account unless specifically approved. Handle, Premium, VPN/payment region, audience geography, payout and cadence remain unresolved.
+
+WeChat status: intended A-share finance and technology. Financial article requirements, source truth, article state and writing execution remain owned by the independent financial-writing-agent. This Program consumes explicit delivery receipts and owns packaging/distribution only.
+
+Avatar status: October H1/A2 cursor superseded. Current task is G2 structural concept rebuild after R31. No rejected image may be used as a prompt reference.
+
+Red Silk status: v11 source package indexed but raw bytes not accessible in this migration. Formal character/hand rig, XPBD v15 dynamic contact, cloud Runtime smoke, S04 slice and final render remain incomplete. No local heavy compute or paid spend without approval.
+
+Private asset register: https://docs.google.com/document/d/1SdgRHGAqRfvvzNJvwjKwnn1i2fhGSifr3Fqf6ZKnDSw/edit

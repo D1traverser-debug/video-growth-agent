@@ -1,45 +1,63 @@
 {
-  "schema_version":"1.3",
-  "program_id":"ai-self-media-commercialization",
-  "display_name_zh":"AI自媒体视频增长、商业化与原创数字IP",
-  "owner":"VIDEO_GROWTH_AGENT",
-  "status":"ACTIVE",
-  "business_identity_authority":"projects/ai-self-media-commercialization/PROGRAM_STATE.json::program_id",
-  "parent_identity_semantics":"DISTINCT_FROM_UAOS_ROUTER_ID__NO_EQUALITY_REQUIREMENT",
-  "parent_reference_semantics":"OPTIONAL_OPAQUE_CHILD_REF_ONLY",
-  "product_ref":"docs/product_requirements.md",
-  "architecture_ref":"docs/media_business_os.md",
-  "project_manifest_ref":"projects/ai-self-media-commercialization/PROJECT_MANIFEST.json",
-  "subtask_graph_ref":"projects/ai-self-media-commercialization/SUBTASK_GRAPH.json",
-  "business_flywheel_ref":"projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json",
-  "workstreams":{
-    "MEDIA_GROWTH":{
-      "status":"READY_ACTIVE_BASELINE",
-      "current_state":"Account positioning, audience hypothesis, content pillars, format and early growth metrics are defined in ACCOUNT_POSITIONING.md. Topic portfolio and pilot learning can progress independently of unfinished character sculpting and feed IP-distinctiveness, production-investment and commercial-fit decisions through BUSINESS_FLYWHEEL.json.",
-      "authority_refs":["ACCOUNT_POSITIONING.md","BUSINESS_FLYWHEEL.json"],
-      "blocked_by":[]
+  "schema_version": "1.4",
+  "program_id": "ai-self-media-commercialization",
+  "display_name_zh": "AI自媒体视频增长、商业化与原创数字IP",
+  "owner": "VIDEO_GROWTH_AGENT",
+  "status": "ACTIVE",
+  "business_identity_authority": "projects/ai-self-media-commercialization/PROGRAM_STATE.json::program_id",
+  "parent_identity_semantics": "DISTINCT_FROM_UAOS_ROUTER_ID__NO_EQUALITY_REQUIREMENT",
+  "parent_reference_semantics": "OPTIONAL_OPAQUE_CHILD_REF_ONLY",
+  "product_ref": "docs/product_requirements.md",
+  "architecture_ref": "docs/media_business_os.md",
+  "project_manifest_ref": "projects/ai-self-media-commercialization/PROJECT_MANIFEST.json",
+  "subtask_graph_ref": "projects/ai-self-media-commercialization/SUBTASK_GRAPH.json",
+  "business_flywheel_ref": "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json",
+  "workstreams": {
+    "MEDIA_GROWTH": {
+      "status": "ACTIVE_MULTICHANNEL_BASELINE",
+      "current_state": "English X is a new near-zero-follower account; editorial focus is Solana meme culture, global trends, entertainment and internet/incentive analysis. Do not publish contract addresses on the primary account unless explicitly approved. Chinese WeChat is intended for A-share finance and technology; article truth and writing remain owned by financial-writing-agent. X handle, Premium, VPN/payment region, audience geography, payout eligibility and cadence are unresolved.",
+      "authority_refs": [
+        "ACCOUNT_POSITIONING.md",
+        "CHANNEL_PORTFOLIO.md",
+        "EXTERNAL_SYSTEMS.md",
+        "BUSINESS_FLYWHEEL.json"
+      ],
+      "blocked_by": []
     },
-    "ORIGINAL_DIGITAL_IP":{
-      "status":"ACTIVE",
-      "current_stage":"H1_SCULPTURAL_MASSING_V2",
-      "current_state":"Original corrected S1+S3 strict-front gray sculpt is the accepted fixed face shell. E1/E2/E3 are inconclusive; A1 is rejected; A2 positive-morph upper-face tuning is next. Future canon promotion must bind exact asset versions and can consume recognition/growth/commercial evidence without letting those signals rewrite structural truth by default.",
-      "authority_refs":["CURRENT_PROGRESS.md","H1_A1_REVIEW_2026-10-14.md","GPT_IMAGE_POSITIVE_MORPH_LANGUAGE_RULE_V1.md","BUSINESS_FLYWHEEL.json"],
-      "blocked_by":[]
+    "ORIGINAL_DIGITAL_IP": {
+      "status": "ACTIVE_G2_REBUILD",
+      "current_stage": "G2_CONCEPT_REBUILD_AFTER_R31_20261112",
+      "current_state": "G0 PASS; targeted G1 research complete; G2 NOT APPROVED; G3-G6 BLOCKED. No approved identity anchor or avatar. R31 is latest root-cause/method record. Split-Current Observer and Turnback Observer are revoked; rejected images remain evidence only. Rebuild G2 through structurally distinct routes and independent silhouette/negative-space review before prompt compilation or new image generation.",
+      "authority_refs": [
+        "ORIGINAL_DIGITAL_IP/CURRENT_STATE.json",
+        "ORIGINAL_DIGITAL_IP/AVATAR_HISTORY_AND_METHOD.md",
+        "ORIGINAL_DIGITAL_IP/R31_G2_ROOT_CAUSE_AND_RESEARCH.md"
+      ],
+      "blocked_by": []
     },
-    "COMMERCIALIZATION":{
-      "status":"READY_FOR_PARALLEL_RESEARCH",
-      "current_state":"Monetization hierarchy, sponsor integration principle and target advertiser pools exist. Offer architecture, rights packaging, advertiser map, measurement and evidence-backed pricing remain research tasks. Commercial constraints may shape deliverables/product-truth assets/rights but cannot override editorial conclusions or audience trust.",
-      "authority_refs":["ACCOUNT_POSITIONING.md","PRODUCTION_AND_COST_STRATEGY.md","BUSINESS_FLYWHEEL.json"],
-      "blocked_by":[]
+    "COMMERCIALIZATION": {
+      "status": "READY_FOR_PARALLEL_RESEARCH",
+      "current_state": "Monetization hierarchy, sponsor integration principle and target advertiser pools exist. Offer architecture, rights packaging, advertiser map, measurement and evidence-backed pricing remain research tasks. Commercial constraints may shape deliverables/product-truth assets/rights but cannot override editorial conclusions or audience trust.",
+      "authority_refs": [
+        "ACCOUNT_POSITIONING.md",
+        "PRODUCTION_AND_COST_STRATEGY.md",
+        "BUSINESS_FLYWHEEL.json"
+      ],
+      "blocked_by": []
     },
-    "PRODUCTION_SYSTEM":{
-      "status":"MEDIA_BUSINESS_OS_0_8_PRODUCTION_BASELINE",
-      "current_state":"Media Business OS 0.8.0 is the current verified production core after PR #15 merged to main and production CI run 38725890405 passed. The system is current-Agent-operable from EpisodeIntent/Claim/Beat/ShotIntent through plan-version lineage, ShotContract, dimension-level continuity, operation-specific calibrated/Pareto model routing, non-destructive timeline/editor roundtrip, pre-registered experiments, outcome learning and a non-authoritative operator projection. The unchanged historical/specialized work-order adapter bundle remains versioned 0.7.0 as a compatibility surface; it is not the current core-runtime version.",
-      "authority_refs":["../../docs/media_business_os.md","../../docs/agent_operability_scenarios.md","../../docs/provider_benchmark_protocol.md","../../video_growth_agent/media_graph.py","../../video_growth_agent/editorial_planning.py","../../video_growth_agent/plan_graph_bridge.py","../../video_growth_agent/production_os.py","../../video_growth_agent/continuity.py","../../video_growth_agent/model_registry.py","../../video_growth_agent/timeline.py","../../video_growth_agent/editorial_interchange.py","../../video_growth_agent/experiments.py","../../video_growth_agent/operator_view.py","../../video_growth_agent/business_objects.py","../../video_growth_agent/business_metrics.py","../../video_growth_agent/owner_behavior_admission.py","../../audits/EVOLUTION_INDEX.json","../../audits/VIDEO_0_8_PRODUCTION_CLOSURE_2026-10-15.md"],
-      "blocked_by":[]
+    "PRODUCTION_SYSTEM": {
+      "status": "MEDIA_BUSINESS_OS_0_8_VERIFIED__RED_SILK_V11_CHILD_LINKED",
+      "current_state": "Media Business OS 0.8.0 remains the verified production core. Red Silk Date is a separate child project with v11 as latest known engineering baseline. The v11 ZIP is indexed but raw bytes were not accessible in this migration; formal character/hand rig, XPBD v15 dynamic contact, cloud Runtime smoke, S04 vertical slice and final seven-shot render remain incomplete. User-local heavy compute is not required; paid worker or third-party upload requires prior approval.",
+      "authority_refs": [
+        "../../docs/media_business_os.md",
+        "../../audits/EVOLUTION_INDEX.json",
+        "../red-silk-date/PROGRAM_STATE.json",
+        "../red-silk-date/PRODUCTION_STATUS_V11.md"
+      ],
+      "blocked_by": []
     }
   },
-  "cross_workstream_rules":[
+  "cross_workstream_rules": [
     "Workstreams progress independently unless SUBTASK_GRAPH declares a dependency.",
     "BUSINESS_FLYWHEEL.json defines cross-workstream evidence/decision loops; workstreams reference shared authoritative assets/decisions instead of copying truth.",
     "Character canon is required only for outputs that claim stable character identity; it does not block topic research, audience analysis, provider benchmarking or advertiser research.",
@@ -49,8 +67,19 @@
     "Growth/performance evidence can create IP/production/commercial learning candidates but never directly mutates canon, provider rules or pricing authority.",
     "Production economics feed portfolio/cadence/visual-class investment decisions; they do not determine editorial truth."
   ],
-  "current_focus":"ORIGINAL_DIGITAL_IP/H1_SCULPTURAL_MASSING_V2",
-  "current_next_action":"Execute A2 positive-morph upper-face edit on the original corrected S1+S3 fixed face shell; compare directly to the accepted base before cheek-jaw correction or three-quarter validation. System maintenance must not advance this creative action automatically.",
-  "system_next_action":"Video 0.8.0 child-domain promotion is complete and verified. No further Video-domain release action is required before normal use. UAOS parent observation still requires a separate parent-authority refresh; that metadata sync does not block Video 0.8.0 operation.",
-  "updated_at":"2026-10-15T19:14:53+08:00"
+  "current_focus": "ORIGINAL_DIGITAL_IP/G2_CONCEPT_REBUILD_AFTER_R31_20261112",
+  "current_next_action": "Complete G2 structural concept competition and independent counter-review. Do not reuse rejected images or start production prompting before a drawable visual contract is approved.",
+  "system_next_action": "Video 0.8.0 child-domain promotion is complete and verified. No further Video-domain release action is required before normal use. UAOS parent observation still requires a separate parent-authority refresh; that metadata sync does not block Video 0.8.0 operation.",
+  "updated_at": "2026-11-12T20:52:00+08:00",
+  "current_parallel_actions": [
+    "MEDIA_GROWTH: establish X account baseline and channel-specific content policy without assuming handle, cadence, Premium or payout state.",
+    "PRODUCTION_SYSTEM: recover/verify Red Silk v11 source archive and proceed through formal character/hand rig, XPBD v15 and S04 vertical slice using cloud execution; no local heavy compute or paid spend without approval.",
+    "MEDIA_GROWTH: consume financial-writing-agent outputs only through explicit external delivery receipts."
+  ],
+  "migration_status": {
+    "checkpoint": "PERSONAL_IP_ASSETS_AND_MEMORY_CONNECTED",
+    "date": "2026-11-12",
+    "private_asset_register": "https://docs.google.com/document/d/1SdgRHGAqRfvvzNJvwjKwnn1i2fhGSifr3Fqf6ZKnDSw/edit",
+    "raw_binary_policy": "Original private binaries remain in ChatGPT Library; public GitHub contains sanitized state/docs and a private register pointer, not personal photo/video binaries."
+  }
 }

@@ -83,3 +83,14 @@ Material changes update the owning child authority in the same session. Workstre
 Video-system changes also reconcile `audits/EVOLUTION_INDEX.json` plus the deeper causal audit/ref and only upcall cross-domain/common mechanisms to UAOS.
 
 Do not claim persistence if these records were not actually updated.
+
+
+---
+
+## 2026-11-12 multi-channel and child-project routing
+
+- Generic personal-IP / channel-growth requests resolve to ai-self-media-commercialization.
+- Exact “继续红绸赴约” / “red-silk-date” requests resolve to projects/red-silk-date/README.md.
+- Avatar/character requests must read ORIGINAL_DIGITAL_IP/CURRENT_STATE.json and AVATAR_HISTORY_AND_METHOD.md. The October H1/A2 task is historical only; R31 G2 reset is current.
+- Financial article production resolves to D1traverser-debug/financial-writing-agent. Video Growth Agent consumes explicit delivery receipts and owns distribution packaging only.
+- Private asset inventory: https://docs.google.com/document/d/1SdgRHGAqRfvvzNJvwjKwnn1i2fhGSifr3Fqf6ZKnDSw/edit
