@@ -34,7 +34,7 @@ R31 is the current root-cause record. It identifies failures in project-goal rec
 6. Only after the contract is complete, create the low-fidelity study and inspect the actual image at full view and 48/96px.
 7. The user retains final SELECT / MERGE / REJECT_ALL authority. G3+ and canon remain blocked until explicit selection.
 
-**Immediate next action:** Complete the G2 design counterreview; create and compare three genuinely different character constructions (A narrow observer, B broad polyhedral head, C inverted-pear gentle editor); red-team their silhouettes and identity stability; write the black-and-white three-column comparison-sheet visual contract before any image generation. Only then produce the low-fidelity study, review the actual image, and request the user's final aesthetic selection. No production avatar prompt or canon is approved yet.
+**Immediate next action:** Complete the G2 design counterreview; create and compare three genuinely different character constructions (A narrow observer, B broad polyhedral head, C inverted-pear gentle editor); red-team their silhouettes and identity stability; write the black-and-white three-column comparison-sheet visual contract before any image generation. Only then produce the low-fidelity study, review the actual image, and request the user's final aesthetic selection. No production avatar prompt or canon is approved yet. System maintenance must not advance this creative action automatically.
 
 ## Workstream state
 
