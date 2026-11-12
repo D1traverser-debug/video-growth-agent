@@ -192,3 +192,22 @@ Generate and compare three neutral sculptural head studies:
 - S3 Anti-Generic Cheek/Jaw Rhythm.
 
 Use the certificate portrait only as structural calibration. Do not return to photoreal skin/hair until one sculpt geometry or deliberate hybrid is accepted. Do not advance to H2 until H1 passes.
+
+
+## 2026-11-12 — G2 reset and CAOS read-only governance adoption
+
+Decision:
+- Current Original Digital IP focus is `G2_REBUILD_AFTER_R31_20261112`; no approved character, avatar, identity anchor, production prompt or canon exists.
+- H1/S1+S3/A2, Split-Current Observer and Turnback Observer are superseded/revoked historical tracks; they must not become READY or be used as current image references.
+- Current G2 compares A/B/C structural routes (narrow observer, polyhedral page-head, inverted-pear gentle editor), red-teams them, then writes a comparison-sheet visual contract before any low-fidelity image generation.
+- The user retains final aesthetic SELECT/MERGE/REJECT_ALL authority; no assistant self-review or CI can grant canon.
+- CAOS governance is adopted as a read-only method reference. No CAOS code, docs, Skills, branches, PRs or commits may be modified. Existing UAOS bindings remain unchanged.
+
+Reason:
+The prior active state incorrectly preserved H1/A2 after the user's latest R31 reset. The scheduler also lacked enforcement for SUPERSEDED/BLOCKED/execution_allowed=false and did not validate input-artifact lineage. These are authority and lifecycle defects, not merely stale wording.
+
+Authority:
+- `ORIGINAL_DIGITAL_IP/CURRENT_STATE.json`
+- `ORIGINAL_DIGITAL_IP/TASK_ASSIGNMENT_CURRENT.md`
+- `ORIGINAL_DIGITAL_IP/R31_G2_ROOT_CAUSE_AND_RESEARCH.md`
+- `docs/caos_governance_adapter.md`

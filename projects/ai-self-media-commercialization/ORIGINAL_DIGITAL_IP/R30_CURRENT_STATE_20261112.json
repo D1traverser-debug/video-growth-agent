@@ -1,0 +1,40 @@
+{
+  "project": "个人ip创作",
+  "checkpoint": "G2_CONCEPT_TEST_20261112",
+  "date": "2026-11-12",
+  "primary_owner": "current_main_chat_assistant",
+  "approved_identity_anchor": null,
+  "approved_avatar": null,
+  "g0": "PASS",
+  "g1": "targeted_design_research_complete_for_this_experiment",
+  "g2": "NOT_APPROVED",
+  "g3": "BLOCKED",
+  "g4": "BLOCKED",
+  "g5": "BLOCKED",
+  "g6": "BLOCKED",
+  "concept_tests": {
+    "A_shortbrim_human_figure": "REJECT_IDENTITY_GENERIC",
+    "B_ink_ribbon_builtin": "REJECT_CONTRACT_DRIFT",
+    "C_deterministic_svg": "REJECT_ART_APPEAL; silhouette_proof_only"
+  },
+  "imagegen_returned_prompt_echo": false,
+  "imagegen_output_ids": {
+    "A": "acaa6e5a-981b-45c9-96ff-4e06d94d03a9",
+    "B": "d0c41934-c0a7-441f-a18f-1794402432df"
+  },
+  "files_produced": {
+    "A_builtin": {"sha256":"5038bbdeb4d76af49b9c35e100650e8c2335bd4754e8f008530d6760c655fb49","pixels":[1254,1254],"mode":"RGB"},
+    "B_builtin": {"sha256":"37b5b92b1e3cb8bfdc95b5995aac506b2502a03d835bb70a2689322f9553dbc4","pixels":[1254,1254],"mode":"RGB"},
+    "C_manual_original": {"sha256":"b0114769fe8b60f55573664be6c89e96941e861353ef0156b37674481dbf557d","pixels":[1080,1080],"mode":"RGB"},
+    "C_manual_revision": {"sha256":"40258de3069b7d143e5128a403a92f0fefa65cb98658ba2becd3ee28211347a9","pixels":[1080,1080],"mode":"RGB"}
+  },
+  "next": "Do not resample A/B or beautify C. Re-evaluate an exact-input image-rendering route already accessible to assistant or create a controlled human art reference first; current chat remains accountable.",
+  "user_required_action": null,
+  "external_exact_prompt_asset_retrieval_probe": {
+    "historical_task": "cc2a61e1-566f-464b-b585-fe8a38b31d2c",
+    "task_has_image_url": true,
+    "sandbox_original_bytes_retrieved": false,
+    "reason": "direct signed resource not accessible through active web/container fetch; this test did not generate a new image",
+    "status": "NOT_VERIFIED_FOR_INDEPENDENT_ART_QA"
+  }
+}

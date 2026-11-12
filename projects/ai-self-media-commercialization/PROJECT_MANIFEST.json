@@ -50,17 +50,19 @@
       "FACIAL_MORPHOLOGY",
       "GPT_IMAGE_PROMPTING"
     ],
-    "semantic_summary": "Default integrated Video-domain Media Business Program. Growth, original IP, commercialization and production are evidence-coupled through BUSINESS_FLYWHEEL.json. Current foreground business cursor remains H1 original-character face-shell work: corrected S1+S3 front gray sculpt is fixed; E1/E2/E3 were inconclusive; A1 was rejected; A2 positive-morph upper-face tuning is next. Media Business OS 0.8.0 is the verified production core; its system promotion did not advance or overwrite the H1 creative cursor.",
+    "semantic_summary": "Default integrated Video-domain Media Business Program. Growth, original IP, commercialization and production are evidence-coupled through BUSINESS_FLYWHEEL.json. Current foreground business cursor is ORIGINAL_DIGITAL_IP/G2_REBUILD_AFTER_R31_20261112: G2 is reset, no identity anchor or avatar is approved, H1/A2 is superseded historical-only, and the next action is three structurally distinct route designs, red-team comparison and a contract-gated black-and-white low-fidelity comparison study. Video 0.8.0 main remains the production baseline; PR #23 is an unverified candidate under CAOS read-only governance methods.",
     "resume_entry": "RESUME_ENTRY.md",
     "current_progress": "CURRENT_PROGRESS.md",
     "program_state": "PROGRAM_STATE.json",
     "subtask_graph": "SUBTASK_GRAPH.json",
     "business_flywheel": "BUSINESS_FLYWHEEL.json",
-    "latest_face_review": "H1_A1_REVIEW_2026-10-14.md",
+    "latest_face_review": "ORIGINAL_DIGITAL_IP/R31_G2_ROOT_CAUSE_AND_RESEARCH.md",
     "prompt_language_rule": "GPT_IMAGE_POSITIVE_MORPH_LANGUAGE_RULE_V1.md",
     "personal_inheritance_policy": "HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md",
     "gpt_image_prompting_method": "GPT_IMAGE_PROMPTING_METHOD_V2.md",
-    "human_core_stack": "HUMAN_CORE_CONSTRUCTION_STACK_V2.md"
+    "human_core_stack": "HUMAN_CORE_CONSTRUCTION_STACK_V2.md",
+    "task_assignment": "ORIGINAL_DIGITAL_IP/TASK_ASSIGNMENT_CURRENT.md",
+    "current_state": "ORIGINAL_DIGITAL_IP/CURRENT_STATE.json"
   },
   "workstreams": {
     "MEDIA_GROWTH": {
@@ -76,7 +78,7 @@
       "state_ref": "PROGRAM_STATE.json#workstreams.COMMERCIALIZATION"
     },
     "PRODUCTION_SYSTEM": {
-      "status": "MEDIA_BUSINESS_OS_0_8_PRODUCTION_BASELINE",
+      "status": "PRODUCTION_0_8_BASELINE__CAOS_GOVERNED_RESTRUCTURE_CANDIDATE",
       "state_ref": "PROGRAM_STATE.json#workstreams.PRODUCTION_SYSTEM"
     }
   },
@@ -85,10 +87,10 @@
     "rule": "WORKSTREAMS_REFERENCE_SHARED_AUTHORITATIVE_OBJECTS_AND_EVIDENCE__NO_PRIVATE_DUPLICATE_TRUTH",
     "objective": "AUDIENCE_VALUE__DISTINCTIVE_IP__REPEATABLE_PRODUCTION__COMMERCIAL_RIGHTS_AND_OUTCOMES__TRUST"
   },
-  "current_stage": "H1_SCULPTURAL_MASSING_V2",
+  "current_stage": "G2_REBUILD_AFTER_R31_20261112",
   "current_focus": "ORIGINAL_DIGITAL_IP",
-  "current_state": "The original corrected S1+S3 strict-front gray sculpt remains the accepted fixed face shell. A1 is rejected because it encoded low/heavy brow-eye pressure, hooded/loose upper lid, insufficient horizontal eye organization, soft/tired lower-lid support and street-tough styling contamination. Lower-face geometry remains usable. This foreground IP work does not block unrelated growth, production-system or commercialization research.",
-  "next_action": "Use only the ORIGINAL corrected S1+S3 strict-front gray sculpt and execute one A2 positive-morph upper-face edit: slightly higher straight-to-soft-triangular brow with increased brow-eye clearance, restrained long almond aperture, taut low upper-lid arc with subtle low East-Asian crease, smooth supported lower lid, level-to-slightly-positive outer canthus, firm upper-lid soft tissue, clean under-eye transition and tiny mouth-corner relaxation. Keep face shell/nose/cheek/jaw/chin/neck/camera/light/gray material fixed and use a neutral cranial cap. Compare A2 directly with the original before cheek-jaw correction or 3/4 validation.",
+  "current_state": "G2 is not approved. No approved character, avatar, identity anchor, production prompt or canon exists. H1/A2 is superseded historical-only. Current task: challenge the prior failed design representation, construct and compare A/B/C structurally distinct silhouettes, red-team the routes, write a comparison-sheet visual contract, and only then produce a black-and-white three-column low-fidelity study for actual visual review and user adjudication.",
+  "next_action": "Complete the G2 design counterreview; create and compare three genuinely different character constructions (A narrow observer, B broad polyhedral head, C inverted-pear gentle editor); red-team their silhouettes and identity stability; write the black-and-white three-column comparison-sheet visual contract before any image generation. Only then produce the low-fidelity study, review the actual image, and request the user's final aesthetic selection. No production avatar prompt or canon is approved yet.",
   "workflow_integration": {
     "mode": "AGENT_OPERABLE_MEDIA_BUSINESS_OS_WITH_VERSIONED_LEGACY_EPISODE_ADAPTER",
     "core_runtime": "0.8.0",
@@ -98,7 +100,9 @@
     "primary_production_semantics": "docs/media_business_os.md -> editorial intent/claim/beat/shot plan -> shot/reference/take/continuity/promotion/timeline/editor-interchange/experiment/release",
     "promotion_rule": "PROGRAM_OUTPUTS_ENTER_ACCEPTED_ASSET_OR_EPISODE_STATE_ONLY_BY_EXPLICIT_PROMOTION_BOUND_TO_ARTIFACT_IDENTITY_AND_EVIDENCE",
     "production_evidence_ref": "../../audits/VIDEO_0_8_PRODUCTION_CLOSURE_2026-10-15.md",
-    "notes_ref": "WORKFLOW_INTEGRATION.md"
+    "notes_ref": "WORKFLOW_INTEGRATION.md",
+    "caos_governance_adapter": "docs/caos_governance_adapter.md",
+    "caos_governance_status": "READ_ONLY_METHOD_ADOPTION__NO_CAOS_RUNTIME_OR_REPOSITORY_MUTATION"
   },
   "primary_files": [
     "PROGRAM_STATE.json",
@@ -107,14 +111,14 @@
     "RESUME_ENTRY.md",
     "CURRENT_PROGRESS.md",
     "ACCOUNT_POSITIONING.md",
-    "PRODUCTION_AND_COST_STRATEGY.md",
-    "H1_A1_REVIEW_2026-10-14.md",
-    "GPT_IMAGE_POSITIVE_MORPH_LANGUAGE_RULE_V1.md",
-    "H1_MALE_AESTHETIC_TUNING_RESEARCH_2026-10-14.md",
-    "HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md",
-    "GPT_IMAGE_PROMPTING_METHOD_V2.md",
-    "HUMAN_CORE_CONSTRUCTION_STACK_V2.md",
-    "DECISION_LOG.md"
+    "CHANNEL_PORTFOLIO.md",
+    "ORIGINAL_DIGITAL_IP/CURRENT_STATE.json",
+    "ORIGINAL_DIGITAL_IP/TASK_ASSIGNMENT_CURRENT.md",
+    "ORIGINAL_DIGITAL_IP/R31_G2_ROOT_CAUSE_AND_RESEARCH.md",
+    "ORIGINAL_DIGITAL_IP/R28_INDEPENDENT_ART_REVIEW.md",
+    "DECISION_LOG.md",
+    "EXTERNAL_SYSTEMS.md",
+    "WORKFLOW_INTEGRATION.md"
   ],
   "supersession": {
     "CHARACTER_DESIGN_BIBLE_V1.md": "HISTORICAL_INPUT_PENDING_V2_REWRITE",
@@ -126,21 +130,24 @@
     "FUTURE_EXPLICIT_IMPORT_PROJECT_MODEL": "SUPERSEDED_BY_ACTIVE_INTEGRATED_PROGRAM_WORKSTREAM_MODEL",
     "STAGE_ROLE_PIPELINE_AS_ENTIRE_PRODUCT_ONTOLOGY": "SUPERSEDED_BY_MEDIA_BUSINESS_OBJECT_AND_CONTEXT_MODEL__LEGACY_WORKFLOW_RETAINED_AS_EXECUTION_ADAPTER",
     "HIDDEN_AGENT_EDITORIAL_REASONING_AS_ONLY_PLANNING_STATE": "SUPERSEDED_BY_VERSIONED_EDITORIAL_PLAN_RUNTIME",
-    "FLAT_PROVIDER_CAPABILITY_AND_WEIGHTED_AVERAGE_QUALITY_AS_CURRENT_ROUTER": "SUPERSEDED_BY_OPERATION_PROFILE_AND_CALIBRATED_PARETO_ROUTING"
+    "FLAT_PROVIDER_CAPABILITY_AND_WEIGHTED_AVERAGE_QUALITY_AS_CURRENT_ROUTER": "SUPERSEDED_BY_OPERATION_PROFILE_AND_CALIBRATED_PARETO_ROUTING",
+    "H1_SCULPTURAL_MASSING_V2": "SUPERSEDED_HISTORICAL_ONLY_BY_G2_REBUILD_AFTER_R31_20261112",
+    "H1_A2_UPPER_FACE": "DO_NOT_EXECUTE",
+    "Split-Current Observer": "REVOKED",
+    "Turnback Observer": "REVOKED"
   },
   "proposals": {
-    "whole_look_direction": "Glitch Dandy / 异常绅士",
-    "whole_look_status": "PROPOSED_DOWNSTREAM_NOT_LOCKED",
-    "personal_feature_policy": "SELECTIVE_STRUCTURAL_INHERITANCE",
-    "body_reference_policy": "PLAUSIBILITY_SUPPORT_NOT_PRIMARY_LIKENESS",
-    "current_face_method": "FIXED_FACE_SHELL_POSITIVE_MORPH_TUNING",
-    "current_face_shell": "ORIGINAL_CORRECTED_H1_S13_FRONT",
-    "current_upper_face_proposal": "A2_CLEAN_ANALYTICAL_EAST_ASIAN_MALE",
-    "current_upper_face_status": "READY_FOR_EXECUTION",
-    "presentation_modes_status": "DORMANT_UNTIL_CANON_H9"
+    "whole_look_direction": "NOT_LOCKED__WAITING_FOR_G2_STRUCTURAL_IDENTITY",
+    "whole_look_status": "NOT_APPROVED",
+    "personal_feature_policy": "ANONYMOUS_ORIGINAL_CHARACTER__NO_IDENTIFIABLE_FACE_REPLICATION",
+    "current_face_method": "G2_STRUCTURAL_REBUILD_FROM_BRAND_PERSONALITY",
+    "current_face_shell": null,
+    "current_upper_face_proposal": null,
+    "current_upper_face_status": "NOT_APPROVED",
+    "presentation_modes_status": "BLOCKED_UNTIL_G2_CANON"
   },
   "created_at": "2026-10-14T00:14:38Z",
-  "updated_at": "2026-10-15T19:14:53+08:00",
+  "updated_at": "2026-11-12T22:24:00+08:00",
   "retired_documents": [
     {
       "path": "H1_S13_HYBRID_FRONT_REVIEW_2026-10-14.md",

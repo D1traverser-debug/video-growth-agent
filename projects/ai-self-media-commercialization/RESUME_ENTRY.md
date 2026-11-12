@@ -6,80 +6,53 @@ Program ID: `ai-self-media-commercialization`
 
 ## Canonical resume phrases
 
-Generic Video intents below resolve to this default Program unless the user supplies another exact child project reference:
 - `AI自媒体视频商业化`
 - `AI视频涨粉与商业化`
 - `原创数字IP`
 - `原创数字IP设计`
 - `ai-self-media-commercialization`
 
-Preferred current continuation:
-
-> `继承 AI自媒体视频增长、商业化与原创数字IP。读取 PROJECT_MANIFEST.json、PROGRAM_STATE.json、SUBTASK_GRAPH.json、BUSINESS_FLYWHEEL.json 和 CURRENT_PROGRESS.md。当前前台焦点仍是 ORIGINAL_DIGITAL_IP / H1_SCULPTURAL_MASSING_V2：固定脸壳是原始正确 S1+S3 正面灰模，E1/E2/E3 无效，A1 已否决，下一步从原始固定脸壳执行 A2 positive morph 上半脸修正。增长、商业化、IP 和生产系统属于同一 Media Business Program，通过 BUSINESS_FLYWHEEL 显式互相提供证据；未声明依赖的工作可并行。`
-
-Exact historical child project override:
-- `继续 Pilot 002` or `继承 video-growth:main` means exact child project `pilot-002`; it does not mean this integrated Program and does not create/adopt a UAOS task identity.
+Generic Video/growth/commercialization/original-IP requests resolve to this integrated Program unless an exact child project is named. `继续 Pilot 002` or `video-growth:main` remains an exact historical child-project override.
 
 ## Required entry order
-1. `projects/PROJECT_INDEX.json`
-2. `PROJECT_MANIFEST.json`
-3. `PROGRAM_STATE.json`
-4. `SUBTASK_GRAPH.json`
-5. `BUSINESS_FLYWHEEL.json`
-6. `CURRENT_PROGRESS.md`
-7. `../../docs/media_business_os.md` when the task touches production architecture, provider routing, growth/IP/commercial coupling, asset promotion or system evolution;
-8. only the current workstream/action-specific authority files needed next.
 
-For current H1/A2 work, progressively read:
-- `H1_A1_REVIEW_2026-10-14.md`
-- `GPT_IMAGE_POSITIVE_MORPH_LANGUAGE_RULE_V1.md`
-- `H1_MALE_AESTHETIC_TUNING_RESEARCH_2026-10-14.md`
-- `H1_BROW_EYE_RECONSIDERATION_2026-10-14.md`
-- `H1_S13_HYBRID_FRONT_REVIEW_CORRECTED_2026-10-14.md`
-- `HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md`
-- `GPT_IMAGE_PROMPTING_METHOD_V2.md`
-- `HUMAN_CORE_CONSTRUCTION_STACK_V2.md`
-- `DECISION_LOG.md`
+1. `docs/caos_governance_adapter.md` — apply the CAOS method boundary; read-only, not runtime authority.
+2. `projects/PROJECT_INDEX.json`
+3. `PROJECT_MANIFEST.json`
+4. `PROGRAM_STATE.json`
+5. `SUBTASK_GRAPH.json`
+6. `BUSINESS_FLYWHEEL.json`
+7. `CURRENT_PROGRESS.md`
+8. Current workstream authority files only.
 
-Do not preload unrelated Pilot 001/002 state merely because those folders are nearby.
+## Current foreground task
 
-## Current H1 truth
-- original corrected S1+S3 front sculpt is the fixed face shell and accepted base;
-- E1/E2/E3 are inconclusive and not selection authority;
-- A1 is rejected as an upper-face solution;
-- unwanted vibe is translated into observable geometry rather than style adjectives;
-- lower-face shell, nose scale and face envelope remain usable;
-- rejected derivatives are never the next edit base;
-- active prompting method is positive observable morphology.
+`ORIGINAL_DIGITAL_IP/G2_REBUILD_AFTER_R31_20261112`
 
-## Current H1 next action
-1. use only the ORIGINAL corrected S1+S3 strict-front gray sculpt as input;
-2. do not use certificate portrait, A1, E2/E3, pixel avatar or meme as the edit base;
-3. perform one A2 positive-morph upper-face edit;
-4. use a slightly higher straight-to-soft-triangular brow with more brow-eye clearance;
-5. use a restrained long almond aperture, taut low upper lid, subtle low East-Asian crease, level-to-slightly-positive outer canthus and supported lower lid;
-6. preserve face shell, cheek/jaw/chin, nose, ears, neck, camera, light and gray material;
-7. use a smooth neutral cranial cap rather than buzz-cut-coded placeholder;
-8. compare A2 directly with the original fixed face shell;
-9. if A2 passes, reassess cheek→jaw micro-correction and then 30–35° three-quarter validation;
-10. H1 passes before H2 body archetype.
+G2 is NOT APPROVED. There is no approved character, avatar, identity anchor, production prompt or canon. H1/S1+S3/A2, Split-Current Observer and Turnback Observer are superseded/revoked historical tracks. Do not resume them.
 
-System/architecture maintenance must not execute these creative steps automatically.
+Current action:
+Complete the G2 design counterreview; create and compare three genuinely different character constructions (A narrow observer, B broad polyhedral head, C inverted-pear gentle editor); red-team their silhouettes and identity stability; write the black-and-white three-column comparison-sheet visual contract before any image generation. Only then produce the low-fidelity study, review the actual image, and request the user's final aesthetic selection. No production avatar prompt or canon is approved yet.
 
-## Parallel-ready Program work
-While H1 is active, these workstreams may progress if useful and their own dependencies/capabilities are ready:
-- Media Growth: baseline metrics, topic/series hypotheses, pilot slate candidates, packaging/distribution research;
-- Commercialization: advertiser map, sponsor-fit criteria, offer/rights/measurement research;
-- Production System: provider benchmark protocol, shot/asset/timeline methods, deterministic QA and cost/reuse methods that do not require a locked character canon.
+Do not generate a new image before the three route specifications, red-team counterreview and comparison-sheet visual contract exist. The intended low-fidelity test is a black-and-white three-column comparison: A narrow observer, B broad polyhedral head with integrated page structure, C inverted-pear gentle editor. Each column contains one anonymous adult human-like character. No rejected image may be used as a visual reference.
 
-They do not wait for H1 unless a concrete output declares a character-canon dependency.
+The user retains final aesthetic approval. A separate assistant red-team pass is not an external independent human/model verdict. G3, G4, G5, G6 and canon remain blocked until G2 is explicitly accepted.
 
-## Business flywheel rule
-Cross-workstream effects are explicit. Growth evidence may create IP/production/commercial learning candidates; IP assets may inform packaging and sponsor value; commercial deliverables may add rights/product-truth requirements; production economics may change future format investment. None of these signals silently mutates canon, editorial truth, provider rankings or pricing authority.
+## Parallel work
 
-## Persistence/report rule
-Material changes update the owning child authority in the same session. Workstream stage/next-action changes reconcile `PROGRAM_STATE.json`, `SUBTASK_GRAPH.json`, `PROJECT_MANIFEST.json`, `BUSINESS_FLYWHEEL.json` and `CURRENT_PROGRESS.md` where relevant. Reviewed selections/merges/rejections receive durable decision evidence.
+- Media Growth: baseline metrics, topic/series hypotheses, packaging/distribution research.
+- Commercialization: advertiser mapping, sponsor-fit criteria, offer/rights/measurement research.
+- Production System: provider benchmark, shot/asset/timeline methods, deterministic QA and cost/reuse research.
 
-Video-system changes also reconcile `audits/EVOLUTION_INDEX.json` plus the deeper causal audit/ref and only upcall cross-domain/common mechanisms to UAOS.
+Only declared dependencies block work. Character canon blocks identity-dependent outputs, not unrelated growth or commercial research.
 
-Do not claim persistence if these records were not actually updated.
+## CAOS / UAOS / Video authority boundary
+
+- CAOS (`D1traverser-debug/cognition-agent-os`) supplies read-only governance methods only; no CAOS repository mutation or live runtime claim.
+- Existing `.uaos/*` and UAOS selector bindings remain unchanged; this adoption does not silently replace the configured parent identity.
+- Video Growth Agent owns Program identity, task graph, workstreams, media assets, production execution and domain acceptance.
+- User owns final aesthetic approval and any external account/publication authorization.
+
+## Resume / acceptance rule
+
+On `继续`, recover the exact current authority and first unfinished graph node; do not ask the user to repeat known requirements. Execute, inspect the actual output, challenge root causes, repair the governing mechanism and record evidence. A code CI PASS is not a video/character/business acceptance verdict.

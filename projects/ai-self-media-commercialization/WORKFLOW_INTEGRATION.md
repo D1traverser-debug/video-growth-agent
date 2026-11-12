@@ -72,7 +72,7 @@ Requires final-media/timeline identity, technical QA, rights, claim/product trut
 
 ## Current parallelism
 
-Current H1/A2 Original-IP work may run in parallel with:
+Current G2 Original-IP work may run in parallel with:
 
 - growth baseline / pilot-topic hypothesis work;
 - advertiser mapping / commercial-fit research;
@@ -133,3 +133,8 @@ This Program must not:
 - auto-promote local preferences or vendor demos into production rules;
 - create a repository-local parent controller or mirror UAOS task identities;
 - optimize one vanity metric as the global business objective.
+
+
+## CAOS governance method boundary
+
+The current Video workflow adopts `docs/caos_governance_adapter.md` as a read-only method reference for goal recovery, root-cause diagnosis, method comparison, bounded task execution, evidence-bound acceptance and learning. This does not connect a live CAOS runtime, alter CAOS repository state, replace the existing UAOS adapter or transfer Video business/execution authority.

@@ -1,145 +1,62 @@
 # Current Progress — AI自媒体视频增长、商业化与原创数字IP
 
-Updated: 2026-10-15
-Status: ACTIVE_INTEGRATED_PROGRAM
-Authority scope: PROGRAM_LOCAL_BUSINESS_AUTHORITY
-Program state: `PROGRAM_STATE.json`
-Subtask graph: `SUBTASK_GRAPH.json`
+Updated: 2026-11-12  
+Status: `ACTIVE_INTEGRATED_PROGRAM`  
+Authority: `PROGRAM_STATE.json` + `SUBTASK_GRAPH.json`  
+Current business focus: `ORIGINAL_DIGITAL_IP/G2_REBUILD_AFTER_R31_20261112`
 
-## Program topology
-This is the default integrated Video-domain business Program, not an isolated future-import package and not a UAOS task.
+## Governing outcome
 
-Current workstreams:
-- `MEDIA_GROWTH` — READY_ACTIVE_BASELINE; account positioning and audience/content hypotheses exist and can progress now;
-- `ORIGINAL_DIGITAL_IP` — ACTIVE; current foreground work is H1 face massing/A2 upper-face tuning;
-- `COMMERCIALIZATION` — READY_FOR_PARALLEL_RESEARCH; advertiser mapping and offer/rights architecture can progress independently;
-- `PRODUCTION_SYSTEM` — MEDIA_BUSINESS_OS_0_8_PRODUCTION_BASELINE; core runtime 0.8.0 is verified on main, while the unchanged historical/specialized 0.7 work-order adapter remains available as a compatibility surface where its workflow is still applicable.
+Build a sustainable, anonymous, original personal-IP brand spanning English X (meme/global topics/entertainment), Chinese finance and technology writing, and future video. The video character is brand-associated but need not share the avatar's exact face. The master avatar source remains a complete square canvas; no circular source crop. Do not turn a generic handsome male plus accessories, symbols, polish or upscaling into an alleged original IP.
 
-Only declared dependencies block work. Unfinished character design does not block topic/audience research or advertiser research. Character-canon-dependent brand assets do wait for canon.
+## Current foreground task — Original Digital IP G2
 
-Pilot 002 remains a separate historical child project. Its rejected/process-invalid artifacts are not accepted inputs here and it retains the legacy 0.7 adapter/runtime identity rather than being silently rewritten into the 0.8 core identity.
+**Status: G2 NOT APPROVED. No approved character, identity anchor, avatar, production prompt or canon exists.**
 
-## Production-system state
+Current authority:
+- `ORIGINAL_DIGITAL_IP/CURRENT_STATE.json`
+- `ORIGINAL_DIGITAL_IP/TASK_ASSIGNMENT_CURRENT.md`
+- `ORIGINAL_DIGITAL_IP/R31_G2_ROOT_CAUSE_AND_RESEARCH.md`
+- `ORIGINAL_DIGITAL_IP/R28_INDEPENDENT_ART_REVIEW.md`
 
-Video 0.8.0 is now the verified production core. Promotion evidence:
-- PR #15 merged into `main`;
-- candidate head `50bc4a74d7c641875c9625626d5c4634b97ba1fd` passed CI run `38725408205` (#649);
-- merge commit `02d39d8e3609c6d988009f4bc5a7f5d0378128ec` passed main production CI run `38725890405` (#650);
-- closure evidence: `../../audits/VIDEO_0_8_PRODUCTION_CLOSURE_2026-10-15.md`.
+R31 is the current root-cause record. It identifies failures in project-goal recovery, character structure, image-task representation, prompt compilation, tool provenance and visual acceptance. Rejected candidates remain negative evidence only; they are not identity/style references.
 
-The current executable chain is:
+### Current G2 task graph
 
-`EpisodeIntent -> ClaimSpec -> BeatSpec -> ShotIntent -> EditorialPlan -> ShotContract -> operation-specific ModelRoutingDecision -> CandidateTake -> ContinuityAssessment -> Promotion -> Timeline -> editor handoff/roundtrip -> PlatformVariant -> Release -> Experiment/Outcome -> LearningCandidate`
+1. Recover the brand/personality requirements and challenge the failed representation before designing.
+2. Construct three structurally different routes:
+   - A — narrow/elongated observer;
+   - B — broad polyhedral head with page/paper structure integrated into the head's structural planes;
+   - C — inverted-pear gentle editor.
+3. Compare skull/face/neck-shoulder geometry, shape grammar, emotional mechanism, pure silhouette and negative space. Same face with a different haircut/accessory is a failed comparison.
+4. Run a separate red-team pass and record counterexamples. This is a separate review pass by the current assistant, not an external human/model certification.
+5. Write a black-and-white three-column comparison-sheet visual contract before image generation. Each column contains one anonymous adult human-like character. No colour polish, financial symbols, failed-image references or circular crop.
+6. Only after the contract is complete, create the low-fidelity study and inspect the actual image at full view and 48/96px.
+7. The user retains final SELECT / MERGE / REJECT_ALL authority. G3+ and canon remain blocked until explicit selection.
 
-Owner-native surfaces include:
-- versioned editorial planning and claim/beat/shot traceability;
-- editorial plan as an upstream MediaGraph asset so revisions stale only affected descendants;
-- cross-shot dimension-level continuity (`PRESERVE` / `EXPECT` / `ALLOW_CHANGE`, hard/soft);
-- operation-profile provider legality plus rubric/calibration-bound, uncertainty-aware Pareto quality routing;
-- pre-registered growth/content/IP experiments with explicit no-clear-winner/inconclusive outcomes;
-- external editor/NLE handoff and return receipts bound to timeline/project/composition identity;
-- a recomputable CURRENT_AGENT operator projection for ready/blocking actions, stale evidence, risks and recovery refs, with no mutation/promotion/controller authority;
-- CURRENT_AGENT dogfood scenarios as an architecture acceptance surface.
+**Immediate next action:** Complete the G2 design counterreview; create and compare three genuinely different character constructions (A narrow observer, B broad polyhedral head, C inverted-pear gentle editor); red-team their silhouettes and identity stability; write the black-and-white three-column comparison-sheet visual contract before any image generation. Only then produce the low-fidelity study, review the actual image, and request the user's final aesthetic selection. No production avatar prompt or canon is approved yet.
 
-A separate UAOS parent observation refresh remains pending under parent authority. That metadata synchronization does not block Video 0.8.0 child-domain operation.
+## Workstream state
 
-## Character dependency order
-1. HUMAN CORE
-2. IDENTITY DNA
-3. WARDROBE CHASSIS
-4. SIGNATURE DETAIL / MOTIF
-5. CANON CHARACTER
-6. PRESENTATION MODES
+- `ORIGINAL_DIGITAL_IP`: active G2 rebuild; no canon.
+- `MEDIA_GROWTH`: baseline and topic hypotheses may proceed independently.
+- `COMMERCIALIZATION`: advertiser mapping and commercial-fit work may proceed independently.
+- `PRODUCTION_SYSTEM`: Video 0.8.0 on `main` remains the last production-verified baseline. PR #23 is the existing candidate branch, not production. Its current HEAD requires matching-head CI and repository audit before promotion.
 
-Presentation Modes remain dormant.
+## CAOS governance boundary
 
-## Active personal-inheritance policy
-Selective structural inheritance / same-source original. The creator supplies structural ancestry, not a final likeness target. Exact brow-eye appearance is redesignable.
+Video adopts CAOS's goal recovery, root-cause challenge, reuse/adapt/replace/build comparison, bounded execution, evidence-bound decisions, independent acceptance and failure-learning methods through `docs/caos_governance_adapter.md`.
 
-## H1 retained face shell
-The corrected S1+S3 strict-front gray sculpt remains the active fixed face shell.
-Retain:
-- overall face envelope;
-- cheek support;
-- jaw width/taper;
-- compact rounded-blunt chin;
-- conservative nose scale;
-- mouth placement;
-- adult Chinese male plausibility.
+This is a **read-only method-level adoption**, not a live CAOS runtime bridge. CAOS repository code, docs, Skills, branches, PRs and commits are outside the write scope. Video retains its own business IDs, project state, assets, production permissions and execution authority. Existing UAOS adapter files remain unchanged.
 
-## Prior upper-face exploration
-- E1/E2/E3 — INCONCLUSIVE; edits were too small to make a meaningful decision. Do not continue that loop.
-- A1 Refined East-Asian Male Appeal — REJECTED AS UPPER-FACE SOLUTION.
+## Production truth and acceptance limits
 
-A1 failure coding:
-- brow-eye package too compressed/heavy;
-- upper lid too hooded/relaxed;
-- eye aperture too round centrally instead of horizontally organized;
-- lower lid too soft/tired;
-- buzz-like hair placeholder amplified street-tough coding;
-- slight mouth compression compounded irritation rather than calm.
+The current PR #23 branch has prior verified evidence at older commits only. The 326-test/system-audit result recorded in `audits/EVOLUTION_INDEX.json` belongs to an earlier verified head, not the current PR HEAD. No matching-head CI PASS is claimed.
 
-Temple volume, gray-sculpt smoothing and the lower-face shell are not the primary cause.
+A green code audit does not prove:
+- the G2 character is visually distinctive or accepted;
+- a real video has been generated, edited or played back;
+- a human/cold viewer understood the film;
+- platform growth, commercial results or cost targets were achieved.
 
-## Prompt-language correction
-Active method: `GPT_IMAGE_POSITIVE_MORPH_LANGUAGE_RULE_V1.md`.
-
-Project rule:
-- translate unwanted vibes into visible geometry;
-- describe target morphology positively and observably;
-- state fixed geometry separately;
-- branch every controlled edit from the last accepted base, never a rejected derivative.
-
-## A2 target — Clean Analytical East-Asian Male Upper Face
-Use the ORIGINAL corrected S1+S3 front sculpt as the sole image input. Do not use A1 as the base.
-
-Target morphology:
-- medium-density straight-to-soft-triangular brow, slightly higher than A1;
-- increased visible brow-eye clearance; inner two-thirds nearly horizontal; apex near lateral canthus; clean tapered tail;
-- restrained almond / long-oval eye aperture with modest horizontal length increase and moderate-narrow vertical opening;
-- taut clean upper-lid margin, low subtle East-Asian crease close to lid margin, flatter central upper-lid arc;
-- outer canthus level to very slightly above inner canthus;
-- smooth supported lower lid rising gently toward outer third;
-- firm upper-lid soft tissue and clean under-eye transition;
-- mouth width/volume fixed with slightly more relaxed corners.
-
-Target read: clean, educated, rational, awake, controlled, commercially attractive, adult Chinese male.
-
-## Human Core Harness
-- H0 Reference Decomposition — COMPLETE ENOUGH;
-- H1 Face Primary Masses — ACTIVE / FIXED FACE SHELL + A2 POSITIVE MORPH PASS;
-- H2 Base Body Archetype — PENDING;
-- H3 Hair Architecture — PENDING;
-- H4 Skin/Grooming — PENDING;
-- H5 Identity Strip Test — PENDING;
-- H6 Brand DNA Reintroduction — PENDING;
-- H7 Wardrobe Chassis — PENDING;
-- H8 Motif Fusion — PENDING;
-- H9 Canon Character — PENDING;
-- H10 Presentation Modes — DORMANT.
-
-## Current focus
-`ORIGINAL_DIGITAL_IP / H1_SCULPTURAL_MASSING_V2`
-
-## Current next action
-1. Use only the ORIGINAL corrected S1+S3 strict-front gray sculpt.
-2. Do not use certificate portrait, A1, E2/E3, pixel avatar, meme or downstream styling reference as the edit base.
-3. Execute one A2 positive-morph edit with the geometry above.
-4. Keep face envelope, cheek mass, jaw/chin, nose, ears, neck, camera, light and gray material fixed.
-5. Replace hairstyle-coded placeholder with a smooth neutral cranial cap / non-style head mass.
-6. Compare A2 directly against the original fixed face shell.
-7. If A2 passes, reassess the paused cheek→jaw micro-correction.
-8. Only after final front passes, run one 30–35° three-quarter consistency validation.
-9. H1 must pass before H2, real skin/hair, brand DNA, wardrobe, motif or Presentation Modes.
-
-System architecture work must not execute or advance any of those creative steps automatically.
-
-## Parallel-ready work
-Without blocking H1, the Program may also advance:
-- audience/growth baseline and pilot-topic hypotheses;
-- advertiser/category mapping and sponsor-fit criteria;
-- commercial offer/rights research after advertiser-map inputs exist;
-- provider benchmarking and production-system validation that do not require locked character canon.
-
-## Persistence rule
-Material Program decisions update their owning workstream state and decision evidence in the same session. Changes to foreground stage/next action update `PROJECT_MANIFEST.json`, `PROGRAM_STATE.json`, `CURRENT_PROGRESS.md` and `RESUME_ENTRY.md` where applicable. Video-system changes also reconcile `audits/EVOLUTION_INDEX.json` and the deeper causal audit. Reviewed outputs receive durable review/decision artifacts. Do not claim persistence unless the owning records were actually changed.
+`BUSINESS_FLYWHEEL.json` remains the cross-workstream evidence/decision map. Growth, IP, commercialization and production are connected, but none can silently rewrite another workstream's authority.
