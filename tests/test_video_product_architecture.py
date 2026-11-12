@@ -66,7 +66,7 @@ def test_generic_growth_commercialization_and_ip_intents_converge_on_integrated_
     assert "not a UAOS task identity" in pilot["legacy_alias_semantics"]
 
 
-def test_integrated_program_couples_four_business_workstreams_and_preserves_h1_cursor():
+def test_integrated_program_couples_four_workstreams_and_preserves_current_g2_cursor():
     program = load("projects/ai-self-media-commercialization/PROGRAM_STATE.json")
     flywheel = load("projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json")
     manifest = load("projects/ai-self-media-commercialization/PROJECT_MANIFEST.json")
@@ -81,8 +81,13 @@ def test_integrated_program_couples_four_business_workstreams_and_preserves_h1_c
     }
     assert program["business_flywheel_ref"].endswith("BUSINESS_FLYWHEEL.json")
     assert manifest["business_flywheel_ref"] == "BUSINESS_FLYWHEEL.json"
-    assert program["current_focus"] == "ORIGINAL_DIGITAL_IP/H1_SCULPTURAL_MASSING_V2"
-    assert "A2 positive-morph upper-face edit" in program["current_next_action"]
+    assert program["current_focus"] == "ORIGINAL_DIGITAL_IP/G2_REBUILD_AFTER_R31_20261112"
+    assert "A narrow observer" in program["current_next_action"]
+    assert "B broad polyhedral head" in program["current_next_action"]
+    assert "C inverted-pear gentle editor" in program["current_next_action"]
+    assert "before any image generation" in program["current_next_action"]
+    assert program["workstreams"]["ORIGINAL_DIGITAL_IP"]["current_stage"] == "G2_REBUILD_AFTER_R31_20261112"
+    assert program["workstreams"]["PRODUCTION_SYSTEM"]["status"].startswith("PRODUCTION_0_8_BASELINE")
     assert "must not advance this creative action automatically" in program["current_next_action"]
     assert program["workstreams"]["MEDIA_GROWTH"]["blocked_by"] == []
     assert program["workstreams"]["COMMERCIALIZATION"]["blocked_by"] == []
@@ -145,3 +150,36 @@ def test_pilot002_is_exact_historical_project_and_rejection_truth_survives_migra
     assert pilot["stage_state"]["previous_release_gate_valid"] is False
     assert "CANDIDATE_GENERATION_ALLOWED_ONLY_AFTER_CURRENT_0_7_ADMISSION" in pilot["stage_state"]["shot_a_status"]
     assert "PROMOTION_BLOCKED_UNTIL_REQUIRED_REVIEW" in pilot["stage_state"]["shot_d_status"]
+
+
+def test_current_g2_authority_is_restored_and_h1_is_historical_only():
+    current = load("projects/ai-self-media-commercialization/ORIGINAL_DIGITAL_IP/CURRENT_STATE.json")
+    assignment = (ROOT / "projects/ai-self-media-commercialization/ORIGINAL_DIGITAL_IP/TASK_ASSIGNMENT_CURRENT.md").read_text(encoding="utf-8")
+    graph = load("projects/ai-self-media-commercialization/SUBTASK_GRAPH.json")
+    assert current["checkpoint"] == "G2_REBUILD_AFTER_R31_20261112"
+    assert current["g2"] == "NOT_APPROVED"
+    assert current["approved_identity_anchor"] is None
+    assert current["approved_avatar"] is None
+    assert current["generation_policy"]["new_image_generation_allowed_before_visual_contract"] is False
+    assert "R31" in assignment
+    by_id = {node["id"]: node for node in graph["nodes"]}
+    for node_id in ("ip_h1_a2_upper_face", "ip_h1_front_selection", "ip_three_quarter_validation", "ip_canon_lock"):
+        node = by_id[node_id]
+        assert node["historical_only"] is True
+        assert node["execution_allowed"] is False
+        assert node["status"].startswith("SUPERSEDED")
+    assert "g2_comparison_sheet_contract" in by_id["g2_low_fidelity_comparison_study"]["depends_on"]
+    assert by_id["g2_canon_lock"]["required_decision_artifact"] == "g2_user_aesthetic_decision"
+
+
+def test_caos_is_a_read_only_governance_method_overlay_not_a_runtime_or_uaos_replacement():
+    adapter = load("integrations/caos/adapter.json")
+    document = (ROOT / "docs/caos_governance_adapter.md").read_text(encoding="utf-8")
+    assert adapter["source"]["repository"] == "D1traverser-debug/cognition-agent-os"
+    assert adapter["source"]["observed_main_sha"] == "9686cedeb3fd8171ecf70eab33aaea641217b04a"
+    assert adapter["boundaries"]["caos_repository_mutation_allowed"] is False
+    assert adapter["boundaries"]["claim_live_caos_runtime_connection"] is False
+    assert adapter["boundaries"]["replace_existing_uaos_binding"] is False
+    assert adapter["target"]["execution_authority"] == "VIDEO_GROWTH_AGENT"
+    assert "not a verified live CAOS runtime bridge" in document
+    assert "CAOS repository scope is strictly read-only" in document

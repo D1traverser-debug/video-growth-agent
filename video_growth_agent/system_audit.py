@@ -695,10 +695,14 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             "PRODUCTION_SYSTEM",
         }:
             failures.append("integrated_program_workstream_set_drift")
-        if integrated.get("current_focus") != "ORIGINAL_DIGITAL_IP/H1_SCULPTURAL_MASSING_V2":
-            failures.append("integrated_program_h1_focus_drift")
-        if "A2 positive-morph upper-face edit" not in str(integrated.get("current_next_action", "")):
-            failures.append("integrated_program_h1_next_action_drift")
+        current_focus = str(integrated.get("current_focus") or "")
+        focus_parts = current_focus.split("/", 1)
+        focus_workstream = focus_parts[0] if focus_parts else ""
+        focus_stage = focus_parts[1] if len(focus_parts) == 2 else ""
+        if not focus_workstream or focus_workstream not in workstreams or not focus_stage:
+            failures.append("integrated_program_current_focus_invalid")
+        if not str(integrated.get("current_next_action") or "").strip():
+            failures.append("integrated_program_next_action_missing")
         if integrated.get("business_flywheel_ref") != "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json":
             failures.append("integrated_program_business_flywheel_ref_drift")
 
@@ -708,8 +712,34 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             failures.append("integrated_project_manifest_flywheel_ref_drift")
         if project_manifest.get("product_architecture_ref") != "../../docs/media_business_os.md":
             failures.append("integrated_project_manifest_architecture_ref_drift")
+        if integrated_state_path.is_file():
+            focus = str(integrated.get("current_focus") or "")
+            parts = focus.split("/", 1)
+            if project_manifest.get("current_focus") != (parts[0] if parts else ""):
+                failures.append("integrated_project_manifest_current_focus_drift")
+            if project_manifest.get("current_stage") != (parts[1] if len(parts) == 2 else ""):
+                failures.append("integrated_project_manifest_current_stage_drift")
+            if project_manifest.get("next_action") != integrated.get("current_next_action"):
+                failures.append("integrated_project_manifest_next_action_drift")
     else:
         failures.append("integrated_project_manifest_missing")
+
+    ip_state_path = root / "projects/ai-self-media-commercialization/ORIGINAL_DIGITAL_IP/CURRENT_STATE.json"
+    task_assignment_path = root / "projects/ai-self-media-commercialization/ORIGINAL_DIGITAL_IP/TASK_ASSIGNMENT_CURRENT.md"
+    if not ip_state_path.is_file():
+        failures.append("original_digital_ip_current_state_missing")
+    else:
+        ip_state = _json(ip_state_path)
+        focus = str(integrated.get("current_focus") or "")
+        focus_stage = focus.split("/", 1)[1] if "/" in focus else ""
+        if ip_state.get("checkpoint") != focus_stage:
+            failures.append("original_digital_ip_checkpoint_focus_drift")
+        if not str(ip_state.get("next_action") or "").strip():
+            failures.append("original_digital_ip_next_action_missing")
+        if ip_state.get("g2") == "NOT_APPROVED" and any(ip_state.get(stage) != "BLOCKED" for stage in ("g3", "g4", "g5", "g6")):
+            failures.append("original_digital_ip_downstream_gate_open_before_g2")
+    if not task_assignment_path.is_file():
+        failures.append("original_digital_ip_task_assignment_missing")
 
     if not graph_path.is_file():
         failures.append("integrated_subtask_graph_missing")
@@ -726,9 +756,23 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
                     + f"ready={sorted(ready)}:declared={sorted(declared_parallel)}"
                 )
             groups = graph.decision_groups()
-            for required_group in ("commercial_offer_architecture", "pilot_topic_slate"):
+            for required_group in ("commercial_offer_architecture", "pilot_topic_slate", "g2_character_structure_routes"):
                 if len(groups.get(required_group, ())) < 2:
                     failures.append(f"integrated_program_competition_missing:{required_group}")
+            required_g2_nodes = {"g2_design_counterreview", "g2_route_a_narrow_observer", "g2_route_b_polyhedral_page_head", "g2_route_c_inverted_pear_editor", "g2_red_team_counterreview", "g2_comparison_sheet_contract", "g2_low_fidelity_comparison_study", "g2_visual_red_team_review", "g2_user_aesthetic_adjudication", "g2_selected_identity_contract", "g2_canon_lock"}
+            missing_g2 = sorted(required_g2_nodes - set(graph.by_id))
+            if missing_g2:
+                failures.append("integrated_program_g2_nodes_missing:" + ",".join(missing_g2))
+            low_fidelity = graph.by_id.get("g2_low_fidelity_comparison_study")
+            if low_fidelity and "g2_comparison_sheet_contract" not in low_fidelity.depends_on:
+                failures.append("integrated_program_generation_before_visual_contract")
+            canon_lock = graph.by_id.get("g2_canon_lock")
+            if canon_lock and (canon_lock.required_decision_artifact != "g2_user_aesthetic_decision" or not {"SELECT", "MERGE"} <= set(canon_lock.required_decision_outcomes)):
+                failures.append("integrated_program_canon_lock_missing_user_decision_gate")
+            for retired_id in ("ip_h1_a2_upper_face", "ip_h1_front_selection", "ip_three_quarter_validation", "ip_canon_lock"):
+                retired = graph.by_id.get(retired_id)
+                if retired and not (retired.historical_only and retired.execution_allowed is False and retired.status.upper().startswith("SUPERSEDED")):
+                    failures.append(f"integrated_program_retired_node_reactivated:{retired_id}")
         except (ValueError, KeyError, TypeError) as exc:
             failures.append(f"integrated_subtask_graph_invalid:{exc}")
 
