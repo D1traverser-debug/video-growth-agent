@@ -41,7 +41,7 @@ Views, CTR, one scalar quality score, AI-video percentage or cheapest credits ar
 ## 3. Identity and authority
 
 - UAOS owns cross-domain selection/governance and common cognition/evolution/product/orchestration semantics.
-- Video owns all Program/Series/Episode/Sequence/Scene/Shot/Take identities, business state, assets and domain decisions.
+- Video owns Program/Series/Episode/Sequence/Scene/Shot/Take identities, media/business state, production assets and video-domain decisions. IP Studio OS (IPOS) is the sole creative authority for the user's personal-IP identity, character canon, avatar, approved visual/voice assets and identity rights.
 - `projects/PROJECT_INDEX.json` is project discovery authority.
 - `ai-self-media-commercialization` remains the default integrated Program.
 - UAOS may retain production verification/opaque child refs only; it does not mirror Video business state.
@@ -102,6 +102,9 @@ Platform, production and commercial outcomes remain separate receipts and may cr
 
 ### VR-18 — Problem recovery and system repair
 Before asking the user for a recoverable dependency, Video attempts owner-native recovery. Confirmed repairable system gaps are repaired now or end with an actual blocker/evidence-backed no-change.
+
+### VR-19 — Independent IPOS identity handoff
+IPOS must independently complete its creative lifecycle without invoking CAOS. Video consumes a portable, versioned IPOS Video Identity Bundle through a local deterministic adapter. Identity-dependent shots require explicit owner approval, READY_FOR_VIDEO, G2/G7/G8 PASS, video-use permission, exact promoted asset versions/digests, rights, provenance and continuity rules. The adapter imports exact versions into MediaGraph, binds them to ShotContract and continuity, and invalidates only descendants of a superseded canon version. Missing or unapproved canon blocks only identity-dependent shots, not unrelated video work.
 
 ## 5. Canonical object model
 
@@ -195,9 +198,9 @@ Candidate/rejected/stale assets cannot silently return to accepted state.
 
 ## 12. IP requirements
 
-Canon may cover geometry, expressions, wardrobe/props, color/material/light grammar, voice/performance, motion/gesture, environment/world grammar, distinctive motifs, allowed variants and rights/likeness constraints.
+IPOS is the sole authority for canon, which may cover any approved character carrier, identity construction, expressions, wardrobe/props, color/material/light grammar, voice/performance, motion/gesture, environment/world grammar, distinctive motifs, allowed variants and rights/likeness constraints. Video must not assume a human/masculine carrier or revive a video-local character proposal.
 
-Identity-sensitive shots bind exact canon versions and explicit continuity dimensions. The recurring Digital Observer/Narrator remains a reusable anchor, not a forced presenter in every scene.
+Identity-sensitive shots import and bind exact IPOS canon versions and explicit continuity dimensions. The character is a reusable identity asset, not a forced presenter in every scene. IPOS executes without a CAOS runtime/API dependency.
 
 ## 13. Commercial/truth requirements
 
@@ -248,6 +251,7 @@ Operator projections remain derived and non-authoritative.
 | External editor interchange | `editorial_interchange.py` | handoff/roundtrip identity tests |
 | Pre-registered experiments | `experiments.py` | attribution/outcome tests |
 | Growth/IP/commercial shared objects | `business_objects.py` | business object tests |
+| IPOS identity bundle import and shot binding | `ip_identity.py` + `ipos_video_identity_bundle.schema.json` | approval/readiness, import, idempotence, continuity, invalidation and fail-closed tests |
 | Vector business outcomes | `business_metrics.py` | metric tests |
 | Current-Agent projection | `operator_view.py` | readiness/blocker/resume tests |
 | Common Behavior 1.2 | `owner_behavior_admission.py` | recovery/closure trajectory tests |
@@ -284,7 +288,7 @@ Operator projections remain derived and non-authoritative.
 9. 0.7 asset/timeline/business/behavior/work-order/QA guarantees remain green.
 10. System/architecture tests fail closed if declared 0.8 current surfaces disappear or drift.
 11. Product/Skill/Manifest/Capabilities/runtime version/Program system status are internally consistent.
-12. H1/A2 creative cursor is unchanged by architecture maintenance.
+12. IPOS R39 remains the sole creative authority; the superseded Video-local H1/S1+S3/A2 cursor is never resumed or promoted.
 13. Candidate full CI + installed smoke pass.
 14. Controlled promotion is followed by production-main CI and production reread.
 15. Evolution closes with stable event-style production evidence; UAOS parent observation is refreshed only after child production is verified.

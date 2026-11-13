@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "integration_id": "IPOS_VIDEO_IDENTITY_BRIDGE",
+  "updated_at": "2026-11-13T15:30:00+08:00",
+  "status": "IMPLEMENTED_IN_CANDIDATE_BRANCH__CI_PENDING",
+  "authority": {
+    "system": "IP_STUDIO_OS",
+    "version": "1.2.0",
+    "checkpoint": "IPOS_R39_TOOL_AUTHORITY_AND_SOURCE_PROVENANCE_FIX",
+    "current_canonical_locator": "Private Library:/个人ip创作/头像工作室/CURRENT_STATE.json",
+    "current_task_locator": "Private Library:/个人ip创作/头像工作室/TASK_ASSIGNMENT_CURRENT.md",
+    "current_design_status": "NO_APPROVED_CHARACTER_OR_VISUAL_IDENTITY",
+    "gates": {
+      "G0": "PASS",
+      "G1": "OPEN",
+      "G2": "NOT_STARTED",
+      "G3": "BLOCKED",
+      "G4": "BLOCKED",
+      "G5": "BLOCKED",
+      "G6": "BLOCKED",
+      "G7": "BLOCKED",
+      "G8": "BLOCKED",
+      "G9": "BLOCKED"
+    },
+    "owner_approval_required": true,
+    "sole_creative_canon_authority": true,
+    "standalone_execution": true,
+    "caos_runtime_dependency": false
+  },
+  "contract": {
+    "name": "IPOS Video Identity Bundle",
+    "schema_version": "1.0",
+    "schema_ref": "video_growth_agent/data/ipos_video_identity_bundle.schema.json",
+    "issuer": "IP_STUDIO_OS",
+    "required_readiness": [
+      "OWNER_APPROVED",
+      "READY_FOR_VIDEO",
+      "G2_PASS",
+      "G7_PASS",
+      "G8_PASS",
+      "VIDEO_USAGE_ALLOWED",
+      "PROMOTED_ASSETS_WITH_SHA256_RIGHTS_PROVENANCE"
+    ]
+  },
+  "video_consumer": {
+    "repository": "D1traverser-debug/video-growth-agent",
+    "adapter": "video_growth_agent/ip_identity.py",
+    "target": "MediaGraph + ShotContract + ContinuitySnapshot/Rule + generation admission",
+    "exact_version_binding": true,
+    "downstream_invalidation_on_canon_update": true,
+    "non_character_work_blocked": false
+  },
+  "current_handoff": {
+    "status": "NO_APPROVED_BUNDLE_AVAILABLE",
+    "reason": "IPOS R39 has no approved identity anchor; G1 research is open and G2 concept competition has not started.",
+    "bundle_ref": null,
+    "last_import_receipt": null
+  },
+  "invariants": [
+    "IPOS completes creative work independently; Video never calls CAOS to obtain or approve identity.",
+    "Video never invents, edits, or self-approves IPOS canon.",
+    "Identity-dependent shots fail closed without an owner-approved READY_FOR_VIDEO bundle.",
+    "Non-character production and unrelated research remain available.",
+    "A new canon version invalidates only downstream assets that consumed the prior version."
+  ]
+}

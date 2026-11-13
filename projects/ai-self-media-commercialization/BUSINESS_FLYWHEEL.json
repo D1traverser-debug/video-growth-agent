@@ -6,71 +6,166 @@
   "loops": [
     {
       "id": "AUDIENCE_TO_PORTFOLIO",
-      "from": ["platform_performance", "qualified_audience_feedback", "search_interest", "community_signals"],
-      "to": ["topic_portfolio", "series_allocation", "hook_and_packaging_hypotheses"],
+      "from": [
+        "platform_performance",
+        "qualified_audience_feedback",
+        "search_interest",
+        "community_signals"
+      ],
+      "to": [
+        "topic_portfolio",
+        "series_allocation",
+        "hook_and_packaging_hypotheses"
+      ],
       "decision_owner": "showrunner",
       "rule": "Views alone never determine portfolio allocation; retention, follow/save/share, audience quality, strategic fit, repeatability and commercial adjacency are considered separately."
     },
     {
       "id": "PORTFOLIO_TO_IP",
-      "from": ["topic_portfolio", "series_identity", "audience_memory_opportunities"],
-      "to": ["character_usage_plan", "distinctive_asset_plan", "world_visual_audio_grammar"],
+      "from": [
+        "topic_portfolio",
+        "series_identity",
+        "audience_memory_opportunities"
+      ],
+      "to": [
+        "character_usage_plan",
+        "distinctive_asset_plan",
+        "world_visual_audio_grammar"
+      ],
       "decision_owner": "creative_director",
       "rule": "IP assets serve recognition, storytelling and reusable rights value; the character is not forced into every shot or topic."
     },
     {
       "id": "IP_TO_GROWTH",
-      "from": ["promoted_character_canon", "distinctive_visual_assets", "signature_audio_assets"],
-      "to": ["thumbnail_cover_candidates", "series_recognition", "returning_audience_hypotheses"],
+      "from": [
+        "promoted_character_canon",
+        "distinctive_visual_assets",
+        "signature_audio_assets"
+      ],
+      "to": [
+        "thumbnail_cover_candidates",
+        "series_recognition",
+        "returning_audience_hypotheses"
+      ],
       "decision_owner": "growth_strategist",
       "rule": "Measure whether distinctive assets improve recognition/qualified growth; aesthetic preference alone is insufficient."
     },
     {
       "id": "PORTFOLIO_TO_COMMERCIAL",
-      "from": ["topic_portfolio", "audience_profile", "series_plan"],
-      "to": ["advertiser_map", "commercial_fit", "offer_and_rights_candidates"],
+      "from": [
+        "topic_portfolio",
+        "audience_profile",
+        "series_plan"
+      ],
+      "to": [
+        "advertiser_map",
+        "commercial_fit",
+        "offer_and_rights_candidates"
+      ],
       "decision_owner": "commercial_director",
       "rule": "Commercial fit is planned early but cannot rewrite factual/editorial conclusions."
     },
     {
       "id": "COMMERCIAL_TO_PRODUCTION",
-      "from": ["commercial_fit", "sponsor_deliverables", "rights_package", "product_truth_requirements"],
-      "to": ["verified_product_asset_needs", "production_complexity", "platform_deliverables", "measurement_plan"],
+      "from": [
+        "commercial_fit",
+        "sponsor_deliverables",
+        "rights_package",
+        "product_truth_requirements"
+      ],
+      "to": [
+        "verified_product_asset_needs",
+        "production_complexity",
+        "platform_deliverables",
+        "measurement_plan"
+      ],
       "decision_owner": "executive_producer",
       "rule": "Brand requirements alter deliverables, rights and evidence needs; product truth remains hard-gated."
     },
     {
       "id": "IP_TO_PRODUCTION",
-      "from": ["canon_versions", "voice_identity", "wardrobe_prop_world_assets"],
-      "to": ["shot_reference_bundles", "continuity_constraints", "generation_routes"],
-      "decision_owner": "director",
-      "rule": "Shots bind exact canon versions; prompt memory never substitutes for asset identity."
+      "from": [
+        "IPOS_VIDEO_IDENTITY_BUNDLE",
+        "canon_versions",
+        "voice_identity",
+        "wardrobe_prop_world_assets"
+      ],
+      "to": [
+        "shot_reference_bundles",
+        "continuity_constraints",
+        "generation_routes"
+      ],
+      "decision_owner": "IP_STUDIO_OS_FOR_CANON__VIDEO_DIRECTOR_FOR_SHOT_USAGE",
+      "rule": "IPOS is the sole creative canon authority. Video imports only an owner-approved READY_FOR_VIDEO bundle with exact promoted asset versions, rights and provenance; shots bind those versions and continuity rules. Video may decide shot usage, never rewrite the IPOS canon."
     },
     {
       "id": "PRODUCTION_TO_PORTFOLIO",
-      "from": ["cash_cost", "creator_hours", "retry_rate", "accepted_shot_rate", "reusable_asset_rate", "provider_reliability"],
-      "to": ["episode_scope", "visual_class_allocation", "cadence", "premium_capacity_allocation"],
+      "from": [
+        "cash_cost",
+        "creator_hours",
+        "retry_rate",
+        "accepted_shot_rate",
+        "reusable_asset_rate",
+        "provider_reliability"
+      ],
+      "to": [
+        "episode_scope",
+        "visual_class_allocation",
+        "cadence",
+        "premium_capacity_allocation"
+      ],
       "decision_owner": "executive_producer",
       "rule": "Production economics change format and investment, not editorial truth."
     },
     {
       "id": "PERFORMANCE_TO_IP",
-      "from": ["packaging_experiments", "recognition_feedback", "returning_audience", "comments_and_qualitative_feedback"],
-      "to": ["distinctive_asset_learning_candidates", "character_usage_frequency", "canon_variant_hypotheses"],
+      "from": [
+        "packaging_experiments",
+        "recognition_feedback",
+        "returning_audience",
+        "comments_and_qualitative_feedback"
+      ],
+      "to": [
+        "ipos_identity_learning_candidates",
+        "character_usage_frequency",
+        "canon_variant_hypotheses"
+      ],
       "decision_owner": "creative_director",
-      "rule": "One successful/failed post creates evidence, not automatic canon mutation."
+      "rule": "Performance and recognition evidence may create a bounded learning candidate for IPOS; it never directly mutates canon. Only IPOS and its owner-approval process can promote a canon revision."
     },
     {
       "id": "COMMERCIAL_OUTCOME_TO_OFFER",
-      "from": ["deal_revenue", "gross_margin", "brand_outcome", "repeat_buy_signal", "rights_usage", "audience_trust_feedback"],
-      "to": ["offer_architecture", "pricing_evidence", "rights_terms", "advertiser_priority"],
+      "from": [
+        "deal_revenue",
+        "gross_margin",
+        "brand_outcome",
+        "repeat_buy_signal",
+        "rights_usage",
+        "audience_trust_feedback"
+      ],
+      "to": [
+        "offer_architecture",
+        "pricing_evidence",
+        "rights_terms",
+        "advertiser_priority"
+      ],
       "decision_owner": "commercial_director",
       "rule": "Commercial learning is outcome-accountable; impressions/views alone do not establish sponsor effectiveness."
     },
     {
       "id": "ALL_OUTCOMES_TO_EVOLUTION",
-      "from": ["production_receipts", "platform_receipts", "commercial_receipts", "user_corrections", "failed_paths"],
-      "to": ["learning_candidates", "tests_or_replay", "domain_rule_promotion_or_rejection"],
+      "from": [
+        "production_receipts",
+        "platform_receipts",
+        "commercial_receipts",
+        "user_corrections",
+        "failed_paths"
+      ],
+      "to": [
+        "learning_candidates",
+        "tests_or_replay",
+        "domain_rule_promotion_or_rejection"
+      ],
       "decision_owner": "VIDEO_GROWTH_AGENT",
       "rule": "Durable changes require scoped evidence, counterexamples and regression/replay; provider observations remain volatile."
     }
@@ -90,7 +185,9 @@
     "PlatformVariant",
     "PerformanceReceipt",
     "CommercialOutcomeReceipt",
-    "LearningCandidate"
+    "LearningCandidate",
+    "IPOSVideoIdentityBundle",
+    "IPOSCanonVersion"
   ],
   "invariants": [
     "Editorial/product truth and audience trust outrank sponsor convenience.",
@@ -100,7 +197,9 @@
     "IP is measured as a reusable audience/business asset, not only as character aesthetics.",
     "Commercialization begins before production when it affects deliverables/rights/truth assets, but sponsorship is not required for content worthiness.",
     "Production decisions emit cost/retry/reuse evidence back to portfolio planning.",
-    "Platform derivatives preserve source lineage and are re-authored for platform behavior rather than blindly clipped."
+    "Platform derivatives preserve source lineage and are re-authored for platform behavior rather than blindly clipped.",
+    "IP Studio OS is the sole creative identity authority; Video is a downstream consumer and evidence contributor, not a competing canon owner.",
+    "IPOS-to-Video transfer is a versioned artifact contract and does not require CAOS runtime/API calls."
   ],
-  "updated_at": "2026-10-15T11:40:05+08:00"
+  "updated_at": "2026-11-13T15:30:00+08:00"
 }

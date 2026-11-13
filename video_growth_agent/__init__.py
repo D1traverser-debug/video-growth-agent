@@ -238,3 +238,33 @@ __all__ = [
     "ProviderReviewRun",
     "ReviewerRequest",
 ]
+
+from .ip_identity import (
+    IPIdentityAsset,
+    IPIdentityBundle,
+    IPIdentityImportReceipt,
+    IPIdentityIntegrationError,
+    IPIdentityReadiness,
+    admit_ipos_bound_candidate_generation,
+    bind_ipos_identity_to_shot,
+    build_ipos_continuity_link,
+    build_ipos_continuity_rules,
+    build_ipos_continuity_snapshot,
+    import_ipos_bundle,
+    inspect_ipos_bundle,
+)
+
+__all__.extend([
+    "IPIdentityAsset",
+    "IPIdentityBundle",
+    "IPIdentityImportReceipt",
+    "IPIdentityIntegrationError",
+    "IPIdentityReadiness",
+    "admit_ipos_bound_candidate_generation",
+    "bind_ipos_identity_to_shot",
+    "build_ipos_continuity_link",
+    "build_ipos_continuity_rules",
+    "build_ipos_continuity_snapshot",
+    "import_ipos_bundle",
+    "inspect_ipos_bundle",
+])

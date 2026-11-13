@@ -66,10 +66,11 @@ def test_generic_growth_commercialization_and_ip_intents_converge_on_integrated_
     assert "not a UAOS task identity" in pilot["legacy_alias_semantics"]
 
 
-def test_integrated_program_couples_four_business_workstreams_and_preserves_h1_cursor():
+def test_integrated_program_couples_four_business_workstreams_and_uses_ipos_as_external_canon_authority():
     program = load("projects/ai-self-media-commercialization/PROGRAM_STATE.json")
     flywheel = load("projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json")
     manifest = load("projects/ai-self-media-commercialization/PROJECT_MANIFEST.json")
+    integration = load("projects/ai-self-media-commercialization/IPOS_INTEGRATION_STATE.json")
 
     assert program["program_id"] == "ai-self-media-commercialization"
     assert program["owner"] == "VIDEO_GROWTH_AGENT"
@@ -81,11 +82,15 @@ def test_integrated_program_couples_four_business_workstreams_and_preserves_h1_c
     }
     assert program["business_flywheel_ref"].endswith("BUSINESS_FLYWHEEL.json")
     assert manifest["business_flywheel_ref"] == "BUSINESS_FLYWHEEL.json"
-    assert program["current_focus"] == "ORIGINAL_DIGITAL_IP/H1_SCULPTURAL_MASSING_V2"
-    assert "A2 positive-morph upper-face edit" in program["current_next_action"]
-    assert "must not advance this creative action automatically" in program["current_next_action"]
+    assert program["current_focus"] == "ORIGINAL_DIGITAL_IP/IPOS_CANONICAL_HANDOFF_V1"
+    assert "Do not resume the superseded Video-local H1/S1+S3/A2 face-shell route" in program["current_next_action"]
+    assert program["workstreams"]["ORIGINAL_DIGITAL_IP"]["status"] == "EXTERNAL_CANON_AUTHORITY_IPOS"
     assert program["workstreams"]["MEDIA_GROWTH"]["blocked_by"] == []
     assert program["workstreams"]["COMMERCIALIZATION"]["blocked_by"] == []
+    assert integration["authority"]["system"] == "IP_STUDIO_OS"
+    assert integration["authority"]["standalone_execution"] is True
+    assert integration["authority"]["caos_runtime_dependency"] is False
+    assert integration["current_handoff"]["status"] == "NO_APPROVED_BUNDLE_AVAILABLE"
 
     loop_ids = {item["id"] for item in flywheel["loops"]}
     assert {

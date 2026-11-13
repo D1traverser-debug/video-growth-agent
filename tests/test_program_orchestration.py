@@ -107,7 +107,6 @@ def test_integrated_program_graph_is_valid_and_has_true_parallel_and_competition
     assert len(groups["commercial_offer_architecture"]) >= 2
     assert len(groups["pilot_topic_slate"]) >= 2
     assert set(json.loads((REPO_ROOT / "projects/ai-self-media-commercialization/SUBTASK_GRAPH.json").read_text(encoding="utf-8"))["parallel_now"]) == {
-        "ip_h1_a2_upper_face",
         "growth_baseline_and_topic_hypotheses",
         "commercial_advertiser_map",
     }

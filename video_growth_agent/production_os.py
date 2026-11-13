@@ -55,6 +55,11 @@ class ShotContract:
     source_claim_ids: tuple[str, ...] = ()
     continuity_ref: str = ""
     value_vector: Mapping[str, float] = field(default_factory=dict)
+    ip_identity_required: bool = False
+    ip_identity_bundle_ref: str = ""
+    ip_identity_approval_ref: str = ""
+    ip_identity_invariants: tuple[str, ...] = ()
+    ip_identity_forbidden_drift: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         if not self.shot_id.strip() or not self.sequence_id.strip() or not self.narrative_job.strip():
@@ -79,6 +84,12 @@ class ShotContract:
             raise ProductionAdmissionError("PRODUCT_TRUTH shots require verified reference bindings")
         if bool(self.editorial_plan_ref) != bool(self.beat_id):
             raise ProductionAdmissionError("editorial_plan_ref and beat_id must be supplied together")
+        if self.ip_identity_required and not (
+            self.ip_identity_bundle_ref.strip() and self.ip_identity_approval_ref.strip()
+        ):
+            raise ProductionAdmissionError(
+                "identity-required shots must bind an IPOS bundle and owner-approval reference"
+            )
 
     @property
     def editorially_traceable(self) -> bool:
@@ -96,6 +107,7 @@ class GenerationAdmission:
     budget_evidence_refs: tuple[str, ...]
     admitted: bool
     reasons: tuple[str, ...] = ()
+    ip_identity_evidence_refs: tuple[str, ...] = ()
 
 
 def admit_candidate_generation(
@@ -111,6 +123,8 @@ def admit_candidate_generation(
     commercial_use_admitted: bool,
     within_budget: bool,
     required_reference_rights_satisfied: bool,
+    ip_identity_approved: bool = False,
+    ip_identity_evidence_refs: Iterable[str] | None = None,
 ) -> GenerationAdmission:
     """Candidate generation is allowed without release-grade reviewer infrastructure.
 
@@ -123,6 +137,7 @@ def admit_candidate_generation(
     rights_refs = _clean(rights_evidence_refs)
     capability_refs = _clean(capability_evidence_refs)
     budget_refs = _clean(budget_evidence_refs)
+    identity_refs = _clean(ip_identity_evidence_refs)
     reasons: list[str] = []
 
     if not provider_id.strip():
@@ -147,6 +162,16 @@ def admit_candidate_generation(
     if shot.truth_mode == "PRODUCT_TRUTH" and "REAL_OR_VERIFIED_PRODUCT_ASSET" not in shot.allowed_modes:
         reasons.append("PRODUCT_TRUTH_REQUIRES_REAL_OR_VERIFIED_PRODUCT_ROUTE")
 
+    if shot.ip_identity_required:
+        if not ip_identity_approved:
+            reasons.append("IPOS_IDENTITY_NOT_OWNER_APPROVED")
+        if shot.ip_identity_bundle_ref not in identity_refs:
+            reasons.append("IPOS_BUNDLE_EVIDENCE_MISSING")
+        if shot.ip_identity_approval_ref not in identity_refs:
+            reasons.append("IPOS_OWNER_APPROVAL_EVIDENCE_MISSING")
+        if not any(reference.role.startswith("IPOS_") for reference in shot.references):
+            reasons.append("IPOS_REFERENCE_BINDING_MISSING")
+
     return GenerationAdmission(
         shot_id=shot.shot_id,
         lane=lane.upper(),
@@ -157,6 +182,7 @@ def admit_candidate_generation(
         budget_evidence_refs=budget_refs,
         admitted=not reasons,
         reasons=tuple(reasons),
+        ip_identity_evidence_refs=identity_refs,
     )
 
 

@@ -192,3 +192,33 @@ Generate and compare three neutral sculptural head studies:
 - S3 Anti-Generic Cheek/Jaw Rhythm.
 
 Use the certificate portrait only as structural calibration. Do not return to photoreal skin/hair until one sculpt geometry or deliberate hybrid is accepted. Do not advance to H2 until H1 passes.
+
+
+## 2026-11-13 — IPOS becomes the sole external character-canon authority
+
+Decision ID: D-20261113-IPOS-EXTERNAL-CANON-AUTHORITY
+
+### Trigger and root cause
+
+The Video repository retained an active H1/S1+S3/A2 face-shell cursor from 2026-10-15, while the current IPOS R39 source reset explicitly withdrew the assumption that the character must be human/masculine and states that no character carrier or identity anchor is approved. The prior state created conflicting canon authority and would cause the Video system to resume an invalid design.
+
+### Decision
+
+- IP Studio OS is the sole creative authority for the personal-IP identity and all approved character/visual/voice canon.
+- IPOS is a standalone runtime. It does not call or depend on CAOS for research, design, production, QA, persistence or export.
+- Video consumes a portable IPOS Video Identity Bundle (schema 1.0) through a local deterministic adapter.
+- Video owns shot usage, production, media lineage, continuity assessment, release and performance evidence; it cannot rewrite IPOS canon.
+- Identity-dependent generation requires an owner-approved READY_FOR_VIDEO bundle with G2/G7/G8 PASS, video-use permission, exact promoted assets, rights and provenance.
+- The previous H1/S1+S3/A2 route is historical and superseded.
+- Without a bundle, only identity-dependent shots are blocked; non-character work continues.
+
+### Consequences
+
+- A new IPOS canon version is imported as a new immutable MediaGraph version.
+- Only descendants that consumed the superseded version are invalidated.
+- Performance evidence may become a learning candidate for IPOS but cannot directly mutate canon.
+- No bundle is currently available because IPOS R39 has no approved identity (G1 OPEN, G2 NOT_STARTED).
+
+### Verification boundary
+
+The code/schema/tests are being added on feat/ipos-standalone-video-bridge. The change is not production-verified until candidate CI passes and the PR is reviewed/merged with production CI evidence.

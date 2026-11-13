@@ -17,7 +17,7 @@ The system optimizes a portfolio, not a clip:
 
 The four business workstreams remain ownership views, not silos:
 - `MEDIA_GROWTH` — demand, packaging, audience evidence, series allocation;
-- `ORIGINAL_DIGITAL_IP` — distinctive reusable identity/world/audio/visual assets and licensing value;
+- `ORIGINAL_DIGITAL_IP` — video-side usage, recognition/performance evidence and licensing-use value for identity assets whose creative canon is owned by IPOS;
 - `COMMERCIALIZATION` — sponsor/category fit, offers, rights, product-truth requirements and measurable brand/business outcomes;
 - `PRODUCTION_SYSTEM` — editorial-plan realization into assets, shots, sequences, timelines, sound and delivery under quality/cost/provenance controls.
 
@@ -54,6 +54,28 @@ Platform variants remain derived contexts/edits rather than duplicated source tr
 Immutable/versioned media or business object with stable identity, digest, provenance, rights and acceptance state. Editorial plans, canon references, source documents, generated takes, real product assets, timelines, audio, diagrams, offers, thumbnails and outcome receipts can all be first-class assets.
 
 No accepted original is destructively overwritten. A revision creates a new version and lineage.
+
+### External creative identity authority — IP Studio OS
+
+The creator's canonical identity is owned by the independent IP Studio OS (IPOS), not by this Video repository and not by a video-local prompt, portrait, or duplicated character bible. IPOS is a standalone creative system: it does not require a CAOS runtime, CAOS API call, or CAOS session to research, design, approve, render, inspect, and export its work. Video consumes a portable artifact; it does not invoke IPOS as a runtime service.
+
+The boundary is an immutable, versioned IPOS Video Identity Bundle (schema_version: 1.0, issuer: IP_STUDIO_OS). The contract is mirrored at video_growth_agent/data/ipos_video_identity_bundle.schema.json for offline validation. The import/runtime adapter is video_growth_agent/ip_identity.py.
+
+A bundle is admissible for identity-dependent video production only when all of the following are true:
+
+- IPOS explicitly records approval.status = OWNER_APPROVED and a durable owner approval reference;
+- readiness is READY_FOR_VIDEO, with G2 identity, G7 independent QA, and G8 delivery gates all PASS;
+- usage.video_allowed is true;
+- at least one promoted, video-approved primary visual reference is present;
+- every imported asset binds an immutable version, SHA-256 digest, rights reference, provenance references, and consent reference when required;
+- identity invariants, forbidden drift, and dimension-level continuity rules are present.
+
+The video adapter imports the exact bundle and its eligible assets into MediaGraph as immutable externally authoritative assets. It records IPOS as the decision owner; it does not redesign, rename, reapprove, or silently mutate the canon. Shot contracts bind exact IPOS asset IDs, versions, digests, rights, approval and bundle references. Continuity snapshots and rules are derived from the bundle, not reconstructed from prompt memory.
+
+A newer IPOS canon version supersedes the old version and invalidates only downstream assets/tasks that consumed the old version. Historical versions remain inspectable. A rejected, revoked, superseded, candidate, or otherwise non-ready bundle cannot enter identity-dependent generation. If no approved IPOS canon exists, only shots that explicitly require stable character identity are blocked; unrelated editorial research, topic work, product-truth work, and non-character video remain available.
+
+This is an artifact contract, not a hidden network dependency. The IPOS system exports the bundle; the Video system validates and imports it locally. Neither side needs to call CAOS to perform this handoff. The current IPOS R39 state has no approved identity anchor (G1 is open; G2 has not started), so the bridge is implemented but there is intentionally no approved character bundle to import yet.
+
 
 ### 3.3 Task
 
