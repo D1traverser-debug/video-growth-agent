@@ -405,6 +405,7 @@ def _media_business_failures(root: Path, runtime_version: str) -> list[str]:
         "video_growth_agent/editorial_planning.py",
         "video_growth_agent/plan_graph_bridge.py",
         "video_growth_agent/production_os.py",
+        "video_growth_agent/ip_identity.py",
         "video_growth_agent/continuity.py",
         "video_growth_agent/model_registry.py",
         "video_growth_agent/timeline.py",
@@ -418,6 +419,33 @@ def _media_business_failures(root: Path, runtime_version: str) -> list[str]:
     for rel in required_runtime_files:
         if not (root / rel).is_file():
             failures.append(f"media_business_runtime_missing:{rel}")
+
+    ipos_schema_path = root / "video_growth_agent/data/ipos_video_identity_bundle.schema.json"
+    if not ipos_schema_path.is_file():
+        failures.append("ipos_video_identity_bundle_schema_missing")
+    else:
+        ipos_schema = _json(ipos_schema_path)
+        if ipos_schema.get("properties", {}).get("schema_version", {}).get("const") != "1.0":
+            failures.append("ipos_video_identity_bundle_schema_version_drift")
+        if ipos_schema.get("properties", {}).get("issuer", {}).get("const") != "IP_STUDIO_OS":
+            failures.append("ipos_video_identity_bundle_schema_issuer_drift")
+
+    ipos_state_path = root / "projects/ai-self-media-commercialization/IPOS_INTEGRATION_STATE.json"
+    if not ipos_state_path.is_file():
+        failures.append("ipos_video_integration_state_missing")
+    else:
+        ipos_state = _json(ipos_state_path)
+        authority = ipos_state.get("authority", {})
+        if authority.get("system") != "IP_STUDIO_OS":
+            failures.append("ipos_video_identity_authority_drift")
+        if authority.get("standalone_execution") is not True:
+            failures.append("ipos_standalone_execution_not_declared")
+        if authority.get("caos_runtime_dependency") is not False:
+            failures.append("ipos_caos_runtime_dependency_must_be_false")
+        if ipos_state.get("contract", {}).get("schema_version") != "1.0":
+            failures.append("ipos_video_identity_contract_version_drift")
+        if ipos_state.get("current_handoff", {}).get("status") != "NO_APPROVED_BUNDLE_AVAILABLE":
+            failures.append("ipos_current_bundle_status_drift")
 
     return failures
 
@@ -692,10 +720,13 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             "PRODUCTION_SYSTEM",
         }:
             failures.append("integrated_program_workstream_set_drift")
-        if integrated.get("current_focus") != "ORIGINAL_DIGITAL_IP/H1_SCULPTURAL_MASSING_V2":
-            failures.append("integrated_program_h1_focus_drift")
-        if "A2 positive-morph upper-face edit" not in str(integrated.get("current_next_action", "")):
-            failures.append("integrated_program_h1_next_action_drift")
+        if integrated.get("current_focus") != "ORIGINAL_DIGITAL_IP/IPOS_CANONICAL_HANDOFF_V1":
+            failures.append("integrated_program_ipos_focus_drift")
+        next_action = str(integrated.get("current_next_action", ""))
+        if "Do not resume the superseded Video-local H1/S1+S3/A2 face-shell route" not in next_action:
+            failures.append("integrated_program_superseded_h1_route_not_retired")
+        if "IPOS continues its R39 G1 research" not in next_action:
+            failures.append("integrated_program_ipos_authority_not_referenced")
         if integrated.get("business_flywheel_ref") != "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json":
             failures.append("integrated_program_business_flywheel_ref_drift")
 

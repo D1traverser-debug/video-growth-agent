@@ -120,3 +120,7 @@ pytest -q
 The system audit covers parent/common binding, Video business ownership, all canonical 0.8 runtime surfaces, agent-operability scenario presence, Media Business OS authorities, project/flywheel integrity, provider-neutral capability semantics, Program graph validity, absence of a parallel controller, artifact reachability, legacy-adapter bundle consistency, evolution discoverability and runtime-version consistency. It fails closed when a declared canonical runtime surface disappears or drifts.
 
 CI success is validation evidence, not branch-protection enforcement unless GitHub separately reports branch protection/rulesets as enabled.
+
+## Standalone IP Studio OS integration
+
+The personal-IP character canon is owned by the independent IP Studio OS (IPOS). IPOS does not require a CAOS runtime/API call. Video consumes a portable owner-approved IPOS Video Identity Bundle through the local video_growth_agent.ip_identity adapter; exact versions are registered in MediaGraph and bound to shot references and continuity. See docs/media_business_os.md and projects/ai-self-media-commercialization/IPOS_INTEGRATION_STATE.json. No identity-dependent generation is admitted until an owner-approved bundle passes G2/G7/G8 and rights/provenance checks.

@@ -1,145 +1,77 @@
 # Current Progress — AI自媒体视频增长、商业化与原创数字IP
 
-Updated: 2026-10-15
+Updated: 2026-11-13
 Status: ACTIVE_INTEGRATED_PROGRAM
 Authority scope: PROGRAM_LOCAL_BUSINESS_AUTHORITY
-Program state: `PROGRAM_STATE.json`
-Subtask graph: `SUBTASK_GRAPH.json`
+Program state: PROGRAM_STATE.json
+Subtask graph: SUBTASK_GRAPH.json
 
-## Program topology
-This is the default integrated Video-domain business Program, not an isolated future-import package and not a UAOS task.
+## Current authority reset
 
-Current workstreams:
-- `MEDIA_GROWTH` — READY_ACTIVE_BASELINE; account positioning and audience/content hypotheses exist and can progress now;
-- `ORIGINAL_DIGITAL_IP` — ACTIVE; current foreground work is H1 face massing/A2 upper-face tuning;
-- `COMMERCIALIZATION` — READY_FOR_PARALLEL_RESEARCH; advertiser mapping and offer/rights architecture can progress independently;
-- `PRODUCTION_SYSTEM` — MEDIA_BUSINESS_OS_0_8_PRODUCTION_BASELINE; core runtime 0.8.0 is verified on main, while the unchanged historical/specialized 0.7 work-order adapter remains available as a compatibility surface where its workflow is still applicable.
+IP Studio OS (IPOS) is the sole creative authority for the user's personal-IP identity, character carrier, avatar, visual canon, voice/performance canon and reusable identity assets. IPOS runs independently and does not require a CAOS runtime/API/session. Video consumes its versioned export; it does not invoke CAOS or recreate the character design locally.
 
-Only declared dependencies block work. Unfinished character design does not block topic/audience research or advertiser research. Character-canon-dependent brand assets do wait for canon.
+The authoritative IPOS state is R39:
+- no approved character carrier, identity anchor, avatar or visual canon;
+- G0 PASS;
+- G1 cross-carrier/cross-medium research OPEN;
+- G2 concept competition NOT_STARTED;
+- G3–G9 BLOCKED;
+- no video-ready IPOS bundle exists.
 
-Pilot 002 remains a separate historical child project. Its rejected/process-invalid artifacts are not accepted inputs here and it retains the legacy 0.7 adapter/runtime identity rather than being silently rewritten into the 0.8 core identity.
+The previous Video-local H1/S1+S3/A2 face-shell path is superseded and historical. Its prompts and images must not be resumed, imported, or treated as approved references.
 
-## Production-system state
+## IPOS-to-Video integration
 
-Video 0.8.0 is now the verified production core. Promotion evidence:
-- PR #15 merged into `main`;
-- candidate head `50bc4a74d7c641875c9625626d5c4634b97ba1fd` passed CI run `38725408205` (#649);
-- merge commit `02d39d8e3609c6d988009f4bc5a7f5d0378128ec` passed main production CI run `38725890405` (#650);
-- closure evidence: `../../audits/VIDEO_0_8_PRODUCTION_CLOSURE_2026-10-15.md`.
+A versioned IPOS Video Identity Bundle contract (schema 1.0) and deterministic import adapter are being added:
+- contract: video_growth_agent/data/ipos_video_identity_bundle.schema.json;
+- adapter: video_growth_agent/ip_identity.py;
+- integration state: IPOS_INTEGRATION_STATE.json;
+- design/authority rules: docs/media_business_os.md and WORKFLOW_INTEGRATION.md.
 
-The current executable chain is:
+The adapter validates owner approval, READY_FOR_VIDEO status, G2/G7/G8 PASS, usage rights, provenance, promoted visual references, and continuity rules. It imports exact asset versions/digests into MediaGraph, binds those refs to identity-dependent ShotContracts, supplies continuity snapshots/rules, and fails closed if approval/evidence is missing. New canon versions invalidate only downstream assets that consumed the old version.
 
-`EpisodeIntent -> ClaimSpec -> BeatSpec -> ShotIntent -> EditorialPlan -> ShotContract -> operation-specific ModelRoutingDecision -> CandidateTake -> ContinuityAssessment -> Promotion -> Timeline -> editor handoff/roundtrip -> PlatformVariant -> Release -> Experiment/Outcome -> LearningCandidate`
+Current integration assurance: IMPLEMENTED_IN_CANDIDATE_BRANCH__CI_PENDING. This is not yet a production-verified or merged release. Current IPOS bundle state: NO_APPROVED_BUNDLE_AVAILABLE.
 
-Owner-native surfaces include:
+## Production-system baseline
+
+Media Business OS 0.8.0 remains the last verified production baseline. The IPOS bridge is a separate candidate change and must pass its own tests/CI before merge. Existing production capabilities remain:
 - versioned editorial planning and claim/beat/shot traceability;
-- editorial plan as an upstream MediaGraph asset so revisions stale only affected descendants;
-- cross-shot dimension-level continuity (`PRESERVE` / `EXPECT` / `ALLOW_CHANGE`, hard/soft);
-- operation-profile provider legality plus rubric/calibration-bound, uncertainty-aware Pareto quality routing;
-- pre-registered growth/content/IP experiments with explicit no-clear-winner/inconclusive outcomes;
-- external editor/NLE handoff and return receipts bound to timeline/project/composition identity;
-- a recomputable CURRENT_AGENT operator projection for ready/blocking actions, stale evidence, risks and recovery refs, with no mutation/promotion/controller authority;
-- CURRENT_AGENT dogfood scenarios as an architecture acceptance surface.
+- MediaGraph asset identity, immutable versions, evidence, decisions and downstream invalidation;
+- ShotContract, generation admission, take promotion and release gates;
+- dimension-level continuity;
+- operation-specific model routing;
+- non-destructive timeline and editor interchange;
+- experiments, outcome receipts and learning.
 
-A separate UAOS parent observation refresh remains pending under parent authority. That metadata synchronization does not block Video 0.8.0 child-domain operation.
+## Current workstream state
 
-## Character dependency order
-1. HUMAN CORE
-2. IDENTITY DNA
-3. WARDROBE CHASSIS
-4. SIGNATURE DETAIL / MOTIF
-5. CANON CHARACTER
-6. PRESENTATION MODES
+- MEDIA_GROWTH: baseline metrics, topic/series hypotheses and packaging research can proceed.
+- ORIGINAL_DIGITAL_IP: canon authority is external IPOS; Video waits for a valid export and owns usage/performance evidence only.
+- COMMERCIALIZATION: advertiser mapping, sponsor fit, offers, rights and measurement research can proceed.
+- PRODUCTION_SYSTEM: continue non-character production, provider benchmarking, deterministic QA and bridge validation.
 
-Presentation Modes remain dormant.
+## Active Program graph
 
-## Active personal-inheritance policy
-Selective structural inheritance / same-source original. The creator supplies structural ancestry, not a final likeness target. Exact brow-eye appearance is redesignable.
+- growth_baseline_and_topic_hypotheses;
+- commercial_advertiser_map;
+- ipos_identity_bundle_import (waits for external artifact ipos_video_identity_bundle);
+- ip_identity_shot_binding_validation (waits for successful import);
+- identity-dependent brand assets wait for shot-binding validation.
 
-## H1 retained face shell
-The corrected S1+S3 strict-front gray sculpt remains the active fixed face shell.
-Retain:
-- overall face envelope;
-- cheek support;
-- jaw width/taper;
-- compact rounded-blunt chin;
-- conservative nose scale;
-- mouth placement;
-- adult Chinese male plausibility.
+Only declared dependencies block work. No character canon is required for unrelated topic/audience/commercial/provider research or explicitly non-character video.
 
-## Prior upper-face exploration
-- E1/E2/E3 — INCONCLUSIVE; edits were too small to make a meaningful decision. Do not continue that loop.
-- A1 Refined East-Asian Male Appeal — REJECTED AS UPPER-FACE SOLUTION.
+## Acceptance and release status
 
-A1 failure coding:
-- brow-eye package too compressed/heavy;
-- upper lid too hooded/relaxed;
-- eye aperture too round centrally instead of horizontally organized;
-- lower lid too soft/tired;
-- buzz-like hair placeholder amplified street-tough coding;
-- slight mouth compression compounded irritation rather than calm.
+The bridge is not complete merely because files or a PR exist. Required evidence:
+1. contract/schema validation;
+2. parser and fail-closed tests;
+3. exact MediaGraph import and idempotence;
+4. canon-version downstream invalidation;
+5. ShotContract and continuity binding;
+6. non-character work remains unblocked;
+7. candidate CI passes;
+8. post-merge production CI passes before marking production verified.
 
-Temple volume, gray-sculpt smoothing and the lower-face shell are not the primary cause.
+## Historical archive
 
-## Prompt-language correction
-Active method: `GPT_IMAGE_POSITIVE_MORPH_LANGUAGE_RULE_V1.md`.
-
-Project rule:
-- translate unwanted vibes into visible geometry;
-- describe target morphology positively and observably;
-- state fixed geometry separately;
-- branch every controlled edit from the last accepted base, never a rejected derivative.
-
-## A2 target — Clean Analytical East-Asian Male Upper Face
-Use the ORIGINAL corrected S1+S3 front sculpt as the sole image input. Do not use A1 as the base.
-
-Target morphology:
-- medium-density straight-to-soft-triangular brow, slightly higher than A1;
-- increased visible brow-eye clearance; inner two-thirds nearly horizontal; apex near lateral canthus; clean tapered tail;
-- restrained almond / long-oval eye aperture with modest horizontal length increase and moderate-narrow vertical opening;
-- taut clean upper-lid margin, low subtle East-Asian crease close to lid margin, flatter central upper-lid arc;
-- outer canthus level to very slightly above inner canthus;
-- smooth supported lower lid rising gently toward outer third;
-- firm upper-lid soft tissue and clean under-eye transition;
-- mouth width/volume fixed with slightly more relaxed corners.
-
-Target read: clean, educated, rational, awake, controlled, commercially attractive, adult Chinese male.
-
-## Human Core Harness
-- H0 Reference Decomposition — COMPLETE ENOUGH;
-- H1 Face Primary Masses — ACTIVE / FIXED FACE SHELL + A2 POSITIVE MORPH PASS;
-- H2 Base Body Archetype — PENDING;
-- H3 Hair Architecture — PENDING;
-- H4 Skin/Grooming — PENDING;
-- H5 Identity Strip Test — PENDING;
-- H6 Brand DNA Reintroduction — PENDING;
-- H7 Wardrobe Chassis — PENDING;
-- H8 Motif Fusion — PENDING;
-- H9 Canon Character — PENDING;
-- H10 Presentation Modes — DORMANT.
-
-## Current focus
-`ORIGINAL_DIGITAL_IP / H1_SCULPTURAL_MASSING_V2`
-
-## Current next action
-1. Use only the ORIGINAL corrected S1+S3 strict-front gray sculpt.
-2. Do not use certificate portrait, A1, E2/E3, pixel avatar, meme or downstream styling reference as the edit base.
-3. Execute one A2 positive-morph edit with the geometry above.
-4. Keep face envelope, cheek mass, jaw/chin, nose, ears, neck, camera, light and gray material fixed.
-5. Replace hairstyle-coded placeholder with a smooth neutral cranial cap / non-style head mass.
-6. Compare A2 directly against the original fixed face shell.
-7. If A2 passes, reassess the paused cheek→jaw micro-correction.
-8. Only after final front passes, run one 30–35° three-quarter consistency validation.
-9. H1 must pass before H2, real skin/hair, brand DNA, wardrobe, motif or Presentation Modes.
-
-System architecture work must not execute or advance any of those creative steps automatically.
-
-## Parallel-ready work
-Without blocking H1, the Program may also advance:
-- audience/growth baseline and pilot-topic hypotheses;
-- advertiser/category mapping and sponsor-fit criteria;
-- commercial offer/rights research after advertiser-map inputs exist;
-- provider benchmarking and production-system validation that do not require locked character canon.
-
-## Persistence rule
-Material Program decisions update their owning workstream state and decision evidence in the same session. Changes to foreground stage/next action update `PROJECT_MANIFEST.json`, `PROGRAM_STATE.json`, `CURRENT_PROGRESS.md` and `RESUME_ENTRY.md` where applicable. Video-system changes also reconcile `audits/EVOLUTION_INDEX.json` and the deeper causal audit. Reviewed outputs receive durable review/decision artifacts. Do not claim persistence unless the owning records were actually changed.
+The former 2026-10-15 H1 face-shell/A2 work remains in its original files for provenance and audit only. It is superseded by IPOS R39 and is not the current creative task. Pilot 002 remains a separate historical child project; rejected/process-invalid artifacts are not accepted inputs here.

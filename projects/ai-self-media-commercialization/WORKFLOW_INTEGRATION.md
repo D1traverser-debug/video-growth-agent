@@ -15,7 +15,7 @@ It is not a UAOS continuity task and does not inherit a parent task identity. Pi
 Owns positioning, audience/problem hypotheses, topic/series portfolio, packaging/distribution experiments, platform receipts and growth learning.
 
 ### ORIGINAL_DIGITAL_IP
-Owns Human Core, identity/canon, distinctive visual/audio assets, presentation modes, recognition hypotheses and reusable identity rights.
+IPOS (IP Studio OS) externally owns creative identity, character canon, avatar, approved visual/voice/performance assets and identity rights. The Video workstream owns video-specific usage plans, recognition hypotheses, performance observations and production requirements. It cannot create or mutate the IPOS canon; it sends evidence-bearing learning candidates back to IPOS.
 
 ### COMMERCIALIZATION
 Owns advertiser/category mapping, commercial-fit evidence, native integration constraints, offers/pricing/rights packages, measurement and repeat-buy learning.
@@ -80,18 +80,19 @@ Current H1/A2 Original-IP work may run in parallel with:
 
 Character canon blocks only identity-dependent outputs. It does not block unrelated topic/audience/commercial/provider-method work.
 
-## Original-IP asset authority
+## Original-IP authority and IPOS video bridge
 
-Before canon lock:
+IP Studio OS (IPOS) is the sole creative authority for the creator's character identity, avatar, approved visual canon, voice/performance canon, and reusable identity assets. IPOS is an independent system and must be able to complete research, design, rendering, QA, correction, versioning, and export without invoking CAOS or requiring a CAOS runtime/API/session.
 
-- random generated media never becomes authority because it looks good;
-- rejected/cosplay/generic outputs remain historical only;
-- controlled edits branch from the last accepted base;
-- identity-dependent outputs remain blocked only where exact canon is required.
+The Video system does not maintain a competing character bible or reconstruct canon from old prompts. It consumes a portable IPOS Video Identity Bundle (schema_version: 1.0) through video_growth_agent.ip_identity. The bundle carries owner approval, gate evidence, exact asset versions/digests, rights/provenance, video-use permission, identity invariants, forbidden drift, and continuity dimensions/rules.
 
-After canon lock, identity-sensitive shots bind exact canon versions. A canon change invalidates only descendants that consumed that version.
+Import is fail-closed for identity-dependent shots: owner approval, G2/G7/G8 PASS, video-use permission, promoted visual references, rights, and provenance must all be present. The imported bundle and assets are registered in MediaGraph as immutable assets with IPOS retained as external decision authority. Each identity-dependent ShotContract binds the exact bundle, approval and reference versions. The adapter never promotes an unapproved concept or an image merely because it exists.
 
-IP learning may consume recognition/growth/commercial evidence, but one high-performing post does not directly rewrite canon.
+A canon update creates a new version. Only descendants that consumed the superseded IPOS version are invalidated; unrelated shots and workstreams remain intact. If no approved bundle is available, character-identity shots are blocked, while non-character production and independent research continue.
+
+The current IPOS R39 state is authoritative: no character carrier or identity anchor is approved; G1 research remains open and G2 concept competition has not started. The previous Video-local H1/S1+S3/A2 face-shell route is historical and superseded. It must not be resumed or used as a reference. No approved bundle is available for import yet.
+
+IP learning may consume recognition/growth/commercial evidence, but performance signals do not directly rewrite IPOS canon. Proposed canon changes are sent back to IPOS as evidence-bearing learning candidates; only IPOS and the owner approval process can change the authoritative identity.
 
 ## Commercial integration
 

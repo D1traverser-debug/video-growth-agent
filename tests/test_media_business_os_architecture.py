@@ -104,9 +104,26 @@ def test_video_common_behavior_1_3_is_owner_native_and_evolution_is_discoverable
     assert prior["production_ci_run"] == 38690550495
 
 
-def test_h1_business_cursor_is_preserved_during_system_rebuild():
+def test_ipos_r39_is_the_external_identity_authority_and_h1_is_retired():
     state = load("projects/ai-self-media-commercialization/PROGRAM_STATE.json")
-    assert state["current_focus"] == "ORIGINAL_DIGITAL_IP/H1_SCULPTURAL_MASSING_V2"
-    assert "A2 positive-morph upper-face edit" in state["current_next_action"]
-    assert "must not advance this creative action automatically" in state["current_next_action"]
+    integration = load("projects/ai-self-media-commercialization/IPOS_INTEGRATION_STATE.json")
+    graph = load("projects/ai-self-media-commercialization/SUBTASK_GRAPH.json")
+
+    assert state["current_focus"] == "ORIGINAL_DIGITAL_IP/IPOS_CANONICAL_HANDOFF_V1"
+    assert "Do not resume the superseded Video-local H1/S1+S3/A2 face-shell route" in state["current_next_action"]
+    assert state["workstreams"]["ORIGINAL_DIGITAL_IP"]["status"] == "EXTERNAL_CANON_AUTHORITY_IPOS"
     assert state["workstreams"]["PRODUCTION_SYSTEM"]["status"] == "MEDIA_BUSINESS_OS_0_8_PRODUCTION_BASELINE"
+
+    assert integration["authority"]["system"] == "IP_STUDIO_OS"
+    assert integration["authority"]["standalone_execution"] is True
+    assert integration["authority"]["caos_runtime_dependency"] is False
+    assert integration["current_handoff"]["status"] == "NO_APPROVED_BUNDLE_AVAILABLE"
+
+    node_ids = {node["id"] for node in graph["nodes"]}
+    assert "ip_h1_a2_upper_face" not in node_ids
+    assert "ipos_identity_bundle_import" in node_ids
+    assert "ip_identity_shot_binding_validation" in node_ids
+    assert graph["parallel_now"] == [
+        "growth_baseline_and_topic_hypotheses",
+        "commercial_advertiser_map",
+    ]
