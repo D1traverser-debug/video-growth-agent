@@ -102,3 +102,15 @@ def test_malformed_data_fails_closed():
         result = audit_packaging(case)
         assert result["status"] == "INVALID_CONTRACT"
         assert not result["release_authorized"]
+
+def test_case_is_discoverable_in_active_video_business_graph():
+    from video_growth_agent.program_orchestration import ProgramGraph
+    graph_path = CASE.parent.parent / "SUBTASK_GRAPH.json"
+    graph = ProgramGraph.from_path(graph_path)
+    node = graph.by_id["topic_satire_editorial_packaging"]
+    assert graph.program_id == "ai-self-media-commercialization"
+    assert node.workstream == "MEDIA_GROWTH"
+    assert node.coordination == "INDEPENDENT_PARALLEL"
+    assert node.depends_on == ()
+    assert node.metadata["no_ipos_identity_dependency"] is True
+    assert "cases/jensen-alice-20261114.json" in node.metadata["authority_inputs"]
