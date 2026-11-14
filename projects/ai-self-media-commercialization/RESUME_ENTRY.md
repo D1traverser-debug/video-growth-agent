@@ -98,3 +98,9 @@ Verified code head: `c70b8f32e24aa9e79306989f16ebbc46b233745c`. Exact-head CI ru
 The fifth independent review finding is fixed: the graph validator now proves that the SHOT's actual parent chain resolves to the ShotContract's exact sequence_id. Supported structures are SHOT → SEQUENCE and SHOT → SCENE → SEQUENCE. CLI preflight and MediaGraph registration share this validator; mismatches fail before rendering/registration. Tests cover mismatched contract, candidate registration rejection, valid SCENE intermediary and CLI preflight.
 
 Verified renderer code head: `df580452c2eca46d9fd0d8b0646527395900e763`. Exact-head CI runs `43595226122` and `43595220908` passed: 252 tests, repository system audit and installed CLI smoke. Five inline Codex threads are resolved; a fresh full review is pending. PR #33 remains OPEN/NOT MERGED. Audit: `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md`. CAOS/IPOS sources remain untouched.
+
+### Local graphics renderer — concurrent file ownership fix (2026-11-14)
+
+The sixth independent finding is fixed. FFmpeg renders to an invocation-private temporary directory on the destination filesystem. After QA, the MP4 is published with an atomic no-replace hard link. A concurrent writer claiming the destination causes a clean failure; the renderer never deletes that other invocation's file. Failure cleanup only removes its own temporary directory. QA receipt media_uri points to the final published path.
+
+Verified renderer code head: `16b2c17cd6ca503cca056be626d4402a547f3899`. Exact-head CI runs `43596038209` and `43596033964` passed: 255 tests, system audit and installed CLI smoke. Six inline Codex findings are resolved. Fresh code and security reviews are pending. PR #33 remains OPEN/NOT MERGED. Audit: `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md`. CAOS/IPOS sources remain untouched.
