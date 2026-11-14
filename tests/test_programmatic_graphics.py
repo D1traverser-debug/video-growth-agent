@@ -493,7 +493,7 @@ def test_six_row_square_chart_keeps_two_line_last_label_inside_frame(tmp_path):
             ChartDatum("Growth", 56, "56%"),
             ChartDatum("Margin", 31, "31%"),
             ChartDatum("Forecast", 64, "64%"),
-            ChartDatum("Alpha\\nBeta", 22, "22%"),
+            ChartDatum("Alpha\nBeta", 22, "22%"),
         ),
     )
     receipt = render_programmatic_graphic(
@@ -521,7 +521,7 @@ def test_chart_label_that_cannot_fit_vertical_row_fails_before_render(tmp_path):
     spec = make_spec(
         "BAR_CHART", width=640, height=640,
         chart_data=(
-            ChartDatum("A\\nB\\nC", 42, "42%"),
+            ChartDatum("A\nB\nC", 42, "42%"),
             ChartDatum("Costs", 78, "78%"),
         ),
     )
