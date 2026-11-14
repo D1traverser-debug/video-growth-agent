@@ -4,7 +4,7 @@ Date: 2026-11-14 (Asia/Shanghai)
 Status: CANDIDATE_PR_OPEN__NOT_MERGED
 PR: https://github.com/D1traverser-debug/video-growth-agent/pull/33
 Candidate branch: `feat/video-local-programmatic-graphics-renderer-20261114`
-Latest verified renderer and graph-transaction code head at this audit update: `a73a1f7ea1f4e6b3d314bfc213fd8e8f0efdb91d`
+Latest verified renderer and graph-transaction code head at this audit update: `46bbb7beb5a9da28e39662aba56c4d4c5438321c`
 
 ## 1. User/business problem
 
@@ -23,6 +23,7 @@ The Video production OS had deterministic media QA and shot/timeline governance,
 9. The CLI loaded a MediaGraph before rendering and saved that stale snapshot afterward. A concurrent reviewer/renderer update could be lost, and reference-promotion checks could be stale. MediaGraphStore now combines a cross-process file lock with SHA-256 optimistic revision checks; the CLI reloads, revalidates and registers inside a post-render transaction.
 10. Receipt sidecars were written with `write_text()` after an earlier existence check. A competing writer could create a receipt path or symlink during rendering and have its file or target truncated. Receipt publication now uses a private temporary file and atomic no-replace hard-link publication.
 11. The receipt hashed the mutable source font after rendering, while FFmpeg used a staged copy and layout measurement used the source path. A source-font replacement/removal could make the receipt inaccurate or fail after MP4 publication. Layout, rendering and digest now use one staged font snapshot.
+12. Resolving the entire requested MP4 path followed a pre-existing dangling symlink before no-replace checks. The renderer now resolves only the parent directory, preserves the requested basename and uses `os.path.lexists()` so dangling symlinks are treated as occupied entries.
 
 ## 3. Selected architecture
 
@@ -45,7 +46,7 @@ Admission requires an explicit `PROGRAMMATIC_GRAPHICS` ShotContract mode, editor
 - The SHOT context's parent chain must resolve to the exact `ShotContract.sequence_id`, allowing only SHOT → SEQUENCE or SHOT → SCENE → SEQUENCE; both CLI preflight and registration use this shared fail-closed check.
 - Output is a silent visual preview, registered only as `CANDIDATE`.
 - No paid API, network access, AI footage/audio, observed real/product-truth claim, IPOS identity rendering, promotion or release authority.
-- Existing output files and receipt sidecars are never overwritten. MP4 and JSON receipt are written privately and published by atomic no-replace hard links; conflicts and symlinks fail closed without following or deleting competing paths.
+- Existing output files and receipt sidecars are never overwritten. MP4 and JSON receipt are written privately and published by atomic no-replace hard links; conflicts and symlinks fail closed without following or deleting competing paths. The MP4 basename is preserved while only its parent directory is resolved, and dangling output symlinks are rejected before rendering.
 - The selected font is copied once into the invocation-private directory before measurement; layout, FFmpeg and `font_sha256` all use the same staged bytes.
 - MediaGraph read/modify/write uses a cross-process lock and optimistic content revision. The CLI does a short locked reload → revalidate exact ancestry/promoted source versions/digests → register → atomic save after rendering. Stale snapshots fail rather than overwriting concurrent updates.
 
@@ -75,9 +76,10 @@ The candidate includes focused tests for:
 - concurrent source revocation blocks candidate registration;
 - receipt-path symlink race preserves the symlink target;
 - source font deletion/replacement after staging preserves exact font digest provenance;
+- pre-existing dangling output symlink is rejected without creating its target;
 - no-overwrite and receipt-tampering rejection.
 
-Exact renderer/graph-transaction code head `a73a1f7ea1f4e6b3d314bfc213fd8e8f0efdb91d` passed both CI runs `43597564240` and `43597558421`: 262 tests, repository system hygiene audit, and installed CLI smoke all passed. Nine Codex inline findings are resolved, covering literal text expansion, exact source digests, horizontal metric fit, vertical chart-row fit, Sequence ancestry, concurrent MP4 ownership, concurrent MediaGraph lost updates, receipt symlink/overwrite races and staged-font provenance. Fresh full code and security reviews have been requested against this head; final approval is still pending.
+Exact renderer/graph-transaction code head `46bbb7beb5a9da28e39662aba56c4d4c5438321c` passed both CI runs `43597969675` and `43597962380`: 263 tests, repository system hygiene audit, and installed CLI smoke all passed. Ten Codex inline findings are resolved, covering literal text expansion, exact source digests, horizontal metric fit, vertical chart-row fit, Sequence ancestry, concurrent MP4 ownership, concurrent MediaGraph lost updates, receipt symlink/overwrite races, staged-font provenance and pre-existing dangling output symlinks. Fresh full code and security reviews have been requested against this head; final approval is still pending.
 
 ## 7. Governance
 
