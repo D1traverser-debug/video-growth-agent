@@ -67,7 +67,7 @@ def test_copy_revision_invalidates_review_digest():
     item = case["platform_copies"][0]
     item["independent_review"] = valid_review(item)
     assert audit_packaging(case)["independent_human_reviews_recorded"] == 1
-    item["title"] += " changed"
+    item["public_fields"]["post_text"] += " changed"
     assert "copy[0]:invalid_or_stale_independent_review" in audit_packaging(case)["errors"]
 
 def test_author_cannot_attest_own_editorial_copy():
@@ -132,3 +132,44 @@ def test_packaging_cli_runs_without_loading_project_runtime(capsys):
     report = json.loads(capsys.readouterr().out)
     assert report["status"] == "EDITORIAL_CANDIDATE_GATES_OPEN"
     assert not report["release_authorized"]
+
+def test_native_platform_fields_not_fabricated_title_for_x_or_tiktok():
+    items = {x["platform"]: x for x in fixture()["platform_copies"]}
+    assert fixture()["schema_version"] == "1.1"
+    assert set(items["X"]["public_fields"]) == {"post_text"}
+    assert set(items["TIKTOK"]["public_fields"]) == {"caption"}
+    assert {"title", "description"} <= set(items["YOUTUBE"]["public_fields"])
+    assert {"title", "note"} <= set(items["XIAOHONGSHU"]["public_fields"])
+    assert {"short_title", "description"} <= set(items["WECHAT_CHANNELS"]["public_fields"])
+    assert set(items["DOUYIN"]["public_fields"]) == {"caption"}
+
+def test_wrong_platform_fields_fail_before_editorial_promotion():
+    case = fixture()
+    case["platform_copies"][0]["public_fields"] = {"title": "X does not have a video title"}
+    assert "copy[0]:platform_public_fields_missing_or_invalid" in audit_packaging(case)["errors"]
+
+def test_cover_change_invalidates_youtube_review():
+    case = fixture()
+    youtube = next(x for x in case["platform_copies"] if x["platform"] == "YOUTUBE")
+    youtube["independent_review"] = valid_review(youtube)
+    assert audit_packaging(case)["independent_human_reviews_recorded"] == 1
+    youtube["public_fields"]["cover_text"] += " updated"
+    assert audit_packaging(case)["status"] == "INVALID_CONTRACT"
+
+def test_no_platform_variant_or_disclosure_receipt_is_never_treated_as_postable():
+    result = audit_packaging(fixture())
+    assert any("platform_variant_version_unbound" in x for x in result["open_gates"])
+    assert any("platform_format_review_open" in x for x in result["open_gates"])
+    assert any("platform_synthetic_disclosure_receipt_open" in x for x in result["open_gates"])
+    assert result["release_authorized"] is False
+
+def test_legacy_case_remains_readable_but_warns_against_blind_upload():
+    case = fixture()
+    case["schema_version"] = "1.0"
+    for item in case["platform_copies"]:
+        item["title"], item["body"] = "legacy title", "legacy body"
+        item.pop("public_fields")
+    report = audit_packaging(case)
+    assert report["contract_valid"]
+    assert "legacy_v1_0_copy_needs_platform_native_fields" in report["warnings"]
+    assert report["release_authorized"] is False
