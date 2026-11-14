@@ -545,7 +545,6 @@ def register_graph_candidate(
         refs=(media_uri, f"sha256:{digest}", str(receipt.get("receipt_id") or "")),
         observed_at=str(receipt.get("rendered_at") or utcnow_iso()),
         metadata={
-            "qa_hard_pass": receipt.get("qa_hard_pass") is True,
             "renderer_version": RENDERER_VERSION,
             "shot_contract_digest": receipt.get("shot_contract_digest"),
             "graphic_spec_digest": receipt.get("graphic_spec_digest"),
