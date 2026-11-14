@@ -210,7 +210,7 @@ def test_cover_change_invalidates_youtube_review():
     youtube["independent_review"] = valid_review(case, youtube)
     assert audit_packaging(case)["independent_human_reviews_recorded"] == 1
     youtube["public_fields"]["cover_text"] += " updated"
-    assert "copy[3]:invalid_or_stale_independent_review" in audit_packaging(case)["errors"]
+    assert "copy[2]:invalid_or_stale_independent_review" in audit_packaging(case)["errors"]
 
 
 def test_platform_synthetic_disclosure_only_applies_to_referenced_visuals():
