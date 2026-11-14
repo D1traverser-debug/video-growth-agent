@@ -178,6 +178,5 @@
     "source_mutation": "FORBIDDEN"
   },
   "current_editorial_case_ref": "cases/jensen-alice-20261114.json",
-  "current_editorial_case_schema_version": "1.2",
-  "next_action_owner": "VIDEO_GROWTH_AGENT"
+  "current_editorial_case_schema_version": "1.2"
 }
