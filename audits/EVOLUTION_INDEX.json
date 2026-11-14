@@ -2,11 +2,33 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "2.0",
-  "updated_at": "2026-11-14T17:00:00+08:00",
-  "current_open_items": [],
+  "updated_at": "2026-11-14T20:04:00+08:00",
+  "current_open_items": [
+    "PR #33: local programmatic graphics renderer — exact-head CI and fresh Codex review pending; candidate is not merged or production-authorized."
+  ],
   "current_problem_refs": {},
-  "current_resume_ref": null,
-  "current_candidate": null,
+  "current_resume_ref": "projects/ai-self-media-commercialization/RESUME_ENTRY.md",
+  "current_candidate": {
+    "id": "V-20261114-02-PROGRAMMATIC-GRAPHICS",
+    "ref": "audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md",
+    "status": "CANDIDATE_PR_OPEN__NOT_MERGED",
+    "failure_class": "FC-PROGRAMMATIC-GRAPHICS-NOT-EXECUTABLE__FC-TEXT-CLIPPING__FC-REFERENCE-DIGEST-MISMATCH",
+    "selected_architecture": "LOCAL_FFMPEG_RENDERER__PILLOW_PIXEL_METRICS__EXACT_PROMOTED_SOURCE_DIGEST_BINDING__CANDIDATE_ONLY",
+    "candidate_pr": 33,
+    "candidate_branch": "feat/video-local-programmatic-graphics-renderer-20261114",
+    "candidate_head": "TRACK_LATEST_PR_HEAD",
+    "candidate_ci_status": "PENDING_EXACT_LATEST_HEAD",
+    "codex_review_status": "REVIEW_REQUESTED_AFTER_PIXEL_LAYOUT_FIX",
+    "resolved_findings": [
+      "drawtext literal expansion disabled",
+      "exact promoted source reference digest validation shared by CLI and MediaGraph registration"
+    ],
+    "pending_findings": [
+      "pixel-measured layout fix and long metric/chart value regression tests require latest-head CI and fresh independent review"
+    ],
+    "result": "OPEN",
+    "next_action": "Read exact latest-head CI, obtain clean Codex re-review, resolve all review threads, merge only after acceptance, then verify mainline CI."
+  },
   "recent_resolved_or_promoted": [
     {
       "id": "V-20261114-01-CAOS-GOVERNANCE-TAKEOVER",
