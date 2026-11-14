@@ -252,7 +252,21 @@
         "PLATFORM_DISCLOSURE",
         "VIDEO_RELEASE_GATE"
       ],
-      "no_ipos_identity_dependency": true
+      "no_ipos_identity_dependency": true,
+      "metadata": {
+        "editorial_contract_version": "1.2",
+        "reading_order": [
+          "FACT",
+          "INTENT",
+          "VISUAL",
+          "PLATFORM"
+        ],
+        "primary_satire_target": "NEWS_AND_CORPORATE_DECISION_LANGUAGE",
+        "visual_role": "SECONDARY_FICTIONAL_EXPRESSION",
+        "minimum_distinct_platform_signatures": "6_OF_7_ANGLE_MECHANISM_SPEAKER_COMBINATIONS",
+        "semantic_review": "ALL_13_CHECKS_PLUS_INDEPENDENT_HUMAN_COLD_READ",
+        "release_boundary": "CANDIDATE_ONLY_UNTIL_MEDIA_RIGHTS_FORMAT_DISCLOSURE_PLAN_TIMELINE_AND_VIDEO_RELEASE_GATES_PASS"
+      }
     }
   ],
   "parallel_now": [

@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "program_id": "ai-self-media-commercialization",
   "episode_id": "jensen-alice-satire-20261114",
   "author_ref": "owner://video-program",
@@ -57,10 +57,16 @@
   "platform_copies": [
     {
       "platform": "X",
-      "editorial_angle": "职位变动被视觉化成夸张动作",
-      "humor_mechanism": "双关／字面化",
-      "news_counterfactual": "换成普通名人八卦，stepped down 与真实 CEO 离任的新闻关联消失。",
-      "video_counterfactual": "换成股价走势图，literal 对身体动作的第二层解释消失。",
+      "editorial_angle": "Corporate understatement: one neutral noun covering three leadership changes",
+      "humor_mechanism": "understatement / corporate euphemism",
+      "speaker_perspective": "dry tech-business observer reading a corporate release",
+      "satire_target": "the company's communications language, not the people or allegations",
+      "semantic_bridge": "The word “transition” compresses the CEO resignation, interim appointment and first board chair into one tidy corporate noun.",
+      "news_counterfactual": "Without the CEO resignation and interim succession, “transition” would be routine wording and the understatement would disappear.",
+      "video_counterfactual": "Unrelated footage would remove the visual escalation metaphor; the news-based line would remain legible but lose its second layer.",
+      "public_fields": {
+        "post_text": "One CEO out, an interim CEO in, and a new board chair. “Transition” is doing a heroic amount of work in that press release."
+      },
       "fact_ids": [
         "F1"
       ],
@@ -69,9 +75,6 @@
       ],
       "independent_review": {
         "status": "PENDING"
-      },
-      "public_fields": {
-        "post_text": "Jensen stepped down. The edit took that literally."
       },
       "platform_variant_ref": null,
       "format_review_evidence_ref": null,
@@ -79,10 +82,16 @@
     },
     {
       "platform": "TIKTOK",
-      "editorial_angle": "公司公文与虚构动作片的语域冲突",
-      "humor_mechanism": "语域错置",
-      "news_counterfactual": "普通热点没有高管 transition 公告，第一层失效。",
-      "video_counterfactual": "换成静态新闻截图，action scene 的视觉响应失效。",
+      "editorial_angle": "The org chart as the person forced to process the handover",
+      "humor_mechanism": "personification / workplace aside",
+      "speaker_perspective": "the overworked org chart speaking to camera",
+      "satire_target": "the workload hidden by the calm word “transition”",
+      "semantic_bridge": "Three leadership-role changes make a neutral announcement sound like a very busy day for the org chart.",
+      "news_counterfactual": "Without the CEO exit, interim appointment and new board chair, the org-chart character would have no real workload to react to.",
+      "video_counterfactual": "Unrelated footage would remove the visual sense of escalation that gives the org-chart reaction its comic pressure.",
+      "public_fields": {
+        "caption": "CEO out. Interim CEO in. New board chair. The org chart has requested a second monitor."
+      },
       "fact_ids": [
         "F1"
       ],
@@ -91,9 +100,6 @@
       ],
       "independent_review": {
         "status": "PENDING"
-      },
-      "public_fields": {
-        "caption": "The press release said “transition.” The internet heard “action scene.”"
       },
       "platform_variant_ref": null,
       "format_review_evidence_ref": null,
@@ -101,10 +107,19 @@
     },
     {
       "platform": "YOUTUBE",
-      "editorial_angle": "CEO 退场与游戏最终关卡的冲突",
-      "humor_mechanism": "类型片与游戏叙事映射",
-      "news_counterfactual": "换成不涉及 CEO 离任的新闻，exit interview 失焦。",
-      "video_counterfactual": "去掉虚构对抗场景，final boss 的第二层解释不成立。",
+      "editorial_angle": "The CFO keeping one role while taking the interim CEO role",
+      "humor_mechanism": "role accumulation / dual-hat contrast",
+      "speaker_perspective": "a systems-minded explainer tracking who now owns which job",
+      "satire_target": "the temporary role design and succession mechanics",
+      "semantic_bridge": "Colette Kress remains CFO while serving as interim CEO, turning one appointment into a visible two-hat arrangement.",
+      "news_counterfactual": "Without the CFO's interim appointment, the dual-hat observation and its organizational consequence would vanish.",
+      "video_counterfactual": "Without the staged visual, the role-stack analogy would lose its visual punctuation but remain a factual leadership explainer.",
+      "public_fields": {
+        "title": "NVIDIA's Interim CEO Has Two Jobs. The Org Chart Has Questions.",
+        "description": "Jensen Huang has resigned. CFO Colette Kress will also serve as interim CEO while the board searches for a permanent successor. A look at the leadership reshuffle—and the unusually tidy word used to describe it.",
+        "upload_format": "STANDARD_VIDEO",
+        "cover_text": "TWO HATS, ONE CFO?"
+      },
       "fact_ids": [
         "F1"
       ],
@@ -113,12 +128,6 @@
       ],
       "independent_review": {
         "status": "PENDING"
-      },
-      "public_fields": {
-        "title": "Jensen Huang’s Exit Interview Went Full Final Boss",
-        "description": "A boardroom headline gets an imaginary action-movie ending.",
-        "upload_format": "STANDARD_VIDEO",
-        "cover_text": "EXIT INTERVIEW?"
       },
       "platform_variant_ref": null,
       "format_review_evidence_ref": null,
@@ -126,10 +135,18 @@
     },
     {
       "platform": "XIAOHONGSHU",
-      "editorial_angle": "交接与交火的一字置换",
-      "humor_mechanism": "语素置换／谐音",
-      "news_counterfactual": "如果没有 CEO 离任，交接没有对应的现实锚点。",
-      "video_counterfactual": "如果没有虚构对抗影像，交火成为无依据的情节。",
+      "editorial_angle": "换代与换届的字面错位",
+      "humor_mechanism": "近音词置换 / tech-business wordplay",
+      "speaker_perspective": "懂科技产品、也看公司治理的生活化观察者",
+      "satire_target": "英伟达管理层调整被产品语境误读的反差",
+      "semantic_bridge": "“换代”常用于产品，“换届”对应管理层；两字之差把科技公司的人事调整变成一句自然双关。",
+      "news_counterfactual": "没有CEO离任与临时接任，“换届”就失去现实锚点，也无法和“换代”形成双关。",
+      "video_counterfactual": "换成无关日常素材，双关仍能读懂，但虚构动作视觉对组织震荡的夸张表达会消失。",
+      "public_fields": {
+        "title": "英伟达这次不是换代，是换届",
+        "note": "CEO离任、临时CEO接棒、董事会首次设主席。公告只用了一个“transition”，组织架构图恐怕得连夜改版。",
+        "cover_text": "换代？换届？"
+      },
       "fact_ids": [
         "F1"
       ],
@@ -138,11 +155,6 @@
       ],
       "independent_review": {
         "status": "PENDING"
-      },
-      "public_fields": {
-        "title": "老黄这场交接，怎么交成了交火",
-        "note": "以前看英伟达新闻查显卡，现在连人事变动都能看成动作片。",
-        "cover_text": "交接还是交火？"
       },
       "platform_variant_ref": null,
       "format_review_evidence_ref": null,
@@ -150,10 +162,17 @@
     },
     {
       "platform": "WECHAT_CHANNELS",
-      "editorial_angle": "严肃人事新闻与虚构剧组职业错置",
-      "humor_mechanism": "职业角色反差",
-      "news_counterfactual": "换成普通娱乐新闻，正式公司公告的锚点消失。",
-      "video_counterfactual": "换成静态文档，武术指导成为凭空编的角色。",
+      "editorial_angle": "把公告里的委婉词翻译成组织现实",
+      "humor_mechanism": "公文翻译 / plain-language reveal",
+      "speaker_perspective": "把公司公告翻译成人话的财经观察者",
+      "satire_target": "企业公关措辞与实际组织变化之间的距离",
+      "semantic_bridge": "用“过渡”概括CEO离任、临时接任和董事会主席任命，形成措辞克制与实际变动数量之间的反差。",
+      "news_counterfactual": "没有这三项具体的人事变化，“公告翻译”就只剩普通辞令，没有可揭示的反差。",
+      "video_counterfactual": "静态公告仍能承载事实，但虚构动作画面会失去把组织变化夸张化的辅助作用。",
+      "public_fields": {
+        "short_title": "一份CEO交接公告，装下了三处职位变化",
+        "description": "黄仁勋离任，CFO科莱特·克雷斯出任临时CEO，董事会任命首任主席。公告用“transition”概括这一连串变化，措辞很平静，组织架构却一点也不轻松。"
+      },
       "fact_ids": [
         "F1"
       ],
@@ -162,10 +181,6 @@
       ],
       "independent_review": {
         "status": "PENDING"
-      },
-      "public_fields": {
-        "short_title": "英伟达人事变动，怎么连武术指导都忙上了",
-        "description": "公司公告写的是高管变动，网友的想象力已经走到电影片场。"
       },
       "platform_variant_ref": null,
       "format_review_evidence_ref": null,
@@ -173,10 +188,23 @@
     },
     {
       "platform": "BILIBILI",
-      "editorial_angle": "CEO 角色退场被游戏系统化",
-      "humor_mechanism": "游戏机制隐喻",
-      "news_counterfactual": "没有实际离任新闻，CEO 主线退场无对应事实。",
-      "video_counterfactual": "没有虚构动作场景，BOSS战失去第二重意义。",
+      "editorial_angle": "把管理层调整拆成系统角色更新",
+      "humor_mechanism": "系统更新 / patch-note analogy",
+      "speaker_perspective": "用工程师视角读公司治理变更的解说者",
+      "satire_target": "领导岗位与董事会结构的版本更新",
+      "semantic_bridge": "CEO、临时CEO和董事会主席分别承担不同职责，像一次需要明确角色迁移的系统更新。",
+      "news_counterfactual": "没有CEO离任和新设董事会主席，就没有这次角色映射，系统更新比喻会失去具体内容。",
+      "video_counterfactual": "去掉虚构动作视觉，角色更新的新闻解释仍成立，但缺少把变动规模可视化的第二层。",
+      "public_fields": {
+        "title": "英伟达管理层换挡：一个“Transition”，三处职位变化",
+        "description": "更新日志：CEO职位离任；CFO新增临时CEO职责；董事会首次新增主席。版本说明只有一个词：transition。把公司公告翻译成系统更新日志，才发现这次改动的范围不小。",
+        "tags": [
+          "英伟达",
+          "黄仁勋",
+          "CEO交接",
+          "公司治理"
+        ]
+      },
       "fact_ids": [
         "F1"
       ],
@@ -185,15 +213,6 @@
       ],
       "independent_review": {
         "status": "PENDING"
-      },
-      "public_fields": {
-        "title": "【黄仁勋】CEO主线退场，怎么还触发BOSS战",
-        "description": "公司公告负责严肃，恶搞短片负责把支线剧情解锁。",
-        "tags": [
-          "黄仁勋",
-          "英伟达",
-          "新闻恶搞"
-        ]
       },
       "platform_variant_ref": null,
       "format_review_evidence_ref": null,
@@ -201,10 +220,16 @@
     },
     {
       "platform": "DOUYIN",
-      "editorial_angle": "下台与趴下的角色误解",
-      "humor_mechanism": "人物对话／字面误解",
-      "news_counterfactual": "如果没有离任新闻，下台的第一层含义不成立。",
-      "video_counterfactual": "如果没有虚构倒地动作，趴下成为无端对白。",
+      "editorial_angle": "先列事实，再用一句平静的公告口吻收尾",
+      "humor_mechanism": "冷面陈述 / delayed deadpan",
+      "speaker_perspective": "不动声色复述公告的旁白",
+      "satire_target": "新闻公告对重大组织变动的轻描淡写",
+      "semantic_bridge": "前三项事实逐步堆高变化幅度，最后一句“公告：这叫过渡”用语气落差完成笑点。",
+      "news_counterfactual": "没有真实的人事变化，前面的事实列表就无法支撑最后的反差。",
+      "video_counterfactual": "无关画面会削弱动作视觉的辅助夸张，但结尾的新闻措辞反差仍可成立。",
+      "public_fields": {
+        "caption": "CEO离任，临时CEO接棒，董事会主席新设。公告：这叫过渡。"
+      },
       "fact_ids": [
         "F1"
       ],
@@ -213,9 +238,6 @@
       ],
       "independent_review": {
         "status": "PENDING"
-      },
-      "public_fields": {
-        "caption": "老黄：我说的是下台，不是趴下"
       },
       "platform_variant_ref": null,
       "format_review_evidence_ref": null,
@@ -230,5 +252,25 @@
     "Platform policy, upload disclosure and final publication evidence",
     "Audience performance receipts"
   ],
-  "state": "PLATFORM_NATIVE_EDITORIAL_CANDIDATES__FORMAT_AND_RELEASE_EVIDENCE_OPEN"
+  "state": "PLATFORM_NATIVE_EDITORIAL_CANDIDATES__FORMAT_AND_RELEASE_EVIDENCE_OPEN",
+  "editorial_reading": {
+    "primary_satirical_target": "The corporate communications language that compresses a multi-part leadership reset into the neutral word “transition.”",
+    "selected_observation": "The official announcement bundles a CEO resignation, a CFO becoming interim CEO, and the board’s appointment of its first chair. “Transition” is the neat label; the org chart is doing the heavy lifting.",
+    "visual_role": "The owner-described staged action visual is a secondary exaggeration of institutional upheaval. It is not the story, not documentary footage, and not evidence of any real encounter.",
+    "fiction_boundary": "The CEO resignation and appointments are official facts. The video is owner-described fictional/staged; its people, actions, setting, media identity and rights remain unverified until the exact file is inspected. Reuters-reported espionage allegations remain unverified and are excluded from the public jokes.",
+    "audience_assumption": "Tech/business readers can distinguish CEO, interim CEO and board chair. The joke relies on the gap between a calm corporate noun and several consequential org-chart changes.",
+    "rejected_angles": [
+      "Retell the staged confrontation or describe action beats; that makes the video plot the subject and risks implying real conduct.",
+      "Use the espionage allegation as a punchline; it remains unverified and concerns a real person.",
+      "Force Jensen, Alice, spy, scandal or AI-parody keywords into every platform variant; that is SEO stuffing and collapses distinct platform voices.",
+      "Write a generic celebrity-scandal headline; it discards the specific governance and corporate-language contradiction.",
+      "Turn the item into a stock-price recap; this brief concerns succession language, not a trading recommendation."
+    ],
+    "layer_order": [
+      "FACT",
+      "INTENT",
+      "VISUAL",
+      "PLATFORM"
+    ]
+  }
 }

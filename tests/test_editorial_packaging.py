@@ -189,7 +189,7 @@ def test_pass_review_digest_handles_malformed_source_containers():
 
 def test_each_platform_requires_its_native_public_fields():
     items = {x["platform"]: x for x in fixture()["platform_copies"]}
-    assert fixture()["schema_version"] == "1.1"
+    assert fixture()["schema_version"] == "1.2"
     assert set(items["X"]["public_fields"]) == {"post_text"}
     assert set(items["TIKTOK"]["public_fields"]) == {"caption"}
     assert {"title", "description"} <= set(items["YOUTUBE"]["public_fields"])
@@ -302,3 +302,77 @@ def test_packaging_cli_runs_without_loading_project_runtime(capsys):
     report = json.loads(capsys.readouterr().out)
     assert report["status"] == "EDITORIAL_CANDIDATE_GATES_OPEN"
     assert not report["release_authorized"]
+
+def test_v1_2_requires_reading_before_copy_and_visual_layer():
+    case = fixture()
+    assert case["editorial_reading"]["layer_order"] == ["FACT", "INTENT", "VISUAL", "PLATFORM"]
+    assert len(case["editorial_reading"]["rejected_angles"]) >= 3
+    assert audit_packaging(case)["contract_valid"]
+
+    del case["editorial_reading"]["selected_observation"]
+    assert "editorial_reading:selected_observation_required" in audit_packaging(case)["errors"]
+
+
+def test_v1_2_rejects_short_rejected_angle_list_and_wrong_layer_order():
+    case = fixture()
+    case["editorial_reading"]["rejected_angles"] = ["plot recap", "generic scandal"]
+    case["editorial_reading"]["layer_order"] = ["FACT", "VISUAL", "INTENT", "PLATFORM"]
+    errors = audit_packaging(case)["errors"]
+    assert "editorial_reading:at_least_three_rejected_angles_required" in errors
+    assert "editorial_reading:fact_intent_visual_platform_order_required" in errors
+
+
+def test_v1_2_requires_distinct_editorial_angle_mechanism_and_speaker():
+    case = fixture()
+    copies = case["platform_copies"]
+    for index in (1, 2):
+        for field in ("editorial_angle", "humor_mechanism", "speaker_perspective"):
+            copies[index][field] = copies[0][field]
+    result = audit_packaging(case)
+    assert "platform_variants_not_substantively_distinct" in result["errors"]
+
+
+def test_v1_2_forbids_generic_ai_parody_type_label_without_banning_native_copy():
+    case = fixture()
+    bilibili = next(x for x in case["platform_copies"] if x["platform"] == "BILIBILI")
+    bilibili["public_fields"]["tags"].append("AI Parody")
+    assert "copy[5]:forbidden_public_type_label" in audit_packaging(case)["errors"]
+
+
+def test_v1_2_review_digest_binds_reading_and_editorial_bridge():
+    case = fixture()
+    item = case["platform_copies"][0]
+    item["independent_review"] = valid_review(case, item)
+    assert audit_packaging(case)["independent_human_reviews_recorded"] == 1
+    case["editorial_reading"]["selected_observation"] += " changed"
+    assert "copy[0]:invalid_or_stale_independent_review" in audit_packaging(case)["errors"]
+
+
+def test_v1_2_review_requires_every_semantic_reading_check():
+    case = fixture()
+    item = case["platform_copies"][0]
+    item["independent_review"] = valid_review(case, item)
+    del item["independent_review"]["semantic_checks"]["no_forced_keyword_insertion"]
+    assert "copy[0]:invalid_or_stale_independent_review" in audit_packaging(case)["errors"]
+    item["independent_review"] = valid_review(case, item)
+    item["independent_review"]["semantic_checks"]["no_explanation_after_punchline"] = False
+    assert "copy[0]:invalid_or_stale_independent_review" in audit_packaging(case)["errors"]
+
+
+def test_v1_2_keeps_all_seven_platforms_candidate_only_until_real_evidence_exists():
+    result = audit_packaging(fixture())
+    assert result["contract_valid"]
+    assert result["platform_count"] == 7
+    assert result["independent_human_reviews_recorded"] == 0
+    assert not result["release_authorized"]
+    assert not result["semantic_quality_proven"]
+    assert any("media_identity_unverified" in item for item in result["open_gates"])
+    assert any("rights_unverified" in item for item in result["open_gates"])
+    assert any("platform_format_review_open" in item for item in result["open_gates"])
+
+def test_v1_2_forbidden_ai_parody_label_is_caught_in_scalar_metadata():
+    case = fixture()
+    youtube = next(x for x in case["platform_copies"] if x["platform"] == "YOUTUBE")
+    youtube["public_fields"]["type_labels"] = "AI Parody"
+    assert "copy[2]:forbidden_public_type_label" in audit_packaging(case)["errors"]
+

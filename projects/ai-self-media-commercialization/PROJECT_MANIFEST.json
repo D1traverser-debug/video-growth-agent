@@ -48,7 +48,7 @@
       "IPOS_IDENTITY_BUNDLE",
       "EXTERNAL_CANON_HANDOFF"
     ],
-    "semantic_summary": "Default integrated Video-domain Media Business Program. Growth, commercialization and production are evidence-coupled. IP Studio OS (IPOS) is the independent sole creative authority for character identity and exports a versioned Video Identity Bundle; Video validates and imports it locally without a CAOS runtime dependency. Current IPOS R39 state has no approved identity: G1 research is open and G2 has not started. The previous Video-local H1/S1+S3/A2 face-shell route is historical and superseded. Media Business OS 0.8.0 and the IPOS bridge are mainline verified. A separate local programmatic graphics renderer for non-character information shots is under review in PR #33 and is not merged or production-authorized.",
+    "semantic_summary": "Default integrated Video-domain Media Business Program. Growth, commercialization, original IP and production remain evidence-coupled with distinct authorities. IPOS is the sole external character-canon authority; R39 has no approved identity bundle. Media Business OS 0.8.0, the IPOS bridge and the non-character local programmatic graphics renderer are mainline verified, but renderer outputs remain candidates pending normal promotion/release gates. The news × fictional-video editorial workflow uses a reading-first v1.2 contract and seven platform-native candidate variants; the news is the primary satire target and staged visuals are secondary. Contract validity is not proof of humor quality, rights or publication readiness.",
     "resume_entry": "RESUME_ENTRY.md",
     "current_progress": "CURRENT_PROGRESS.md",
     "program_state": "PROGRAM_STATE.json",
@@ -87,8 +87,8 @@
   },
   "current_stage": "IPOS_CANONICAL_HANDOFF_V1",
   "current_focus": "ORIGINAL_DIGITAL_IP",
-  "current_state": "IPOS R39 is the sole identity authority. No character carrier, identity anchor or avatar is approved; G1 is open and G2 has not started. Video-local H1/S1+S3/A2 assumptions are superseded and cannot be resumed. The Video system is implementing a portable, fail-closed IPOS bundle importer and shot/continuity binding.",
-  "next_action": "Continue IPOS R39 G1 independently. In parallel, finish PR #33 review/CI for the local non-character programmatic graphics candidate; do not treat it as production-ready until merged and mainline CI passes. Keep identity-dependent work blocked until an owner-approved READY_FOR_VIDEO IPOS bundle arrives.",
+  "current_state": "IPOS R39 remains the sole character-identity authority: G1 is open, G2 has not started, and no approved Video identity bundle exists. The Video-side IPOS bridge is merged and code-contract verified only. Media Business OS 0.8.0 and the non-character programmatic graphics renderer are mainline verified; renderer outputs remain candidates only. News × fictional-video packaging now uses a reading-first v1.2 contract: FACT → INTENT → VISUAL → PLATFORM, with news as the primary satire target and staged visuals as secondary expression. The active seven-platform case is contract-valid but not release-ready; media identity, rights, independent human review, platform format/disclosure, editorial-plan and timeline evidence remain open.",
+  "next_action": "Continue IPOS R39 G1 independently. For the Video-owned news × fictional-video case, run exact-head CI and adversarial editorial review for the v1.2 reading-first contract, then inspect the actual media and resolve rights, platform format, disclosure, independent cold-read and plan/timeline evidence before any promotion or publication. Keep identity-dependent shots blocked until an owner-approved READY_FOR_VIDEO IPOS bundle with G2/G7/G8 PASS and rights/provenance arrives.",
   "workflow_integration": {
     "mode": "AGENT_OPERABLE_MEDIA_BUSINESS_OS_WITH_VERSIONED_LEGACY_EPISODE_ADAPTER",
     "core_runtime": "0.8.0",
@@ -110,7 +110,9 @@
     "CURRENT_PROGRESS.md",
     "ACCOUNT_POSITIONING.md",
     "PRODUCTION_AND_COST_STRATEGY.md",
-    "DECISION_LOG.md"
+    "DECISION_LOG.md",
+    "EDITORIAL_PACKAGING.md",
+    "cases/jensen-alice-20261114.json"
   ],
   "supersession": {
     "CHARACTER_DESIGN_BIBLE_V1.md": "HISTORICAL_INPUT_PENDING_V2_REWRITE",
@@ -148,7 +150,7 @@
     "current_identity_authority": "IP_STUDIO_OS_EXTERNAL_CANON"
   },
   "created_at": "2026-10-14T00:14:38Z",
-  "updated_at": "2026-11-14T16:20:00+08:00",
+  "updated_at": "2026-11-15",
   "external_authorities": {
     "personal_ip_identity": {
       "system": "IP_STUDIO_OS",
@@ -174,5 +176,7 @@
     "runtime_dependency": false,
     "source_repository": "D1traverser-debug/cognition-agent-os",
     "source_mutation": "FORBIDDEN"
-  }
+  },
+  "current_editorial_case_ref": "cases/jensen-alice-20261114.json",
+  "current_editorial_case_schema_version": "1.2"
 }
