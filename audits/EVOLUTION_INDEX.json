@@ -4,10 +4,10 @@
   "revision": "2.0",
   "updated_at": "2026-11-14T20:04:00+08:00",
   "current_open_items": [
-    "PR #33: local programmatic graphics renderer — exact-head CI and fresh Codex review pending; candidate is not merged or production-authorized."
+    "PR #33: local programmatic graphics renderer — exact-head CI passed (249 tests); fresh full Codex review pending; candidate remains unmerged and not production-authorized."
   ],
   "current_problem_refs": {
-    "PR #33: local programmatic graphics renderer — exact-head CI and fresh Codex review pending; candidate is not merged or production-authorized.": "audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md"
+    "PR #33: local programmatic graphics renderer — exact-head CI passed (249 tests); fresh full Codex review pending; candidate remains unmerged and not production-authorized.": "audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md"
   },
   "current_resume_ref": "projects/ai-self-media-commercialization/RESUME_ENTRY.md",
   "current_candidate": {
@@ -18,18 +18,22 @@
     "selected_architecture": "LOCAL_FFMPEG_RENDERER__PILLOW_PIXEL_METRICS__EXACT_PROMOTED_SOURCE_DIGEST_BINDING__CANDIDATE_ONLY",
     "candidate_pr": 33,
     "candidate_branch": "feat/video-local-programmatic-graphics-renderer-20261114",
-    "candidate_head": "TRACK_LATEST_PR_HEAD",
-    "candidate_ci_status": "PENDING_EXACT_LATEST_HEAD",
-    "codex_review_status": "REVIEW_REQUESTED_AFTER_PIXEL_LAYOUT_FIX",
+    "candidate_head": "c70b8f32e24aa9e79306989f16ebbc46b233745c",
+    "candidate_ci_status": "PASS__249_TESTS__SYSTEM_AUDIT_PASS__INSTALLED_CLI_SMOKE_PASS",
+    "codex_review_status": "FRESH_FULL_REVIEW_REQUESTED_PENDING",
     "resolved_findings": [
       "drawtext literal expansion disabled",
-      "exact promoted source reference digest validation shared by CLI and MediaGraph registration"
+      "exact promoted source reference digest validation shared by CLI and MediaGraph registration",
+      "pixel-measured horizontal text fit and adaptive long metric sizing",
+      "dynamic vertical chart-row allocation and measured label/value/bar bounds"
     ],
-    "pending_findings": [
-      "pixel-measured text layout and vertical chart row allocation require exact-head CI and fresh independent review"
-    ],
+    "pending_findings": [],
     "result": "OPEN",
-    "next_action": "Verify exact-head CI and six-row square chart vertical bounds, obtain fresh Codex review, resolve all findings, merge only after acceptance, then verify mainline CI."
+    "next_action": "Inspect the requested fresh full Codex review; if clean, merge PR #33 and verify mainline CI before production authorization.",
+    "candidate_ci_runs": [
+      43594450643,
+      43594445342
+    ]
   },
   "recent_resolved_or_promoted": [
     {
