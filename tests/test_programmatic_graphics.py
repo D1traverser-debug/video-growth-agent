@@ -7,8 +7,11 @@ import pytest
 from video_growth_agent.media_graph import (
     AssetRef,
     ContextRecord,
+    DecisionRecord,
+    EvidenceRecord,
     MediaGraph,
     MediaGraphStore,
+    AssetVersion,
 )
 from video_growth_agent.programmatic_graphics import (
     ChartDatum,
@@ -18,6 +21,8 @@ from video_growth_agent.programmatic_graphics import (
     register_graph_candidate,
     render_programmatic_graphic,
     shot_contract_from_dict,
+    validate_shot_graph_bindings,
+    _drawtext,
 )
 from video_growth_agent.production_os import ReferenceBinding, ShotContract
 
@@ -61,9 +66,9 @@ def make_spec(kind="TITLE_CARD", **overrides):
     if kind == "BAR_CHART":
         values.update({
             "chart_data": (
-                ChartDatum("Alpha", 42, "42"),
-                ChartDatum("Beta", 78, "78"),
-                ChartDatum("Gamma", 56, "56"),
+                ChartDatum("Alpha", 42, "42%"),
+                ChartDatum("Beta", 78, "78%"),
+                ChartDatum("Gamma", 56, "56%"),
             )
         })
     values.update(overrides)
@@ -322,3 +327,33 @@ def test_graph_registration_rejects_failed_technical_qa(tmp_path):
     receipt["qa_hard_pass"] = False
     with pytest.raises(ProgrammaticGraphicsError, match="technical QA must hard-pass"):
         register_graph_candidate(make_graph(), shot, spec, receipt)
+
+def test_drawtext_treats_percent_and_expansion_sequences_as_literal():
+    filter_text = _drawtext(
+        "metric.txt", font_size=42, x="10", y="20", color="#FFFFFF",
+    )
+    assert "expansion=none" in filter_text
+
+def test_graph_binding_digest_must_match_promoted_exact_version():
+    binding = ReferenceBinding(
+        "ref-asset", "v7", "sha256:" + "a" * 64, "SOURCE_REFERENCE", "rights://source",
+    )
+    shot = make_shot(truth_mode="MIXED_DISCLOSED", references=(binding,))
+    graph = make_graph()
+    ref = AssetRef("ref-asset", "v7")
+    graph.add_asset(AssetVersion(
+        ref, "episode-01", "SOURCE_REFERENCE", "file:///source.mp4",
+        "sha256:" + "b" * 64,
+    ))
+    graph.add_evidence(EvidenceRecord(
+        "source-review", "ASSET", ref.key(), "SOURCE_REVIEW",
+        ("review://source",), "2026-11-14T00:00:00Z",
+    ))
+    graph.add_decision(DecisionRecord(
+        "source-promotion", "PROMOTION", "reviewer", (ref.key(),),
+        ("criteria://source",), ("source-review",), "PROMOTE",
+        "2026-11-14T00:01:00Z",
+    ))
+    graph.promote_asset(ref, decision_id="source-promotion")
+    with pytest.raises(ProgrammaticGraphicsError, match="digest mismatch"):
+        validate_shot_graph_bindings(graph, shot)
