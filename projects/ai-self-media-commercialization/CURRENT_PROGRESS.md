@@ -145,3 +145,19 @@ CAOS source repository/code/PRs and IPOS authority/canon remain untouched.
 A fresh full review found that resolving the entire output path could follow a pre-existing dangling symlink and publish the MP4 at its target. The renderer now resolves only the parent directory, preserves the requested basename, and uses `os.path.lexists()` to reject existing entries including dangling symlinks before rendering. Atomic no-replace publication remains the race guard for entries created after preflight. A regression confirms the symlink remains and its target is not created.
 
 Verified renderer/graph transaction code head: `46bbb7beb5a9da28e39662aba56c4d4c5438321c`. Exact-head CI runs `43597969675` and `43597962380` both passed: 263 tests, repository system audit and installed CLI smoke. Ten inline Codex findings are resolved. Fresh full code and security reviews were requested against this head and remain pending. PR #33 is OPEN/NOT MERGED and not production-authorized.
+
+### PR #33 merged — mainline verified (2026-11-14)
+
+The local programmatic graphics renderer is merged into `main`.
+
+- PR: https://github.com/D1traverser-debug/video-growth-agent/pull/33
+- Merge commit: `af4dec1a9ec2fff659e3e20d7f21cf9bdbe159ea`
+- Mainline CI run: `43598791702` — PASS
+- Verification: 263 tests, repository system hygiene audit, installed CLI smoke all PASS.
+- Ten Codex inline findings were fixed and resolved. The fresh full code review returned no major issues. A security-focused manual review covered the FFmpeg/process, text/filter, path/symlink, temporary-file, staged-font, graph-transaction and dependency surfaces; no exploitable injection or overwrite path was identified. The GitHub integration did not return a separate security-review receipt.
+
+The CLI route `vga render-graphic REQUEST.json --output candidate.mp4 [--graph MediaGraph.json]` is now available on main for explicitly admitted non-character title/quote/stat/chart graphics.
+
+Important boundary: generated MP4s and MediaGraph registrations remain CANDIDATE only. This merge does not authorize promotion, final release, observed product-truth claims or IPOS identity rendering. Continue normal human/editorial, rights, continuity, promotion and release gates. IPOS R39 remains the sole identity authority; no approved identity bundle exists. CAOS source repository/code/PRs remain untouched.
+
+Canonical audit: `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md`.
