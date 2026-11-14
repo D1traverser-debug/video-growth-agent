@@ -2,12 +2,12 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "2.0",
-  "updated_at": "2026-11-14T20:04:00+08:00",
+  "updated_at": "2026-11-14T21:15:00+08:00",
   "current_open_items": [
-    "PR #33: local programmatic graphics renderer — exact-head CI passed (259 tests); fresh full code and security reviews pending; candidate remains unmerged and not production-authorized."
+    "PR #33: local programmatic graphics renderer — renderer/graph code head passed exact-head CI (262 tests); nine inline findings resolved; fresh full code and security reviews pending; candidate remains unmerged and not production-authorized."
   ],
   "current_problem_refs": {
-    "PR #33: local programmatic graphics renderer — exact-head CI passed (259 tests); fresh full code and security reviews pending; candidate remains unmerged and not production-authorized.": "audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md"
+    "PR #33: local programmatic graphics renderer — renderer/graph code head passed exact-head CI (262 tests); nine inline findings resolved; fresh full code and security reviews pending; candidate remains unmerged and not production-authorized.": "audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md"
   },
   "current_resume_ref": "projects/ai-self-media-commercialization/RESUME_ENTRY.md",
   "current_candidate": {
@@ -18,8 +18,8 @@
     "selected_architecture": "LOCAL_FFMPEG_RENDERER__PILLOW_PIXEL_METRICS__EXACT_PROMOTED_SOURCE_DIGEST_BINDING__CANDIDATE_ONLY",
     "candidate_pr": 33,
     "candidate_branch": "feat/video-local-programmatic-graphics-renderer-20261114",
-    "candidate_head": "2b5c58cb5b836be781c49a1465f79e216f099d08",
-    "candidate_ci_status": "PASS__259_TESTS__SYSTEM_AUDIT_PASS__INSTALLED_CLI_SMOKE_PASS",
+    "candidate_head": "a73a1f7ea1f4e6b3d314bfc213fd8e8f0efdb91d",
+    "candidate_ci_status": "PASS__262_TESTS__SYSTEM_AUDIT_PASS__INSTALLED_CLI_SMOKE_PASS",
     "codex_review_status": "FRESH_FULL_CODE_AND_SECURITY_REVIEWS_REQUESTED_PENDING",
     "resolved_findings": [
       "drawtext literal expansion disabled",
@@ -27,16 +27,19 @@
       "pixel-measured horizontal text fit and adaptive long metric sizing",
       "dynamic vertical chart-row allocation and measured label/value/bar bounds",
       "exact SHOT-to-SEQUENCE ancestry binding, allowing one SCENE intermediary",
-      "invocation-private rendering and atomic no-replace publication; failure cleanup cannot delete concurrent destination",
-      "cross-process MediaGraph transaction with latest-state revalidation and optimistic stale-snapshot rejection"
+      "invocation-private rendering and atomic no-replace MP4 publication",
+      "cross-process MediaGraph transaction with latest-state revalidation and optimistic stale-snapshot rejection",
+      "receipt JSON private-temp atomic no-replace publication; symlink and competing path preserved",
+      "font layout, FFmpeg rendering and receipt SHA-256 use the same staged font bytes"
     ],
     "pending_findings": [],
     "result": "OPEN",
-    "next_action": "Inspect fresh code and security reviews; if clean, merge PR #33 and verify mainline CI before production authorization.",
+    "next_action": "Inspect fresh full code and security reviews; verify latest documentation-only branch-head CI; if clean, merge PR #33 and verify mainline CI before production authorization.",
     "candidate_ci_runs": [
-      43596922416,
-      43596916300
-    ]
+      43597564240,
+      43597558421
+    ],
+    "candidate_ci_test_count": 262
   },
   "recent_resolved_or_promoted": [
     {
