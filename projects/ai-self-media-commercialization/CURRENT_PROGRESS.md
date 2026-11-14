@@ -139,3 +139,9 @@ Fresh full Codex code review and security review were requested against this exa
 
 Canonical audit: `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md`.
 CAOS source repository/code/PRs and IPOS authority/canon remain untouched.
+
+### Output-path symlink correction — 2026-11-14
+
+A fresh full review found that resolving the entire output path could follow a pre-existing dangling symlink and publish the MP4 at its target. The renderer now resolves only the parent directory, preserves the requested basename, and uses `os.path.lexists()` to reject existing entries including dangling symlinks before rendering. Atomic no-replace publication remains the race guard for entries created after preflight. A regression confirms the symlink remains and its target is not created.
+
+Verified renderer/graph transaction code head: `46bbb7beb5a9da28e39662aba56c4d4c5438321c`. Exact-head CI runs `43597969675` and `43597962380` both passed: 263 tests, repository system audit and installed CLI smoke. Ten inline Codex findings are resolved. Fresh full code and security reviews were requested against this head and remain pending. PR #33 is OPEN/NOT MERGED and not production-authorized.
