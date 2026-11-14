@@ -282,10 +282,15 @@ def audit_packaging(case: Mapping[str, object]) -> dict[str, Any]:
             if schema == "1.2" and isinstance(public_fields, dict):
                 for label_field in ("tags", "labels", "type_labels", "categories"):
                     values = public_fields.get(label_field, [])
-                    if isinstance(values, list) and any(
+                    label_values = (
+                        [values] if isinstance(values, str)
+                        else values if isinstance(values, list)
+                        else []
+                    )
+                    if any(
                         isinstance(value, str)
                         and value.strip().upper() in FORBIDDEN_PUBLIC_TYPE_LABELS
-                        for value in values
+                        for value in label_values
                     ):
                         errors.append(f"{prefix}:forbidden_public_type_label")
             if not _nonempty(item.get("platform_variant_ref")):
