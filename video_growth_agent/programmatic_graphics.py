@@ -15,8 +15,9 @@ import re
 import shutil
 import subprocess
 import tempfile
-import textwrap
 from typing import Any, Mapping
+
+from PIL import ImageFont
 
 from .media_graph import (
     AssetRef,
@@ -195,22 +196,121 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def _wrapped(text: str, width: int, max_lines: int, field: str) -> str:
-    paragraphs = text.splitlines() or [text]
+def _load_font(font_path: str | Path, font_size: int, field: str) -> ImageFont.FreeTypeFont:
+    try:
+        return ImageFont.truetype(str(font_path), font_size)
+    except OSError as exc:
+        raise ProgrammaticGraphicsError(
+            f"cannot measure {field} with the supplied font: {exc}"
+        ) from exc
+
+
+def _wrap_pixel_text(
+    text: str,
+    *,
+    font: ImageFont.FreeTypeFont,
+    max_width: int,
+    field: str,
+) -> list[str]:
+    """Greedy pixel-accurate wrapping; preserves words where possible and supports CJK."""
     lines: list[str] = []
-    for paragraph in paragraphs:
+    for paragraph in text.splitlines() or [text]:
         if not paragraph:
             lines.append("")
-        else:
-            lines.extend(textwrap.wrap(
-                paragraph, width=width, break_long_words=True,
-                break_on_hyphens=False,
-            ) or [""])
-    if len(lines) > max_lines:
-        raise ProgrammaticGraphicsError(
-            f"{field} wraps to {len(lines)} lines; maximum is {max_lines}"
-        )
-    return "\n".join(lines)
+            continue
+        current = ""
+        for token in re.findall(r"\s+|\S+", paragraph):
+            if token.isspace():
+                if current and not current.endswith(" "):
+                    current += " "
+                continue
+            for char in token:
+                candidate = current + char
+                if font.getlength(candidate) <= max_width:
+                    current = candidate
+                    continue
+                line = current.rstrip()
+                if line:
+                    lines.append(line)
+                current = char
+                if font.getlength(current) > max_width:
+                    raise ProgrammaticGraphicsError(
+                        f"{field} contains a glyph wider than its {max_width}px text budget"
+                    )
+        if current or not lines:
+            lines.append(current.rstrip())
+    return lines
+
+
+def _fit_wrapped_text(
+    text: str,
+    *,
+    font_path: str | Path,
+    base_font_size: int,
+    min_font_size: int,
+    max_width: int,
+    max_lines: int,
+    field: str,
+) -> tuple[str, int, dict[str, Any]]:
+    if not text:
+        return "", base_font_size, {
+            "font_size": base_font_size,
+            "max_width_px": max_width,
+            "line_widths_px": [],
+            "line_count": 0,
+            "fit": True,
+        }
+    last_error: Exception | None = None
+    for size in range(base_font_size, min_font_size - 1, -1):
+        font = _load_font(font_path, size, field)
+        try:
+            lines = _wrap_pixel_text(
+                text, font=font, max_width=max_width, field=field,
+            )
+        except ProgrammaticGraphicsError as exc:
+            last_error = exc
+            continue
+        if len(lines) <= max_lines:
+            widths = [round(float(font.getlength(line)), 2) for line in lines]
+            return "\n".join(lines), size, {
+                "font_size": size,
+                "max_width_px": max_width,
+                "line_widths_px": widths,
+                "line_count": len(lines),
+                "fit": all(width <= max_width for width in widths),
+            }
+    detail = f": {last_error}" if last_error else ""
+    raise ProgrammaticGraphicsError(
+        f"{field} cannot fit within {max_width}px and {max_lines} lines "
+        f"at font sizes {base_font_size}..{min_font_size}{detail}"
+    )
+
+
+def _fit_single_line_text(
+    text: str,
+    *,
+    font_path: str | Path,
+    base_font_size: int,
+    min_font_size: int,
+    max_width: int,
+    field: str,
+) -> tuple[int, dict[str, Any]]:
+    if not text or "\n" in text or "\r" in text:
+        raise ProgrammaticGraphicsError(f"{field} must be nonempty single-line text")
+    for size in range(base_font_size, min_font_size - 1, -1):
+        font = _load_font(font_path, size, field)
+        measured = round(float(font.getlength(text)), 2)
+        if measured <= max_width:
+            return size, {
+                "font_size": size,
+                "max_width_px": max_width,
+                "measured_width_px": measured,
+                "fit": True,
+            }
+    raise ProgrammaticGraphicsError(
+        f"{field} cannot fit within {max_width}px at font sizes "
+        f"{base_font_size}..{min_font_size}"
+    )
 
 
 def _color(value: str) -> str:
@@ -235,74 +335,175 @@ def _drawtext(
     )
 
 
-def _filter_script(spec: GraphicSpec) -> tuple[str, dict[str, str]]:
-    title_width = max(12, int(spec.width / 54))
-    subtitle_width = max(18, int(spec.width / 38))
-    title = _wrapped(spec.title, title_width, 3, "title")
-    subtitle = _wrapped(spec.subtitle, subtitle_width, 4, "subtitle") if spec.subtitle else ""
-    kicker_width = max(18, int(spec.width / 30))
-    kicker = _wrapped(spec.kicker, kicker_width, 1, "kicker") if spec.kicker else ""
-    text_files: dict[str, str] = {
-        "title.txt": title,
-        "subtitle.txt": subtitle,
-        "kicker.txt": kicker,
-        "metric.txt": spec.metric,
-        "metric_label.txt": spec.metric_label,
-    }
+def _filter_script(
+    spec: GraphicSpec,
+    *,
+    font_path: str | Path,
+) -> tuple[str, dict[str, str], dict[str, Any]]:
+    center_width = int(spec.width * 0.84)
+    text_files: dict[str, str] = {}
+    layout: dict[str, Any] = {}
+
+    def wrapped_field(
+        key: str,
+        value: str,
+        base_size: int,
+        *,
+        width: int = center_width,
+        max_lines: int,
+        min_size: int | None = None,
+    ) -> int:
+        content, size, evidence = _fit_wrapped_text(
+            value,
+            font_path=font_path,
+            base_font_size=base_size,
+            min_font_size=min_size or max(14, int(base_size * 0.55)),
+            max_width=width,
+            max_lines=max_lines,
+            field=key,
+        )
+        text_files[f"{key}.txt"] = content
+        layout[key] = evidence
+        return size
+
+    def single_line_field(
+        key: str,
+        value: str,
+        base_size: int,
+        *,
+        width: int,
+        min_size: int | None = None,
+    ) -> int:
+        size, evidence = _fit_single_line_text(
+            value,
+            font_path=font_path,
+            base_font_size=base_size,
+            min_font_size=min_size or max(12, int(base_size * 0.55)),
+            max_width=width,
+            field=key,
+        )
+        text_files[f"{key}.txt"] = value
+        layout[key] = evidence
+        return size
+
+    kicker_size = 0
+    if spec.kicker:
+        kicker_size = wrapped_field(
+            "kicker", spec.kicker, max(18, int(spec.height * 0.018)),
+            max_lines=1,
+        )
+
+    if spec.kind in {"TITLE_CARD", "QUOTE_CARD"}:
+        title_base = max(42, int(spec.height * 0.052))
+        subtitle_base = max(24, int(spec.height * 0.027))
+        title_lines, subtitle_lines = 3, 4
+    else:
+        title_base = max(34, int(spec.height * 0.038))
+        subtitle_base = max(20, int(spec.height * 0.022))
+        title_lines, subtitle_lines = 2, 2
+
+    title_size = wrapped_field(
+        "title", spec.title, title_base, max_lines=title_lines,
+    )
+    subtitle_size = 0
+    if spec.subtitle:
+        subtitle_size = wrapped_field(
+            "subtitle", spec.subtitle, subtitle_base,
+            max_lines=subtitle_lines,
+        )
+
+    metric_size = 0
+    metric_label_size = 0
+    if spec.kind == "STAT_CARD":
+        metric_size = single_line_field(
+            "metric", spec.metric, max(72, int(spec.height * 0.13)),
+            width=center_width,
+            min_size=max(28, int(spec.height * 0.03)),
+        )
+        metric_label_size = wrapped_field(
+            "metric_label", spec.metric_label,
+            max(24, int(spec.height * 0.028)),
+            max_lines=2,
+        )
+
+    chart_layout: list[tuple[str, str, int, int]] = []
+    if spec.kind == "BAR_CHART":
+        left = int(spec.width * 0.08)
+        bar_x = int(spec.width * 0.29)
+        bar_max = int(spec.width * 0.57)
+        label_width = max(24, bar_x - left - int(spec.width * 0.03))
+        value_x = bar_x + bar_max + int(spec.width * 0.015)
+        value_width = max(24, spec.width - value_x - int(spec.width * 0.02))
+        for index, point in enumerate(spec.chart_data):
+            label_key = f"chart_label_{index}"
+            value_key = f"chart_value_{index}"
+            label_size = wrapped_field(
+                label_key, point.label,
+                max(18, int(spec.height * 0.019)),
+                width=label_width, max_lines=2,
+            )
+            display_value = point.display_value or f"{point.value:g}"
+            value_size = single_line_field(
+                value_key, display_value,
+                max(18, int(spec.height * 0.019)),
+                width=value_width,
+            )
+            chart_layout.append((label_key, value_key, label_size, value_size))
+
     filters: list[str] = [
         f"drawbox=x=0:y=0:w=iw:h={max(5, int(spec.height * 0.006))}:color={_color(spec.accent)}@0.96:t=fill"
     ]
-    if kicker:
+    if kicker_size:
         filters.append(_drawtext(
-            "kicker.txt", font_size=max(18, int(spec.height * 0.018)),
+            "kicker.txt", font_size=kicker_size,
             x="(w-text_w)/2", y=str(int(spec.height * 0.19)),
             color=spec.accent, line_spacing=4,
         ))
 
     if spec.kind in {"TITLE_CARD", "QUOTE_CARD"}:
         filters.append(_drawtext(
-            "title.txt", font_size=max(42, int(spec.height * 0.052)),
+            "title.txt", font_size=title_size,
             x="(w-text_w)/2", y=str(int(spec.height * 0.32)),
             color=spec.foreground, line_spacing=max(12, int(spec.height * 0.012)),
         ))
-        if subtitle:
+        if subtitle_size:
             filters.append(_drawtext(
-                "subtitle.txt", font_size=max(24, int(spec.height * 0.027)),
+                "subtitle.txt", font_size=subtitle_size,
                 x="(w-text_w)/2", y=str(int(spec.height * 0.57)),
                 color=spec.muted, line_spacing=max(8, int(spec.height * 0.008)),
             ))
     elif spec.kind == "STAT_CARD":
         filters.append(_drawtext(
-            "title.txt", font_size=max(34, int(spec.height * 0.038)),
+            "title.txt", font_size=title_size,
             x="(w-text_w)/2", y=str(int(spec.height * 0.25)),
             color=spec.foreground,
         ))
         filters.append(_drawtext(
-            "metric.txt", font_size=max(72, int(spec.height * 0.13)),
+            "metric.txt", font_size=metric_size,
             x="(w-text_w)/2", y=str(int(spec.height * 0.43)),
             color=spec.accent, line_spacing=0,
         ))
         filters.append(_drawtext(
-            "metric_label.txt", font_size=max(24, int(spec.height * 0.028)),
+            "metric_label.txt", font_size=metric_label_size,
             x="(w-text_w)/2", y=str(int(spec.height * 0.60)),
             color=spec.muted,
         ))
-        if subtitle:
+        if subtitle_size:
             filters.append(_drawtext(
-                "subtitle.txt", font_size=max(20, int(spec.height * 0.022)),
+                "subtitle.txt", font_size=subtitle_size,
                 x="(w-text_w)/2", y=str(int(spec.height * 0.72)),
                 color=spec.foreground,
             ))
     elif spec.kind == "BAR_CHART":
         filters.append(_drawtext(
-            "title.txt", font_size=max(34, int(spec.height * 0.038)),
+            "title.txt", font_size=title_size,
             x="(w-text_w)/2", y=str(int(spec.height * 0.25)),
             color=spec.foreground,
         ))
-        if subtitle:
+        if subtitle_size:
             filters.append(_drawtext(
-                "subtitle.txt", font_size=max(20, int(spec.height * 0.022)),
-                x="(w-text_w)/2", y=str(int(spec.height * 0.34)),
+                "subtitle.txt", font_size=subtitle_size,
+                x="(w-text_w)/2", y=str(int(spec.height * 0.36)),
                 color=spec.muted,
             ))
         max_value = max(float(point.value) for point in spec.chart_data)
@@ -313,13 +514,12 @@ def _filter_script(spec: GraphicSpec) -> tuple[str, dict[str, str]]:
         bar_h = max(18, int(spec.height * 0.018))
         row_gap = max(64, int(spec.height * 0.075))
         for index, point in enumerate(spec.chart_data):
-            label_name = f"chart-label-{index}.txt"
-            value_name = f"chart-value-{index}.txt"
-            text_files[label_name] = _wrapped(point.label, max(8, int(spec.width / 90)), 1, "chart label")
-            text_files[value_name] = point.display_value or f"{point.value:g}"
+            label_key, value_key, label_size, value_size = chart_layout[index]
+            label_name = f"{label_key}.txt"
+            value_name = f"{value_key}.txt"
             y = start_y + index * row_gap
             filters.append(_drawtext(
-                label_name, font_size=max(18, int(spec.height * 0.019)),
+                label_name, font_size=label_size,
                 x=str(left), y=str(y - int(bar_h * 0.15)), color=spec.foreground,
                 line_spacing=2,
             ))
@@ -332,8 +532,8 @@ def _filter_script(spec: GraphicSpec) -> tuple[str, dict[str, str]]:
                 f"h={bar_h}:color={_color(spec.accent)}:t=fill:enable='gte(t,0.65)'"
             )
             filters.append(_drawtext(
-                value_name, font_size=max(18, int(spec.height * 0.019)),
-                x=str(bar_x + bar_max + int(spec.width * 0.025)),
+                value_name, font_size=value_size,
+                x=str(bar_x + bar_max + int(spec.width * 0.015)),
                 y=str(y - int(bar_h * 0.15)), color=spec.accent,
                 line_spacing=2,
             ))
@@ -344,7 +544,7 @@ def _filter_script(spec: GraphicSpec) -> tuple[str, dict[str, str]]:
         f"h={max(8, int(spec.height * 0.008))}:color={_color(spec.accent)}:t=fill"
     )
     filters.append("format=yuv420p[v]")
-    return "[0:v]" + ",".join(filters), text_files
+    return "[0:v]" + ",".join(filters), text_files, layout
 
 
 def _validate_shot(shot: ShotContract, spec: GraphicSpec) -> None:
@@ -392,7 +592,7 @@ def render_programmatic_graphic(
         raise FileExistsError("renderer is non-destructive; output or receipt already exists")
 
     output.parent.mkdir(parents=True, exist_ok=True)
-    graph, text_files = _filter_script(spec)
+    graph, text_files, text_layout = _filter_script(spec, font_path=font)
     with tempfile.TemporaryDirectory(prefix="vga-graphic-") as work:
         workdir = Path(work)
         shutil.copyfile(font, workdir / "font.ttf")
@@ -448,6 +648,8 @@ def render_programmatic_graphic(
         "truth_mode": shot.truth_mode,
         "graphic_spec": _jsonable(spec),
         "graphic_spec_digest": _digest(spec),
+        "text_layout": text_layout,
+        "text_layout_digest": _digest(text_layout),
         "shot_contract_digest": _digest(shot),
         "font_sha256": _sha256(font),
         "media_path": str(output),
