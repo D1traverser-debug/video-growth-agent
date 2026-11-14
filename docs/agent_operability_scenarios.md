@@ -225,3 +225,29 @@ A material Video architecture change is not complete merely because code/tests e
 6. How do I recover without losing provenance or authority?
 7. Which values are truly comparable and which are tradeoffs?
 8. Did a user example remain a hint rather than silently becoming doctrine?
+
+## Scenario 11 — Local information-graphic shot without paid generation
+
+**Actor goal:** create a readable data/quote/title visual for an information shot when deterministic graphics are better than a cinematic generation call.
+
+Expected path:
+`EditorialPlan/ClaimSpec/BeatSpec -> ShotContract(allowed_modes includes PROGRAMMATIC_GRAPHICS) -> GraphicSpec + local font -> FFmpeg candidate MP4 -> ffprobe/MediaQAChecker receipt -> optional exact MediaGraph CANDIDATE registration`.
+
+Progress evidence:
+- exact plan/beat/source claim IDs and truth/disclosure mode are bound;
+- the local font, GraphicSpec, ShotContract and rendered MP4 each have digests;
+- FFmpeg/ffprobe QA is recorded;
+- optional graph registration points to the existing SHOT context and exact referenced asset versions;
+- asset state remains CANDIDATE and no promotion/release decision is created.
+
+Failure modes:
+- a generated chart is passed off as observed product truth;
+- illustrative values are not replaced by sourced claim values;
+- a silent preview is mistaken for final audio;
+- a file exists without a MediaGraph candidate receipt;
+- the renderer is described as AI video generation.
+
+Recovery:
+- repair the request/claim/source or local font/FFmpeg issue;
+- rerender to a new output path so the previous artifact remains auditable;
+- keep unsupported cinematic, identity-dependent and product-truth shots on their separate admitted routes.
