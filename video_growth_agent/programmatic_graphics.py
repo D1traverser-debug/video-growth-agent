@@ -320,6 +320,7 @@ def _fit_single_line_text(
                 "font_size": size,
                 "max_width_px": max_width,
                 "measured_width_px": measured,
+                "line_height_px": sum(font.getmetrics()),
                 "fit": True,
             }
     raise ProgrammaticGraphicsError(
