@@ -36,8 +36,7 @@ CURRENT_GLOBAL_FILES = (
     "projects/ai-self-media-commercialization/PROGRAM_STATE.json",
     "projects/pilot-002/PROGRAM_STATE.json",
     "audits/EVOLUTION_INDEX.json",
-    "audits/CAOS_GOVERNANCE_TAKEOVER_2026-11-14.md",
-)
+    )
 RETIRED_ACTIVE_PATHS = ("continuity",)
 VERSIONED_PROJECT_STATE_RE = re.compile(r"\b(?:sample|release)\s+v\d+\b", re.IGNORECASE)
 
@@ -476,6 +475,9 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
     for rel in CURRENT_GLOBAL_FILES:
         if not (root / rel).is_file():
             failures.append(f"current_global_file_missing:{rel}")
+
+    if not (root / "audits/CAOS_GOVERNANCE_TAKEOVER_2026-11-14.md").is_file():
+        failures.append("caos_governance_takeover_audit_missing")
 
     skill_path = root / "CAOS_VIDEO_ENTRY.md"
     skill_text = skill_path.read_text(encoding="utf-8") if skill_path.is_file() else ""
