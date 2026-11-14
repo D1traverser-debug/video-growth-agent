@@ -9,6 +9,7 @@ from .media_graph import MediaGraphStore
 from .media_qa import MediaQAChecker
 from .models import AssetRecord
 from .programmatic_graphics import (
+    ProgrammaticGraphicsError,
     graphic_spec_from_dict,
     register_graph_candidate,
     render_programmatic_graphic,
@@ -126,7 +127,7 @@ def main(argv: list[str] | None = None) -> int:
         if graph is not None:
             try:
                 validate_shot_graph_bindings(graph, shot)
-            except ValueError as exc:
+            except ProgrammaticGraphicsError as exc:
                 parser.error(str(exc))
         receipt = render_programmatic_graphic(
             shot, spec, output_path=args.output, font_path=font_path,
