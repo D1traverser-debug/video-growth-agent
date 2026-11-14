@@ -156,7 +156,7 @@ Current primary graph:
 4. `ShotIntent`
 5. `EditorialPlan asset/version`
 6. `ShotContract + ReferenceBinding`
-7. `ModelRoutingDecision / acquisition decision`
+7. `ModelRoutingDecision / acquisition / deterministic graphics route`
 8. `CandidateTakes`
 9. `ContinuityAssessment + quality/truth/rights evidence`
 10. `TakePromotion`
