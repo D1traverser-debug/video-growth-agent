@@ -248,6 +248,7 @@ Operator projections remain derived and non-authoritative.
 | Editorial intent/claims/beats/shots | `editorial_planning.py` | editorial admission/revision tests |
 | Editorial plan -> graph lineage | `plan_graph_bridge.py` | downstream stale propagation test |
 | Shot/reference/take/promotion/release | `production_os.py` | admission tests |
+| Local programmatic graphics candidate render | `programmatic_graphics.py` | FFmpeg MP4/QA, exact ShotContract binding, MediaGraph candidate lineage, no-promotion tests |
 | Cross-shot continuity | `continuity.py` | preserve/expect/allow-change tests |
 | Conditional provider + calibrated vector routing | `model_registry.py` | operation/Pareto/calibration trajectory tests |
 | Non-destructive timeline | `timeline.py` | promoted-asset/derivation tests |
