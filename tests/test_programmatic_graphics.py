@@ -298,7 +298,7 @@ def test_capability_registry_and_domain_manifest_advertise_only_bounded_scope():
     assert manifest["runtime"]["programmatic_graphics"] == "video_growth_agent/programmatic_graphics.py"
 
 def test_current_agent_operability_scenario_documents_graphics_route():
-    root = CASE.parents[3]
+    root = Path(__file__).resolve().parents[1]
     scenarios = (root / "docs/agent_operability_scenarios.md").read_text(encoding="utf-8")
     assert "Scenario 11 — Local information-graphic shot without paid generation" in scenarios
     assert "silent preview is mistaken for final audio" in scenarios
