@@ -4,7 +4,7 @@ Date: 2026-11-14 (Asia/Shanghai)
 Status: CANDIDATE_PR_OPEN__NOT_MERGED
 PR: https://github.com/D1traverser-debug/video-growth-agent/pull/33
 Candidate branch: `feat/video-local-programmatic-graphics-renderer-20261114`
-Latest recorded candidate head at audit creation: `ee6d17a634978522d1df40a773707cf8a487ec87`
+Latest verified candidate head at this audit update: `c70b8f32e24aa9e79306989f16ebbc46b233745c`
 
 ## 1. User/business problem
 
@@ -15,7 +15,7 @@ The Video production OS had deterministic media QA and shot/timeline governance,
 1. Missing local deterministic executor for non-character information graphics.
 2. FFmpeg drawtext default expansion could interpret literal percent/expansion sequences in source-backed values.
 3. MediaGraph candidate registration previously trusted asset/version identity without checking that the actual promoted source digest matched the ShotContract reference binding.
-4. Text wrapping counted characters instead of measuring glyphs; long metrics could clip while technical QA still passed.
+4. Text wrapping counted characters instead of measuring glyphs; long metrics could clip while technical QA still passed.\n5. Chart rows used a fixed minimum vertical gap independent of point count and measured label height; a two-line sixth label could extend below a 640×640 frame while width-only layout evidence still passed.\n6. The first candidate metadata update added an open evolution item without binding it to `current_problem_refs`; repository hygiene audit correctly failed closed. The reference was added and exact-head system audit now passes.
 
 ## 3. Selected architecture
 
@@ -31,7 +31,7 @@ Admission requires an explicit `PROGRAMMATIC_GRAPHICS` ShotContract mode, editor
 
 ## 4. Integrity and safety boundaries
 
-- Text is pixel-wrapped/fitted using the selected local font. Layout evidence records chosen font sizes, measured glyph widths and available pixel budgets. Unfit text fails before media output.
+- Text is pixel-wrapped/fitted using the selected local font. Layout evidence records chosen font sizes, measured glyph widths and available pixel budgets. Unfit text fails before media output.\n- Chart rows are dynamically allocated between measured top/bottom boundaries. Label, value and bar heights/positions are checked against each row; two-line labels shrink to the available row height and impossible layouts fail before rendering.
 - FFmpeg drawtext uses `expansion=none` for literal text fidelity.
 - Source references require exact promoted MediaGraph versions and digest equality with the ShotContract; CLI preflight and graph registration use the same validator.
 - Output is a silent visual preview, registered only as `CANDIDATE`.
@@ -62,7 +62,7 @@ The candidate includes focused tests for:
 - long bar-chart value auto-fit;
 - no-overwrite and receipt-tampering rejection.
 
-Previously verified exact candidate head `dba8b105d62ba1708685edc87832736096473b33`: CI passed, 246 tests, system audit and installed CLI smoke. The current head adds the long chart-value regression and is awaiting exact-head CI and a fresh Codex review. Do not carry forward the 246 count as the current final count until the latest run is read.
+Exact candidate head `c70b8f32e24aa9e79306989f16ebbc46b233745c` passed both CI runs `43594450643` and `43594445342`: 249 tests, repository system hygiene audit, and installed CLI smoke all passed. Four Codex review threads are resolved, including literal text expansion, exact source digests, horizontal metric fit and vertical chart-row fit. A fresh full Codex review was requested against this head; final approval is still pending.
 
 ## 7. Governance
 
@@ -74,4 +74,4 @@ Previously verified exact candidate head `dba8b105d62ba1708685edc87832736096473b
 
 ## 8. Next action
 
-Read exact-head CI for the latest PR commit, resolve any new independent review findings, obtain a clean Codex re-review, then merge only after all review threads are resolved. After merge, run mainline CI and update the candidate status to production-verified only if the merged commit passes.
+Await and inspect the fresh full Codex review against the verified head. If it introduces no findings, update the candidate handoff records, merge PR #33, then run mainline CI. Do not mark production-verified until the merged commit passes mainline CI.
