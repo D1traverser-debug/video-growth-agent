@@ -240,7 +240,8 @@ def _filter_script(spec: GraphicSpec) -> tuple[str, dict[str, str]]:
     subtitle_width = max(18, int(spec.width / 38))
     title = _wrapped(spec.title, title_width, 3, "title")
     subtitle = _wrapped(spec.subtitle, subtitle_width, 4, "subtitle") if spec.subtitle else ""
-    kicker = _wrapped(spec.kicker, subtitle_width, 1, "kicker") if spec.kicker else ""
+    kicker_width = max(18, int(spec.width / 30))
+    kicker = _wrapped(spec.kicker, kicker_width, 1, "kicker") if spec.kicker else ""
     text_files: dict[str, str] = {
         "title.txt": title,
         "subtitle.txt": subtitle,
