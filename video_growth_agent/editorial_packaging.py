@@ -312,7 +312,9 @@ def audit_packaging(case: Mapping[str, object]) -> dict[str, Any]:
         if review_status == "PASS":
             checks = review.get("semantic_checks")
             if (
-                review.get("reviewer_kind") != "HUMAN"
+                not valid_fact_refs
+                or not valid_visual_refs
+                or review.get("reviewer_kind") != "HUMAN"
                 or not _nonempty(review.get("reviewer_ref"))
                 or review.get("reviewer_ref") == case.get("author_ref")
                 or review.get("copy_sha256") != review_digest(case, item)
