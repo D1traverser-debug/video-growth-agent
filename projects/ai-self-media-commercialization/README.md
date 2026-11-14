@@ -3,7 +3,7 @@
 Status: `ACTIVE_MEDIA_BUSINESS_PROGRAM`  
 Project ID: `ai-self-media-commercialization`  
 Owner: `VIDEO_GROWTH_AGENT`  
-Parent business identity: **NONE — UAOS router identity is distinct**
+Governance: **CAOS chat-governed externally; no parent runtime task identity; Video owns all business identities**
 
 ## Current role
 
@@ -61,22 +61,15 @@ Exact real-product facts use verified real/authorized evidence at truth-critical
 
 ## Current Original-IP truth
 
-The foreground creative cursor is **not** concept-search anymore.
+IP Studio OS (IPOS) is the sole creative identity authority. Its current R39 state is authoritative:
 
-Accepted base:
-- original corrected S1+S3 strict-front gray sculpt fixed face shell.
+- No character carrier, identity anchor, avatar or visual canon is approved.
+- G0: PASS; G1 cross-carrier/cross-medium research: OPEN; G2 concept competition: NOT_STARTED; G3–G9: BLOCKED.
+- No owner-approved Video Identity Bundle is available for import.
+- The previous Video-local H1/S1+S3/A2 face-shell route is historical and superseded. Do not resume its prompts, images, geometry or candidate decisions as current canon.
+- The Video-side IPOS bundle contract and deterministic importer are merged to main via PR #24. Mainline CI run 43578752266 on commit 2d9b4ea5ab663155eb5ac8ef17b5568eff0d3882 passed 193 tests, repository system audit and installed CLI smoke. This verifies code/contract only; it does not approve an identity or provide an importable bundle.
 
-Current evidence:
-- E1/E2/E3: inconclusive;
-- A1: rejected for low/heavy brow-eye pressure, hooded/loose upper-lid character, insufficient horizontal eye organization, soft/tired lower-lid support and street-tough contamination;
-- lower-face geometry remains usable.
-
-Current next creative action:
-- execute **A2 positive-morph upper-face edit** from the accepted original corrected S1+S3 fixed face shell;
-- keep face shell/nose/cheek/jaw/chin/neck/camera/light/gray material fixed;
-- compare A2 directly with the accepted base before cheek-jaw correction or 3/4 validation.
-
-System/architecture maintenance must not advance this creative action automatically.
+Current next action: IPOS continues R39 G1 research and later G2 design/approval independently. Video keeps identity-dependent shots blocked until an owner-approved `READY_FOR_VIDEO` bundle with G2/G7/G8 PASS, rights and provenance is available. Non-character growth, commercial, provider and production-system work may continue.
 
 ## Main current files
 

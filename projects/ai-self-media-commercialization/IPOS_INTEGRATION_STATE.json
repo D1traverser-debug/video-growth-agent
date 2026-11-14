@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
   "integration_id": "IPOS_VIDEO_IDENTITY_BRIDGE",
-  "updated_at": "2026-11-13T15:30:00+08:00",
-  "status": "IMPLEMENTED_IN_CANDIDATE_BRANCH__CI_PENDING",
+  "updated_at": "2026-11-14T16:20:00+08:00",
+  "status": "MERGED_TO_MAIN__CI_VERIFIED__NO_APPROVED_BUNDLE_AVAILABLE",
   "authority": {
     "system": "IP_STUDIO_OS",
     "version": "1.2.0",
@@ -62,5 +62,18 @@
     "Identity-dependent shots fail closed without an owner-approved READY_FOR_VIDEO bundle.",
     "Non-character production and unrelated research remain available.",
     "A new canon version invalidates only downstream assets that consumed the prior version."
-  ]
+  ],
+  "verification": {
+    "candidate_pull_request": 24,
+    "merged_at": "2026-11-13T08:04:54Z",
+    "merge_commit": "d44ea379f99a96f4a07ae021c35e7f094df7b29a",
+    "verified_mainline_commit": "2d9b4ea5ab663155eb5ac8ef17b5568eff0d3882",
+    "workflow_run_id": 43578752266,
+    "workflow_run_number": 1520,
+    "result": "PASS",
+    "tests_passed": 193,
+    "repository_system_audit": "PASS",
+    "installed_cli_smoke": "PASS",
+    "scope": "VIDEO_ADAPTER_AND_SCHEMA_CODE_CONTRACT_ONLY__NO_APPROVED_IPOS_BUNDLE_OR_CHARACTER_IDENTITY_APPROVAL"
+  }
 }
