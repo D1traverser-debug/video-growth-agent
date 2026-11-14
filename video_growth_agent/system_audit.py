@@ -34,6 +34,11 @@ CURRENT_GLOBAL_FILES = (
     "projects/PROJECT_INDEX.json",
     "projects/ai-self-media-commercialization/PROJECT_MANIFEST.json",
     "projects/ai-self-media-commercialization/PROGRAM_STATE.json",
+    "projects/ai-self-media-commercialization/IPOS_INTEGRATION_STATE.json",
+    "projects/ai-self-media-commercialization/README.md",
+    "projects/ai-self-media-commercialization/WORKFLOW_INTEGRATION.md",
+    "projects/ai-self-media-commercialization/CURRENT_PROGRESS.md",
+    "projects/ai-self-media-commercialization/RESUME_ENTRY.md",
     "projects/pilot-002/PROGRAM_STATE.json",
     "audits/EVOLUTION_INDEX.json",
     )
@@ -451,6 +456,28 @@ def _media_business_failures(root: Path, runtime_version: str) -> list[str]:
             failures.append("ipos_video_identity_contract_version_drift")
         if ipos_state.get("current_handoff", {}).get("status") != "NO_APPROVED_BUNDLE_AVAILABLE":
             failures.append("ipos_current_bundle_status_drift")
+        if ipos_state.get("status") != "MERGED_TO_MAIN__CI_VERIFIED__NO_APPROVED_BUNDLE_AVAILABLE":
+            failures.append("ipos_video_bridge_mainline_status_drift")
+        verification = ipos_state.get("verification", {})
+        if verification.get("candidate_pull_request") != 24:
+            failures.append("ipos_video_bridge_merge_pr_drift")
+        if verification.get("merge_commit") != "d44ea379f99a96f4a07ae021c35e7f094df7b29a":
+            failures.append("ipos_video_bridge_merge_commit_drift")
+        if verification.get("verified_mainline_commit") != "2d9b4ea5ab663155eb5ac8ef17b5568eff0d3882":
+            failures.append("ipos_video_bridge_verified_commit_drift")
+        if verification.get("workflow_run_id") != 43578752266 or verification.get("result") != "PASS":
+            failures.append("ipos_video_bridge_mainline_ci_drift")
+        if verification.get("tests_passed") != 193:
+            failures.append("ipos_video_bridge_test_count_drift")
+        program_state = _json(root / "projects/ai-self-media-commercialization/PROGRAM_STATE.json")
+        production_state = str(program_state.get("workstreams", {}).get("PRODUCTION_SYSTEM", {}).get("current_state", ""))
+        next_action = str(program_state.get("system_next_action", ""))
+        if "candidate branch pending CI" in production_state.lower():
+            failures.append("ipos_program_candidate_ci_state_stale")
+        if "complete ipos bridge candidate tests and ci" in next_action.lower():
+            failures.append("ipos_program_next_action_stale")
+        if "merged to main via PR #24" not in production_state:
+            failures.append("ipos_program_mainline_merge_evidence_missing")
 
     return failures
 
@@ -630,6 +657,16 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
                 ".uaos/",
                 "universal-agent-os",
                 "universal-continuity-agent",
+                "Current H1/A2 Original-IP work may run in parallel",
+                "execute A2 positive-morph upper-face edit",
+                "IMPLEMENTED_IN_CANDIDATE_BRANCH__CI_PENDING",
+                "candidate branch pending CI",
+                "Current candidate branch: feat/ipos-standalone-video-bridge",
+                "Complete adapter tests and candidate CI",
+                "feat/ipos-standalone-video-bridge",
+                "Media Business OS 0.8.0 remains the last verified production baseline. The IPOS bridge is a separate candidate change",
+                "candidate CI passes;",
+                "Complete adapter tests and candidate CI",
             )
         ):
             failures.append(f"stale_root_config_reference:{rel}")

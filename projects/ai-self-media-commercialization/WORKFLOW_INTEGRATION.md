@@ -7,7 +7,7 @@ Current Program flywheel: `BUSINESS_FLYWHEEL.json`
 
 `ai-self-media-commercialization` is the default integrated Video-domain Media Business Program for growth, commercialization, original digital IP and reusable audiovisual production capability.
 
-It is not a UAOS continuity task and does not inherit a parent task identity. Pilot 001/002 remain separate historical child projects; rejected/process-invalid Pilot evidence never becomes accepted Program input by proximity.
+It is a Video-owned Program governed externally by CAOS; it has no CAOS runtime/API dependency and does not inherit a parent task identity. Pilot 001/002 remain separate historical child projects; rejected/process-invalid Pilot evidence never becomes accepted Program input by proximity.
 
 ## Workstream ownership
 
@@ -72,7 +72,7 @@ Requires final-media/timeline identity, technical QA, rights, claim/product trut
 
 ## Current parallelism
 
-Current H1/A2 Original-IP work may run in parallel with:
+Current IPOS R39 G1 research and non-character Video work may run in parallel with:
 
 - growth baseline / pilot-topic hypothesis work;
 - advertiser mapping / commercial-fit research;
@@ -132,5 +132,5 @@ This Program must not:
 - weaken historical strict runtime gates to make old paths pass;
 - force release-grade review onto every safe candidate experiment;
 - auto-promote local preferences or vendor demos into production rules;
-- create a repository-local parent controller or mirror UAOS task identities;
+- create a repository-local parent controller or mirror CAOS governance task identities;
 - optimize one vanity metric as the global business objective.

@@ -68,9 +68,41 @@ def test_active_video_entrypoints_do_not_route_to_legacy_parent():
         "docs/media_business_os.md",
         "docs/architecture.md",
         "docs/agent_operability_scenarios.md",
+        "projects/ai-self-media-commercialization/README.md",
+        "projects/ai-self-media-commercialization/WORKFLOW_INTEGRATION.md",
+        "projects/ai-self-media-commercialization/CURRENT_PROGRESS.md",
+        "projects/ai-self-media-commercialization/RESUME_ENTRY.md",
     )
-    forbidden = ("universal-agent-os", "universal-continuity-agent", "UAOS_SKILL.md", ".uaos/")
+    forbidden = (
+        "universal-agent-os",
+        "universal-continuity-agent",
+        "UAOS_SKILL.md",
+        ".uaos/",
+        "Media Business OS 0.8.0 remains the last verified production baseline. The IPOS bridge is a separate candidate change",
+        "candidate CI passes;",
+        "Complete adapter tests and candidate CI",
+    )
     for rel in active_paths:
         text = (ROOT / rel).read_text(encoding="utf-8").lower()
         for token in forbidden:
             assert token.lower() not in text, f"{rel} still routes to {token}"
+
+
+def test_ipos_bridge_is_mainline_verified_but_identity_gate_remains_closed():
+    integration = read_json("projects/ai-self-media-commercialization/IPOS_INTEGRATION_STATE.json")
+    program = read_json("projects/ai-self-media-commercialization/PROGRAM_STATE.json")
+    verification = integration["verification"]
+
+    assert integration["status"] == "MERGED_TO_MAIN__CI_VERIFIED__NO_APPROVED_BUNDLE_AVAILABLE"
+    assert verification["candidate_pull_request"] == 24
+    assert verification["merge_commit"] == "d44ea379f99a96f4a07ae021c35e7f094df7b29a"
+    assert verification["verified_mainline_commit"] == "2d9b4ea5ab663155eb5ac8ef17b5568eff0d3882"
+    assert verification["workflow_run_id"] == 43578752266
+    assert verification["result"] == "PASS"
+    assert verification["tests_passed"] == 193
+    assert integration["current_handoff"]["status"] == "NO_APPROVED_BUNDLE_AVAILABLE"
+
+    production_state = program["workstreams"]["PRODUCTION_SYSTEM"]["current_state"]
+    assert "merged to main via PR #24" in production_state
+    assert "candidate branch pending CI" not in production_state.lower()
+    assert "continue IPOS R39 G1 research" in program["system_next_action"]

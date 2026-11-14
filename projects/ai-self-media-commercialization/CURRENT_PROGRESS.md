@@ -22,7 +22,7 @@ The previous Video-local H1/S1+S3/A2 face-shell path is superseded and historica
 
 ## IPOS-to-Video integration
 
-A versioned IPOS Video Identity Bundle contract (schema 1.0) and deterministic import adapter are being added:
+The IPOS Video Identity Bundle contract (schema 1.0) and deterministic import adapter are merged to Video mainline:
 - contract: video_growth_agent/data/ipos_video_identity_bundle.schema.json;
 - adapter: video_growth_agent/ip_identity.py;
 - integration state: IPOS_INTEGRATION_STATE.json;
@@ -30,11 +30,11 @@ A versioned IPOS Video Identity Bundle contract (schema 1.0) and deterministic i
 
 The adapter validates owner approval, READY_FOR_VIDEO status, G2/G7/G8 PASS, usage rights, provenance, promoted visual references, and continuity rules. It imports exact asset versions/digests into MediaGraph, binds those refs to identity-dependent ShotContracts, supplies continuity snapshots/rules, and fails closed if approval/evidence is missing. New canon versions invalidate only downstream assets that consumed the old version.
 
-Current integration assurance: IMPLEMENTED_IN_CANDIDATE_BRANCH__CI_PENDING. This is not yet a production-verified or merged release. Current IPOS bundle state: NO_APPROVED_BUNDLE_AVAILABLE.
+Current integration assurance: MERGED_TO_MAIN__CI_VERIFIED (PR #24; merge commit d44ea379f99a96f4a07ae021c35e7f094df7b29a; mainline CI run 43578752266 on commit 2d9b4ea5ab663155eb5ac8ef17b5568eff0d3882 PASS: 193 tests, repository system audit and installed CLI smoke). This verifies the adapter/schema code contract only. Current IPOS bundle state: NO_APPROVED_BUNDLE_AVAILABLE; no character identity or real bundle import is approved.
 
 ## Production-system baseline
 
-Media Business OS 0.8.0 remains the last verified production baseline. The IPOS bridge is a separate candidate change and must pass its own tests/CI before merge. Existing production capabilities remain:
+Media Business OS 0.8.0 remains the last verified production baseline. The IPOS bridge adapter/schema is merged to main and its code contract passed mainline CI; this does not approve an identity bundle or unblock identity-dependent shots. Existing production capabilities remain:
 - versioned editorial planning and claim/beat/shot traceability;
 - MediaGraph asset identity, immutable versions, evidence, decisions and downstream invalidation;
 - ShotContract, generation admission, take promotion and release gates;
@@ -69,7 +69,7 @@ The bridge is not complete merely because files or a PR exist. Required evidence
 4. canon-version downstream invalidation;
 5. ShotContract and continuity binding;
 6. non-character work remains unblocked;
-7. candidate CI passes;
+7. exact mainline CI passes;
 8. post-merge production CI passes before marking production verified.
 
 ## Historical archive

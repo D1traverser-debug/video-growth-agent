@@ -38,7 +38,7 @@ Current state:
 - Runtime targets: MediaGraph immutable asset import, ShotContract reference binding, continuity rules/snapshots, and fail-closed generation admission.
 - Version changes invalidate only downstream assets/tasks that consumed the superseded IPOS asset version.
 - Current bundle state: NO_APPROVED_BUNDLE_AVAILABLE.
-- Current candidate branch: feat/ipos-standalone-video-bridge; CI/merge status must be read from GitHub rather than assumed.
+- Merged to main via PR #24 (merge commit d44ea379f99a96f4a07ae021c35e7f094df7b29a). Mainline CI run 43578752266 (#1520) on commit 2d9b4ea5ab663155eb5ac8ef17b5568eff0d3882 passed: 193 tests, repository system audit and installed CLI smoke. This verifies code/contract only; no approved IPOS bundle exists.
 
 ## Required entry order
 
@@ -54,7 +54,7 @@ Current state:
 
 ## Current next actions
 
-1. Complete adapter tests and candidate CI; do not report the bridge as production-verified before evidence exists.
+1. Continue IPOS R39 G1 research. When an owner-approved READY_FOR_VIDEO bundle arrives, run deterministic import and shot-binding acceptance; do not report identity approval before bundle evidence exists.
 2. Continue growth baseline/topic work and advertiser mapping in parallel.
 3. Keep identity-dependent shots waiting until IPOS exports an owner-approved READY_FOR_VIDEO bundle with G2/G7/G8 PASS, rights, provenance and exact promoted visual assets.
 4. On bundle arrival, validate, import, bind exact refs, and record the import receipt. Never auto-approve the identity.
