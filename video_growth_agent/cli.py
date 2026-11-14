@@ -5,8 +5,15 @@ import json
 from pathlib import Path
 
 from .editorial_packaging import audit_packaging
+from .media_graph import MediaGraphStore
 from .media_qa import MediaQAChecker
 from .models import AssetRecord
+from .programmatic_graphics import (
+    graphic_spec_from_dict,
+    register_graph_candidate,
+    render_programmatic_graphic,
+    shot_contract_from_dict,
+)
 from .runtime import StudioRuntime
 from .system_audit import run_system_audit
 from .techniques import TechniqueLibrary
@@ -83,6 +90,11 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("audit-packaging")
     p.add_argument("case_file", type=Path)
 
+    p = sub.add_parser("render-graphic")
+    p.add_argument("request_file", type=Path)
+    p.add_argument("--output", type=Path, required=True)
+    p.add_argument("--graph", type=Path, help="optional canonical MediaGraph JSON store")
+
     p = sub.add_parser("system-audit")
     p.add_argument("--repo-root", type=Path)
 
@@ -97,6 +109,33 @@ def main(argv: list[str] | None = None) -> int:
         report = audit_packaging(json.loads(args.case_file.read_text(encoding="utf-8")))
         _json(report)
         return 0 if report["contract_valid"] else 2
+
+    if args.cmd == "render-graphic":
+        request = json.loads(args.request_file.read_text(encoding="utf-8"))
+        if not isinstance(request, dict):
+            parser.error("render request root must be a JSON object")
+        shot = shot_contract_from_dict(request.get("shot_contract", {}))
+        spec = graphic_spec_from_dict(request.get("graphic", {}))
+        font_path = request.get("font_path")
+        if not isinstance(font_path, str) or not font_path.strip():
+            parser.error("request must provide a local font_path")
+        graph = MediaGraphStore(args.graph).load() if args.graph else None
+        receipt = render_programmatic_graphic(
+            shot, spec, output_path=args.output, font_path=font_path,
+        )
+        if graph is not None:
+            asset_ref = register_graph_candidate(graph, shot, spec, receipt)
+            MediaGraphStore(args.graph).save(graph)
+            receipt["media_graph_asset_ref"] = asset_ref
+            receipt["graph_registration"] = "CANDIDATE_REGISTERED"
+        else:
+            receipt["media_graph_asset_ref"] = None
+            receipt["graph_registration"] = "NOT_REGISTERED__STANDALONE_CANDIDATE"
+        receipt_path = Path(receipt["media_path"] + ".receipt.json")
+        receipt_path.write_text(json.dumps(receipt, ensure_ascii=False, indent=2), encoding="utf-8")
+        receipt["receipt_path"] = str(receipt_path)
+        _json(receipt)
+        return 0 if receipt["qa_hard_pass"] else 2
 
     runtime = StudioRuntime()
 
