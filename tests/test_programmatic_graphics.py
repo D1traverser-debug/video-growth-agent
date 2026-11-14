@@ -690,3 +690,86 @@ def test_cli_graph_transaction_preserves_review_update_during_render(tmp_path, m
     assert any(task.state == "COMPLETED" for task in restored.tasks.values())
     assert output.is_file()
     assert "CANDIDATE_REGISTERED" in capsys.readouterr().out
+
+def test_cli_revalidates_promoted_references_after_concurrent_graph_update(tmp_path, monkeypatch, capsys):
+    import video_growth_agent.cli as cli_module
+
+    graph = make_graph()
+    ref = AssetRef("source-asset", "v3")
+    graph.add_asset(AssetVersion(
+        ref, "episode-01", "SOURCE_REFERENCE", "file:///source.mp4",
+        "sha256:" + "a" * 64,
+    ))
+    graph.add_evidence(EvidenceRecord(
+        "source-review", "ASSET_VERSION", ref.key(), "SOURCE_REVIEW",
+        ("review://source",), "2026-11-14T00:00:00Z",
+    ))
+    graph.add_decision(DecisionRecord(
+        "source-promotion", "PROMOTION", "reviewer", (ref.key(),),
+        ("criteria://source",), ("source-review",), "PROMOTE",
+        "2026-11-14T00:01:00Z",
+    ))
+    graph.promote_asset(ref, decision_id="source-promotion")
+    graph_path = tmp_path / "media-graph.json"
+    store = MediaGraphStore(graph_path)
+    store.save(graph)
+
+    request = {
+        "font_path": str(FONT),
+        "shot_contract": {
+            "shot_id": "shot-01", "sequence_id": "sequence-01",
+            "narrative_job": "Explain a sourced information graphic",
+            "duration_seconds": 2.0, "truth_mode": "MIXED_DISCLOSED", "risk": "LOW",
+            "allowed_modes": ["PROGRAMMATIC_GRAPHICS"],
+            "required_capabilities": ["ffmpeg.drawtext"],
+            "quality_targets": {"readability": 4.0}, "disclosure_required": True,
+            "editorial_plan_ref": "editorial-plan:v1", "beat_id": "beat-01",
+            "source_claim_ids": ["claim-01"],
+            "references": [{
+                "asset_id": "source-asset", "version_id": "v3",
+                "digest": "sha256:" + "a" * 64,
+                "role": "SOURCE_REFERENCE", "rights_ref": "rights://source",
+            }],
+        },
+        "graphic": {
+            "spec_id": "source-revoked-during-render", "kind": "TITLE_CARD",
+            "title": "Source status changed", "subtitle": "Must not register",
+            "duration_seconds": 2.0, "width": 640, "height": 640, "fps": 24,
+        },
+    }
+    request_path = tmp_path / "request.json"
+    output = tmp_path / "candidate-after-revocation.mp4"
+    request_path.write_text(json.dumps(request), encoding="utf-8")
+
+    real_render = cli_module.render_programmatic_graphic
+
+    def render_then_reject_source(*args, **kwargs):
+        receipt = real_render(*args, **kwargs)
+        concurrent_graph = store.load()
+        concurrent_graph.add_evidence(EvidenceRecord(
+            "source-revocation", "ASSET_VERSION", ref.key(), "SOURCE_REVOKED",
+            ("review://revocation",), "2026-11-14T00:02:00Z",
+        ))
+        concurrent_graph.add_decision(DecisionRecord(
+            "source-rejection", "REJECTION", "reviewer", (ref.key(),),
+            ("criteria://revocation",), ("source-revocation",), "REJECT",
+            "2026-11-14T00:03:00Z",
+        ))
+        concurrent_graph.reject_asset(ref, decision_id="source-rejection")
+        store.save(concurrent_graph)
+        return receipt
+
+    monkeypatch.setattr(cli_module, "render_programmatic_graphic", render_then_reject_source)
+    result = cli_module.main([
+        "render-graphic", str(request_path), "--output", str(output),
+        "--graph", str(graph_path),
+    ])
+    assert result == 2
+    restored = store.load()
+    assert restored.asset_state(ref) == "REJECTED"
+    assert not any(asset.kind == "PROGRAMMATIC_GRAPHIC_VIDEO" for asset in restored.assets.values())
+    assert output.is_file()
+    receipt = json.loads(Path(str(output) + ".receipt.json").read_text(encoding="utf-8"))
+    assert receipt["graph_registration"] == "NOT_REGISTERED__GRAPH_CHANGED_OR_VALIDATION_FAILED"
+    assert "not promoted" in receipt["graph_registration_error"]
+    assert "NOT_REGISTERED__GRAPH_CHANGED_OR_VALIDATION_FAILED" in capsys.readouterr().out
