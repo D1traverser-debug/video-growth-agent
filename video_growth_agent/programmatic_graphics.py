@@ -754,6 +754,26 @@ def validate_shot_graph_bindings(graph: MediaGraph, shot: ShotContract) -> None:
         raise ProgrammaticGraphicsError(
             f"MediaGraph must already contain SHOT context {shot.shot_id}"
         )
+
+    # A ShotContract's sequence_id is a lineage claim, not descriptive metadata.
+    # The graph permits either SHOT -> SEQUENCE or SHOT -> SCENE -> SEQUENCE.
+    parent = graph.contexts.get(context.parent_context_id or "")
+    if parent is not None and parent.kind == "SCENE":
+        parent = graph.contexts.get(parent.parent_context_id or "")
+    if (
+        parent is None
+        or parent.kind != "SEQUENCE"
+        or parent.context_id != shot.sequence_id
+    ):
+        actual_sequence = (
+            parent.context_id if parent is not None and parent.kind == "SEQUENCE"
+            else "missing-or-invalid"
+        )
+        raise ProgrammaticGraphicsError(
+            f"MediaGraph SHOT context {shot.shot_id} sequence ancestry mismatch: "
+            f"ShotContract expects {shot.sequence_id}, graph ancestry resolves to {actual_sequence}"
+        )
+
     missing: list[str] = []
     mismatches: list[str] = []
     unpromoted: list[str] = []
