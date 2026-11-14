@@ -110,3 +110,14 @@ Verified renderer code head: `16b2c17cd6ca503cca056be626d4402a547f3899`. Exact-h
 The seventh independent finding is fixed. `MediaGraphStore` now uses cross-process `FileLock` plus SHA-256 optimistic revision checks; stale snapshots fail rather than overwrite concurrent state. CLI preflight is read-only before rendering. After render, it reloads the latest graph under a short transaction, revalidates exact SHOT→SEQUENCE ancestry and promoted reference versions/digests, then registers and saves. Concurrent reviewer updates are preserved; concurrent source revocation prevents candidate registration. Added stale-snapshot, transaction, concurrent reviewer update and source-revocation tests.
 
 Verified renderer/graph-transaction code head: `2b5c58cb5b836be781c49a1465f79e216f099d08`. Exact-head CI runs `43596922416` and `43596916300` passed: 259 tests, repository system audit and installed CLI smoke. Seven inline Codex threads are resolved; fresh code and security reviews are pending. PR #33 remains OPEN/NOT MERGED. Audit: `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md`. CAOS/IPOS sources remain untouched.
+
+### Local graphics renderer — latest consolidated verification (2026-11-14)
+
+This is the authoritative latest PR #33 checkpoint and supersedes earlier candidate-head/test-count notes in this file.
+
+Verified renderer/graph transaction code head: `a73a1f7ea1f4e6b3d314bfc213fd8e8f0efdb91d`.
+Exact-head CI runs `43597564240` and `43597558421` passed: 262 tests, repository system hygiene audit and installed CLI smoke.
+
+Nine inline Codex findings are fixed/resolved. The graph store uses cross-process locking plus optimistic revision checks; the CLI re-reads and revalidates the graph after rendering. MP4 and receipt sidecars use private-temp atomic no-replace publication. Receipt symlink races cannot overwrite targets. Font layout, FFmpeg and receipt digest use one staged font snapshot, verified against source deletion/replacement tests.
+
+Fresh full Codex code and security reviews were requested against this code head and are pending. PR #33 is OPEN/NOT MERGED and not production-authorized. Read `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md` before further work. Merge only after clean independent review, then verify mainline CI. CAOS/IPOS sources and authority remain untouched.
