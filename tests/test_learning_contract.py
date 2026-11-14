@@ -52,13 +52,13 @@ def test_learn_stage_actually_schedules_declared_improvement_roles():
 
 
 def test_learning_capability_distinguishes_evidence_pipeline_from_autonomous_promotion():
-    profile = _load(".uaos/CAPABILITIES.json")
+    profile = _load("video_growth_agent/data/capabilities.json")
     caps = {item["capability_id"]: item for item in profile["capabilities"]}
     learning = caps["learning_and_evolution"]
 
     assert profile["domain_evolution_role"] == "DOMAIN_EVIDENCE_EVAL_AND_BUSINESS_OWNER_PROMOTION"
     assert "ONE_OFF_DOES_NOT_AUTO_PROMOTE" in profile["domain_evolution_semantics"]
-    assert "COMMON_OR_CROSS_DOMAIN_CHANGE_UPCALLS_UAOS" in profile["domain_evolution_semantics"]
+    assert "CROSS_DOMAIN_GOVERNANCE_REVIEW_REQUIRED_THROUGH_CAOS_CHAT__NO_RUNTIME_UPCALL" in profile["domain_evolution_semantics"]
 
     assert learning["assurance_ceiling"] == "HARNESS_WIRED"
     assert learning["executor_type"] == "OWNER_LEARNING_AND_MAINTENANCE_PIPELINE"

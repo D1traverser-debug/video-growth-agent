@@ -17,16 +17,19 @@ def test_package_harness_passes_current_runtime_contract():
     assert report["execution_plan_version"] == report["coordination_policy_version"]
 
 
-def test_repository_harness_requires_uaos_and_rejects_retired_control_plane():
+def test_repository_harness_requires_caos_governance_and_rejects_legacy_parent():
     report = repository_audit(ROOT)
     assert report["pass"] is True, report
     assert report["runtime_version"] == "0.8.0"
     assert report["legacy_adapter_bundle_version"] == "0.7.0"
     assert not (ROOT / "config").exists()
     assert not (ROOT / "continuity").exists()
-    assert (ROOT / ".uaos/MANIFEST.json").is_file()
-    assert (ROOT / ".uaos/ADAPTER.json").is_file()
-    assert (ROOT / ".uaos/CAPABILITIES.json").is_file()
+    assert not (ROOT / ".uaos").exists()
+    assert not (ROOT / "UAOS_SKILL.md").exists()
+    assert not (ROOT / "tests/test_uaos_current.py").exists()
+    assert (ROOT / "CAOS_VIDEO_ENTRY.md").is_file()
+    assert (ROOT / "video_growth_agent/data/domain_manifest.json").is_file()
+    assert (ROOT / "video_growth_agent/data/capabilities.json").is_file()
     assert (ROOT / "projects/pilot-002/PROGRAM_STATE.json").is_file()
     for rel in (
         "video_growth_agent/media_graph.py",
@@ -42,6 +45,7 @@ def test_repository_harness_requires_uaos_and_rejects_retired_control_plane():
         "video_growth_agent/business_metrics.py",
         "video_growth_agent/operator_view.py",
         "video_growth_agent/owner_behavior_admission.py",
+        "video_growth_agent/ip_identity.py",
     ):
         assert (ROOT / rel).is_file(), rel
 

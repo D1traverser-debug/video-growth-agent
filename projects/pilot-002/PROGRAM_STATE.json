@@ -1,32 +1,35 @@
 {
-  "schema_version":"1.2",
-  "project_id":"pilot-002",
-  "display_name_zh":"Pilot 002｜AI视频涨粉与商业化旧主项目",
-  "owner":"VIDEO_GROWTH_AGENT",
-  "business_identity_authority":"projects/pilot-002/PROGRAM_STATE.json::project_id",
-  "legacy_aliases":["video-growth:main","旧视频主项目"],
-  "legacy_alias_semantics":"Compatibility lookup inside DOMAIN:video only; not a UAOS task identity and no parent/child ID equality is required.",
-  "domain_binding_ref":".uaos/MANIFEST.json",
-  "runtime_version":"0.7.0",
-  "status":"HOLD",
-  "resume_mode":"EXPLICIT_CHILD_PROJECT_REF",
-  "current_stage":"VISUAL_PREVIEW_PROCESS_REENTRY",
-  "next_action":"When explicitly resumed, reread this exact Pilot 002 state and current project evidence under Media Business OS 0.7. Preserve every rejection/process-invalid receipt. Shot A/D may create bounded candidate takes only if the current-session provider, rights, reference and budget admission passes; no such candidate becomes accepted/final until the required quality/continuity and risk-proportional independent review evidence passes. Deterministic Shot B BEFORE -> CROSSING -> AFTER timing/compositing may continue independently. Keep the 59.5-second rebuild frozen until promoted sample quality passes.",
-  "stage_state":{
-    "previous_release_candidate":"REJECTED_BY_USER_FOR_INSUFFICIENT_QUALITY",
-    "previous_release_gate_valid":false,
-    "publication_status":"NOT_PUBLISHED",
-    "performance_stage_entered":false,
-    "full_build_frozen_until_sample_pass":true,
-    "sample_v2_status":"PROCESS_INVALID_AND_VISUAL_FAIL",
-    "production_trusted_reviewer_executors":"EMPTY_ATTESTED_ISOLATED_TIER_UNAVAILABLE",
-    "shot_a_status":"CANDIDATE_GENERATION_ALLOWED_ONLY_AFTER_CURRENT_0_7_ADMISSION__PROMOTION_BLOCKED_UNTIL_REQUIRED_REVIEW",
-    "shot_d_status":"CANDIDATE_GENERATION_ALLOWED_ONLY_AFTER_CURRENT_0_7_ADMISSION__PROMOTION_BLOCKED_UNTIL_REQUIRED_REVIEW",
-    "shot_b_status":"DETERMINISTIC_THREE_STATE_DESIGN_ALLOWED",
-    "external_generation_gateway":"CURRENT_SESSION_EVIDENCE_REQUIRED_PER_SHOT",
-    "isolated_review_tier":"UNAVAILABLE_FAIL_CLOSED_WHEN_PROMOTION_POLICY_REQUIRES_IT"
+  "schema_version": "1.2",
+  "project_id": "pilot-002",
+  "display_name_zh": "Pilot 002｜AI视频涨粉与商业化旧主项目",
+  "owner": "VIDEO_GROWTH_AGENT",
+  "business_identity_authority": "projects/pilot-002/PROGRAM_STATE.json::project_id",
+  "legacy_aliases": [
+    "video-growth:main",
+    "旧视频主项目"
+  ],
+  "legacy_alias_semantics": "Historical Video project alias only; not a CAOS governance task identity. Video owns the project identity and business state.",
+  "domain_binding_ref": "video_growth_agent/data/domain_manifest.json",
+  "runtime_version": "0.7.0",
+  "status": "HOLD",
+  "resume_mode": "EXPLICIT_CHILD_PROJECT_REF",
+  "current_stage": "VISUAL_PREVIEW_PROCESS_REENTRY",
+  "next_action": "When explicitly resumed, reread this exact Pilot 002 state and current project evidence under Media Business OS 0.7. Preserve every rejection/process-invalid receipt. Shot A/D may create bounded candidate takes only if the current-session provider, rights, reference and budget admission passes; no such candidate becomes accepted/final until the required quality/continuity and risk-proportional independent review evidence passes. Deterministic Shot B BEFORE -> CROSSING -> AFTER timing/compositing may continue independently. Keep the 59.5-second rebuild frozen until promoted sample quality passes.",
+  "stage_state": {
+    "previous_release_candidate": "REJECTED_BY_USER_FOR_INSUFFICIENT_QUALITY",
+    "previous_release_gate_valid": false,
+    "publication_status": "NOT_PUBLISHED",
+    "performance_stage_entered": false,
+    "full_build_frozen_until_sample_pass": true,
+    "sample_v2_status": "PROCESS_INVALID_AND_VISUAL_FAIL",
+    "production_trusted_reviewer_executors": "EMPTY_ATTESTED_ISOLATED_TIER_UNAVAILABLE",
+    "shot_a_status": "CANDIDATE_GENERATION_ALLOWED_ONLY_AFTER_CURRENT_0_7_ADMISSION__PROMOTION_BLOCKED_UNTIL_REQUIRED_REVIEW",
+    "shot_d_status": "CANDIDATE_GENERATION_ALLOWED_ONLY_AFTER_CURRENT_0_7_ADMISSION__PROMOTION_BLOCKED_UNTIL_REQUIRED_REVIEW",
+    "shot_b_status": "DETERMINISTIC_THREE_STATE_DESIGN_ALLOWED",
+    "external_generation_gateway": "CURRENT_SESSION_EVIDENCE_REQUIRED_PER_SHOT",
+    "isolated_review_tier": "UNAVAILABLE_FAIL_CLOSED_WHEN_PROMOTION_POLICY_REQUIRES_IT"
   },
-  "blockers":[
+  "blockers": [
     "Production trusted reviewer executors remain empty, so ATTESTED_ISOLATED promotion/release evidence cannot be claimed until a current executor is proven.",
     "No external generation provider is assumed executable merely from repository declarations; every candidate generation needs current-session capability/rights/budget evidence.",
     "Shot A/D accepted promotion remains blocked until their required high-risk quality/continuity and independent review evidence exists, even if exploratory candidate takes can be generated.",
@@ -34,24 +37,36 @@
     "Learning-source admission is default-deny by policy; durable external learning still requires declared source evidence.",
     "Sample V2 and H3 Transition V1 are rejected/process-invalid evidence and may not be replayed as accepted progress."
   ],
-  "authoritative_artifacts":{
-    "rejected_candidate_v4":{"library_path":"/Video Growth Agent/Pilot 002/Release V4/Pilot002_FINAL_RELEASE_V4.mp4","sha256":"eec364e8530067dbc87a08a9ccbf2dd6e6e8a5ab32fb87f648c794a4000628eb","status":"HISTORICAL_REJECTED_CANDIDATE"},
-    "sample_v2":{"library_path":"/Video Growth Agent/Pilot 002/Sample V2/Pilot002_Sample_V2.mp4","status":"PROCESS_INVALID_AND_VISUAL_FAIL_PREVIS_ONLY","github_record":"projects/pilot-002/SAMPLE_V2.md"},
-    "h3_transition_v1_audit":"projects/pilot-002/H3_TRANSITION_V1_AUDIT.md",
-    "sample_v3_shot_repair_matrix":"projects/pilot-002/SAMPLE_V3_SHOT_REPAIR_MATRIX.md",
-    "sample_v3_shot_a_generation_brief":"projects/pilot-002/SAMPLE_V3_GENERATION_BRIEF.json",
-    "sample_v3_shot_d_generation_brief":"projects/pilot-002/SAMPLE_V3_SHOT_D_GENERATION_BRIEF.json",
-    "media_business_os":"docs/media_business_os.md",
-    "provider_benchmark_protocol":"docs/provider_benchmark_protocol.md",
-    "generation_governance":"skills/video-growth-agent/references/generation-governance.md",
-    "reviewer_execution_attestation_contract":"skills/video-growth-agent/references/reviewer-execution-attestation.md",
-    "latest_system_self_audit":"audits/SYSTEM_SELF_AUDIT_2026-10-11.md"
+  "authoritative_artifacts": {
+    "rejected_candidate_v4": {
+      "library_path": "/Video Growth Agent/Pilot 002/Release V4/Pilot002_FINAL_RELEASE_V4.mp4",
+      "sha256": "eec364e8530067dbc87a08a9ccbf2dd6e6e8a5ab32fb87f648c794a4000628eb",
+      "status": "HISTORICAL_REJECTED_CANDIDATE"
+    },
+    "sample_v2": {
+      "library_path": "/Video Growth Agent/Pilot 002/Sample V2/Pilot002_Sample_V2.mp4",
+      "status": "PROCESS_INVALID_AND_VISUAL_FAIL_PREVIS_ONLY",
+      "github_record": "projects/pilot-002/SAMPLE_V2.md"
+    },
+    "h3_transition_v1_audit": "projects/pilot-002/H3_TRANSITION_V1_AUDIT.md",
+    "sample_v3_shot_repair_matrix": "projects/pilot-002/SAMPLE_V3_SHOT_REPAIR_MATRIX.md",
+    "sample_v3_shot_a_generation_brief": "projects/pilot-002/SAMPLE_V3_GENERATION_BRIEF.json",
+    "sample_v3_shot_d_generation_brief": "projects/pilot-002/SAMPLE_V3_SHOT_D_GENERATION_BRIEF.json",
+    "media_business_os": "docs/media_business_os.md",
+    "provider_benchmark_protocol": "docs/provider_benchmark_protocol.md",
+    "generation_governance": "skills/video-growth-agent/references/generation-governance.md",
+    "reviewer_execution_attestation_contract": "skills/video-growth-agent/references/reviewer-execution-attestation.md",
+    "latest_system_self_audit": "audits/SYSTEM_SELF_AUDIT_2026-10-11.md"
   },
-  "negative_space":{
-    "uaos_controller_task_ref":"RETIRED_AS_BUSINESS_IDENTITY_AUTHORITY",
-    "old_task_manifest":"RETIRED_TO_GIT_HISTORY",
-    "old_checkpoint":"RETIRED_TO_GIT_HISTORY",
-    "old_lease_resume_protocol":"NOT_SUPPORTED"
+  "negative_space": {
+    "old_task_manifest": "RETIRED_TO_GIT_HISTORY",
+    "old_checkpoint": "RETIRED_TO_GIT_HISTORY",
+    "old_lease_resume_protocol": "NOT_SUPPORTED",
+    "parent_controller_task_identity": false,
+    "caos_runtime_task_identity": false
   },
-  "updated_at":"2026-10-15T11:40:05+08:00"
+  "updated_at": "2026-11-14T16:20:00+08:00",
+  "governance_ref": "../../CAOS_VIDEO_ENTRY.md",
+  "governance_mode": "CHAT_GOVERNED_EXTERNAL",
+  "caos_runtime_dependency": false
 }

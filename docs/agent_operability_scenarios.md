@@ -2,7 +2,7 @@
 
 Status: `CANDIDATE_0_8`
 Owner: `DOMAIN:video`
-Parent method: `UAOS config/ARCHITECTURE_EXPERIENCE_POLICY.json`
+Parent governance method: CAOS decision and architecture-experience governance in the active ChatGPT session; no runtime/API dependency.
 
 ## Purpose
 

@@ -16,8 +16,8 @@ class ProblemLayer(str, Enum):
     ASSET_OR_TOOL = "ASSET_OR_TOOL"
     WORK_ORDER_OR_EDITORIAL_WORKFLOW = "WORK_ORDER_OR_EDITORIAL_WORKFLOW"
     MEDIA_BUSINESS_ARCHITECTURE = "MEDIA_BUSINESS_ARCHITECTURE"
-    COMMON_CAPABILITY = "COMMON_CAPABILITY"
-    PARENT_CONTROL_PLANE = "PARENT_CONTROL_PLANE"
+    CROSS_CUTTING_CAPABILITY = "CROSS_CUTTING_CAPABILITY"
+    CAOS_GOVERNANCE = "CAOS_GOVERNANCE"
     HOST = "HOST"
     REQUIREMENT_OR_GOAL = "REQUIREMENT_OR_GOAL"
 
@@ -33,7 +33,7 @@ class EvolutionDisposition(str, Enum):
     NO_DURABLE_EVOLUTION_WITH_EVIDENCE = "NO_DURABLE_EVOLUTION_WITH_EVIDENCE"
     DOMAIN_EVOLUTION_CANDIDATE = "DOMAIN_EVOLUTION_CANDIDATE"
     DOMAIN_EVOLUTION_UPDATED = "DOMAIN_EVOLUTION_UPDATED"
-    PARENT_OR_COMMON_UPCALL = "PARENT_OR_COMMON_UPCALL"
+    CAOS_GOVERNANCE_REVIEW_REQUIRED = "CAOS_GOVERNANCE_REVIEW_REQUIRED"
 
 
 @dataclass(frozen=True)
@@ -66,8 +66,8 @@ class RootScopeReceipt:
 
 _UPSTREAM_LAYERS = {
     ProblemLayer.MEDIA_BUSINESS_ARCHITECTURE,
-    ProblemLayer.COMMON_CAPABILITY,
-    ProblemLayer.PARENT_CONTROL_PLANE,
+    ProblemLayer.CROSS_CUTTING_CAPABILITY,
+    ProblemLayer.CAOS_GOVERNANCE,
     ProblemLayer.HOST,
     ProblemLayer.REQUIREMENT_OR_GOAL,
 }
@@ -244,7 +244,7 @@ def finalize_problem_closure(
         or evolution_disposition in {
             EvolutionDisposition.DOMAIN_EVOLUTION_CANDIDATE,
             EvolutionDisposition.DOMAIN_EVOLUTION_UPDATED,
-            EvolutionDisposition.PARENT_OR_COMMON_UPCALL,
+            EvolutionDisposition.CAOS_GOVERNANCE_REVIEW_REQUIRED,
         }
     )
     if durable_required and not (isinstance(durable_problem_ref, str) and durable_problem_ref.strip()):

@@ -22,10 +22,9 @@ REQUIRED_ASSURANCE_TERMS = (
     "ATTESTED_ISOLATED",
 )
 CURRENT_GLOBAL_FILES = (
-    "UAOS_SKILL.md",
-    ".uaos/MANIFEST.json",
-    ".uaos/ADAPTER.json",
-    ".uaos/CAPABILITIES.json",
+    "CAOS_VIDEO_ENTRY.md",
+    "video_growth_agent/data/domain_manifest.json",
+    "video_growth_agent/data/capabilities.json",
     "README.md",
     "docs/product_requirements.md",
     "docs/media_business_os.md",
@@ -33,7 +32,11 @@ CURRENT_GLOBAL_FILES = (
     "docs/provider_benchmark_protocol.md",
     "docs/agent_operability_scenarios.md",
     "projects/PROJECT_INDEX.json",
+    "projects/ai-self-media-commercialization/PROJECT_MANIFEST.json",
+    "projects/ai-self-media-commercialization/PROGRAM_STATE.json",
+    "projects/pilot-002/PROGRAM_STATE.json",
     "audits/EVOLUTION_INDEX.json",
+    "audits/CAOS_GOVERNANCE_TAKEOVER_2026-11-14.md",
 )
 RETIRED_ACTIVE_PATHS = ("continuity",)
 VERSIONED_PROJECT_STATE_RE = re.compile(r"\b(?:sample|release)\s+v\d+\b", re.IGNORECASE)
@@ -391,8 +394,11 @@ def _media_business_failures(root: Path, runtime_version: str) -> list[str]:
         evolution = _json(evolution_path)
         if evolution.get("owner") != "DOMAIN:video":
             failures.append("video_evolution_owner_drift")
-        if not _semver_at_least(evolution.get("common_behavior_assurance_min"), "1.3.0"):
-            failures.append("video_evolution_common_behavior_min_below_1_3")
+        governance = evolution.get("governance_binding", {})
+        if governance.get("system") != "CAOS" or governance.get("mode") != "CHAT_GOVERNED_EXTERNAL":
+            failures.append("video_evolution_caos_governance_binding_drift")
+        if governance.get("runtime_dependency") is not False or governance.get("source_mutation") != "FORBIDDEN":
+            failures.append("video_evolution_caos_boundary_drift")
         if not evolution.get("current_open_items") and not evolution.get("recent_resolved_or_promoted"):
             failures.append("video_evolution_index_empty")
         for item_id in evolution.get("current_open_items", []):
@@ -460,74 +466,60 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
     for retired in RETIRED_ACTIVE_PATHS:
         if (root / retired).exists():
             failures.append(f"retired_control_plane_returned:{retired}")
+    if (root / ".uaos").exists():
+        failures.append("legacy_parent_directory_present")
+    if (root / "UAOS_SKILL.md").exists():
+        failures.append("legacy_parent_skill_present")
+    if (root / "tests/test_uaos_current.py").exists():
+        failures.append("legacy_parent_test_present")
 
     for rel in CURRENT_GLOBAL_FILES:
         if not (root / rel).is_file():
             failures.append(f"current_global_file_missing:{rel}")
 
-    skill_path = root / "UAOS_SKILL.md"
+    skill_path = root / "CAOS_VIDEO_ENTRY.md"
     skill_text = skill_path.read_text(encoding="utf-8") if skill_path.is_file() else ""
     skill_lower = skill_text.lower()
-    if "current-session capability handshake" not in skill_lower:
-        failures.append("uaos_skill_session_capability_handshake_missing")
-    if "D1traverser-debug/universal-agent-os@main" not in skill_text:
-        failures.append("uaos_skill_controller_binding_missing")
-    if "normal business turns do not traverse a live uaos business proxy" not in skill_lower:
-        failures.append("uaos_skill_direct_domain_activation_missing")
-    if "projects/project_index.json" not in skill_lower:
-        failures.append("uaos_skill_child_project_index_missing")
-    if "no parent/child id equality requirement" not in skill_lower:
-        failures.append("uaos_skill_identity_boundary_missing")
-    if "unbounded" not in skill_lower or "peer chat" not in skill_lower:
-        failures.append("uaos_skill_bounded_negotiation_missing")
-    if "candidate generation, project-asset promotion and release are separate boundaries" not in skill_lower:
-        failures.append("uaos_skill_candidate_promotion_release_boundary_missing")
-    if "audits/evolution_index.json" not in skill_lower:
-        failures.append("uaos_skill_evolution_entrypoint_missing")
-    if "common behavior 1.3" not in skill_lower or "root-scope receipt" not in skill_lower:
-        failures.append("uaos_skill_common_behavior_1_3_root_scope_missing")
+    for token, label in (
+        ("D1traverser-debug/cognition-agent-os", "caos_source_binding_missing"),
+        ("chat_governed_external", "caos_external_governance_mode_missing"),
+        ("decision loop", "caos_decision_loop_missing"),
+        ("execution loop", "caos_execution_loop_missing"),
+        ("independent acceptance", "caos_independent_acceptance_missing"),
+        ("projects/project_index.json", "caos_video_project_authority_missing"),
+        ("ip studio os", "caos_ipos_boundary_missing"),
+        ("CAOS source is read-only", "caos_source_read_only_boundary_missing"),
+    ):
+        if token.lower() not in skill_lower:
+            failures.append(label)
+    if "runtime/api dependency" not in skill_lower:
+        failures.append("caos_no_runtime_dependency_boundary_missing")
 
-    capability_path = root / ".uaos/CAPABILITIES.json"
-    if capability_path.is_file():
+    capability_path = root / "video_growth_agent/data/capabilities.json"
+    if not capability_path.is_file():
+        failures.append("video_domain_capability_profile_missing")
+        capability = {}
+    else:
         capability_text = capability_path.read_text(encoding="utf-8")
         capability = _json(capability_path)
         for term in REQUIRED_ASSURANCE_TERMS:
             if term not in capability_text:
                 failures.append(f"capability_assurance_term_missing:{term}")
         if capability.get("owner") != "VIDEO_GROWTH_AGENT":
-            failures.append("uaos_capability_owner_drift")
+            failures.append("video_domain_capability_owner_drift")
         if capability.get("execution_readiness_contract") != "2.0":
-            failures.append("uaos_execution_readiness_contract_drift")
-        if int(capability.get("profile_version", 0)) < 10:
-            failures.append("uaos_capability_profile_below_10")
-        if not _semver_at_least(capability.get("uaos_common_capabilities_contract_min"), "1.6.0"):
-            failures.append("uaos_common_capability_minimum_below_1_6")
-        if not _semver_at_least(capability.get("uaos_common_behavior_assurance_min"), "1.3.0"):
-            failures.append("uaos_common_behavior_minimum_below_1_3")
+            failures.append("video_domain_execution_readiness_contract_drift")
+        if int(capability.get("profile_version", 0)) < 12:
+            failures.append("video_domain_capability_profile_below_12")
         if capability.get("canonical_evolution_entrypoint") != "audits/EVOLUTION_INDEX.json":
-            failures.append("uaos_capability_evolution_entrypoint_drift")
-        required_common = set(capability.get("required_uaos_common_capabilities", []))
-        for required in (
-            "product_requirements_and_architecture_governance",
-            "domain_internal_work_orchestration",
-            "adaptive_deliberation_and_parent_guidance",
-            "governed_self_evolution",
-        ):
-            if required not in required_common:
-                failures.append(f"uaos_required_common_capability_missing:{required}")
-        deliberation_ref = str(capability.get("uaos_deliberation_policy_ref") or "")
-        if not deliberation_ref.endswith("config/DELIBERATION_POLICY.json"):
-            failures.append("uaos_deliberation_policy_ref_drift")
-        cognition = capability.get("hosted_cognition_semantics", {})
-        if cognition != {
-            "source": "CURRENT_UAOS_DELIBERATION_POLICY",
-            "local_overrides": "NONE",
-        }:
-            failures.append("uaos_hosted_cognition_pointer_drift")
-        if isinstance(cognition, dict) and (
-            "problem_response_floor" in cognition or "problem_response_rule" in cognition
-        ):
-            failures.append("uaos_copied_parent_cognition_semantics_present")
+            failures.append("video_domain_capability_evolution_entrypoint_drift")
+        governance = capability.get("governance_binding", {})
+        if governance.get("system") != "CAOS" or governance.get("mode") != "CHAT_GOVERNED_EXTERNAL":
+            failures.append("video_domain_capability_caos_binding_drift")
+        if governance.get("runtime_dependency") is not False or governance.get("source_mutation") != "FORBIDDEN":
+            failures.append("video_domain_capability_caos_boundary_drift")
+        if any(key.lower().startswith("uaos_") for key in capability):
+            failures.append("legacy_parent_capability_fields_present")
         capability_ids = {str(item.get("capability_id")) for item in capability.get("capabilities", [])}
         for required_id in (
             "media_business_program_orchestration",
@@ -537,7 +529,7 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             "shared_growth_ip_commercial_objects",
             "evidence_bound_model_routing",
             "business_outcome_measurement",
-            "owner_common_behavior_admission",
+            "video_domain_problem_recovery_and_evolution_admission",
             "studio_work_order_orchestration",
             "critical_blind_multimodal_review",
             "deterministic_media_qa",
@@ -546,21 +538,29 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             if required_id not in capability_ids:
                 failures.append(f"media_business_capability_missing:{required_id}")
 
-    manifest_path = root / ".uaos/MANIFEST.json"
+    manifest_path = root / "video_growth_agent/data/domain_manifest.json"
     legacy_adapter_version = ""
-    if manifest_path.is_file():
+    if not manifest_path.is_file():
+        failures.append("video_domain_manifest_missing")
+        manifest = {}
+    else:
         manifest = _json(manifest_path)
-        if manifest.get("controller") != "D1traverser-debug/universal-agent-os@main":
-            failures.append("uaos_manifest_controller_drift")
-        if manifest.get("status") != "UAOS_CONTROL_PLANE_ACTIVE":
-            failures.append("uaos_manifest_status_drift")
-        if manifest.get("skill", {}).get("entrypoint") != "UAOS_SKILL.md":
-            failures.append("uaos_manifest_skill_entrypoint_drift")
-        if not _semver_at_least(manifest.get("binding", {}).get("common_behavior_assurance_min"), "1.3.0"):
-            failures.append("uaos_manifest_common_behavior_minimum_below_1_3")
+        governance = manifest.get("governance", {})
+        if manifest.get("system") != "VIDEO_GROWTH_AGENT":
+            failures.append("video_domain_manifest_system_drift")
+        if manifest.get("status") != "VIDEO_DOMAIN_RUNTIME_ACTIVE":
+            failures.append("video_domain_manifest_status_drift")
+        if manifest.get("skill", {}).get("entrypoint") != "CAOS_VIDEO_ENTRY.md":
+            failures.append("video_domain_manifest_entrypoint_drift")
+        if governance.get("system") != "CAOS" or governance.get("mode") != "CHAT_GOVERNED_EXTERNAL":
+            failures.append("video_domain_manifest_caos_binding_drift")
+        if governance.get("runtime_dependency") is not False or governance.get("source_mutation") != "FORBIDDEN":
+            failures.append("video_domain_manifest_caos_boundary_drift")
+        if governance.get("source_repository") != "D1traverser-debug/cognition-agent-os":
+            failures.append("video_domain_manifest_caos_source_drift")
         runtime = manifest.get("runtime", {})
         if runtime.get("version") != runtime_version:
-            failures.append("uaos_manifest_runtime_version_drift")
+            failures.append("video_domain_manifest_runtime_version_drift")
         legacy_adapter_version = str(runtime.get("legacy_adapter_bundle_version") or runtime_version)
         expected_runtime_refs = {
             "episode_workflow": "video_growth_agent/data/workflow.json",
@@ -583,37 +583,21 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
         }
         for key, expected in expected_runtime_refs.items():
             if runtime.get(key) != expected:
-                failures.append(f"uaos_manifest_runtime_ref_drift:{key}")
+                failures.append(f"video_domain_manifest_runtime_ref_drift:{key}")
         compatibility = manifest.get("compatibility", {})
         if compatibility.get("legacy_episode_adapter_bundle") != legacy_adapter_version:
-            failures.append("uaos_manifest_legacy_adapter_compatibility_drift")
+            failures.append("video_domain_manifest_legacy_adapter_compatibility_drift")
         domain_authority = manifest.get("domain_authority", {})
         if domain_authority.get("project_index") != "projects/PROJECT_INDEX.json":
-            failures.append("uaos_manifest_project_index_drift")
+            failures.append("video_domain_manifest_project_index_drift")
         if domain_authority.get("architecture") != "docs/media_business_os.md":
-            failures.append("uaos_manifest_media_business_architecture_drift")
+            failures.append("video_domain_manifest_media_business_architecture_drift")
         if domain_authority.get("agent_operability_scenarios") != "docs/agent_operability_scenarios.md":
-            failures.append("uaos_manifest_agent_operability_ref_drift")
+            failures.append("video_domain_manifest_agent_operability_ref_drift")
         if domain_authority.get("canonical_evolution_entrypoint") != "audits/EVOLUTION_INDEX.json":
-            failures.append("uaos_manifest_evolution_entrypoint_drift")
+            failures.append("video_domain_manifest_evolution_entrypoint_drift")
         if domain_authority.get("integrated_business_flywheel") != "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json":
-            failures.append("uaos_manifest_business_flywheel_drift")
-
-    adapter_path = root / ".uaos/ADAPTER.json"
-    if adapter_path.is_file():
-        adapter = _json(adapter_path)
-        if adapter.get("controller_task_identity_authority") != "UAOS":
-            failures.append("uaos_adapter_controller_identity_authority_drift")
-        if adapter.get("domain_business_identity_authority") != "VIDEO_GROWTH_AGENT":
-            failures.append("uaos_adapter_domain_identity_authority_drift")
-        if "NO_EQUALITY_REQUIREMENT" not in str(adapter.get("identity_boundary", "")):
-            failures.append("uaos_adapter_identity_namespace_collapsed")
-        if "OPAQUE_CHILD_STATE_REFERENCE_ONLY" not in str(adapter.get("parent_reference_semantics", "")):
-            failures.append("uaos_adapter_parent_ref_not_opaque")
-        if not str(adapter.get("session_activation", "")).startswith("DIRECT_VIDEO_WORK_PLANE"):
-            failures.append("uaos_adapter_direct_activation_drift")
-        if adapter.get("legacy_controller_compatibility") != "NONE":
-            failures.append("uaos_adapter_legacy_compatibility_enabled")
+            failures.append("video_domain_manifest_business_flywheel_drift")
 
     skill_team = root / "skills/video-growth-agent/references/team.md"
     packaged_team = root / "video_growth_agent/data/team.md"
@@ -640,6 +624,10 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
                 "config/roles.json",
                 "config/quality-rubric.json",
                 "config/techniques.json",
+                "UAOS_SKILL.md",
+                ".uaos/",
+                "universal-agent-os",
+                "universal-continuity-agent",
             )
         ):
             failures.append(f"stale_root_config_reference:{rel}")
@@ -681,8 +669,12 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             failures.append("pilot002_owner_drift")
         if "video-growth:main" not in set(pilot.get("legacy_aliases", [])):
             failures.append("pilot002_legacy_alias_state_missing")
-        if "UAOS task identity" not in str(pilot.get("legacy_alias_semantics", "")):
+        if "not a caos governance task identity" not in str(pilot.get("legacy_alias_semantics", "")).lower():
             failures.append("pilot002_legacy_alias_semantics_missing")
+        if pilot.get("domain_binding_ref") != "video_growth_agent/data/domain_manifest.json":
+            failures.append("pilot002_domain_manifest_ref_drift")
+        if pilot.get("caos_runtime_dependency") is not False:
+            failures.append("pilot002_caos_runtime_dependency_must_be_false")
         serialized = json.dumps(pilot, ensure_ascii=False)
         for retired_marker in (
             "continuity_protocol_version",
@@ -729,6 +721,8 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             failures.append("integrated_program_ipos_authority_not_referenced")
         if integrated.get("business_flywheel_ref") != "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json":
             failures.append("integrated_program_business_flywheel_ref_drift")
+        if integrated.get("governance_mode") != "CHAT_GOVERNED_EXTERNAL" or integrated.get("caos_runtime_dependency") is not False:
+            failures.append("integrated_program_caos_governance_boundary_drift")
 
     if manifest_project_path.is_file():
         project_manifest = _json(manifest_project_path)
@@ -736,6 +730,8 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             failures.append("integrated_project_manifest_flywheel_ref_drift")
         if project_manifest.get("product_architecture_ref") != "../../docs/media_business_os.md":
             failures.append("integrated_project_manifest_architecture_ref_drift")
+        if project_manifest.get("governance", {}).get("system") != "CAOS" or project_manifest.get("governance", {}).get("runtime_dependency") is not False:
+            failures.append("integrated_project_manifest_caos_governance_boundary_drift")
     else:
         failures.append("integrated_project_manifest_missing")
 
@@ -763,6 +759,11 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
     failures.extend(_media_business_failures(root, runtime_version))
 
     coordination = _json(root / "video_growth_agent/data/coordination-policy.json")
+    coordination_governance = coordination.get("governance_binding", {})
+    if coordination_governance.get("system") != "CAOS" or coordination_governance.get("mode") != "CHAT_GOVERNED_EXTERNAL":
+        failures.append("coordination_policy_caos_governance_binding_drift")
+    if coordination_governance.get("runtime_dependency") is not False or "parent_common_semantics_ref" in coordination:
+        failures.append("coordination_policy_legacy_parent_dependency_present")
     workflow = _json(root / "video_growth_agent/data/workflow.json")
     execution_plan = _json(root / "video_growth_agent/data/execution-plan.json")
     agents = _json(root / "video_growth_agent/data/agents.json")

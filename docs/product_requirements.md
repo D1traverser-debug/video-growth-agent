@@ -3,7 +3,7 @@
 Status: `CANDIDATE_0_8_0`
 Date: `2026-10-15`
 Owner: `DOMAIN:video`
-Parent dependencies: `UAOS COMMON_CAPABILITIES >= 1.6.0 / COMMON_BEHAVIOR_ASSURANCE >= 1.2.0 / ARCHITECTURE_EXPERIENCE_POLICY >= 1.0.0`
+Governance mode: `CAOS_CHAT_GOVERNED_EXTERNAL` via `CAOS_VIDEO_ENTRY.md`; no CAOS runtime/API dependency.
 Primary architecture ref: `docs/media_business_os.md`
 Architecture experience ref: `docs/agent_operability_scenarios.md`
 
@@ -40,11 +40,11 @@ Views, CTR, one scalar quality score, AI-video percentage or cheapest credits ar
 
 ## 3. Identity and authority
 
-- UAOS owns cross-domain selection/governance and common cognition/evolution/product/orchestration semantics.
+- CAOS governs requirement interpretation, decision quality, root-cause analysis, research/comparison, method challenge, execution discipline and independent acceptance in the active ChatGPT session. It does not own Video business identities/state or act as a Video runtime controller.
 - Video owns Program/Series/Episode/Sequence/Scene/Shot/Take identities, media/business state, production assets and video-domain decisions. IP Studio OS (IPOS) is the sole creative authority for the user's personal-IP identity, character canon, avatar, approved visual/voice assets and identity rights.
 - `projects/PROJECT_INDEX.json` is project discovery authority.
 - `ai-self-media-commercialization` remains the default integrated Program.
-- UAOS may retain production verification/opaque child refs only; it does not mirror Video business state.
+- CAOS does not own or mirror Video business state, identities or assets; it provides external cognition governance only.
 - `OperatorSnapshot` is a derived usability projection and never a new authority.
 
 ## 4. Primary user journeys
@@ -254,7 +254,7 @@ Operator projections remain derived and non-authoritative.
 | IPOS identity bundle import and shot binding | `ip_identity.py` + `ipos_video_identity_bundle.schema.json` | approval/readiness, import, idempotence, continuity, invalidation and fail-closed tests |
 | Vector business outcomes | `business_metrics.py` | metric tests |
 | Current-Agent projection | `operator_view.py` | readiness/blocker/resume tests |
-| Common Behavior 1.2 | `owner_behavior_admission.py` | recovery/closure trajectory tests |
+| Video-domain recovery and evolution admission | `owner_behavior_admission.py` | recovery/closure trajectory tests |
 | Canonical evolution | `audits/EVOLUTION_INDEX.json` | audit/index tests |
 | Existing Program graph | `PROGRAM_STATE.json` + `SUBTASK_GRAPH.json` | orchestration tests |
 | Legacy work-order/attestation/QA | current runtime modules | regression suite |
@@ -291,6 +291,6 @@ Operator projections remain derived and non-authoritative.
 12. IPOS R39 remains the sole creative authority; the superseded Video-local H1/S1+S3/A2 cursor is never resumed or promoted.
 13. Candidate full CI + installed smoke pass.
 14. Controlled promotion is followed by production-main CI and production reread.
-15. Evolution closes with stable event-style production evidence; UAOS parent observation is refreshed only after child production is verified.
+15. Evolution closes with stable event-style production evidence; CAOS governance remains external and read-only; Video acceptance is verified on the exact production revision.
 
 Live published-video audience/IP/commercial outcomes remain real-world observations and are not fabricated by code/tests.

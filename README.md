@@ -1,11 +1,11 @@
 # Video Growth Agent
 
-Executable AI-native media business domain owner under `D1traverser-debug/universal-agent-os@main`, integrating media growth, original digital IP, commercialization and provider-neutral audiovisual production.
+Executable AI-native media business domain governed by CAOS in the active ChatGPT session, integrating media growth, original digital IP, commercialization and provider-neutral audiovisual production.
 
 ## Current authority
 
-- `UAOS_SKILL.md` — direct Video-domain operating entry.
-- `.uaos/MANIFEST.json`, `.uaos/ADAPTER.json`, `.uaos/CAPABILITIES.json` — parent/common binding, identity boundary and capability ceiling.
+- `CAOS_VIDEO_ENTRY.md` — current Video-domain governance and operating entry.
+- `video_growth_agent/data/domain_manifest.json` and `video_growth_agent/data/capabilities.json` — Video-owned runtime manifest, external CAOS governance binding and domain capability ceiling.
 - `docs/product_requirements.md` — current product requirements.
 - `docs/media_business_os.md` — primary media-business architecture.
 - `docs/architecture.md` — compact architecture/compatibility view.
@@ -17,7 +17,7 @@ Executable AI-native media business domain owner under `D1traverser-debug/univer
 - `video_growth_agent/data/` — versioned legacy/specialized episode workflow, specialists and coordination resources.
 - binary/media stores — evidence only when bound by stable refs/digests; never business authority by presence alone.
 
-There is no active repository-local parent task index, lease/resume protocol or second cross-chat controller. UAOS router identity remains distinct from all Video business identities.
+CAOS is an external cognition/governance layer in the active ChatGPT session. Video has no parent runtime task identity, no copied parent controller and no CAOS API/lease dependency; all Video business identities remain domain-owned.
 
 ## Runtime 0.8.0 candidate
 
@@ -53,7 +53,7 @@ Core 0.8 runtime surfaces:
 - `business_objects.py` — typed content-portfolio, distinctive-asset, commercial-fit, rights-package, offer and business-decision objects;
 - `business_metrics.py` — platform, production and commercial outcome receipts without one vanity score;
 - `operator_view.py` — non-authoritative CURRENT_AGENT projection;
-- `owner_behavior_admission.py` — UAOS Common Behavior 1.2 owner-native recovery/escalation/repair closure.
+- `owner_behavior_admission.py` — Video-domain recovery, root-scope analysis, typed evolution and repair closure; CAOS supplies parent-level decision governance without copied code.
 
 ## Integrated Media Business Program
 
@@ -104,9 +104,9 @@ Missing a high-assurance reviewer blocks only operations that require that tier.
 
 ## Cognition, dogfood and evolution
 
-Video inherits UAOS common cognition, Common Behavior Assurance 1.2 and the Architecture Experience policy. Material architecture/Agent-experience changes are exercised through concern-appropriate structural/temporal/causal/cognitive views and CURRENT_AGENT scenarios rather than accepted from document completeness alone.
+Video is governed by CAOS decision and architecture-experience methods in the active ChatGPT session. Material architecture/Agent-experience changes are exercised through concern-appropriate structural/temporal/causal/cognitive views and CURRENT_AGENT scenarios rather than accepted from document completeness alone.
 
-Video-specific media/growth/IP/commercial rules remain Video-owned. Cross-domain/common mechanisms upcall UAOS. Durable evolution requires causal history plus tests/replay and post-promotion observation.
+Video-specific media/growth/IP/commercial rules remain Video-owned. Material cross-domain changes are reviewed through CAOS governance in the active session; no automatic runtime upcall is claimed. Durable evolution requires causal history plus tests/replay and post-promotion observation.
 
 ## Validation
 
@@ -117,7 +117,7 @@ vga system-audit --repo-root .
 pytest -q
 ```
 
-The system audit covers parent/common binding, Video business ownership, all canonical 0.8 runtime surfaces, agent-operability scenario presence, Media Business OS authorities, project/flywheel integrity, provider-neutral capability semantics, Program graph validity, absence of a parallel controller, artifact reachability, legacy-adapter bundle consistency, evolution discoverability and runtime-version consistency. It fails closed when a declared canonical runtime surface disappears or drifts.
+The system audit covers CAOS governance binding, Video business ownership, all canonical 0.8 runtime surfaces, agent-operability scenario presence, Media Business OS authorities, project/flywheel integrity, provider-neutral capability semantics, Program graph validity, absence of a parallel controller, artifact reachability, legacy-adapter bundle consistency, evolution discoverability and runtime-version consistency. It fails closed when a declared canonical runtime surface disappears or drifts.
 
 CI success is validation evidence, not branch-protection enforcement unless GitHub separately reports branch protection/rulesets as enabled.
 

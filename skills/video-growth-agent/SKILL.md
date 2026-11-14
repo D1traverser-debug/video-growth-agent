@@ -1,12 +1,14 @@
 ---
 name: video-growth-agent
-description: AI-native media business work spanning growth, original digital IP, commercialization, provider-neutral audiovisual production and media QA. Current instructions are repository root UAOS_SKILL.md after UAOS routing.
+description: AI-native media business work spanning growth, original digital IP, commercialization, provider-neutral audiovisual production and media QA, governed by CAOS in the active ChatGPT session.
 ---
 
-# Video Growth Agent — Discovery Pointer
+# Video Growth Agent — Domain Skill Entry
 
-This file exists only for Skill discovery compatibility.
+Read the repository-root `CAOS_VIDEO_ENTRY.md` as the current Video-domain governance and operating entry.
 
-Current domain instructions are repository root `UAOS_SKILL.md`. Cross-domain routing, task identity and continuation are owned by `D1traverser-debug/universal-agent-os@main`; all Video business identities/assets/state/evolution remain owned by this domain.
+CAOS is the external parent cognition/governance layer for requirements interpretation, decision quality, root-cause analysis, research/comparison, method challenge, execution discipline and independent acceptance. The Video Growth Agent owns its business identities, project state, assets, evidence, production runtime and Video-domain evolution.
 
-Do not use this file as a second rulebook, task index, controller, product architecture or continuity authority.
+This skill is a discovery pointer, not a second rulebook, task index, controller, product architecture or continuity authority. The Video runtime has no CAOS runtime/API dependency. Do not copy CAOS code or mutate the CAOS source repository.
+
+The current project authority is resolved through `projects/PROJECT_INDEX.json`; use the exact project state and relevant domain records rather than stale chat memory.
