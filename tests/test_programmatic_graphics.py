@@ -412,3 +412,53 @@ def test_cli_preflight_rejects_reference_digest_mismatch_before_render(tmp_path,
         ])
     assert not output.exists()
     assert "reference digest mismatch" in capsys.readouterr().err
+
+def test_long_stat_metric_is_measured_and_shrunk_before_real_render(tmp_path):
+    require_render_tools()
+    shot = make_shot()
+    spec = make_spec(
+        "STAT_CARD", width=1080, height=1920,
+        metric="1,234,567", metric_label="Reported quarterly revenue",
+    )
+    output = tmp_path / "long-metric.mp4"
+    receipt = render_programmatic_graphic(
+        shot, spec, output_path=output, font_path=FONT,
+    )
+    metric = receipt["text_layout"]["metric"]
+    assert output.is_file() and output.stat().st_size > 0
+    assert metric["fit"] is True
+    assert metric["font_size"] < int(spec.height * 0.13)
+    assert metric["measured_width_px"] <= metric["max_width_px"]
+    assert receipt["text_layout_digest"]
+    assert receipt["qa_hard_pass"] is True
+
+
+def test_unfit_stat_metric_fails_before_creating_media(tmp_path):
+    require_render_tools()
+    output = tmp_path / "must-not-render.mp4"
+    spec = make_spec(
+        "STAT_CARD", width=1080, height=1920,
+        metric="9" * 300, metric_label="Unreasonably long value",
+    )
+    with pytest.raises(ProgrammaticGraphicsError, match="metric cannot fit"):
+        render_programmatic_graphic(
+            make_shot(), spec, output_path=output, font_path=FONT,
+        )
+    assert not output.exists()
+
+
+def test_title_and_subtitle_layout_receipt_contains_pixel_bounded_lines(tmp_path):
+    require_render_tools()
+    spec = make_spec(
+        width=1080, height=1920,
+        title="A statistic is only useful when the whole number is visible",
+        subtitle="The layout engine measures actual glyph widths instead of counting characters.",
+    )
+    receipt = render_programmatic_graphic(
+        make_shot(), spec, output_path=tmp_path / "wrapped-title.mp4", font_path=FONT,
+    )
+    for key in ("title", "subtitle"):
+        item = receipt["text_layout"][key]
+        assert item["fit"] is True
+        assert item["line_count"] <= (3 if key == "title" else 4)
+        assert all(width <= item["max_width_px"] for width in item["line_widths_px"])
