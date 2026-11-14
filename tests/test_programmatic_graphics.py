@@ -636,3 +636,57 @@ def test_atomic_publish_does_not_replace_destination_claimed_during_render(tmp_p
             make_shot(), make_spec(), output_path=output, font_path=FONT,
         )
     assert output.read_bytes() == competing_bytes
+
+def test_cli_graph_transaction_preserves_review_update_during_render(tmp_path, monkeypatch, capsys):
+    import video_growth_agent.cli as cli_module
+
+    graph = make_graph()
+    graph_path = tmp_path / "media-graph.json"
+    store = MediaGraphStore(graph_path)
+    store.save(graph)
+
+    request = {
+        "font_path": str(FONT),
+        "shot_contract": {
+            "shot_id": "shot-01", "sequence_id": "sequence-01",
+            "narrative_job": "Explain a synthetic information graphic",
+            "duration_seconds": 2.0, "truth_mode": "SYNTHETIC", "risk": "LOW",
+            "allowed_modes": ["PROGRAMMATIC_GRAPHICS"],
+            "required_capabilities": ["ffmpeg.drawtext"],
+            "quality_targets": {"readability": 4.0}, "disclosure_required": True,
+            "editorial_plan_ref": "editorial-plan:v1", "beat_id": "beat-01",
+            "source_claim_ids": ["claim-01"],
+        },
+        "graphic": {
+            "spec_id": "concurrent-graph", "kind": "TITLE_CARD",
+            "title": "Concurrent graph update", "subtitle": "Must be preserved",
+            "duration_seconds": 2.0, "width": 640, "height": 640, "fps": 24,
+        },
+    }
+    request_path = tmp_path / "request.json"
+    output = tmp_path / "candidate.mp4"
+    request_path.write_text(json.dumps(request), encoding="utf-8")
+
+    real_render = cli_module.render_programmatic_graphic
+
+    def render_then_persist_review(*args, **kwargs):
+        receipt = real_render(*args, **kwargs)
+        concurrent_graph = store.load()
+        concurrent_graph.add_context(
+            ContextRecord("scene-review-during-render", "SCENE", "sequence-01")
+        )
+        store.save(concurrent_graph)
+        return receipt
+
+    monkeypatch.setattr(cli_module, "render_programmatic_graphic", render_then_persist_review)
+    result = cli_module.main([
+        "render-graphic", str(request_path), "--output", str(output),
+        "--graph", str(graph_path),
+    ])
+    assert result == 0
+    restored = store.load()
+    assert "scene-review-during-render" in restored.contexts
+    assert any(asset.kind == "PROGRAMMATIC_GRAPHIC_VIDEO" for asset in restored.assets.values())
+    assert any(task.state == "COMPLETED" for task in restored.tasks.values())
+    assert output.is_file()
+    assert "CANDIDATE_REGISTERED" in capsys.readouterr().out
