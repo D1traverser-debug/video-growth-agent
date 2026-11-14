@@ -646,7 +646,12 @@ def render_programmatic_graphic(
 ) -> dict[str, Any]:
     """Render a silent visual candidate locally and return exact-byte QA evidence."""
     _validate_shot(shot, spec)
-    output = Path(output_path).expanduser().resolve()
+    requested_output = Path(output_path).expanduser()
+    if requested_output.name in {"", ".", ".."}:
+        raise ProgrammaticGraphicsError("output_path must include a valid file name")
+    # Resolve only the parent directory. Resolving the final component would
+    # follow a pre-existing (including dangling) symlink and bypass no-replace.
+    output = requested_output.parent.resolve() / requested_output.name
     font = Path(font_path).expanduser().resolve()
     if output.suffix.lower() != ".mp4":
         raise ProgrammaticGraphicsError("output_path must end in .mp4")
@@ -655,8 +660,8 @@ def render_programmatic_graphic(
     if not MediaQAChecker.tools_available():
         raise ProgrammaticGraphicsError("ffmpeg and ffprobe must both be installed")
     receipt_path = output.with_suffix(output.suffix + ".receipt.json")
-    if output.exists() or receipt_path.exists():
-        raise FileExistsError("renderer is non-destructive; output or receipt already exists")
+    if os.path.lexists(output) or os.path.lexists(receipt_path):
+        raise FileExistsError("renderer is non-destructive; output or receipt path already exists")
 
     output.parent.mkdir(parents=True, exist_ok=True)
     font_digest = ""
