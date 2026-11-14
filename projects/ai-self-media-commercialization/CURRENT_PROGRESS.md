@@ -75,3 +75,23 @@ The bridge is not complete merely because files or a PR exist. Required evidence
 ## Historical archive
 
 The former 2026-10-15 H1 face-shell/A2 work remains in its original files for provenance and audit only. It is superseded by IPOS R39 and is not the current creative task. Pilot 002 remains a separate historical child project; rejected/process-invalid artifacts are not accepted inputs here.
+
+## Parallel production-system candidate — local programmatic graphics
+
+Updated: 2026-11-14 20:04+08:00
+
+A bounded local graphics renderer is under review in PR #33:
+- audit: `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md`;
+- implementation: `video_growth_agent/programmatic_graphics.py`;
+- CLI: `vga render-graphic REQUEST.json --output candidate.mp4 [--graph MediaGraph.json]`;
+- supports title/quote/stat cards and bar charts for explicitly admitted non-character information shots;
+- FFmpeg renders a silent MP4; Pillow/FreeType measures the actual selected font so all text is pixel-fitted, and unfit text fails before output;
+- source references require exact promoted MediaGraph versions and digest matches;
+- optional MediaGraph registration remains CANDIDATE only; no promotion/release authority;
+- no paid provider, network call, AI cinematic footage, product-truth or IPOS identity substitution.
+
+PR #33 is OPEN and NOT MERGED. Exact head at this checkpoint: `77a41072c88151a3e78e975cda7ae731b9cc997d` (audit/handoff update after renderer tests). The prior exact head `dba8b105d62ba1708685edc87832736096473b33` passed CI with 246 tests, system audit and installed CLI smoke. Subsequent additions include a long chart-value fit test; exact-head CI and fresh Codex review are pending. Do not call this production-verified or merge until exact-head CI and independent review pass.
+
+The first two Codex findings (literal drawtext expansion; source digest mismatch) are fixed and their review threads resolved. The third finding (long metric clipping) is addressed with pixel-based measurement, adaptive sizing, a receipt layout record and fail-before-output tests; its thread awaits final verification/review.
+
+CAOS and IPOS remain unchanged. IPOS R39 remains the sole identity authority; no approved bundle exists.
