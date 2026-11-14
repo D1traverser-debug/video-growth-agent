@@ -173,6 +173,12 @@ Current primary graph:
 
 The legacy stage/work-order engine remains a historical/specialized compatibility adapter, not the current product ontology.
 
+### Local programmatic graphics route
+
+`video_growth_agent.programmatic_graphics` provides a deterministic local FFmpeg route for bounded non-character information shots: title/quote cards, metric cards and bar charts. It is selected explicitly through `ShotContract.allowed_modes` containing `PROGRAMMATIC_GRAPHICS`; it also requires an exact EditorialPlan/beat binding, synthetic truth mode, disclosure requirement, and source-claim IDs for factual chart/stat/quote content. The renderer records the font/spec/ShotContract/media digests and real FFmpeg/ffprobe QA. When supplied an existing MediaGraph with the exact SHOT context and reference versions, it registers the output as a `CANDIDATE` AssetVersion with evidence and a completed render task.
+
+This route creates a silent visual preview only. It does not generate AI footage, voice/audio, observed real-world or product-truth evidence, IPOS identity assets, or a final mix. It never promotes or releases. A candidate must still pass craft/semantic/rights/continuity review and the existing promotion/release gates.
+
 ## 7. Shot contract and value
 
 Every production `ShotContract` carries:
