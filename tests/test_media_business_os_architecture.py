@@ -120,7 +120,9 @@ def test_ipos_r39_is_the_external_identity_authority_and_h1_is_retired():
     assert "ip_h1_a2_upper_face" not in node_ids
     assert "ipos_identity_bundle_import" in node_ids
     assert "ip_identity_shot_binding_validation" in node_ids
-    assert graph["parallel_now"] == [
-        "growth_baseline_and_topic_hypotheses",
-        "commercial_advertiser_map",
-    ]
+    parallel = set(graph["parallel_now"])
+    assert {"growth_baseline_and_topic_hypotheses", "commercial_advertiser_map"} <= parallel
+    assert "ipos_identity_bundle_import" not in parallel
+    indexed = {node["id"]: node for node in graph["nodes"]}
+    assert all(indexed[node]["coordination"] == "INDEPENDENT_PARALLEL"
+               and not indexed[node]["depends_on"] for node in parallel)
