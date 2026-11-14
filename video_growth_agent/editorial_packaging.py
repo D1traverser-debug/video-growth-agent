@@ -29,11 +29,21 @@ PUBLIC_FIELDS = {
 SEMANTIC_TESTS = (
     "news_replacement_loses_meaning",
     "video_replacement_loses_meaning",
+    "primary_satire_target_is_news",
+    "visual_is_secondary_expression",
     "not_plot_recitation",
+    "no_explanation_after_punchline",
     "natural_language",
+    "platform_voice_is_native",
+    "humor_mechanism_executes_in_copy",
+    "not_generic_template",
     "fact_fiction_not_conflated",
+    "unverified_claims_remain_attributed",
+    "no_forced_keyword_insertion",
 )
 REVIEW_DIGEST_VERSION = "news-video-review-v2"
+REVIEW_DIGEST_VERSION_V3 = "news-video-review-v3"
+FORBIDDEN_PUBLIC_TYPE_LABELS = frozenset({"AI PARODY", "DRAMA", "ORIGINAL"})
 
 
 def _nonempty(value: object) -> bool:
@@ -48,13 +58,9 @@ def _digest(value: object) -> str:
 
 
 def review_digest(case: Mapping[str, object], item: Mapping[str, object]) -> str:
-    """Bind a review to public text, editorial framing, and exact referenced inputs.
-
-    Unreferenced assets do not invalidate this copy's review. Any change to a
-    referenced claim, source locator, visual identity/version, or public field does.
-    """
+    """Bind review to public text, editorial reasoning, and exact referenced inputs."""
     schema = case.get("schema_version")
-    if schema == "1.1":
+    if schema in {"1.1", "1.2"}:
         public_content = item.get("public_fields")
     else:
         public_content = {
@@ -90,13 +96,18 @@ def review_digest(case: Mapping[str, object], item: Mapping[str, object]) -> str
     ] if isinstance(visual_refs, list) else []
 
     binding = {
-        "digest_version": REVIEW_DIGEST_VERSION,
+        "digest_version": (
+            REVIEW_DIGEST_VERSION_V3 if schema == "1.2"
+            else REVIEW_DIGEST_VERSION
+        ),
         "schema_version": schema,
         "platform": item.get("platform"),
         "public_content": public_content,
+        "editorial_reading": case.get("editorial_reading") if schema == "1.2" else None,
         "editorial_frame": {
             key: item.get(key) for key in (
-                "editorial_angle", "humor_mechanism", "news_counterfactual",
+                "editorial_angle", "humor_mechanism", "speaker_perspective",
+                "satire_target", "semantic_bridge", "news_counterfactual",
                 "video_counterfactual", "allegation_framing",
             )
         },
@@ -136,7 +147,7 @@ def audit_packaging(case: Mapping[str, object]) -> dict[str, Any]:
             errors.append(f"{field}_required")
 
     schema = case.get("schema_version")
-    if not isinstance(schema, str) or schema not in ("1.0", "1.1"):
+    if not isinstance(schema, str) or schema not in ("1.0", "1.1", "1.2"):
         errors.append("unsupported_schema")
 
     raw_facts = case.get("source_facts")
@@ -218,9 +229,29 @@ def audit_packaging(case: Mapping[str, object]) -> dict[str, Any]:
     if has_synthetic_asset and case.get("fiction_is_not_real_world_evidence") is not True:
         errors.append("fiction_news_boundary_missing")
 
+    if schema == "1.2":
+        reading = case.get("editorial_reading")
+        if not isinstance(reading, dict):
+            errors.append("editorial_reading_must_be_object")
+        else:
+            for field in (
+                "primary_satirical_target", "selected_observation", "visual_role",
+                "fiction_boundary", "audience_assumption",
+            ):
+                if not _nonempty(reading.get(field)):
+                    errors.append(f"editorial_reading:{field}_required")
+            rejected = reading.get("rejected_angles")
+            if not isinstance(rejected, list) or len(rejected) < 3 or not all(
+                _nonempty(value) for value in rejected
+            ):
+                errors.append("editorial_reading:at_least_three_rejected_angles_required")
+            if reading.get("layer_order") != ["FACT", "INTENT", "VISUAL", "PLATFORM"]:
+                errors.append("editorial_reading:fact_intent_visual_platform_order_required")
+
     platforms: set[str] = set()
     angles: set[str] = set()
     mechanisms: set[str] = set()
+    creative_signatures: set[tuple[str, str]] = set()
     independent_reviews = 0
 
     for index, item in enumerate(copies):
@@ -234,7 +265,7 @@ def audit_packaging(case: Mapping[str, object]) -> dict[str, Any]:
         else:
             platforms.add(platform)
 
-        if schema == "1.1":
+        if schema in {"1.1", "1.2"}:
             if "title" in item or "body" in item:
                 errors.append(f"{prefix}:native_case_mixes_legacy_title_body")
             public_fields = item.get("public_fields")
@@ -248,6 +279,15 @@ def audit_packaging(case: Mapping[str, object]) -> dict[str, Any]:
                 and all(isinstance(tag, str) for tag in public_fields["tags"])
             ):
                 errors.append(f"{prefix}:tags_must_be_string_list")
+            if schema == "1.2" and isinstance(public_fields, dict):
+                for label_field in ("tags", "labels", "type_labels", "categories"):
+                    values = public_fields.get(label_field, [])
+                    if isinstance(values, list) and any(
+                        isinstance(value, str)
+                        and value.strip().upper() in FORBIDDEN_PUBLIC_TYPE_LABELS
+                        for value in values
+                    ):
+                        errors.append(f"{prefix}:forbidden_public_type_label")
             if not _nonempty(item.get("platform_variant_ref")):
                 gates.append(f"{prefix}:platform_variant_version_unbound")
             if not _nonempty(item.get("format_review_evidence_ref")):
@@ -279,14 +319,28 @@ def audit_packaging(case: Mapping[str, object]) -> dict[str, Any]:
         if not valid_visual_refs:
             errors.append(f"{prefix}:visual_ref_missing_unknown_or_duplicate")
 
-        for key in (
+        required_frame_fields = [
             "editorial_angle", "humor_mechanism",
             "news_counterfactual", "video_counterfactual",
-        ):
+        ]
+        if schema == "1.2":
+            required_frame_fields.extend([
+                "speaker_perspective", "satire_target", "semantic_bridge",
+            ])
+        for key in required_frame_fields:
             if not _nonempty(item.get(key)):
                 errors.append(f"{prefix}:{key}_required")
-        angles.add(item["editorial_angle"].strip().casefold()) if _nonempty(item.get("editorial_angle")) else None
-        mechanisms.add(item["humor_mechanism"].strip().casefold()) if _nonempty(item.get("humor_mechanism")) else None
+        if _nonempty(item.get("editorial_angle")):
+            angles.add(item["editorial_angle"].strip().casefold())
+        if _nonempty(item.get("humor_mechanism")):
+            mechanisms.add(item["humor_mechanism"].strip().casefold())
+        if schema == "1.2" and _nonempty(item.get("humor_mechanism")) and _nonempty(
+            item.get("speaker_perspective")
+        ):
+            creative_signatures.add((
+                item["humor_mechanism"].strip().casefold(),
+                item["speaker_perspective"].strip().casefold(),
+            ))
 
         if valid_fact_refs and any(
             facts_by_id[ref].get("classification") == "ALLEGATION_UNVERIFIED"
@@ -299,7 +353,7 @@ def audit_packaging(case: Mapping[str, object]) -> dict[str, Any]:
             and visuals_by_id[ref].get("truth_mode") in SYNTHETIC_MODES
             for ref in visual_refs
         )
-        if schema == "1.1" and copy_uses_synthetic and not _nonempty(
+        if schema in {"1.1", "1.2"} and copy_uses_synthetic and not _nonempty(
             item.get("synthetic_upload_disclosure_ref")
         ):
             gates.append(f"{prefix}:platform_synthetic_disclosure_receipt_open")
@@ -332,8 +386,13 @@ def audit_packaging(case: Mapping[str, object]) -> dict[str, Any]:
         else:
             errors.append(f"{prefix}:unknown_review_state")
 
-    if len(copies) >= 3 and (len(angles) < 2 or len(mechanisms) < 2):
-        warnings.append("platform_angles_or_mechanisms_look_template_based")
+    if len(copies) >= 3:
+        if schema == "1.2":
+            minimum_distinct = (5 * len(copies) + 5) // 6
+            if len(creative_signatures) < minimum_distinct:
+                errors.append("platform_variants_not_substantively_distinct")
+        elif len(angles) < 2 or len(mechanisms) < 2:
+            warnings.append("platform_angles_or_mechanisms_look_template_based")
     if not _nonempty(case.get("editorial_plan_ref")):
         gates.append("editorial_plan_version_unbound")
     if not _nonempty(case.get("master_timeline_ref")):
