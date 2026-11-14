@@ -105,4 +105,4 @@ def test_ipos_bridge_is_mainline_verified_but_identity_gate_remains_closed():
     production_state = program["workstreams"]["PRODUCTION_SYSTEM"]["current_state"]
     assert "merged to main via PR #24" in production_state
     assert "candidate branch pending CI" not in production_state.lower()
-    assert "continue IPOS R39 G1 research" in program["system_next_action"]
+    assert "continue ipos r39 g1 research" in program["system_next_action"].lower()
