@@ -4,6 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
+from .editorial_packaging import audit_packaging
 from .media_qa import MediaQAChecker
 from .models import AssetRecord
 from .runtime import StudioRuntime
@@ -79,6 +80,9 @@ def main(argv: list[str] | None = None) -> int:
     candidate_mode.add_argument("--validated-only", action="store_true", help="production-safe default; retained for compatibility")
     candidate_mode.add_argument("--include-candidates", action="store_true", help="explicit learning/prototype opt-in")
 
+    p = sub.add_parser("audit-packaging")
+    p.add_argument("case_file", type=Path)
+
     p = sub.add_parser("system-audit")
     p.add_argument("--repo-root", type=Path)
 
@@ -88,6 +92,11 @@ def main(argv: list[str] | None = None) -> int:
         report = run_system_audit(args.repo_root)
         _json(report)
         return 0 if report["pass"] else 2
+
+    if args.cmd == "audit-packaging":
+        report = audit_packaging(json.loads(args.case_file.read_text(encoding="utf-8")))
+        _json(report)
+        return 0 if report["contract_valid"] else 2
 
     runtime = StudioRuntime()
 

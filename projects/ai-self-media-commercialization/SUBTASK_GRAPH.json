@@ -226,11 +226,39 @@
         "ipos_continuity_bindings"
       ],
       "decision_owner": "director"
+    },
+    {
+      "id": "topic_satire_editorial_packaging",
+      "workstream": "MEDIA_GROWTH",
+      "status": "READY_FOR_CANDIDATE_AUDIT__NOT_RELEASE",
+      "coordination": "INDEPENDENT_PARALLEL",
+      "depends_on": [],
+      "outputs": [
+        "seven_platform_editorial_candidates",
+        "source_visual_counterfactual_review_packet"
+      ],
+      "decision_owner": "showrunner",
+      "authority_inputs": [
+        "EDITORIAL_PACKAGING.md",
+        "cases/jensen-alice-20261114.json"
+      ],
+      "media_type": "NON_CHARACTER_NEWS_SATIRE",
+      "gates": [
+        "ACTUAL_MEDIA_DIGEST",
+        "RIGHTS",
+        "INDEPENDENT_HUMAN_SEMANTIC_REVIEW",
+        "EDITORIAL_PLAN",
+        "MASTER_TIMELINE",
+        "PLATFORM_DISCLOSURE",
+        "VIDEO_RELEASE_GATE"
+      ],
+      "no_ipos_identity_dependency": true
     }
   ],
   "parallel_now": [
     "growth_baseline_and_topic_hypotheses",
-    "commercial_advertiser_map"
+    "commercial_advertiser_map",
+    "topic_satire_editorial_packaging"
   ],
   "invariants": [
     "No dependency cycle.",
@@ -242,5 +270,5 @@
     "IPOS is the sole creative canon authority; Video only imports exact approved bundles and binds them to identity-dependent shots.",
     "No CAOS runtime/API call is required for IPOS execution or the IPOS-to-Video artifact handoff."
   ],
-  "updated_at": "2026-11-13T15:30:00+08:00"
+  "updated_at": "2026-11-14T17:40:00+08:00"
 }

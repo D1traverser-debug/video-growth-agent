@@ -84,3 +84,7 @@ Current next action: IPOS continues R39 G1 research and later G2 design/approval
 - `DECISION_LOG.md` — accepted/rejected decisions.
 
 Historical/superseded design files remain evidence only when `PROJECT_MANIFEST.json` marks them as such.
+
+## Parallel topical satire / platform packaging
+
+See EDITORIAL_PACKAGING.md and cases/jensen-alice-20261114.json for the VIDEO-owned news x fictional-media language workflow. The vga audit-packaging CLI checks seven platform candidate refs, reviewer/version boundaries and unmet publication gates. This is non-character MEDIA_GROWTH/PRODUCTION work. No media asset, IPOS canon, rights or production release is approved by this document. The earlier long-form tech/business format remains independently supported.
