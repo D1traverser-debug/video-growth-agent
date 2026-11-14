@@ -72,3 +72,7 @@ Current state:
 ## Historical records
 
 The former H1/S1+S3/A2 face-shell work, its research and prompts remain in the repository for audit/history only. They are not active instructions or valid canon references. Pilot 001/002 remain separate historical child projects.
+
+## Parallel non-character short-form editorial work
+
+EDITORIAL_PACKAGING.md defines source-and-visual semantic QA; cases/jensen-alice-20261114.json contains seven editorial candidates. Run vga audit-packaging on the case before any human review. The episode has no current video bytes/digest, rights readback, EditorialPlan/master-timeline binding, actual platform-disclosure receipt or independent human semantic acceptance. These are OPEN and must not be represented as a production-ready or published episode. This parallel task does not change the IPOS owner approval gate.
