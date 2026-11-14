@@ -62,14 +62,16 @@ def review_digest(case: Mapping[str, object], item: Mapping[str, object]) -> str
             "body": item.get("body"),
         }
 
+    raw_facts = case.get("source_facts")
+    raw_visuals = case.get("visual_assets")
     facts_by_id = {
         fact.get("id"): fact
-        for fact in case.get("source_facts", [])
+        for fact in (raw_facts if isinstance(raw_facts, list) else [])
         if isinstance(fact, dict) and _nonempty(fact.get("id"))
     }
     visuals_by_id = {
         visual.get("id"): visual
-        for visual in case.get("visual_assets", [])
+        for visual in (raw_visuals if isinstance(raw_visuals, list) else [])
         if isinstance(visual, dict) and _nonempty(visual.get("id"))
     }
     fact_refs = item.get("fact_ids")
@@ -293,7 +295,8 @@ def audit_packaging(case: Mapping[str, object]) -> dict[str, Any]:
             errors.append(f"{prefix}:allegation_framing_not_protected")
 
         copy_uses_synthetic = valid_visual_refs and any(
-            visuals_by_id[ref].get("truth_mode") in SYNTHETIC_MODES
+            isinstance(visuals_by_id[ref].get("truth_mode"), str)
+            and visuals_by_id[ref].get("truth_mode") in SYNTHETIC_MODES
             for ref in visual_refs
         )
         if schema == "1.1" and copy_uses_synthetic and not _nonempty(
