@@ -532,3 +532,60 @@ def test_chart_label_that_cannot_fit_vertical_row_fails_before_render(tmp_path):
             spec, output_path=output, font_path=FONT,
         )
     assert not output.exists()
+
+def test_shot_graph_binding_rejects_sequence_contract_mismatch_before_registration():
+    graph = make_graph()
+    graph.add_context(ContextRecord("sequence-02", "SEQUENCE", "episode-01"))
+    shot = make_shot(sequence_id="sequence-02")
+    with pytest.raises(ProgrammaticGraphicsError, match="sequence ancestry mismatch"):
+        validate_shot_graph_bindings(graph, shot)
+    with pytest.raises(ProgrammaticGraphicsError, match="sequence ancestry mismatch"):
+        register_graph_candidate(graph, shot, make_spec(), {})
+
+
+def test_shot_graph_binding_accepts_scene_between_shot_and_sequence():
+    graph = MediaGraph()
+    graph.add_context(ContextRecord("program-01", "PROGRAM"))
+    graph.add_context(ContextRecord("series-01", "SERIES", "program-01"))
+    graph.add_context(ContextRecord("episode-01", "EPISODE", "series-01"))
+    graph.add_context(ContextRecord("sequence-01", "SEQUENCE", "episode-01"))
+    graph.add_context(ContextRecord("scene-01", "SCENE", "sequence-01"))
+    graph.add_context(ContextRecord("shot-01", "SHOT", "scene-01"))
+    validate_shot_graph_bindings(graph, make_shot())
+
+
+def test_cli_preflight_rejects_sequence_ancestry_mismatch_before_render(tmp_path, capsys):
+    from video_growth_agent.cli import main
+
+    graph = make_graph()
+    graph.add_context(ContextRecord("sequence-02", "SEQUENCE", "episode-01"))
+    graph_path = tmp_path / "media-graph.json"
+    MediaGraphStore(graph_path).save(graph)
+    request = {
+        "font_path": str(FONT),
+        "shot_contract": {
+            "shot_id": "shot-01", "sequence_id": "sequence-02",
+            "narrative_job": "Explain a sourced fact", "duration_seconds": 2.0,
+            "truth_mode": "SYNTHETIC", "risk": "LOW",
+            "allowed_modes": ["PROGRAMMATIC_GRAPHICS"],
+            "required_capabilities": ["ffmpeg.drawtext"],
+            "quality_targets": {"readability": 4.0}, "disclosure_required": True,
+            "editorial_plan_ref": "editorial-plan:v1", "beat_id": "beat-01",
+            "source_claim_ids": ["claim-01"],
+        },
+        "graphic": {
+            "spec_id": "wrong-sequence", "kind": "TITLE_CARD",
+            "title": "Sequence mismatch", "subtitle": "Must fail closed",
+            "duration_seconds": 2.0, "width": 640, "height": 640, "fps": 24,
+        },
+    }
+    request_path = tmp_path / "request.json"
+    output = tmp_path / "must-not-render.mp4"
+    request_path.write_text(json.dumps(request), encoding="utf-8")
+    with pytest.raises(SystemExit):
+        main([
+            "render-graphic", str(request_path), "--output", str(output),
+            "--graph", str(graph_path),
+        ])
+    assert not output.exists()
+    assert "sequence ancestry mismatch" in capsys.readouterr().err
