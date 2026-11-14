@@ -2,25 +2,21 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "2.0",
-  "updated_at": "2026-11-14T21:25:00+08:00",
-  "current_open_items": [
-    "PR #33: local programmatic graphics renderer — renderer/graph code head passed exact-head CI (263 tests); ten inline findings resolved; fresh full code and security reviews pending; candidate remains unmerged and not production-authorized."
-  ],
-  "current_problem_refs": {
-    "PR #33: local programmatic graphics renderer — renderer/graph code head passed exact-head CI (263 tests); ten inline findings resolved; fresh full code and security reviews pending; candidate remains unmerged and not production-authorized.": "audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md"
-  },
+  "updated_at": "2026-11-14T21:40:00+08:00",
+  "current_open_items": [],
+  "current_problem_refs": {},
   "current_resume_ref": "projects/ai-self-media-commercialization/RESUME_ENTRY.md",
   "current_candidate": {
     "id": "V-20261114-02-PROGRAMMATIC-GRAPHICS",
     "ref": "audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md",
-    "status": "CANDIDATE_PR_OPEN__NOT_MERGED",
+    "status": "MERGED_MAINLINE_CI_VERIFIED__CANDIDATE_OUTPUTS_ONLY",
     "failure_class": "FC-PROGRAMMATIC-GRAPHICS-NOT-EXECUTABLE__FC-TEXT-CLIPPING__FC-REFERENCE-DIGEST-MISMATCH",
     "selected_architecture": "LOCAL_FFMPEG_RENDERER__PILLOW_PIXEL_METRICS__EXACT_PROMOTED_SOURCE_DIGEST_BINDING__CANDIDATE_ONLY",
     "candidate_pr": 33,
     "candidate_branch": "feat/video-local-programmatic-graphics-renderer-20261114",
-    "candidate_head": "46bbb7beb5a9da28e39662aba56c4d4c5438321c",
+    "candidate_head": "945c902ab284bf3533fd1eb37082f9adf675dd2b",
     "candidate_ci_status": "PASS__263_TESTS__SYSTEM_AUDIT_PASS__INSTALLED_CLI_SMOKE_PASS",
-    "codex_review_status": "FRESH_FULL_CODE_AND_SECURITY_REVIEWS_REQUESTED_PENDING",
+    "codex_review_status": "NO_MAJOR_ISSUES__REVIEWED_46BBB7B__ALL_10_THREADS_RESOLVED",
     "resolved_findings": [
       "drawtext literal expansion disabled",
       "exact promoted source reference digest validation shared by CLI and MediaGraph registration",
@@ -34,15 +30,38 @@
       "pre-existing dangling output symlink rejected without following target; requested basename preserved"
     ],
     "pending_findings": [],
-    "result": "OPEN",
-    "next_action": "Inspect fresh full code and security reviews; verify latest documentation-only branch-head CI; if clean, merge PR #33 and verify mainline CI before production authorization.",
+    "result": "PASS",
+    "next_action": "Use the merged CLI for explicitly admitted non-character information shots; preserve human/editorial, rights, continuity, promotion and release gates.",
     "candidate_ci_runs": [
       43597969675,
       43597962380
     ],
-    "candidate_ci_test_count": 263
+    "candidate_ci_test_count": 263,
+    "candidate_final_head": "945c902ab284bf3533fd1eb37082f9adf675dd2b",
+    "security_review_status": "MANUAL_SECURITY_PASS__NO_SEPARATE_CODEX_SECURITY_RECEIPT",
+    "production_commit": "af4dec1a9ec2fff659e3e20d7f21cf9bdbe159ea",
+    "production_ci_run": 43598791702,
+    "production_ci_status": "PASS__263_TESTS__SYSTEM_AUDIT_PASS__INSTALLED_CLI_SMOKE_PASS"
   },
   "recent_resolved_or_promoted": [
+    {
+      "id": "V-20261114-02-PROGRAMMATIC-GRAPHICS",
+      "ref": "audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md",
+      "status": "MERGED_MAINLINE_CI_VERIFIED__CANDIDATE_OUTPUTS_ONLY",
+      "failure_class": "FC-PROGRAMMATIC-GRAPHICS-NOT-EXECUTABLE__FC-TEXT-CLIPPING__FC-REFERENCE-DIGEST-MISMATCH",
+      "candidate_pr": 33,
+      "candidate_final_head": "945c902ab284bf3533fd1eb37082f9adf675dd2b",
+      "candidate_ci_runs": [
+        43597969675,
+        43597962380
+      ],
+      "candidate_test_count": 263,
+      "production_commit": "af4dec1a9ec2fff659e3e20d7f21cf9bdbe159ea",
+      "production_ci_run": 43598791702,
+      "production_test_count": 263,
+      "result": "PASS",
+      "assurance": "MERGED_TO_MAIN__MAINLINE_CI_263_PASS__SYSTEM_AUDIT_PASS__INSTALLED_CLI_SMOKE_PASS__10_CODE_REVIEW_FINDINGS_RESOLVED__OUTPUT_AND_GRAPH_REGISTRATION_CANDIDATE_ONLY__NO_PROMOTION_OR_RELEASE_AUTHORITY"
+    },
     {
       "id": "V-20261114-01-CAOS-GOVERNANCE-TAKEOVER",
       "ref": "audits/CAOS_GOVERNANCE_TAKEOVER_2026-11-14.md",
