@@ -71,7 +71,7 @@ class GraphicSpec:
     width: int = 1080
     height: int = 1920
     fps: int = 30
-    background: str = "#0B1020"
+    background: str = "#1B2940"
     foreground: str = "#F4F7FB"
     accent: str = "#43D9C3"
     muted: str = "#93A4BC"
