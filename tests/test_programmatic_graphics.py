@@ -875,3 +875,16 @@ def test_renderer_font_digest_matches_exact_staged_bytes_when_source_changes(tmp
     assert changed is True
     assert receipt["font_sha256"] == expected_digest
     assert hashlib.sha256(source_font.read_bytes()).hexdigest() != receipt["font_sha256"]
+
+
+def test_renderer_rejects_preexisting_dangling_output_symlink_without_following_it(tmp_path):
+    require_render_tools()
+    target = tmp_path / "claimed-target.mp4"
+    output = tmp_path / "candidate.mp4"
+    output.symlink_to(target)
+    with pytest.raises(FileExistsError, match="output or receipt path already exists"):
+        render_programmatic_graphic(
+            make_shot(), make_spec(), output_path=output, font_path=FONT,
+        )
+    assert output.is_symlink()
+    assert not target.exists()
