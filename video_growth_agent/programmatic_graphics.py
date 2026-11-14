@@ -251,13 +251,18 @@ def _fit_wrapped_text(
     max_width: int,
     max_lines: int,
     field: str,
+    max_height_px: int | None = None,
+    line_spacing: int = 0,
 ) -> tuple[str, int, dict[str, Any]]:
     if not text:
         return "", base_font_size, {
             "font_size": base_font_size,
             "max_width_px": max_width,
+            "max_height_px": max_height_px,
             "line_widths_px": [],
             "line_count": 0,
+            "line_height_px": 0,
+            "total_height_px": 0,
             "fit": True,
         }
     last_error: Exception | None = None
@@ -272,16 +277,26 @@ def _fit_wrapped_text(
             continue
         if len(lines) <= max_lines:
             widths = [round(float(font.getlength(line)), 2) for line in lines]
+            ascent, descent = font.getmetrics()
+            line_height = ascent + descent
+            total_height = line_height * len(lines) + line_spacing * max(0, len(lines) - 1)
+            height_fits = max_height_px is None or total_height <= max_height_px
+            if not height_fits:
+                continue
             return "\n".join(lines), size, {
                 "font_size": size,
                 "max_width_px": max_width,
+                "max_height_px": max_height_px,
                 "line_widths_px": widths,
                 "line_count": len(lines),
-                "fit": all(width <= max_width for width in widths),
+                "line_height_px": line_height,
+                "total_height_px": total_height,
+                "fit": all(width <= max_width for width in widths) and height_fits,
             }
     detail = f": {last_error}" if last_error else ""
     raise ProgrammaticGraphicsError(
-        f"{field} cannot fit within {max_width}px and {max_lines} lines "
+        f"{field} cannot fit within {max_width}px, {max_lines} lines"
+        f"{f' and {max_height_px}px height' if max_height_px is not None else ''} "
         f"at font sizes {base_font_size}..{min_font_size}{detail}"
     )
 
@@ -352,6 +367,8 @@ def _filter_script(
         width: int = center_width,
         max_lines: int,
         min_size: int | None = None,
+        max_height_px: int | None = None,
+        line_spacing: int = 0,
     ) -> int:
         content, size, evidence = _fit_wrapped_text(
             value,
@@ -361,6 +378,8 @@ def _filter_script(
             max_width=width,
             max_lines=max_lines,
             field=key,
+            max_height_px=max_height_px,
+            line_spacing=line_spacing,
         )
         text_files[f"{key}.txt"] = content
         layout[key] = evidence
@@ -426,7 +445,8 @@ def _filter_script(
             max_lines=2,
         )
 
-    chart_layout: list[tuple[str, str, int, int]] = []
+    chart_layout: list[tuple[str, str, int, int, dict[str, int]]] = []
+    chart_geometry: dict[str, Any] = {}
     if spec.kind == "BAR_CHART":
         left = int(spec.width * 0.08)
         bar_x = int(spec.width * 0.29)
@@ -434,6 +454,11 @@ def _filter_script(
         label_width = max(24, bar_x - left - int(spec.width * 0.03))
         value_x = bar_x + bar_max + int(spec.width * 0.015)
         value_width = max(24, spec.width - value_x - int(spec.width * 0.02))
+        chart_top = int(spec.height * 0.47)
+        chart_bottom = int(spec.height * 0.92)
+        row_height = (chart_bottom - chart_top) / len(spec.chart_data)
+        label_height_budget = max(14, int(row_height) - 6)
+        bar_h = max(12, min(18, int(row_height * 0.34)))
         for index, point in enumerate(spec.chart_data):
             label_key = f"chart_label_{index}"
             value_key = f"chart_value_{index}"
@@ -441,6 +466,8 @@ def _filter_script(
                 label_key, point.label,
                 max(18, int(spec.height * 0.019)),
                 width=label_width, max_lines=2,
+                min_size=12, max_height_px=label_height_budget,
+                line_spacing=2,
             )
             display_value = point.display_value or f"{point.value:g}"
             value_size = single_line_field(
@@ -448,7 +475,49 @@ def _filter_script(
                 max(18, int(spec.height * 0.019)),
                 width=value_width,
             )
-            chart_layout.append((label_key, value_key, label_size, value_size))
+            row_top = round(chart_top + index * row_height)
+            row_bottom = round(chart_top + (index + 1) * row_height)
+            row_center = (row_top + row_bottom) / 2
+            label_height = int(layout[label_key]["total_height_px"])
+            value_height = int(layout[value_key]["line_height_px"])
+            bar_y = round(row_center - bar_h / 2)
+            label_y = round(row_center - label_height / 2)
+            value_y = round(row_center - value_height / 2)
+            row = {
+                "row_top_px": row_top,
+                "row_bottom_px": row_bottom,
+                "row_center_px": round(row_center, 2),
+                "bar_y_px": bar_y,
+                "bar_height_px": bar_h,
+                "label_y_px": label_y,
+                "label_height_px": label_height,
+                "value_y_px": value_y,
+                "value_height_px": value_height,
+            }
+            if (
+                label_height > label_height_budget
+                or label_y < row_top
+                or label_y + label_height > row_bottom
+                or value_y < row_top
+                or value_y + value_height > row_bottom
+                or bar_y < row_top
+                or bar_y + bar_h > row_bottom
+            ):
+                raise ProgrammaticGraphicsError(
+                    f"chart row {index} text/bar exceeds its vertical allocation"
+                )
+            layout[label_key]["max_height_px"] = label_height_budget
+            layout[label_key]["total_height_px"] = label_height
+            chart_layout.append((label_key, value_key, label_size, value_size, row))
+        chart_geometry = {
+            "top_px": chart_top,
+            "bottom_px": chart_bottom,
+            "row_height_px": round(row_height, 2),
+            "label_height_budget_px": label_height_budget,
+            "rows": [item[4] for item in chart_layout],
+            "fit": True,
+        }
+        layout["chart_geometry"] = chart_geometry
 
     filters: list[str] = [
         f"drawbox=x=0:y=0:w=iw:h={max(5, int(spec.height * 0.006))}:color={_color(spec.accent)}@0.96:t=fill"
@@ -507,34 +576,30 @@ def _filter_script(
                 color=spec.muted,
             ))
         max_value = max(float(point.value) for point in spec.chart_data)
-        left = int(spec.width * 0.08)
         bar_x = int(spec.width * 0.29)
         bar_max = int(spec.width * 0.57)
-        start_y = int(spec.height * 0.47)
-        bar_h = max(18, int(spec.height * 0.018))
-        row_gap = max(64, int(spec.height * 0.075))
         for index, point in enumerate(spec.chart_data):
-            label_key, value_key, label_size, value_size = chart_layout[index]
+            label_key, value_key, label_size, value_size, row = chart_layout[index]
             label_name = f"{label_key}.txt"
             value_name = f"{value_key}.txt"
-            y = start_y + index * row_gap
+            y = row["bar_y_px"]
             filters.append(_drawtext(
                 label_name, font_size=label_size,
-                x=str(left), y=str(y - int(bar_h * 0.15)), color=spec.foreground,
+                x=str(left), y=str(row["label_y_px"]), color=spec.foreground,
                 line_spacing=2,
             ))
             filters.append(
-                f"drawbox=x={bar_x}:y={y}:w={bar_max}:h={bar_h}:color=0x29354A:t=fill"
+                f"drawbox=x={bar_x}:y={y}:w={bar_max}:h={row['bar_height_px']}:color=0x29354A:t=fill"
             )
             ratio = float(point.value) / max_value if max_value else 0.0
             filters.append(
                 f"drawbox=x={bar_x}:y={y}:w={max(1, int(bar_max * ratio))}:"
-                f"h={bar_h}:color={_color(spec.accent)}:t=fill:enable='gte(t,0.65)'"
+                f"h={row['bar_height_px']}:color={_color(spec.accent)}:t=fill:enable='gte(t,0.65)'"
             )
             filters.append(_drawtext(
                 value_name, font_size=value_size,
                 x=str(bar_x + bar_max + int(spec.width * 0.015)),
-                y=str(y - int(bar_h * 0.15)), color=spec.accent,
+                y=str(row["value_y_px"]), color=spec.accent,
                 line_spacing=2,
             ))
 
