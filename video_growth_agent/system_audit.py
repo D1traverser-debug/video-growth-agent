@@ -677,7 +677,7 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             failures.append("pilot002_owner_drift")
         if "video-growth:main" not in set(pilot.get("legacy_aliases", [])):
             failures.append("pilot002_legacy_alias_state_missing")
-        if "not a CAOS governance task identity" not in str(pilot.get("legacy_alias_semantics", "")).lower():
+        if "not a caos governance task identity" not in str(pilot.get("legacy_alias_semantics", "")).lower():
             failures.append("pilot002_legacy_alias_semantics_missing")
         if pilot.get("domain_binding_ref") != "video_growth_agent/data/domain_manifest.json":
             failures.append("pilot002_domain_manifest_ref_drift")
