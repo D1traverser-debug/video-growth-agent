@@ -482,3 +482,53 @@ def test_long_bar_chart_value_is_shrunk_to_its_actual_column_width(tmp_path):
     assert value["font_size"] < max(18, int(spec.height * 0.019))
     assert value["measured_width_px"] <= value["max_width_px"]
     assert receipt["qa_hard_pass"] is True
+
+def test_six_row_square_chart_keeps_two_line_last_label_inside_frame(tmp_path):
+    require_render_tools()
+    spec = make_spec(
+        "BAR_CHART", width=640, height=640,
+        chart_data=(
+            ChartDatum("Revenue", 42, "42%"),
+            ChartDatum("Costs", 78, "78%"),
+            ChartDatum("Growth", 56, "56%"),
+            ChartDatum("Margin", 31, "31%"),
+            ChartDatum("Forecast", 64, "64%"),
+            ChartDatum("Alpha\\nBeta", 22, "22%"),
+        ),
+    )
+    receipt = render_programmatic_graphic(
+        make_shot(source_claim_ids=("a", "b", "c", "d", "e", "f")),
+        spec, output_path=tmp_path / "six-row-square-chart.mp4", font_path=FONT,
+    )
+    geometry = receipt["text_layout"]["chart_geometry"]
+    assert geometry["fit"] is True
+    assert len(geometry["rows"]) == 6
+    for row in geometry["rows"]:
+        assert row["label_y_px"] >= row["row_top_px"]
+        assert row["label_y_px"] + row["label_height_px"] <= row["row_bottom_px"]
+        assert row["value_y_px"] >= row["row_top_px"]
+        assert row["value_y_px"] + row["value_height_px"] <= row["row_bottom_px"]
+        assert row["bar_y_px"] >= row["row_top_px"]
+        assert row["bar_y_px"] + row["bar_height_px"] <= row["row_bottom_px"]
+    last_label = receipt["text_layout"]["chart_label_5"]
+    assert last_label["line_count"] == 2
+    assert last_label["total_height_px"] <= geometry["label_height_budget_px"]
+    assert receipt["qa_hard_pass"] is True
+
+
+def test_chart_label_that_cannot_fit_vertical_row_fails_before_render(tmp_path):
+    require_render_tools()
+    spec = make_spec(
+        "BAR_CHART", width=640, height=640,
+        chart_data=(
+            ChartDatum("A\\nB\\nC", 42, "42%"),
+            ChartDatum("Costs", 78, "78%"),
+        ),
+    )
+    output = tmp_path / "must-not-render-chart.mp4"
+    with pytest.raises(ProgrammaticGraphicsError, match="chart_label_0 cannot fit"):
+        render_programmatic_graphic(
+            make_shot(source_claim_ids=("a", "b")),
+            spec, output_path=output, font_path=FONT,
+        )
+    assert not output.exists()
