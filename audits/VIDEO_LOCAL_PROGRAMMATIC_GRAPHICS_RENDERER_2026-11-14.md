@@ -4,7 +4,7 @@ Date: 2026-11-14 (Asia/Shanghai)
 Status: CANDIDATE_PR_OPEN__NOT_MERGED
 PR: https://github.com/D1traverser-debug/video-growth-agent/pull/33
 Candidate branch: `feat/video-local-programmatic-graphics-renderer-20261114`
-Latest verified renderer code head at this audit update: `df580452c2eca46d9fd0d8b0646527395900e763`
+Latest verified renderer code head at this audit update: `16b2c17cd6ca503cca056be626d4402a547f3899`
 
 ## 1. User/business problem
 
@@ -15,7 +15,7 @@ The Video production OS had deterministic media QA and shot/timeline governance,
 1. Missing local deterministic executor for non-character information graphics.
 2. FFmpeg drawtext default expansion could interpret literal percent/expansion sequences in source-backed values.
 3. MediaGraph candidate registration previously trusted asset/version identity without checking that the actual promoted source digest matched the ShotContract reference binding.
-4. Text wrapping counted characters instead of measuring glyphs; long metrics could clip while technical QA still passed.\n5. Chart rows used a fixed minimum vertical gap independent of point count and measured label height; a two-line sixth label could extend below a 640×640 frame while width-only layout evidence still passed.\n6. The first candidate metadata update added an open evolution item without binding it to `current_problem_refs`; repository hygiene audit correctly failed closed. The reference was added and exact-head system audit now passes.\n7. The graph validator checked only that a SHOT context existed, not that its actual parent chain resolved to the `ShotContract.sequence_id`; this allowed a candidate to claim the wrong sequence while registering under the graph's actual sequence.
+4. Text wrapping counted characters instead of measuring glyphs; long metrics could clip while technical QA still passed.\n5. Chart rows used a fixed minimum vertical gap independent of point count and measured label height; a two-line sixth label could extend below a 640×640 frame while width-only layout evidence still passed.\n6. The first candidate metadata update added an open evolution item without binding it to `current_problem_refs`; repository hygiene audit correctly failed closed. The reference was added and exact-head system audit now passes.\n7. The graph validator checked only that a SHOT context existed, not that its actual parent chain resolved to the `ShotContract.sequence_id`; this allowed a candidate to claim the wrong sequence while registering under the graph's actual sequence.\n8. FFmpeg rendered directly to the final destination after a non-atomic existence check; on a concurrent failure, cleanup could unlink a file published by another invocation. The renderer now writes to an invocation-private temp directory on the destination filesystem and atomically publishes with a no-replace hard link; cleanup only removes its own temp directory.
 
 ## 3. Selected architecture
 
@@ -36,7 +36,7 @@ Admission requires an explicit `PROGRAMMATIC_GRAPHICS` ShotContract mode, editor
 - Source references require exact promoted MediaGraph versions and digest equality with the ShotContract; CLI preflight and graph registration use the same validator.\n- The SHOT context's parent chain must resolve to the exact `ShotContract.sequence_id`, allowing only SHOT → SEQUENCE or SHOT → SCENE → SEQUENCE; both CLI preflight and registration use this shared fail-closed check.
 - Output is a silent visual preview, registered only as `CANDIDATE`.
 - No paid API, network access, AI footage/audio, observed real/product-truth claim, IPOS identity rendering, promotion or release authority.
-- Existing output files are never overwritten.
+- Existing output files are never overwritten. FFmpeg writes only to an invocation-private temporary file; an atomic no-replace publication prevents races, and failed runs cannot delete another invocation's destination.
 
 ## 5. Implementation map
 
@@ -62,7 +62,7 @@ The candidate includes focused tests for:
 - long bar-chart value auto-fit;
 - no-overwrite and receipt-tampering rejection.
 
-Exact renderer code head `df580452c2eca46d9fd0d8b0646527395900e763` passed both CI runs `43595226122` and `43595220908`: 252 tests, repository system hygiene audit, and installed CLI smoke all passed. Five Codex review threads are resolved, covering literal text expansion, exact source digests, horizontal metric fit, vertical chart-row fit and Sequence ancestry. A fresh full Codex review was requested against the latest head; final approval is still pending.
+Exact renderer code head `16b2c17cd6ca503cca056be626d4402a547f3899` passed both CI runs `43596038209` and `43596033964`: 255 tests, repository system hygiene audit, and installed CLI smoke all passed. Six Codex inline findings are resolved, covering literal text expansion, exact source digests, horizontal metric fit, vertical chart-row fit, Sequence ancestry and concurrent output ownership. Fresh full code and security reviews have been requested against this head; final approval is still pending.
 
 ## 7. Governance
 
