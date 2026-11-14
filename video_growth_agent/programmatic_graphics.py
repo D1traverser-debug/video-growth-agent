@@ -10,6 +10,7 @@ from dataclasses import asdict, dataclass
 import hashlib
 import json
 import math
+import os
 from pathlib import Path
 import re
 import shutil
@@ -659,8 +660,11 @@ def render_programmatic_graphic(
 
     output.parent.mkdir(parents=True, exist_ok=True)
     graph, text_files, text_layout = _filter_script(spec, font_path=font)
-    with tempfile.TemporaryDirectory(prefix="vga-graphic-") as work:
+    with tempfile.TemporaryDirectory(
+        prefix=".vga-graphic-", dir=output.parent,
+    ) as work:
         workdir = Path(work)
+        render_temp = workdir / "candidate.mp4"
         shutil.copyfile(font, workdir / "font.ttf")
         for name, value in text_files.items():
             (workdir / name).write_text(value, encoding="utf-8")
@@ -677,17 +681,35 @@ def render_programmatic_graphic(
             "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p",
             "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart",
             "-metadata", "comment=VIDEO_CANDIDATE_ONLY__INTENTIONAL_SILENCE",
-            str(output),
+            str(render_temp),
         ]
         proc = subprocess.run(command, cwd=workdir, text=True, capture_output=True, check=False)
         if proc.returncode != 0:
-            output.unlink(missing_ok=True)
+            # Only this invocation's private temporary directory is cleaned up.
+            # Never unlink the caller's destination: another process may have
+            # successfully published it after our initial existence check.
             raise ProgrammaticGraphicsError(f"ffmpeg render failed: {proc.stderr.strip()}")
-    if not output.is_file() or output.stat().st_size == 0:
-        raise ProgrammaticGraphicsError("ffmpeg returned without a nonempty output file")
+        if not render_temp.is_file() or render_temp.stat().st_size == 0:
+            raise ProgrammaticGraphicsError("ffmpeg returned without a nonempty temporary output file")
 
-    qa = MediaQAChecker().inspect(output).to_dict()
-    digest = _sha256(output)
+        qa = MediaQAChecker().inspect(render_temp).to_dict()
+        qa["media_uri"] = str(output)
+        digest = _sha256(render_temp)
+        try:
+            # The temporary directory lives under output.parent, so this
+            # same-filesystem hard link is an atomic no-replace publication.
+            os.link(render_temp, output)
+        except FileExistsError:
+            raise FileExistsError(
+                "output path was claimed by another render; existing file was preserved"
+            )
+        except OSError as exc:
+            raise ProgrammaticGraphicsError(
+                f"cannot atomically publish candidate without replacing an existing file: {exc}"
+            ) from exc
+
+    if not output.is_file() or output.stat().st_size == 0:
+        raise ProgrammaticGraphicsError("published output is missing or empty")
     rendered_at = utcnow_iso()
     receipt = {
         "receipt_version": "1.0",
