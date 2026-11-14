@@ -48,7 +48,7 @@
       "IPOS_IDENTITY_BUNDLE",
       "EXTERNAL_CANON_HANDOFF"
     ],
-    "semantic_summary": "Default integrated Video-domain Media Business Program. Growth, commercialization and production are evidence-coupled. IP Studio OS (IPOS) is the independent sole creative authority for character identity and exports a versioned Video Identity Bundle; Video validates and imports it locally without a CAOS runtime dependency. Current IPOS R39 state has no approved identity: G1 research is open and G2 has not started. The previous Video-local H1/S1+S3/A2 face-shell route is historical and superseded. Media Business OS 0.8.0 remains the verified production baseline; IPOS bridge code is under candidate CI.",
+    "semantic_summary": "Default integrated Video-domain Media Business Program. Growth, commercialization and production are evidence-coupled. IP Studio OS (IPOS) is the independent sole creative authority for character identity and exports a versioned Video Identity Bundle; Video validates and imports it locally without a CAOS runtime dependency. Current IPOS R39 state has no approved identity: G1 research is open and G2 has not started. The previous Video-local H1/S1+S3/A2 face-shell route is historical and superseded. Media Business OS 0.8.0 and the IPOS bridge are mainline verified. A separate local programmatic graphics renderer for non-character information shots is under review in PR #33 and is not merged or production-authorized.",
     "resume_entry": "RESUME_ENTRY.md",
     "current_progress": "CURRENT_PROGRESS.md",
     "program_state": "PROGRAM_STATE.json",
@@ -88,7 +88,7 @@
   "current_stage": "IPOS_CANONICAL_HANDOFF_V1",
   "current_focus": "ORIGINAL_DIGITAL_IP",
   "current_state": "IPOS R39 is the sole identity authority. No character carrier, identity anchor or avatar is approved; G1 is open and G2 has not started. Video-local H1/S1+S3/A2 assumptions are superseded and cannot be resumed. The Video system is implementing a portable, fail-closed IPOS bundle importer and shot/continuity binding.",
-  "next_action": "Complete the IPOS bundle bridge implementation and CI. Continue non-character Video work in parallel. When IPOS later exports a READY_FOR_VIDEO owner-approved bundle with G2/G7/G8 PASS, import the exact version into MediaGraph and bind only identity-dependent shots.",
+  "next_action": "Continue IPOS R39 G1 independently. In parallel, finish PR #33 review/CI for the local non-character programmatic graphics candidate; do not treat it as production-ready until merged and mainline CI passes. Keep identity-dependent work blocked until an owner-approved READY_FOR_VIDEO IPOS bundle arrives.",
   "workflow_integration": {
     "mode": "AGENT_OPERABLE_MEDIA_BUSINESS_OS_WITH_VERSIONED_LEGACY_EPISODE_ADAPTER",
     "core_runtime": "0.8.0",

@@ -88,3 +88,13 @@ Historical/superseded design files remain evidence only when `PROJECT_MANIFEST.j
 ## Parallel topical satire / platform packaging
 
 See EDITORIAL_PACKAGING.md and cases/jensen-alice-20261114.json for the VIDEO-owned news x fictional-media language workflow. The vga audit-packaging CLI checks seven platform candidate refs, reviewer/version boundaries and unmet publication gates. This is non-character MEDIA_GROWTH/PRODUCTION work. No media asset, IPOS canon, rights or production release is approved by this document. The earlier long-form tech/business format remains independently supported.
+
+## Local programmatic graphics candidate route
+
+For non-character information shots, the Video package now has a deterministic local FFmpeg renderer. It supports title/quote cards, metric cards and bar charts. Start from `samples/programmatic-graphics-request.example.json`, replace all illustrative values with the exact approved claim IDs/values, and set `font_path` to an installed local font (for Chinese, use a licensed Noto Sans CJK or Microsoft YaHei font).
+
+```bash
+vga render-graphic projects/ai-self-media-commercialization/samples/programmatic-graphics-request.example.json --output ./renders/shot-info-001.mp4
+```
+
+The command writes an MP4 plus `.mp4.receipt.json`. It creates a silent visual candidate only. Pass `--graph PATH_TO_MEDIAGRAPH.json` only when that graph already contains the exact SHOT context and referenced asset versions; the candidate is then registered without promotion. This route is not AI footage, product-truth evidence, IPOS identity rendering, final sound, or release approval.

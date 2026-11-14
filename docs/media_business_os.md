@@ -156,7 +156,7 @@ Current primary graph:
 4. `ShotIntent`
 5. `EditorialPlan asset/version`
 6. `ShotContract + ReferenceBinding`
-7. `ModelRoutingDecision / acquisition decision`
+7. `ModelRoutingDecision / acquisition / deterministic graphics route`
 8. `CandidateTakes`
 9. `ContinuityAssessment + quality/truth/rights evidence`
 10. `TakePromotion`
@@ -172,6 +172,12 @@ Current primary graph:
 20. `LearningCandidate`
 
 The legacy stage/work-order engine remains a historical/specialized compatibility adapter, not the current product ontology.
+
+### Local programmatic graphics route
+
+`video_growth_agent.programmatic_graphics` provides a deterministic local FFmpeg route for bounded non-character information shots: title/quote cards, metric cards and bar charts. It is selected explicitly through `ShotContract.allowed_modes` containing `PROGRAMMATIC_GRAPHICS`; it also requires an exact EditorialPlan/beat binding, synthetic truth mode, disclosure requirement, and source-claim IDs for factual chart/stat/quote content. The renderer uses actual font metrics to wrap and fit every text field within pixel budgets, records measured text-layout evidence alongside font/spec/ShotContract/media digests, and captures real FFmpeg/ffprobe QA. Overlong values that cannot fit at a minimum readable size fail before a media file is created. When supplied an existing MediaGraph with the exact SHOT context and promoted reference versions whose graph digests match the ShotContract bindings, it registers the output as a `CANDIDATE` AssetVersion with evidence and a completed render task.
+
+This route creates a silent visual preview only. It does not generate AI footage, voice/audio, observed real-world or product-truth evidence, IPOS identity assets, or a final mix. It never promotes or releases. A candidate must still pass craft/semantic/rights/continuity review and the existing promotion/release gates.
 
 ## 7. Shot contract and value
 

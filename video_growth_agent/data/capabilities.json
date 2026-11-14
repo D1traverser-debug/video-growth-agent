@@ -1,6 +1,6 @@
 {
   "schema_version": "3.0",
-  "profile_version": 12,
+  "profile_version": 13,
   "execution_readiness_contract": "2.0",
   "owner": "VIDEO_GROWTH_AGENT",
   "domain_id": "video",
@@ -15,7 +15,7 @@
   "agent_operability_scenarios_ref": "docs/agent_operability_scenarios.md",
   "provider_benchmark_ref": "docs/provider_benchmark_protocol.md",
   "canonical_evolution_entrypoint": "audits/EVOLUTION_INDEX.json",
-  "updated_at": "2026-11-14T16:20:00+08:00",
+  "updated_at": "2026-11-14T18:00:00+08:00",
   "assurance_taxonomy": [
     "DECLARED_ONLY",
     "HARNESS_WIRED",
@@ -469,6 +469,35 @@
       "safe_degraded_modes": []
     },
     {
+      "capability_id": "programmatic_motion_graphics_render",
+      "scope": "NON_CHARACTER_INFORMATION_GRAPHICS__KINETIC_TYPOGRAPHY__DATA_CARDS__BAR_CHARTS__QUOTE_CARDS",
+      "assurance_ceiling": "SESSION_EXECUTABLE",
+      "invocation_path": "vga render-graphic REQUEST.json --output candidate.mp4 [--graph MediaGraph.json]",
+      "executor_type": "LOCAL_FFMPEG_PROGRAMMATIC_GRAPHICS_RENDERER",
+      "executor_ref": "video_growth_agent/programmatic_graphics.py + video_growth_agent/media_qa.py + video_growth_agent/media_graph.py",
+      "required_tools": [
+        "ffmpeg with drawtext/libx264",
+        "ffprobe",
+        "explicit local font file",
+        "exact ShotContract and EditorialPlan/beat binding"
+      ],
+      "evidence_contract": [
+        "ShotContract identity and allowed PROGRAMMATIC_GRAPHICS mode",
+        "EditorialPlan/beat/source-claim references",
+        "font SHA-256 and GraphicSpec digest",
+        "rendered MP4 SHA-256",
+        "FFmpeg/ffprobe technical QA receipt",
+        "optional MediaGraph CANDIDATE AssetVersion/EvidenceRecord/TaskRecord"
+      ],
+      "side_channel_allowed": false,
+      "safe_degraded_modes": [
+        "SILENT_VISUAL_CANDIDATE_ONLY",
+        "NO_AI_VIDEO_OR_AUDIO_GENERATION",
+        "NO_AUTOMATIC_PROMOTION_OR_RELEASE",
+        "NO_PRODUCT_TRUTH_OR_IPOS_IDENTITY_SUBSTITUTION"
+      ]
+    },
+    {
       "capability_id": "asset_and_project_continuity",
       "scope": "CHILD_OWNED_PROGRAM_SERIES_EPISODE_SHOT_ASSET_AND_STATE",
       "assurance_ceiling": "SESSION_EXECUTABLE",
@@ -543,7 +572,8 @@
     "External media generation is only as executable as the current session's real image/video/audio tools/provider adapters and authorization. Repository declarations do not fabricate provider access.",
     "Current provider quality rankings are intentionally unpopulated until owner benchmark runs bind exact outputs/evidence under compatible rubrics/calibration scopes. Official provider documentation establishes capabilities/limits, not our production quality score.",
     "Learning candidates do not mutate production authority by themselves; durable promotion requires owner maintenance plus tests/replay and verified write evidence.",
-    "Live published-episode growth/IP/commercial outcome verification remains open after executable architecture validation."
+    "Live published-episode growth/IP/commercial outcome verification remains open after executable architecture validation.",
+    "Programmatic graphics is now executable only for constrained non-character typography/data/quote explainer shots. It is a silent synthetic candidate route, not cinematic AI-video generation, real/product-truth evidence, IPOS identity rendering, final sound or automatic release."
   ],
   "video_domain_governance_realization": "OWNER_NATIVE_RECOVERY__ROOT_SCOPE_ADMISSION__TYPED_EVOLUTION_DISPOSITION__DURABLE_CAUSAL_EVIDENCE__PROBLEM_REPAIR_OR_BLOCK_CLOSURE",
   "governance_binding": {

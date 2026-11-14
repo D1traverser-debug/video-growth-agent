@@ -126,6 +126,10 @@ A provider feature list is not a Cartesian-product capability guarantee. Referen
 
 Provider lifecycle is a first-class risk. A discontinued provider never forces a business-architecture rewrite.
 
+### Local deterministic information graphics
+
+Use the local `PROGRAMMATIC_GRAPHICS` route when the narrative job is best served by a chart, metric, quote, title card or explanatory typography rather than a generated cinematic shot. It uses local font-metric measurement and FFmpeg, with no paid-provider or network cost, but it is not free of creator/design time and it does not replace footage, product-truth references, IPOS identity, voice, sound mix or motion-critical generation. Its silent MP4 is a CANDIDATE only; bind it to the ShotContract and MediaGraph, then evaluate craft and editorial fit before any promotion.
+
 ## 5. Reference, continuity and asset strategy
 
 The highest leverage cost reduction is often **asset reuse and controlled editing**, not a cheaper fresh generation.

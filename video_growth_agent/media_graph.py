@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import os
+import tempfile
+from contextlib import contextmanager
+from filelock import FileLock, Timeout as FileLockTimeout
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Iterable, Mapping
@@ -9,6 +13,10 @@ from typing import Any, Iterable, Mapping
 
 class MediaGraphError(ValueError):
     pass
+
+
+class MediaGraphConcurrencyError(MediaGraphError):
+    """Raised when a graph snapshot is stale or a transaction lock times out."""
 
 
 CONTEXT_KINDS = {"PROGRAM", "SERIES", "EPISODE", "SEQUENCE", "SCENE", "SHOT", "TAKE"}
@@ -391,18 +399,84 @@ class MediaGraph:
 
 
 class MediaGraphStore:
-    """Atomic JSON persistence for the canonical media graph metadata."""
+    """Atomic, optimistic-concurrency-checked JSON persistence for MediaGraph.
+
+    Read/modify/write operations should use transaction(). save() also checks the
+    revision captured by load(), so a stale snapshot fails instead of overwriting
+    another writer's newer graph.
+    """
 
     def __init__(self, path: Path):
         self.path = Path(path)
+        self.lock_path = self.path.with_suffix(self.path.suffix + ".lock")
+
+    @staticmethod
+    def _revision(raw: bytes) -> str:
+        return hashlib.sha256(raw).hexdigest()
 
     def load(self) -> MediaGraph:
         if not self.path.is_file():
-            return MediaGraph()
-        return MediaGraph.from_dict(json.loads(self.path.read_text(encoding="utf-8")))
+            graph = MediaGraph()
+            graph._store_revision = None
+            return graph
+        raw = self.path.read_bytes()
+        graph = MediaGraph.from_dict(json.loads(raw.decode("utf-8")))
+        graph._store_revision = self._revision(raw)
+        return graph
+
+    def _save_locked(self, graph: MediaGraph) -> None:
+        current_revision = (
+            self._revision(self.path.read_bytes()) if self.path.is_file() else None
+        )
+        expected_revision = getattr(graph, "_store_revision", None)
+        if current_revision != expected_revision:
+            raise MediaGraphConcurrencyError(
+                "MediaGraph changed since this snapshot was loaded; reload and retry "
+                "instead of overwriting concurrent updates"
+            )
+
+        payload = json.dumps(
+            graph.to_dict(), ensure_ascii=False, indent=2,
+        ).encode("utf-8")
+        tmp_path: Path | None = None
+        try:
+            with tempfile.NamedTemporaryFile(
+                mode="wb",
+                prefix=f".{self.path.name}.",
+                suffix=".tmp",
+                dir=self.path.parent,
+                delete=False,
+            ) as handle:
+                tmp_path = Path(handle.name)
+                handle.write(payload)
+                handle.flush()
+                os.fsync(handle.fileno())
+            os.replace(tmp_path, self.path)
+            graph._store_revision = self._revision(payload)
+        finally:
+            if tmp_path is not None:
+                tmp_path.unlink(missing_ok=True)
 
     def save(self, graph: MediaGraph) -> None:
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        tmp = self.path.with_suffix(self.path.suffix + ".tmp")
-        tmp.write_text(json.dumps(graph.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
-        os.replace(tmp, self.path)
+        try:
+            with FileLock(str(self.lock_path), timeout=30):
+                self._save_locked(graph)
+        except FileLockTimeout as exc:
+            raise MediaGraphConcurrencyError(
+                f"timed out waiting for MediaGraph write lock: {self.lock_path}"
+            ) from exc
+
+    @contextmanager
+    def transaction(self):
+        """Lock, reload the latest graph, yield it, then atomically persist on success."""
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            with FileLock(str(self.lock_path), timeout=30):
+                graph = self.load()
+                yield graph
+                self._save_locked(graph)
+        except FileLockTimeout as exc:
+            raise MediaGraphConcurrencyError(
+                f"timed out waiting for MediaGraph transaction lock: {self.lock_path}"
+            ) from exc

@@ -10,6 +10,7 @@ from video_growth_agent.media_graph import (
     DecisionRecord,
     EvidenceRecord,
     MediaGraph,
+    MediaGraphConcurrencyError,
     MediaGraphError,
     MediaGraphStore,
     TaskRecord,
@@ -163,3 +164,39 @@ def test_graph_round_trip_persists_identity_lineage_decisions_and_pointers(tmp_p
 
     payload = json.loads(path.read_text(encoding="utf-8"))
     assert payload["promoted_versions"]["frame"] == "v1"
+
+def test_media_graph_store_rejects_stale_snapshot_instead_of_losing_updates(tmp_path: Path):
+    path = tmp_path / "media-graph.json"
+    store = MediaGraphStore(path)
+    store.save(_base_graph())
+
+    stale_snapshot = store.load()
+    current_snapshot = store.load()
+    current_snapshot.add_context(ContextRecord("scene-review", "SCENE", "seq-1"))
+    store.save(current_snapshot)
+
+    stale_snapshot.add_context(ContextRecord("scene-stale", "SCENE", "seq-1"))
+    with pytest.raises(MediaGraphConcurrencyError, match="changed since this snapshot"):
+        store.save(stale_snapshot)
+
+    restored = store.load()
+    assert "scene-review" in restored.contexts
+    assert "scene-stale" not in restored.contexts
+
+
+def test_media_graph_store_transaction_reloads_latest_state_and_commits_atomically(tmp_path: Path):
+    path = tmp_path / "media-graph.json"
+    store = MediaGraphStore(path)
+    store.save(_base_graph())
+    stale_snapshot = store.load()
+
+    with store.transaction() as latest:
+        latest.add_context(ContextRecord("scene-transaction", "SCENE", "seq-1"))
+
+    stale_snapshot.add_context(ContextRecord("scene-stale", "SCENE", "seq-1"))
+    with pytest.raises(MediaGraphConcurrencyError, match="changed since this snapshot"):
+        store.save(stale_snapshot)
+
+    restored = store.load()
+    assert "scene-transaction" in restored.contexts
+    assert "scene-stale" not in restored.contexts

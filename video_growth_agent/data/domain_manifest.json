@@ -45,7 +45,9 @@
     "legacy_adapter_bundle_version": "0.7.0",
     "system_audit": "vga system-audit --repo-root .",
     "ip_identity": "video_growth_agent/ip_identity.py",
-    "ipos_video_identity_bundle_schema": "video_growth_agent/data/ipos_video_identity_bundle.schema.json"
+    "ipos_video_identity_bundle_schema": "video_growth_agent/data/ipos_video_identity_bundle.schema.json",
+    "programmatic_graphics": "video_growth_agent/programmatic_graphics.py",
+    "programmatic_graphics_assurance": "SESSION_EXECUTABLE__SILENT_CANDIDATE_ONLY__NO_PROMOTION"
   },
   "domain_authority": {
     "runtime_root": "video_growth_agent",

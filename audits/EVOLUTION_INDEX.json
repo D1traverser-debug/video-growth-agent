@@ -2,11 +2,46 @@
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
   "revision": "2.0",
-  "updated_at": "2026-11-14T17:00:00+08:00",
-  "current_open_items": [],
-  "current_problem_refs": {},
-  "current_resume_ref": null,
-  "current_candidate": null,
+  "updated_at": "2026-11-14T21:25:00+08:00",
+  "current_open_items": [
+    "PR #33: local programmatic graphics renderer — renderer/graph code head passed exact-head CI (263 tests); ten inline findings resolved; fresh full code and security reviews pending; candidate remains unmerged and not production-authorized."
+  ],
+  "current_problem_refs": {
+    "PR #33: local programmatic graphics renderer — renderer/graph code head passed exact-head CI (263 tests); ten inline findings resolved; fresh full code and security reviews pending; candidate remains unmerged and not production-authorized.": "audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md"
+  },
+  "current_resume_ref": "projects/ai-self-media-commercialization/RESUME_ENTRY.md",
+  "current_candidate": {
+    "id": "V-20261114-02-PROGRAMMATIC-GRAPHICS",
+    "ref": "audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md",
+    "status": "CANDIDATE_PR_OPEN__NOT_MERGED",
+    "failure_class": "FC-PROGRAMMATIC-GRAPHICS-NOT-EXECUTABLE__FC-TEXT-CLIPPING__FC-REFERENCE-DIGEST-MISMATCH",
+    "selected_architecture": "LOCAL_FFMPEG_RENDERER__PILLOW_PIXEL_METRICS__EXACT_PROMOTED_SOURCE_DIGEST_BINDING__CANDIDATE_ONLY",
+    "candidate_pr": 33,
+    "candidate_branch": "feat/video-local-programmatic-graphics-renderer-20261114",
+    "candidate_head": "46bbb7beb5a9da28e39662aba56c4d4c5438321c",
+    "candidate_ci_status": "PASS__263_TESTS__SYSTEM_AUDIT_PASS__INSTALLED_CLI_SMOKE_PASS",
+    "codex_review_status": "FRESH_FULL_CODE_AND_SECURITY_REVIEWS_REQUESTED_PENDING",
+    "resolved_findings": [
+      "drawtext literal expansion disabled",
+      "exact promoted source reference digest validation shared by CLI and MediaGraph registration",
+      "pixel-measured horizontal text fit and adaptive long metric sizing",
+      "dynamic vertical chart-row allocation and measured label/value/bar bounds",
+      "exact SHOT-to-SEQUENCE ancestry binding, allowing one SCENE intermediary",
+      "invocation-private rendering and atomic no-replace MP4 publication",
+      "cross-process MediaGraph transaction with latest-state revalidation and optimistic stale-snapshot rejection",
+      "receipt JSON private-temp atomic no-replace publication; symlink and competing path preserved",
+      "font layout, FFmpeg rendering and receipt SHA-256 use the same staged font bytes",
+      "pre-existing dangling output symlink rejected without following target; requested basename preserved"
+    ],
+    "pending_findings": [],
+    "result": "OPEN",
+    "next_action": "Inspect fresh full code and security reviews; verify latest documentation-only branch-head CI; if clean, merge PR #33 and verify mainline CI before production authorization.",
+    "candidate_ci_runs": [
+      43597969675,
+      43597962380
+    ],
+    "candidate_ci_test_count": 263
+  },
   "recent_resolved_or_promoted": [
     {
       "id": "V-20261114-01-CAOS-GOVERNANCE-TAKEOVER",

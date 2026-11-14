@@ -75,3 +75,73 @@ The bridge is not complete merely because files or a PR exist. Required evidence
 ## Historical archive
 
 The former 2026-10-15 H1 face-shell/A2 work remains in its original files for provenance and audit only. It is superseded by IPOS R39 and is not the current creative task. Pilot 002 remains a separate historical child project; rejected/process-invalid artifacts are not accepted inputs here.
+
+## Parallel production-system candidate — local programmatic graphics
+
+Updated: 2026-11-14 20:04+08:00
+
+A bounded local graphics renderer is under review in PR #33:
+- audit: `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md`;
+- implementation: `video_growth_agent/programmatic_graphics.py`;
+- CLI: `vga render-graphic REQUEST.json --output candidate.mp4 [--graph MediaGraph.json]`;
+- supports title/quote/stat cards and bar charts for explicitly admitted non-character information shots;
+- FFmpeg renders a silent MP4; Pillow/FreeType measures the actual selected font so all text is pixel-fitted, and unfit text fails before output;
+- source references require exact promoted MediaGraph versions and digest matches;
+- optional MediaGraph registration remains CANDIDATE only; no promotion/release authority;
+- no paid provider, network call, AI cinematic footage, product-truth or IPOS identity substitution.
+
+PR #33 is OPEN and NOT MERGED. Exact head at this checkpoint: `77a41072c88151a3e78e975cda7ae731b9cc997d` (audit/handoff update after renderer tests). The prior exact head `dba8b105d62ba1708685edc87832736096473b33` passed CI with 246 tests, system audit and installed CLI smoke. Subsequent additions include a long chart-value fit test; exact-head CI and fresh Codex review are pending. Do not call this production-verified or merge until exact-head CI and independent review pass.
+
+The first two Codex findings (literal drawtext expansion; source digest mismatch) are fixed and their review threads resolved. The third finding (long metric clipping) is addressed with pixel-based measurement, adaptive sizing, a receipt layout record and fail-before-output tests; its thread awaits final verification/review.
+
+CAOS and IPOS remain unchanged. IPOS R39 remains the sole identity authority; no approved bundle exists.
+
+### Candidate verification correction — 2026-11-14
+
+The local graphics candidate now also dynamically allocates chart rows from the available vertical region and measures each label/value/bar height against its row. A 640×640 six-row chart with a two-line sixth label is rendered in regression coverage; impossible row layouts fail before output. This closes the fourth Codex finding (vertical label clipping).
+
+Exact code head `c70b8f32e24aa9e79306989f16ebbc46b233745c` passed CI runs `43594450643` and `43594445342`: 249 tests, repository system hygiene audit, and installed CLI smoke. Four Codex review threads are resolved. A fresh full Codex review was requested against that head and is pending. PR #33 remains open and unmerged; do not mark production-ready until fresh review, merge and mainline CI all pass.
+
+### Candidate lineage correction — 2026-11-14
+
+A fifth Codex finding exposed that candidate registration validated the existence of a SHOT context but not its actual Sequence ancestry. The shared `validate_shot_graph_bindings()` now requires the SHOT parent chain to resolve to the exact `ShotContract.sequence_id`, accepting SHOT → SEQUENCE or SHOT → SCENE → SEQUENCE only. CLI preflight and MediaGraph registration both call the same validator. Regression coverage verifies mismatch rejection, registration rejection, valid SCENE intermediary and CLI fail-closed behavior.
+
+Exact renderer code head `df580452c2eca46d9fd0d8b0646527395900e763` passed CI runs `43595226122` and `43595220908`: 252 tests, system hygiene audit and installed CLI smoke. Five Codex inline findings are resolved. A fresh full review was requested; PR #33 remains open/unmerged and not production-authorized pending that review and mainline CI.
+
+### Concurrent-output ownership correction — 2026-11-14
+
+A sixth Codex finding exposed a race: an FFmpeg failure could unlink a destination file created by another concurrent invocation after the initial existence check. The renderer now writes only into an invocation-private temporary directory under the destination filesystem, performs QA there, and publishes with an atomic no-replace hard link. Cleanup removes only the private temporary directory. A competing destination is preserved both on FFmpeg failure and on publication race. The QA receipt now points to the published MP4.
+
+Exact renderer code head `16b2c17cd6ca503cca056be626d4402a547f3899` passed CI runs `43596038209` and `43596033964`: 255 tests, repository system hygiene audit and installed CLI smoke. Six Codex findings are fixed and all six inline threads are resolved. Fresh full code and security reviews have been requested. PR #33 remains open/unmerged and not production-authorized.
+
+### MediaGraph concurrent-update correction — 2026-11-14
+
+A seventh Codex finding exposed lost updates: the CLI saved a graph snapshot loaded before FFmpeg rendering, potentially overwriting reviewer/renderer changes and validating against stale promotion state. `MediaGraphStore` now provides cross-process file-lock transactions and SHA-256 optimistic revision checks. Stale `save()` snapshots fail rather than overwrite. The CLI performs initial preflight, renders without holding the graph lock, then reloads the latest graph under a short transaction, revalidates exact Sequence ancestry and promoted reference digests, registers the candidate, and atomically saves. Concurrent source revocation blocks registration; concurrent review records are preserved.
+
+Exact renderer/graph-transaction code head `2b5c58cb5b836be781c49a1465f79e216f099d08` passed CI runs `43596922416` and `43596916300`: 259 tests, repository system hygiene audit and installed CLI smoke. Seven Codex inline findings are fixed and all threads are resolved. Fresh full code and security reviews have been requested. PR #33 remains open/unmerged and not production-authorized.
+
+### Latest consolidated candidate verification — 2026-11-14
+
+This section supersedes all earlier PR #33 checkpoints above.
+
+Verified renderer/graph transaction code head: `a73a1f7ea1f4e6b3d314bfc213fd8e8f0efdb91d`.
+
+Exact-head CI runs `43597564240` and `43597558421` both passed:
+- 262 pytest tests;
+- repository system hygiene audit;
+- installed CLI smoke outside the repository.
+
+Nine Codex inline findings are fixed and resolved. In addition to the previous renderer/layout/source/sequence/MP4/MediaGraph fixes:
+- Receipt JSON is written to a private temporary file and atomically published with no-replace semantics. A competing file or symlink is preserved; the CLI fails closed instead of following or truncating it.
+- Font measurement, FFmpeg rendering and receipt SHA-256 use one staged font snapshot. Removing or replacing the original font after staging does not alter the rendered font provenance.
+
+Fresh full Codex code review and security review were requested against this exact code head. Their results are pending. PR #33 remains OPEN and NOT MERGED; no production authorization is granted until independent reviews are clean, merge occurs, and mainline CI passes.
+
+Canonical audit: `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md`.
+CAOS source repository/code/PRs and IPOS authority/canon remain untouched.
+
+### Output-path symlink correction — 2026-11-14
+
+A fresh full review found that resolving the entire output path could follow a pre-existing dangling symlink and publish the MP4 at its target. The renderer now resolves only the parent directory, preserves the requested basename, and uses `os.path.lexists()` to reject existing entries including dangling symlinks before rendering. Atomic no-replace publication remains the race guard for entries created after preflight. A regression confirms the symlink remains and its target is not created.
+
+Verified renderer/graph transaction code head: `46bbb7beb5a9da28e39662aba56c4d4c5438321c`. Exact-head CI runs `43597969675` and `43597962380` both passed: 263 tests, repository system audit and installed CLI smoke. Ten inline Codex findings are resolved. Fresh full code and security reviews were requested against this head and remain pending. PR #33 is OPEN/NOT MERGED and not production-authorized.

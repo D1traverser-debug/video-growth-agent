@@ -2,11 +2,23 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
+import sys
+import tempfile
 
 from .editorial_packaging import audit_packaging
+from .media_graph import MediaGraphConcurrencyError, MediaGraphStore
 from .media_qa import MediaQAChecker
 from .models import AssetRecord
+from .programmatic_graphics import (
+    ProgrammaticGraphicsError,
+    graphic_spec_from_dict,
+    register_graph_candidate,
+    render_programmatic_graphic,
+    shot_contract_from_dict,
+    validate_shot_graph_bindings,
+)
 from .runtime import StudioRuntime
 from .system_audit import run_system_audit
 from .techniques import TechniqueLibrary
@@ -14,6 +26,40 @@ from .techniques import TechniqueLibrary
 
 def _json(data) -> None:
     print(json.dumps(data, ensure_ascii=False, indent=2))
+
+
+def _publish_json_noreplace(path: str | Path, data) -> None:
+    """Atomically publish a JSON sidecar without replacing files or following symlinks."""
+    destination = Path(path)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    payload = json.dumps(data, ensure_ascii=False, indent=2).encode("utf-8")
+    temporary: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="wb",
+            prefix=f".{destination.name}.",
+            suffix=".tmp",
+            dir=destination.parent,
+            delete=False,
+        ) as handle:
+            temporary = Path(handle.name)
+            handle.write(payload)
+            handle.flush()
+            os.fsync(handle.fileno())
+        # Same-filesystem hard-link creation is atomic and fails if any path
+        # entry already exists, including a symlink. Never truncate a target.
+        os.link(temporary, destination)
+    except FileExistsError as exc:
+        raise FileExistsError(
+            f"receipt path was claimed by another writer; existing entry was preserved: {destination}"
+        ) from exc
+    except OSError as exc:
+        raise OSError(
+            f"cannot atomically publish receipt without replacement: {destination}: {exc}"
+        ) from exc
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -83,6 +129,11 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("audit-packaging")
     p.add_argument("case_file", type=Path)
 
+    p = sub.add_parser("render-graphic")
+    p.add_argument("request_file", type=Path)
+    p.add_argument("--output", type=Path, required=True)
+    p.add_argument("--graph", type=Path, help="optional canonical MediaGraph JSON store")
+
     p = sub.add_parser("system-audit")
     p.add_argument("--repo-root", type=Path)
 
@@ -97,6 +148,64 @@ def main(argv: list[str] | None = None) -> int:
         report = audit_packaging(json.loads(args.case_file.read_text(encoding="utf-8")))
         _json(report)
         return 0 if report["contract_valid"] else 2
+
+    if args.cmd == "render-graphic":
+        request = json.loads(args.request_file.read_text(encoding="utf-8"))
+        if not isinstance(request, dict):
+            parser.error("render request root must be a JSON object")
+        shot = shot_contract_from_dict(request.get("shot_contract", {}))
+        spec = graphic_spec_from_dict(request.get("graphic", {}))
+        font_path = request.get("font_path")
+        if not isinstance(font_path, str) or not font_path.strip():
+            parser.error("request must provide a local font_path")
+        graph_store = MediaGraphStore(args.graph) if args.graph else None
+        graph = graph_store.load() if graph_store else None
+        if shot.references and graph_store is None:
+            parser.error("--graph is required when ShotContract contains reference bindings")
+        if graph is not None:
+            try:
+                validate_shot_graph_bindings(graph, shot)
+            except ProgrammaticGraphicsError as exc:
+                parser.error(str(exc))
+        receipt = render_programmatic_graphic(
+            shot, spec, output_path=args.output, font_path=font_path,
+        )
+        if graph_store is not None:
+            try:
+                # Re-read and revalidate under the graph transaction lock after
+                # rendering. The initial preflight snapshot is never saved.
+                with graph_store.transaction() as latest_graph:
+                    validate_shot_graph_bindings(latest_graph, shot)
+                    asset_ref = register_graph_candidate(
+                        latest_graph, shot, spec, receipt,
+                    )
+            except (ProgrammaticGraphicsError, MediaGraphConcurrencyError) as exc:
+                receipt["media_graph_asset_ref"] = None
+                receipt["graph_registration"] = "NOT_REGISTERED__GRAPH_CHANGED_OR_VALIDATION_FAILED"
+                receipt["graph_registration_error"] = str(exc)
+                receipt_path = Path(receipt["media_path"] + ".receipt.json")
+                receipt["receipt_path"] = str(receipt_path)
+                try:
+                    _publish_json_noreplace(receipt_path, receipt)
+                except OSError as publish_error:
+                    print(f"vga: {publish_error}", file=sys.stderr)
+                    return 2
+                _json(receipt)
+                return 2
+            receipt["media_graph_asset_ref"] = asset_ref
+            receipt["graph_registration"] = "CANDIDATE_REGISTERED"
+        else:
+            receipt["media_graph_asset_ref"] = None
+            receipt["graph_registration"] = "NOT_REGISTERED__STANDALONE_CANDIDATE"
+        receipt_path = Path(receipt["media_path"] + ".receipt.json")
+        receipt["receipt_path"] = str(receipt_path)
+        try:
+            _publish_json_noreplace(receipt_path, receipt)
+        except OSError as publish_error:
+            print(f"vga: {publish_error}", file=sys.stderr)
+            return 2
+        _json(receipt)
+        return 0 if receipt["qa_hard_pass"] else 2
 
     runtime = StudioRuntime()
 
