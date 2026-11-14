@@ -1,7 +1,7 @@
 {
   "schema_version": "1.2",
   "owner": "DOMAIN:video",
-  "revision": "1.9",
+  "revision": "1.8",
   "updated_at": "2026-11-14T16:20:00+08:00",
   "current_open_items": [
     "V-20261114-01-CAOS-GOVERNANCE-TAKEOVER"
@@ -112,7 +112,7 @@
     "tests/test_operator_view.py",
     "tests/test_owner_behavior_admission.py",
     "tests/test_system_audit.py",
-    "tests/test_execution_capability_wiring.py"
+    "tests/test_caos_governance_binding.py"
   ],
   "historical_evidence_refs": [
     "audits/VIDEO_0_8_RESUME_CHECKPOINT_2026-10-15.md",

@@ -34,6 +34,10 @@ CURRENT_GLOBAL_FILES = (
     "projects/PROJECT_INDEX.json",
     "projects/ai-self-media-commercialization/PROJECT_MANIFEST.json",
     "projects/ai-self-media-commercialization/PROGRAM_STATE.json",
+    "projects/ai-self-media-commercialization/WORKFLOW_INTEGRATION.md",
+    "projects/ai-self-media-commercialization/README.md",
+    "projects/ai-self-media-commercialization/CURRENT_PROGRESS.md",
+    "projects/ai-self-media-commercialization/RESUME_ENTRY.md",
     "projects/pilot-002/PROGRAM_STATE.json",
     "audits/EVOLUTION_INDEX.json",
     "audits/CAOS_GOVERNANCE_TAKEOVER_2026-11-14.md",
@@ -642,6 +646,10 @@ def repository_audit(repo_root: Path) -> dict[str, Any]:
             failures.append("project_index_authority_drift")
         if project_index.get("default_project_id") != "ai-self-media-commercialization":
             failures.append("project_index_default_program_drift")
+        if project_index.get("governance", {}).get("system") != "CAOS" or project_index.get("governance", {}).get("runtime_dependency") is not False:
+            failures.append("project_index_caos_governance_boundary_drift")
+        if "CAOS_GOVERNANCE_CONTEXT_HAS_NO_VIDEO_TASK_IDENTITY" not in str(project_index.get("identity_rule", "")):
+            failures.append("project_index_identity_boundary_drift")
         projects = project_index.get("projects", [])
         by_id = {str(item.get("project_id")): item for item in projects}
         if set(by_id) < {"ai-self-media-commercialization", "pilot-002"}:
