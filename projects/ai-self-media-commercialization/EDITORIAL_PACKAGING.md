@@ -35,3 +35,19 @@ Rollback can remove this non-authoritative audit interface and case without muta
 Public text lives in each platform_copies[].public_fields rather than an invented universal title/body pair. X uses post_text, TikTok and Douyin use caption; YouTube uses title + description (with explicit STANDARD_VIDEO format here, not unverified Shorts), Xiaohongshu title + note, Channels short_title + description, and Bilibili title + description (plus optional tags). Cover text and tag edits belong in the exact copy fingerprint, so any material publication edit invalidates its previous independent review receipt. Legacy v1.0 remains readable for historical recovery but warns against blind posting.
 
 Each platform separately requires a PlatformVariant version, editorial format review receipt, and when media is synthetic, its actual upload-disclosure receipt. A general source video tag or a generic label in the title cannot replace platform-native disclosure. There is no automatic aspect-ratio transformation, Shorts classification, platform API call or publication here; all physical delivery remains gated by existing production/release authority.
+## Reading-first editorial contract v1.2
+
+The v1.2 case contract makes the reasoning order executable and reviewable:
+
+1. **FACT** — read and reconcile the news first. Separate primary-confirmed facts, attributed reporting, unverified allegations and unknowns. Never use an allegation as a fact or as an easy punchline.
+2. **INTENT** — identify the news's specific contradiction, euphemism, role conflict, incentive or consequence. State the primary satirical target. Prefer the institution's language or decision mechanics over a real person's private life.
+3. **VISUAL** — inspect the exact media file before making visual claims. Treat staged/synthetic footage as a secondary expressive layer, never as documentary evidence. If the file, identity, rights or digest is unavailable, keep those gates open and write no copy that depends on unseen details.
+4. **PLATFORM** — write native versions only after the first three layers are stable. Each platform needs its own angle, humor mechanism and speaker perspective; seven platforms must not become seven synonym swaps.
+
+A v1.2 case records editorial_reading (primary target, selected observation, visual role, fiction boundary, audience assumption, at least three rejected angles and the fixed layer order). Each platform copy records speaker_perspective, satire_target and semantic_bridge in addition to the v1.1 frame. The review digest binds the exact reading, public copy, editorial frame and referenced facts/visual versions.
+
+A PASS review requires all semantic checks, including: the news is the primary satire target; the visual is secondary expression; the copy does not retell plot beats or explain after its punchline; language is natural and platform-native; the humor mechanism actually appears in the copy; variants are not generic templates; fact and fiction stay separate; unverified claims remain attributed; and keywords are not forced into the text. For seven platform copies, at least six distinct combinations of editorial angle, humor mechanism and speaker perspective are required.
+
+These are **admission checks, not automated literary proof**. Metadata cannot establish that a joke is funny, natural, fair or understood by a real audience. A model-generated review cannot count as independent human review. Cold-reading, real media inspection, rights, platform format and upload disclosure remain separate evidence gates.
+
+The generic public type label AI Parody is not used as a default packaging shortcut. This does not waive any platform's actual synthetic-content disclosure or other policy requirements.
