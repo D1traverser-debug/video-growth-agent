@@ -773,3 +773,105 @@ def test_cli_revalidates_promoted_references_after_concurrent_graph_update(tmp_p
     assert receipt["graph_registration"] == "NOT_REGISTERED__GRAPH_CHANGED_OR_VALIDATION_FAILED"
     assert "not promoted" in receipt["graph_registration_error"]
     assert "NOT_REGISTERED__GRAPH_CHANGED_OR_VALIDATION_FAILED" in capsys.readouterr().out
+
+
+def test_cli_receipt_publish_preserves_symlink_target_claimed_during_render(tmp_path, monkeypatch, capsys):
+    import video_growth_agent.cli as cli_module
+
+    request = {
+        "font_path": str(FONT),
+        "shot_contract": {
+            "shot_id": "shot-01", "sequence_id": "sequence-01",
+            "narrative_job": "Explain a synthetic information graphic",
+            "duration_seconds": 2.0, "truth_mode": "SYNTHETIC", "risk": "LOW",
+            "allowed_modes": ["PROGRAMMATIC_GRAPHICS"],
+            "required_capabilities": ["ffmpeg.drawtext"],
+            "quality_targets": {"readability": 4.0}, "disclosure_required": True,
+            "editorial_plan_ref": "editorial-plan:v1", "beat_id": "beat-01",
+            "source_claim_ids": ["claim-01"],
+        },
+        "graphic": {
+            "spec_id": "receipt-symlink-race", "kind": "TITLE_CARD",
+            "title": "Receipt race", "subtitle": "Must not overwrite a symlink target",
+            "duration_seconds": 2.0, "width": 640, "height": 640, "fps": 24,
+        },
+    }
+    request_path = tmp_path / "request.json"
+    output = tmp_path / "candidate.mp4"
+    receipt_path = Path(str(output) + ".receipt.json")
+    sentinel = tmp_path / "unrelated.json"
+    sentinel_bytes = b'{"owner":"another process"}'
+    sentinel.write_bytes(sentinel_bytes)
+    request_path.write_text(json.dumps(request), encoding="utf-8")
+
+    real_render = cli_module.render_programmatic_graphic
+
+    def render_then_install_symlink(*args, **kwargs):
+        receipt = real_render(*args, **kwargs)
+        receipt_path.symlink_to(sentinel)
+        return receipt
+
+    monkeypatch.setattr(cli_module, "render_programmatic_graphic", render_then_install_symlink)
+    result = cli_module.main([
+        "render-graphic", str(request_path), "--output", str(output),
+    ])
+    assert result == 2
+    assert output.is_file()
+    assert receipt_path.is_symlink()
+    assert sentinel.read_bytes() == sentinel_bytes
+    assert "receipt path was claimed by another writer" in capsys.readouterr().err
+
+
+def test_renderer_uses_staged_font_snapshot_even_if_source_is_removed(tmp_path, monkeypatch):
+    import hashlib
+    import video_growth_agent.programmatic_graphics as renderer
+
+    source_font = tmp_path / "mutable-font.ttf"
+    source_font.write_bytes(FONT.read_bytes())
+    expected_digest = hashlib.sha256(source_font.read_bytes()).hexdigest()
+    real_run = renderer.subprocess.run
+    removed = False
+
+    def remove_source_after_staging(command, **kwargs):
+        nonlocal removed
+        if not removed:
+            source_font.unlink()
+            removed = True
+        return real_run(command, **kwargs)
+
+    monkeypatch.setattr(renderer.subprocess, "run", remove_source_after_staging)
+    output = tmp_path / "staged-font.mp4"
+    receipt = render_programmatic_graphic(
+        make_shot(), make_spec(), output_path=output, font_path=source_font,
+    )
+    assert removed is True
+    assert output.is_file()
+    assert receipt["font_sha256"] == expected_digest
+
+
+def test_renderer_font_digest_matches_exact_staged_bytes_when_source_changes(tmp_path, monkeypatch):
+    import hashlib
+    import video_growth_agent.programmatic_graphics as renderer
+
+    source_font = tmp_path / "replaceable-font.ttf"
+    original_bytes = FONT.read_bytes()
+    source_font.write_bytes(original_bytes)
+    expected_digest = hashlib.sha256(original_bytes).hexdigest()
+    real_run = renderer.subprocess.run
+    changed = False
+
+    def replace_source_after_staging(command, **kwargs):
+        nonlocal changed
+        if not changed:
+            source_font.write_bytes(b"replacement bytes not used by this render")
+            changed = True
+        return real_run(command, **kwargs)
+
+    monkeypatch.setattr(renderer.subprocess, "run", replace_source_after_staging)
+    output = tmp_path / "font-digest.mp4"
+    receipt = render_programmatic_graphic(
+        make_shot(), make_spec(), output_path=output, font_path=source_font,
+    )
+    assert changed is True
+    assert receipt["font_sha256"] == expected_digest
+    assert hashlib.sha256(source_font.read_bytes()).hexdigest() != receipt["font_sha256"]
