@@ -230,7 +230,7 @@ def _drawtext(
         f"drawtext=fontfile=font.ttf:textfile={text_file}:"
         f"fontcolor={_color(color)}:fontsize={font_size}:"
         f"x={x}:y={y}:line_spacing={line_spacing}:"
-        "shadowcolor=0x000000@0.32:shadowx=2:shadowy=3:"
+        "expansion=none:shadowcolor=0x000000@0.32:shadowx=2:shadowy=3:"
         "alpha='if(lt(t,0.18),0,if(lt(t,0.78),(t-0.18)/0.60,1))'"
     )
 
@@ -434,6 +434,17 @@ def render_programmatic_graphic(
         "editorial_plan_ref": shot.editorial_plan_ref,
         "beat_id": shot.beat_id,
         "source_claim_ids": list(shot.source_claim_ids),
+        "reference_bindings": [
+            {
+                "asset_id": ref.asset_id,
+                "version_id": ref.version_id,
+                "digest": ref.digest,
+                "role": ref.role,
+                "rights_ref": ref.rights_ref,
+                "consent_ref": ref.consent_ref,
+            }
+            for ref in shot.references
+        ],
         "truth_mode": shot.truth_mode,
         "graphic_spec": _jsonable(spec),
         "graphic_spec_digest": _digest(spec),
@@ -463,6 +474,41 @@ def render_programmatic_graphic(
     return receipt
 
 
+def _normalize_reference_digest(value: object) -> str:
+    normalized = str(value).strip().lower()
+    return normalized[7:] if normalized.startswith("sha256:") else normalized
+
+
+def validate_shot_graph_bindings(graph: MediaGraph, shot: ShotContract) -> None:
+    """Require exact, promoted MediaGraph versions and matching contract digests."""
+    context = graph.contexts.get(shot.shot_id)
+    if context is None or context.kind != "SHOT":
+        raise ProgrammaticGraphicsError(
+            f"MediaGraph must already contain SHOT context {shot.shot_id}"
+        )
+    missing: list[str] = []
+    mismatches: list[str] = []
+    unpromoted: list[str] = []
+    for binding in shot.references:
+        ref = AssetRef(binding.asset_id, binding.version_id)
+        asset = graph.assets.get(ref)
+        if asset is None:
+            missing.append(ref.key())
+            continue
+        if graph.asset_state(ref) != "PROMOTED":
+            unpromoted.append(ref.key())
+        if _normalize_reference_digest(asset.digest) != _normalize_reference_digest(binding.digest):
+            mismatches.append(
+                f"{ref.key()} contract={binding.digest} graph={asset.digest}"
+            )
+    if missing:
+        raise ProgrammaticGraphicsError("MediaGraph reference assets missing: " + ", ".join(missing))
+    if unpromoted:
+        raise ProgrammaticGraphicsError("MediaGraph reference assets are not promoted: " + ", ".join(unpromoted))
+    if mismatches:
+        raise ProgrammaticGraphicsError("MediaGraph reference digest mismatch: " + "; ".join(mismatches))
+
+
 def register_graph_candidate(
     graph: MediaGraph,
     shot: ShotContract,
@@ -470,15 +516,8 @@ def register_graph_candidate(
     receipt: Mapping[str, Any],
 ) -> str:
     """Register a rendered take as CANDIDATE with exact lineage; never promote it."""
-    context = graph.contexts.get(shot.shot_id)
-    if context is None or context.kind != "SHOT":
-        raise ProgrammaticGraphicsError(
-            f"MediaGraph must already contain SHOT context {shot.shot_id}"
-        )
+    validate_shot_graph_bindings(graph, shot)
     refs = tuple(AssetRef(ref.asset_id, ref.version_id) for ref in shot.references)
-    missing = [ref.key() for ref in refs if ref not in graph.assets]
-    if missing:
-        raise ProgrammaticGraphicsError("MediaGraph reference assets missing: " + ", ".join(missing))
 
     digest = str(receipt.get("media_sha256") or "")
     media_path = Path(str(receipt.get("media_path") or ""))
