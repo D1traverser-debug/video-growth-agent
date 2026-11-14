@@ -264,3 +264,30 @@ def test_cli_render_writes_a_receipt_and_reports_unregistered_candidate(tmp_path
     assert result["candidate_only"] is True
     assert result["graph_registration"] == "NOT_REGISTERED__STANDALONE_CANDIDATE"
     assert Path(result["receipt_path"]).is_file()
+
+def test_capability_registry_and_domain_manifest_advertise_only_bounded_scope():
+    root = CASE.parents[3]
+    capabilities = json.loads(
+        (root / "video_growth_agent/data/capabilities.json").read_text(encoding="utf-8")
+    )
+    entry = next(
+        item for item in capabilities["capabilities"]
+        if item["capability_id"] == "programmatic_motion_graphics_render"
+    )
+    assert entry["assurance_ceiling"] == "SESSION_EXECUTABLE"
+    assert entry["executor_ref"].startswith("video_growth_agent/programmatic_graphics.py")
+    assert "NO_AUTOMATIC_PROMOTION_OR_RELEASE" in entry["safe_degraded_modes"]
+    assert next(
+        item for item in capabilities["capabilities"]
+        if item["capability_id"] == "quality_critical_generation_gateway"
+    )["assurance_ceiling"] == "DECLARED_ONLY"
+    manifest = json.loads(
+        (root / "video_growth_agent/data/domain_manifest.json").read_text(encoding="utf-8")
+    )
+    assert manifest["runtime"]["programmatic_graphics"] == "video_growth_agent/programmatic_graphics.py"
+
+def test_current_agent_operability_scenario_documents_graphics_route():
+    root = CASE.parents[3]
+    scenarios = (root / "docs/agent_operability_scenarios.md").read_text(encoding="utf-8")
+    assert "Scenario 11 — Local information-graphic shot without paid generation" in scenarios
+    assert "silent preview is mistaken for final audio" in scenarios
