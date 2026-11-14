@@ -95,3 +95,9 @@ PR #33 is OPEN and NOT MERGED. Exact head at this checkpoint: `77a41072c88151a3e
 The first two Codex findings (literal drawtext expansion; source digest mismatch) are fixed and their review threads resolved. The third finding (long metric clipping) is addressed with pixel-based measurement, adaptive sizing, a receipt layout record and fail-before-output tests; its thread awaits final verification/review.
 
 CAOS and IPOS remain unchanged. IPOS R39 remains the sole identity authority; no approved bundle exists.
+
+### Candidate verification correction — 2026-11-14
+
+The local graphics candidate now also dynamically allocates chart rows from the available vertical region and measures each label/value/bar height against its row. A 640×640 six-row chart with a two-line sixth label is rendered in regression coverage; impossible row layouts fail before output. This closes the fourth Codex finding (vertical label clipping).
+
+Exact code head `c70b8f32e24aa9e79306989f16ebbc46b233745c` passed CI runs `43594450643` and `43594445342`: 249 tests, repository system hygiene audit, and installed CLI smoke. Four Codex review threads are resolved. A fresh full Codex review was requested against that head and is pending. PR #33 remains open and unmerged; do not mark production-ready until fresh review, merge and mainline CI all pass.
