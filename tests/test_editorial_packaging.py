@@ -370,3 +370,9 @@ def test_v1_2_keeps_all_seven_platforms_candidate_only_until_real_evidence_exist
     assert any("rights_unverified" in item for item in result["open_gates"])
     assert any("platform_format_review_open" in item for item in result["open_gates"])
 
+def test_v1_2_forbidden_ai_parody_label_is_caught_in_scalar_metadata():
+    case = fixture()
+    youtube = next(x for x in case["platform_copies"] if x["platform"] == "YOUTUBE")
+    youtube["public_fields"]["type_labels"] = "AI Parody"
+    assert "copy[2]:forbidden_public_type_label" in audit_packaging(case)["errors"]
+
