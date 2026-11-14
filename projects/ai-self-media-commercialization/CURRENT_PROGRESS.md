@@ -119,3 +119,23 @@ Exact renderer code head `16b2c17cd6ca503cca056be626d4402a547f3899` passed CI ru
 A seventh Codex finding exposed lost updates: the CLI saved a graph snapshot loaded before FFmpeg rendering, potentially overwriting reviewer/renderer changes and validating against stale promotion state. `MediaGraphStore` now provides cross-process file-lock transactions and SHA-256 optimistic revision checks. Stale `save()` snapshots fail rather than overwrite. The CLI performs initial preflight, renders without holding the graph lock, then reloads the latest graph under a short transaction, revalidates exact Sequence ancestry and promoted reference digests, registers the candidate, and atomically saves. Concurrent source revocation blocks registration; concurrent review records are preserved.
 
 Exact renderer/graph-transaction code head `2b5c58cb5b836be781c49a1465f79e216f099d08` passed CI runs `43596922416` and `43596916300`: 259 tests, repository system hygiene audit and installed CLI smoke. Seven Codex inline findings are fixed and all threads are resolved. Fresh full code and security reviews have been requested. PR #33 remains open/unmerged and not production-authorized.
+
+### Latest consolidated candidate verification — 2026-11-14
+
+This section supersedes all earlier PR #33 checkpoints above.
+
+Verified renderer/graph transaction code head: `a73a1f7ea1f4e6b3d314bfc213fd8e8f0efdb91d`.
+
+Exact-head CI runs `43597564240` and `43597558421` both passed:
+- 262 pytest tests;
+- repository system hygiene audit;
+- installed CLI smoke outside the repository.
+
+Nine Codex inline findings are fixed and resolved. In addition to the previous renderer/layout/source/sequence/MP4/MediaGraph fixes:
+- Receipt JSON is written to a private temporary file and atomically published with no-replace semantics. A competing file or symlink is preserved; the CLI fails closed instead of following or truncating it.
+- Font measurement, FFmpeg rendering and receipt SHA-256 use one staged font snapshot. Removing or replacing the original font after staging does not alter the rendered font provenance.
+
+Fresh full Codex code review and security review were requested against this exact code head. Their results are pending. PR #33 remains OPEN and NOT MERGED; no production authorization is granted until independent reviews are clean, merge occurs, and mainline CI passes.
+
+Canonical audit: `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md`.
+CAOS source repository/code/PRs and IPOS authority/canon remain untouched.
