@@ -13,6 +13,7 @@ from .programmatic_graphics import (
     register_graph_candidate,
     render_programmatic_graphic,
     shot_contract_from_dict,
+    validate_shot_graph_bindings,
 )
 from .runtime import StudioRuntime
 from .system_audit import run_system_audit
@@ -120,20 +121,13 @@ def main(argv: list[str] | None = None) -> int:
         if not isinstance(font_path, str) or not font_path.strip():
             parser.error("request must provide a local font_path")
         graph = MediaGraphStore(args.graph).load() if args.graph else None
+        if shot.references and graph is None:
+            parser.error("--graph is required when ShotContract contains reference bindings")
         if graph is not None:
-            context = graph.contexts.get(shot.shot_id)
-            if context is None or context.kind != "SHOT":
-                parser.error(f"--graph must already contain SHOT context {shot.shot_id}")
-            missing_refs = [
-                f"{ref.asset_id}@{ref.version_id}"
-                for ref in shot.references
-                if not any(
-                    asset.ref.asset_id == ref.asset_id and asset.ref.version_id == ref.version_id
-                    for asset in graph.assets.values()
-                )
-            ]
-            if missing_refs:
-                parser.error("--graph is missing exact ShotContract reference versions: " + ", ".join(missing_refs))
+            try:
+                validate_shot_graph_bindings(graph, shot)
+            except ValueError as exc:
+                parser.error(str(exc))
         receipt = render_programmatic_graphic(
             shot, spec, output_path=args.output, font_path=font_path,
         )
