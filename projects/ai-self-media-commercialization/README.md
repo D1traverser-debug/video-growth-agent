@@ -79,7 +79,7 @@ Current next action: IPOS continues R39 G1 research and later G2 design/approval
 - `BUSINESS_FLYWHEEL.json` — growth/IP/commercial/production feedback loops.
 - `ACCOUNT_POSITIONING.md` — public brand/audience/content/monetization positioning.
 - `PRODUCTION_AND_COST_STRATEGY.md` — value-aware production economics and routing policy.
-- `CURRENT_PROGRESS.md` — detailed current H1/IP trajectory.
+- `CURRENT_PROGRESS.md` — current authoritative workstream state, integration evidence and continuation gates.
 - `RESUME_ENTRY.md` — exact resume instructions.
 - `DECISION_LOG.md` — accepted/rejected decisions.
 
@@ -87,7 +87,7 @@ Historical/superseded design files remain evidence only when `PROJECT_MANIFEST.j
 
 ## Parallel topical satire / platform packaging
 
-See EDITORIAL_PACKAGING.md and cases/jensen-alice-20261114.json for the VIDEO-owned news x fictional-media language workflow. The vga audit-packaging CLI checks seven platform candidate refs, reviewer/version boundaries and unmet publication gates. This is non-character MEDIA_GROWTH/PRODUCTION work. No media asset, IPOS canon, rights or production release is approved by this document. The earlier long-form tech/business format remains independently supported.
+See EDITORIAL_PACKAGING.md and cases/jensen-alice-20261114.json for the VIDEO-owned news x fictional-media language workflow. The active case uses editorial contract v1.2: FACT → INTENT → VISUAL → PLATFORM, with the news as the primary satire target and staged visuals as secondary expression. Seven platform candidates require distinct editorial angles, humor mechanisms and speaker perspectives. The vga audit-packaging CLI checks source/visual references, semantic-review fields, reviewer/version boundaries and unmet publication gates. This is non-character MEDIA_GROWTH/PRODUCTION work. No media asset, IPOS canon, rights or production release is approved by this document. The earlier long-form tech/business format remains independently supported.
 
 ## Local programmatic graphics candidate route
 
