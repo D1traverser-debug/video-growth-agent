@@ -8,6 +8,7 @@ from video_growth_agent.media_graph import (
     AssetRef,
     ContextRecord,
     MediaGraph,
+    MediaGraphStore,
 )
 from video_growth_agent.programmatic_graphics import (
     ChartDatum,
@@ -258,12 +259,22 @@ def test_cli_render_writes_a_receipt_and_reports_unregistered_candidate(tmp_path
     }
     request_path = tmp_path / "request.json"
     output = tmp_path / "cli.mp4"
+    graph_path = tmp_path / "media-graph.json"
+    MediaGraphStore(graph_path).save(make_graph())
     request_path.write_text(json.dumps(request), encoding="utf-8")
-    assert main(["render-graphic", str(request_path), "--output", str(output)]) == 0
+    assert main([
+        "render-graphic", str(request_path), "--output", str(output),
+        "--graph", str(graph_path),
+    ]) == 0
     result = json.loads(capsys.readouterr().out)
     assert result["candidate_only"] is True
-    assert result["graph_registration"] == "NOT_REGISTERED__STANDALONE_CANDIDATE"
+    assert result["graph_registration"] == "CANDIDATE_REGISTERED"
+    assert result["media_graph_asset_ref"]
     assert Path(result["receipt_path"]).is_file()
+    graph = MediaGraphStore(graph_path).load()
+    asset_ref = AssetRef.from_key(result["media_graph_asset_ref"])
+    assert graph.assets[asset_ref].state == "CANDIDATE"
+    assert graph.promoted_versions == {}
 
 def test_capability_registry_and_domain_manifest_advertise_only_bounded_scope():
     root = CASE.parents[3]
@@ -291,3 +302,23 @@ def test_current_agent_operability_scenario_documents_graphics_route():
     scenarios = (root / "docs/agent_operability_scenarios.md").read_text(encoding="utf-8")
     assert "Scenario 11 — Local information-graphic shot without paid generation" in scenarios
     assert "silent preview is mistaken for final audio" in scenarios
+
+def test_graph_registration_rejects_receipt_bound_to_different_spec(tmp_path):
+    require_render_tools()
+    shot, spec = make_shot(), make_spec()
+    receipt = render_programmatic_graphic(
+        shot, spec, output_path=tmp_path / "candidate.mp4", font_path=FONT,
+    )
+    changed_spec = make_spec(title="A different editorial statement")
+    with pytest.raises(ProgrammaticGraphicsError, match="exact ShotContract/spec/media"):
+        register_graph_candidate(make_graph(), shot, changed_spec, receipt)
+
+def test_graph_registration_rejects_failed_technical_qa(tmp_path):
+    require_render_tools()
+    shot, spec = make_shot(), make_spec()
+    receipt = render_programmatic_graphic(
+        shot, spec, output_path=tmp_path / "candidate.mp4", font_path=FONT,
+    )
+    receipt["qa_hard_pass"] = False
+    with pytest.raises(ProgrammaticGraphicsError, match="technical QA must hard-pass"):
+        register_graph_candidate(make_graph(), shot, spec, receipt)
