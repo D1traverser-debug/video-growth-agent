@@ -482,8 +482,21 @@ def register_graph_candidate(
 
     digest = str(receipt.get("media_sha256") or "")
     media_path = Path(str(receipt.get("media_path") or ""))
-    if len(digest) != 64 or not media_path.is_file() or _sha256(media_path) != digest:
-        raise ProgrammaticGraphicsError("render receipt does not match the current media bytes")
+    if (
+        receipt.get("candidate_only") is not True
+        or receipt.get("promotion_authorized") is not False
+        or receipt.get("release_authorized") is not False
+        or receipt.get("renderer") != "video_growth_agent.programmatic_graphics"
+        or receipt.get("shot_contract_digest") != _digest(shot)
+        or receipt.get("graphic_spec_digest") != _digest(spec)
+        or len(digest) != 64
+        or not media_path.is_file()
+        or _sha256(media_path) != digest
+    ):
+        raise ProgrammaticGraphicsError("render receipt does not match the exact ShotContract/spec/media candidate")
+    actual_qa = MediaQAChecker().inspect(media_path).to_dict()
+    if actual_qa.get("hard_pass") is not True or receipt.get("qa_hard_pass") is not True:
+        raise ProgrammaticGraphicsError("technical QA must hard-pass before graph candidate registration")
     asset_ref = AssetRef(
         asset_id=f"{shot.shot_id}:programmatic-graphic:{spec.spec_id}",
         version_id=digest[:16],
@@ -516,6 +529,8 @@ def register_graph_candidate(
         metadata={
             "renderer": "video_growth_agent.programmatic_graphics",
             "receipt_id": receipt.get("receipt_id"),
+            "shot_contract_digest": receipt.get("shot_contract_digest"),
+            "graphic_spec_digest": receipt.get("graphic_spec_digest"),
             "qa_hard_pass": receipt.get("qa_hard_pass") is True,
             "candidate_only": True,
             "truth_mode": shot.truth_mode,
@@ -532,6 +547,9 @@ def register_graph_candidate(
         metadata={
             "qa_hard_pass": receipt.get("qa_hard_pass") is True,
             "renderer_version": RENDERER_VERSION,
+            "shot_contract_digest": receipt.get("shot_contract_digest"),
+            "graphic_spec_digest": receipt.get("graphic_spec_digest"),
+            "qa_hard_pass": actual_qa.get("hard_pass") is True,
             "candidate_only": True,
         },
     ))
@@ -546,6 +564,8 @@ def register_graph_candidate(
         metadata={
             "evidence_id": evidence_id,
             "receipt_id": receipt.get("receipt_id"),
+            "shot_contract_digest": receipt.get("shot_contract_digest"),
+            "graphic_spec_digest": receipt.get("graphic_spec_digest"),
             "promotion_authorized": False,
         },
     ))
