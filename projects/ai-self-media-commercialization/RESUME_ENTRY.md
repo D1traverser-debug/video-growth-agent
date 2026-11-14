@@ -76,3 +76,13 @@ The former H1/S1+S3/A2 face-shell work, its research and prompts remain in the r
 ## Parallel non-character short-form editorial work
 
 EDITORIAL_PACKAGING.md defines source-and-visual semantic QA; cases/jensen-alice-20261114.json contains seven editorial candidates. Run vga audit-packaging on the case before any human review. The episode has no current video bytes/digest, rights readback, EditorialPlan/master-timeline binding, actual platform-disclosure receipt or independent human semantic acceptance. These are OPEN and must not be represented as a production-ready or published episode. This parallel task does not change the IPOS owner approval gate.
+
+## Parallel Video production candidate — local graphics renderer (2026-11-14)
+
+Read `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md` before continuing this task.
+
+PR #33 is OPEN and NOT MERGED. It adds a local FFmpeg route for non-character title/quote/stat cards and bar charts, with Pillow-based pixel measurement for all text. The route requires explicit ShotContract permission, editorial/beat/source-claim binding, synthetic truth mode and disclosure. Optional MediaGraph registration requires exact promoted source versions with matching digests and keeps the output CANDIDATE only. It is silent; no AI footage/audio, product-truth, IPOS identity, promotion or release.
+
+Last known fully green exact head before the latest chart-value test/audit handoff was `dba8b105d62ba1708685edc87832736096473b33` (246 tests, system audit and installed CLI smoke). Latest branch head has moved; rerun/read exact-head CI before merge. The first two Codex threads are resolved; the metric-clipping thread has a documented fix and needs final exact-head verification plus fresh Codex review. Do not state PR #33 is merged or production-ready.
+
+CAOS source and IPOS repository/state must remain untouched.
