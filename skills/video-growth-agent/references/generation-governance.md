@@ -50,7 +50,7 @@ Exploration may use lower resolution, still/keyframe prototypes and cheaper suff
 
 ## Local programmatic graphics as a constrained route
 
-`PROGRAMMATIC_GRAPHICS` is a deterministic local FFmpeg route for synthetic non-character information visuals (title/quote cards, metric cards and bar charts). It still requires a ShotContract that explicitly allows the mode, exact EditorialPlan/beat binding, truth/disclosure declaration, and source-claim IDs for factual data graphics. It emits a silent MP4 candidate and digest-bound technical QA receipt; an existing MediaGraph SHOT context plus digest-matching promoted reference versions can register it as CANDIDATE. It does not satisfy AI footage, real/product-truth evidence, IPOS identity, final audio, promotion or release. Never re-label this route as generative video.
+`PROGRAMMATIC_GRAPHICS` is a deterministic local FFmpeg route for synthetic non-character information visuals (title/quote cards, metric cards and bar charts). It still requires a ShotContract that explicitly allows the mode, exact EditorialPlan/beat binding, truth/disclosure declaration, and source-claim IDs for factual data graphics. It emits a silent MP4 candidate, pixel-measured text-layout receipt and digest-bound technical QA receipt; text that cannot fit is rejected before rendering; an existing MediaGraph SHOT context plus digest-matching promoted reference versions can register it as CANDIDATE. It does not satisfy AI footage, real/product-truth evidence, IPOS identity, final audio, promotion or release. Never re-label this route as generative video.
 
 ## Shot/reference contract
 
