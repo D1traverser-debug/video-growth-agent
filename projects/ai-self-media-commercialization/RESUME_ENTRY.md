@@ -121,3 +121,9 @@ Exact-head CI runs `43597564240` and `43597558421` passed: 262 tests, repository
 Nine inline Codex findings are fixed/resolved. The graph store uses cross-process locking plus optimistic revision checks; the CLI re-reads and revalidates the graph after rendering. MP4 and receipt sidecars use private-temp atomic no-replace publication. Receipt symlink races cannot overwrite targets. Font layout, FFmpeg and receipt digest use one staged font snapshot, verified against source deletion/replacement tests.
 
 Fresh full Codex code and security reviews were requested against this code head and are pending. PR #33 is OPEN/NOT MERGED and not production-authorized. Read `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md` before further work. Merge only after clean independent review, then verify mainline CI. CAOS/IPOS sources and authority remain untouched.
+
+### Local graphics renderer — dangling-symlink path fix (2026-11-14)
+
+A tenth Codex finding is fixed: output-path normalization now resolves only the parent directory and preserves the requested filename. `os.path.lexists()` rejects a pre-existing dangling MP4 symlink before rendering; atomic no-replace publication protects the later race window. Regression confirms the symlink is preserved and its target is not created.
+
+Verified renderer/graph transaction code head: `46bbb7beb5a9da28e39662aba56c4d4c5438321c`. Exact-head CI runs `43597969675` and `43597962380` passed: 263 tests, system audit and installed CLI smoke. Ten inline findings are resolved; fresh code/security reviews are pending. PR #33 remains OPEN/NOT MERGED. Audit: `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md`. CAOS/IPOS sources remain untouched.
