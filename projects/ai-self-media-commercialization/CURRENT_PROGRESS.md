@@ -101,3 +101,9 @@ CAOS and IPOS remain unchanged. IPOS R39 remains the sole identity authority; no
 The local graphics candidate now also dynamically allocates chart rows from the available vertical region and measures each label/value/bar height against its row. A 640×640 six-row chart with a two-line sixth label is rendered in regression coverage; impossible row layouts fail before output. This closes the fourth Codex finding (vertical label clipping).
 
 Exact code head `c70b8f32e24aa9e79306989f16ebbc46b233745c` passed CI runs `43594450643` and `43594445342`: 249 tests, repository system hygiene audit, and installed CLI smoke. Four Codex review threads are resolved. A fresh full Codex review was requested against that head and is pending. PR #33 remains open and unmerged; do not mark production-ready until fresh review, merge and mainline CI all pass.
+
+### Candidate lineage correction — 2026-11-14
+
+A fifth Codex finding exposed that candidate registration validated the existence of a SHOT context but not its actual Sequence ancestry. The shared `validate_shot_graph_bindings()` now requires the SHOT parent chain to resolve to the exact `ShotContract.sequence_id`, accepting SHOT → SEQUENCE or SHOT → SCENE → SEQUENCE only. CLI preflight and MediaGraph registration both call the same validator. Regression coverage verifies mismatch rejection, registration rejection, valid SCENE intermediary and CLI fail-closed behavior.
+
+Exact renderer code head `df580452c2eca46d9fd0d8b0646527395900e763` passed CI runs `43595226122` and `43595220908`: 252 tests, system hygiene audit and installed CLI smoke. Five Codex inline findings are resolved. A fresh full review was requested; PR #33 remains open/unmerged and not production-authorized pending that review and mainline CI.
