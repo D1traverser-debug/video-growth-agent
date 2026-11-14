@@ -13,7 +13,7 @@
   "workstreams": {
     "MEDIA_GROWTH": {
       "status": "READY_ACTIVE_BASELINE",
-      "current_state": "Account positioning, audience hypothesis, content pillars, format and early growth metrics are defined in ACCOUNT_POSITIONING.md. Topic portfolio and pilot learning can progress independently of unfinished character sculpting and feed IP-distinctiveness, production-investment and commercial-fit decisions through BUSINESS_FLYWHEEL.json. News × fictional-video packaging is an active independent task: the current Jensen/NVIDIA training case is schema 1.2 and follows FACT → INTENT → VISUAL → PLATFORM. The corporate leadership-transition language is the primary satire target; the owner-described staged visual is secondary. Seven platform-native candidate copies have distinct angles, humor mechanisms and speaker perspectives. PR #34 is open; exact push CI passed 270 tests, system hygiene audit and installed CLI smoke. The case is not release-ready: media digest/inspection, rights, independent human cold-read, platform format/disclosure, EditorialPlan and master timeline remain open.",
+      "current_state": "Account positioning, audience hypothesis, content pillars, format and early growth metrics are defined in ACCOUNT_POSITIONING.md. Topic portfolio and pilot learning can progress independently of unfinished character sculpting and feed IP-distinctiveness, production-investment and commercial-fit decisions through BUSINESS_FLYWHEEL.json. News × fictional-video packaging is an active independent task: the current Jensen/NVIDIA training case is schema 1.2 and follows FACT → INTENT → VISUAL → PLATFORM. The corporate leadership-transition language is the primary satire target; the owner-described staged visual is secondary. Seven platform-native candidate copies have distinct angles, humor mechanisms and speaker perspectives. PR #34 merged to main at 0e0668f0b67695ccb4ff07be01d4a9e9adcf44c1. Exact-head PR CI run 43633262136 and post-merge main CI run 43633448996 passed 271 tests, repository system hygiene audit and installed CLI smoke. The case is not release-ready: media digest/inspection, rights, independent human cold-read, platform format/disclosure, EditorialPlan and master timeline remain open.",
       "authority_refs": [
         "ACCOUNT_POSITIONING.md",
         "BUSINESS_FLYWHEEL.json",
@@ -83,9 +83,9 @@
     "IPOS runs independently and exports a versioned artifact; the Video runtime validates/imports it locally and has no CAOS runtime/API dependency for this handoff."
   ],
   "current_focus": "ORIGINAL_DIGITAL_IP/IPOS_CANONICAL_HANDOFF_V1",
-  "current_next_action": "Do not resume the superseded Video-local H1/S1+S3/A2 face-shell route. IPOS continues its R39 G1 research and later G2 design/approval independently; Video waits for a READY_FOR_VIDEO bundle and validates the import/shot-binding path. In parallel, review PR #34 for the Video-owned news-first editorial packaging v1.2 contract. Do not release its case until actual media inspection/digest, rights, independent human cold-read, platform format and upload disclosure, EditorialPlan, master timeline and existing Video release gates pass.",
-  "system_next_action": "Continue IPOS R39 G1 research independently; do not create or assume an identity bundle. Maintain IPOS as the sole external identity authority and keep identity-dependent shots blocked until an owner-approved READY_FOR_VIDEO bundle with G2/G7/G8 PASS and rights/provenance arrives. Continue non-character growth and commercialization work. Review and integrate the reading-first editorial v1.2 candidate only after exact-head CI and code review; keep the media case candidate-only until its independent content/rights/release evidence is complete. CAOS source repository/code/PRs remain untouched.",
-  "updated_at": "2026-11-15T03:32:42+08:00",
+  "current_next_action": "Do not resume the superseded Video-local H1/S1+S3/A2 face-shell route. IPOS continues its R39 G1 research and later G2 design/approval independently; Video waits for a READY_FOR_VIDEO bundle and validates the import/shot-binding path. The news-first editorial packaging v1.2 contract is merged and mainline-verified. Next, inspect the actual media file and resolve its digest, identity/likeness and rights; then obtain independent human cold-read, platform format/disclosure, EditorialPlan and master-timeline evidence before any promotion or publication.",
+  "system_next_action": "Continue IPOS R39 G1 research independently; do not create or assume an identity bundle. Maintain IPOS as the sole external identity authority and keep identity-dependent shots blocked until an owner-approved READY_FOR_VIDEO bundle with G2/G7/G8 PASS and rights/provenance arrives. The news-first editorial packaging v1.2 code is merged and mainline-verified, but its media case remains candidate-only. Next resolve exact media inspection/digest, identity/likeness, rights, independent human cold-read, platform format and upload disclosure, EditorialPlan, master timeline and Video release evidence. Continue non-character growth and commercialization work. CAOS source repository/code/PRs remain untouched.",
+  "updated_at": "2026-11-15T03:43:15.212+08:00",
   "governance_ref": "../../CAOS_VIDEO_ENTRY.md",
   "governance_mode": "CHAT_GOVERNED_EXTERNAL",
   "caos_runtime_dependency": false,
@@ -129,11 +129,16 @@
   "parallel_editorial_candidate": {
     "id": "V-20261115-01-NEWS-FIRST-EDITORIAL-PACKAGING",
     "pr": 34,
-    "status": "OPEN__EXACT_PUSH_CI_PASS__PR_CI_PENDING__CANDIDATE_ONLY",
+    "status": "MERGED_MAINLINE_CI_PASS__CANDIDATE_ONLY",
     "branch": "video/editorial-craft-state-reconciliation-20261115",
-    "head_sha": "729bdc1c88e2c2c611ae7d7063888f04436bd57",
-    "exact_push_ci_run": 43632266516,
-    "exact_push_ci_status": "PASS__270_TESTS__SYSTEM_AUDIT_PASS__INSTALLED_CLI_SMOKE_PASS",
+    "candidate_head_sha": "169431078fc36c3f45c9abdfd7f914ae95edc0f4",
+    "merge_commit": "0e0668f0b67695ccb4ff07be01d4a9e9adcf44c1",
+    "merged_at": "2026-11-14T19:41:23Z",
+    "exact_push_ci_run": 43633257352,
+    "exact_pr_ci_run": 43633262136,
+    "mainline_ci_run": 43633448996,
+    "mainline_ci_status": "PASS__271_TESTS__SYSTEM_AUDIT_PASS__INSTALLED_CLI_SMOKE_PASS",
+    "tests_passed": 271,
     "case_ref": "cases/jensen-alice-20261114.json",
     "case_schema_version": "1.2",
     "reading_order": [
