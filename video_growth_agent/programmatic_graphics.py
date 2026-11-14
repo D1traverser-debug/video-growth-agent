@@ -49,8 +49,12 @@ class ChartDatum:
     def __post_init__(self) -> None:
         if not isinstance(self.label, str) or not self.label.strip():
             raise ProgrammaticGraphicsError("chart labels must be nonempty strings")
+        if isinstance(self.value, bool) or not isinstance(self.value, (int, float)):
+            raise ProgrammaticGraphicsError("chart values must be numeric")
         if not math.isfinite(float(self.value)) or float(self.value) < 0:
             raise ProgrammaticGraphicsError("chart values must be finite and nonnegative")
+        if not isinstance(self.display_value, str):
+            raise ProgrammaticGraphicsError("display_value must be a string")
 
 
 @dataclass(frozen=True)
@@ -75,11 +79,19 @@ class GraphicSpec:
     def __post_init__(self) -> None:
         if not isinstance(self.spec_id, str) or not self.spec_id.strip():
             raise ProgrammaticGraphicsError("spec_id is required")
-        if self.kind not in KINDS:
+        if not isinstance(self.kind, str) or self.kind not in KINDS:
             raise ProgrammaticGraphicsError(f"unsupported graphic kind: {self.kind}")
         if not isinstance(self.title, str) or not self.title.strip():
             raise ProgrammaticGraphicsError("title is required")
-        if not math.isfinite(float(self.duration_seconds)) or not 2.0 <= self.duration_seconds <= 15.0:
+        for field_name in ("subtitle", "kicker", "metric", "metric_label"):
+            if not isinstance(getattr(self, field_name), str):
+                raise ProgrammaticGraphicsError(f"{field_name} must be a string")
+        if (
+            isinstance(self.duration_seconds, bool)
+            or not isinstance(self.duration_seconds, (int, float))
+            or not math.isfinite(float(self.duration_seconds))
+            or not 2.0 <= float(self.duration_seconds) <= 15.0
+        ):
             raise ProgrammaticGraphicsError("shot graphic duration must be between 2 and 15 seconds")
         if (
             not isinstance(self.width, int) or not isinstance(self.height, int)
@@ -88,7 +100,7 @@ class GraphicSpec:
             or self.width % 2 or self.height % 2
         ):
             raise ProgrammaticGraphicsError("width/height must be even integers in [640, 3840]")
-        if self.fps not in FPS_OPTIONS:
+        if not isinstance(self.fps, int) or self.fps not in FPS_OPTIONS:
             raise ProgrammaticGraphicsError(f"fps must be one of {sorted(FPS_OPTIONS)}")
         for name in ("background", "foreground", "accent", "muted"):
             value = getattr(self, name)
@@ -99,6 +111,8 @@ class GraphicSpec:
             or not isinstance(self.metric_label, str) or not self.metric_label.strip()
         ):
             raise ProgrammaticGraphicsError("STAT_CARD requires metric and metric_label")
+        if not isinstance(self.chart_data, tuple) or not all(isinstance(point, ChartDatum) for point in self.chart_data):
+            raise ProgrammaticGraphicsError("chart_data must contain ChartDatum values")
         if self.kind == "BAR_CHART":
             if not 2 <= len(self.chart_data) <= 6:
                 raise ProgrammaticGraphicsError("BAR_CHART requires 2 to 6 data points")
@@ -464,8 +478,14 @@ def register_graph_candidate(
         asset_id=f"{shot.shot_id}:programmatic-graphic:{spec.spec_id}",
         version_id=digest[:16],
     )
+    evidence_id = f"evidence:{asset_ref.key()}"
+    task_id = f"task:programmatic-graphics:{shot.shot_id}:{spec.spec_id}:{digest[:12]}"
     if asset_ref in graph.assets:
         raise ProgrammaticGraphicsError(f"MediaGraph asset version already exists: {asset_ref.key()}")
+    if evidence_id in graph.evidence:
+        raise ProgrammaticGraphicsError(f"MediaGraph evidence already exists: {evidence_id}")
+    if task_id in graph.tasks:
+        raise ProgrammaticGraphicsError(f"MediaGraph task already exists: {task_id}")
 
     media_uri = media_path.resolve().as_uri()
     graph.add_asset(AssetVersion(
@@ -492,7 +512,6 @@ def register_graph_candidate(
             "audio_mode": receipt.get("audio_mode"),
         },
     ))
-    evidence_id = f"evidence:{asset_ref.key()}"
     graph.add_evidence(EvidenceRecord(
         evidence_id=evidence_id,
         subject_type="ASSET_VERSION",
@@ -506,7 +525,6 @@ def register_graph_candidate(
             "candidate_only": True,
         },
     ))
-    task_id = f"task:programmatic-graphics:{shot.shot_id}:{spec.spec_id}:{digest[:12]}"
     graph.add_task(TaskRecord(
         task_id=task_id,
         context_id=shot.shot_id,
