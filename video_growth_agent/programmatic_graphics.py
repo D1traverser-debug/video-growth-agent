@@ -137,26 +137,33 @@ def graphic_spec_from_dict(payload: Mapping[str, Any]) -> GraphicSpec:
 
 
 def shot_contract_from_dict(payload: Mapping[str, Any]) -> ShotContract:
+    if not isinstance(payload, Mapping):
+        raise ProgrammaticGraphicsError("shot_contract must be an object")
     data = dict(payload)
     references = data.get("references", [])
-    if not isinstance(references, list):
-        raise ProgrammaticGraphicsError("ShotContract references must be a list")
-    data["references"] = tuple(
-        ref if isinstance(ref, ReferenceBinding) else ReferenceBinding(**ref)
-        for ref in references
-    )
-    for key in (
-        "allowed_modes", "required_capabilities", "must_have", "must_not_have",
-        "graceful_degradation", "stop_conditions", "source_claim_ids",
-        "ip_identity_invariants", "ip_identity_forbidden_drift",
-    ):
-        data[key] = tuple(data.get(key, ())) if key in {
+    if not isinstance(references, list) or not all(isinstance(ref, dict) for ref in references):
+        raise ProgrammaticGraphicsError("ShotContract references must be a list of objects")
+    try:
+        data["references"] = tuple(ReferenceBinding(**ref) for ref in references)
+        set_fields = ("allowed_modes", "required_capabilities")
+        tuple_fields = (
             "must_have", "must_not_have", "graceful_degradation", "stop_conditions",
             "source_claim_ids", "ip_identity_invariants", "ip_identity_forbidden_drift",
-        } else frozenset(data.get(key, ()))
-    data.setdefault("quality_targets", {})
-    data.setdefault("value_vector", {})
-    return ShotContract(**data)
+        )
+        for key in set_fields + tuple_fields:
+            raw = data.get(key, [])
+            if not isinstance(raw, (list, tuple)) or not all(isinstance(item, str) for item in raw):
+                raise ProgrammaticGraphicsError(f"ShotContract {key} must be a list of strings")
+            data[key] = frozenset(raw) if key in set_fields else tuple(raw)
+        for key in ("quality_targets", "value_vector"):
+            data.setdefault(key, {})
+            if not isinstance(data[key], dict):
+                raise ProgrammaticGraphicsError(f"ShotContract {key} must be an object")
+        return ShotContract(**data)
+    except (TypeError, AttributeError, ValueError) as exc:
+        if isinstance(exc, ProgrammaticGraphicsError):
+            raise
+        raise ProgrammaticGraphicsError(f"invalid ShotContract: {exc}") from exc
 
 
 def _jsonable(value: Any) -> Any:
