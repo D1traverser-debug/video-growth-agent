@@ -45,7 +45,7 @@
     },
     "PRODUCTION_SYSTEM": {
       "status": "MEDIA_BUSINESS_OS_0_8_PRODUCTION_BASELINE",
-      "current_state": "Media Business OS 0.8.0 is the current verified production core after PR #15 merged to main and production CI run 38725890405 passed. The system is current-Agent-operable from EpisodeIntent/Claim/Beat/ShotIntent through plan-version lineage, ShotContract, dimension-level continuity, operation-specific calibrated/Pareto model routing, non-destructive timeline/editor roundtrip, pre-registered experiments, outcome learning and a non-authoritative operator projection. The unchanged historical/specialized work-order adapter bundle remains versioned 0.7.0 as a compatibility surface; it is not the current core-runtime version. IPOS bridge: video_growth_agent/ip_identity.py imports the standalone IP Studio OS Video Identity Bundle into MediaGraph, binds exact canon/reference versions to ShotContract and continuity, and blocks identity-dependent generation without IPOS owner approval. The IPOS Video Identity Bundle adapter and schema were merged to main via PR #24 (merge commit d44ea379f99a96f4a07ae021c35e7f094df7b29a). Mainline CI run 43578752266 (#1520) on commit 2d9b4ea5ab663155eb5ac8ef17b5568eff0d3882 passed (193 tests, repository system audit and installed CLI smoke). This verifies the adapter/schema code contract only; no approved IPOS bundle currently exists, so identity-dependent shots remain blocked. Parallel candidate PR #33 adds a bounded local FFmpeg programmatic graphics renderer for non-character title/quote/stat cards and bar charts. It uses Pillow/FreeType pixel measurement, fails closed on clipped text, validates exact promoted source digests, and registers outputs as CANDIDATE only. PR #33 is open/not merged; exact-head CI and independent review are required before production adoption. Audit: ../../audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md. The candidate also uses dynamic chart-row allocation with measured label/value/bar heights and fail-closed vertical bounds. Exact code head c70b8f32e24aa9e79306989f16ebbc46b233745c passed CI runs 43594450643 and 43594445342 (249 tests, repository system hygiene audit, installed CLI smoke); four inline Codex threads are resolved and a fresh full review is pending. PR #33 remains open/unmerged and is not production-authorized.",
+      "current_state": "Media Business OS 0.8.0 is the current verified production core after PR #15 merged to main and production CI run 38725890405 passed. The system is current-Agent-operable from EpisodeIntent/Claim/Beat/ShotIntent through plan-version lineage, ShotContract, dimension-level continuity, operation-specific calibrated/Pareto model routing, non-destructive timeline/editor roundtrip, pre-registered experiments, outcome learning and a non-authoritative operator projection. The unchanged historical/specialized work-order adapter bundle remains versioned 0.7.0 as a compatibility surface; it is not the current core-runtime version. IPOS bridge: video_growth_agent/ip_identity.py imports the standalone IP Studio OS Video Identity Bundle into MediaGraph, binds exact canon/reference versions to ShotContract and continuity, and blocks identity-dependent generation without IPOS owner approval. The IPOS Video Identity Bundle adapter and schema were merged to main via PR #24 (merge commit d44ea379f99a96f4a07ae021c35e7f094df7b29a). Mainline CI run 43578752266 (#1520) on commit 2d9b4ea5ab663155eb5ac8ef17b5568eff0d3882 passed (193 tests, repository system audit and installed CLI smoke). This verifies the adapter/schema code contract only; no approved IPOS bundle currently exists, so identity-dependent shots remain blocked. Parallel candidate PR #33 adds a bounded local FFmpeg programmatic graphics renderer for non-character title/quote/stat cards and bar charts. It uses Pillow/FreeType pixel measurement, fails closed on clipped text, validates exact promoted source digests, and registers outputs as CANDIDATE only. PR #33 is open/not merged; exact-head CI and independent review are required before production adoption. Audit: ../../audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md. The candidate also uses dynamic chart-row allocation with measured label/value/bar heights and fail-closed vertical bounds. Exact code head c70b8f32e24aa9e79306989f16ebbc46b233745c passed CI runs 43594450643 and 43594445342 (249 tests, repository system hygiene audit, installed CLI smoke); four inline Codex threads are resolved and a fresh full review is pending. PR #33 remains open/unmerged and is not production-authorized. Sequence lineage is now fail-closed: the SHOT context parent chain must resolve to the exact ShotContract.sequence_id, allowing SHOT→SEQUENCE or SHOT→SCENE→SEQUENCE; CLI preflight and registration share this validator.",
       "authority_refs": [
         "../../docs/media_business_os.md",
         "../../docs/agent_operability_scenarios.md",
@@ -81,7 +81,7 @@
   ],
   "current_focus": "ORIGINAL_DIGITAL_IP/IPOS_CANONICAL_HANDOFF_V1",
   "current_next_action": "Do not resume the superseded Video-local H1/S1+S3/A2 face-shell route. IPOS continues its R39 G1 research and later G2 design/approval independently; Video waits for a READY_FOR_VIDEO bundle and validates the import/shot-binding path. Non-character work remains available.",
-  "system_next_action": "Continue IPOS R39 G1 research independently. In parallel, inspect the fresh Codex review for Video PR #33; exact candidate code head c70b8f32e24aa9e79306989f16ebbc46b233745c has passed 249 tests, repository system audit and installed CLI smoke. Merge only after clean independent review, then verify mainline CI. Keep identity-dependent shots blocked until IPOS exports an owner-approved READY_FOR_VIDEO bundle with G2/G7/G8 PASS, rights and provenance.",
+  "system_next_action": "Continue IPOS R39 G1 research independently. In parallel, inspect the fresh Codex review for Video PR #33; exact renderer code head df580452c2eca46d9fd0d8b0646527395900e763 passed 252 tests, repository system audit and installed CLI smoke. Sequence ancestry is now validated. Merge only after clean independent review, then verify mainline CI. Keep identity-dependent shots blocked until IPOS exports an owner-approved READY_FOR_VIDEO bundle with G2/G7/G8 PASS, rights and provenance.",
   "updated_at": "2026-11-14T20:04:00+08:00",
   "governance_ref": "../../CAOS_VIDEO_ENTRY.md",
   "governance_mode": "CHAT_GOVERNED_EXTERNAL",
@@ -92,15 +92,15 @@
     "pr": 33,
     "status": "EXACT_HEAD_CI_PASS__FRESH_CODEX_REVIEW_PENDING__NOT_MERGED",
     "branch": "feat/video-local-programmatic-graphics-renderer-20261114",
-    "last_verified_code_head": "c70b8f32e24aa9e79306989f16ebbc46b233745c",
+    "last_verified_renderer_code_head": "df580452c2eca46d9fd0d8b0646527395900e763",
     "exact_head_ci_runs": [
-      43594450643,
-      43594445342
+      43595226122,
+      43595220908
     ],
-    "test_count": 249,
+    "test_count": 252,
     "system_audit": "PASS",
     "installed_cli_smoke": "PASS",
-    "resolved_review_threads": 4,
+    "resolved_review_threads": 5,
     "fresh_full_codex_review": "REQUESTED_PENDING",
     "audit_ref": "../../audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md",
     "hard_boundaries": [
@@ -110,6 +110,6 @@
       "NO_PRODUCT_TRUTH_OR_IPOS_IDENTITY",
       "NO_PROMOTION_OR_RELEASE"
     ],
-    "next_action": "Inspect fresh Codex review; if clean, merge PR #33 and verify mainline CI before production authorization."
+    "next_action": "Inspect fresh full Codex review; if clean, merge PR #33 and verify mainline CI before production authorization."
   }
 }
