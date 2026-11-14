@@ -462,3 +462,23 @@ def test_title_and_subtitle_layout_receipt_contains_pixel_bounded_lines(tmp_path
         assert item["fit"] is True
         assert item["line_count"] <= (3 if key == "title" else 4)
         assert all(width <= item["max_width_px"] for width in item["line_widths_px"])
+
+def test_long_bar_chart_value_is_shrunk_to_its_actual_column_width(tmp_path):
+    require_render_tools()
+    spec = make_spec(
+        "BAR_CHART", width=1080, height=1920,
+        chart_data=(
+            ChartDatum("Revenue", 42, "12,345,678"),
+            ChartDatum("Costs", 78, "9,876,543"),
+            ChartDatum("Margin", 56, "42%"),
+        ),
+    )
+    receipt = render_programmatic_graphic(
+        make_shot(source_claim_ids=("revenue", "costs", "margin")),
+        spec, output_path=tmp_path / "long-chart-values.mp4", font_path=FONT,
+    )
+    value = receipt["text_layout"]["chart_value_0"]
+    assert value["fit"] is True
+    assert value["font_size"] < max(18, int(spec.height * 0.019))
+    assert value["measured_width_px"] <= value["max_width_px"]
+    assert receipt["qa_hard_pass"] is True
