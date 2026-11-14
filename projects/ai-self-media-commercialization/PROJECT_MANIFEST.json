@@ -48,7 +48,7 @@
       "IPOS_IDENTITY_BUNDLE",
       "EXTERNAL_CANON_HANDOFF"
     ],
-    "semantic_summary": "Default integrated Video-domain Media Business Program. Growth, commercialization, original IP and production remain evidence-coupled with distinct authorities. IPOS is the sole external character-canon authority; R39 has no approved identity bundle. Media Business OS 0.8.0, the IPOS bridge and the non-character local programmatic graphics renderer are mainline verified, but renderer outputs remain candidates pending normal promotion/release gates. The news × fictional-video editorial workflow uses a reading-first v1.2 contract and seven platform-native candidate variants; the news is the primary satire target and staged visuals are secondary. Contract validity is not proof of humor quality, rights or publication readiness.",
+    "semantic_summary": "Default integrated Video-domain Media Business Program. Growth, commercialization, original IP and production remain evidence-coupled with distinct authorities. IPOS is the sole external character-canon authority; R39 has no approved identity bundle. Media Business OS 0.8.0, the IPOS bridge and non-character local programmatic graphics renderer are mainline verified, but renderer outputs remain candidates pending normal promotion/release gates. News × fictional-video editorial packaging v1.2 is merged and mainline-verified; its seven platform-native candidate variants use the news as the primary satire target and staged visuals as secondary expression. Contract validity and CI do not prove humor quality, rights or publication readiness.",
     "resume_entry": "RESUME_ENTRY.md",
     "current_progress": "CURRENT_PROGRESS.md",
     "program_state": "PROGRAM_STATE.json",
@@ -87,8 +87,8 @@
   },
   "current_stage": "IPOS_CANONICAL_HANDOFF_V1",
   "current_focus": "ORIGINAL_DIGITAL_IP",
-  "current_state": "IPOS R39 remains the sole character-identity authority: G1 is open, G2 has not started, and no approved Video identity bundle exists. The Video-side IPOS bridge is merged and code-contract verified only. Media Business OS 0.8.0 and the non-character programmatic graphics renderer are mainline verified; renderer outputs remain candidates only. News × fictional-video packaging now uses a reading-first v1.2 contract: FACT → INTENT → VISUAL → PLATFORM, with news as the primary satire target and staged visuals as secondary expression. The active seven-platform case is contract-valid but not release-ready; media identity, rights, independent human review, platform format/disclosure, editorial-plan and timeline evidence remain open.",
-  "next_action": "Continue IPOS R39 G1 independently. For the Video-owned news × fictional-video case, run exact-head CI and adversarial editorial review for the v1.2 reading-first contract, then inspect the actual media and resolve rights, platform format, disclosure, independent cold-read and plan/timeline evidence before any promotion or publication. Keep identity-dependent shots blocked until an owner-approved READY_FOR_VIDEO IPOS bundle with G2/G7/G8 PASS and rights/provenance arrives.",
+  "current_state": "IPOS R39 remains the sole character-identity authority: G1 is open, G2 has not started, and no approved Video identity bundle exists. The Video-side IPOS bridge is merged and code-contract verified only. Media Business OS 0.8.0 and the non-character programmatic graphics renderer are mainline verified; renderer outputs remain candidates only. News × fictional-video packaging v1.2 is merged to main via PR #34 (merge commit 0e0668f0b67695ccb4ff07be01d4a9e9adcf44c1); exact-head PR CI and post-merge main CI passed 271 tests, repository system audit and installed CLI smoke. The active seven-platform case is contract-valid but not release-ready; media identity/digest, rights, independent human review, platform format/disclosure, editorial-plan and timeline evidence remain open.",
+  "next_action": "Continue IPOS R39 G1 independently. For the merged Video-owned news × fictional-video case, inspect the actual media bytes and verify digest, identity/likeness and rights; then obtain independent human cold-read, platform-native format review, synthetic-content disclosure, EditorialPlan and master-timeline evidence. Keep the case candidate-only and do not publish or promote until all existing Video release gates pass. Keep identity-dependent shots blocked until an owner-approved READY_FOR_VIDEO IPOS bundle with G2/G7/G8 PASS and rights/provenance arrives.",
   "workflow_integration": {
     "mode": "AGENT_OPERABLE_MEDIA_BUSINESS_OS_WITH_VERSIONED_LEGACY_EPISODE_ADAPTER",
     "core_runtime": "0.8.0",
@@ -178,5 +178,6 @@
     "source_mutation": "FORBIDDEN"
   },
   "current_editorial_case_ref": "cases/jensen-alice-20261114.json",
-  "current_editorial_case_schema_version": "1.2"
+  "current_editorial_case_schema_version": "1.2",
+  "next_action_owner": "VIDEO_GROWTH_AGENT"
 }
