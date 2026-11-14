@@ -62,7 +62,7 @@ The historical `workflow.json` / `execution-plan.json` stage machine remains a s
 
 Can proceed when the exact shot/reference/provider/rights/truth/budget admission passes. Candidate output does not create acceptance.
 
-For non-character information shots, `PROGRAMMATIC_GRAPHICS` is a locally executable FFmpeg route for title/quote cards, metrics and bar charts. It is explicitly synthetic, requires the exact ShotContract/EditorialPlan/beat and source-claim bindings, and emits a silent candidate plus technical receipt. With an existing MediaGraph SHOT context it registers a CANDIDATE AssetVersion; it never promotes or releases. It is not a substitute for cinematic AI video, factual product imagery, IPOS canon, or final sound.
+For non-character information shots, `PROGRAMMATIC_GRAPHICS` is a locally executable FFmpeg route for title/quote cards, metrics and bar charts. It is explicitly synthetic, requires the exact ShotContract/EditorialPlan/beat and source-claim bindings, and emits a silent candidate plus technical receipt. With an existing MediaGraph SHOT context and digest-matching promoted source versions it registers a CANDIDATE AssetVersion; it never promotes or releases. It is not a substitute for cinematic AI video, factual product imagery, IPOS canon, or final sound.
 
 ### Asset promotion
 
