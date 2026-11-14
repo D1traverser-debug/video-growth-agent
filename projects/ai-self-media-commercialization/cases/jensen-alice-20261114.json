@@ -90,7 +90,7 @@
       "news_counterfactual": "Without the CEO exit, interim appointment and new board chair, the org-chart character would have no real workload to react to.",
       "video_counterfactual": "Unrelated footage would remove the visual sense of escalation that gives the org-chart reaction its comic pressure.",
       "public_fields": {
-        "caption": "So it's CEO out, interim CEO in, new board chair… and the press release calls that a “transition.” Okay. That's one very hardworking word."
+        "caption": "CEO out. Interim CEO in. New board chair. The org chart has requested a second monitor."
       },
       "fact_ids": [
         "F1"
@@ -116,7 +116,7 @@
       "video_counterfactual": "Without the staged visual, the role-stack analogy would lose its visual punctuation but remain a factual leadership explainer.",
       "public_fields": {
         "title": "NVIDIA's Interim CEO Has Two Jobs. The Org Chart Has Questions.",
-        "description": "Jensen Huang has resigned. CFO Colette Kress will also serve as interim CEO while the board searches for a permanent successor. The joke is about the org-chart math—not the fictional action edit or unverified allegations.",
+        "description": "Jensen Huang has resigned. CFO Colette Kress will also serve as interim CEO while the board searches for a permanent successor. A look at the leadership reshuffle—and the unusually tidy word used to describe it.",
         "upload_format": "STANDARD_VIDEO",
         "cover_text": "TWO HATS, ONE CFO?"
       },
@@ -197,7 +197,7 @@
       "video_counterfactual": "去掉虚构动作视觉，角色更新的新闻解释仍成立，但缺少把变动规模可视化的第二层。",
       "public_fields": {
         "title": "英伟达管理层换挡：一个“Transition”，三处职位变化",
-        "description": "CEO离任、CFO兼任临时CEO、董事会首次设主席。新闻真正值得看的不是虚构动作画面，而是公司公告如何用一个平静的词概括一次完整的管理层重排。",
+        "description": "更新日志：CEO职位离任；CFO新增临时CEO职责；董事会首次新增主席。版本说明只有一个词：transition。把公司公告翻译成系统更新日志，才发现这次改动的范围不小。",
         "tags": [
           "英伟达",
           "黄仁勋",
