@@ -127,3 +127,12 @@ Fresh full Codex code and security reviews were requested against this code head
 A tenth Codex finding is fixed: output-path normalization now resolves only the parent directory and preserves the requested filename. `os.path.lexists()` rejects a pre-existing dangling MP4 symlink before rendering; atomic no-replace publication protects the later race window. Regression confirms the symlink is preserved and its target is not created.
 
 Verified renderer/graph transaction code head: `46bbb7beb5a9da28e39662aba56c4d4c5438321c`. Exact-head CI runs `43597969675` and `43597962380` passed: 263 tests, system audit and installed CLI smoke. Ten inline findings are resolved; fresh code/security reviews are pending. PR #33 remains OPEN/NOT MERGED. Audit: `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md`. CAOS/IPOS sources remain untouched.
+
+### Local programmatic graphics renderer — merged and mainline verified (2026-11-14)
+
+PR #33 is merged to `main`: `af4dec1a9ec2fff659e3e20d7f21cf9bdbe159ea`.
+Mainline CI run `43598791702` passed: 263 tests, repository system audit and installed CLI smoke.
+
+The CLI `vga render-graphic REQUEST.json --output candidate.mp4 [--graph MediaGraph.json]` is available for explicitly admitted non-character title/quote/stat/chart graphics. Read `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md` for the full design, constraints and evidence.
+
+Outputs and MediaGraph registrations remain CANDIDATE only. No promotion/release authority, no IPOS identity rendering, no product-truth claim, no paid provider or network dependency. Human/editorial, rights, continuity, promotion and release gates remain mandatory. IPOS R39 remains the sole identity authority with no approved bundle yet. CAOS source remains untouched.
