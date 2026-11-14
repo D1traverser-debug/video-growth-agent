@@ -86,3 +86,9 @@ PR #33 is OPEN and NOT MERGED. It adds a local FFmpeg route for non-character ti
 Last known fully green exact head before the latest chart-value test/audit handoff was `dba8b105d62ba1708685edc87832736096473b33` (246 tests, system audit and installed CLI smoke). Latest branch head has moved; rerun/read exact-head CI before merge. The first two Codex threads are resolved; the metric-clipping thread has a documented fix and needs final exact-head verification plus fresh Codex review. Do not state PR #33 is merged or production-ready.
 
 CAOS source and IPOS repository/state must remain untouched.
+
+### Local graphics renderer — latest verification (2026-11-14)
+
+The candidate now fixes both horizontal and vertical text clipping. Chart rows are allocated dynamically, each row's label/value/bar geometry is measured and checked, and a 640×640 six-row chart with a two-line final label is covered by a real FFmpeg regression test. An impossible row layout fails before rendering.
+
+Verified code head: `c70b8f32e24aa9e79306989f16ebbc46b233745c`. Exact-head CI runs `43594450643` and `43594445342` passed: 249 tests, system audit and installed CLI smoke. All four inline Codex threads are resolved; a fresh full Codex review is requested and pending. PR #33 is still OPEN/NOT MERGED. Read `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md` before further action. No CAOS/IPOS source or canon changes.
