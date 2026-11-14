@@ -176,3 +176,30 @@ def test_material_video_problem_can_close_with_owner_native_evolution_evidence()
         evolution_disposition=EvolutionDisposition.DOMAIN_EVOLUTION_UPDATED,
         durable_problem_ref="audits/EVOLUTION_INDEX.json#EVO-20261016-COMMON-BEHAVIOR-1-3",
     ) == "REPAIR_EXECUTED"
+
+
+def test_caos_governance_review_is_a_typed_evolution_disposition():
+    receipt = local_root()
+    with pytest.raises(BehaviorAdmissionError, match="durable causal evidence"):
+        finalize_problem_closure(
+            problem_detected=True,
+            repair_path_available=True,
+            authority_permits_repair=True,
+            explicit_user_choice_required=False,
+            repair_attempted=True,
+            repair_succeeded=True,
+            root_scope_receipt=receipt,
+            evolution_disposition=EvolutionDisposition.CAOS_GOVERNANCE_REVIEW_REQUIRED,
+        )
+
+    assert finalize_problem_closure(
+        problem_detected=True,
+        repair_path_available=True,
+        authority_permits_repair=True,
+        explicit_user_choice_required=False,
+        repair_attempted=True,
+        repair_succeeded=True,
+        root_scope_receipt=receipt,
+        evolution_disposition=EvolutionDisposition.CAOS_GOVERNANCE_REVIEW_REQUIRED,
+        durable_problem_ref="audits/EVOLUTION_INDEX.json#CAOS_GOVERNANCE_REVIEW",
+    ) == "REPAIR_EXECUTED"

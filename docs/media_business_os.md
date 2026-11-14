@@ -4,8 +4,8 @@ Status: `PRODUCTION_0_8_0`
 Owner: `DOMAIN:video`
 Date: `2026-10-15`
 Production evidence: `audits/VIDEO_0_8_PRODUCTION_CLOSURE_2026-10-15.md`
-Parent behavior dependency: `UAOS COMMON_BEHAVIOR_ASSURANCE >= 1.2.0`
-Architecture-experience dependency: `UAOS ARCHITECTURE_EXPERIENCE_POLICY >= 1.0.0`
+Governance mode: `CAOS_CHAT_GOVERNED_EXTERNAL` via `CAOS_VIDEO_ENTRY.md`; no CAOS runtime/API dependency.
+Architecture-experience governance: CAOS decision and architecture-experience methods in the active ChatGPT session.
 
 ## 1. Product definition
 
@@ -393,9 +393,9 @@ The current Agent must be able to recover from durable evidence:
 
 `OperatorSnapshot` is the recomputable projection that helps make this legible; it never becomes a second controller.
 
-## 21. Owner-native Common Behavior 1.2
+## 21. Video-domain problem recovery and evolution admission
 
-Before asking the user for a plausibly recoverable Video dependency, inspect current authority/assets/decisions/receipts/connected context and useful external evidence. Continue provisionally when safe and label uncertainty.
+Before asking the user for a plausibly recoverable Video dependency, the Video owner path inspects current authority/assets/decisions/receipts/connected context and useful external evidence. Continue provisionally when safe and label uncertainty. CAOS governs the parent-level reasoning and challenge loop in the active ChatGPT session; no copied parent runtime is required.
 
 A confirmed repairable Video system problem with available authority/capability cannot end as recommendation-only. It must resolve to `REPAIR_EXECUTED`, `BLOCKED_WITH_REASON`, or `NO_CHANGE_WITH_EVIDENCE`.
 
@@ -410,7 +410,7 @@ A confirmed repairable Video system problem with available authority/capability 
 - no requirement that every candidate pass release-grade review before existing;
 - no operator projection as a second controller;
 - no automatic mutation of external editor projects during architecture audit;
-- no duplicated Video business truth in UAOS;
+- no duplicated Video business truth in CAOS;
 - no commercial optimization that overrides product truth or audience trust.
 
 ## 23. External method basis

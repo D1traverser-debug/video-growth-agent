@@ -16,16 +16,16 @@ def semver_at_least(actual: str, minimum: str) -> bool:
     return left + (0,) * (width - len(left)) >= right + (0,) * (width - len(right))
 
 
-def test_video_owns_business_identity_and_parent_reference_is_opaque():
-    adapter = load(".uaos/ADAPTER.json")
-    manifest = load(".uaos/MANIFEST.json")
-    caps = load(".uaos/CAPABILITIES.json")
+def test_video_owns_business_identity_and_caos_is_external_governance():
+    manifest = load("video_growth_agent/data/domain_manifest.json")
+    caps = load("video_growth_agent/data/capabilities.json")
 
-    assert adapter["controller_task_identity_authority"] == "UAOS"
-    assert adapter["domain_business_identity_authority"] == "VIDEO_GROWTH_AGENT"
-    assert "NO_EQUALITY_REQUIREMENT" in adapter["identity_boundary"]
-    assert "OPAQUE_CHILD_STATE_REFERENCE_ONLY" in adapter["parent_reference_semantics"]
-    assert adapter["session_activation"].startswith("DIRECT_VIDEO_WORK_PLANE")
+    governance = manifest["governance"]
+    assert governance["system"] == "CAOS"
+    assert governance["mode"] == "CHAT_GOVERNED_EXTERNAL"
+    assert governance["runtime_dependency"] is False
+    assert governance["source_mutation"] == "FORBIDDEN"
+    assert governance["runtime_controller"] is False
 
     assert manifest["domain_authority"]["project_index"] == "projects/PROJECT_INDEX.json"
     assert manifest["domain_authority"]["product_requirements"] == "docs/product_requirements.md"
@@ -34,19 +34,17 @@ def test_video_owns_business_identity_and_parent_reference_is_opaque():
     assert manifest["runtime"]["program_orchestration"] == "video_growth_agent/program_orchestration.py"
     assert manifest["runtime"]["media_business_os"] == "video_growth_agent/production_os.py"
 
-    # Capability/profile bindings are compatibility floors, not immutable release identities.
-    assert caps["profile_version"] >= 10
-    assert semver_at_least(caps["uaos_common_capabilities_contract_min"], "1.6.0")
-    assert semver_at_least(caps["uaos_common_behavior_assurance_min"], "1.3.0")
-    assert "domain_internal_work_orchestration" in caps["required_uaos_common_capabilities"]
-    assert caps["uaos_deliberation_policy_ref"].endswith("config/DELIBERATION_POLICY.json")
-    cognition = caps["hosted_cognition_semantics"]
-    assert cognition == {
-        "source": "CURRENT_UAOS_DELIBERATION_POLICY",
-        "local_overrides": "NONE",
+    assert caps["profile_version"] >= 12
+    assert caps["owner"] == "VIDEO_GROWTH_AGENT"
+    assert caps["governance_binding"]["system"] == "CAOS"
+    assert caps["governance_binding"]["runtime_dependency"] is False
+    assert caps["governance_binding"]["source_mutation"] == "FORBIDDEN"
+    assert "video_domain_problem_recovery_and_evolution_admission" in {
+        item["capability_id"] for item in caps["capabilities"]
     }
-    assert "problem_response_floor" not in cognition
-    assert "problem_response_rule" not in cognition
+    assert not any(key.lower().startswith("uaos_") for key in caps)
+    assert not (ROOT / ".uaos").exists()
+    assert not (ROOT / "UAOS_SKILL.md").exists()
 
 
 def test_generic_growth_commercialization_and_ip_intents_converge_on_integrated_program():
@@ -63,7 +61,7 @@ def test_generic_growth_commercialization_and_ip_intents_converge_on_integrated_
     pilot = by_id["pilot-002"]
     assert "video-growth:main" in pilot["aliases"]
     assert pilot["default_for_generic_domain_intent"] is False
-    assert "not a UAOS task identity" in pilot["legacy_alias_semantics"]
+    assert "not a CAOS governance task identity" in pilot["legacy_alias_semantics"]
 
 
 def test_integrated_program_couples_four_business_workstreams_and_uses_ipos_as_external_canon_authority():
@@ -143,7 +141,7 @@ def test_pilot002_is_exact_historical_project_and_rejection_truth_survives_migra
     assert pilot["project_id"] == "pilot-002"
     assert pilot["owner"] == "VIDEO_GROWTH_AGENT"
     assert "video-growth:main" in pilot["legacy_aliases"]
-    assert "UAOS task identity" in pilot["legacy_alias_semantics"]
+    assert "not a CAOS governance task identity" in pilot["legacy_alias_semantics"].lower()
     assert "controller_authority" not in pilot
     assert "controller_task_ref" not in pilot
     assert pilot["stage_state"]["previous_release_candidate"] == "REJECTED_BY_USER_FOR_INSUFFICIENT_QUALITY"

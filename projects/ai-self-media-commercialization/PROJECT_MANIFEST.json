@@ -7,8 +7,6 @@
   "status": "ACTIVE",
   "authority_scope": "PROGRAM_LOCAL_BUSINESS_AUTHORITY",
   "business_identity_authority": "PROJECT_MANIFEST.json::project_id",
-  "parent_identity_semantics": "DISTINCT_FROM_UAOS_ROUTER_ID__NO_EQUALITY_REQUIREMENT",
-  "parent_reference_semantics": "OPTIONAL_OPAQUE_CHILD_REF_ONLY",
   "product_architecture_ref": "../../docs/media_business_os.md",
   "agent_operability_scenarios_ref": "../../docs/agent_operability_scenarios.md",
   "provider_benchmark_ref": "../../docs/provider_benchmark_protocol.md",
@@ -150,7 +148,7 @@
     "current_identity_authority": "IP_STUDIO_OS_EXTERNAL_CANON"
   },
   "created_at": "2026-10-14T00:14:38Z",
-  "updated_at": "2026-10-15T19:14:53+08:00",
+  "updated_at": "2026-11-14T16:20:00+08:00",
   "external_authorities": {
     "personal_ip_identity": {
       "system": "IP_STUDIO_OS",
@@ -168,5 +166,13 @@
     "HUMAN_CORE_CONSTRUCTION_STACK_V2.md",
     "HUMAN_CORE_PERSONAL_INHERITANCE_POLICY_V2.md",
     "GPT_IMAGE_PROMPTING_METHOD_V2.md"
-  ]
+  ],
+  "governance": {
+    "system": "CAOS",
+    "mode": "CHAT_GOVERNED_EXTERNAL",
+    "entrypoint": "../../CAOS_VIDEO_ENTRY.md",
+    "runtime_dependency": false,
+    "source_repository": "D1traverser-debug/cognition-agent-os",
+    "source_mutation": "FORBIDDEN"
+  }
 }

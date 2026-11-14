@@ -1,48 +1,21 @@
 {
-  "schema_version": "2.7",
-  "profile_version": 11,
+  "schema_version": "3.0",
+  "profile_version": 12,
   "execution_readiness_contract": "2.0",
   "owner": "VIDEO_GROWTH_AGENT",
   "domain_id": "video",
   "repository": "D1traverser-debug/video-growth-agent",
   "policy": "CURRENT_SESSION_HANDSHAKE__DIRECT_DOMAIN__CHILD_OWNS_MEDIA_BUSINESS_GRAPH__EDITORIAL_INTENT_TO_EXECUTION_TRACEABLE__CANDIDATE_GENERATION_SEPARATE_FROM_PROMOTION__RELEASE_FAIL_CLOSED__ARTIFACT_IDENTITY_BOUND__OPERATOR_VIEW_NON_AUTHORITATIVE__NO_PARALLEL_CONTROLLER",
-  "uaos_common_capabilities_ref": "D1traverser-debug/universal-agent-os@main:config/COMMON_CAPABILITIES.json",
-  "uaos_common_capabilities_contract_min": "1.6.0",
-  "uaos_common_behavior_assurance_ref": "D1traverser-debug/universal-agent-os@main:config/COMMON_BEHAVIOR_ASSURANCE.json",
-  "uaos_common_behavior_assurance_min": "1.3.0",
-  "uaos_architecture_experience_policy_ref": "D1traverser-debug/universal-agent-os@main:config/ARCHITECTURE_EXPERIENCE_POLICY.json",
-  "uaos_deliberation_policy_ref": "D1traverser-debug/universal-agent-os@main:config/DELIBERATION_POLICY.json",
-  "uaos_authority_policy_ref": "D1traverser-debug/universal-agent-os@main:config/AUTHORITY_WRITE_POLICY.json",
-  "common_capabilities_inheritance": "UAOS_HOSTED",
-  "common_behavior_realization": "OWNER_NATIVE_RECOVERY__ROOT_SCOPE_ADMISSION__TYPED_EVOLUTION_DISPOSITION__DURABLE_CAUSAL_EVIDENCE__PROBLEM_REPAIR_OR_BLOCK_CLOSURE",
-  "required_uaos_common_capabilities": [
-    "intent_and_requirement_governance",
-    "product_requirements_and_architecture_governance",
-    "domain_internal_work_orchestration",
-    "cross_chat_continuity_and_recovery",
-    "capability_handshake_and_graceful_degradation",
-    "assurance_evidence_and_completion_governance",
-    "hierarchical_authority_governance",
-    "mutation_sentinel_and_host_complete_mediation",
-    "adaptive_deliberation_and_parent_guidance",
-    "governed_self_evolution",
-    "inherited_session_progress_reporting",
-    "version_and_timestamp_provenance"
-  ],
-  "hosted_cognition_semantics": {
-    "source": "CURRENT_UAOS_DELIBERATION_POLICY",
-    "local_overrides": "NONE"
-  },
   "architecture_experience_semantics": "MATERIAL_ARCHITECTURE_AND_AGENT_EXPERIENCE_CHANGES_REQUIRE_CURRENT_AGENT_DOGFOOD__CONCERN_APPROPRIATE_STRUCTURAL_TEMPORAL_CAUSAL_OR_COGNITIVE_VIEWS__FAILURE_RECOVERY_AND_RESUME_PATHS",
   "domain_evolution_role": "DOMAIN_EVIDENCE_EVAL_AND_BUSINESS_OWNER_PROMOTION",
-  "domain_evolution_semantics": "VIDEO_OWNS_MEDIA_GROWTH_IP_COMMERCIALIZATION_PRODUCTION_BUSINESS_EVOLUTION__COMMON_OR_CROSS_DOMAIN_CHANGE_UPCALLS_UAOS__ONE_OFF_DOES_NOT_AUTO_PROMOTE__TYPED_EVOLUTION_DISPOSITION_PRECEDES_PROBLEM_ACTION",
-  "business_identity_semantics": "VIDEO_OWNS_PROGRAM_SERIES_EPISODE_SEQUENCE_SCENE_SHOT_TAKE_PROJECT_WORKSTREAM_SUBTASK_IDENTITIES__PARENT_ROUTER_ID_DISTINCT__OPAQUE_PARENT_REF_ONLY",
+  "domain_evolution_semantics": "VIDEO_OWNS_MEDIA_GROWTH_IP_COMMERCIALIZATION_PRODUCTION_BUSINESS_EVOLUTION__CROSS_DOMAIN_GOVERNANCE_REVIEW_REQUIRED_THROUGH_CAOS_CHAT__NO_RUNTIME_UPCALL__ONE_OFF_DOES_NOT_AUTO_PROMOTE__TYPED_EVOLUTION_DISPOSITION_PRECEDES_PROBLEM_ACTION",
+  "business_identity_semantics": "VIDEO_OWNS_PROGRAM_SERIES_EPISODE_SEQUENCE_SCENE_SHOT_TAKE_PROJECT_WORKSTREAM_SUBTASK_IDENTITIES__NO_PARENT_TASK_IDENTITY__CAOS_GOVERNANCE_CONTEXT_IS_NOT_A_VIDEO_BUSINESS_ID",
   "internal_orchestration_semantics": "EXPLICIT_DAG_DEPENDENCIES__PARALLEL_WHEN_READY__ARTIFACT_MEDIATED_CONSULT_COMPETE_CRITIQUE_ADJUDICATE__NO_UNBOUNDED_PEER_CHAT",
   "media_business_architecture_ref": "docs/media_business_os.md",
   "agent_operability_scenarios_ref": "docs/agent_operability_scenarios.md",
   "provider_benchmark_ref": "docs/provider_benchmark_protocol.md",
   "canonical_evolution_entrypoint": "audits/EVOLUTION_INDEX.json",
-  "updated_at": "2026-11-13T15:30:00+08:00",
+  "updated_at": "2026-11-14T16:20:00+08:00",
   "assurance_taxonomy": [
     "DECLARED_ONLY",
     "HARNESS_WIRED",
@@ -342,8 +315,8 @@
       "safe_degraded_modes": []
     },
     {
-      "capability_id": "owner_common_behavior_admission",
-      "scope": "RECOVER__ROOT_SCOPE__EVOLUTION__PROBLEM_TO_ACTION_CLOSURE",
+      "capability_id": "video_domain_problem_recovery_and_evolution_admission",
+      "scope": "VIDEO_DOMAIN_RECOVERY__ROOT_SCOPE__TYPED_EVOLUTION__PROBLEM_TO_ACTION_CLOSURE",
       "assurance_ceiling": "HARNESS_WIRED",
       "invocation_path": "video_growth_agent.owner_behavior_admission",
       "executor_type": "OWNER_NATIVE_BEHAVIOR_ADMISSION",
@@ -359,7 +332,8 @@
         "typed evolution disposition",
         "durable causal problem ref when required",
         "user escalation admission or denial",
-        "REPAIR_EXECUTED/BLOCKED_WITH_REASON/NO_CHANGE_WITH_EVIDENCE terminal"
+        "REPAIR_EXECUTED/BLOCKED_WITH_REASON/NO_CHANGE_WITH_EVIDENCE terminal",
+        "CAOS governance review for material cross-domain changes; no runtime upcall"
       ],
       "side_channel_allowed": false,
       "safe_degraded_modes": []
@@ -570,5 +544,15 @@
     "Current provider quality rankings are intentionally unpopulated until owner benchmark runs bind exact outputs/evidence under compatible rubrics/calibration scopes. Official provider documentation establishes capabilities/limits, not our production quality score.",
     "Learning candidates do not mutate production authority by themselves; durable promotion requires owner maintenance plus tests/replay and verified write evidence.",
     "Live published-episode growth/IP/commercial outcome verification remains open after executable architecture validation."
-  ]
+  ],
+  "video_domain_governance_realization": "OWNER_NATIVE_RECOVERY__ROOT_SCOPE_ADMISSION__TYPED_EVOLUTION_DISPOSITION__DURABLE_CAUSAL_EVIDENCE__PROBLEM_REPAIR_OR_BLOCK_CLOSURE",
+  "governance_binding": {
+    "system": "CAOS",
+    "source_repository": "D1traverser-debug/cognition-agent-os",
+    "mode": "CHAT_GOVERNED_EXTERNAL",
+    "entrypoint": "CAOS_VIDEO_ENTRY.md",
+    "runtime_dependency": false,
+    "source_mutation": "FORBIDDEN",
+    "domain_authority": "VIDEO_GROWTH_AGENT"
+  }
 }

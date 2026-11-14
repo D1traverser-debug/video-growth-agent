@@ -7,9 +7,9 @@ Architecture-experience scenarios: `docs/agent_operability_scenarios.md`
 
 ## 1. Topology
 
-`UAOS common control/governance -> directly selected Video domain -> child-owned Media Business Program -> editorial/business intent -> media contexts/assets/tasks/evidence/decisions -> platform/commercial outcomes -> experiments/learning`
+`CAOS external cognition/governance in the active ChatGPT session -> directly selected Video domain -> Video-owned Media Business Program -> editorial/business intent -> media contexts/assets/tasks/evidence/decisions -> platform/commercial outcomes -> experiments/learning`
 
-UAOS does not own Video business identities/state. Video does not implement a second parent controller.
+CAOS does not own Video business identities/state. Video does not implement a second parent controller.
 
 ## 2. Concern views, not one universal diagram
 
@@ -169,7 +169,7 @@ Do not collapse them into one giant DAG or one mega-state machine.
 
 `owner_behavior_admission.py` realizes recover-before-escalate and repair-or-block semantics.
 
-Material architecture/experience changes also use UAOS architecture-experience semantics: separate user goals from examples, select views by concern, walk primary/failure/recovery/resume scenarios and dogfood from the current Agent perspective before promotion.
+Material architecture/experience changes also use CAOS architecture-experience semantics: separate user goals from examples, select views by concern, walk primary/failure/recovery/resume scenarios and dogfood from the current Agent perspective before promotion.
 
 Canonical Video scenarios live in `docs/agent_operability_scenarios.md`.
 
@@ -195,6 +195,6 @@ Forbidden:
 - hidden scalar quality/business authority;
 - flat capability claim as proof of every conditional operation;
 - operator projection as second controller;
-- duplicated Video business state in UAOS;
+- duplicated Video business state in CAOS;
 - sponsorship overriding truth;
 - architecture maintenance auto-advancing H1/A2 creative work.
