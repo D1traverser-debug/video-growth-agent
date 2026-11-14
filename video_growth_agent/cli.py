@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 from .editorial_packaging import audit_packaging
-from .media_graph import MediaGraphStore
+from .media_graph import MediaGraphConcurrencyError, MediaGraphStore
 from .media_qa import MediaQAChecker
 from .models import AssetRecord
 from .programmatic_graphics import (
@@ -121,8 +121,9 @@ def main(argv: list[str] | None = None) -> int:
         font_path = request.get("font_path")
         if not isinstance(font_path, str) or not font_path.strip():
             parser.error("request must provide a local font_path")
-        graph = MediaGraphStore(args.graph).load() if args.graph else None
-        if shot.references and graph is None:
+        graph_store = MediaGraphStore(args.graph) if args.graph else None
+        graph = graph_store.load() if graph_store else None
+        if shot.references and graph_store is None:
             parser.error("--graph is required when ShotContract contains reference bindings")
         if graph is not None:
             try:
@@ -132,17 +133,38 @@ def main(argv: list[str] | None = None) -> int:
         receipt = render_programmatic_graphic(
             shot, spec, output_path=args.output, font_path=font_path,
         )
-        if graph is not None:
-            asset_ref = register_graph_candidate(graph, shot, spec, receipt)
-            MediaGraphStore(args.graph).save(graph)
+        if graph_store is not None:
+            try:
+                # Re-read and revalidate under the graph transaction lock after
+                # rendering. The initial preflight snapshot is never saved.
+                with graph_store.transaction() as latest_graph:
+                    validate_shot_graph_bindings(latest_graph, shot)
+                    asset_ref = register_graph_candidate(
+                        latest_graph, shot, spec, receipt,
+                    )
+            except (ProgrammaticGraphicsError, MediaGraphConcurrencyError) as exc:
+                receipt["media_graph_asset_ref"] = None
+                receipt["graph_registration"] = "NOT_REGISTERED__GRAPH_CHANGED_OR_VALIDATION_FAILED"
+                receipt["graph_registration_error"] = str(exc)
+                receipt_path = Path(receipt["media_path"] + ".receipt.json")
+                receipt["receipt_path"] = str(receipt_path)
+                receipt_path.write_text(
+                    json.dumps(receipt, ensure_ascii=False, indent=2),
+                    encoding="utf-8",
+                )
+                _json(receipt)
+                return 2
             receipt["media_graph_asset_ref"] = asset_ref
             receipt["graph_registration"] = "CANDIDATE_REGISTERED"
         else:
             receipt["media_graph_asset_ref"] = None
             receipt["graph_registration"] = "NOT_REGISTERED__STANDALONE_CANDIDATE"
         receipt_path = Path(receipt["media_path"] + ".receipt.json")
-        receipt_path.write_text(json.dumps(receipt, ensure_ascii=False, indent=2), encoding="utf-8")
         receipt["receipt_path"] = str(receipt_path)
+        receipt_path.write_text(
+            json.dumps(receipt, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
         _json(receipt)
         return 0 if receipt["qa_hard_pass"] else 2
 
