@@ -1,6 +1,6 @@
 # Current Progress — AI自媒体视频增长、商业化与原创数字IP
 
-Updated: 2026-11-13
+Updated: 2026-11-15
 Status: ACTIVE_INTEGRATED_PROGRAM
 Authority scope: PROGRAM_LOCAL_BUSINESS_AUTHORITY
 Program state: PROGRAM_STATE.json
@@ -161,3 +161,16 @@ The CLI route `vga render-graphic REQUEST.json --output candidate.mp4 [--graph M
 Important boundary: generated MP4s and MediaGraph registrations remain CANDIDATE only. This merge does not authorize promotion, final release, observed product-truth claims or IPOS identity rendering. Continue normal human/editorial, rights, continuity, promotion and release gates. IPOS R39 remains the sole identity authority; no approved identity bundle exists. CAOS source repository/code/PRs remain untouched.
 
 Canonical audit: `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md`.
+## Current authoritative correction — 2026-11-15
+
+This section supersedes older status statements below when they conflict.
+
+- **CAOS:** external chat governance only. The CAOS source repository, code, documents, configuration, branches and PRs are read-only and have not been modified by this Video work.
+- **IPOS bridge:** PR #24 is merged; the adapter/schema contract is mainline-verified. This is not approval of a character or an IPOS bundle. IPOS R39 remains G1 OPEN, G2 NOT_STARTED, with no approved Video identity bundle.
+- **Programmatic graphics:** PR #33 merged to main at `af4dec1a9ec2fff659e3e20d7f21cf9bdbe159ea`. Mainline CI run `43598791702` passed 263 tests, repository system audit and installed CLI smoke. The renderer may create non-character information-shot candidates only; it does not promote or release them.
+- **Media Business OS:** the existing 0.8.0 production baseline remains the production authority. Candidate creation, human/editorial review, rights, continuity, promotion and release remain separate.
+- **News × fictional-video editorial packaging:** the active training case is schema 1.2. Its reading order is FACT → INTENT → VISUAL → PLATFORM. The corporate leadership-transition news is the primary satire target; the owner-described staged video is only a secondary fictional visual layer. Seven platform candidates use distinct angles, humor mechanisms and speaker perspectives.
+- **Editorial case acceptance remains OPEN:** the media binary has not been inspected in this session; media digest, identity/likeness, rights, PlatformVariant, format review, upload disclosure, independent cold-read review, editorial-plan and master-timeline bindings remain unverified. The case is a candidate/training artifact, not a publish-ready package.
+- **Current parallel work:** IPOS G1 continues independently. MEDIA_GROWTH and COMMERCIALIZATION research remain available without an IPOS identity bundle. Identity-dependent shots remain blocked until an owner-approved READY_FOR_VIDEO bundle with G2/G7/G8 PASS and rights/provenance arrives.
+
+Historical checkpoints that say PR #33 is open or under review describe earlier states only; the merged mainline evidence above is authoritative.
