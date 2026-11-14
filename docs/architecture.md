@@ -98,6 +98,10 @@ Hard gates precede optimization. Exploration selects cheapest sufficient executi
 
 `engine_routing.py` remains legacy compatibility only and is no longer a current top-level package export.
 
+### Deterministic local graphics execution
+
+`programmatic_graphics.py` is a constrained local executor for synthetic non-character typography/data graphics. It consumes an exact `ShotContract`, emits an MP4 candidate plus digest/technical-QA receipt, and can register a candidate version in the existing MediaGraph. It is not a provider adapter, does not call a network service, and cannot satisfy product-truth or IPOS identity-bound shots. Silent preview, candidate state and no-promotion semantics are explicit.
+
 ## 9. Timeline and external editor boundary
 
 `timeline.py` owns non-destructive editor-neutral timeline versions referencing promoted media assets.
