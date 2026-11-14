@@ -1,9 +1,11 @@
 # Video Local Programmatic Graphics Renderer — Candidate Audit
 
 Date: 2026-11-14 (Asia/Shanghai)
-Status: CANDIDATE_PR_OPEN__NOT_MERGED
+Status: MERGED_MAINLINE_CI_VERIFIED__CANDIDATE_OUTPUTS_ONLY
 PR: https://github.com/D1traverser-debug/video-growth-agent/pull/33
 Candidate branch: `feat/video-local-programmatic-graphics-renderer-20261114`
+Merge commit: `af4dec1a9ec2fff659e3e20d7f21cf9bdbe159ea`
+Mainline CI run: `43598791702`
 Latest verified renderer and graph-transaction code head at this audit update: `46bbb7beb5a9da28e39662aba56c4d4c5438321c`
 
 ## 1. User/business problem
@@ -79,16 +81,17 @@ The candidate includes focused tests for:
 - pre-existing dangling output symlink is rejected without creating its target;
 - no-overwrite and receipt-tampering rejection.
 
-Exact renderer/graph-transaction code head `46bbb7beb5a9da28e39662aba56c4d4c5438321c` passed both CI runs `43597969675` and `43597962380`: 263 tests, repository system hygiene audit, and installed CLI smoke all passed. Ten Codex inline findings are resolved, covering literal text expansion, exact source digests, horizontal metric fit, vertical chart-row fit, Sequence ancestry, concurrent MP4 ownership, concurrent MediaGraph lost updates, receipt symlink/overwrite races, staged-font provenance and pre-existing dangling output symlinks. Fresh full code and security reviews have been requested against this head; final approval is still pending.
+Exact renderer/graph-transaction code head `46bbb7beb5a9da28e39662aba56c4d4c5438321c` passed branch CI runs `43597969675` and `43597962380`: 263 tests, repository system hygiene audit and installed CLI smoke. The merged mainline commit `af4dec1a9ec2fff659e3e20d7f21cf9bdbe159ea` passed mainline CI run `43598791702`: 263 tests, repository system hygiene audit and installed CLI smoke. Ten Codex inline findings are resolved. The fresh full Codex code review returned no major issues on code head `46bbb7beb5`; all review threads are resolved. A security-focused manual review covered JSON admission, FFmpeg subprocess/filter construction, filesystem/symlink publication, temporary-file ownership, staged-font provenance, MediaGraph locking/revision checks and dependency changes; no exploitable injection or overwrite path was identified. The GitHub integration did not return a separate security-review receipt.
 
 ## 7. Governance
 
 - Video Growth Agent only.
 - CAOS source repository/code/PRs are untouched.
 - IPOS authority and canon remain unchanged.
-- PR #33 is open and not merged. Candidate code is not production capability until exact-head CI, independent review and merge/mainline verification pass.
+- PR #33 is merged to `main` via `af4dec1a9ec2fff659e3e20d7f21cf9bdbe159ea`; mainline CI run `43598791702` passed 263 tests, system audit and installed CLI smoke.
+- The local renderer is now an integrated production-code capability for explicitly admitted non-character information graphics. Its outputs remain `CANDIDATE` only; it does not grant promotion, final-release or identity authority.
 - This renderer does not unblock identity-dependent work and does not replace generative video providers.
 
 ## 8. Next action
 
-Await and inspect the fresh full Codex code and security reviews against the verified head. If they introduce no findings, update the candidate handoff records, merge PR #33, then run mainline CI. Do not mark production-verified until the merged commit passes mainline CI.
+The renderer is merged and mainline CI verified. Next, use `vga render-graphic` only for explicitly admitted non-character information shots; preserve the existing human/editorial, rights, continuity, promotion and release gates. Identity-dependent shots remain blocked until IPOS exports an owner-approved READY_FOR_VIDEO bundle with G2/G7/G8 PASS, rights and provenance.
