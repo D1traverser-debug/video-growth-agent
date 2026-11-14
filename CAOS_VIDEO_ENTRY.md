@@ -85,7 +85,7 @@ Capability declarations are not execution proof. Preserve the assurance ladder:
 When the user says “继续视频”, “继续视频制作”, or gives a Video-domain task:
 
 1. Load the CAOS skill in the current ChatGPT workspace when available.
-2. Read this file and `README.md`.
+2. Read this file, `README.md`, `video_growth_agent/data/domain_manifest.json`, and `video_growth_agent/data/capabilities.json`.
 3. Resolve the exact project through `projects/PROJECT_INDEX.json`.
 4. Read that project's current manifest/state, current progress, graph and only the relevant domain requirements.
 5. Inspect the actual current repository/branch/CI state before claiming progress.
