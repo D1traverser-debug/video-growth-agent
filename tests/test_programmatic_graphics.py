@@ -617,3 +617,22 @@ def test_render_receipt_qa_path_points_to_published_candidate(tmp_path):
     )
     assert receipt["qa"]["media_uri"] == str(output.resolve())
     assert receipt["media_sha256"] == receipt["qa"]["metadata"]["sha256"]
+
+def test_atomic_publish_does_not_replace_destination_claimed_during_render(tmp_path, monkeypatch):
+    require_render_tools()
+    import video_growth_agent.programmatic_graphics as renderer
+
+    output = tmp_path / "publish-race.mp4"
+    competing_bytes = b"candidate published by competing invocation"
+    real_link = renderer.os.link
+
+    def competing_publish(source, destination):
+        Path(destination).write_bytes(competing_bytes)
+        return real_link(source, destination)
+
+    monkeypatch.setattr(renderer.os, "link", competing_publish)
+    with pytest.raises(FileExistsError, match="claimed by another render"):
+        render_programmatic_graphic(
+            make_shot(), make_spec(), output_path=output, font_path=FONT,
+        )
+    assert output.read_bytes() == competing_bytes
