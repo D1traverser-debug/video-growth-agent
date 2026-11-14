@@ -356,4 +356,59 @@ def test_graph_binding_digest_must_match_promoted_exact_version():
     ))
     graph.promote_asset(ref, decision_id="source-promotion")
     with pytest.raises(ProgrammaticGraphicsError, match="digest mismatch"):
-        validate_shot_graph_bindings(graph, shot)
+        register_graph_candidate(graph, shot, make_spec(), {})
+
+def test_cli_preflight_rejects_reference_digest_mismatch_before_render(tmp_path, capsys):
+    from video_growth_agent.cli import main
+
+    graph = make_graph()
+    ref = AssetRef("source-asset", "v3")
+    graph.add_asset(AssetVersion(
+        ref, "episode-01", "SOURCE_REFERENCE", "file:///source.mp4",
+        "sha256:" + "b" * 64,
+    ))
+    graph.add_evidence(EvidenceRecord(
+        "source-review", "ASSET", ref.key(), "SOURCE_REVIEW",
+        ("review://source",), "2026-11-14T00:00:00Z",
+    ))
+    graph.add_decision(DecisionRecord(
+        "source-promotion", "PROMOTION", "reviewer", (ref.key(),),
+        ("criteria://source",), ("source-review",), "PROMOTE",
+        "2026-11-14T00:01:00Z",
+    ))
+    graph.promote_asset(ref, decision_id="source-promotion")
+    graph_path = tmp_path / "media-graph.json"
+    MediaGraphStore(graph_path).save(graph)
+    request = {
+        "font_path": str(FONT),
+        "shot_contract": {
+            "shot_id": "shot-01", "sequence_id": "sequence-01",
+            "narrative_job": "Explain a sourced fact", "duration_seconds": 2.0,
+            "truth_mode": "MIXED_DISCLOSED", "risk": "LOW",
+            "allowed_modes": ["PROGRAMMATIC_GRAPHICS"],
+            "required_capabilities": ["ffmpeg.drawtext"],
+            "quality_targets": {"readability": 4.0}, "disclosure_required": True,
+            "editorial_plan_ref": "editorial-plan:v1", "beat_id": "beat-01",
+            "source_claim_ids": ["claim-01"],
+            "references": [{
+                "asset_id": "source-asset", "version_id": "v3",
+                "digest": "sha256:" + "a" * 64,
+                "role": "SOURCE_REFERENCE", "rights_ref": "rights://source",
+            }],
+        },
+        "graphic": {
+            "spec_id": "mismatch-demo", "kind": "TITLE_CARD",
+            "title": "Source-linked visual", "subtitle": "Digest must match",
+            "duration_seconds": 2.0, "width": 640, "height": 640, "fps": 24,
+        },
+    }
+    request_path = tmp_path / "request.json"
+    output = tmp_path / "should-not-render.mp4"
+    request_path.write_text(json.dumps(request), encoding="utf-8")
+    with pytest.raises(SystemExit):
+        main([
+            "render-graphic", str(request_path), "--output", str(output),
+            "--graph", str(graph_path),
+        ])
+    assert not output.exists()
+    assert "reference digest mismatch" in capsys.readouterr().err
