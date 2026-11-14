@@ -27,7 +27,7 @@ from .media_graph import (
 )
 from .media_qa import MediaQAChecker
 from .models import utcnow_iso
-from .production_os import ReferenceBinding, ShotContract
+from .production_os import ProductionAdmissionError, ReferenceBinding, ShotContract
 
 RENDERER_VERSION = "0.1.0"
 KINDS = frozenset({"TITLE_CARD", "STAT_CARD", "BAR_CHART", "QUOTE_CARD"})
@@ -125,15 +125,19 @@ class GraphicSpec:
 
 
 def graphic_spec_from_dict(payload: Mapping[str, Any]) -> GraphicSpec:
+    if not isinstance(payload, Mapping):
+        raise ProgrammaticGraphicsError("graphic must be an object")
     data = dict(payload)
     points = data.get("chart_data", [])
-    if not isinstance(points, list):
-        raise ProgrammaticGraphicsError("chart_data must be a list")
-    data["chart_data"] = tuple(
-        point if isinstance(point, ChartDatum) else ChartDatum(**point)
-        for point in points
-    )
-    return GraphicSpec(**data)
+    if not isinstance(points, list) or not all(isinstance(point, dict) for point in points):
+        raise ProgrammaticGraphicsError("chart_data must be a list of objects")
+    try:
+        data["chart_data"] = tuple(ChartDatum(**point) for point in points)
+        return GraphicSpec(**data)
+    except (TypeError, AttributeError, ValueError, ProgrammaticGraphicsError) as exc:
+        if isinstance(exc, ProgrammaticGraphicsError):
+            raise
+        raise ProgrammaticGraphicsError(f"invalid GraphicSpec: {exc}") from exc
 
 
 def shot_contract_from_dict(payload: Mapping[str, Any]) -> ShotContract:
@@ -160,9 +164,7 @@ def shot_contract_from_dict(payload: Mapping[str, Any]) -> ShotContract:
             if not isinstance(data[key], dict):
                 raise ProgrammaticGraphicsError(f"ShotContract {key} must be an object")
         return ShotContract(**data)
-    except (TypeError, AttributeError, ValueError) as exc:
-        if isinstance(exc, ProgrammaticGraphicsError):
-            raise
+    except (TypeError, AttributeError, ValueError, ProductionAdmissionError) as exc:
         raise ProgrammaticGraphicsError(f"invalid ShotContract: {exc}") from exc
 
 
