@@ -2,7 +2,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
+import sys
+import tempfile
 
 from .editorial_packaging import audit_packaging
 from .media_graph import MediaGraphConcurrencyError, MediaGraphStore
@@ -23,6 +26,40 @@ from .techniques import TechniqueLibrary
 
 def _json(data) -> None:
     print(json.dumps(data, ensure_ascii=False, indent=2))
+
+
+def _publish_json_noreplace(path: str | Path, data) -> None:
+    """Atomically publish a JSON sidecar without replacing files or following symlinks."""
+    destination = Path(path)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    payload = json.dumps(data, ensure_ascii=False, indent=2).encode("utf-8")
+    temporary: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="wb",
+            prefix=f".{destination.name}.",
+            suffix=".tmp",
+            dir=destination.parent,
+            delete=False,
+        ) as handle:
+            temporary = Path(handle.name)
+            handle.write(payload)
+            handle.flush()
+            os.fsync(handle.fileno())
+        # Same-filesystem hard-link creation is atomic and fails if any path
+        # entry already exists, including a symlink. Never truncate a target.
+        os.link(temporary, destination)
+    except FileExistsError as exc:
+        raise FileExistsError(
+            f"receipt path was claimed by another writer; existing entry was preserved: {destination}"
+        ) from exc
+    except OSError as exc:
+        raise OSError(
+            f"cannot atomically publish receipt without replacement: {destination}: {exc}"
+        ) from exc
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -148,10 +185,11 @@ def main(argv: list[str] | None = None) -> int:
                 receipt["graph_registration_error"] = str(exc)
                 receipt_path = Path(receipt["media_path"] + ".receipt.json")
                 receipt["receipt_path"] = str(receipt_path)
-                receipt_path.write_text(
-                    json.dumps(receipt, ensure_ascii=False, indent=2),
-                    encoding="utf-8",
-                )
+                try:
+                    _publish_json_noreplace(receipt_path, receipt)
+                except OSError as publish_error:
+                    print(f"vga: {publish_error}", file=sys.stderr)
+                    return 2
                 _json(receipt)
                 return 2
             receipt["media_graph_asset_ref"] = asset_ref
@@ -161,10 +199,11 @@ def main(argv: list[str] | None = None) -> int:
             receipt["graph_registration"] = "NOT_REGISTERED__STANDALONE_CANDIDATE"
         receipt_path = Path(receipt["media_path"] + ".receipt.json")
         receipt["receipt_path"] = str(receipt_path)
-        receipt_path.write_text(
-            json.dumps(receipt, ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
+        try:
+            _publish_json_noreplace(receipt_path, receipt)
+        except OSError as publish_error:
+            print(f"vga: {publish_error}", file=sys.stderr)
+            return 2
         _json(receipt)
         return 0 if receipt["qa_hard_pass"] else 2
 
