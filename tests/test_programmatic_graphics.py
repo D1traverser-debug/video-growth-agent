@@ -589,3 +589,31 @@ def test_cli_preflight_rejects_sequence_ancestry_mismatch_before_render(tmp_path
         ])
     assert not output.exists()
     assert "sequence ancestry mismatch" in capsys.readouterr().err
+
+def test_failed_render_preserves_destination_created_by_concurrent_invocation(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    import video_growth_agent.programmatic_graphics as renderer
+
+    output = tmp_path / "concurrent-candidate.mp4"
+    other_invocation_bytes = b"candidate owned by another invocation"
+
+    def competing_failure(command, **kwargs):
+        output.write_bytes(other_invocation_bytes)
+        return SimpleNamespace(returncode=1, stderr="synthetic ffmpeg failure")
+
+    monkeypatch.setattr(renderer.subprocess, "run", competing_failure)
+    with pytest.raises(ProgrammaticGraphicsError, match="ffmpeg render failed"):
+        render_programmatic_graphic(
+            make_shot(), make_spec(), output_path=output, font_path=FONT,
+        )
+    assert output.read_bytes() == other_invocation_bytes
+
+
+def test_render_receipt_qa_path_points_to_published_candidate(tmp_path):
+    require_render_tools()
+    output = tmp_path / "receipt-path.mp4"
+    receipt = render_programmatic_graphic(
+        make_shot(), make_spec(), output_path=output, font_path=FONT,
+    )
+    assert receipt["qa"]["media_uri"] == str(output.resolve())
+    assert receipt["media_sha256"] == receipt["qa"]["metadata"]["sha256"]
