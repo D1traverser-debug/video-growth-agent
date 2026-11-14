@@ -106,6 +106,9 @@ Before asking the user for a recoverable dependency, Video attempts owner-native
 ### VR-19 — Independent IPOS identity handoff
 IPOS must independently complete its creative lifecycle without invoking CAOS. Video consumes a portable, versioned IPOS Video Identity Bundle through a local deterministic adapter. Identity-dependent shots require explicit owner approval, READY_FOR_VIDEO, G2/G7/G8 PASS, video-use permission, exact promoted asset versions/digests, rights, provenance and continuity rules. The adapter imports exact versions into MediaGraph, binds them to ShotContract and continuity, and invalidates only descendants of a superseded canon version. Missing or unapproved canon blocks only identity-dependent shots, not unrelated video work.
 
+### VR-20 — Local programmatic graphics for information shots
+A non-character information/explainer ShotContract that explicitly allows `PROGRAMMATIC_GRAPHICS` can be rendered locally into a deterministic MP4 preview using typography, stat cards, quote cards or bar charts. The render binds the exact EditorialPlan/beat/source claims, truth/disclosure contract, font and spec digests, media digest and FFmpeg/ffprobe QA. If a MediaGraph SHOT context is supplied, the output is registered as CANDIDATE with exact lineage. The route is not AI-video generation, real/product-truth evidence, IPOS identity rendering, final sound, promotion or release.
+
 ## 5. Canonical object model
 
 Hierarchy:
