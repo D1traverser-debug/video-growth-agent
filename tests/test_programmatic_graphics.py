@@ -277,7 +277,7 @@ def test_cli_render_writes_a_receipt_and_reports_unregistered_candidate(tmp_path
     assert graph.promoted_versions == {}
 
 def test_capability_registry_and_domain_manifest_advertise_only_bounded_scope():
-    root = CASE.parents[3]
+    root = Path(__file__).resolve().parents[1]
     capabilities = json.loads(
         (root / "video_growth_agent/data/capabilities.json").read_text(encoding="utf-8")
     )
