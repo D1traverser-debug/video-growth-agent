@@ -659,13 +659,20 @@ def render_programmatic_graphic(
         raise FileExistsError("renderer is non-destructive; output or receipt already exists")
 
     output.parent.mkdir(parents=True, exist_ok=True)
-    graph, text_files, text_layout = _filter_script(spec, font_path=font)
+    font_digest = ""
     with tempfile.TemporaryDirectory(
         prefix=".vga-graphic-", dir=output.parent,
     ) as work:
         workdir = Path(work)
         render_temp = workdir / "candidate.mp4"
-        shutil.copyfile(font, workdir / "font.ttf")
+        # Snapshot once. Layout measurement, FFmpeg rendering and the receipt
+        # digest must all refer to these exact staged bytes, not a mutable source.
+        staged_font = workdir / "font.ttf"
+        shutil.copyfile(font, staged_font)
+        font_digest = _sha256(staged_font)
+        graph, text_files, text_layout = _filter_script(
+            spec, font_path=staged_font,
+        )
         for name, value in text_files.items():
             (workdir / name).write_text(value, encoding="utf-8")
         (workdir / "filters.txt").write_text(graph, encoding="utf-8")
@@ -739,7 +746,7 @@ def render_programmatic_graphic(
         "text_layout": text_layout,
         "text_layout_digest": _digest(text_layout),
         "shot_contract_digest": _digest(shot),
-        "font_sha256": _sha256(font),
+        "font_sha256": font_digest,
         "media_path": str(output),
         "media_sha256": digest,
         "duration_seconds": spec.duration_seconds,
