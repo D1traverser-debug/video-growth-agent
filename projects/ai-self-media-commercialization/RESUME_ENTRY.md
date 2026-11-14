@@ -92,3 +92,9 @@ CAOS source and IPOS repository/state must remain untouched.
 The candidate now fixes both horizontal and vertical text clipping. Chart rows are allocated dynamically, each row's label/value/bar geometry is measured and checked, and a 640×640 six-row chart with a two-line final label is covered by a real FFmpeg regression test. An impossible row layout fails before rendering.
 
 Verified code head: `c70b8f32e24aa9e79306989f16ebbc46b233745c`. Exact-head CI runs `43594450643` and `43594445342` passed: 249 tests, system audit and installed CLI smoke. All four inline Codex threads are resolved; a fresh full Codex review is requested and pending. PR #33 is still OPEN/NOT MERGED. Read `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md` before further action. No CAOS/IPOS source or canon changes.
+
+### Local graphics renderer — Sequence lineage fix (2026-11-14)
+
+The fifth independent review finding is fixed: the graph validator now proves that the SHOT's actual parent chain resolves to the ShotContract's exact sequence_id. Supported structures are SHOT → SEQUENCE and SHOT → SCENE → SEQUENCE. CLI preflight and MediaGraph registration share this validator; mismatches fail before rendering/registration. Tests cover mismatched contract, candidate registration rejection, valid SCENE intermediary and CLI preflight.
+
+Verified renderer code head: `df580452c2eca46d9fd0d8b0646527395900e763`. Exact-head CI runs `43595226122` and `43595220908` passed: 252 tests, repository system audit and installed CLI smoke. Five inline Codex threads are resolved; a fresh full review is pending. PR #33 remains OPEN/NOT MERGED. Audit: `audits/VIDEO_LOCAL_PROGRAMMATIC_GRAPHICS_RENDERER_2026-11-14.md`. CAOS/IPOS sources remain untouched.
