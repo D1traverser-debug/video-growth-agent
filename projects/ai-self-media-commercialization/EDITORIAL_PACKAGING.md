@@ -29,3 +29,9 @@ Bad: a headline that explains the news but would pair with a generic stock chart
 The replacement should create actual news-video mutual meaning, a traceable source boundary, genuinely different candidate observations, human cold-reading evidence and new independent evaluation after material revisions. If it fails, reopen the chosen editorial angle and reasoning method, rather than only swapping a word.
 
 Rollback can remove this non-authoritative audit interface and case without mutating CAOS, IPOS, MediaGraph, accepted video, user account or release state.
+
+## Platform-native field contract v1.1
+
+Public text lives in each platform_copies[].public_fields rather than an invented universal title/body pair. X uses post_text, TikTok and Douyin use caption; YouTube uses title + description (with explicit STANDARD_VIDEO format here, not unverified Shorts), Xiaohongshu title + note, Channels short_title + description, and Bilibili title + description (plus optional tags). Cover text and tag edits belong in the exact copy fingerprint, so any material publication edit invalidates its previous independent review receipt. Legacy v1.0 remains readable for historical recovery but warns against blind posting.
+
+Each platform separately requires a PlatformVariant version, editorial format review receipt, and when media is synthetic, its actual upload-disclosure receipt. A general source video tag or a generic label in the title cannot replace platform-native disclosure. There is no automatic aspect-ratio transformation, Shorts classification, platform API call or publication here; all physical delivery remains gated by existing production/release authority.
