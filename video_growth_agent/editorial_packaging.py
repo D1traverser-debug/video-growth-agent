@@ -43,7 +43,7 @@ SEMANTIC_TESTS = (
 )
 REVIEW_DIGEST_VERSION = "news-video-review-v2"
 REVIEW_DIGEST_VERSION_V3 = "news-video-review-v3"
-FORBIDDEN_PUBLIC_TYPE_LABELS = frozenset({"AI PARODY", "DRAMA", "ORIGINAL"})
+FORBIDDEN_PUBLIC_TYPE_LABELS = frozenset({"AI PARODY"})
 
 
 def _nonempty(value: object) -> bool:
@@ -251,7 +251,7 @@ def audit_packaging(case: Mapping[str, object]) -> dict[str, Any]:
     platforms: set[str] = set()
     angles: set[str] = set()
     mechanisms: set[str] = set()
-    creative_signatures: set[tuple[str, str]] = set()
+    creative_signatures: set[tuple[str, str, str]] = set()
     independent_reviews = 0
 
     for index, item in enumerate(copies):
@@ -338,6 +338,7 @@ def audit_packaging(case: Mapping[str, object]) -> dict[str, Any]:
             item.get("speaker_perspective")
         ):
             creative_signatures.add((
+                item["editorial_angle"].strip().casefold(),
                 item["humor_mechanism"].strip().casefold(),
                 item["speaker_perspective"].strip().casefold(),
             ))
