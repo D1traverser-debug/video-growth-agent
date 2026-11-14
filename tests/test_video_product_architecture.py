@@ -61,7 +61,7 @@ def test_generic_growth_commercialization_and_ip_intents_converge_on_integrated_
     pilot = by_id["pilot-002"]
     assert "video-growth:main" in pilot["aliases"]
     assert pilot["default_for_generic_domain_intent"] is False
-    assert "not a CAOS governance task identity" in pilot["legacy_alias_semantics"]
+    assert "not a caos governance task identity" in pilot["legacy_alias_semantics"].lower()
 
 
 def test_integrated_program_couples_four_business_workstreams_and_uses_ipos_as_external_canon_authority():
@@ -141,7 +141,7 @@ def test_pilot002_is_exact_historical_project_and_rejection_truth_survives_migra
     assert pilot["project_id"] == "pilot-002"
     assert pilot["owner"] == "VIDEO_GROWTH_AGENT"
     assert "video-growth:main" in pilot["legacy_aliases"]
-    assert "not a CAOS governance task identity" in pilot["legacy_alias_semantics"].lower()
+    assert "not a caos governance task identity" in pilot["legacy_alias_semantics"].lower()
     assert "controller_authority" not in pilot
     assert "controller_task_ref" not in pilot
     assert pilot["stage_state"]["previous_release_candidate"] == "REJECTED_BY_USER_FOR_INSUFFICIENT_QUALITY"
