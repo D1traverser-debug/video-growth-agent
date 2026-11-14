@@ -8,14 +8,25 @@ from collections.abc import Mapping
 PLATFORMS = {"X", "TIKTOK", "YOUTUBE", "XIAOHONGSHU", "WECHAT_CHANNELS", "BILIBILI", "DOUYIN"}
 FACT_CLASSES = {"PRIMARY_CONFIRMED", "ATTRIBUTED_REPORT", "ALLEGATION_UNVERIFIED"}
 VISUAL_MODES = {"FICTIONAL_SYNTHETIC", "EDITORIAL_REAL", "MIXED_DISCLOSED"}
+PUBLIC_FIELDS = {
+    "X": ("post_text",),
+    "TIKTOK": ("caption",),
+    "YOUTUBE": ("title", "description"),
+    "XIAOHONGSHU": ("title", "note"),
+    "WECHAT_CHANNELS": ("short_title", "description"),
+    "BILIBILI": ("title", "description"),
+    "DOUYIN": ("caption",),
+}
 SEMANTIC_TESTS = (
     "news_replacement_loses_meaning", "video_replacement_loses_meaning",
     "not_plot_recitation", "natural_language", "fact_fiction_not_conflated",
 )
 
 def copy_digest(item: Mapping[str, object]) -> str:
-    raw = json.dumps([item.get("title"), item.get("body")],
-                     ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+    public = item.get("public_fields")
+    content = public if isinstance(public, dict) else [item.get("title"), item.get("body")]
+    raw = json.dumps(content, ensure_ascii=False, sort_keys=True,
+                     separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(raw).hexdigest()
 
 def audit_packaging(case: Mapping[str, object]) -> dict:
@@ -24,7 +35,8 @@ def audit_packaging(case: Mapping[str, object]) -> dict:
     for field in ("program_id", "episode_id", "author_ref"):
         if not str(case.get(field) or "").strip():
             errors.append(f"{field}_required")
-    if case.get("schema_version") != "1.0":
+    schema = case.get("schema_version")
+    if schema not in {"1.0", "1.1"}:
         errors.append("unsupported_schema")
     facts = case.get("source_facts")
     visuals = case.get("visual_assets")
@@ -88,8 +100,27 @@ def audit_packaging(case: Mapping[str, object]) -> dict:
         if platform not in PLATFORMS or platform in platforms:
             errors.append(f"{prefix}:unknown_or_duplicate_platform")
         platforms.add(platform)
-        if not str(item.get("title") or "").strip() or not str(item.get("body") or "").strip():
-            errors.append(f"{prefix}:public_copy_missing")
+        if schema == "1.1":
+            fields = item.get("public_fields")
+            required = PUBLIC_FIELDS.get(platform, ())
+            if not isinstance(fields, dict) or any(
+                not isinstance(fields.get(key), str) or not fields[key].strip() for key in required
+            ):
+                errors.append(f"{prefix}:platform_public_fields_missing_or_invalid")
+            if isinstance(fields, dict) and "tags" in fields and not (
+                isinstance(fields["tags"], list) and all(isinstance(tag, str) for tag in fields["tags"])
+            ):
+                errors.append(f"{prefix}:tags_must_be_string_list")
+            if not str(item.get("platform_variant_ref") or "").strip():
+                gates.append(f"{prefix}:platform_variant_version_unbound")
+            if not str(item.get("format_review_evidence_ref") or "").strip():
+                gates.append(f"{prefix}:platform_format_review_open")
+            if synthetic and not str(item.get("synthetic_upload_disclosure_ref") or "").strip():
+                gates.append(f"{prefix}:platform_synthetic_disclosure_receipt_open")
+        else:
+            if not str(item.get("title") or "").strip() or not str(item.get("body") or "").strip():
+                errors.append(f"{prefix}:public_copy_missing")
+            warnings.append("legacy_v1_0_copy_needs_platform_native_fields")
         fids, vids = item.get("fact_ids"), item.get("visual_ids")
         if not isinstance(fids, list) or not fids or not all(x in fact_ids for x in fids):
             errors.append(f"{prefix}:fact_ref_missing_or_unknown")
