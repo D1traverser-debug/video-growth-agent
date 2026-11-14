@@ -100,7 +100,7 @@ Hard gates precede optimization. Exploration selects cheapest sufficient executi
 
 ### Deterministic local graphics execution
 
-`programmatic_graphics.py` is a constrained local executor for synthetic non-character typography/data graphics. It consumes an exact `ShotContract`, emits an MP4 candidate plus digest/technical-QA receipt, and can register a candidate version only against an existing SHOT context and digest-matching promoted reference versions in the existing MediaGraph. It is not a provider adapter, does not call a network service, and cannot satisfy product-truth or IPOS identity-bound shots. Silent preview, candidate state and no-promotion semantics are explicit.
+`programmatic_graphics.py` is a constrained local executor for synthetic non-character typography/data graphics. It consumes an exact `ShotContract`, emits an MP4 candidate plus digest/technical-QA receipt, measures text using the selected font's pixel metrics, and rejects clipped text before rendering, and can register a candidate version only against an existing SHOT context and digest-matching promoted reference versions in the existing MediaGraph. It is not a provider adapter, does not call a network service, and cannot satisfy product-truth or IPOS identity-bound shots. Silent preview, candidate state and no-promotion semantics are explicit.
 
 ## 9. Timeline and external editor boundary
 
