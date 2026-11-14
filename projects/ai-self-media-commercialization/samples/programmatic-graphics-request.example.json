@@ -1,0 +1,75 @@
+{
+  "font_path": "<absolute-path-to-a-local-font-file>",
+  "shot_contract": {
+    "shot_id": "shot-info-001",
+    "sequence_id": "sequence-001",
+    "narrative_job": "Present a verified statistic as a readable visual card",
+    "duration_seconds": 5,
+    "truth_mode": "SYNTHETIC",
+    "risk": "LOW",
+    "allowed_modes": [
+      "PROGRAMMATIC_GRAPHICS"
+    ],
+    "required_capabilities": [
+      "ffmpeg.drawtext",
+      "ffprobe"
+    ],
+    "quality_targets": {
+      "readability": 4,
+      "composition": 3.5
+    },
+    "disclosure_required": true,
+    "editorial_plan_ref": "editorial-plan:<version>",
+    "beat_id": "beat-<id>",
+    "source_claim_ids": [
+      "claim-<verified-source-id>"
+    ],
+    "references": [],
+    "must_have": [
+      "claim value matches source claim",
+      "text readable on mobile"
+    ],
+    "must_not_have": [
+      "unattributed factual claim",
+      "implied real footage"
+    ],
+    "graceful_degradation": [
+      "static chart with readable labels"
+    ],
+    "stop_conditions": [
+      "technical QA failure"
+    ]
+  },
+  "graphic": {
+    "spec_id": "market-share-card-v1",
+    "kind": "BAR_CHART",
+    "title": "A market is not one number",
+    "subtitle": "Illustrative values — replace with values bound to the cited claims",
+    "kicker": "SOURCE-LINKED EXPLAINER",
+    "chart_data": [
+      {
+        "label": "Segment A",
+        "value": 42,
+        "display_value": "42"
+      },
+      {
+        "label": "Segment B",
+        "value": 78,
+        "display_value": "78"
+      },
+      {
+        "label": "Segment C",
+        "value": 56,
+        "display_value": "56"
+      }
+    ],
+    "duration_seconds": 5,
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "background": "#1B2940",
+    "foreground": "#F4F7FB",
+    "accent": "#43D9C3",
+    "muted": "#93A4BC"
+  }
+}
