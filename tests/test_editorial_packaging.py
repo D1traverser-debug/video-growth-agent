@@ -114,3 +114,21 @@ def test_case_is_discoverable_in_active_video_business_graph():
     assert node.depends_on == ()
     assert node.metadata["no_ipos_identity_dependency"] is True
     assert "cases/jensen-alice-20261114.json" in node.metadata["authority_inputs"]
+
+def test_program_orchestrator_exposes_packaging_work_without_ipos_bundle():
+    from video_growth_agent.program_orchestration import ProgramOrchestrator
+    graph_path = CASE.parent.parent / "SUBTASK_GRAPH.json"
+    scheduler = ProgramOrchestrator.from_paths(graph_path)
+    ready_ids = {node.node_id for node in scheduler.ready()}
+    assert "topic_satire_editorial_packaging" in ready_ids
+    packet = scheduler.packet("topic_satire_editorial_packaging")
+    assert packet["inputs"] == {}
+    assert packet["node"]["workstream"] == "MEDIA_GROWTH"
+    assert audit_packaging(fixture())["release_authorized"] is False
+
+def test_packaging_cli_runs_without_loading_project_runtime(capsys):
+    from video_growth_agent.cli import main
+    assert main(["audit-packaging", str(CASE)]) == 0
+    report = json.loads(capsys.readouterr().out)
+    assert report["status"] == "EDITORIAL_CANDIDATE_GATES_OPEN"
+    assert not report["release_authorized"]
