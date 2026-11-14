@@ -3,7 +3,7 @@
 Status: `ACTIVE_MEDIA_BUSINESS_PROGRAM`  
 Project ID: `ai-self-media-commercialization`  
 Owner: `VIDEO_GROWTH_AGENT`  
-Parent business identity: **NONE — UAOS router identity is distinct**
+Governance: **CAOS chat-governed externally; no parent task identity; Video owns all business identities**
 
 ## Current role
 
