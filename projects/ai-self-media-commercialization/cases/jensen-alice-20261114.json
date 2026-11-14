@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "program_id": "ai-self-media-commercialization",
   "episode_id": "jensen-alice-satire-20261114",
   "author_ref": "owner://video-program",
@@ -57,8 +57,6 @@
   "platform_copies": [
     {
       "platform": "X",
-      "title": "Jensen stepped down. The edit took that literally.",
-      "body": "One corporate exit. Several interpretations.",
       "editorial_angle": "职位变动被视觉化成夸张动作",
       "humor_mechanism": "双关／字面化",
       "news_counterfactual": "换成普通名人八卦，stepped down 与真实 CEO 离任的新闻关联消失。",
@@ -71,12 +69,16 @@
       ],
       "independent_review": {
         "status": "PENDING"
-      }
+      },
+      "public_fields": {
+        "post_text": "Jensen stepped down. The edit took that literally."
+      },
+      "platform_variant_ref": null,
+      "format_review_evidence_ref": null,
+      "synthetic_upload_disclosure_ref": null
     },
     {
       "platform": "TIKTOK",
-      "title": "The press release said “transition.” The internet heard “action scene.”",
-      "body": "Corporate vocabulary is having a weird week.",
       "editorial_angle": "公司公文与虚构动作片的语域冲突",
       "humor_mechanism": "语域错置",
       "news_counterfactual": "普通热点没有高管 transition 公告，第一层失效。",
@@ -89,12 +91,16 @@
       ],
       "independent_review": {
         "status": "PENDING"
-      }
+      },
+      "public_fields": {
+        "caption": "The press release said “transition.” The internet heard “action scene.”"
+      },
+      "platform_variant_ref": null,
+      "format_review_evidence_ref": null,
+      "synthetic_upload_disclosure_ref": null
     },
     {
       "platform": "YOUTUBE",
-      "title": "Jensen Huang’s Exit Interview Went Full Final Boss",
-      "body": "A boardroom headline gets an imaginary action-movie ending.",
       "editorial_angle": "CEO 退场与游戏最终关卡的冲突",
       "humor_mechanism": "类型片与游戏叙事映射",
       "news_counterfactual": "换成不涉及 CEO 离任的新闻，exit interview 失焦。",
@@ -107,12 +113,19 @@
       ],
       "independent_review": {
         "status": "PENDING"
-      }
+      },
+      "public_fields": {
+        "title": "Jensen Huang’s Exit Interview Went Full Final Boss",
+        "description": "A boardroom headline gets an imaginary action-movie ending.",
+        "upload_format": "STANDARD_VIDEO",
+        "cover_text": "EXIT INTERVIEW?"
+      },
+      "platform_variant_ref": null,
+      "format_review_evidence_ref": null,
+      "synthetic_upload_disclosure_ref": null
     },
     {
       "platform": "XIAOHONGSHU",
-      "title": "老黄这场交接，怎么交成了交火",
-      "body": "以前看英伟达新闻查显卡，现在连人事变动都能看成动作片。",
       "editorial_angle": "交接与交火的一字置换",
       "humor_mechanism": "语素置换／谐音",
       "news_counterfactual": "如果没有 CEO 离任，交接没有对应的现实锚点。",
@@ -125,12 +138,18 @@
       ],
       "independent_review": {
         "status": "PENDING"
-      }
+      },
+      "public_fields": {
+        "title": "老黄这场交接，怎么交成了交火",
+        "note": "以前看英伟达新闻查显卡，现在连人事变动都能看成动作片。",
+        "cover_text": "交接还是交火？"
+      },
+      "platform_variant_ref": null,
+      "format_review_evidence_ref": null,
+      "synthetic_upload_disclosure_ref": null
     },
     {
       "platform": "WECHAT_CHANNELS",
-      "title": "英伟达人事变动，怎么连武术指导都忙上了",
-      "body": "公司公告写的是高管变动，网友的想象力已经走到电影片场。",
       "editorial_angle": "严肃人事新闻与虚构剧组职业错置",
       "humor_mechanism": "职业角色反差",
       "news_counterfactual": "换成普通娱乐新闻，正式公司公告的锚点消失。",
@@ -143,12 +162,17 @@
       ],
       "independent_review": {
         "status": "PENDING"
-      }
+      },
+      "public_fields": {
+        "short_title": "英伟达人事变动，怎么连武术指导都忙上了",
+        "description": "公司公告写的是高管变动，网友的想象力已经走到电影片场。"
+      },
+      "platform_variant_ref": null,
+      "format_review_evidence_ref": null,
+      "synthetic_upload_disclosure_ref": null
     },
     {
       "platform": "BILIBILI",
-      "title": "【黄仁勋】CEO主线退场，怎么还触发BOSS战",
-      "body": "公司公告负责严肃，恶搞短片负责把支线剧情解锁。",
       "editorial_angle": "CEO 角色退场被游戏系统化",
       "humor_mechanism": "游戏机制隐喻",
       "news_counterfactual": "没有实际离任新闻，CEO 主线退场无对应事实。",
@@ -161,12 +185,22 @@
       ],
       "independent_review": {
         "status": "PENDING"
-      }
+      },
+      "public_fields": {
+        "title": "【黄仁勋】CEO主线退场，怎么还触发BOSS战",
+        "description": "公司公告负责严肃，恶搞短片负责把支线剧情解锁。",
+        "tags": [
+          "黄仁勋",
+          "英伟达",
+          "新闻恶搞"
+        ]
+      },
+      "platform_variant_ref": null,
+      "format_review_evidence_ref": null,
+      "synthetic_upload_disclosure_ref": null
     },
     {
       "platform": "DOUYIN",
-      "title": "老黄：我说的是下台，不是趴下",
-      "body": "一句人事变动，愣是被拍出了另一种理解。",
       "editorial_angle": "下台与趴下的角色误解",
       "humor_mechanism": "人物对话／字面误解",
       "news_counterfactual": "如果没有离任新闻，下台的第一层含义不成立。",
@@ -179,7 +213,13 @@
       ],
       "independent_review": {
         "status": "PENDING"
-      }
+      },
+      "public_fields": {
+        "caption": "老黄：我说的是下台，不是趴下"
+      },
+      "platform_variant_ref": null,
+      "format_review_evidence_ref": null,
+      "synthetic_upload_disclosure_ref": null
     }
   ],
   "open_owner_outcomes": [
@@ -190,5 +230,5 @@
     "Platform policy, upload disclosure and final publication evidence",
     "Audience performance receipts"
   ],
-  "state": "SEVEN_PLATFORM_CANDIDATES__NO_INDEPENDENT_ACCEPTANCE_OR_RELEASE"
+  "state": "PLATFORM_NATIVE_EDITORIAL_CANDIDATES__FORMAT_AND_RELEASE_EVIDENCE_OPEN"
 }
