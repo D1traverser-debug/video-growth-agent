@@ -8,7 +8,7 @@
   "product_ref": "docs/product_requirements.md",
   "architecture_ref": "docs/media_business_os.md",
   "project_manifest_ref": "projects/ai-self-media-commercialization/PROJECT_MANIFEST.json",
-  "subtask_graph_ref": "projects/ai-self-media-commercialization/SUBTASK_GRAPH.json",
+  "subtask_graph_ref": "examples/ai-self-media-commercialization.tasks.json",
   "business_flywheel_ref": "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json",
   "workstreams": {
     "MEDIA_GROWTH": {
@@ -18,8 +18,7 @@
         "ACCOUNT_POSITIONING.md",
         "BUSINESS_FLYWHEEL.json",
         "EDITORIAL_PACKAGING.md",
-        "cases/jensen-alice-20261114.json",
-        "SUBTASK_GRAPH.json#topic_satire_editorial_packaging"
+        "cases/jensen-alice-20261114.json"
       ],
       "blocked_by": []
     },
@@ -48,7 +47,7 @@
     },
     "PRODUCTION_SYSTEM": {
       "status": "MEDIA_BUSINESS_OS_0_8_PRODUCTION_BASELINE",
-      "current_state": "Media Business OS 0.8.0 is the current verified production core. The IPOS Video Identity Bundle adapter/schema is merged to main via PR #24 and its code contract is CI-verified; no approved IPOS identity bundle exists, so identity-dependent shots remain blocked. The local programmatic graphics renderer is merged to main via PR #33 (merge commit af4dec1a9ec2fff659e3e20d7f21cf9bdbe159ea); mainline CI run 43598791702 passed 263 tests, repository system audit and installed CLI smoke. Renderer outputs and MediaGraph registrations remain CANDIDATE only. Existing editorial, truth, rights, continuity, human review, promotion and release gates remain authoritative.",
+      "current_state": "Media Business OS 0.8.0 is the current verified production core. The IPOS Video Identity Bundle adapter/schema is merged to main via PR #24 and its code contract is CI-verified; no approved IPOS identity bundle exists, so identity-dependent shots remain blocked. The local programmatic graphics renderer is merged to main via PR #33 (merge commit af4dec1a9ec2fff659e3e20d7f21cf9bdbe159ea); mainline CI run 43598791702 passed 263 tests, repository system audit and installed CLI smoke. Renderer outputs and MediaGraph registrations remain CANDIDATE only. Existing editorial, truth, rights, continuity, human review, promotion and release gates remain authoritative. A standalone Video Studio control plane is now wired as the default generic Video entry: digest-bound context import, the integrated 50-task commercialization DAG, fail-closed owner-input waits, and a repository system audit. Exact implementation head 1893dfc911e4673ef2c7d01f34c502d39ffcad09 passed PR CI run 44034062243 and push CI run 44034068441: 347 tests, standalone system audit, standalone CLI smoke, integrated 50-task Program context/readiness smoke, local tool-execution smoke and installed agentic CLI smoke. PR #37 remains open; this is branch-level verification only and no merge/mainline claim is made. Production readiness remains PARTIAL because the repository has no registered generative-video provider executor and the exact Jensen source video plus owner-approved IPOS bundle are not available.",
       "authority_refs": [
         "../../docs/media_business_os.md",
         "../../docs/agent_operability_scenarios.md",
@@ -85,7 +84,7 @@
   "current_focus": "ORIGINAL_DIGITAL_IP/IPOS_CANONICAL_HANDOFF_V1",
   "current_next_action": "Do not resume the superseded Video-local H1/S1+S3/A2 face-shell route. IPOS continues its R39 G1 research and later G2 design/approval independently; Video waits for a READY_FOR_VIDEO bundle and validates the import/shot-binding path. The news-first editorial packaging v1.2 contract is merged and mainline-verified. Next, inspect the actual media file and resolve its digest, identity/likeness and rights; then obtain independent human cold-read, platform format/disclosure, EditorialPlan and master-timeline evidence before any promotion or publication.",
   "system_next_action": "Continue IPOS R39 G1 research independently; do not create or assume an identity bundle. Maintain IPOS as the sole external identity authority and keep identity-dependent shots blocked until an owner-approved READY_FOR_VIDEO bundle with G2/G7/G8 PASS and rights/provenance arrives. The news-first editorial packaging v1.2 code is merged and mainline-verified, but its media case remains candidate-only. Next resolve exact media inspection/digest, identity/likeness, rights, independent human cold-read, platform format and upload disclosure, EditorialPlan, master timeline and Video release evidence. Continue non-character growth and commercialization work. CAOS source repository/code/PRs remain untouched.",
-  "updated_at": "2026-11-15T03:43:15.212+08:00",
+  "updated_at": "2026-11-17T03:06:00+08:00",
   "governance_ref": "../../CAOS_VIDEO_ENTRY.md",
   "governance_mode": "CHAT_GOVERNED_EXTERNAL",
   "caos_runtime_dependency": false,
@@ -161,5 +160,35 @@
       "VIDEO_RELEASE_GATE"
     ],
     "release_authorized": false
-  }
+  },
+  "standalone_video_studio": {
+    "branch": "refactor/video-production-integrated-20261117",
+    "head": "3e823be92de41d9642a40292863689a7a68a0fd6",
+    "pull_request_supersedes": 36,
+    "ci_run": 44006872263,
+    "ci_status": "PASS",
+    "test_count": 343,
+    "system_audit": "PASS",
+    "standalone_cli_smoke": "PASS",
+    "integrated_program_context_smoke": "PASS",
+    "installed_agentic_cli_smoke": "PASS",
+    "program_id": "ai-self-media-commercialization",
+    "task_count": 35,
+    "context_import": "DIGEST_BOUND__IDEMPOTENT__PREFLIGHTED",
+    "rights_clearance": "BOUND_TO_COMPLETED_HUMAN_REVIEW_TASK_AND_EXACT_SOURCE_DIGESTS",
+    "readiness": "PARTIAL",
+    "remaining_hard_dependencies": [
+      "No repository-registered generative-video provider executor; current session provider capabilities must be checked at execution time.",
+      "Exact owner-supplied Jensen/Alice source video is missing.",
+      "Owner-approved IPOS READY_FOR_VIDEO bundle is missing."
+    ],
+    "release_authority": "NO_AUTO_PUBLISH__CANDIDATE_OUTPUTS_ONLY__HUMAN_AND_TECHNICAL_GATES_REQUIRED",
+    "protected_boundaries": [
+      "CAOS repository, source files, code, Skills and PRs untouched.",
+      "IPOS identity canon not changed; IPOS remains sole creative authority.",
+      "No paid provider call, media generation or publication performed by this integration work."
+    ],
+    "status": "INTEGRATED_BRANCH_CI_VERIFIED__PROGRAM_READINESS_PARTIAL"
+  },
+  "legacy_subtask_graph_ref": "projects/ai-self-media-commercialization/SUBTASK_GRAPH.json"
 }

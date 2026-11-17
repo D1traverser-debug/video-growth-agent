@@ -1,0 +1,176 @@
+{
+  "goal": "Produce a publishable 60-second cinematic explainer showing why AI inference is moving toward edge devices.",
+  "audience": "Technology-curious viewers aged 20-40 who understand consumer technology but do not know chip architecture.",
+  "deliverables": [
+    "final.mp4",
+    "cover.png",
+    "captions.srt",
+    "publish-copy.md"
+  ],
+  "format": {
+    "duration_seconds": 60,
+    "aspect_ratio": "9:16",
+    "resolution": "1080x1920",
+    "frame_rate": 30,
+    "language": "zh-CN",
+    "platforms": [
+      "Douyin",
+      "Bilibili Shorts"
+    ]
+  },
+  "content_contract": {
+    "editorial_question": "What changes when inference moves from centralized cloud systems to devices near the user?",
+    "audience_promise": "Explain the trade-offs through one clear story rather than a list of buzzwords.",
+    "must_explain": [
+      "latency",
+      "bandwidth",
+      "privacy",
+      "power and thermal constraints"
+    ],
+    "must_not_become": [
+      "generic AI tool advertisement",
+      "unsubstantiated prediction",
+      "static slide deck"
+    ]
+  },
+  "craft_contract": {
+    "visual_direction": "Cinematic, tactile, high-contrast but readable; abstract mechanisms should have spatial cause and effect.",
+    "audio_direction": "Narration, music, sound effects and deliberate silence are designed as one timeline.",
+    "editing_direction": "Clear opening promise, escalating mechanism, concise payoff; no filler shots."
+  },
+  "hard_constraints": [
+    "Factual chip and performance claims require sources.",
+    "Do not imply synthetic product footage is real product evidence."
+  ],
+  "preferences": [
+    "Use hybrid production methods where they improve clarity or craft."
+  ],
+  "examples": [],
+  "unknowns": [
+    "Final platform disclosure settings must be checked at upload."
+  ],
+  "success_criteria": [
+    "All deliverables exist and play.",
+    "The argument is understandable on a first watch.",
+    "The actual final media passes technical QA and independent craft review."
+  ],
+  "release_policy": {
+    "require_rights": true,
+    "require_rights_evidence": true,
+    "required_rights_statuses": [
+      "OWNED",
+      "AUTHORIZED",
+      "LICENSED",
+      "PUBLIC_DOMAIN"
+    ],
+    "required_review_rubrics": [
+      "editorial",
+      "craft",
+      "retention",
+      "rights",
+      "technical",
+      "human-cold-read",
+      "red-team"
+    ],
+    "required_artifact_names": [
+      "final-candidate",
+      "captions",
+      "cover-candidate",
+      "publish-copy-candidate",
+      "release-evidence-pack"
+    ],
+    "required_asset_names": [
+      "shot-assets",
+      "sound-package"
+    ],
+    "required_evidence_artifact_names": [
+      "rights-clearance",
+      "platform-format-review",
+      "synthetic-upload-disclosure",
+      "editorial-plan",
+      "master-timeline",
+      "human-cold-read",
+      "red-team-review"
+    ],
+    "require_technical_qa": true,
+    "technical_qa_artifact_name": "technical-qa-receipt",
+    "technical_qa_required_check_ids": [
+      "resolution",
+      "frame_rate",
+      "duration_range"
+    ],
+    "no_auto_publish": true,
+    "review_contracts": {
+      "craft": {
+        "score_dimensions": [
+          "benchmark_parity",
+          "overall_craft",
+          "cohesion",
+          "advertiser_showcase"
+        ],
+        "dimension_floors": {
+          "benchmark_parity": 4,
+          "overall_craft": 4,
+          "cohesion": 4,
+          "advertiser_showcase": 4
+        },
+        "min_average": 4.25
+      },
+      "retention": {
+        "score_dimensions": [
+          "first_2s_stop",
+          "midpoint_retention",
+          "dead_zone_risk",
+          "ending_strength"
+        ],
+        "dimension_floors": {
+          "first_2s_stop": 4,
+          "midpoint_retention": 4,
+          "dead_zone_risk": 4,
+          "ending_strength": 4
+        },
+        "min_average": 4
+      },
+      "rights": {
+        "reviewer_kind": "HUMAN",
+        "execution_mode": "INDEPENDENT_REVIEW",
+        "blind_review": true,
+        "require_digest_attestation": true,
+        "require_context_id": true
+      },
+      "technical": {
+        "reviewer_kind": "HUMAN",
+        "execution_mode": "INDEPENDENT_REVIEW",
+        "blind_review": true,
+        "require_digest_attestation": true,
+        "require_context_id": true
+      },
+      "human-cold-read": {
+        "reviewer_kind": "HUMAN",
+        "execution_mode": "INDEPENDENT_COLD_READ",
+        "blind_review": true,
+        "require_digest_attestation": true,
+        "require_context_id": true,
+        "require_resolvable_evidence_refs": true
+      },
+      "red-team": {
+        "min_findings": 3,
+        "require_evidence_per_finding": true,
+        "require_disposition_per_finding": true,
+        "require_resolvable_evidence_refs": true
+      }
+    }
+  },
+  "program_handoff": {
+    "required": true,
+    "artifact_name": "validated-episode-intent",
+    "schema_version": "1.0",
+    "handoff_type": "VIDEO_PROGRAM_TO_EPISODE",
+    "source_program_id": "ai-self-media-commercialization",
+    "identity_authority": "IPOS",
+    "identity_policy": "NON_CHARACTER_WHEN_NO_APPROVED_IPOS_BUNDLE",
+    "source_artifact_digests_required": true,
+    "source_task_id": "validate-episode-production-handoff",
+    "transfer_mode": "IMMUTABLE_COPY"
+  }
+}

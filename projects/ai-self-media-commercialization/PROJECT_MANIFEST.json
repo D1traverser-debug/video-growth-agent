@@ -11,7 +11,7 @@
   "agent_operability_scenarios_ref": "../../docs/agent_operability_scenarios.md",
   "provider_benchmark_ref": "../../docs/provider_benchmark_protocol.md",
   "program_state_ref": "PROGRAM_STATE.json",
-  "subtask_graph_ref": "SUBTASK_GRAPH.json",
+  "subtask_graph_ref": "../../examples/ai-self-media-commercialization.tasks.json",
   "business_flywheel_ref": "BUSINESS_FLYWHEEL.json",
   "scan": {
     "discoverable": true,
@@ -52,7 +52,7 @@
     "resume_entry": "RESUME_ENTRY.md",
     "current_progress": "CURRENT_PROGRESS.md",
     "program_state": "PROGRAM_STATE.json",
-    "subtask_graph": "SUBTASK_GRAPH.json",
+    "subtask_graph": "../../examples/ai-self-media-commercialization.tasks.json",
     "business_flywheel": "BUSINESS_FLYWHEEL.json",
     "latest_face_review": null,
     "prompt_language_rule": "GPT_IMAGE_POSITIVE_MORPH_LANGUAGE_RULE_V1.md",
@@ -60,7 +60,8 @@
     "gpt_image_prompting_method": "GPT_IMAGE_PROMPTING_METHOD_V2.md",
     "human_core_stack": "HUMAN_CORE_CONSTRUCTION_STACK_V2.md",
     "ipos_integration_state": "IPOS_INTEGRATION_STATE.json",
-    "ipos_bundle_schema": "../../video_growth_agent/data/ipos_video_identity_bundle.schema.json"
+    "ipos_bundle_schema": "../../video_growth_agent/data/ipos_video_identity_bundle.schema.json",
+    "legacy_subtask_graph": "SUBTASK_GRAPH.json"
   },
   "workstreams": {
     "MEDIA_GROWTH": {
@@ -178,5 +179,7 @@
     "source_mutation": "FORBIDDEN"
   },
   "current_editorial_case_ref": "cases/jensen-alice-20261114.json",
-  "current_editorial_case_schema_version": "1.2"
+  "current_editorial_case_schema_version": "1.2",
+  "legacy_subtask_graph_ref": "SUBTASK_GRAPH.json",
+  "cross_workstream_execution_ref": "BUSINESS_FLYWHEEL.json#execution_bindings"
 }

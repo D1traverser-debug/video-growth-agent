@@ -1,0 +1,179 @@
+[
+  {
+    "task_id": "author-editorial-plan",
+    "title": "Author the exact one-beat EditorialPlan for the title-card candidate",
+    "kind": "editorial_plan_authoring",
+    "executor": "agent",
+    "depends_on": [],
+    "inputs": [],
+    "outputs": [
+      "editorial-plan"
+    ],
+    "requirements": {
+      "schema": "video_growth_agent.editorial_planning.EditorialPlan",
+      "episode_id": "E001",
+      "series_id": "standalone-adapter-demo",
+      "one_beat_one_shot": true
+    },
+    "acceptance": {
+      "plan": "Output a complete JSON EditorialPlan with one beat B1 and one shot S1; the shot must be SYNTHETIC and allow PROGRAMMATIC_GRAPHICS."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "validate-editorial-plan",
+    "title": "Validate claim/beat/shot traceability and beat DAG",
+    "kind": "domain_adapter",
+    "executor": "tool",
+    "depends_on": [
+      "author-editorial-plan"
+    ],
+    "inputs": [
+      "editorial-plan"
+    ],
+    "outputs": [
+      "editorial-plan-validation"
+    ],
+    "requirements": {
+      "domain_adapter": {
+        "name": "editorial_plan_validate",
+        "editorial_plan_input": "editorial-plan",
+        "output_name": "editorial-plan-validation"
+      }
+    },
+    "acceptance": {
+      "validation": "The adapter must validate the exact JSON and emit a durable plan reference and object counts."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "materialize-shot-contract",
+    "title": "Materialize the shot execution contract from the validated EditorialPlan",
+    "kind": "domain_adapter",
+    "executor": "tool",
+    "depends_on": [
+      "validate-editorial-plan"
+    ],
+    "inputs": [
+      "editorial-plan",
+      "editorial-plan-validation"
+    ],
+    "outputs": [
+      "shot-contract"
+    ],
+    "requirements": {
+      "domain_adapter": {
+        "name": "shot_contract_materialize",
+        "editorial_plan_input": "editorial-plan",
+        "shot_id": "S1",
+        "sequence_id": "sequence-01",
+        "required_capabilities": [
+          "ffmpeg.drawtext"
+        ],
+        "quality_targets": {
+          "readability": 4
+        },
+        "disclosure_required": true,
+        "output_name": "shot-contract"
+      }
+    },
+    "acceptance": {
+      "contract": "ShotContract must bind the exact EditorialPlan ref, beat, source claims, truth mode, risk and permitted production mode."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "author-graphic-spec",
+    "title": "Author a concise title-card GraphicSpec",
+    "kind": "graphic_spec_authoring",
+    "executor": "agent",
+    "depends_on": [
+      "validate-editorial-plan"
+    ],
+    "inputs": [
+      "editorial-plan-validation"
+    ],
+    "outputs": [
+      "graphic-spec"
+    ],
+    "requirements": {
+      "schema": "video_growth_agent.programmatic_graphics.GraphicSpec",
+      "kind": "TITLE_CARD",
+      "duration_seconds": 2,
+      "width": 640,
+      "height": 640,
+      "fps": 24
+    },
+    "acceptance": {
+      "spec": "Output valid GraphicSpec JSON with a short title and truthful subtitle/attribution."
+    },
+    "priority": 90
+  },
+  {
+    "task_id": "render-programmatic-graphic",
+    "title": "Render a candidate-only title-card MP4 through the local deterministic renderer",
+    "kind": "domain_adapter",
+    "executor": "tool",
+    "depends_on": [
+      "materialize-shot-contract",
+      "author-graphic-spec"
+    ],
+    "inputs": [
+      "editorial-plan",
+      "shot-contract",
+      "graphic-spec",
+      "font-asset",
+      "rights-clearance"
+    ],
+    "outputs": [
+      "graphic-candidate",
+      "graphic-render-receipt"
+    ],
+    "requirements": {
+      "domain_adapter": {
+        "name": "programmatic_graphic_render",
+        "editorial_plan_input": "editorial-plan",
+        "shot_contract_input": "shot-contract",
+        "graphic_spec_input": "graphic-spec",
+        "font_input": "font-asset",
+        "rights_evidence_input": "rights-clearance",
+        "video_output": "graphic-candidate",
+        "receipt_output": "graphic-render-receipt"
+      }
+    },
+    "acceptance": {
+      "candidate": "Register a non-empty MP4 and exact render receipt; candidate_only=true, promotion_authorized=false, release_authorized=false."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "technical-qa",
+    "title": "Run canonical digest-bound FFmpeg/FFprobe QA on the rendered candidate",
+    "kind": "technical_measurement",
+    "executor": "tool",
+    "depends_on": [
+      "render-programmatic-graphic"
+    ],
+    "inputs": [
+      "graphic-candidate"
+    ],
+    "outputs": [
+      "technical-qa-receipt"
+    ],
+    "requirements": {
+      "tools": [
+        "ffmpeg",
+        "ffprobe"
+      ],
+      "resolution": "640x640",
+      "frame_rate": 24,
+      "duration_min_seconds": 1.9,
+      "duration_max_seconds": 2.1,
+      "audio_required": false
+    },
+    "acceptance": {
+      "qa": "PASS video stream, stream timing, full decode, black frames and true-peak policy; receipt must bind the exact graphic-candidate artifact ID and digest."
+    },
+    "priority": 100
+  }
+]

@@ -39,16 +39,21 @@ Cross-workstream influence never means hidden prompt context or authority duplic
 
 ## Program orchestration
 
-`SUBTASK_GRAPH.json` remains the current business-task dependency authority:
+../../examples/ai-self-media-commercialization.tasks.json is the canonical current 50-task Program DAG, referenced by PROJECT_MANIFEST.json::subtask_graph_ref. SUBTASK_GRAPH.json is a superseded 0.8-era reference retained for historical evidence only; it is not a current planning or execution authority.
 
 - independent work may proceed in parallel;
 - declared dependency edges block only affected nodes;
+- every consumed task-produced artifact must have a producer in the consumer's declared dependency ancestry;
+- cross-project handoffs use an immutable, digest-pinned `transfer-asset` operation; target projects retain source project/artifact/version/digest metadata and fail closed until transfer completes;
+- the Program handoff validator compares embedded source bindings with the exact current source artifacts before emitting `validated-episode-intent`;
+- tool tasks must resolve to a declared, implemented adapter or production executor;
+- cross-workstream handoff artifacts must be produced by tasks named in the corresponding BUSINESS_FLYWHEEL.json execution binding;
 - advisory consultation does not decide;
 - competing candidates require explicit criteria and owner adjudication;
 - negotiation uses bounded artifact rounds;
-- project/program outputs become accepted assets only through explicit promotion.
+- project/program outputs become accepted assets only through explicit promotion. A Program-to-Episode handoff is transferred with `vga-studio transfer-asset` using the exact source artifact ID, version and SHA-256; the receiving Episode project imports the same artifact name and revalidates the Program validation receipt plus transfer metadata before any Episode task becomes READY.
 
-The business Program graph is not the editorial timeline and not the media asset graph. These are linked but distinct structures.
+The business Program graph is not the editorial timeline and not the media asset graph. These are linked but distinct structures. The Program emits a validated `validated-episode-intent`; that exact artifact is transferred to an Episode project under the same name, where a second validator checks the immutable transfer receipt before opening the Episode DAG.
 
 ## Media production integration
 

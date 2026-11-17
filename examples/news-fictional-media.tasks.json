@@ -1,98 +1,362 @@
 [
   {
     "task_id": "fact-research",
-    "title": "Verify the event and classify each claim",
+    "title": "Verify the event, primary records, attributed reporting and unknown allegations",
     "kind": "news_research",
     "executor": "agent",
     "depends_on": [],
     "inputs": [],
-    "outputs": ["fact-map"],
-    "requirements": {"source_priority": ["primary", "reputable independent reporting"], "separate_allegations": true},
-    "acceptance": {"truth": "Each claim is classified as confirmed, attributed, alleged or unknown with source refs."},
+    "outputs": [
+      "fact-map"
+    ],
+    "requirements": {
+      "source_priority": [
+        "primary",
+        "direct documents",
+        "reputable reporting"
+      ],
+      "claim_classification": [
+        "PRIMARY_CONFIRMED",
+        "ATTRIBUTED_REPORT",
+        "ALLEGATION_UNVERIFIED",
+        "UNKNOWN"
+      ],
+      "source_freshness_required": true
+    },
+    "acceptance": {
+      "facts": "Every material claim has an exact source, date, attribution and confidence; allegations are never promoted to facts."
+    },
     "priority": 100
   },
   {
     "task_id": "media-inspection",
-    "title": "Inspect the exact supplied media and record a visual evidence map",
+    "title": "Inspect the exact supplied clip and bind every visual claim to observed frames",
     "kind": "media_inspection",
-    "executor": "tool",
+    "executor": "agent",
     "depends_on": [],
-    "inputs": ["source-video"],
-    "outputs": ["visual-evidence-map"],
-    "requirements": {"inspect_actual_bytes": true, "digest_required": true},
-    "acceptance": {"visual_truth": "Observed details are separated from owner description and inference."},
+    "inputs": [
+      "source-video"
+    ],
+    "outputs": [
+      "visual-evidence-map"
+    ],
+    "requirements": {
+      "exact_bytes_required": true,
+      "frame_timestamps_required": true,
+      "no_unseen_content_claims": true
+    },
+    "acceptance": {
+      "inspection": "The map identifies actual scenes, timing, visual subjects and uncertainty from the exact source digest."
+    },
     "priority": 100
   },
   {
     "task_id": "rights-and-identity",
-    "title": "Verify source ownership, likeness and reuse permissions",
+    "title": "Resolve clip ownership, likeness, provenance and permitted uses",
     "kind": "rights_review",
     "executor": "human",
     "depends_on": [],
-    "inputs": ["source-video"],
-    "outputs": ["rights-status"],
-    "requirements": {"no_inferred_permission": true},
-    "acceptance": {"rights": "Permission, likeness and reuse scope are evidenced or explicitly remain blocked."},
+    "inputs": [
+      "source-video"
+    ],
+    "outputs": [
+      "rights-status"
+    ],
+    "requirements": {
+      "rights_status_required": true,
+      "likeness_consent_required": true,
+      "source_and_usage_scope_required": true
+    },
+    "acceptance": {
+      "rights": "Rights, identity/likeness and usage scope are evidenced; UNKNOWN blocks downstream release."
+    },
     "priority": 100
   },
   {
-    "task_id": "editorial-angles",
-    "title": "Find and compare event-specific editorial contradictions and humor mechanisms",
+    "task_id": "editorial-angle-candidates",
+    "title": "Develop distinct event-led editorial angles before visual dependency is resolved",
     "kind": "creative_research",
     "executor": "agent",
-    "depends_on": ["fact-research", "media-inspection"],
-    "inputs": ["fact-map", "visual-evidence-map"],
-    "outputs": ["angle-candidates"],
-    "requirements": {"distinct_angles_min": 3, "news_visual_counterfactuals_required": true},
-    "acceptance": {"semantic_fit": "Candidate angles require both the exact news and exact visual to retain their full meaning."},
-    "priority": 100
-  },
-  {
-    "task_id": "editorial-selection",
-    "title": "Select an angle with a decision receipt and explicit fiction boundary",
-    "kind": "editorial_decision",
-    "executor": "agent",
-    "depends_on": ["editorial-angles", "rights-and-identity"],
-    "inputs": ["fact-map", "visual-evidence-map", "angle-candidates", "rights-status"],
-    "outputs": ["editorial-reading"],
-    "requirements": {"decision_receipt_required": true, "unverified_claims_excluded": true},
-    "acceptance": {"editorial": "Primary satire target, selected observation, fiction boundary and rejected angles are explicit."},
-    "priority": 100
-  },
-  {
-    "task_id": "platform-packaging",
-    "title": "Write platform-native variants with genuinely different perspectives",
-    "kind": "platform_copywriting",
-    "executor": "agent",
-    "depends_on": ["editorial-selection"],
-    "inputs": ["editorial-reading"],
-    "outputs": ["platform-copies"],
-    "requirements": {"platform_native": true, "no_keyword_stuffing": true},
-    "acceptance": {"copy": "Each version is natural, fact-safe, and adapted to its platform rather than translated mechanically."},
+    "depends_on": [
+      "fact-research"
+    ],
+    "inputs": [
+      "fact-map"
+    ],
+    "outputs": [
+      "angle-candidates"
+    ],
+    "requirements": {
+      "minimum_distinct_angles": 7,
+      "each_angle_has_distinct_humor_mechanism_and_speaker": true,
+      "news_language_primary_satire_target": true
+    },
+    "acceptance": {
+      "angles": "Candidates reveal an event-specific contradiction; they do not paraphrase the supplied clip or force keywords."
+    },
     "priority": 90
   },
   {
-    "task_id": "cold-read-and-platform-review",
-    "title": "Independently cold-read the exact copy and check platform format/disclosure",
+    "task_id": "visual-semantic-bridge",
+    "title": "Test how the observed clip adds a second meaning to the news without plot recap",
+    "kind": "editorial_visual_analysis",
+    "executor": "agent",
+    "depends_on": [
+      "fact-research",
+      "media-inspection"
+    ],
+    "inputs": [
+      "fact-map",
+      "visual-evidence-map"
+    ],
+    "outputs": [
+      "visual-semantic-bridge"
+    ],
+    "requirements": {
+      "mutual_relevance_required": true,
+      "fiction_not_evidence": true
+    },
+    "acceptance": {
+      "bridge": "The visual meaning is grounded in inspected frames and adds a distinct semantic layer to the verified event."
+    },
+    "priority": 90
+  },
+  {
+    "task_id": "editorial-selection",
+    "title": "Select the editorial thesis only after fact, visual and rights constraints are reconciled",
+    "kind": "editorial_decision",
+    "executor": "agent",
+    "depends_on": [
+      "editorial-angle-candidates",
+      "visual-semantic-bridge",
+      "rights-and-identity"
+    ],
+    "inputs": [
+      "fact-map",
+      "angle-candidates",
+      "visual-evidence-map",
+      "visual-semantic-bridge",
+      "rights-status"
+    ],
+    "outputs": [
+      "editorial-reading"
+    ],
+    "requirements": {
+      "decision_receipt_required": true,
+      "seven_platforms_need_distinct_signatures": true
+    },
+    "acceptance": {
+      "selection": "The chosen thesis preserves factual/fictional separation and the rights status is explicit."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "editorial-plan",
+    "title": "Convert the approved editorial thesis into a versioned claim-beat-shot plan",
+    "kind": "editorial_planning",
+    "executor": "agent",
+    "depends_on": [
+      "editorial-selection"
+    ],
+    "inputs": [
+      "fact-map",
+      "visual-evidence-map",
+      "editorial-reading"
+    ],
+    "outputs": [
+      "editorial-plan"
+    ],
+    "requirements": {
+      "claim_to_beat_to_visual_traceability": true
+    },
+    "acceptance": {
+      "plan": "Every factual beat is source-bound and every visual beat has a purpose and evidence reference."
+    },
+    "priority": 95
+  },
+  {
+    "task_id": "platform-packaging",
+    "title": "Write seven platform-native copies with distinct angle, mechanism and speaker",
+    "kind": "platform_copywriting",
+    "executor": "agent",
+    "depends_on": [
+      "editorial-selection"
+    ],
+    "inputs": [
+      "editorial-reading",
+      "fact-map"
+    ],
+    "outputs": [
+      "platform-copies"
+    ],
+    "requirements": {
+      "platforms": [
+        "X",
+        "TikTok",
+        "YouTube",
+        "Xiaohongshu",
+        "WeChat Channels",
+        "Bilibili",
+        "Douyin"
+      ],
+      "no_synonym_variants": true,
+      "spoken_naturalness_required": true
+    },
+    "acceptance": {
+      "copies": "Each platform copy uses native length, context, humor and audience behavior; no forced keywords or promotional tone."
+    },
+    "priority": 90
+  },
+  {
+    "task_id": "master-timeline",
+    "title": "Build the versioned audiovisual timeline and source/fiction boundary",
+    "kind": "timeline_design",
+    "executor": "agent",
+    "depends_on": [
+      "editorial-plan",
+      "media-inspection"
+    ],
+    "inputs": [
+      "editorial-plan",
+      "visual-evidence-map",
+      "source-video"
+    ],
+    "outputs": [
+      "master-timeline"
+    ],
+    "requirements": {
+      "source_digest_bound": true,
+      "beat_to_shot_timing": true,
+      "fiction_disclosure_preserved": true
+    },
+    "acceptance": {
+      "timeline": "Every timeline segment references source media timestamps or a clearly marked proposed production asset."
+    },
+    "priority": 90
+  },
+  {
+    "task_id": "human-cold-read",
+    "title": "Obtain an independent human cold read of the actual editorial and platform package",
     "kind": "independent_editorial_review",
     "executor": "human",
-    "depends_on": ["platform-packaging"],
-    "inputs": ["editorial-reading", "platform-copies", "fact-map", "visual-evidence-map"],
-    "outputs": ["editorial-review", "platform-review"],
-    "requirements": {"reviewer_independent": true, "check_actual_copy": true},
-    "acceptance": {"review": "Naturalness, humor, news/visual bridge, truth and platform rules are reviewed with evidence."},
+    "depends_on": [
+      "editorial-plan",
+      "platform-packaging",
+      "media-inspection"
+    ],
+    "inputs": [
+      "editorial-reading",
+      "editorial-plan",
+      "platform-copies",
+      "fact-map",
+      "visual-evidence-map"
+    ],
+    "outputs": [
+      "human-cold-read"
+    ],
+    "requirements": {
+      "blind_review": true,
+      "reviewer_not_author": true,
+      "actual_artifacts_inspected": true
+    },
+    "acceptance": {
+      "review": "The reviewer records comprehension, factual confusion, naturalness and platform fit against exact digests."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "platform-format-and-disclosure",
+    "title": "Check current platform format and synthetic-media disclosure requirements",
+    "kind": "platform_compliance",
+    "executor": "human",
+    "depends_on": [
+      "platform-packaging"
+    ],
+    "inputs": [
+      "platform-copies",
+      "editorial-reading"
+    ],
+    "outputs": [
+      "platform-format-review",
+      "synthetic-upload-disclosure"
+    ],
+    "requirements": {
+      "check_each_platform": true,
+      "disclosure_state_checked_at_upload": true,
+      "no_auto_publish": true
+    },
+    "acceptance": {
+      "platform": "Every platform has a current format/disclosure receipt; uncertain requirements remain blockers."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "red-team-review",
+    "title": "Record at least three evidence-backed reasons not to release this package",
+    "kind": "red_team_review",
+    "executor": "human",
+    "depends_on": [
+      "editorial-plan",
+      "master-timeline",
+      "platform-packaging",
+      "rights-and-identity"
+    ],
+    "inputs": [
+      "editorial-plan",
+      "master-timeline",
+      "platform-copies",
+      "rights-status",
+      "fact-map"
+    ],
+    "outputs": [
+      "red-team-review"
+    ],
+    "requirements": {
+      "minimum_findings": 3,
+      "evidence_per_finding": true,
+      "disposition_per_finding": true
+    },
+    "acceptance": {
+      "red_team": "Three concrete risks include evidence, severity and disposition; unresolved critical/high issues block PASS."
+    },
     "priority": 100
   },
   {
     "task_id": "release-evidence",
-    "title": "Assemble the release package without publishing",
+    "title": "Assemble the exact-digest editorial release evidence pack; do not publish",
     "kind": "release_review",
     "executor": "human",
-    "depends_on": ["cold-read-and-platform-review", "rights-and-identity"],
-    "inputs": ["editorial-reading", "platform-copies", "editorial-review", "platform-review", "rights-status"],
-    "outputs": ["release-evidence-pack"],
-    "requirements": {"rights_and_disclosure_required": true, "no_auto_publish": true},
-    "acceptance": {"release": "All release blockers are cleared or listed explicitly; no publication is implied."},
+    "depends_on": [
+      "editorial-selection",
+      "editorial-plan",
+      "platform-packaging",
+      "master-timeline",
+      "rights-and-identity",
+      "human-cold-read",
+      "platform-format-and-disclosure",
+      "red-team-review"
+    ],
+    "inputs": [
+      "editorial-reading",
+      "editorial-plan",
+      "platform-copies",
+      "master-timeline",
+      "rights-status",
+      "human-cold-read",
+      "platform-format-review",
+      "synthetic-upload-disclosure",
+      "red-team-review"
+    ],
+    "outputs": [
+      "release-evidence-pack"
+    ],
+    "requirements": {
+      "all_evidence_bound_to_current_artifacts": true,
+      "no_auto_publish": true
+    },
+    "acceptance": {
+      "release": "All rights, factual, editorial, human, platform and red-team gates are evidenced; unresolved blockers are explicit."
+    },
     "priority": 100
   }
 ]

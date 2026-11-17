@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0",
+  "description": "Digest-bound read-only context for the standalone AI self-media commercialization Program. Paths resolve from this manifest's directory. Owner media and approved IPOS bundles are intentionally not included.",
+  "assets": [
+    {
+      "name": "program-state",
+      "path": "../projects/ai-self-media-commercialization/PROGRAM_STATE.json",
+      "kind": "document",
+      "media_type": "application/json",
+      "rights_status": "NOT_APPLICABLE",
+      "metadata": {
+        "authority": "VIDEO_GROWTH_AGENT",
+        "context_role": "current_program_state"
+      }
+    },
+    {
+      "name": "project-index",
+      "path": "../projects/PROJECT_INDEX.json",
+      "kind": "document",
+      "media_type": "application/json",
+      "rights_status": "NOT_APPLICABLE",
+      "metadata": {
+        "authority": "VIDEO_GROWTH_AGENT",
+        "context_role": "project_registry"
+      }
+    },
+    {
+      "name": "business-flywheel",
+      "path": "../projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json",
+      "kind": "document",
+      "media_type": "application/json",
+      "rights_status": "NOT_APPLICABLE",
+      "metadata": {
+        "authority": "VIDEO_GROWTH_AGENT",
+        "context_role": "cross_workstream_model"
+      }
+    },
+    {
+      "name": "legacy-subtask-graph",
+      "path": "../projects/ai-self-media-commercialization/SUBTASK_GRAPH.json",
+      "kind": "document",
+      "media_type": "application/json",
+      "rights_status": "NOT_APPLICABLE",
+      "metadata": {
+        "authority": "VIDEO_GROWTH_AGENT",
+        "context_role": "historical_0_8_graph_reference",
+        "not_current_controller": true
+      }
+    },
+    {
+      "name": "account-positioning",
+      "path": "../projects/ai-self-media-commercialization/ACCOUNT_POSITIONING.md",
+      "kind": "document",
+      "media_type": "text/markdown",
+      "rights_status": "NOT_APPLICABLE",
+      "metadata": {
+        "authority": "VIDEO_GROWTH_AGENT",
+        "context_role": "audience_and_account_positioning"
+      }
+    },
+    {
+      "name": "production-cost-strategy",
+      "path": "../projects/ai-self-media-commercialization/PRODUCTION_AND_COST_STRATEGY.md",
+      "kind": "document",
+      "media_type": "text/markdown",
+      "rights_status": "NOT_APPLICABLE",
+      "metadata": {
+        "authority": "VIDEO_GROWTH_AGENT",
+        "context_role": "production_economics_and_cost_constraints"
+      }
+    },
+    {
+      "name": "ipos-integration-state",
+      "path": "../projects/ai-self-media-commercialization/IPOS_INTEGRATION_STATE.json",
+      "kind": "document",
+      "media_type": "application/json",
+      "rights_status": "NOT_APPLICABLE",
+      "metadata": {
+        "authority": "IPOS",
+        "context_role": "identity_authority_state_snapshot",
+        "canon_mutation_prohibited": true
+      }
+    },
+    {
+      "name": "jensen-case",
+      "path": "../projects/ai-self-media-commercialization/cases/jensen-alice-20261114.json",
+      "kind": "document",
+      "media_type": "application/json",
+      "rights_status": "NOT_APPLICABLE",
+      "metadata": {
+        "authority": "VIDEO_GROWTH_AGENT",
+        "context_role": "candidate_editorial_case",
+        "candidate_only": true
+      }
+    },
+    {
+      "name": "provider-benchmark-protocol",
+      "path": "../docs/provider_benchmark_protocol.md",
+      "kind": "document",
+      "media_type": "text/markdown",
+      "rights_status": "NOT_APPLICABLE",
+      "metadata": {
+        "authority": "VIDEO_GROWTH_AGENT",
+        "context_role": "provider_capability_benchmark_protocol"
+      }
+    },
+    {
+      "name": "current-program-task-graph",
+      "path": "ai-self-media-commercialization.tasks.json",
+      "kind": "document",
+      "media_type": "application/json",
+      "rights_status": "NOT_APPLICABLE",
+      "metadata": {
+        "authority": "VIDEO_GROWTH_AGENT",
+        "context_role": "active_standalone_program_planning_authority",
+        "graph_version": "49_TASKS"
+      }
+    }
+  ]
+}

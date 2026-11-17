@@ -1,0 +1,394 @@
+[
+  {
+    "task_id": "validate-program-handoff",
+    "title": "Validate Program handoff and materialize typed EpisodeIntent",
+    "kind": "domain_adapter",
+    "executor": "tool",
+    "depends_on": [],
+    "inputs": [
+      "validated-episode-intent"
+    ],
+    "outputs": [
+      "episode-intent"
+    ],
+    "requirements": {
+      "domain_adapter": {
+        "name": "episode_intent_validate",
+        "handoff_input": "validated-episode-intent",
+        "program_id": "ai-self-media-commercialization",
+        "output_name": "episode-intent",
+        "require_validated_transfer": true,
+        "source_artifact_name": "validated-episode-intent"
+      }
+    },
+    "acceptance": {
+      "handoff": "Validate Program ID, source artifact IDs/versions/SHA-256, typed EpisodeIntent and IPOS identity-use mode before Episode work begins."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "research",
+    "title": "Research the edge-inference mechanism and verify claims",
+    "kind": "editorial_research",
+    "executor": "agent",
+    "depends_on": [
+      "validate-program-handoff"
+    ],
+    "inputs": [
+      "episode-intent"
+    ],
+    "outputs": [
+      "research-package"
+    ],
+    "requirements": {
+      "source_priority": [
+        "primary",
+        "technical papers",
+        "reputable reporting"
+      ],
+      "claim_provenance_required": true
+    },
+    "acceptance": {
+      "claims": "Every factual claim has a source and confidence label.",
+      "counterevidence": "At least one competing explanation or limitation is recorded."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "creative-directions",
+    "title": "Develop competing story and visual concepts",
+    "kind": "creative_development",
+    "executor": "agent",
+    "depends_on": [
+      "validate-program-handoff"
+    ],
+    "inputs": [
+      "episode-intent"
+    ],
+    "outputs": [
+      "creative-options"
+    ],
+    "requirements": {
+      "minimum_distinct_directions": 3,
+      "avoid_template_reuse": true
+    },
+    "acceptance": {
+      "diversity": "Each direction has a distinct narrative mechanism and visual grammar."
+    },
+    "priority": 90
+  },
+  {
+    "task_id": "story-and-shot-plan",
+    "title": "Choose a direction and build an evidence-bound story/shot plan",
+    "kind": "editorial_and_direction",
+    "executor": "agent",
+    "depends_on": [
+      "research",
+      "creative-directions"
+    ],
+    "inputs": [
+      "research-package",
+      "creative-options",
+      "episode-intent"
+    ],
+    "outputs": [
+      "story-shot-plan",
+      "editorial-plan"
+    ],
+    "requirements": {
+      "decision_receipt_required": true,
+      "claim_to_beat_to_shot_traceability": true
+    },
+    "acceptance": {
+      "narrative": "The opening promise, mechanism, escalation and payoff are explicit.",
+      "traceability": "Every factual beat is linked to evidence and every beat has a visual expression."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "hero-sample",
+    "title": "Create a 3-12 second near-final sample of the riskiest visual idea",
+    "kind": "visual_prototype",
+    "executor": "agent",
+    "depends_on": [
+      "story-and-shot-plan"
+    ],
+    "inputs": [
+      "story-shot-plan"
+    ],
+    "outputs": [
+      "hero-sample"
+    ],
+    "requirements": {
+      "sample_first": true,
+      "representative_sound_and_motion": true
+    },
+    "acceptance": {
+      "craft": "The sample is a credible fragment of the intended final video, not a technical placeholder."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "parallel-shot-production",
+    "title": "Produce independent shot groups using the best admissible medium per shot",
+    "kind": "media_production",
+    "executor": "agent",
+    "depends_on": [
+      "hero-sample"
+    ],
+    "inputs": [
+      "story-shot-plan",
+      "hero-sample"
+    ],
+    "outputs": [
+      "shot-assets"
+    ],
+    "requirements": {
+      "hybrid_methods_allowed": true,
+      "preserve_asset_lineage": true
+    },
+    "acceptance": {
+      "coverage": "Every planned beat has usable shot material.",
+      "continuity": "Identity, props, motion and world rules are checked where relevant."
+    },
+    "priority": 80
+  },
+  {
+    "task_id": "sound-and-voice",
+    "title": "Create narration, music and sound design as a coordinated layer",
+    "kind": "audio_production",
+    "executor": "agent",
+    "depends_on": [
+      "story-and-shot-plan"
+    ],
+    "inputs": [
+      "story-shot-plan",
+      "episode-intent"
+    ],
+    "outputs": [
+      "sound-package"
+    ],
+    "requirements": {
+      "timeline_synced": true,
+      "rights_recorded": true
+    },
+    "acceptance": {
+      "audio": "Narration is intelligible; music and effects support rather than mask the story."
+    },
+    "priority": 75
+  },
+  {
+    "task_id": "edit-and-conform",
+    "title": "Assemble the master cut and conform sound, captions and pacing",
+    "kind": "editing",
+    "executor": "agent",
+    "depends_on": [
+      "parallel-shot-production",
+      "sound-and-voice"
+    ],
+    "inputs": [
+      "shot-assets",
+      "sound-package",
+      "story-shot-plan",
+      "episode-intent"
+    ],
+    "outputs": [
+      "final-candidate",
+      "captions",
+      "cover-candidate",
+      "publish-copy-candidate",
+      "master-timeline"
+    ],
+    "requirements": {
+      "non_destructive_edit": true,
+      "platform_format": "from project brief"
+    },
+    "acceptance": {
+      "story": "No dead time; the ending pays off the opening promise.",
+      "delivery": "All declared candidate deliverables are present."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "independent-review",
+    "title": "Independently review the exact candidate for editorial and audiovisual craft",
+    "kind": "independent_review",
+    "executor": "human",
+    "depends_on": [
+      "edit-and-conform"
+    ],
+    "inputs": [
+      "final-candidate",
+      "captions",
+      "cover-candidate",
+      "publish-copy-candidate"
+    ],
+    "outputs": [
+      "review-receipt",
+      "human-cold-read"
+    ],
+    "requirements": {
+      "reviewer_must_not_be_producer": true,
+      "inspect_actual_media": true
+    },
+    "acceptance": {
+      "review": "The review cites exact artifact digests and evidence, with PASS/REVISE/FAIL per rubric."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "technical-qa",
+    "title": "Run deterministic media QA on the exact final candidate bytes",
+    "kind": "technical_measurement",
+    "executor": "tool",
+    "depends_on": [
+      "edit-and-conform"
+    ],
+    "inputs": [
+      "final-candidate"
+    ],
+    "outputs": [
+      "technical-qa-receipt"
+    ],
+    "requirements": {
+      "tools": [
+        "ffmpeg",
+        "ffprobe"
+      ],
+      "digest_bound": true,
+      "resolution": "1080x1920",
+      "frame_rate": 30,
+      "duration_min_seconds": 57,
+      "duration_max_seconds": 63,
+      "audio_required": true,
+      "true_peak_max_dbfs": -1,
+      "max_black_duration_seconds": 0.5
+    },
+    "acceptance": {
+      "technical": "Streams, duration, frame rate, resolution, audio and playback pass the brief."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "rights-and-provenance-audit",
+    "title": "Audit every source, generated asset, voice, music and font used in the candidate",
+    "kind": "rights_provenance_audit",
+    "executor": "human",
+    "depends_on": [
+      "parallel-shot-production",
+      "sound-and-voice"
+    ],
+    "inputs": [
+      "shot-assets",
+      "sound-package"
+    ],
+    "outputs": [
+      "rights-clearance"
+    ],
+    "requirements": {
+      "verify_each_used_asset": true,
+      "rights_status_required": true,
+      "license_scope_and_provenance_required": true
+    },
+    "acceptance": {
+      "rights": "Every used source and derivative has an explicit allowed rights status and resolvable evidence; UNKNOWN blocks release."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "platform-format-and-disclosure",
+    "title": "Verify platform-specific format, safe areas and synthetic-media disclosure",
+    "kind": "platform_compliance",
+    "executor": "human",
+    "depends_on": [
+      "edit-and-conform"
+    ],
+    "inputs": [
+      "final-candidate",
+      "captions",
+      "cover-candidate",
+      "publish-copy-candidate"
+    ],
+    "outputs": [
+      "platform-format-review",
+      "synthetic-upload-disclosure"
+    ],
+    "requirements": {
+      "platform_specific": true,
+      "disclosure_checked_at_upload": true,
+      "no_auto_publish": true
+    },
+    "acceptance": {
+      "platform": "Each destination has a format review and the actual upload disclosure state is evidenced."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "red-team-review",
+    "title": "Challenge the exact final candidate with at least three evidence-backed reasons not to publish",
+    "kind": "red_team_review",
+    "executor": "human",
+    "depends_on": [
+      "edit-and-conform",
+      "story-and-shot-plan"
+    ],
+    "inputs": [
+      "final-candidate",
+      "captions",
+      "publish-copy-candidate",
+      "editorial-plan"
+    ],
+    "outputs": [
+      "red-team-review"
+    ],
+    "requirements": {
+      "minimum_findings": 3,
+      "evidence_per_finding": true,
+      "disposition_per_finding": true
+    },
+    "acceptance": {
+      "red_team": "Three or more concrete risks are documented with evidence, severity and disposition; unresolved critical/high risks block PASS."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "release-evidence-pack",
+    "title": "Assemble release decision evidence for the exact master and platform package",
+    "kind": "release_review",
+    "executor": "human",
+    "depends_on": [
+      "edit-and-conform",
+      "independent-review",
+      "technical-qa",
+      "rights-and-provenance-audit",
+      "platform-format-and-disclosure",
+      "red-team-review"
+    ],
+    "inputs": [
+      "final-candidate",
+      "captions",
+      "cover-candidate",
+      "publish-copy-candidate",
+      "review-receipt",
+      "technical-qa-receipt",
+      "rights-clearance",
+      "platform-format-review",
+      "synthetic-upload-disclosure",
+      "editorial-plan",
+      "master-timeline",
+      "human-cold-read",
+      "red-team-review"
+    ],
+    "outputs": [
+      "release-evidence-pack"
+    ],
+    "requirements": {
+      "rights_and_disclosure_required": true,
+      "no_auto_publish": true
+    },
+    "acceptance": {
+      "release": "All brief-specific editorial, craft, technical, rights and platform gates are independently evidenced; remaining blockers are explicit."
+    },
+    "priority": 100
+  }
+]

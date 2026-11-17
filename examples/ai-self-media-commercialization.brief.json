@@ -1,0 +1,104 @@
+{
+  "program_id": "ai-self-media-commercialization",
+  "snapshot_date": "2026-11-15",
+  "goal": "Operate the integrated AI-native media business as one evidence-coupled system across audience growth, original digital IP usage, commercialization and production economics; turn independent workstreams into explicit owner decisions without blocking unrelated work.",
+  "audience": "Technology, business and internet-culture viewers; the internal decision audience is the owner/showrunner and the team responsible for production, growth, IP usage and commercialization.",
+  "deliverables": [
+    "workstream-evidence-pack.json",
+    "portfolio-allocation-candidate.json",
+    "commercial-offer-decision.json",
+    "production-strategy.json",
+    "jensen-release-evidence-pack.json",
+    "learning-candidate.json",
+    "episode-production-handoff.json",
+    "workstream-outcome-refresh-pack.json",
+    "ipos-portfolio-research-handoff.json"
+  ],
+  "program_context": {
+    "authority": "VIDEO_GROWTH_AGENT",
+    "current_program_state_ref": "projects/ai-self-media-commercialization/PROGRAM_STATE.json",
+    "project_index_ref": "projects/PROJECT_INDEX.json",
+    "business_flywheel_ref": "projects/ai-self-media-commercialization/BUSINESS_FLYWHEEL.json",
+    "current_subtask_graph_ref": "examples/ai-self-media-commercialization.tasks.json",
+    "production_cost_strategy_ref": "projects/ai-self-media-commercialization/PRODUCTION_AND_COST_STRATEGY.md",
+    "jensen_case_ref": "projects/ai-self-media-commercialization/cases/jensen-alice-20261114.json",
+    "ip_identity_authority": "IPOS",
+    "ip_identity_authority_ref": "projects/ai-self-media-commercialization/IPOS_INTEGRATION_STATE.json",
+    "ipos_current_state": "R39_G1_RESEARCH_OPEN__NO_APPROVED_IDENTITY_BUNDLE__G2_G7_G8_NOT_PASSED",
+    "current_media_case_status": "CANDIDATE_ONLY__SOURCE_MEDIA_DIGEST_RIGHTS_HUMAN_COLD_READ_PLATFORM_DISCLOSURE_EDITORIAL_PLAN_AND_MASTER_TIMELINE_OPEN",
+    "caos_runtime_dependency": false,
+    "refresh_before_decision": true,
+    "legacy_subtask_graph_ref": "projects/ai-self-media-commercialization/SUBTASK_GRAPH.json"
+  },
+  "workstreams": {
+    "MEDIA_GROWTH": {
+      "goal": "Audience, topic portfolio, platform-native packaging, retention and qualified growth.",
+      "hard_constraints": [
+        "Views alone do not decide portfolio allocation.",
+        "Each platform derivative must be re-authored for platform behavior.",
+        "News and fiction remain clearly separated."
+      ]
+    },
+    "ORIGINAL_DIGITAL_IP": {
+      "goal": "Use approved original IP as a reusable recognition and business asset.",
+      "hard_constraints": [
+        "IPOS is the sole identity-canon authority.",
+        "Video imports only an owner-approved READY_FOR_VIDEO bundle with exact versions and rights.",
+        "Performance feedback may propose learning but cannot mutate canon.",
+        "Do not force a character into every topic or shot."
+      ]
+    },
+    "COMMERCIALIZATION": {
+      "goal": "Develop advertiser mapping, offers, rights packages, sponsor integration and commercial measurement.",
+      "hard_constraints": [
+        "Commercial fit cannot rewrite editorial or product truth.",
+        "No sponsor is required for content worthiness.",
+        "Impressions/views alone do not prove sponsor effectiveness."
+      ]
+    },
+    "PRODUCTION_SYSTEM": {
+      "goal": "Produce truthful, distinctive, technically sound, reusable media at measured cost.",
+      "hard_constraints": [
+        "Choose the best admissible medium per shot; do not maximize AI-video percentage.",
+        "Candidate generation is not acceptance or promotion.",
+        "Rights, continuity, human craft review and technical release gates are fail-closed."
+      ]
+    }
+  },
+  "cross_workstream_invariants": [
+    "Audience evidence informs portfolio and packaging.",
+    "IP performance informs future hypotheses but IPOS alone controls canon.",
+    "Commercial obligations may change deliverables and rights but never editorial conclusions.",
+    "Production cost, retry, accepted-take and reuse evidence feed portfolio allocation.",
+    "No single metric is the global objective.",
+    "All cross-workstream influence is an explicit evidence artifact and decision receipt.",
+    "Independent workstreams run in parallel; only true causal dependencies block tasks.",
+    "No automatic publication, paid provider operation or external spend."
+  ],
+  "hard_constraints": [
+    "Do not recreate or mutate IPOS identity canon.",
+    "Do not claim the supplied Jensen/Alice media has been inspected until the exact source bytes and digest are available.",
+    "Do not treat unverified allegations as established fact.",
+    "Do not release the Jensen case until rights, human cold-read, platform format/disclosure, editorial plan, master timeline and red-team evidence pass.",
+    "Keep historical 0.8 modules as optional verified capabilities, not as a second controller."
+  ],
+  "preferences": [
+    "Reuse proven local/open-source capabilities where they meet the quality bar.",
+    "Parallelize independent work and keep evidence handoffs explicit."
+  ],
+  "unknowns": [
+    "Owner-approved IPOS READY_FOR_VIDEO bundle is not available in the current snapshot.",
+    "The exact Jensen/Alice source video must be imported and inspected.",
+    "Current performance and commercial outcome receipts are not yet present in the standalone project."
+  ],
+  "success_criteria": [
+    "All four workstreams have durable evidence and explicit dependencies.",
+    "Independent research and candidate work proceeds while IPOS or media-specific tasks wait.",
+    "Owner adjudication consumes all competing candidates and emits a durable decision.",
+    "The Jensen case remains candidate-only until every required media, rights, editorial, platform and human gate passes.",
+    "Production and business decisions use measured outcomes, counterevidence and explicit trade-offs."
+  ],
+  "release_policy": {
+    "no_auto_publish": true
+  }
+}

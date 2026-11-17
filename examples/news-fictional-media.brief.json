@@ -58,23 +58,61 @@
     "Factual and fictional layers are not confused."
   ],
   "release_policy": {
-    "required_evidence_refs": [
-      "rights-review",
-      "platform-format-review",
-      "synthetic-upload-disclosure"
+    "require_rights": true,
+    "require_rights_evidence": true,
+    "required_rights_statuses": [
+      "OWNED",
+      "AUTHORIZED",
+      "LICENSED",
+      "PUBLIC_DOMAIN"
     ],
     "required_review_rubrics": [
       "editorial",
       "platform",
-      "rights"
+      "rights",
+      "human-cold-read",
+      "red-team"
     ],
     "required_artifact_names": [
       "editorial-reading",
       "platform-copies",
+      "editorial-plan",
+      "master-timeline",
       "release-evidence-pack"
     ],
     "required_asset_names": [
       "source-video"
-    ]
+    ],
+    "required_evidence_artifact_names": [
+      "rights-status",
+      "platform-format-review",
+      "synthetic-upload-disclosure",
+      "human-cold-read",
+      "red-team-review"
+    ],
+    "no_auto_publish": true,
+    "review_contracts": {
+      "rights": {
+        "reviewer_kind": "HUMAN",
+        "execution_mode": "INDEPENDENT_REVIEW",
+        "blind_review": true,
+        "require_digest_attestation": true,
+        "require_context_id": true
+      },
+      "human-cold-read": {
+        "reviewer_kind": "HUMAN",
+        "execution_mode": "INDEPENDENT_COLD_READ",
+        "blind_review": true,
+        "require_digest_attestation": true,
+        "require_context_id": true,
+        "require_resolvable_evidence_refs": true
+      },
+      "red-team": {
+        "min_findings": 3,
+        "require_evidence_per_finding": true,
+        "require_disposition_per_finding": true,
+        "require_resolvable_evidence_refs": true
+      }
+    }
   }
 }

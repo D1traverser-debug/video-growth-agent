@@ -1,0 +1,72 @@
+{
+  "goal": "Create one short, deterministic title-card candidate through the standalone Video Studio domain adapters, then bind full technical QA to the exact rendered bytes.",
+  "audience": "Technology viewers; the operational audience is a Video Studio worker using only declared local inputs and the standalone runtime.",
+  "deliverables": [
+    "editorial-plan-validation",
+    "shot-contract",
+    "graphic-candidate",
+    "graphic-render-receipt",
+    "technical-qa-receipt"
+  ],
+  "format": {
+    "duration_seconds": 2,
+    "aspect_ratio": "1:1",
+    "resolution": "640x640",
+    "frame_rate": 24,
+    "media_type": "video/mp4"
+  },
+  "content_contract": {
+    "topic": "A short explanatory title card.",
+    "truth_mode": "SYNTHETIC",
+    "fiction_disclosure_required": true
+  },
+  "craft_contract": {
+    "visual": "Legible typography with measured glyph layout.",
+    "motion": "Deterministic progress indicator only.",
+    "audio": "Silent visual candidate; sound is a separate task."
+  },
+  "hard_constraints": [
+    "No paid provider calls.",
+    "The local renderer produces a candidate only.",
+    "The exact EditorialPlan must authorize the ShotContract.",
+    "The final candidate must pass canonical FFmpeg/FFprobe technical QA.",
+    "Font and rights evidence must be imported as declared assets."
+  ],
+  "preferences": [
+    "Prefer local deterministic rendering for information graphics.",
+    "Keep the task graph minimal and parallelize only independent authoring tasks."
+  ],
+  "unknowns": [
+    "The owner must supply/import a font file with usage rights evidence."
+  ],
+  "success_criteria": [
+    "EditorialPlan validates.",
+    "ShotContract is derived from the exact EditorialPlan.",
+    "A non-empty MP4 candidate and renderer receipt are registered.",
+    "Canonical technical QA passes against the candidate's exact artifact ID and SHA-256."
+  ],
+  "release_policy": {
+    "require_rights": true,
+    "require_rights_evidence": true,
+    "required_rights_statuses": [
+      "OWNED",
+      "AUTHORIZED",
+      "LICENSED",
+      "PUBLIC_DOMAIN"
+    ],
+    "required_artifact_names": [
+      "graphic-candidate",
+      "graphic-render-receipt",
+      "technical-qa-receipt"
+    ],
+    "required_asset_names": [
+      "font-asset"
+    ],
+    "required_evidence_artifact_names": [
+      "rights-clearance"
+    ],
+    "require_technical_qa": true,
+    "technical_qa_artifact_name": "technical-qa-receipt",
+    "no_auto_publish": true
+  }
+}

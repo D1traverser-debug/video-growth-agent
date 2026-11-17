@@ -75,7 +75,8 @@ Current next action: IPOS continues R39 G1 research and later G2 design/approval
 
 - `PROJECT_MANIFEST.json` — machine-readable Program discovery/current authority map.
 - `PROGRAM_STATE.json` — current workstream/business state and foreground cursor.
-- `SUBTASK_GRAPH.json` — explicit business-task dependencies/parallelism.
+- `../../examples/ai-self-media-commercialization.tasks.json` — canonical 50-task Program DAG and dependency/parallelism authority.
+- `SUBTASK_GRAPH.json` — superseded 0.8-era reference retained for historical evidence only.
 - `BUSINESS_FLYWHEEL.json` — growth/IP/commercial/production feedback loops.
 - `ACCOUNT_POSITIONING.md` — public brand/audience/content/monetization positioning.
 - `PRODUCTION_AND_COST_STRATEGY.md` — value-aware production economics and routing policy.

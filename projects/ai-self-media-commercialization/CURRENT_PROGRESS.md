@@ -1,10 +1,11 @@
 # Current Progress — AI自媒体视频增长、商业化与原创数字IP
 
-Updated: 2026-11-15
+Updated: 2026-11-17
 Status: ACTIVE_INTEGRATED_PROGRAM
 Authority scope: PROGRAM_LOCAL_BUSINESS_AUTHORITY
 Program state: PROGRAM_STATE.json
-Subtask graph: SUBTASK_GRAPH.json
+Current Program DAG: ../../examples/ai-self-media-commercialization.tasks.json
+Legacy graph: SUBTASK_GRAPH.json (superseded 0.8 reference only)
 
 ## Current authority reset
 
@@ -174,3 +175,24 @@ This section supersedes older status statements below when they conflict.
 - **Current parallel work:** IPOS G1 continues independently. MEDIA_GROWTH and COMMERCIALIZATION research remain available without an IPOS identity bundle. Identity-dependent shots remain blocked until an owner-approved READY_FOR_VIDEO bundle with G2/G7/G8 PASS and rights/provenance arrives.
 
 Historical checkpoints that say PR #33 is open or under review describe earlier states only; the merged mainline evidence above is authoritative.
+
+
+## Standalone Video Studio integration — exact-head verified (2026-11-17)
+
+The integrated standalone Video Studio is now the default generic Video execution entry. It is not a CAOS runtime and does not modify or require CAOS code.
+
+- Entry: `STUDIO_ENTRY.md`; implementation: `video_studio/`; CLI: `vga-studio`.
+- Default Program: `ai-self-media-commercialization`, with a 50-task graph spanning growth, original IP, commercialization and production, including typed CommercialFit validation, digest-bound Program-to-Episode handoff validation and explicit IPOS bundle readiness/provenance validation.
+- Context import: `examples/ai-self-media-commercialization.context.json` imports exact existing Video/IPOS reference files as immutable SHA-256-bound artifacts. It does not fabricate the missing Jensen source video or an approved IPOS bundle.
+- The new `import-manifest` command preflights all paths/metadata before mutation. Identical imports are idempotent and preserve completed consumers.
+- Rights clearance now binds the reviewer to the artifact producer and a completed human review task, and checks exact source artifact IDs, digests, rights status and registered evidence references.
+- `vga-studio system-audit --repo-root .` audits standalone governance, dependency boundaries, adapter registration, Program authority bindings, example graph execution and hard release gates.
+
+Exact implementation head: `1893dfc911e4673ef2c7d01f34c502d39ffcad09`.
+Exact-head CI: PR run `44034062243` and push run `44034068441` — **347 tests passed**, standalone system audit PASS, standalone CLI smoke PASS, integrated 50-task Program context/readiness smoke PASS, local tool-execution smoke PASS, installed agentic CLI smoke PASS.
+
+The expanded audit verifies 17/17 adapter declarations/implementations, 6/6 Program tool executors, 85 dependency edges without cycles or producer-binding errors, and 10/10 cross-workstream flywheel bindings. The only unresolved inputs are the owner-approved IPOS bundle, Jensen/Alice source video and actual episode outcome receipt.
+
+**Assurance boundary:** this is a branch-level structural and executable-contract PASS, not a claim that an episode has been produced or that production readiness is complete. The system audit correctly reports `PARTIAL`: no repository-registered generative-video executor exists; the exact owner-supplied Jensen/Alice source video and an owner-approved IPOS READY_FOR_VIDEO bundle are still missing. Paid provider execution, media generation, promotion and publication were not performed. All release gates remain in force.
+
+PR #37 is OPEN and supersedes PR #36. No merge or mainline verification is claimed. CAOS source and IPOS canon remain untouched.

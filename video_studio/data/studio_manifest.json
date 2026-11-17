@@ -68,10 +68,69 @@
   "media_qa_adapter": "video_studio.media.run_claimed_media_qa",
   "capabilities": {
     "deterministic_media_qa": {
-      "tool": "ffprobe",
-      "scope": "technical_measurement_only",
+      "tools": [
+        "ffprobe",
+        "ffmpeg"
+      ],
+      "checks": [
+        "video_stream",
+        "stream_duration_match",
+        "true_peak",
+        "black_frames",
+        "full_decode",
+        "brief_specific_duration_resolution_frame_rate"
+      ],
       "digest_bound": true,
+      "fail_closed": true,
+      "scope": "technical_measurement_only",
       "auto_release": false
+    },
+    "release_gates": {
+      "artifact_lineage": "IMMUTABLE_INPUT_ARTIFACT_ID_AND_SHA256",
+      "source_replacement": "INVALIDATE_CONSUMERS_AND_DEPENDENT_DESCENDANTS",
+      "rights": "FINAL_AND_USED_MEDIA_ASSETS_REQUIRE_ALLOWED_STATUS_AND_RESOLVABLE_EVIDENCE",
+      "human_review": "EXACT_DIGEST_AND_SELF_ATTESTED_HUMAN_COLD_READ",
+      "red_team": "MINIMUM_THREE_EVIDENCE_BACKED_FINDINGS",
+      "no_auto_publish": true
+    },
+    "domain_adapters": {
+      "editorial_plan_validate": "video_growth_agent.editorial_planning.EditorialPlan",
+      "shot_contract_materialize": "video_growth_agent.editorial_planning.materialize_shot_contract",
+      "shot_contract_validate": "video_growth_agent.production_os.ShotContract",
+      "ipos_bundle_inspect": "video_growth_agent.ip_identity.inspect_ipos_bundle",
+      "ipos_bundle_import": "video_growth_agent.ip_identity.import_ipos_bundle",
+      "timeline_validate": "video_growth_agent.timeline.TimelineSpec",
+      "continuity_assess": "video_growth_agent.continuity.assess_continuity",
+      "shot_route": "video_growth_agent.engine_routing.CostAwareShotRouter",
+      "business_outcome_metrics": "video_growth_agent.business_metrics.EpisodeOutcomeReceipt",
+      "extended_media_qa": "video_growth_agent.media_qa.MediaQAChecker",
+      "programmatic_graphic_render": "video_growth_agent.programmatic_graphics.render_programmatic_graphic",
+      "media_graph_initialize": "video_growth_agent.media_graph.MediaGraph",
+      "ipos_shot_bind": "video_growth_agent.ip_identity.bind_ipos_identity_to_shot",
+      "ipos_continuity_snapshot": "video_growth_agent.ip_identity.build_ipos_continuity_snapshot",
+      "ipos_continuity_link": "video_growth_agent.ip_identity.build_ipos_continuity_link",
+      "business_object_validate": "video_studio.adapters.business_object_from_dict",
+      "episode_intent_validate": "video_studio.adapters.program_episode_handoff_to_intent"
+    },
+    "domain_adapter_execution": {
+      "entrypoint": "vga-studio run-adapter",
+      "task_bound_inputs": true,
+      "immutable_output_registration": true,
+      "candidate_promotion_authorized": false,
+      "external_provider_generation": "NOT_CONNECTED__REQUIRES_CURRENT_SESSION_CAPABILITY_HANDSHAKE"
+    },
+    "repository_system_audit": {
+      "entrypoint": "vga-studio system-audit",
+      "checks": [
+        "standalone_entry_and_governance",
+        "runtime_dependency_boundary",
+        "domain_adapter_registry_matches_manifest",
+        "program_authority_refs_are_digest_bound_inputs",
+        "example_graphs_and_default_program_execution",
+        "hard_release_gates"
+      ],
+      "separates_structural_integrity_from_production_readiness": true,
+      "no_provider_calls_or_workspace_mutation": true
     }
   },
   "release_status": "ACTIVE_CANDIDATE",
@@ -113,5 +172,6 @@
     "legacy_specialized_modules": "OPTIONAL_VERIFIED_ADAPTERS",
     "legacy_fixed_stage_orchestrator": "NOT_A_CONTROLLER",
     "require_artifact_receipts": true
-  }
+  },
+  "system_audit": "video_studio.system_audit.run_system_audit"
 }

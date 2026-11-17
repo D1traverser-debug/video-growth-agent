@@ -118,6 +118,179 @@ def test_missing_input_waits_until_asset_is_imported(tmp_path):
     assert engine.list_tasks("demo")[0]["status"] == "READY"
 
 
+def test_identical_asset_reimport_is_idempotent_and_preserves_completed_consumers(tmp_path):
+    engine = make_engine(tmp_path)
+    source = tmp_path / "source.txt"
+    source.write_text("same source bytes", encoding="utf-8")
+    metadata = {"rights_evidence_refs": ["https://rights.example/license/1"]}
+    first = engine.import_asset(
+        "demo", "source-evidence", source, kind="evidence",
+        media_type="text/plain", rights_status="NOT_APPLICABLE", metadata=metadata,
+    )
+    engine.add_tasks("demo", [task("consume-source", inputs=["source-evidence"])])
+    complete(engine, tmp_path, "consume-source", "worker-a")
+
+    repeated = engine.import_asset(
+        "demo", "source-evidence", source, kind="evidence",
+        media_type="text/plain", rights_status="NOT_APPLICABLE", metadata=metadata,
+    )
+    assert repeated["artifact_id"] == first["artifact_id"]
+    assert repeated["version"] == first["version"] == 1
+    assert engine.list_tasks("demo")[0]["status"] == "COMPLETED"
+
+
+def test_cross_project_transfer_is_exact_idempotent_and_unblocks_target(tmp_path, capsys):
+    from video_studio.cli import main
+
+    workspace = tmp_path / "workspace"
+    engine = StudioEngine(workspace)
+    engine.create_project("program", "Program", brief())
+    engine.create_project("episode", "Episode", brief())
+    engine.add_tasks("episode", [task("validate-handoff", inputs=["validated-episode-intent"])])
+    assert engine.list_tasks("episode")[0]["status"] == "WAITING_INPUT"
+
+    source = tmp_path / "validated-episode-intent.json"
+    source.write_text('{"schema_version":"1.0","status":"PASS"}', encoding="utf-8")
+    source_artifact = engine.import_asset(
+        "program", "validated-episode-intent", source,
+        kind="episode_intent", media_type="application/json", rights_status="NOT_APPLICABLE",
+    )
+
+    command = [
+        "--root", str(workspace), "transfer-asset",
+        "program", "validated-episode-intent", "episode", "validated-episode-intent",
+        "--expected-artifact-id", source_artifact["artifact_id"],
+        "--expected-version", str(source_artifact["version"]),
+        "--expected-sha256", source_artifact["sha256"],
+    ]
+    assert main(command) == 0
+    first = json.loads(capsys.readouterr().out)
+    target = first["target"]
+    assert first["source"]["artifact_id"] == source_artifact["artifact_id"]
+    assert target["sha256"] == source_artifact["sha256"]
+    assert target["metadata"]["cross_project_transfer"] == first["transfer"]
+    assert first["transfer"]["source_project_id"] == "program"
+    assert first["transfer"]["target_project_id"] == "episode"
+    assert engine.list_tasks("episode")[0]["status"] == "READY"
+
+    assert main(command) == 0
+    repeated = json.loads(capsys.readouterr().out)
+    assert repeated["target"]["artifact_id"] == target["artifact_id"]
+    assert repeated["target"]["version"] == target["version"] == 1
+
+    with pytest.raises(ContractError, match="digest changed"):
+        engine.transfer_artifact(
+            "program", "validated-episode-intent", "episode", "validated-episode-intent",
+            expected_artifact_id=source_artifact["artifact_id"],
+            expected_version=source_artifact["version"],
+            expected_sha256="0" * 64,
+        )
+
+    replacement = tmp_path / "validated-episode-intent-v2.json"
+    replacement.write_text('{"schema_version":"1.0","status":"PASS","revision":2}', encoding="utf-8")
+    latest = engine.import_asset(
+        "program", "validated-episode-intent", replacement,
+        kind="episode_intent", media_type="application/json", rights_status="NOT_APPLICABLE",
+    )
+    assert latest["version"] == 2
+    engine.refresh("episode")
+    assert engine.list_tasks("episode")[0]["status"] == "STALE"
+    with engine._connect("episode") as connection:
+        stale_target = connection.execute(
+            "SELECT status FROM artifacts WHERE project_id='episode' AND artifact_id=?",
+            (target["artifact_id"],),
+        ).fetchone()
+    assert stale_target["status"] == "STALE"
+
+    refreshed = engine.transfer_artifact(
+        "program", "validated-episode-intent", "episode", "validated-episode-intent",
+        expected_artifact_id=latest["artifact_id"], expected_version=latest["version"],
+        expected_sha256=latest["sha256"],
+    )
+    assert refreshed["target"]["version"] == 2
+    reopened = engine.reopen("episode", "validate-handoff", "new exact Program handoff was transferred")
+    assert reopened == ["validate-handoff"]
+    assert engine.list_tasks("episode")[0]["status"] == "READY"
+
+
+def test_import_manifest_preflights_all_files_and_imports_digest_bound_context(tmp_path, capsys):
+    from video_studio.cli import main
+
+    workspace = tmp_path / "workspace"
+    engine = StudioEngine(workspace)
+    engine.create_project("demo", "Manifest import", brief())
+    repo = tmp_path / "repo"
+    examples = repo / "examples"
+    projects = repo / "projects"
+    examples.mkdir(parents=True)
+    projects.mkdir(parents=True)
+    (projects / "program-state.json").write_text('{"revision": 3}', encoding="utf-8")
+    (projects / "business-flywheel.md").write_text("# Business flywheel", encoding="utf-8")
+    manifest = examples / "context.json"
+    manifest.write_text(json.dumps({
+        "schema_version": "1.0",
+        "assets": [
+            {
+                "name": "program-state", "path": "../projects/program-state.json",
+                "kind": "document", "media_type": "application/json",
+                "rights_status": "NOT_APPLICABLE",
+            },
+            {
+                "name": "business-flywheel", "path": "../projects/business-flywheel.md",
+                "kind": "document", "media_type": "text/markdown",
+                "rights_status": "NOT_APPLICABLE",
+            },
+        ],
+    }), encoding="utf-8")
+
+    assert main(["--root", str(workspace), "import-manifest", "demo", str(manifest)]) == 0
+    first_output = json.loads(capsys.readouterr().out)
+    assert first_output["asset_count"] == 2
+    first_ids = {item["name"]: item["artifact_id"] for item in first_output["artifacts"]}
+
+    engine.add_tasks("demo", [task("read-context", inputs=["program-state", "business-flywheel"])])
+    assert engine.list_tasks("demo")[0]["status"] == "READY"
+
+    assert main(["--root", str(workspace), "import-manifest", "demo", str(manifest)]) == 0
+    second_output = json.loads(capsys.readouterr().out)
+    second_ids = {item["name"]: item["artifact_id"] for item in second_output["artifacts"]}
+    assert second_ids == first_ids
+    assert {item["version"] for item in second_output["artifacts"]} == {1}
+    assert engine.list_tasks("demo")[0]["status"] == "READY"
+
+    broken = examples / "broken-context.json"
+    broken.write_text(json.dumps({
+        "schema_version": "1.0",
+        "assets": [
+            {"name": "new-valid", "path": "../projects/program-state.json"},
+            {"name": "missing", "path": "../projects/missing.json"},
+        ],
+    }), encoding="utf-8")
+    assert main(["--root", str(workspace), "import-manifest", "demo", str(broken)]) == 2
+    capsys.readouterr()
+    with engine._connect("demo") as connection:
+        absent = connection.execute(
+            "SELECT 1 FROM artifacts WHERE project_id='demo' AND name='new-valid' LIMIT 1"
+        ).fetchone()
+    assert absent is None
+
+    invalid_rights = examples / "invalid-rights.json"
+    invalid_rights.write_text(json.dumps({
+        "schema_version": "1.0",
+        "assets": [
+            {"name": "new-valid-2", "path": "../projects/program-state.json"},
+            {"name": "bad-rights", "path": "../projects/business-flywheel.md", "rights_status": "NOT_A_REAL_STATUS"},
+        ],
+    }), encoding="utf-8")
+    assert main(["--root", str(workspace), "import-manifest", "demo", str(invalid_rights)]) == 2
+    capsys.readouterr()
+    with engine._connect("demo") as connection:
+        absent = connection.execute(
+            "SELECT 1 FROM artifacts WHERE project_id='demo' AND name='new-valid-2' LIMIT 1"
+        ).fetchone()
+    assert absent is None
+
+
 def test_claim_token_and_lease_prevent_stale_worker_completion(tmp_path, monkeypatch):
     engine = make_engine(tmp_path)
     engine.add_tasks("demo", [task("render")])
@@ -307,6 +480,24 @@ def test_graph_rejects_cycles_and_multiple_output_producers(tmp_path):
         engine.add_tasks("demo", [task("a", outputs=["shared"]), task("b", outputs=["shared"])])
 
 
+def test_input_artifact_requires_declared_transitive_producer_dependency(tmp_path):
+    engine = make_engine(tmp_path)
+    with pytest.raises(ContractError, match="input artifact.*producer.*not a declared dependency"):
+        engine.add_tasks("demo", [
+            task("produce", outputs=["shared-artifact"]),
+            task("consume", inputs=["shared-artifact"]),
+        ])
+
+    engine.add_tasks("demo", [
+        task("produce", outputs=["shared-artifact"]),
+        task("bridge", deps=["produce"]),
+        task("consume", deps=["bridge"], inputs=["shared-artifact"]),
+    ])
+    task_map = {item["task_id"]: item for item in engine.list_tasks("demo")}
+    assert task_map["consume"]["depends_on"] == ["bridge"]
+    assert "produce" not in task_map["consume"]["depends_on"]
+
+
 def test_failure_retry_is_bounded_by_declared_attempt_budget(tmp_path):
     engine = make_engine(tmp_path)
     spec = task("unstable")
@@ -384,7 +575,7 @@ def test_builtin_ffprobe_qa_measures_real_media_and_completes_a_claimed_task(tmp
         connection.commit()
     packet = engine.claim_next("demo", "qa-worker")
     result = run_claimed_media_qa(engine, "demo", "technical-qa", "qa-worker", packet["claim"]["claim_token"], "final-candidate")
-    assert result["report"]["hard_pass"] is True
+    assert result["report"]["hard_pass"] is True, result["report"]["checks"]
     assert result["report"]["summary"]["width"] == 320
     assert result["report"]["summary"]["frame_rate"] == 25
     assert result["task_completion"]["status"] == "COMPLETED"
@@ -528,4 +719,321 @@ def test_repeated_media_qa_uses_new_immutable_receipt_path(tmp_path):
     second_path = second["task_completion"]["artifacts"]["technical-qa-receipt"]["path"]
     assert first_path != second_path
     assert second["task_completion"]["status"] == "COMPLETED"
+    assert second["report"]["metadata"]["checker"] == "ffmpeg-ffprobe-v1.0"
+    required_checks = {"video_stream", "stream_duration_match", "true_peak", "black_frames", "full_decode"}
+    assert required_checks.issubset({item["check_id"] for item in second["report"]["checks"]})
+    assert second["report"]["hard_pass"] is True, second["report"]["checks"]
     assert engine.audit("demo")["pass"] is True
+
+
+def test_task_outputs_persist_exact_input_lineage_and_source_replacement_invalidates_consumers(tmp_path):
+    engine = make_engine(tmp_path)
+    source = tmp_path / "source-v1.mp4"
+    source.write_bytes(b"source version one")
+    first = engine.import_asset(
+        "demo", "source-video", source, kind="video", media_type="video/mp4",
+        rights_status="OWNED", metadata={"rights_evidence_refs": ["https://rights.example/license/1"]},
+    )
+    engine.add_tasks("demo", [
+        task("edit", inputs=["source-video"]),
+        task("package", deps=["edit"], inputs=["edit-artifact"]),
+    ])
+    edit = complete(engine, tmp_path, "edit", "editor")
+    complete(engine, tmp_path, "package", "packager")
+    with engine._connect("demo") as connection:
+        link = connection.execute(
+            "SELECT input_artifact_id,input_sha256 FROM artifact_inputs WHERE project_id='demo' AND output_artifact_id=?",
+            (edit["artifact_id"],),
+        ).fetchone()
+        assert link["input_artifact_id"] == first["artifact_id"]
+        assert link["input_sha256"] == first["sha256"]
+
+    source_v2 = tmp_path / "source-v2.mp4"
+    source_v2.write_bytes(b"source version two")
+    second = engine.import_asset(
+        "demo", "source-video", source_v2, kind="video", media_type="video/mp4",
+        rights_status="OWNED", metadata={"rights_evidence_refs": ["https://rights.example/license/2"]},
+    )
+    assert second["version"] == 2
+    states = {item["task_id"]: item["status"] for item in engine.list_tasks("demo")}
+    assert states["edit"] == "STALE"
+    assert states["package"] == "STALE"
+    with engine._connect("demo") as connection:
+        old_source = connection.execute(
+            "SELECT status FROM artifacts WHERE project_id='demo' AND artifact_id=?",
+            (first["artifact_id"],),
+        ).fetchone()
+        old_output = connection.execute(
+            "SELECT status FROM artifacts WHERE project_id='demo' AND artifact_id=?",
+            (edit["artifact_id"],),
+        ).fetchone()
+    assert old_source["status"] == "STALE"
+    assert old_output["status"] == "STALE"
+
+
+def test_release_check_fails_closed_on_uncleared_source_asset_in_final_lineage(tmp_path):
+    engine = make_engine(tmp_path)
+    source = tmp_path / "unknown-rights.mp4"
+    source.write_bytes(b"source")
+    engine.import_asset(
+        "demo", "source-video", source, kind="video", media_type="video/mp4",
+        rights_status="UNKNOWN",
+    )
+    engine.add_tasks("demo", [task("render", inputs=["source-video"])])
+    packet = engine.claim_next("demo", "renderer")
+    output = engine._project_dir("demo") / "artifacts" / "final.mp4"
+    output.write_bytes(b"final-video")
+    result = engine.complete_task(
+        "demo", "render", "renderer", packet["claim"]["claim_token"],
+        {"render-artifact": {
+            "path": str(output), "kind": "video", "media_type": "video/mp4",
+            "rights_status": "OWNED",
+            "metadata": {"rights_evidence_refs": ["https://rights.example/owner-claim"]},
+        }},
+    )
+    engine.record_review(
+        "demo", result["artifacts"]["render-artifact"]["artifact_id"],
+        reviewer_id="editorial-reviewer", rubric_id="editorial", outcome="PASS",
+        dimensions={}, evidence_refs=["review://editorial"],
+    )
+    release = engine.release_check(
+        "demo", result["artifacts"]["render-artifact"]["artifact_id"],
+        required_rubrics=["editorial"],
+    )
+    assert release["pass"] is False
+    assert any(item.startswith("lineage_rights_not_cleared:source-video") for item in release["failures"])
+    assert "technical_qa_receipt_missing:technical-qa-receipt" in release["failures"]
+
+
+def test_release_check_requires_exact_digest_technical_qa_human_cold_read_and_red_team(tmp_path):
+    engine = StudioEngine(tmp_path / "strict-workspace")
+    strict_brief = brief()
+    strict_brief["release_policy"] = {
+        "require_rights": True,
+        "require_rights_evidence": True,
+        "required_review_rubrics": ["editorial", "human-cold-read", "red-team"],
+        "required_artifact_names": ["final-video", "technical-qa-receipt"],
+        "required_evidence_artifact_names": ["rights-clearance"],
+        "require_technical_qa": True,
+        "technical_qa_artifact_name": "technical-qa-receipt",
+        "review_contracts": {
+            "human-cold-read": {
+                "reviewer_kind": "HUMAN",
+                "execution_mode": "INDEPENDENT_COLD_READ",
+                "blind_review": True,
+                "require_digest_attestation": True,
+                "require_context_id": True,
+                "require_resolvable_evidence_refs": True,
+            },
+            "red-team": {
+                "min_findings": 3,
+                "require_evidence_per_finding": True,
+                "require_disposition_per_finding": True,
+                "require_resolvable_evidence_refs": True,
+            },
+        },
+    }
+    engine.create_project("strict", "Strict release", strict_brief)
+    rights_file = tmp_path / "rights-clearance.txt"
+    rights_file.write_text("Owner-created and cleared source package.", encoding="utf-8")
+    engine.import_asset(
+        "strict", "rights-clearance", rights_file, kind="document",
+        media_type="text/plain", rights_status="OWNED",
+    )
+    evidence_paths = {}
+    for evidence_name in ("cold-read-evidence", "red-team-review-evidence", "frame-001", "frame-012", "frame-018"):
+        evidence_path = tmp_path / f"{evidence_name}.txt"
+        evidence_path.write_text(f"Evidence for {evidence_name}", encoding="utf-8")
+        evidence_paths[evidence_name] = evidence_path
+        engine.import_asset(
+            "strict", evidence_name, evidence_path, kind="evidence",
+            media_type="text/plain", rights_status="NOT_APPLICABLE",
+        )
+    engine.add_tasks("strict", [
+        task("render", inputs=["rights-clearance"], outputs=["final-video"]),
+        task("qa", deps=["render"], inputs=["final-video"], outputs=["technical-qa-receipt"]),
+    ])
+    render_packet = engine.claim_next("strict", "renderer")
+    final_path = engine._project_dir("strict") / "artifacts" / "final.mp4"
+    final_path.write_bytes(b"verified final video bytes")
+    final_result = engine.complete_task(
+        "strict", "render", "renderer", render_packet["claim"]["claim_token"],
+        {"final-video": {
+            "path": str(final_path), "kind": "video", "media_type": "video/mp4",
+            "rights_status": "OWNED",
+            "metadata": {"rights_evidence_refs": ["rights-clearance"]},
+        }},
+    )
+    final_artifact = final_result["artifacts"]["final-video"]
+    qa_packet = engine.claim_next("strict", "qa-worker")
+    assert qa_packet["task"]["task_id"] == "qa"
+    qa_report = {
+        "schema_version": 2,
+        "metadata": {"checker": "ffmpeg-ffprobe-v1.0"},
+        "media_sha256": final_artifact["sha256"],
+        "input_artifact_id": final_artifact["artifact_id"],
+        "hard_pass": True,
+        "hard_failures": [],
+        "checks": [
+            {"check_id": check_id, "status": "PASS"}
+            for check_id in ("video_stream", "stream_duration_match", "true_peak", "black_frames", "full_decode")
+        ],
+    }
+    qa_path = engine._project_dir("strict") / "artifacts" / "qa.json"
+    qa_path.write_text(json.dumps(qa_report), encoding="utf-8")
+    engine.complete_task(
+        "strict", "qa", "qa-worker", qa_packet["claim"]["claim_token"],
+        {"technical-qa-receipt": {
+            "path": str(qa_path), "kind": "qa_report", "media_type": "application/json",
+            "rights_status": "NOT_APPLICABLE",
+            "metadata": {
+                "media_sha256": final_artifact["sha256"],
+                "input_artifact_id": final_artifact["artifact_id"],
+                "hard_pass": True,
+                "checker": "ffmpeg-ffprobe-v1.0",
+            },
+        }},
+    )
+    engine.record_review(
+        "strict", final_artifact["artifact_id"], reviewer_id="editorial-reviewer",
+        rubric_id="editorial", outcome="PASS", dimensions={},
+        evidence_refs=["review://editorial"],
+    )
+    engine.record_review(
+        "strict", final_artifact["artifact_id"], reviewer_id="human-cold-reader",
+        rubric_id="human-cold-read", outcome="PASS", dimensions={},
+        evidence_refs=["cold-read-evidence"],
+        attestation={
+            "reviewer_kind": "HUMAN",
+            "execution_mode": "INDEPENDENT_COLD_READ",
+            "blind_review": True,
+            "inspected_artifact_digest": final_artifact["sha256"],
+            "context_id": "cold-read-session-001",
+        },
+    )
+    engine.record_review(
+        "strict", final_artifact["artifact_id"], reviewer_id="red-team-reviewer",
+        rubric_id="red-team", outcome="PASS",
+        dimensions={"findings": [
+            {"finding": "Opening promise may be too broad.", "evidence_ref": "frame-001", "severity": "MEDIUM", "disposition": "MITIGATED"},
+            {"finding": "A transition may obscure the key mechanism.", "evidence_ref": "frame-012", "severity": "LOW", "disposition": "ACCEPTED"},
+            {"finding": "Caption density may reduce mobile readability.", "evidence_ref": "frame-018", "severity": "MEDIUM", "disposition": "MITIGATED"},
+        ]},
+        evidence_refs=["red-team-review-evidence"],
+    )
+    release = engine.release_check("strict", final_artifact["artifact_id"], required_rubrics=[])
+    assert release["pass"] is True, release["failures"]
+    assert release["technical_qa"]["media_sha256"] == final_artifact["sha256"]
+    assert len(release["review_summary"]["red-team"]["review_ids"]) == 1
+    assert engine.audit("strict")["pass"] is True
+
+
+def test_release_check_rejects_red_team_without_three_evidence_backed_findings(tmp_path):
+    engine = StudioEngine(tmp_path / "red-team-workspace")
+    red_brief = brief()
+    red_brief["release_policy"] = {
+        "required_review_rubrics": ["red-team"],
+        "review_contracts": {
+            "red-team": {
+                "min_findings": 3,
+                "require_evidence_per_finding": True,
+                "require_disposition_per_finding": True,
+                "require_resolvable_evidence_refs": True,
+            },
+        },
+    }
+    engine.create_project("red", "Red team contract", red_brief)
+    review_evidence = tmp_path / "red-team-review-evidence.txt"
+    review_evidence.write_text("Red Team review evidence.", encoding="utf-8")
+    engine.import_asset("red", "red-team-review-evidence", review_evidence, kind="evidence", media_type="text/plain", rights_status="NOT_APPLICABLE")
+    frame_evidence = tmp_path / "frame-001.txt"
+    frame_evidence.write_text("Observed frame evidence.", encoding="utf-8")
+    engine.import_asset("red", "frame-001", frame_evidence, kind="evidence", media_type="text/plain", rights_status="NOT_APPLICABLE")
+    engine.add_tasks("red", [task("render")])
+    packet = engine.claim_next("red", "producer")
+    output = engine._project_dir("red") / "artifacts" / "candidate.txt"
+    output.write_text("candidate", encoding="utf-8")
+    result = engine.complete_task(
+        "red", "render", "producer", packet["claim"]["claim_token"],
+        {"render-artifact": {"path": str(output), "kind": "document", "media_type": "text/plain", "rights_status": "OWNED"}},
+    )
+    artifact_id = result["artifacts"]["render-artifact"]["artifact_id"]
+    engine.record_review(
+        "red", artifact_id, reviewer_id="red-team-reviewer", rubric_id="red-team",
+        outcome="PASS",
+        dimensions={"findings": [
+            {"finding": "One concern.", "evidence_ref": "frame://unregistered", "severity": "LOW", "disposition": "MITIGATED"},
+        ]},
+        evidence_refs=["red-team-review-evidence"],
+    )
+    release = engine.release_check("red", artifact_id, required_rubrics=[])
+    assert release["pass"] is False
+    assert any(item.startswith("review_findings_below_minimum:red-team:1<3") for item in release["failures"])
+    assert any(item.startswith("review_finding_evidence_unresolved:red-team:0:frame://unregistered") for item in release["failures"])
+
+
+def test_competitive_candidates_require_owner_adjudication_over_every_candidate(tmp_path):
+    engine = make_engine(tmp_path)
+    candidate_a = task("candidate-a")
+    candidate_a["requirements"] = {"coordination": {
+        "pattern": "COMPETITIVE_CANDIDATES",
+        "decision_group": "topic-slate",
+        "candidate_criteria": ["audience fit", "originality", "repeatability"],
+    }}
+    candidate_b = task("candidate-b")
+    candidate_b["requirements"] = {"coordination": {
+        "pattern": "COMPETITIVE_CANDIDATES",
+        "decision_group": "topic-slate",
+        "candidate_criteria": ["audience fit", "originality", "repeatability"],
+    }}
+    adjudication = task("owner-adjudication", deps=["candidate-a", "candidate-b"])
+    adjudication["executor"] = "human"
+    adjudication["requirements"] = {"coordination": {
+        "pattern": "OWNER_ADJUDICATION",
+        "consumes_group": "topic-slate",
+        "adjudicator": "showrunner",
+        "decision_receipt_required": True,
+    }}
+    engine.add_tasks("demo", [candidate_a, candidate_b, adjudication])
+    assert {item["task_id"] for item in engine.list_tasks("demo")} == {
+        "candidate-a", "candidate-b", "owner-adjudication",
+    }
+
+
+def test_owner_adjudication_cannot_skip_a_competing_candidate(tmp_path):
+    engine = make_engine(tmp_path)
+    candidate_a = task("candidate-a")
+    candidate_a["requirements"] = {"coordination": {
+        "pattern": "COMPETITIVE_CANDIDATES",
+        "decision_group": "topic-slate",
+        "candidate_criteria": ["audience fit"],
+    }}
+    candidate_b = task("candidate-b")
+    candidate_b["requirements"] = {"coordination": {
+        "pattern": "COMPETITIVE_CANDIDATES",
+        "decision_group": "topic-slate",
+        "candidate_criteria": ["audience fit"],
+    }}
+    adjudication = task("owner-adjudication", deps=["candidate-a"])
+    adjudication["executor"] = "human"
+    adjudication["requirements"] = {"coordination": {
+        "pattern": "OWNER_ADJUDICATION",
+        "consumes_group": "topic-slate",
+        "adjudicator": "showrunner",
+        "decision_receipt_required": True,
+    }}
+    with pytest.raises(ContractError, match="depend on every candidate"):
+        engine.add_tasks("demo", [candidate_a, candidate_b, adjudication])
+    assert engine.list_tasks("demo") == []
+
+
+def test_consultative_advice_cannot_claim_decision_authority(tmp_path):
+    engine = make_engine(tmp_path)
+    advisory = task("advice")
+    advisory["requirements"] = {"coordination": {
+        "pattern": "CONSULTATIVE_ADVICE",
+        "advisory_only": False,
+        "decision_owner": "showrunner",
+    }}
+    with pytest.raises(ContractError, match="must be advisory_only"):
+        engine.add_tasks("demo", [advisory])

@@ -7,7 +7,8 @@ Standalone, outcome-driven Video Studio for research, creative development, para
 - `STUDIO_ENTRY.md` — current standalone startup and operating entry for new Video work.
 - `docs/standalone_video_studio.md` — Video-owned goal, decision, dynamic DAG, execution, artifact, review, failure and learning method.
 - `video_studio/data/studio_manifest.json` — canonical standalone runtime and governance contract; no CAOS runtime/API/Skill dependency.
-- `video_studio/engine.py`, `cli.py`, `media.py` — canonical standalone project state, concurrent task claims, artifact lineage and deterministic FFprobe QA.
+- `video_studio/engine.py`, `cli.py`, `media.py` — canonical standalone project state, concurrent task claims, artifact lineage and deterministic FFmpeg/FFprobe QA.
+- `video_studio/adapters.py` — explicit, task-bound adapters for EditorialPlan, ShotContract, IPOS shot binding, IPOS continuity, MediaGraph bootstrap, Timeline, continuity, shot routing, business metrics, supplementary audio QA and deterministic local graphic rendering.
 - `skills/video-growth-agent/SKILL.md` — self-contained Video-owned agent operating instructions.
 - `CAOS_VIDEO_ENTRY.md`, `domain_manifest.json` and `capabilities.json` — retained for 0.8 compatibility/history; not startup dependencies for new Studio work.
 - `docs/product_requirements.md` — historical 0.8 product-requirements baseline; new operating authority is the standalone contract.
@@ -21,7 +22,7 @@ Standalone, outcome-driven Video Studio for research, creative development, para
 - `video_growth_agent/data/` — versioned legacy/specialized episode workflow, specialists and coordination resources.
 - binary/media stores — evidence only when bound by stable refs/digests; never business authority by presence alone.
 
-The new `video_studio` package owns its requirement interpretation, decision receipts, task graph, leases, artifact history, review receipts, root-cause repair, recovery and learning admission. `vga-studio` and `python -m video_studio` both enter this package; legacy import paths are compatibility shims. It has no parent task identity, no parent lease and no CAOS runtime/API/Skill dependency. The 0.8 compatibility surfaces below retain their historical governance records but are not loaded by `vga-studio`.
+The new `video_studio` package owns its requirement interpretation, decision receipts, task graph, leases, artifact history, review receipts, root-cause repair, recovery and learning admission. `vga-studio` and `python -m video_studio` both enter this package; legacy import paths are compatibility shims. It has no parent task identity, no parent lease and no CAOS runtime/API/Skill dependency. The 0.8 controller, fixed-stage workflow and parent-governance surfaces are not loaded by `vga-studio`. Specialized domain modules are imported only through the explicit `video_studio.adapters` bridge when a task declares a verified adapter.
 
 ## Legacy Media Business OS 0.8.0 compatibility layer
 
@@ -110,7 +111,31 @@ Missing a high-assurance reviewer blocks only operations that require that tier.
 
 New Studio work uses the self-contained method in `docs/standalone_video_studio.md`: recover the real outcome; compare competing hypotheses and methods; use discriminating tests and counterevidence; execute a project-specific DAG; inspect exact artifact bytes; diagnose failures at the causal layer; independently replay repairs; and promote learning only with applicability, counterexamples and regression evidence. None of these operations calls CAOS.
 
-The following legacy 0.8 adapter continues to describe its historical CAOS-governed workflow for compatibility only. It is not the standalone Studio runtime.
+The standalone release contract now records immutable input lineage, invalidates consumers on source replacement, requires rights evidence across used media lineage, enforces exact-digest FFmpeg/FFprobe QA (full decode, stream timing, true peak and black frames), supports attested human cold reads and requires three evidence-backed Red Team findings when configured. See `docs/standalone_video_studio.md` and the three outcome/task examples.\n\nThe following legacy 0.8 adapter continues to describe its historical CAOS-governed workflow for compatibility only. It is not the standalone Studio runtime.
+
+
+### Integrated media-business program example
+
+The program-level DAG covers MEDIA_GROWTH, ORIGINAL_DIGITAL_IP, COMMERCIALIZATION and PRODUCTION_SYSTEM. It keeps growth, advertiser mapping, production economics, provider benchmarking and fact research independent; IPOS identity work waits for the approved bundle; the Jensen/Alice media audit waits for exact source bytes; competitive commercial/topic/portfolio candidates fan out before human adjudication.
+
+```bash
+vga-studio --root ./studio-work init ai-self-media-commercialization --title "AI Self-Media Commercialization" --brief examples/ai-self-media-commercialization.brief.json
+vga-studio --root ./studio-work plan ai-self-media-commercialization examples/ai-self-media-commercialization.tasks.json
+vga-studio --root ./studio-work status ai-self-media-commercialization
+```
+
+### Run the standalone domain-adapter proof
+
+This sample produces a silent, candidate-only title card with the real local renderer, then binds canonical FFmpeg/FFprobe QA to the exact registered MP4. It requires a local font file and evidence that the font may be used:
+
+```bash
+vga-studio --root ./studio-work init adapter-demo --title "Standalone adapter demo" --brief examples/standalone-domain-adapters.brief.json
+vga-studio --root ./studio-work plan adapter-demo examples/standalone-domain-adapters.tasks.json
+vga-studio --root ./studio-work import-asset adapter-demo rights-clearance ./font-license-evidence.txt --kind document --media-type text/plain --rights-status OWNED
+vga-studio --root ./studio-work import-asset adapter-demo font-asset ./DejaVuSans.ttf --kind font --media-type font/ttf --rights-status LICENSED --metadata examples/adapter-demo-font.metadata.json
+```
+
+Claim and complete the authoring task with the exact EditorialPlan JSON, then use `run-adapter` for validation/materialization/rendering and `qa-media` for canonical technical QA. The renderer's receipt explicitly states that the output is silent, candidate-only and not release-authorized.
 
 ## Validation
 
@@ -128,4 +153,4 @@ CI success is validation evidence, not branch-protection enforcement unless GitH
 
 ## Standalone IP Studio OS integration
 
-The personal-IP character canon is owned by the independent IP Studio OS (IPOS). IPOS does not require a CAOS runtime/API call. Video consumes a portable owner-approved IPOS Video Identity Bundle through the local video_growth_agent.ip_identity adapter; exact versions are registered in MediaGraph and bound to shot references and continuity. See docs/media_business_os.md and projects/ai-self-media-commercialization/IPOS_INTEGRATION_STATE.json. No identity-dependent generation is admitted until an owner-approved bundle passes G2/G7/G8 and rights/provenance checks.
+The personal-IP character canon is owned by the independent IP Studio OS (IPOS); IPOS does not require a CAOS runtime/API call. The standalone program plan models the owner-approved IPOS Video Identity Bundle as an external versioned input and keeps identity-dependent tasks waiting until G2/G7/G8 and rights/provenance pass. The old `video_growth_agent.ip_identity` adapter remains a 0.8 capability reference; it is not silently treated as a verified standalone adapter. See `projects/ai-self-media-commercialization/IPOS_INTEGRATION_STATE.json`.

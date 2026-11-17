@@ -56,7 +56,8 @@
       "creative-options"
     ],
     "outputs": [
-      "story-shot-plan"
+      "story-shot-plan",
+      "editorial-plan"
     ],
     "requirements": {
       "decision_receipt_required": true,
@@ -157,7 +158,8 @@
       "final-candidate",
       "captions",
       "cover-candidate",
-      "publish-copy-candidate"
+      "publish-copy-candidate",
+      "master-timeline"
     ],
     "requirements": {
       "non_destructive_edit": true,
@@ -184,7 +186,8 @@
       "publish-copy-candidate"
     ],
     "outputs": [
-      "review-receipt"
+      "review-receipt",
+      "human-cold-read"
     ],
     "requirements": {
       "reviewer_must_not_be_producer": true,
@@ -214,10 +217,99 @@
         "ffmpeg",
         "ffprobe"
       ],
-      "digest_bound": true
+      "digest_bound": true,
+      "resolution": "1080x1920",
+      "frame_rate": 30,
+      "duration_min_seconds": 57,
+      "duration_max_seconds": 63,
+      "audio_required": true,
+      "true_peak_max_dbfs": -1,
+      "max_black_duration_seconds": 0.5
     },
     "acceptance": {
       "technical": "Streams, duration, frame rate, resolution, audio and playback pass the brief."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "rights-and-provenance-audit",
+    "title": "Audit every source, generated asset, voice, music and font used in the candidate",
+    "kind": "rights_provenance_audit",
+    "executor": "human",
+    "depends_on": [
+      "parallel-shot-production",
+      "sound-and-voice"
+    ],
+    "inputs": [
+      "shot-assets",
+      "sound-package"
+    ],
+    "outputs": [
+      "rights-clearance"
+    ],
+    "requirements": {
+      "verify_each_used_asset": true,
+      "rights_status_required": true,
+      "license_scope_and_provenance_required": true
+    },
+    "acceptance": {
+      "rights": "Every used source and derivative has an explicit allowed rights status and resolvable evidence; UNKNOWN blocks release."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "platform-format-and-disclosure",
+    "title": "Verify platform-specific format, safe areas and synthetic-media disclosure",
+    "kind": "platform_compliance",
+    "executor": "human",
+    "depends_on": [
+      "edit-and-conform"
+    ],
+    "inputs": [
+      "final-candidate",
+      "captions",
+      "cover-candidate",
+      "publish-copy-candidate"
+    ],
+    "outputs": [
+      "platform-format-review",
+      "synthetic-upload-disclosure"
+    ],
+    "requirements": {
+      "platform_specific": true,
+      "disclosure_checked_at_upload": true,
+      "no_auto_publish": true
+    },
+    "acceptance": {
+      "platform": "Each destination has a format review and the actual upload disclosure state is evidenced."
+    },
+    "priority": 100
+  },
+  {
+    "task_id": "red-team-review",
+    "title": "Challenge the exact final candidate with at least three evidence-backed reasons not to publish",
+    "kind": "red_team_review",
+    "executor": "human",
+    "depends_on": [
+      "edit-and-conform",
+      "story-and-shot-plan"
+    ],
+    "inputs": [
+      "final-candidate",
+      "captions",
+      "publish-copy-candidate",
+      "editorial-plan"
+    ],
+    "outputs": [
+      "red-team-review"
+    ],
+    "requirements": {
+      "minimum_findings": 3,
+      "evidence_per_finding": true,
+      "disposition_per_finding": true
+    },
+    "acceptance": {
+      "red_team": "Three or more concrete risks are documented with evidence, severity and disposition; unresolved critical/high risks block PASS."
     },
     "priority": 100
   },
@@ -227,8 +319,12 @@
     "kind": "release_review",
     "executor": "human",
     "depends_on": [
+      "edit-and-conform",
       "independent-review",
-      "technical-qa"
+      "technical-qa",
+      "rights-and-provenance-audit",
+      "platform-format-and-disclosure",
+      "red-team-review"
     ],
     "inputs": [
       "final-candidate",
@@ -236,7 +332,14 @@
       "cover-candidate",
       "publish-copy-candidate",
       "review-receipt",
-      "technical-qa-receipt"
+      "technical-qa-receipt",
+      "rights-clearance",
+      "platform-format-review",
+      "synthetic-upload-disclosure",
+      "editorial-plan",
+      "master-timeline",
+      "human-cold-read",
+      "red-team-review"
     ],
     "outputs": [
       "release-evidence-pack"

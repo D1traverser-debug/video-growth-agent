@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "program_id": "ai-self-media-commercialization",
   "owner": "VIDEO_GROWTH_AGENT",
   "purpose": "Make growth, original IP, commercialization and production one evidence-coupled media business system rather than four adjacent silos.",
@@ -201,5 +201,161 @@
     "IP Studio OS is the sole creative identity authority; Video is a downstream consumer and evidence contributor, not a competing canon owner.",
     "IPOS-to-Video transfer is a versioned artifact contract and does not require CAOS runtime/API calls."
   ],
-  "updated_at": "2026-11-13T15:30:00+08:00"
+  "updated_at": "2026-11-17T11:45:00+08:00",
+  "execution_bindings": {
+    "AUDIENCE_TO_PORTFOLIO": {
+      "task_ids": [
+        "growth-baseline-and-topic-hypotheses",
+        "pilot-topic-candidate-system-mechanism",
+        "pilot-topic-candidate-business-story",
+        "pilot-topic-slate-adjudication",
+        "business-flywheel-outcome-refresh",
+        "portfolio-performance-refresh",
+        "portfolio-next-cycle-adjudication",
+        "episode-outcome-analysis"
+      ],
+      "handoff_artifacts": [
+        "growth-baseline",
+        "topic-hypothesis-set",
+        "pilot-topic-slate-decision",
+        "episode-outcome-analysis",
+        "portfolio-performance-refresh-candidate"
+      ],
+      "mode": "INITIAL_RESEARCH_PLUS_OUTCOME_DRIVEN_NEXT_CYCLE",
+      "decision_owner": "showrunner"
+    },
+    "PORTFOLIO_TO_IP": {
+      "task_ids": [
+        "pilot-topic-slate-adjudication",
+        "ipos-portfolio-research-handoff",
+        "ipos-portfolio-handoff-owner-approval"
+      ],
+      "handoff_artifacts": [
+        "pilot-topic-slate-decision",
+        "ipos-portfolio-research-handoff"
+      ],
+      "mode": "OWNER_APPROVED_EXTERNAL_RESEARCH_HANDOFF_ONLY",
+      "decision_owner": "IP_STUDIO_OS_FOR_CANON__VIDEO_OWNER_FOR_TRANSFER"
+    },
+    "IP_TO_GROWTH": {
+      "task_ids": [
+        "ipos-video-identity-bundle-import",
+        "ipos-bundle-readiness-validation",
+        "brand-identity-system",
+        "ip-recognition-packaging-hypotheses"
+      ],
+      "handoff_artifacts": [
+        "ipos-bundle-readiness",
+        "brand-identity-system"
+      ],
+      "mode": "EXACT_APPROVED_CANON_TO_MEASURABLE_PACKAGING_HYPOTHESES",
+      "decision_owner": "growth_strategist"
+    },
+    "PORTFOLIO_TO_COMMERCIAL": {
+      "task_ids": [
+        "pilot-topic-slate-adjudication",
+        "commercial-portfolio-fit",
+        "validate-commercial-portfolio-fit",
+        "commercial-offer-native-integration",
+        "commercial-offer-series-package"
+      ],
+      "handoff_artifacts": [
+        "pilot-topic-slate-decision",
+        "topic-commercial-fit"
+      ],
+      "mode": "TOPIC_SPECIFIC_TYPED_COMMERCIAL_FIT",
+      "decision_owner": "commercial_director"
+    },
+    "COMMERCIAL_TO_PRODUCTION": {
+      "task_ids": [
+        "commercial-offer-adjudication",
+        "sponsor-integration-consultation",
+        "commercial-production-constraints",
+        "production-strategy-commercial-integration",
+        "episode-production-handoff",
+        "validate-episode-production-handoff"
+      ],
+      "handoff_artifacts": [
+        "commercial-offer-decision",
+        "sponsor-integration-advice",
+        "commercial-production-constraints",
+        "production-strategy",
+        "validated-episode-intent"
+      ],
+      "mode": "ADJUDICATED_OFFER_TO_PRODUCTION_CONSTRAINTS",
+      "decision_owner": "executive_producer"
+    },
+    "IP_TO_PRODUCTION": {
+      "task_ids": [
+        "ipos-video-identity-bundle-import",
+        "ipos-bundle-readiness-validation"
+      ],
+      "handoff_artifacts": [
+        "ipos-import-receipt",
+        "ipos-bundle-readiness"
+      ],
+      "mode": "EXACT_VERSIONED_IPOS_BUNDLE_TO_PROGRAM_READINESS__SHOT_BINDING_REMAINS_EPISODE_SCOPED",
+      "decision_owner": "IP_STUDIO_OS_FOR_CANON__VIDEO_DIRECTOR_FOR_SHOT_USAGE"
+    },
+    "PRODUCTION_TO_PORTFOLIO": {
+      "task_ids": [
+        "episode-production-handoff",
+        "episode-outcome-analysis",
+        "business-flywheel-outcome-refresh",
+        "portfolio-performance-refresh",
+        "portfolio-next-cycle-adjudication"
+      ],
+      "handoff_artifacts": [
+        "episode-outcome-analysis",
+        "workstream-outcome-refresh-pack",
+        "portfolio-performance-refresh-candidate"
+      ],
+      "mode": "ACTUAL_PRODUCTION_AND_PLATFORM_RECEIPTS_TO_NEXT_CYCLE",
+      "decision_owner": "executive_producer"
+    },
+    "PERFORMANCE_TO_IP": {
+      "task_ids": [
+        "episode-outcome-analysis",
+        "business-flywheel-outcome-refresh",
+        "ipos-bundle-readiness-validation",
+        "ipos-performance-learning-handoff",
+        "ipos-performance-handoff-owner-approval"
+      ],
+      "handoff_artifacts": [
+        "episode-outcome-analysis",
+        "workstream-outcome-refresh-pack",
+        "ipos-performance-learning-candidate"
+      ],
+      "mode": "CANON_VERSION_BOUND_LEARNING_CANDIDATE__NO_CANON_MUTATION",
+      "decision_owner": "IP_STUDIO_OS_FOR_CANON__VIDEO_OWNER_FOR_TRANSFER"
+    },
+    "COMMERCIAL_OUTCOME_TO_OFFER": {
+      "task_ids": [
+        "episode-outcome-analysis",
+        "business-flywheel-outcome-refresh",
+        "commercial-offer-outcome-review",
+        "commercial-offer-outcome-adjudication"
+      ],
+      "handoff_artifacts": [
+        "episode-outcome-analysis",
+        "workstream-outcome-refresh-pack",
+        "commercial-offer-revision-candidate"
+      ],
+      "mode": "MEASURED_MARGIN_REPEAT_BUY_AND_BRAND_OUTCOME_TO_OFFER_REVISION",
+      "decision_owner": "commercial_director"
+    },
+    "ALL_OUTCOMES_TO_EVOLUTION": {
+      "task_ids": [
+        "episode-outcome-analysis",
+        "business-flywheel-outcome-refresh",
+        "learning-candidate"
+      ],
+      "handoff_artifacts": [
+        "episode-outcome-analysis",
+        "workstream-outcome-refresh-pack"
+      ],
+      "mode": "CANDIDATE_ONLY__COUNTEREXAMPLES_AND_INDEPENDENT_REPLAY_REQUIRED",
+      "decision_owner": "VIDEO_GROWTH_AGENT"
+    }
+  }
 }

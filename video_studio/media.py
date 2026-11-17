@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import re
 import subprocess
 import uuid
 from typing import Any
@@ -24,7 +25,7 @@ def _fraction(value: str | None) -> float | None:
 
 
 def probe_media(path: str | Path, requirements: dict[str, Any] | None = None, *, timeout_seconds: int = 120) -> dict[str, Any]:
-    """Inspect real media bytes with ffprobe; this measures technical facts only."""
+    """Inspect real media bytes with FFmpeg and FFprobe; this measures technical facts only."""
     media = Path(path).resolve(strict=True)
     if not media.is_file() or media.stat().st_size == 0:
         raise ContractError("media must be a non-empty regular file")
@@ -83,15 +84,117 @@ def probe_media(path: str | Path, requirements: dict[str, Any] | None = None, *,
     if fps_expected is not None:
         check("frame_rate", fps is not None and abs(fps - float(fps_expected)) < 0.05, fps, float(fps_expected))
 
-    stream_durations = [float(item["duration"]) for item in streams if item.get("duration") not in (None, "N/A")]
-    if duration is not None and stream_durations:
+    timed_streams = [item for item in streams if item.get("codec_type") in {"video", "audio"}]
+    stream_durations = [
+        float(item["duration"]) for item in timed_streams
+        if item.get("duration") not in (None, "N/A")
+    ]
+    # Preserve the legacy production hard gates: complete decode, stream timing,
+    # true peak and black-frame detection. A metadata-only ffprobe pass is not enough.
+    if timed_streams and len(stream_durations) == len(timed_streams):
         tolerance = float(req.get("stream_duration_tolerance_seconds", 0.25))
         delta = max(stream_durations) - min(stream_durations)
-        check("stream_duration_match", delta <= tolerance, delta, f"<= {tolerance}s")
+        check("stream_duration_match", delta <= tolerance, {
+            "stream_durations": stream_durations, "max_delta_seconds": delta,
+        }, f"<= {tolerance}s across every audio/video stream")
+    else:
+        check("stream_duration_match", False, {
+            "measurable_durations": stream_durations, "audio_video_stream_count": len(timed_streams),
+        }, "measurable duration for every audio/video stream")
+
+    ffmpeg = [
+        "ffmpeg", "-hide_banner", "-nostats", "-v", "error", "-xerror",
+        "-i", str(media), "-map", "0:v?", "-map", "0:a?", "-f", "null", "-",
+    ]
+    try:
+        decode = subprocess.run(ffmpeg, capture_output=True, text=True, timeout=timeout_seconds, check=False)
+    except FileNotFoundError as exc:
+        raise GateError("ffmpeg is not installed or is not on PATH") from exc
+    except subprocess.TimeoutExpired as exc:
+        raise GateError(f"full media decode timed out after {timeout_seconds}s") from exc
+    check("full_decode", decode.returncode == 0 and not decode.stderr.strip(), {
+        "return_code": decode.returncode,
+        "stderr": decode.stderr.strip()[:2000],
+    }, "complete decode without errors")
+
+    black_threshold = float(req.get("black_pixel_threshold", 0.10))
+    black_min_duration = float(req.get("black_min_duration_seconds", 0.10))
+    max_black_duration = float(req.get("max_black_duration_seconds", 0.50))
+    black_command = [
+        "ffmpeg", "-hide_banner", "-nostats", "-v", "info", "-i", str(media),
+        "-vf", f"blackdetect=d={black_min_duration}:pix_th={black_threshold}",
+        "-an", "-f", "null", "-",
+    ]
+    try:
+        black_result = subprocess.run(
+            black_command, capture_output=True, text=True, timeout=timeout_seconds, check=False,
+        )
+    except FileNotFoundError as exc:
+        raise GateError("ffmpeg is required for black-frame QA") from exc
+    except subprocess.TimeoutExpired as exc:
+        raise GateError(f"black-frame detection timed out after {timeout_seconds}s") from exc
+    black_log = (black_result.stderr or "") + "\n" + (black_result.stdout or "")
+    black_segments = [
+        {
+            "start_seconds": float(match.group(1)),
+            "end_seconds": float(match.group(2)),
+            "duration_seconds": float(match.group(3)),
+        }
+        for match in re.finditer(
+            r"black_start:([0-9.]+)\s+black_end:([0-9.]+)\s+black_duration:([0-9.]+)",
+            black_log,
+        )
+    ]
+    longest_black = max((item["duration_seconds"] for item in black_segments), default=0.0)
+    black_ok = black_result.returncode == 0 and longest_black <= max_black_duration
+    check("black_frames", black_ok, {
+        "segments": black_segments,
+        "longest_black_seconds": longest_black,
+        "detector_return_code": black_result.returncode,
+    }, f"no black segment longer than {max_black_duration}s")
+
+    true_peak: float | None = None
+    true_peak_log = ""
+    true_peak_ok = not audio_required and audio is None
+    true_peak_limit = float(req.get("true_peak_max_dbfs", -1.0))
+    if audio is not None:
+        peak_command = [
+            "ffmpeg", "-hide_banner", "-nostats", "-v", "info", "-i", str(media),
+            "-vn", "-af", "ebur128=peak=true", "-f", "null", "-",
+        ]
+        try:
+            peak_result = subprocess.run(
+                peak_command, capture_output=True, text=True, timeout=timeout_seconds, check=False,
+            )
+        except FileNotFoundError as exc:
+            raise GateError("ffmpeg is required for true-peak QA") from exc
+        except subprocess.TimeoutExpired as exc:
+            raise GateError(f"true-peak measurement timed out after {timeout_seconds}s") from exc
+        true_peak_log = (peak_result.stderr or "") + "\n" + (peak_result.stdout or "")
+        peak_match = re.search(r"True peak:\s*(-?[0-9]+(?:\.[0-9]+)?)\s*dBFS", true_peak_log, re.IGNORECASE)
+        if peak_match is None:
+            # FFmpeg versions that format ebur128 as a section header followed by
+            # an indented "Peak:" value put the measurement on the next line.
+            peak_match = re.search(
+                r"True peak:\s*\r?\n\s*Peak:\s*(-?[0-9]+(?:\.[0-9]+)?)\s*dBFS",
+                true_peak_log,
+                re.IGNORECASE,
+            )
+        if peak_match:
+            true_peak = float(peak_match.group(1))
+        true_peak_ok = peak_result.returncode == 0 and true_peak is not None and true_peak <= true_peak_limit
+    check("true_peak", true_peak_ok, {
+        "true_peak_dbfs": true_peak,
+        "limit_dbfs": true_peak_limit,
+        "measurement_available": true_peak is not None or (audio is None and not audio_required),
+        "ffmpeg_return_code": peak_result.returncode if audio is not None else None,
+        "diagnostic_excerpt": true_peak_log[-3000:] if audio is not None and true_peak is None else "",
+    }, f"<= {true_peak_limit} dBFS")
 
     hard_failures = [item["check_id"] for item in checks if item["status"] == "FAIL"]
     return {
-        "schema_version": 1,
+        "schema_version": 2,
+        "metadata": {"checker": "ffmpeg-ffprobe-v1.0"},
         "media_path": str(media),
         "media_sha256": _file_sha256(media),
         "size_bytes": media.stat().st_size,
@@ -105,6 +208,8 @@ def probe_media(path: str | Path, requirements: dict[str, Any] | None = None, *,
             "frame_rate": fps,
             "audio_codec": (audio or {}).get("codec_name"),
             "audio_channels": (audio or {}).get("channels"),
+            "true_peak_dbfs": true_peak,
+            "black_segments": black_segments,
         },
         "checks": checks,
         "hard_failures": hard_failures,
@@ -137,7 +242,24 @@ def run_claimed_media_qa(
         raise ContractError(f"QA input {selected!r} is not a declared, available task input")
     if len(task["outputs"]) != 1:
         raise ContractError("qa-media task must declare exactly one output receipt")
-    report = probe_media(packet["input_artifacts"][selected]["path"], requirements)
+    try:
+        report = probe_media(packet["input_artifacts"][selected]["path"], requirements)
+    except (GateError, ContractError) as exc:
+        engine.fail_task(
+            project_id, task_id, worker_id, claim_token,
+            {"category": "technical_qa_execution_blocked", "message": str(exc)},
+            retryable=False,
+        )
+        raise
+    expected_input_digest = packet["input_artifacts"][selected]["sha256"]
+    if report["media_sha256"] != expected_input_digest:
+        engine.fail_task(
+            project_id, task_id, worker_id, claim_token,
+            {"category": "technical_qa_input_changed_during_measurement",
+             "expected_sha256": expected_input_digest, "observed_sha256": report["media_sha256"]},
+            retryable=False,
+        )
+        raise GateError("media bytes changed while technical QA was running")
     report["project_id"] = project_id
     report["task_id"] = task_id
     report["input_artifact_id"] = packet["input_artifacts"][selected]["artifact_id"]
@@ -149,7 +271,13 @@ def run_claimed_media_qa(
         {output_name: {
             "path": str(output_path), "kind": "qa_report", "media_type": "application/json",
             "rights_status": "NOT_APPLICABLE",
-            "metadata": {"media_sha256": report["media_sha256"], "hard_pass": report["hard_pass"], "hard_failures": report["hard_failures"]},
+            "metadata": {
+                "media_sha256": report["media_sha256"],
+                "input_artifact_id": report["input_artifact_id"],
+                "hard_pass": report["hard_pass"],
+                "hard_failures": report["hard_failures"],
+                "checker": report["metadata"]["checker"],
+            },
         }},
         result={"measurement_completed": True, "hard_pass": report["hard_pass"], "hard_failures": report["hard_failures"]},
     )

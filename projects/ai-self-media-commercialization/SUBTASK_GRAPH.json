@@ -3,7 +3,7 @@
   "program_id": "ai-self-media-commercialization",
   "owner": "VIDEO_GROWTH_AGENT",
   "policy_ref": "video_growth_agent/data/coordination-policy.json",
-  "graph_status": "ACTIVE_PLANNING_AUTHORITY",
+  "graph_status": "SUPERSEDED_0_8_REFERENCE__NOT_CURRENT_PLANNING_AUTHORITY",
   "nodes": [
     {
       "id": "growth_baseline_and_topic_hypotheses",
@@ -284,5 +284,6 @@
     "IPOS is the sole creative canon authority; Video only imports exact approved bundles and binds them to identity-dependent shots.",
     "No CAOS runtime/API call is required for IPOS execution or the IPOS-to-Video artifact handoff."
   ],
-  "updated_at": "2026-11-14T17:40:00+08:00"
+  "updated_at": "2026-11-17T11:45:00+08:00",
+  "superseded_by": "../../examples/ai-self-media-commercialization.tasks.json"
 }
